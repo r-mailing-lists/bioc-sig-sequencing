@@ -1,0 +1,1472 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2009-04",
+  "messages": [
+    {
+      "id": "msg-81a3d39bf435",
+      "message_id": "<495340.97086.qm@web26602.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-08T19:05:03Z",
+      "subject": "[Bioc-sig-seq] Linear interpolation for BED formatted data",
+      "subject_clean": "[Bioc-sig-seq] Linear interpolation for BED formatted data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090408/4cbb58ef/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090408/4cbb58ef/attachment.pl>",
+      "thread_id": "thread-81a3d39bf435",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-de248e8229e0",
+      "message_id": "<49DCF89F.7090802@ebi.ac.uk>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "8481a5f74e0203c0e279b0cd7f952f11ea65fcad4bf054f5268c275ad236a2d9",
+      "date": "2009-04-08T19:18:55Z",
+      "subject": "[Bioc-sig-seq] Linear interpolation for BED formatted data",
+      "subject_clean": "[Bioc-sig-seq] Linear interpolation for BED formatted data",
+      "in_reply_to": "<495340.97086.qm@web26602.mail.ukl.yahoo.com>",
+      "references": [
+        "<495340.97086.qm@web26602.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "Dear Ivan\n\nHave a look at:\n\n   ? approxfun\n\nBest wishes\n      Wolfgang\n\n------------------------------------------------\nWolfgang Huber, EMBL, http://www.ebi.ac.uk/huber\n\nig2ar-saf2 at yahoo.co.uk wrote:\n> Hello,\n> \n> I have a BED file that needs some basic linear interpolation.\n> \n> For example, this is how only a few lines might originally look like\n> \n> chr2    23    24  property1  0.0  property2  10\n> chr2  1000  1001  property1  0.5  property2  40\n> chr2  3000  3001  property1  1.5  property2  42\n> chr2  3500  3501  property1  2.4  property2  56\n> chr2  4500  4501  property1  2.6  property2  60\n> ...\n> \n> My question: Is there any BioC package that will interpolate properties every, say every 2000 base positions?\n> \n> So, for that particular example, I'll need the interpolations at chromosome positions 2000, 4000, etc. So, the output should look like this\n> \n> chr2 2000 2001 property1 1.0 property2 41\n> chr2 4000 4001 property1 2.5 property2 58\n> chr2 6000 blah blah...\n> ...\n> \n> I know that it can be solved with R's standard approxfun() but it is such a common task that it might already exist in BioC.\n> \n> Thank you,\n> \n> Ivan\n> \n>> sessionInfo()\n> R version 2.9.0 Under development (unstable) (2009-03-10 r48103) \n> x86_64-unknown-linux-gnu \n> \n> locale:\n> LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base     \n> \n> other attached packages:\n> [1] IRanges_1.1.48\n> \n> \n>       \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Dear Ivan\n\nHave a look at:\n\n   ? approxfun\n\nBest wishes\n      Wolfgang\n\n------------------------------------------------\nWolfgang Huber, EMBL, http://www.ebi.ac.uk/huber\n\nig2ar-saf2 at yahoo.co.uk wro",
+      "thread_id": "thread-81a3d39bf435",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-bbbf24f95e9c",
+      "message_id": "<2c3c9e80904131333u7f30ff90ucf8d5bffebd3e7d1@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2009-04-13T20:33:02Z",
+      "subject": "[Bioc-sig-seq] retrieving from SRA using fasp:",
+      "subject_clean": "[Bioc-sig-seq] retrieving from SRA using fasp:",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090413/0b5a7d5b/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090413/0b5a7d5b/attachment.pl>",
+      "thread_id": "thread-bbbf24f95e9c",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-2dea9e5a4222",
+      "message_id": "<E106D8C2-E9BF-4328-BCC7-0D65D22020FD@stat.berkeley.edu>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "9a03c24fb214ead4f1fb06e73398fa7d78699f400998d0e2afa9e2804a617dbc",
+      "date": "2009-04-14T04:54:34Z",
+      "subject": "[Bioc-sig-seq] retrieving from SRA using fasp:",
+      "subject_clean": "[Bioc-sig-seq] retrieving from SRA using fasp:",
+      "in_reply_to": "<2c3c9e80904131333u7f30ff90ucf8d5bffebd3e7d1@mail.gmail.com>",
+      "references": [
+        "<2c3c9e80904131333u7f30ff90ucf8d5bffebd3e7d1@mail.gmail.com>"
+      ],
+      "body_plain": "I routinely use their ftp server. In general the SRA is a complete  \nmess (they might have cleaned up their act, I recently got some emails  \nanswering some old complaints I had).\n\nKasper\n\nOn Apr 13, 2009, at 13:33 , Vincent Carey wrote:\n\n> it seems that SRA is using the fasp: protocol to deliver data, at, say\n>\n> http://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=faspftp_experiments&m=downloads&s=experiments\n>\n> for example:\n>\n> fasp://\n> anonftp at ftp-private.ncbi.nlm.nih.gov:22/sra/static/SRX000/SRX000571/ \n> SRR002321.fastq.gz\n>\n> there is an aspera plugin for firefox that works, but it would be  \n> nice to\n> run from the command line.  there\n> seems to be something coming out of aspera, asperawebget, but it is  \n> not\n> clear how to obtain it.  i don't\n> want to request a trial version/be contacted by a salesperson.   \n> anyone get\n> around this?\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "I routinely use their ftp server. In general the SRA is a complete  \nmess (they might have cleaned up their act, I recently got some emails  \nanswering some old complaints I had).\n\nKasper\n\nOn Apr 13, ",
+      "thread_id": "thread-bbbf24f95e9c",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-9faba9454e37",
+      "message_id": "<566852.62229.qm@web26605.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-14T15:08:44Z",
+      "subject": "[Bioc-sig-seq] retrieving from SRA using fasp:",
+      "subject_clean": "[Bioc-sig-seq] retrieving from SRA using fasp:",
+      "in_reply_to": "<2c3c9e80904131333u7f30ff90ucf8d5bffebd3e7d1@mail.gmail.com>",
+      "references": [
+        "<2c3c9e80904131333u7f30ff90ucf8d5bffebd3e7d1@mail.gmail.com>"
+      ],
+      "body_plain": "Hello Vincent,\n\nI tried to try the Aspera Firefox plug-in. I can describe the experience in a single word: obnoxious.\n\nAt the moment, it seems that command line guys like us will have to stick to good old ftp(*). To use your example, if you want \n\nfasp://\nanonftp at ftp-private.ncbi.nlm.nih.gov:22/sra/static/SRX000/SRX000571/SRR002321.fastq.gz\n\nyou can get it like this\n\nwget  wget ftp://ftp-trace.ncbi.nlm.nih.gov/sra/static/SRX000/SRX000571/SRR002321.fastq.gz\n\n(*) this file is 2.7GB and it downloaded in ~4 minutes. You may call this bad old ftp depending on your expectations.\n\nI hope somebody proves me wrong with Aspera.\n\nIvan\n\n\n\n________________________________\nFrom: Vincent Carey <stvjc at channing.harvard.edu>\nTo: bioc-sig-sequencing at stat.math.ethz.ch\nSent: Monday, 13 April, 2009 16:33:02\nSubject: [Bioc-sig-seq] retrieving from SRA using fasp:\n\nit seems that SRA is using the fasp: protocol to deliver data, at, say\n\nhttp://www.ncbi.nlm.nih.gov/Traces/sra/sra.cgi?cmd=show&f=faspftp_experiments&m=downloads&s=experiments\n\nfor example:\n\nfasp://\nanonftp at ftp-private.ncbi.nlm.nih.gov:22/sra/static/SRX000/SRX000571/SRR002321.fastq.gz\n\nthere is an aspera plugin for firefox that works, but it would be nice to\nrun from the command line.  there\nseems to be something coming out of aspera, asperawebget, but it is not\nclear how to obtain it.  i don't\nwant to request a trial version/be contacted by a salesperson.  anyone get\naround this?\n\n    [[alternative HTML version deleted]]\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hello Vincent,\n\nI tried to try the Aspera Firefox plug-in. I can describe the experience in a single word: obnoxious.\n\nAt the moment, it seems that command line guys like us will have to stick to good",
+      "thread_id": "thread-bbbf24f95e9c",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-7847a3f4327b",
+      "message_id": "<2c3c9e80904151508n66313f63w79739906706686c0@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2009-04-15T22:08:35Z",
+      "subject": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "subject_clean": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090415/52c7aae5/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090415/52c7aae5/attachment.pl>",
+      "thread_id": "thread-7847a3f4327b",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-78ff568e4a32",
+      "message_id": "<6phtz4peess.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-04-15T22:24:19Z",
+      "subject": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "subject_clean": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "in_reply_to": "<2c3c9e80904151508n66313f63w79739906706686c0@mail.gmail.com> (Vincent Carey's message of \"Wed, 15 Apr 2009 18:08:35 -0400\")",
+      "references": [
+        "<2c3c9e80904151508n66313f63w79739906706686c0@mail.gmail.com>"
+      ],
+      "body_plain": "Vince -- a different possibility is that 'fastq' scores are encoded on\na different scale from that which you are expecting, e.g., 'sanger'\nrather than 'solexa', which differ by 32. There is no way to know this\nfrom the fastq files themselves.\n\nMartin\n\nVincent Carey <stvjc at channing.harvard.edu> writes:\n\n> i have scoured our archives and found little regarding role of solexa\n> quality\n> scores as reported in fastq outputs in short read filtering.\n>\n> my understanding is that a numerical score of -4 or greater indicates more\n> probability\n> mass on the called base than on any other.  in checking 1e6 reads on each of\n> two lanes\n> i found the frequency of the event \" fewer than three bases have score less\n> than -4\" to be\n> 4e-3 in one lane and 2e-3 in another.  in other words, filtering by\n> requiring no more than\n> two < -4 scores would take you from a million reads to about 2000-4000,\n> assuming i have\n> not taken a biased sample (i may have, just took the first 1e6 in fastq).\n>\n> is there any reason to regard a call with score < -4 to be much different\n> from an 'N'?\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Vince -- a different possibility is that 'fastq' scores are encoded on\na different scale from that which you are expecting, e.g., 'sanger'\nrather than 'solexa', which differ by 32. There is no way to ",
+      "thread_id": "thread-7847a3f4327b",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-bb0a1443c068",
+      "message_id": "<49E65EEF.90002@ebi.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+      "date": "2009-04-15T22:25:51Z",
+      "subject": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "subject_clean": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "in_reply_to": "<2c3c9e80904151508n66313f63w79739906706686c0@mail.gmail.com>",
+      "references": [
+        "<2c3c9e80904151508n66313f63w79739906706686c0@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Vincent,\n\nAre you taking into account that quality scores will tend to drop off \ntowards the end of the run? I would probably restrict any sort of \nquality filtering to the first x bases of each read... From my \nexperience, only a very small fraction of reads out of a \"good\" run \nwould be removed due to general quality issues. Also, if your further \npipeline is \"quality-aware\" (eg MAQ/bowtie for alignments) you can get \naway with not worrying initially about the quality of the reads. On the \nother hand, for some kinds of analysis I was dropping the quality scores \nand making plain fasta files. In these cases it would pay off to convert \nvery low-quality bases to Ns, since I would get better coverage.\n\nCheers,\n\nCei\n\nVincent Carey wrote:\n> i have scoured our archives and found little regarding role of solexa\n> quality\n> scores as reported in fastq outputs in short read filtering.\n> \n> my understanding is that a numerical score of -4 or greater indicates more\n> probability\n> mass on the called base than on any other.  in checking 1e6 reads on each of\n> two lanes\n> i found the frequency of the event \" fewer than three bases have score less\n> than -4\" to be\n> 4e-3 in one lane and 2e-3 in another.  in other words, filtering by\n> requiring no more than\n> two < -4 scores would take you from a million reads to about 2000-4000,\n> assuming i have\n> not taken a biased sample (i may have, just took the first 1e6 in fastq).\n> \n> is there any reason to regard a call with score < -4 to be much different\n> from an 'N'?\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \n The Wellcome Trust Sanger Institute is operated by Genome Research \n Limited, a charity registered in England with number 1021457 and a \n company registered in England with number 2742969, whose registered \n office is 215 Euston Road, London, NW1 2BE.",
+      "body_snippet": "Hi Vincent,\n\nAre you taking into account that quality scores will tend to drop off \ntowards the end of the run? I would probably restrict any sort of \nquality filtering to the first x bases of each re",
+      "thread_id": "thread-7847a3f4327b",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-4e3e49c482c3",
+      "message_id": "<2c3c9e80904151539o174d2b10j2d8f1b5cc84ebcc0@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2009-04-15T22:39:52Z",
+      "subject": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "subject_clean": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "in_reply_to": "<49E65EEF.90002@ebi.ac.uk>",
+      "references": [
+        "<2c3c9e80904151508n66313f63w79739906706686c0@mail.gmail.com>",
+        "<49E65EEF.90002@ebi.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090415/444eb9ed/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090415/444eb9ed/attachment.pl>",
+      "thread_id": "thread-7847a3f4327b",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-3752e7fda0c1",
+      "message_id": "<49E66334.5090500@ebi.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+      "date": "2009-04-15T22:44:04Z",
+      "subject": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "subject_clean": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "in_reply_to": "<2c3c9e80904151539o174d2b10j2d8f1b5cc84ebcc0@mail.gmail.com>",
+      "references": [
+        "<2c3c9e80904151508n66313f63w79739906706686c0@mail.gmail.com>",
+        "<49E65EEF.90002@ebi.ac.uk>",
+        "<2c3c9e80904151539o174d2b10j2d8f1b5cc84ebcc0@mail.gmail.com>"
+      ],
+      "body_plain": "a simple range of the numerical quality values should usually suffice to \nguess the Illumina/Sanger scale. Sanger is 1 to 40, Solexa is -5 to \n60(?). In any case, if you have negative values you're dealing with a \nSolexa fastq file.\n\nVincent Carey wrote:\n> thanks to both Martin and Cei -- clearly I have to have the scale right,\n> and it is my hope to do a bit of analysis of the quality score distributions\n> and of decisionmaking using these -- positional effects are clearly of \n> interest.\n> \n> On Wed, Apr 15, 2009 at 6:25 PM, Cei Abreu-Goodger <cei at ebi.ac.uk \n> <mailto:cei at ebi.ac.uk>> wrote:\n> \n>     Hi Vincent,\n> \n>     Are you taking into account that quality scores will tend to drop\n>     off towards the end of the run? I would probably restrict any sort\n>     of quality filtering to the first x bases of each read... From my\n>     experience, only a very small fraction of reads out of a \"good\" run\n>     would be removed due to general quality issues. Also, if your\n>     further pipeline is \"quality-aware\" (eg MAQ/bowtie for alignments)\n>     you can get away with not worrying initially about the quality of\n>     the reads. On the other hand, for some kinds of analysis I was\n>     dropping the quality scores and making plain fasta files. In these\n>     cases it would pay off to convert very low-quality bases to Ns,\n>     since I would get better coverage.\n> \n>     Cheers,\n> \n>     Cei\n> \n>     Vincent Carey wrote:\n> \n>         i have scoured our archives and found little regarding role of\n>         solexa\n>         quality\n>         scores as reported in fastq outputs in short read filtering.\n> \n>         my understanding is that a numerical score of -4 or greater\n>         indicates more\n>         probability\n>         mass on the called base than on any other.  in checking 1e6\n>         reads on each of\n>         two lanes\n>         i found the frequency of the event \" fewer than three bases have\n>         score less\n>         than -4\" to be\n>         4e-3 in one lane and 2e-3 in another.  in other words, filtering by\n>         requiring no more than\n>         two < -4 scores would take you from a million reads to about\n>         2000-4000,\n>         assuming i have\n>         not taken a biased sample (i may have, just took the first 1e6\n>         in fastq).\n> \n>         is there any reason to regard a call with score < -4 to be much\n>         different\n>         from an 'N'?\n> \n>                [[alternative HTML version deleted]]\n> \n>         _______________________________________________\n>         Bioc-sig-sequencing mailing list\n>         Bioc-sig-sequencing at r-project.org\n>         <mailto:Bioc-sig-sequencing at r-project.org>\n>         https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> \n> \n>     -- \n>     The Wellcome Trust Sanger Institute is operated by Genome Research\n>     Limited, a charity registered in England with number 1021457 and a\n>     company registered in England with number 2742969, whose registered\n>     office is 215 Euston Road, London, NW1 2BE.\n> \n> \n> \n> \n> -- \n> Vincent Carey, PhD\n> Biostatistics, Channing Lab\n> 617 525 2265\n\n\n-- \n The Wellcome Trust Sanger Institute is operated by Genome Research \n Limited, a charity registered in England with number 1021457 and a \n company registered in England with number 2742969, whose registered \n office is 215 Euston Road, London, NW1 2BE.",
+      "body_snippet": "a simple range of the numerical quality values should usually suffice to \nguess the Illumina/Sanger scale. Sanger is 1 to 40, Solexa is -5 to \n60(?). In any case, if you have negative values you're de",
+      "thread_id": "thread-7847a3f4327b",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-0067aa786baf",
+      "message_id": "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-20T18:19:44Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello fellow listers,\n\nIs there a document summarizing the myriad of data containing classes?\n\nI am trying to find a map to help me understand what is the difference between, say, GenomicData, GenomeData, GenomedataList, etc.\n\nI need to be able to inter-convert data, merge different sources of data, and also subset data.\n\nFor a single class, I think that finding the information is easy. For many classes, it gets challenging.\n\nA possible solution is reading the whole BioC documentation but then BioC rises a productivity issue for users that are not developers.\n\nAnybody can advice?\n\nThank you,\n\nIvan",
+      "body_snippet": "Hello fellow listers,\n\nIs there a document summarizing the myriad of data containing classes?\n\nI am trying to find a map to help me understand what is the difference between, say, GenomicData, GenomeD",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-31b0455bb0e5",
+      "message_id": "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-04-20T19:00:01Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+      "references": [
+        "<369272.78053.qm@web26601.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090420/5072336e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090420/5072336e/attachment.pl>",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-b3cdc85756c5",
+      "message_id": "<336676.15451.qm@web26604.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-20T20:27:16Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>",
+      "references": [
+        "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+        "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090420/adc1d1ed/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090420/adc1d1ed/attachment.pl>",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-e988f8ca3920",
+      "message_id": "<348505.91071.qm@web26601.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-20T20:30:40Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>",
+      "references": [
+        "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+        "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090420/5e081e11/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090420/5e081e11/attachment.pl>",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-9f62136f7546",
+      "message_id": "<eb555e660904201350n4cf7a10ek928997153d31da4e@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-04-20T20:50:46Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": "<336676.15451.qm@web26604.mail.ukl.yahoo.com>",
+      "references": [
+        "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+        "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>",
+        "<336676.15451.qm@web26604.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Mon, Apr 20, 2009 at 1:27 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n> Hello Michael,\n>\n> A high level vignette with the infrastructure of the BioC would be great.\n>\n> Also, I can be more specific about a class problem I am facing. It concerns a developmental package that I am privileged to be allowed to test. It's chipseq.\n>\n> I am trying to follow a typical workflow guide as shown here:\n>\n> http://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n>\n> As you can see, the data that the package uses is not raw data but data that has been read in and labelled somehow beforehand. The document shows\n>\n> load(\"../data/alignedLocs.rda\")\n>\n> That is not the scenario a user will find. A user will have one or several s_X_export.txt files.\n\nRight. The document refers to data that was provided to those who\nattended the course (which unfortunately we cannot yet make public).\n\n> So, my attempts to get my data read in in the simplest case is this\n>\n>> library(chipseq)\n>> library(lattice)\n>> setwd('/scratch1/igregore/ChIPseq/runs/09-04-10/GERALD_14-04-2009_niddk/')\n>> pattern <- \"s_1_export.txt\"\n>> alignedLocs <- as(readAligned(\".\",\n> + ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? pattern,\n> + ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? \"SolexaExport\",\n> + ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? filter = alignDataFilter(expression(filtering == \"Y\"))),\n> + ? ? ? ? ? ? ? ? ? \"GenomeData\")\n>> class(alignedLocs)\n> [1] \"GenomeData\"\n> attr(,\"package\")\n> [1] \"BSgenome\"\n\nPerfect.\n\n> The guide says that alignedLocs should be a GenomeDataList class object but it shows up as class GenomeData. The guide also shows\n\nThat's because 'alignedLocs' contained several such objects,\nrepresenting the data obtained from multiple lanes (possibly across\nmultiple runs). To create such an object, you can do\n\nalignedLocs <- GenomeDataList(list(a = alignedLocs1, b = alignedLocs2))\n\netc. where alignedLocs1, alignedLocs2, etc. are \"GenomeData\" objects\n(from individual calls to readAligned).\n\n>> alignedLocs\n> ?A GenomeDataList instance of length 3\n>\n> but when I try it as is I get:\n>\n>> ?alignedLocs\n> ? A GenomeData instance of length 51154\n\nThat is a bit odd though. Individual lanes should consist of\nchromosome-level data, and this suggests that you have 51154\nchromosomes. Perhaps you can give us the output of\n\nstr(head(as.list(alignedLocs)))\n\n-Deepayan",
+      "body_snippet": "On Mon, Apr 20, 2009 at 1:27 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n> Hello Michael,\n>\n> A high level vignette with the infrastructure of the BioC would be great.\n>\n> Also, I can be more specific abo",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-97f1b0a42bde",
+      "message_id": "<97935.39350.qm@web26601.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-20T21:15:28Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": "<eb555e660904201350n4cf7a10ek928997153d31da4e@mail.gmail.com>",
+      "references": [
+        "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+        "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>",
+        "<336676.15451.qm@web26604.mail.ukl.yahoo.com>",
+        "<eb555e660904201350n4cf7a10ek928997153d31da4e@mail.gmail.com>"
+      ],
+      "body_plain": "Hello Deepayan,\n\nhmmm... I get\n\n> str(head(as.list(alignedLocs)))\nList of 6\n $ 0:0:1  :List of 2\n  ..$ -: int(0) \n  ..$ +: int(0) \n $ 0:0:10 :List of 2\n  ..$ -: int(0) \n  ..$ +: int(0) \n $ 0:0:100:List of 2\n  ..$ -: int(0) \n  ..$ +: int(0) \n $ 0:0:101:List of 2\n  ..$ -: int(0) \n  ..$ +: int(0) \n $ 0:0:102:List of 2\n  ..$ -: int(0) \n  ..$ +: int(0) \n $ 0:0:103:List of 2\n  ..$ -: int(0) \n  ..$ +: int(0)\n\n\n\n-Ivan\n\n\n\n----- Original Message ----\nFrom: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nTo: ig2ar-saf2 at yahoo.co.uk\nCc: Michael Lawrence <mflawren at fhcrc.org>; bioc-sig-sequencing at r-project.org\nSent: Monday, 20 April, 2009 16:50:46\nSubject: Re: [Bioc-sig-seq] A myriad of classes\n\nOn Mon, Apr 20, 2009 at 1:27 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n> Hello Michael,\n>\n> A high level vignette with the infrastructure of the BioC would be great.\n>\n> Also, I can be more specific about a class problem I am facing. It concerns a developmental package that I am privileged to be allowed to test. It's chipseq.\n>\n> I am trying to follow a typical workflow guide as shown here:\n>\n> http://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n>\n> As you can see, the data that the package uses is not raw data but data that has been read in and labelled somehow beforehand. The document shows\n>\n> load(\"../data/alignedLocs.rda\")\n>\n> That is not the scenario a user will find. A user will have one or several s_X_export.txt files.\n\nRight. The document refers to data that was provided to those who\nattended the course (which unfortunately we cannot yet make public).\n\n> So, my attempts to get my data read in in the simplest case is this\n>\n>> library(chipseq)\n>> library(lattice)\n>> setwd('/scratch1/igregore/ChIPseq/runs/09-04-10/GERALD_14-04-2009_niddk/')\n>> pattern <- \"s_1_export.txt\"\n>> alignedLocs <- as(readAligned(\".\",\n> +                               pattern,\n> +                               \"SolexaExport\",\n> +                               filter = alignDataFilter(expression(filtering == \"Y\"))),\n> +                   \"GenomeData\")\n>> class(alignedLocs)\n> [1] \"GenomeData\"\n> attr(,\"package\")\n> [1] \"BSgenome\"\n\nPerfect.\n\n> The guide says that alignedLocs should be a GenomeDataList class object but it shows up as class GenomeData. The guide also shows\n\nThat's because 'alignedLocs' contained several such objects,\nrepresenting the data obtained from multiple lanes (possibly across\nmultiple runs). To create such an object, you can do\n\nalignedLocs <- GenomeDataList(list(a = alignedLocs1, b = alignedLocs2))\n\netc. where alignedLocs1, alignedLocs2, etc. are \"GenomeData\" objects\n(from individual calls to readAligned).\n\n>> alignedLocs\n>  A GenomeDataList instance of length 3\n>\n> but when I try it as is I get:\n>\n>>  alignedLocs\n>   A GenomeData instance of length 51154\n\nThat is a bit odd though. Individual lanes should consist of\nchromosome-level data, and this suggests that you have 51154\nchromosomes. Perhaps you can give us the output of\n\nstr(head(as.list(alignedLocs)))\n\n-Deepayan",
+      "body_snippet": "Hello Deepayan,\n\nhmmm... I get\n\n> str(head(as.list(alignedLocs)))\nList of 6\n $ 0:0:1  :List of 2\n  ..$ -: int(0) \n  ..$ +: int(0) \n $ 0:0:10 :List of 2\n  ..$ -: int(0) \n  ..$ +: int(0) \n $ 0:0:100:Lis",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-eab98a7c9dfa",
+      "message_id": "<eb555e660904201431r10bdc2b5saa293002767c6aca@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-04-20T21:31:26Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": "<97935.39350.qm@web26601.mail.ukl.yahoo.com>",
+      "references": [
+        "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+        "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>",
+        "<336676.15451.qm@web26604.mail.ukl.yahoo.com>",
+        "<eb555e660904201350n4cf7a10ek928997153d31da4e@mail.gmail.com>",
+        "<97935.39350.qm@web26601.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Mon, Apr 20, 2009 at 2:15 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello Deepayan,\n>\n> hmmm... I get\n>\n>> str(head(as.list(alignedLocs)))\n> List of 6\n> ?$ 0:0:1 ?:List of 2\n> ?..$ -: int(0)\n> ?..$ +: int(0)\n> ?$ 0:0:10 :List of 2\n> ?..$ -: int(0)\n> ?..$ +: int(0)\n> ?$ 0:0:100:List of 2\n> ?..$ -: int(0)\n> ?..$ +: int(0)\n> ?$ 0:0:101:List of 2\n> ?..$ -: int(0)\n> ?..$ +: int(0)\n> ?$ 0:0:102:List of 2\n> ?..$ -: int(0)\n> ?..$ +: int(0)\n> ?$ 0:0:103:List of 2\n> ?..$ -: int(0)\n> ?..$ +: int(0)\n\nInteresting. I don't have any experience with type=\"SolexaExport\"\n(BTW, I think you should name the argument). What about\n\nnames(alignedLocs)[ unlist( lapply(alignedLocs, function(x)\nlength(unlist(x)) > 0 )) ]\n\n?\n\n-Deepayan",
+      "body_snippet": "On Mon, Apr 20, 2009 at 2:15 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello Deepayan,\n>\n> hmmm... I get\n>\n>> str(head(as.list(alignedLocs)))\n> List of 6\n> ?$ 0:0:1 ?:List of 2\n> ?..$ -: int(0)\n> ?.",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 5,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-aa2ee7e7a93a",
+      "message_id": "<6ph8wlvc85h.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-04-20T21:44:26Z",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "subject_clean": "[Bioc-sig-seq] A myriad of classes",
+      "in_reply_to": "<97935.39350.qm@web26601.mail.ukl.yahoo.com> (ig2ar-saf2@yahoo.co.uk's message of \"Mon, 20 Apr 2009 21:15:28 +0000 (GMT)\")",
+      "references": [
+        "<369272.78053.qm@web26601.mail.ukl.yahoo.com>",
+        "<509e0620904201200l674424c2v1b21955d0dc0e701@mail.gmail.com>",
+        "<336676.15451.qm@web26604.mail.ukl.yahoo.com>",
+        "<eb555e660904201350n4cf7a10ek928997153d31da4e@mail.gmail.com>",
+        "<97935.39350.qm@web26601.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "ig2ar-saf2 at yahoo.co.uk writes:\n\n> Hello Deepayan,\n>\n> hmmm... I get\n>\n>> str(head(as.list(alignedLocs)))\n> List of 6\n>  $ 0:0:1  :List of 2\n>   ..$ -: int(0) \n>   ..$ +: int(0) \n\nthese are reads for which no unique alignment was found. You'll want\nto filter them, e.g.,\n\nfilt <- compose(chromosomeFilter(\"chr[0-9XY]+.fa\"),\n                alignDataFilter(expression(filtering == \"Y\")))\naln <- readAligned(<...>, filter=filt)\n\nor just\n\naln[filt(aln)]\n\nMartin\n\n\n>  $ 0:0:10 :List of 2\n>   ..$ -: int(0) \n>   ..$ +: int(0) \n>  $ 0:0:100:List of 2\n>   ..$ -: int(0) \n>   ..$ +: int(0) \n>  $ 0:0:101:List of 2\n>   ..$ -: int(0) \n>   ..$ +: int(0) \n>  $ 0:0:102:List of 2\n>   ..$ -: int(0) \n>   ..$ +: int(0) \n>  $ 0:0:103:List of 2\n>   ..$ -: int(0) \n>   ..$ +: int(0)\n>\n>\n>\n> -Ivan\n>\n>\n>\n> ----- Original Message ----\n> From: Deepayan Sarkar <deepayan.sarkar at gmail.com>\n> To: ig2ar-saf2 at yahoo.co.uk\n> Cc: Michael Lawrence <mflawren at fhcrc.org>; bioc-sig-sequencing at r-project.org\n> Sent: Monday, 20 April, 2009 16:50:46\n> Subject: Re: [Bioc-sig-seq] A myriad of classes\n>\n> On Mon, Apr 20, 2009 at 1:27 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>> Hello Michael,\n>>\n>> A high level vignette with the infrastructure of the BioC would be great.\n>>\n>> Also, I can be more specific about a class problem I am facing. It concerns a developmental package that I am privileged to be allowed to test. It's chipseq.\n>>\n>> I am trying to follow a typical workflow guide as shown here:\n>>\n>> http://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n>>\n>> As you can see, the data that the package uses is not raw data but data that has been read in and labelled somehow beforehand. The document shows\n>>\n>> load(\"../data/alignedLocs.rda\")\n>>\n>> That is not the scenario a user will find. A user will have one or several s_X_export.txt files.\n>\n> Right. The document refers to data that was provided to those who\n> attended the course (which unfortunately we cannot yet make public).\n>\n>> So, my attempts to get my data read in in the simplest case is this\n>>\n>>> library(chipseq)\n>>> library(lattice)\n>>> setwd('/scratch1/igregore/ChIPseq/runs/09-04-10/GERALD_14-04-2009_niddk/')\n>>> pattern <- \"s_1_export.txt\"\n>>> alignedLocs <- as(readAligned(\".\",\n>> +                               pattern,\n>> +                               \"SolexaExport\",\n>> +                               filter = alignDataFilter(expression(filtering == \"Y\"))),\n>> +                   \"GenomeData\")\n>>> class(alignedLocs)\n>> [1] \"GenomeData\"\n>> attr(,\"package\")\n>> [1] \"BSgenome\"\n>\n> Perfect.\n>\n>> The guide says that alignedLocs should be a GenomeDataList class object but it shows up as class GenomeData. The guide also shows\n>\n> That's because 'alignedLocs' contained several such objects,\n> representing the data obtained from multiple lanes (possibly across\n> multiple runs). To create such an object, you can do\n>\n> alignedLocs <- GenomeDataList(list(a = alignedLocs1, b = alignedLocs2))\n>\n> etc. where alignedLocs1, alignedLocs2, etc. are \"GenomeData\" objects\n> (from individual calls to readAligned).\n>\n>>> alignedLocs\n>>  A GenomeDataList instance of length 3\n>>\n>> but when I try it as is I get:\n>>\n>>>  alignedLocs\n>>   A GenomeData instance of length 51154\n>\n> That is a bit odd though. Individual lanes should consist of\n> chromosome-level data, and this suggests that you have 51154\n> chromosomes. Perhaps you can give us the output of\n>\n> str(head(as.list(alignedLocs)))\n>\n> -Deepayan\n>\n>\n>\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "ig2ar-saf2 at yahoo.co.uk writes:\n\n> Hello Deepayan,\n>\n> hmmm... I get\n>\n>> str(head(as.list(alignedLocs)))\n> List of 6\n>  $ 0:0:1  :List of 2\n>   ..$ -: int(0) \n>   ..$ +: int(0) \n\nthese are reads fo",
+      "thread_id": "thread-0067aa786baf",
+      "thread_depth": 5,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-5230d675789f",
+      "message_id": "<832607.54428.qm@web26603.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-23T01:30:01Z",
+      "subject": "[Bioc-sig-seq] Rmpi",
+      "subject_clean": "[Bioc-sig-seq] Rmpi",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nInstalling BioC packages is very easy. You just do, for instance\n\n\nsource(\"http://bioconductor.org/biocLite.R\";)\nbiocLite(\"ShortRead\")\n\nHow do you install Rmpi?\n\nI am running Fedora linux and there seems not to exist an Rmpi rpm package for x86_64.\n\nThank you,\n\nIvan",
+      "body_snippet": "Hello,\n\nInstalling BioC packages is very easy. You just do, for instance\n\n\nsource(\"http://bioconductor.org/biocLite.R\";)\nbiocLite(\"ShortRead\")\n\nHow do you install Rmpi?\n\nI am running Fedora linux and ",
+      "thread_id": "thread-5230d675789f",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-4ea4ea1703fd",
+      "message_id": "<264855a00904221837j1bd76d6eg565884f27ca802ab@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "d3b2169ffaaea1999a7a7b6290f8606b140e4c4584ca87b961aa66a7047b372c",
+      "date": "2009-04-23T01:37:22Z",
+      "subject": "[Bioc-sig-seq] Rmpi",
+      "subject_clean": "[Bioc-sig-seq] Rmpi",
+      "in_reply_to": "<832607.54428.qm@web26603.mail.ukl.yahoo.com>",
+      "references": [
+        "<832607.54428.qm@web26603.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090422/5f631cf2/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090422/5f631cf2/attachment.pl>",
+      "thread_id": "thread-5230d675789f",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-9a17bb7a0b84",
+      "message_id": "<FC456219-1448-4C3A-AAB8-2A6DBF55576B@gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2009-04-23T01:38:40Z",
+      "subject": "[Bioc-sig-seq] Rmpi",
+      "subject_clean": "[Bioc-sig-seq] Rmpi",
+      "in_reply_to": "<832607.54428.qm@web26603.mail.ukl.yahoo.com>",
+      "references": [
+        "<832607.54428.qm@web26603.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "Hi Ivan,\n\nOn Apr 22, 2009, at 9:30 PM, ig2ar-saf2 at yahoo.co.uk wrote:\n\n>\n> Hello,\n>\n> Installing BioC packages is very easy. You just do, for instance\n>\n>\n> source(\"http://bioconductor.org/biocLite.R\";)\n> biocLite(\"ShortRead\")\n>\n> How do you install Rmpi?\n>\n> I am running Fedora linux and there seems not to exist an Rmpi rpm  \n> package for x86_64.\n\n\n[Not really related to sequencing, per se, but ... :-)]\n\nSince Rmpi is hosted on CRAN[1], you can install it with similar ease.  \nFire up R and:\n\nR> install.packages('Rmpi', type='source')\n\nAt that point, you will (probably) be asked to select a cran mirror,  \nso do so and let it rip.\n\nYou can also (probably) exclude the `type='source'`, but it won't  \nhurt.  This should work assuming you have a sane build environment on  \nyour linux box (eg. gcc, make, etc).\n\nHTH,\n-steve\n\n[1] CRAN Rmpi url: http://cran.r-project.org/web/packages/Rmpi/index.html\n\n--\nSteve Lianoglou\nGraduate Student: Physiology, Biophysics and Systems Biology\nWeill Medical College of Cornell University\n\nhttp://cbio.mskcc.org/~lianos",
+      "body_snippet": "Hi Ivan,\n\nOn Apr 22, 2009, at 9:30 PM, ig2ar-saf2 at yahoo.co.uk wrote:\n\n>\n> Hello,\n>\n> Installing BioC packages is very easy. You just do, for instance\n>\n>\n> source(\"http://bioconductor.org/biocLite.",
+      "thread_id": "thread-5230d675789f",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-45753633ea94",
+      "message_id": "<984790.52783.qm@web26601.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-23T01:40:27Z",
+      "subject": "[Bioc-sig-seq] Rmpi",
+      "subject_clean": "[Bioc-sig-seq] Rmpi",
+      "in_reply_to": "<264855a00904221837j1bd76d6eg565884f27ca802ab@mail.gmail.com>",
+      "references": [
+        "<832607.54428.qm@web26603.mail.ukl.yahoo.com>",
+        "<264855a00904221837j1bd76d6eg565884f27ca802ab@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/da0d1b95/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/da0d1b95/attachment.pl>",
+      "thread_id": "thread-5230d675789f",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-61c2a86524a6",
+      "message_id": "<089393D20DC79B4A803AD8F6A56BD3CA028893@EXCH-VS1.coh.org>",
+      "from_name": "Wu, Xiwei",
+      "from_email_hash": "39a393b06b737d3d4c897d7034802e29ffa8f3bca067e5db1e3360c812382fa3",
+      "date": "2009-04-23T15:03:15Z",
+      "subject": "[Bioc-sig-seq] chipseq package",
+      "subject_clean": "[Bioc-sig-seq] chipseq package",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/585e6944/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/585e6944/attachment.pl>",
+      "thread_id": "thread-61c2a86524a6",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-a99b0f095465",
+      "message_id": "<2c8757af0904230836x4b67c035p27ec96e2ff63b56e@mail.gmail.com>",
+      "from_name": "Dan Bolser",
+      "from_email_hash": "67a9076c733a86ea6e6c9bc7ba8c0b60fbdecc5e9e6a4791158310dfba72fe51",
+      "date": "2009-04-23T15:36:43Z",
+      "subject": "[Bioc-sig-seq] Standard 454 quality checks?",
+      "subject_clean": "[Bioc-sig-seq] Standard 454 quality checks?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Sorry for the noob question, but is there a set of standard quality\nchecks in R that I can run over some 454 data? I have the fasta and\nthe fasta format quality files as well as an sff. I scanned the manual\nfor the ShortReads package, but it seems focused on Illumina, I\ncouldn't pick out the general bits from the specifics.\n\nThanks for any help,\nDan.",
+      "body_snippet": "Sorry for the noob question, but is there a set of standard quality\nchecks in R that I can run over some 454 data? I have the fasta and\nthe fasta format quality files as well as an sff. I scanned the ",
+      "thread_id": "thread-a99b0f095465",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-7ca59bdee29b",
+      "message_id": "<AA551391-2BE0-4ABC-BAA9-B6743038E8FB@embl.de>",
+      "from_name": "Nicolas Delhomme",
+      "from_email_hash": "e1bcfb33fa39c0fa362850148b5fab2fc3bcba8158505ec7e26a57a5446bd20b",
+      "date": "2009-04-23T16:12:33Z",
+      "subject": "[Bioc-sig-seq] chipseq package",
+      "subject_clean": "[Bioc-sig-seq] chipseq package",
+      "in_reply_to": "<089393D20DC79B4A803AD8F6A56BD3CA028893@EXCH-VS1.coh.org>",
+      "references": [
+        "<089393D20DC79B4A803AD8F6A56BD3CA028893@EXCH-VS1.coh.org>"
+      ],
+      "body_plain": "Hi Xiwei,\n\nThis is from the list archive:\n\n > Laurent is correct. You can find the chipseq package at\n >\n > https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/chipseq\n >\n > Note that this package is currently considered to be experimental  \nand function interfaces and behavior are subject to change beyond what  \nwould normally be excepted for a released BioC package.\n\nCheers,\n\nN.\n\n---------------------------------------------------------------\nNicolas Delhomme\n\nHigh Throughput Functional Genomics Center\n\nEuropean Molecular Biology Laboratory\n\nTel: +49 6221 387 8426\nEmail: nicolas.delhomme at embl.de\nMeyerhofstrasse 1 - Postfach 10.2209\n69102 Heidelberg, Germany\n---------------------------------------------------------------\n\n\n\nOn 23 Apr 2009, at 17:03, Wu, Xiwei wrote:\n\n> Dear all,\n>\n> I was looking at some of the recent workshops related to chip-seq  \n> data analysis. It looks like a package called \"chipseq\" is mentioned  \n> and used in the workshops. However, I can not find the package in  \n> Bioconductor site. Could someone point me to where to get that  \n> package? Thanks in advance.\n>\n> Xiwei\n>\n>\n> ---------------------------------------------------------------------\n>\n> SECURITY/CONFIDENTIALITY WARNING:  \\ This message an...{{dropped:23}}\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Xiwei,\n\nThis is from the list archive:\n\n > Laurent is correct. You can find the chipseq package at\n >\n > https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/chipseq\n >\n > Note that this pac",
+      "thread_id": "thread-61c2a86524a6",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-3ef72ae09d54",
+      "message_id": "<6phbpqnibcz.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-04-23T16:27:40Z",
+      "subject": "[Bioc-sig-seq] Standard 454 quality checks?",
+      "subject_clean": "[Bioc-sig-seq] Standard 454 quality checks?",
+      "in_reply_to": "<2c8757af0904230836x4b67c035p27ec96e2ff63b56e@mail.gmail.com> (Dan Bolser's message of \"Thu, 23 Apr 2009 16:36:43 +0100\")",
+      "references": [
+        "<2c8757af0904230836x4b67c035p27ec96e2ff63b56e@mail.gmail.com>"
+      ],
+      "body_plain": "Dan Bolser <dan.bolser at gmail.com> writes:\n\n> Sorry for the noob question, but is there a set of standard quality\n> checks in R that I can run over some 454 data? I have the fasta and\n> the fasta format quality files as well as an sff. I scanned the manual\n> for the ShortReads package, but it seems focused on Illumina, I\n> couldn't pick out the general bits from the specifics.\n\nHi Dan --\n\nYou might be on somewhat uncharted territory here; most of our\nexperience (though we have some 454 data now) is with Solexa.\n\nI don't think the standard QA pipeline, along the lines of\nreport(qa(<...>)), will work at the moment, but I'll try to add that\ntoday.\n\nYou should be able to read the fasta and quality scores with\nread454(). This returns a 'ShortReadQ' object, srq, that bundles the\nreads, their quality scores, and their ids.\n\nThe basic touch points of the qa report for read (i.e., not aligned)\ndata are numbers of reads, nucleotide frequencies\n\n  alphabetFrequency(sread(srq), baseOnly=TRUE, collapse=TRUE)\n\nand cycle-specific alphabet frequencies and average quality scores\n(use alphabetByCycle on sread(srq) and quality(srq)). For 454 it seems\nlike a simple plot of average quality score, along the lines of\nalphabetScore(quality(srq)) / width(quality(srq)) against\nwidth(quality(srq)) can also be quite insightful. There might be\nissues where the functions expect / it makes sense to do analysis on\nuniform-width reads, or on groups of uniformly-widthed reads.\n\nSorry for the only limited help.\n\nMartin\n\n\n> Thanks for any help,\n> Dan.\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Dan Bolser <dan.bolser at gmail.com> writes:\n\n> Sorry for the noob question, but is there a set of standard quality\n> checks in R that I can run over some 454 data? I have the fasta and\n> the fasta fo",
+      "thread_id": "thread-a99b0f095465",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-6e866433f755",
+      "message_id": "<2c3c9e80904230932v6f48a026y3d9815d176050eaf@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2009-04-23T16:32:29Z",
+      "subject": "[Bioc-sig-seq] chipseq package",
+      "subject_clean": "[Bioc-sig-seq] chipseq package",
+      "in_reply_to": "<AA551391-2BE0-4ABC-BAA9-B6743038E8FB@embl.de>",
+      "references": [
+        "<089393D20DC79B4A803AD8F6A56BD3CA028893@EXCH-VS1.coh.org>",
+        "<AA551391-2BE0-4ABC-BAA9-B6743038E8FB@embl.de>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/e3b619a6/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/e3b619a6/attachment.pl>",
+      "thread_id": "thread-61c2a86524a6",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-cacca1a3f1f1",
+      "message_id": "<825287.35128.qm@web26601.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-23T19:24:01Z",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "subject_clean": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nHow do you pool together reads from multiple Solexa runs?\n\nSpecificaly:\n\nSay that the structure of my hard drive looks like this\n\n/experiment01/GERALD_analysis01/(here all 8 lanes)\n/experiment01/GERALD_analysis02/(here all 8 lanes)\n/experiment02/GERALD_analysis01/(here all 8 lanes)\n\nNow say that my control1 lanes are in\nexperiment01, analysis01, lanes 1 and 2\nexperiment01, analysis02, lanes 3 and 4\n(all four lanes are biologically identical)\n\nNow say that my treatment1 is in\nexperiment02, analysis01, lane 5 and 7\n\nNow say that I plan to read all Reads with a filter instance called myFilter.\n\nThe question:\n\nHow do I collect all that information into a single GenomeDataList object where I can call its GenomeData objects like this\nmyGenomeDataList$control1\nmyGenomeDataList$treatment1\n?\n\nPlease try to answer the specific example because there is no alternative documentation.\n\nThank you,\n\nIvan",
+      "body_snippet": "Hello,\n\nHow do you pool together reads from multiple Solexa runs?\n\nSpecificaly:\n\nSay that the structure of my hard drive looks like this\n\n/experiment01/GERALD_analysis01/(here all 8 lanes)\n/experiment",
+      "thread_id": "thread-cacca1a3f1f1",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-b721f03b34b0",
+      "message_id": "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-04-23T20:37:57Z",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "subject_clean": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "in_reply_to": "<825287.35128.qm@web26601.mail.ukl.yahoo.com>",
+      "references": [
+        "<825287.35128.qm@web26601.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Thu, Apr 23, 2009 at 12:24 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello,\n>\n> How do you pool together reads from multiple Solexa runs?\n>\n> Specificaly:\n>\n> Say that the structure of my hard drive looks like this\n>\n> /experiment01/GERALD_analysis01/(here all 8 lanes)\n> /experiment01/GERALD_analysis02/(here all 8 lanes)\n> /experiment02/GERALD_analysis01/(here all 8 lanes)\n>\n> Now say that my control1 lanes are in\n> experiment01, analysis01, lanes 1 and 2\n> experiment01, analysis02, lanes 3 and 4\n> (all four lanes are biologically identical)\n>\n> Now say that my treatment1 is in\n> experiment02, analysis01, lane 5 and 7\n>\n> Now say that I plan to read all Reads with a filter instance called myFilter.\n>\n> The question:\n>\n> How do I collect all that information into a single GenomeDataList object where I can call its GenomeData objects like this\n> myGenomeDataList$control1\n> myGenomeDataList$treatment1\n> ?\n>\n> Please try to answer the specific example because there is no alternative documentation.\n\nThe function you are looking for is 'combineLaneReads'. If x is a\nGenomeDataList, then\n\ncombineLaneReads(x)\n\nwill give you a GenomeData object combining all reads in x.\nAdditionally, you can treat a GenomeDataList object like a list, in\nthe sense that you can subset them using [, combine them using c(),\nand changes their names using names()<-.\n\n\nSo, let's say your per-run data are in variables called\n\nexpt1_analysis1\nexpt1_analysis2\nexpt2_analysis1\n\nwhich are all GenomeDataList objects with names \"1\", \"2\", ..., \"8\" (I\nassume you know how to do this; as we discussed this a few days back).\nThen, the usage would be:\n\ncontrol1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")]))\ntreatment1 <- combineLaneReads(expt2_analysis1[c(\"5\", \"7\")])\n\n(these would both be GenomeData objects). To combine them into a\nGenomeDataList, simply do\n\nmyGenomeDataList <- GenomeDataList(list(control1 = control1,\ntreatment1 = treatment1))\n\nor combining the two steps:\n\nmyGenomeDataList <-\n    GenomeDataList(list(control1 =\ncombineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")])),\n                        treatment1 =\ncombineLaneReads(expt2_analysis1[c(\"5\", \"7\")])))\n\n\n-Deepayan",
+      "body_snippet": "On Thu, Apr 23, 2009 at 12:24 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello,\n>\n> How do you pool together reads from multiple Solexa runs?\n>\n> Specificaly:\n>\n> Say that the structure of my hard dr",
+      "thread_id": "thread-cacca1a3f1f1",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-dcbe68e75370",
+      "message_id": "<533135.7319.qm@web26605.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-23T21:05:57Z",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "subject_clean": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "in_reply_to": "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>",
+      "references": [
+        "<825287.35128.qm@web26601.mail.ukl.yahoo.com>",
+        "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>"
+      ],
+      "body_plain": "Thank you Deepayan.\n\nWhat package provides combineLaneReads()?\n\nIvan\n\n\n\n\n\n----- Original Message ----\nFrom: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nTo: ig2ar-saf2 at yahoo.co.uk\nCc: bioc-sig-sequencing at r-project.org\nSent: Thursday, 23 April, 2009 16:37:57\nSubject: Re: [Bioc-sig-seq] Input from multiple Solexa runs\n\nOn Thu, Apr 23, 2009 at 12:24 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello,\n>\n> How do you pool together reads from multiple Solexa runs?\n>\n> Specificaly:\n>\n> Say that the structure of my hard drive looks like this\n>\n> /experiment01/GERALD_analysis01/(here all 8 lanes)\n> /experiment01/GERALD_analysis02/(here all 8 lanes)\n> /experiment02/GERALD_analysis01/(here all 8 lanes)\n>\n> Now say that my control1 lanes are in\n> experiment01, analysis01, lanes 1 and 2\n> experiment01, analysis02, lanes 3 and 4\n> (all four lanes are biologically identical)\n>\n> Now say that my treatment1 is in\n> experiment02, analysis01, lane 5 and 7\n>\n> Now say that I plan to read all Reads with a filter instance called myFilter.\n>\n> The question:\n>\n> How do I collect all that information into a single GenomeDataList object where I can call its GenomeData objects like this\n> myGenomeDataList$control1\n> myGenomeDataList$treatment1\n> ?\n>\n> Please try to answer the specific example because there is no alternative documentation.\n\nThe function you are looking for is 'combineLaneReads'. If x is a\nGenomeDataList, then\n\ncombineLaneReads(x)\n\nwill give you a GenomeData object combining all reads in x.\nAdditionally, you can treat a GenomeDataList object like a list, in\nthe sense that you can subset them using [, combine them using c(),\nand changes their names using names()<-.\n\n\nSo, let's say your per-run data are in variables called\n\nexpt1_analysis1\nexpt1_analysis2\nexpt2_analysis1\n\nwhich are all GenomeDataList objects with names \"1\", \"2\", ..., \"8\" (I\nassume you know how to do this; as we discussed this a few days back).\nThen, the usage would be:\n\ncontrol1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")]))\ntreatment1 <- combineLaneReads(expt2_analysis1[c(\"5\", \"7\")])\n\n(these would both be GenomeData objects). To combine them into a\nGenomeDataList, simply do\n\nmyGenomeDataList <- GenomeDataList(list(control1 = control1,\ntreatment1 = treatment1))\n\nor combining the two steps:\n\nmyGenomeDataList <-\n    GenomeDataList(list(control1 =\ncombineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")])),\n                        treatment1 =\ncombineLaneReads(expt2_analysis1[c(\"5\", \"7\")])))\n\n\n-Deepayan",
+      "body_snippet": "Thank you Deepayan.\n\nWhat package provides combineLaneReads()?\n\nIvan\n\n\n\n\n\n----- Original Message ----\nFrom: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nTo: ig2ar-saf2 at yahoo.co.uk\nCc: bioc-sig-se",
+      "thread_id": "thread-cacca1a3f1f1",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-8665c01d5ebb",
+      "message_id": "<eb555e660904231415r4a73583bvd64d379d6ea1bca3@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-04-23T21:15:54Z",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "subject_clean": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "in_reply_to": "<533135.7319.qm@web26605.mail.ukl.yahoo.com>",
+      "references": [
+        "<825287.35128.qm@web26601.mail.ukl.yahoo.com>",
+        "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>",
+        "<533135.7319.qm@web26605.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Thu, Apr 23, 2009 at 2:05 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Thank you Deepayan.\n>\n> What package provides combineLaneReads()?\n\nchipseq\n\n>\n> Ivan\n>\n>\n>\n>\n>\n> ----- Original Message ----\n> From: Deepayan Sarkar <deepayan.sarkar at gmail.com>\n> To: ig2ar-saf2 at yahoo.co.uk\n> Cc: bioc-sig-sequencing at r-project.org\n> Sent: Thursday, 23 April, 2009 16:37:57\n> Subject: Re: [Bioc-sig-seq] Input from multiple Solexa runs\n>\n> On Thu, Apr 23, 2009 at 12:24 PM, ?<ig2ar-saf2 at yahoo.co.uk> wrote:\n>>\n>> Hello,\n>>\n>> How do you pool together reads from multiple Solexa runs?\n>>\n>> Specificaly:\n>>\n>> Say that the structure of my hard drive looks like this\n>>\n>> /experiment01/GERALD_analysis01/(here all 8 lanes)\n>> /experiment01/GERALD_analysis02/(here all 8 lanes)\n>> /experiment02/GERALD_analysis01/(here all 8 lanes)\n>>\n>> Now say that my control1 lanes are in\n>> experiment01, analysis01, lanes 1 and 2\n>> experiment01, analysis02, lanes 3 and 4\n>> (all four lanes are biologically identical)\n>>\n>> Now say that my treatment1 is in\n>> experiment02, analysis01, lane 5 and 7\n>>\n>> Now say that I plan to read all Reads with a filter instance called myFilter.\n>>\n>> The question:\n>>\n>> How do I collect all that information into a single GenomeDataList object where I can call its GenomeData objects like this\n>> myGenomeDataList$control1\n>> myGenomeDataList$treatment1\n>> ?\n>>\n>> Please try to answer the specific example because there is no alternative documentation.\n>\n> The function you are looking for is 'combineLaneReads'. If x is a\n> GenomeDataList, then\n>\n> combineLaneReads(x)\n>\n> will give you a GenomeData object combining all reads in x.\n> Additionally, you can treat a GenomeDataList object like a list, in\n> the sense that you can subset them using [, combine them using c(),\n> and changes their names using names()<-.\n>\n>\n> So, let's say your per-run data are in variables called\n>\n> expt1_analysis1\n> expt1_analysis2\n> expt2_analysis1\n>\n> which are all GenomeDataList objects with names \"1\", \"2\", ..., \"8\" (I\n> assume you know how to do this; as we discussed this a few days back).\n> Then, the usage would be:\n>\n> control1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\n> expt1_analysis2[c(\"3\", \"4\")]))\n> treatment1 <- combineLaneReads(expt2_analysis1[c(\"5\", \"7\")])\n>\n> (these would both be GenomeData objects). To combine them into a\n> GenomeDataList, simply do\n>\n> myGenomeDataList <- GenomeDataList(list(control1 = control1,\n> treatment1 = treatment1))\n>\n> or combining the two steps:\n>\n> myGenomeDataList <-\n> ? ?GenomeDataList(list(control1 =\n> combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\n> expt1_analysis2[c(\"3\", \"4\")])),\n> ? ? ? ? ? ? ? ? ? ? ? ?treatment1 =\n> combineLaneReads(expt2_analysis1[c(\"5\", \"7\")])))\n>\n>\n> -Deepayan\n>\n>\n>\n>\n>\n>",
+      "body_snippet": "On Thu, Apr 23, 2009 at 2:05 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Thank you Deepayan.\n>\n> What package provides combineLaneReads()?\n\nchipseq\n\n>\n> Ivan\n>\n>\n>\n>\n>\n> ----- Original Message ----\n> ",
+      "thread_id": "thread-cacca1a3f1f1",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-028860f54935",
+      "message_id": "<614050.15263.qm@web26606.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-23T22:22:01Z",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "subject_clean": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "in_reply_to": "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>",
+      "references": [
+        "<825287.35128.qm@web26601.mail.ukl.yahoo.com>",
+        "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Deepayan,\n\nWhen I do\n\ncontrol1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")]))\n\nis there a way to filter reads so that I only get one read per genomic position?\n\nFor readAligned I do\n\nfilt <- compose(chromosomeFilter(\"chr[0-9XY]+.fa\"),\n                nFilter(),\n                alignDataFilter(expression(filtering == \"Y\")),\n                uniqueFilter(withSread = FALSE))\nC1readAligned <- readAligned(C1sp, C1lanes, filter=filt)\n\nbut passing filter=filt as an argument to combineLaneReads didn't work.\n\nIs there perhaps a workaround I could use?\n\nThank you,\n\nIvan\n\n\n\n\n\n----- Original Message ----\nFrom: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nTo: ig2ar-saf2 at yahoo.co.uk\nCc: bioc-sig-sequencing at r-project.org\nSent: Thursday, 23 April, 2009 16:37:57\nSubject: Re: [Bioc-sig-seq] Input from multiple Solexa runs\n\nOn Thu, Apr 23, 2009 at 12:24 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello,\n>\n> How do you pool together reads from multiple Solexa runs?\n>\n> Specificaly:\n>\n> Say that the structure of my hard drive looks like this\n>\n> /experiment01/GERALD_analysis01/(here all 8 lanes)\n> /experiment01/GERALD_analysis02/(here all 8 lanes)\n> /experiment02/GERALD_analysis01/(here all 8 lanes)\n>\n> Now say that my control1 lanes are in\n> experiment01, analysis01, lanes 1 and 2\n> experiment01, analysis02, lanes 3 and 4\n> (all four lanes are biologically identical)\n>\n> Now say that my treatment1 is in\n> experiment02, analysis01, lane 5 and 7\n>\n> Now say that I plan to read all Reads with a filter instance called myFilter.\n>\n> The question:\n>\n> How do I collect all that information into a single GenomeDataList object where I can call its GenomeData objects like this\n> myGenomeDataList$control1\n> myGenomeDataList$treatment1\n> ?\n>\n> Please try to answer the specific example because there is no alternative documentation.\n\nThe function you are looking for is 'combineLaneReads'. If x is a\nGenomeDataList, then\n\ncombineLaneReads(x)\n\nwill give you a GenomeData object combining all reads in x.\nAdditionally, you can treat a GenomeDataList object like a list, in\nthe sense that you can subset them using [, combine them using c(),\nand changes their names using names()<-.\n\n\nSo, let's say your per-run data are in variables called\n\nexpt1_analysis1\nexpt1_analysis2\nexpt2_analysis1\n\nwhich are all GenomeDataList objects with names \"1\", \"2\", ..., \"8\" (I\nassume you know how to do this; as we discussed this a few days back).\nThen, the usage would be:\n\ncontrol1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")]))\ntreatment1 <- combineLaneReads(expt2_analysis1[c(\"5\", \"7\")])\n\n(these would both be GenomeData objects). To combine them into a\nGenomeDataList, simply do\n\nmyGenomeDataList <- GenomeDataList(list(control1 = control1,\ntreatment1 = treatment1))\n\nor combining the two steps:\n\nmyGenomeDataList <-\n    GenomeDataList(list(control1 =\ncombineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")])),\n                        treatment1 =\ncombineLaneReads(expt2_analysis1[c(\"5\", \"7\")])))\n\n\n-Deepayan",
+      "body_snippet": "Hi Deepayan,\n\nWhen I do\n\ncontrol1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\nexpt1_analysis2[c(\"3\", \"4\")]))\n\nis there a way to filter reads so that I only get one read per genomic position?\n\n",
+      "thread_id": "thread-cacca1a3f1f1",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-d541be434980",
+      "message_id": "<eb555e660904231533x1e0780e6od51acec8cbef3c6a@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-04-23T22:33:44Z",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "subject_clean": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "in_reply_to": "<614050.15263.qm@web26606.mail.ukl.yahoo.com>",
+      "references": [
+        "<825287.35128.qm@web26601.mail.ukl.yahoo.com>",
+        "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>",
+        "<614050.15263.qm@web26606.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Thu, Apr 23, 2009 at 3:22 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hi Deepayan,\n>\n> When I do\n>\n> control1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\n> expt1_analysis2[c(\"3\", \"4\")]))\n>\n> is there a way to filter reads so that I only get one read per genomic position?\n\ncombineLaneReads is a very simple function:\n\ncombineLaneReads <- function(laneList, chromList = names(laneList[[1]])) {\n    names(chromList) = chromList ##to get the return value named\n    GenomeData(lapply(chromList,\n                      function(chr) {\n                          list(\"+\" = unlist(lapply(laneList,\nfunction(x) x[[chr]][[\"+\"]]), use.names = FALSE),\n                               \"-\" = unlist(lapply(laneList,\nfunction(x) x[[chr]][[\"-\"]]), use.names = FALSE))\n                      }))\n}\n\nand you can just wrap a unique() around the unlist() to make the start\npositions unique. But why would you want that? Within a lane,\nduplicates are likely to be PCR artifacts, but for data from different\nlanes, aren't duplicates more likely to be real? We could easily add\nan argument to support this if you have a valid use-case.\n\n-Deepayan",
+      "body_snippet": "On Thu, Apr 23, 2009 at 3:22 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hi Deepayan,\n>\n> When I do\n>\n> control1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\n> expt1_analysis2[c(\"3\", \"4\")]))\n>\n",
+      "thread_id": "thread-cacca1a3f1f1",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-c666278ede78",
+      "message_id": "<824277.91915.qm@web26608.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-24T01:38:01Z",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "subject_clean": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "in_reply_to": "<eb555e660904231533x1e0780e6od51acec8cbef3c6a@mail.gmail.com>",
+      "references": [
+        "<825287.35128.qm@web26601.mail.ukl.yahoo.com>",
+        "<eb555e660904231337m11fda31end798157c1a5d6abd@mail.gmail.com>",
+        "<614050.15263.qm@web26606.mail.ukl.yahoo.com>",
+        "<eb555e660904231533x1e0780e6od51acec8cbef3c6a@mail.gmail.com>"
+      ],
+      "body_plain": "I think that there is a valid situation to use a filter to exclude duplicate reads when we pool data from different runs and lanes.\n\nWe often use alicuots of the exact same PCR pre-amplified biological sample in two lanes. Then we do a preliminary analysis, and we decide whether or not we need to run two more lanes in the next Solexa run. That depends on how many reads we got and whether we have reached our target p-value. As a result, we may end up with multiple lanes and runs of the exact same sample.\n\nActually, I think that the reason readAligned has a filter to keep unique reads is the same reason stated above. We need a big non-redundant pool of reads. It would be nice to have that functionality in combineLaneReads too.\n\nThank you,\n\nIvan\n\n\n\n\n\n----- Original Message ----\nFrom: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nTo: ig2ar-saf2 at yahoo.co.uk\nCc: bioc-sig-sequencing at r-project.org\nSent: Thursday, 23 April, 2009 18:33:44\nSubject: Re: [Bioc-sig-seq] Input from multiple Solexa runs\n\nOn Thu, Apr 23, 2009 at 3:22 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hi Deepayan,\n>\n> When I do\n>\n> control1 <- combineLaneReads(c(expt1_analysis1[c(\"1\", \"2\")],\n> expt1_analysis2[c(\"3\", \"4\")]))\n>\n> is there a way to filter reads so that I only get one read per genomic position?\n\ncombineLaneReads is a very simple function:\n\ncombineLaneReads <- function(laneList, chromList = names(laneList[[1]])) {\n    names(chromList) = chromList ##to get the return value named\n    GenomeData(lapply(chromList,\n                      function(chr) {\n                          list(\"+\" = unlist(lapply(laneList,\nfunction(x) x[[chr]][[\"+\"]]), use.names = FALSE),\n                               \"-\" = unlist(lapply(laneList,\nfunction(x) x[[chr]][[\"-\"]]), use.names = FALSE))\n                      }))\n}\n\nand you can just wrap a unique() around the unlist() to make the start\npositions unique. But why would you want that? Within a lane,\nduplicates are likely to be PCR artifacts, but for data from different\nlanes, aren't duplicates more likely to be real? We could easily add\nan argument to support this if you have a valid use-case.\n\n-Deepayan",
+      "body_snippet": "I think that there is a valid situation to use a filter to exclude duplicate reads when we pool data from different runs and lanes.\n\nWe often use alicuots of the exact same PCR pre-amplified biologica",
+      "thread_id": "thread-cacca1a3f1f1",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-3bab84c1c27f",
+      "message_id": "<089393D20DC79B4A803AD8F6A56BD3CA05F76E@EXCH-VS1.coh.org>",
+      "from_name": "Wu, Xiwei",
+      "from_email_hash": "39a393b06b737d3d4c897d7034802e29ffa8f3bca067e5db1e3360c812382fa3",
+      "date": "2009-04-24T04:29:05Z",
+      "subject": "[Bioc-sig-seq] chipseq package",
+      "subject_clean": "[Bioc-sig-seq] chipseq package",
+      "in_reply_to": "<2c3c9e80904230932v6f48a026y3d9815d176050eaf@mail.gmail.com>",
+      "references": [
+        "<089393D20DC79B4A803AD8F6A56BD3CA028893@EXCH-VS1.coh.org>",
+        "<AA551391-2BE0-4ABC-BAA9-B6743038E8FB@embl.de>",
+        "<2c3c9e80904230932v6f48a026y3d9815d176050eaf@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/1a640477/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090423/1a640477/attachment.pl>",
+      "thread_id": "thread-61c2a86524a6",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-d1f21ff793e9",
+      "message_id": "<9AA1A0FC-5C5F-444B-BB79-F00FE3894F24@embl.de>",
+      "from_name": "Nicolas Delhomme",
+      "from_email_hash": "e1bcfb33fa39c0fa362850148b5fab2fc3bcba8158505ec7e26a57a5446bd20b",
+      "date": "2009-04-24T09:24:05Z",
+      "subject": "[Bioc-sig-seq] Chipseq package",
+      "subject_clean": "[Bioc-sig-seq] Chipseq package",
+      "in_reply_to": "<C616730B.8612%tobias.kockmann@bsse.ethz.ch>",
+      "references": [
+        "<C616730B.8612%tobias.kockmann@bsse.ethz.ch>"
+      ],
+      "body_plain": "Hi Tobias,\n\nFirst of all, this is not my package. I plan to use it but I haven't  \ngot my hand on it yet either.\n\nSubversion is a concurrent versioning system, check here for details: http://en.wikipedia.org/wiki/Subversion_(software)\n\nThis is the answer to the very same question answered on the Bioc-sig- \nseq mailing list by Vincent Carey:\n\n===\n\nHi Xiwei,\n\nThis is from the list archive:\n\n > Laurent is correct. You can find the chipseq package at\n >\n > https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/chipseq\n >\n > Note that this package is currently considered to be experimental  \nand function interfaces and behavior are subject to change beyond what  \nwould normally be excepted for a released BioC package.\n\nin case it is not completely clear, you would use subversion to  \nretrieve this -- it does not\nseem to be accessible via biocLite\n\nsvn co https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/chipseq\n\nyou will be challenged for credentials, and they are on the website;  \ncontact me off line if you cannot find\n\n===\n\nThe credentials are on this page: http://wiki.fhcrc.org/bioc/DeveloperPage \n  (user: readonly, pass:readonly)\n\nHope this helps,\n\nN.\n\nPS I put the mailing list in CC\n\n---------------------------------------------------------------\nNicolas Delhomme\n\nHigh Throughput Functional Genomics Center\n\nEuropean Molecular Biology Laboratory\n\nTel: +49 6221 387 8426\nEmail: nicolas.delhomme at embl.de\nMeyerhofstrasse 1 - Postfach 10.2209\n69102 Heidelberg, Germany\n---------------------------------------------------------------\n\n\n\nOn 23 Apr 2009, at 19:33, Tobias Kockmann wrote:\n\n> Hi Nicolas,\n>\n> I would like to try the chipseq package, but I do not understand how  \n> to get it. What do you mean by subversion? What is the url of your  \n> webpage?\n>\n> Thx,\n> Tobi\n>\n>\n> -- \n> Tobias Kockmann\n> Ph.D. Student\n>\n> ETH Z?rich\n> Department of Biosystems Science and Engineering (D-BSSE)\n> Mattenstrasse 26\n> 4058 Basel, Switzerland\n>\n> Phone +41 61 387 3146\n> Fax +41 61 387 39 91",
+      "body_snippet": "Hi Tobias,\n\nFirst of all, this is not my package. I plan to use it but I haven't  \ngot my hand on it yet either.\n\nSubversion is a concurrent versioning system, check here for details: http://en.wikipe",
+      "thread_id": "thread-d1f21ff793e9",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-dc6600b83f3b",
+      "message_id": "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>",
+      "from_name": "Lana Schaffer",
+      "from_email_hash": "6d24a008ccd1e4d99a6930143aef8613b93ac69eeb8c0283e668538eab47b3b3",
+      "date": "2009-04-24T14:42:21Z",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "subject_clean": "[Bioc-sig-seq] gapped alignment",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\nI would like advise about how to do gapped alignment\nwith output from Solexa sequencing.  We have a new\nvirus and would like to know homology to known\npolymerase sequences.  Does someone know if MAQ\nwould be a good program for this purpose using\ngapped alignment?  Or would it be best to do\nDe Novo alignment and then use Blast?\nThanks for any advise. \n\nLana Schaffer\nBiostatistics/Informatics\nThe Scripps Research Institute\nDNA Array Core Facility\nLa Jolla, CA 92037\n(858) 784-2263\n(858) 784-2994\nschaffer at scripps.edu",
+      "body_snippet": "Hi,\nI would like advise about how to do gapped alignment\nwith output from Solexa sequencing.  We have a new\nvirus and would like to know homology to known\npolymerase sequences.  Does someone know if M",
+      "thread_id": "thread-dc6600b83f3b",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-9ac776ed96e7",
+      "message_id": "<20090424162101.GA16111@biocluster.ucr.edu>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2009-04-24T16:21:01Z",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "subject_clean": "[Bioc-sig-seq] gapped alignment",
+      "in_reply_to": "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>",
+      "references": [
+        "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>"
+      ],
+      "body_plain": "Dear Lana,\n\nUsing a short-read alignment tool in this case will only work, if \nyour virus sequences are extremely similar on the DNA level. If that \nis not the case, then you want to use BLAST, PSI-BLAST, SAM, HMMER or \nany other search tool suited for homolog searching. For detecting \nremote homologs for a coding sequence, you definitely want to perform \nthe search on the protein level, because it will be much more sensitive.\n\nShort-read alignment tools are optimized for aligning very similar\nDNA sequences, but not for finding sequences of low similarity. \n\nThomas\n\n\n\n\nOn Fri, Apr 24, 2009 at 07:42:21AM -0700, Lana Schaffer wrote:\n> Hi,\n> I would like advise about how to do gapped alignment\n> with output from Solexa sequencing.  We have a new\n> virus and would like to know homology to known\n> polymerase sequences.  Does someone know if MAQ\n> would be a good program for this purpose using\n> gapped alignment?  Or would it be best to do\n> De Novo alignment and then use Blast?\n> Thanks for any advise. \n> \n> Lana Schaffer\n> Biostatistics/Informatics\n> The Scripps Research Institute\n> DNA Array Core Facility\n> La Jolla, CA 92037\n> (858) 784-2263\n> (858) 784-2994\n> schaffer at scripps.edu \n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Dear Lana,\n\nUsing a short-read alignment tool in this case will only work, if \nyour virus sequences are extremely similar on the DNA level. If that \nis not the case, then you want to use BLAST, PSI-BL",
+      "thread_id": "thread-dc6600b83f3b",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-f67572158fea",
+      "message_id": "<49F1FCE8.6040705@fhcrc.org>",
+      "from_name": "Robert Gentleman",
+      "from_email_hash": "7de55c0000c437ab05b37d16b5a00e42a9bba6254ce27d76eb635498d1e3dda7",
+      "date": "2009-04-24T17:54:48Z",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "subject_clean": "[Bioc-sig-seq] gapped alignment",
+      "in_reply_to": "<20090424162101.GA16111@biocluster.ucr.edu>",
+      "references": [
+        "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>",
+        "<20090424162101.GA16111@biocluster.ucr.edu>"
+      ],
+      "body_plain": "given that it is short, why not use the pairwiseAlignment tool in Biostrings,\nwhich would allow you to use gaps +/- quality scores etc?\n\n\n\nThomas Girke wrote:\n> Dear Lana,\n> \n> Using a short-read alignment tool in this case will only work, if \n> your virus sequences are extremely similar on the DNA level. If that \n> is not the case, then you want to use BLAST, PSI-BLAST, SAM, HMMER or \n> any other search tool suited for homolog searching. For detecting \n> remote homologs for a coding sequence, you definitely want to perform \n> the search on the protein level, because it will be much more sensitive.\n> \n> Short-read alignment tools are optimized for aligning very similar\n> DNA sequences, but not for finding sequences of low similarity. \n> \n> Thomas\n> \n> \n> \n> \n> On Fri, Apr 24, 2009 at 07:42:21AM -0700, Lana Schaffer wrote:\n>> Hi,\n>> I would like advise about how to do gapped alignment\n>> with output from Solexa sequencing.  We have a new\n>> virus and would like to know homology to known\n>> polymerase sequences.  Does someone know if MAQ\n>> would be a good program for this purpose using\n>> gapped alignment?  Or would it be best to do\n>> De Novo alignment and then use Blast?\n>> Thanks for any advise. \n>>\n>> Lana Schaffer\n>> Biostatistics/Informatics\n>> The Scripps Research Institute\n>> DNA Array Core Facility\n>> La Jolla, CA 92037\n>> (858) 784-2263\n>> (858) 784-2994\n>> schaffer at scripps.edu \n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n\n-- \nRobert Gentleman, PhD\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M1-B514\nPO Box 19024\nSeattle, Washington 98109-1024\n206-667-7700\nrgentlem at fhcrc.org",
+      "body_snippet": "given that it is short, why not use the pairwiseAlignment tool in Biostrings,\nwhich would allow you to use gaps +/- quality scores etc?\n\n\n\nThomas Girke wrote:\n> Dear Lana,\n> \n> Using a short-read alig",
+      "thread_id": "thread-dc6600b83f3b",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-d9a0ebc2605a",
+      "message_id": "<20090424181702.GA17537@biocluster.ucr.edu>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2009-04-24T18:17:02Z",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "subject_clean": "[Bioc-sig-seq] gapped alignment",
+      "in_reply_to": "<49F1FCE8.6040705@fhcrc.org>",
+      "references": [
+        "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>",
+        "<20090424162101.GA16111@biocluster.ucr.edu>",
+        "<49F1FCE8.6040705@fhcrc.org>"
+      ],
+      "body_plain": "That's true. The Smith-Waterman alignment algorithm implemented in Biosting's\npairwiseAlignment() will give even higher sensitivity then BLAST. To use it\nas a search tool, one would simply loop over the database sequences. \n\nThomas\n\nOn Fri, Apr 24, 2009 at 10:54:48AM -0700, Robert Gentleman wrote:\n> given that it is short, why not use the pairwiseAlignment tool in Biostrings,\n> which would allow you to use gaps +/- quality scores etc?\n> \n> \n> \n> Thomas Girke wrote:\n> > Dear Lana,\n> > \n> > Using a short-read alignment tool in this case will only work, if \n> > your virus sequences are extremely similar on the DNA level. If that \n> > is not the case, then you want to use BLAST, PSI-BLAST, SAM, HMMER or \n> > any other search tool suited for homolog searching. For detecting \n> > remote homologs for a coding sequence, you definitely want to perform \n> > the search on the protein level, because it will be much more sensitive.\n> > \n> > Short-read alignment tools are optimized for aligning very similar\n> > DNA sequences, but not for finding sequences of low similarity. \n> > \n> > Thomas\n> > \n> > \n> > \n> > \n> > On Fri, Apr 24, 2009 at 07:42:21AM -0700, Lana Schaffer wrote:\n> >> Hi,\n> >> I would like advise about how to do gapped alignment\n> >> with output from Solexa sequencing.  We have a new\n> >> virus and would like to know homology to known\n> >> polymerase sequences.  Does someone know if MAQ\n> >> would be a good program for this purpose using\n> >> gapped alignment?  Or would it be best to do\n> >> De Novo alignment and then use Blast?\n> >> Thanks for any advise. \n> >>\n> >> Lana Schaffer\n> >> Biostatistics/Informatics\n> >> The Scripps Research Institute\n> >> DNA Array Core Facility\n> >> La Jolla, CA 92037\n> >> (858) 784-2263\n> >> (858) 784-2994\n> >> schaffer at scripps.edu \n> >>\n> >> _______________________________________________\n> >> Bioc-sig-sequencing mailing list\n> >> Bioc-sig-sequencing at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >>\n> > \n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> > \n> \n> -- \n> Robert Gentleman, PhD\n> Program in Computational Biology\n> Division of Public Health Sciences\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N, M1-B514\n> PO Box 19024\n> Seattle, Washington 98109-1024\n> 206-667-7700\n> rgentlem at fhcrc.org\n>",
+      "body_snippet": "That's true. The Smith-Waterman alignment algorithm implemented in Biosting's\npairwiseAlignment() will give even higher sensitivity then BLAST. To use it\nas a search tool, one would simply loop over t",
+      "thread_id": "thread-dc6600b83f3b",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-33aaae256ec4",
+      "message_id": "<49F209F0.8080804@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2009-04-24T18:50:24Z",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "subject_clean": "[Bioc-sig-seq] gapped alignment",
+      "in_reply_to": "<20090424181702.GA17537@biocluster.ucr.edu>",
+      "references": [
+        "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>",
+        "<20090424162101.GA16111@biocluster.ucr.edu>",
+        "<49F1FCE8.6040705@fhcrc.org>",
+        "<20090424181702.GA17537@biocluster.ucr.edu>"
+      ],
+      "body_plain": "Thomas and Lana,\nThe pairwiseAlignment() function supports vectorized alignments where \neither a vector of sequences can either be aligned to a single sequence \nor to a vector of sequences where pattern[1] is aligned to subject[1], \npattern[2] is aligned to subject[2], etc. The looping is then pushed \ndown to the C level, which is much faster than looping at the R level.\n\n\nPatrick\n\n\nThomas Girke wrote:\n> That's true. The Smith-Waterman alignment algorithm implemented in Biosting's\n> pairwiseAlignment() will give even higher sensitivity then BLAST. To use it\n> as a search tool, one would simply loop over the database sequences. \n>\n> Thomas\n>\n> On Fri, Apr 24, 2009 at 10:54:48AM -0700, Robert Gentleman wrote:\n>   \n>> given that it is short, why not use the pairwiseAlignment tool in Biostrings,\n>> which would allow you to use gaps +/- quality scores etc?\n>>\n>>\n>>\n>> Thomas Girke wrote:\n>>     \n>>> Dear Lana,\n>>>\n>>> Using a short-read alignment tool in this case will only work, if \n>>> your virus sequences are extremely similar on the DNA level. If that \n>>> is not the case, then you want to use BLAST, PSI-BLAST, SAM, HMMER or \n>>> any other search tool suited for homolog searching. For detecting \n>>> remote homologs for a coding sequence, you definitely want to perform \n>>> the search on the protein level, because it will be much more sensitive.\n>>>\n>>> Short-read alignment tools are optimized for aligning very similar\n>>> DNA sequences, but not for finding sequences of low similarity. \n>>>\n>>> Thomas\n>>>\n>>>\n>>>\n>>>\n>>> On Fri, Apr 24, 2009 at 07:42:21AM -0700, Lana Schaffer wrote:\n>>>       \n>>>> Hi,\n>>>> I would like advise about how to do gapped alignment\n>>>> with output from Solexa sequencing.  We have a new\n>>>> virus and would like to know homology to known\n>>>> polymerase sequences.  Does someone know if MAQ\n>>>> would be a good program for this purpose using\n>>>> gapped alignment?  Or would it be best to do\n>>>> De Novo alignment and then use Blast?\n>>>> Thanks for any advise. \n>>>>\n>>>> Lana Schaffer\n>>>> Biostatistics/Informatics\n>>>> The Scripps Research Institute\n>>>> DNA Array Core Facility\n>>>> La Jolla, CA 92037\n>>>> (858) 784-2263\n>>>> (858) 784-2994\n>>>> schaffer at scripps.edu \n>>>>\n>>>> _______________________________________________\n>>>> Bioc-sig-sequencing mailing list\n>>>> Bioc-sig-sequencing at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>>\n>>>>         \n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>>       \n>> -- \n>> Robert Gentleman, PhD\n>> Program in Computational Biology\n>> Division of Public Health Sciences\n>> Fred Hutchinson Cancer Research Center\n>> 1100 Fairview Ave. N, M1-B514\n>> PO Box 19024\n>> Seattle, Washington 98109-1024\n>> 206-667-7700\n>> rgentlem at fhcrc.org\n>>\n>>     \n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Thomas and Lana,\nThe pairwiseAlignment() function supports vectorized alignments where \neither a vector of sequences can either be aligned to a single sequence \nor to a vector of sequences where patte",
+      "thread_id": "thread-dc6600b83f3b",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-9d0cef9a4298",
+      "message_id": "<20090424194530.GA7587@biocluster.ucr.edu>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2009-04-24T19:45:30Z",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "subject_clean": "[Bioc-sig-seq] gapped alignment",
+      "in_reply_to": "<49F209F0.8080804@fhcrc.org>",
+      "references": [
+        "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>",
+        "<20090424162101.GA16111@biocluster.ucr.edu>",
+        "<49F1FCE8.6040705@fhcrc.org>",
+        "<20090424181702.GA17537@biocluster.ucr.edu>",
+        "<49F209F0.8080804@fhcrc.org>"
+      ],
+      "body_plain": "Patrick and Robert,\n\nThanks for pointing this out. I wasn't aware that such a fast 'SW search' \noption is now available. This will be very useful for many of my own \napplications. \n\nAllow me to point out here, that I am extremely impressed by the quality and \nutility of the Biostrings package and all the related BioC packages for \nshort or long read data analyses. We are using them now on a daily basis for \nall our short read data analyses, and we are extremely happy with their \nperformance and functionality.\n\nThanks for developing all these great resources! \n\nThomas \n\n\nOn Fri, Apr 24, 2009 at 11:50:24AM -0700, Patrick Aboyoun wrote:\n> Thomas and Lana,\n> The pairwiseAlignment() function supports vectorized alignments where \n> either a vector of sequences can either be aligned to a single sequence \n> or to a vector of sequences where pattern[1] is aligned to subject[1], \n> pattern[2] is aligned to subject[2], etc. The looping is then pushed \n> down to the C level, which is much faster than looping at the R level.\n> \n> \n> Patrick\n> \n> \n> Thomas Girke wrote:\n> >That's true. The Smith-Waterman alignment algorithm implemented in \n> >Biosting's\n> >pairwiseAlignment() will give even higher sensitivity then BLAST. To use it\n> >as a search tool, one would simply loop over the database sequences. \n> >\n> >Thomas\n> >\n> >On Fri, Apr 24, 2009 at 10:54:48AM -0700, Robert Gentleman wrote:\n> >  \n> >>given that it is short, why not use the pairwiseAlignment tool in \n> >>Biostrings,\n> >>which would allow you to use gaps +/- quality scores etc?\n> >>\n> >>\n> >>\n> >>Thomas Girke wrote:\n> >>    \n> >>>Dear Lana,\n> >>>\n> >>>Using a short-read alignment tool in this case will only work, if \n> >>>your virus sequences are extremely similar on the DNA level. If that \n> >>>is not the case, then you want to use BLAST, PSI-BLAST, SAM, HMMER or \n> >>>any other search tool suited for homolog searching. For detecting \n> >>>remote homologs for a coding sequence, you definitely want to perform \n> >>>the search on the protein level, because it will be much more sensitive.\n> >>>\n> >>>Short-read alignment tools are optimized for aligning very similar\n> >>>DNA sequences, but not for finding sequences of low similarity. \n> >>>\n> >>>Thomas\n> >>>\n> >>>\n> >>>\n> >>>\n> >>>On Fri, Apr 24, 2009 at 07:42:21AM -0700, Lana Schaffer wrote:\n> >>>      \n> >>>>Hi,\n> >>>>I would like advise about how to do gapped alignment\n> >>>>with output from Solexa sequencing.  We have a new\n> >>>>virus and would like to know homology to known\n> >>>>polymerase sequences.  Does someone know if MAQ\n> >>>>would be a good program for this purpose using\n> >>>>gapped alignment?  Or would it be best to do\n> >>>>De Novo alignment and then use Blast?\n> >>>>Thanks for any advise. \n> >>>>\n> >>>>Lana Schaffer\n> >>>>Biostatistics/Informatics\n> >>>>The Scripps Research Institute\n> >>>>DNA Array Core Facility\n> >>>>La Jolla, CA 92037\n> >>>>(858) 784-2263\n> >>>>(858) 784-2994\n> >>>>schaffer at scripps.edu \n> >>>>\n> >>>>_______________________________________________\n> >>>>Bioc-sig-sequencing mailing list\n> >>>>Bioc-sig-sequencing at r-project.org\n> >>>>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >>>>\n> >>>>        \n> >>>_______________________________________________\n> >>>Bioc-sig-sequencing mailing list\n> >>>Bioc-sig-sequencing at r-project.org\n> >>>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >>>\n> >>>      \n> >>-- \n> >>Robert Gentleman, PhD\n> >>Program in Computational Biology\n> >>Division of Public Health Sciences\n> >>Fred Hutchinson Cancer Research Center\n> >>1100 Fairview Ave. N, M1-B514\n> >>PO Box 19024\n> >>Seattle, Washington 98109-1024\n> >>206-667-7700\n> >>rgentlem at fhcrc.org\n> >>\n> >>    \n> >\n> >_______________________________________________\n> >Bioc-sig-sequencing mailing list\n> >Bioc-sig-sequencing at r-project.org\n> >https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >  \n> \n>",
+      "body_snippet": "Patrick and Robert,\n\nThanks for pointing this out. I wasn't aware that such a fast 'SW search' \noption is now available. This will be very useful for many of my own \napplications. \n\nAllow me to point ",
+      "thread_id": "thread-dc6600b83f3b",
+      "thread_depth": 5,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-fa3e6057edda",
+      "message_id": "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>",
+      "from_name": "Xiang Xu",
+      "from_email_hash": "c614fcb37f5ea2a5f15923c6b76f9598d23ec01d1ccd73928777e7cf2632dedc",
+      "date": "2009-04-27T04:47:52Z",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "subject_clean": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090427/3aedb786/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090427/3aedb786/attachment.pl>",
+      "thread_id": "thread-fa3e6057edda",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-89bda3d3f0a5",
+      "message_id": "<49F5AB16.6000307@med.umich.edu>",
+      "from_name": "James W. MacDonald",
+      "from_email_hash": "51e0486782bd6ed6ad0d8d179dbc9204aca523620b6842837909c743527fce1d",
+      "date": "2009-04-27T12:54:46Z",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "subject_clean": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "in_reply_to": "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>",
+      "references": [
+        "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>"
+      ],
+      "body_plain": "There is some older information from BioC2008 here (starting on page 12):\n\nhttp://www.bioconductor.org/workshops/2008/BioC2008/labs/PairwiseSequenceAlignments/Alignments.pdf\n\nOr you could search the Bioc-sig-seq listserv for newer information:\n\nhttp://www.google.com/search?hl=en&as_q=adapter&as_epq=&as_oq=&as_eq=&num=10&lr=&as_filetype=&ft=i&as_sitesearch=https%3A%2F%2Fstat.ethz.ch%2Fpipermail%2Fbioc-sig-sequencing%2F&as_qdr=all&as_rights=&as_occt=any&cr=&as_nlo=&as_nhi=&safe=images\n\nBest,\n\nJim\n\n\nXiang Xu wrote:\n> Hello all,\n> \n> Is there someone can show me some software or tools for trimming the\n> adaptors of Solexa short reads? Do you have any protocol for analysis\n> sequencing data of gene expression and small RNA?\n> \n> Thanks in advance.\n> \n> Regards,\n> \n> Xiang Xu\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nJames W. MacDonald, M.S.\nBiostatistician\nDouglas Lab\nUniversity of Michigan\nDepartment of Human Genetics\n5912 Buhl\n1241 E. Catherine St.\nAnn Arbor MI 48109-5618\n734-615-7826",
+      "body_snippet": "There is some older information from BioC2008 here (starting on page 12):\n\nhttp://www.bioconductor.org/workshops/2008/BioC2008/labs/PairwiseSequenceAlignments/Alignments.pdf\n\nOr you could search the B",
+      "thread_id": "thread-fa3e6057edda",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-4a8af8d38e58",
+      "message_id": "<533262.64177.qm@web36901.mail.mud.yahoo.com>",
+      "from_name": "joseph",
+      "from_email_hash": "8e151c9abc2cfcc762f760091519f85e9b3d6858f7d51f61f9737a1f1d3ec6a7",
+      "date": "2009-04-28T00:23:19Z",
+      "subject": "[Bioc-sig-seq] how to identify differentially expressed genes?",
+      "subject_clean": "[Bioc-sig-seq] how to identify differentially expressed genes?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090427/ef4568a9/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090427/ef4568a9/attachment.pl>",
+      "thread_id": "thread-4a8af8d38e58",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-3a348d93da8c",
+      "message_id": "<873003.88682.qm@web26606.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-28T16:58:13Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello everybody,\n\nI am working with the yet unreleased package chipseq.\n\nThere is a very nice xyplot that I am trying to reproduce from the\n\nhttp://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n\nHowever, R complains saying\n\n\"Error in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel,  : \nneed at least one panel\"\n\nWhat am I doing? This\n\n> class(E1)\n[1] \"GenomeDataList\"\nattr(,\"package\")\n[1] \"BSgenome\"\n> names(E1)\n[1] \"C1\" \"C2\" \"T1\" \"T2\"\n> islandReadSummary <- function(x)\n+ {\n+ g <- extendReads(x, seqLen = 200)\n+ s <- slice(coverage(g, 1, max(end(g))), lower = 1)\n+ tab <- table(viewSums(s) / 200)\n+ ans <- data.frame(nread = as.numeric(names(tab)), count = as.numeric(tab))\n+ ans\n+ }\n> nread.islands <- as(gdApply(E1, islandReadSummary), \"data.frame\")\nThere were 50 or more warnings (use warnings() to see the first 50)\n> xyplot(log(count) ~ nread | sample,\n+        nread.islands,\n+        subset = (chromosome == \"chr19\" & nread <= 40),\n+        layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\nError in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel,  : \n  need at least one panel\n> \n\nCan anybody shed some light?\n\nClarification: the warning \"There were 50 or more warnings (use warnings() to see the first 50)\" comes from IRanges. chipseq is using the slightly older start/end convention rather than the newer shift/step convention.\n\nThank you,\n\nIvan",
+      "body_snippet": "Hello everybody,\n\nI am working with the yet unreleased package chipseq.\n\nThere is a very nice xyplot that I am trying to reproduce from the\n\nhttp://www.bioconductor.org/workshops/2009/SeattleJan09/ChI",
+      "thread_id": "thread-3a348d93da8c",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-a6adf4635d39",
+      "message_id": "<32563.33008.qm@web26605.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-28T17:03:45Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I forgot:\n> sessionInfo()\nR version 2.9.0 (2009-04-17) \nx86_64-redhat-linux-gnu \n\nlocale:\nLC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] BSgenome.Mmusculus.UCSC.mm9_1.3.11 chipseq_0.1.14                    \n[3] ShortRead_1.2.0                    lattice_0.17-22                   \n[5] BSgenome_1.12.0                    Biostrings_2.12.0                 \n[7] IRanges_1.2.0                     \n\nloaded via a namespace (and not attached):\n[1] Biobase_2.2.2 grid_2..9.0    hwriter_1.1  \n> \n\nIvan",
+      "body_snippet": "I forgot:\n> sessionInfo()\nR version 2.9.0 (2009-04-17) \nx86_64-redhat-linux-gnu \n\nlocale:\nLC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.U",
+      "thread_id": "thread-a6adf4635d39",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-3928c21c2d89",
+      "message_id": "<1240938829.4589.2.camel@hot-spring>",
+      "from_name": "Laurent Gautier",
+      "from_email_hash": "a635fda8fe847a9175681499def119bd7b4c4ecd093e8b5891bc2511b24c6588",
+      "date": "2009-04-28T17:13:49Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": "<873003.88682.qm@web26606.mail.ukl.yahoo.com>",
+      "references": [
+        "<873003.88682.qm@web26606.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Tue, 2009-04-28 at 16:58 +0000, ig2ar-saf2 at yahoo.co.uk wrote:\n> Hello everybody,\n> \n> I am working with the yet unreleased package chipseq.\n> \n> There is a very nice xyplot that I am trying to reproduce from the\n> \n> http://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n> \n> However, R complains saying\n> \n> \"Error in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel,  : \n> need at least one panel\"\n> \n> What am I doing? This\n> \n> > class(E1)\n> [1] \"GenomeDataList\"\n> attr(,\"package\")\n> [1] \"BSgenome\"\n> > names(E1)\n> [1] \"C1\" \"C2\" \"T1\" \"T2\"\n> > islandReadSummary <- function(x)\n> + {\n> + g <- extendReads(x, seqLen = 200)\n> + s <- slice(coverage(g, 1, max(end(g))), lower = 1)\n> + tab <- table(viewSums(s) / 200)\n> + ans <- data.frame(nread = as.numeric(names(tab)), count = as.numeric(tab))\n> + ans\n> + }\n> > nread.islands <- as(gdApply(E1, islandReadSummary), \"data.frame\")\n> There were 50 or more warnings (use warnings() to see the first 50)\n> > xyplot(log(count) ~ nread | sample,\n> +        nread.islands,\n> +        subset = (chromosome == \"chr19\" & nread <= 40),\n> +        layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n> Error in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel,  : \n>   need at least one panel\n> > \n> \n> Can anybody shed some light?\n\nWhat does return the command below ?\nstr(subset(nread.islands, chromosome == \"chr19\" & nread <= 40))\n\n\n> Clarification: the warning \"There were 50 or more warnings (use warnings() to see the first 50)\" comes from IRanges. chipseq is using the slightly older start/end convention rather than the newer shift/step convention.\n> \n> Thank you,\n> \n> Ivan\n> \n> \n> \n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "On Tue, 2009-04-28 at 16:58 +0000, ig2ar-saf2 at yahoo.co.uk wrote:\n> Hello everybody,\n> \n> I am working with the yet unreleased package chipseq.\n> \n> There is a very nice xyplot that I am trying to r",
+      "thread_id": "thread-3a348d93da8c",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-f1da0f754b96",
+      "message_id": "<eb555e660904281601k5a697aedid7da3bb3bbdb25fc@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-04-28T23:01:16Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": "<873003.88682.qm@web26606.mail.ukl.yahoo.com>",
+      "references": [
+        "<873003.88682.qm@web26606.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Tue, Apr 28, 2009 at 9:58 AM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello everybody,\n>\n> I am working with the yet unreleased package chipseq.\n>\n> There is a very nice xyplot that I am trying to reproduce from the\n>\n> http://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n>\n> However, R complains saying\n>\n> \"Error in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel, ?:\n> need at least one panel\"\n>\n> What am I doing? This\n>\n>> class(E1)\n> [1] \"GenomeDataList\"\n> attr(,\"package\")\n> [1] \"BSgenome\"\n>> names(E1)\n> [1] \"C1\" \"C2\" \"T1\" \"T2\"\n>> islandReadSummary <- function(x)\n> + {\n> + g <- extendReads(x, seqLen = 200)\n> + s <- slice(coverage(g, 1, max(end(g))), lower = 1)\n> + tab <- table(viewSums(s) / 200)\n> + ans <- data.frame(nread = as.numeric(names(tab)), count = as.numeric(tab))\n> + ans\n> + }\n>> nread.islands <- as(gdApply(E1, islandReadSummary), \"data.frame\")\n> There were 50 or more warnings (use warnings() to see the first 50)\n\nCould you share the output of\n\nstr(nread.islands)\n\n?\n\n>> xyplot(log(count) ~ nread | sample,\n> + ? ? ? ?nread.islands,\n> + ? ? ? ?subset = (chromosome == \"chr19\" & nread <= 40),\n> + ? ? ? ?layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n> Error in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel, ?:\n> ?need at least one panel\n>>\n>\n> Can anybody shed some light?\n>\n> Clarification: the warning \"There were 50 or more warnings (use warnings() to see the first 50)\" comes from IRanges. chipseq is using the slightly older start/end convention rather than the newer shift/step convention.\n>\n\nActually, that's happening inside your 'islandReadSummary' function, where\n\ns <- slice(coverage(g, 1, max(end(g))), lower = 1)\n\nshould now be\n\ns <- slice(coverage(g), lower = 1)\n\n-Deepayan\n\n> Thank you,\n>\n> Ivan\n>\n>\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "On Tue, Apr 28, 2009 at 9:58 AM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello everybody,\n>\n> I am working with the yet unreleased package chipseq.\n>\n> There is a very nice xyplot that I am trying to ",
+      "thread_id": "thread-3a348d93da8c",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-8cd05e19507d",
+      "message_id": "<498760.66566.qm@web26604.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-29T04:23:05Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": "<eb555e660904281601k5a697aedid7da3bb3bbdb25fc@mail.gmail.com>",
+      "references": [
+        "<873003.88682.qm@web26606.mail.ukl.yahoo.com>",
+        "<eb555e660904281601k5a697aedid7da3bb3bbdb25fc@mail.gmail.com>"
+      ],
+      "body_plain": "Hello Deepayan,\n\nThanks for giving me a hand with xyplot.\n\nThe output of str(nread.islands) is\n\n> nread.islands <- as(gdapply(E1, islandReadSummary), \"data.frame\")\n> str(nread.islands)\n'data.frame':    4886 obs. of  4 variables:\n $ nread     : num  1 2 3 4 5 6 7 8 9 10 ...\n $ count     : num  80871 12722 2548 666 176 ...\n $ chromosome: Factor w/ 21 levels \"chr1.fa\",\"chr10.fa\",..: 1 1 1 1 1 1 1 1 1 1 ...\n $ sample    : Factor w/ 4 levels \"C1\",\"C2\",\"T1\",..: 1 1 1 1 1 1 1 1 1 1 ...\n> \n\nAha! I see what you mean. Instead of using\n\nchromosome == \"chr19\"\n\nI should be using\n\nchromosome == \"chr19.fa\"\n\nNow I am logged in remotely to my work computer. Bad connection. I'll try it tomorrow and let you know if it works.\n\nThank you.\n\nIvan\n\n\n\n\n\n----- Original Message ----\nFrom: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nTo: ig2ar-saf2 at yahoo.co.uk\nCc: bioc-sig-sequencing at r-project.org\nSent: Tuesday, 28 April, 2009 19:01:16\nSubject: Re: [Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice  problem.\n\nOn Tue, Apr 28, 2009 at 9:58 AM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello everybody,\n>\n> I am working with the yet unreleased package chipseq.\n>\n> There is a very nice xyplot that I am trying to reproduce from the\n>\n> http://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n>\n> However, R complains saying\n>\n> \"Error in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel,  :\n> need at least one panel\"\n>\n> What am I doing? This\n>\n>> class(E1)\n> [1] \"GenomeDataList\"\n> attr(,\"package\")\n> [1] \"BSgenome\"\n>> names(E1)\n> [1] \"C1\" \"C2\" \"T1\" \"T2\"\n>> islandReadSummary <- function(x)\n> + {\n> + g <- extendReads(x, seqLen = 200)\n> + s <- slice(coverage(g, 1, max(end(g))), lower = 1)\n> + tab <- table(viewSums(s) / 200)\n> + ans <- data.frame(nread = as.numeric(names(tab)), count = as.numeric(tab))\n> + ans\n> + }\n>> nread.islands <- as(gdApply(E1, islandReadSummary), \"data.frame\")\n> There were 50 or more warnings (use warnings() to see the first 50)\n\nCould you share the output of\n\nstr(nread.islands)\n\n?\n\n>> xyplot(log(count) ~ nread | sample,\n> +        nread.islands,\n> +        subset = (chromosome == \"chr19\" & nread <= 40),\n> +        layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n> Error in limits.and.aspect(prepanel.default.xyplot, prepanel = prepanel,  :\n>  need at least one panel\n>>\n>\n> Can anybody shed some light?\n>\n> Clarification: the warning \"There were 50 or more warnings (use warnings() to see the first 50)\" comes from IRanges. chipseq is using the slightly older start/end convention rather than the newer shift/step convention.\n>\n\nActually, that's happening inside your 'islandReadSummary' function, where\n\ns <- slice(coverage(g, 1, max(end(g))), lower = 1)\n\nshould now be\n\ns <- slice(coverage(g), lower = 1)\n\n-Deepayan\n\n> Thank you,\n>\n> Ivan\n>\n>\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hello Deepayan,\n\nThanks for giving me a hand with xyplot.\n\nThe output of str(nread.islands) is\n\n> nread.islands <- as(gdapply(E1, islandReadSummary), \"data.frame\")\n> str(nread.islands)\n'data.frame':  ",
+      "thread_id": "thread-3a348d93da8c",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-1db16f338301",
+      "message_id": "<A65D02AEFC242246A1C7BCC171374A51014F7685684C@DJFEXMBX01.djf.agrsci.dk>",
+      "from_name": "João Fadista",
+      "from_email_hash": "8db2d3c050bafdf137687fb380238bdbe5e4d844a9125872df3076652d3b0a1b",
+      "date": "2009-04-29T14:19:53Z",
+      "subject": "[Bioc-sig-seq] call genomic structural variation",
+      "subject_clean": "[Bioc-sig-seq] call genomic structural variation",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090429/3cc9f876/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090429/3cc9f876/attachment.pl>",
+      "thread_id": "thread-1db16f338301",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-2cfade1dd195",
+      "message_id": "<49F86334.4050600@ebi.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+      "date": "2009-04-29T14:24:52Z",
+      "subject": "[Bioc-sig-seq] call genomic structural variation",
+      "subject_clean": "[Bioc-sig-seq] call genomic structural variation",
+      "in_reply_to": "<A65D02AEFC242246A1C7BCC171374A51014F7685684C@DJFEXMBX01.djf.agrsci.dk>",
+      "references": [
+        "<A65D02AEFC242246A1C7BCC171374A51014F7685684C@DJFEXMBX01.djf.agrsci.dk>"
+      ],
+      "body_plain": "I thought MAQ had its own indel caller?\n\nJo?o Fadista wrote:\n> Hi,\n> \n> I would like to know if there is any package (maybe ShortRead or Biostrings) that has some specific functions to call structural variations (CNVs and indels) in a genome given Solexa reads mapped by MAQ.\n> \n> \n> Thanks in advance,\n> Jo?o\n> \n> \t[[alternative HTML version deleted]]\n> \n> \n> \n> ------------------------------------------------------------------------\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "I thought MAQ had its own indel caller?\n\nJo?o Fadista wrote:\n> Hi,\n> \n> I would like to know if there is any package (maybe ShortRead or Biostrings) that has some specific functions to call structural",
+      "thread_id": "thread-1db16f338301",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-66166b537681",
+      "message_id": "<A65D02AEFC242246A1C7BCC171374A51014F7685684D@DJFEXMBX01.djf.agrsci.dk>",
+      "from_name": "João Fadista",
+      "from_email_hash": "8db2d3c050bafdf137687fb380238bdbe5e4d844a9125872df3076652d3b0a1b",
+      "date": "2009-04-29T14:25:42Z",
+      "subject": "[Bioc-sig-seq] call genomic structural variation",
+      "subject_clean": "[Bioc-sig-seq] call genomic structural variation",
+      "in_reply_to": "<49F86334.4050600@ebi.ac.uk>",
+      "references": [
+        "<A65D02AEFC242246A1C7BCC171374A51014F7685684C@DJFEXMBX01.djf.agrsci.dk>",
+        "<49F86334.4050600@ebi.ac.uk>"
+      ],
+      "body_plain": "Yes, but I want to try other callers... \n\n-----Original Message-----\nFrom: Cei Abreu-Goodger [mailto:cei at ebi.ac.uk] \nSent: Wednesday, April 29, 2009 4:25 PM\nTo: Jo?o Fadista\nCc: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] call genomic structural variation\n\nI thought MAQ had its own indel caller?\n\nJo?o Fadista wrote:\n> Hi,\n> \n> I would like to know if there is any package (maybe ShortRead or Biostrings) that has some specific functions to call structural variations (CNVs and indels) in a genome given Solexa reads mapped by MAQ.\n> \n> \n> Thanks in advance,\n> Jo?o\n> \n> \t[[alternative HTML version deleted]]\n> \n> \n> \n> ----------------------------------------------------------------------\n> --\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Yes, but I want to try other callers... \n\n-----Original Message-----\nFrom: Cei Abreu-Goodger [mailto:cei at ebi.ac.uk] \nSent: Wednesday, April 29, 2009 4:25 PM\nTo: Jo?o Fadista\nCc: bioc-sig-sequencing",
+      "thread_id": "thread-1db16f338301",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-0e2c7c5c2067",
+      "message_id": "<B8A90681-4090-4649-81DB-0BB4ED6E87E9@stat.berkeley.edu>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "9a03c24fb214ead4f1fb06e73398fa7d78699f400998d0e2afa9e2804a617dbc",
+      "date": "2009-04-29T16:47:45Z",
+      "subject": "[Bioc-sig-seq] how to identify differentially expressed genes?",
+      "subject_clean": "[Bioc-sig-seq] how to identify differentially expressed genes?",
+      "in_reply_to": "<533262.64177.qm@web36901.mail.mud.yahoo.com>",
+      "references": [
+        "<533262.64177.qm@web36901.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "Joseph\n\nThat are no standard pipeline for RNA-Seq experiments.\n\nKasper\n\nOn Apr 27, 2009, at 17:23 , joseph wrote:\n\n> Hi\n> my RNA-seq experiment consists of 4 illumina paired-end lanes (2  \n> from control samples and 2 from treated samples).  After I read in  \n> the data with readAligned(), what other functions or packages should  \n> I use to identify differentially expressed genes?\n> Thanks\n> Joseph\n>\n>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Joseph\n\nThat are no standard pipeline for RNA-Seq experiments.\n\nKasper\n\nOn Apr 27, 2009, at 17:23 , joseph wrote:\n\n> Hi\n> my RNA-seq experiment consists of 4 illumina paired-end lanes (2  \n> from cont",
+      "thread_id": "thread-4a8af8d38e58",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-764a9ac209c1",
+      "message_id": "<804147.99600.qm@web26605.mail.ukl.yahoo.com>",
+      "from_name": "ig2ar-saf2 at yahoo.co.uk",
+      "from_email_hash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+      "date": "2009-04-29T21:47:47Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": "<498760.66566.qm@web26604.mail.ukl.yahoo.com>",
+      "references": [
+        "<873003.88682.qm@web26606.mail.ukl.yahoo.com>",
+        "<eb555e660904281601k5a697aedid7da3bb3bbdb25fc@mail.gmail.com>",
+        "<498760.66566.qm@web26604.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "Hi Deepayan,\n\nI had a partial victory with xyplot.\n\nChanging chromosome == \"chr19\" to chromosome == \"chr19.fa\" indeed fixed the problem.\n\nI can plot to my screen now doing\n\nxyplot(log(count) ~ nread | sample,\n        as(gdapply(E1, islandReadSummary), \"data.frame\"),\n        subset = (chromosome == \"chr19.fa\" & nread <= 40),\n        layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n\nIts a very nice 4-paneled figure for control 1, control 2, treatment 1 and treatment 2.\n\nThe not so successful story is when I try to plot to an eps file. I do\n\npostscript(file = fileOutputGraph,\n            horizontal=FALSE,\n            onefile=FALSE, # needed for EPS output. It is counterintuitive.\n            paper=\"letter\",\n            #width=8.5, height=8.5/3,\n            width=6, height=8.5,\n            colormodel=\"rgb\")\n\nxyplot(log(count) ~ nread | sample,\n        as(gdapply(E1, islandReadSummary), \"data.frame\"),\n        subset = (chromosome == \"chr19.fa\" & nread <= 40),\n        layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n\nbut the eps that is produced has a beheaded top panel and the figure becomes only black and white.\n\nI can't report any error messages because there are none. I tried to plot to png or pdf but neither worked, no error messages from R. Only output to eps worked to some extent.\n\nCan you give some pointer to solve it?\n\nThank you,\n\nIvan\n\n\n\n\n\n----- Original Message ----\nFrom: \"ig2ar-saf2 at yahoo.co.uk\" <ig2ar-saf2 at yahoo.co.uk>\nTo: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nCc: bioc-sig-sequencing at r-project.org\nSent: Wednesday, 29 April, 2009 0:23:05\nSubject: Re: [Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.\n\n\nHello Deepayan,\n\nThanks for giving me a hand with xyplot.\n\nThe output of str(nread.islands) is\n\n> nread.islands <- as(gdapply(E1, islandReadSummary), \"data.frame\")\n> str(nread.islands)\n'data.frame':    4886 obs. of  4 variables:\n$ nread     : num  1 2 3 4 5 6 7 8 9 10 ...\n$ count     : num  80871 12722 2548 666 176 ...\n$ chromosome: Factor w/ 21 levels \"chr1.fa\",\"chr10.fa\",..: 1 1 1 1 1 1 1 1 1 1 ...\n$ sample    : Factor w/ 4 levels \"C1\",\"C2\",\"T1\",..: 1 1 1 1 1 1 1 1 1 1 ...\n> \n\nAha! I see what you mean. Instead of using\n\nchromosome == \"chr19\"\n\nI should be using\n\nchromosome == \"chr19.fa\"\n\nNow I am logged in remotely to my work computer. Bad connection. I'll try it tomorrow and let you know if it works.\n\nThank you.\n\nIvan\n\n\n\n\n\n----- Original Message ----\nFrom: Deepayan Sarkar <deepayan.sarkar at gmail.com>\nTo: ig2ar-saf2 at yahoo.co.uk\nCc: bioc-sig-sequencing at r-project.org\nSent: Tuesday, 28 April, 2009 19:01:16\nSubject: Re: [Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice  problem.\n\nOn Tue, Apr 28, 2009 at 9:58 AM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n>\n> Hello everybody,\n>\n> I am working with the yet unreleased package chipseq.\n>\n> There is a very nice xyplot that I am trying to reproduce from the\n>\n> http://www.bioconductor.org/workshops/2009/SeattleJan09/ChIP-seq/ChipSeqWorkflow.pdf\n>\n> However, R complains saying\n>\n> \"Error in limits..and.aspect(prepanel.default.xyplot, prepanel = prepanel,  :\n> need at least one panel\"\n>\n> What am I doing? This\n>\n>> class(E1)\n> [1] \"GenomeDataList\"\n> attr(,\"package\")\n> [1] \"BSgenome\"\n>> names(E1)\n> [1] \"C1\" \"C2\" \"T1\" \"T2\"\n>> islandReadSummary <- function(x)\n> + {\n> + g <- extendReads(x, seqLen = 200)\n> + s <- slice(coverage(g, 1, max(end(g))), lower = 1)\n> + tab <- table(viewSums(s) / 200)\n> + ans <- data.frame(nread = as.numeric(names(tab)), count = as.numeric(tab))\n> + ans\n> + }\n>> nread.islands <- as(gdApply(E1, islandReadSummary), \"data.frame\")\n> There were 50 or more warnings (use warnings() to see the first 50)\n\nCould you share the output of\n\nstr(nread.islands)\n\n?\n\n>> xyplot(log(count) ~ nread | sample,\n> +        nread.islands,\n> +        subset = (chromosome == \"chr19\" & nread <= 40),\n> +        layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n> Error in limits..and.aspect(prepanel.default.xyplot, prepanel = prepanel,  :\n>  need at least one panel\n>>\n>\n> Can anybody shed some light?\n>\n> Clarification: the warning \"There were 50 or more warnings (use warnings() to see the first 50)\" comes from IRanges. chipseq is using the slightly older start/end convention rather than the newer shift/step convention.\n>\n\nActually, that's happening inside your 'islandReadSummary' function, where\n\ns <- slice(coverage(g, 1, max(end(g))), lower = 1)\n\nshould now be\n\ns <- slice(coverage(g), lower = 1)\n\n-Deepayan\n\n> Thank you,\n>\n> Ivan\n>\n>\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\n\n\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz..ch/mailman/listinfo/bioc-sig-sequencing\n\n\n\n      \n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: eraseme.eps\nType: image/x-eps\nSize: 12288 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090429/ec48ec5f/attachment-0001.bin>",
+      "body_snippet": "Hi Deepayan,\n\nI had a partial victory with xyplot.\n\nChanging chromosome == \"chr19\" to chromosome == \"chr19.fa\" indeed fixed the problem.\n\nI can plot to my screen now doing\n\nxyplot(log(count) ~ nread |",
+      "thread_id": "thread-3a348d93da8c",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-744652f87c57",
+      "message_id": "<264855a00904291527v932cae7i5b3ffead5613e077@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "d3b2169ffaaea1999a7a7b6290f8606b140e4c4584ca87b961aa66a7047b372c",
+      "date": "2009-04-29T22:27:40Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": "<804147.99600.qm@web26605.mail.ukl.yahoo.com>",
+      "references": [
+        "<873003.88682.qm@web26606.mail.ukl.yahoo.com>",
+        "<eb555e660904281601k5a697aedid7da3bb3bbdb25fc@mail.gmail.com>",
+        "<498760.66566.qm@web26604.mail.ukl.yahoo.com>",
+        "<804147.99600.qm@web26605.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090429/186b5633/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090429/186b5633/attachment.pl>",
+      "thread_id": "thread-3a348d93da8c",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-eb450696b9bb",
+      "message_id": "<eb555e660904291528t6ee66170w8f22019b42a85590@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-04-29T22:28:12Z",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "subject_clean": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "in_reply_to": "<804147.99600.qm@web26605.mail.ukl.yahoo.com>",
+      "references": [
+        "<873003.88682.qm@web26606.mail.ukl.yahoo.com>",
+        "<eb555e660904281601k5a697aedid7da3bb3bbdb25fc@mail.gmail.com>",
+        "<498760.66566.qm@web26604.mail.ukl.yahoo.com>",
+        "<804147.99600.qm@web26605.mail.ukl.yahoo.com>"
+      ],
+      "body_plain": "On Wed, Apr 29, 2009 at 2:47 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n> Hi Deepayan,\n>\n> I had a partial victory with xyplot.\n>\n> Changing chromosome == \"chr19\" to chromosome == \"chr19.fa\" indeed fixed the problem.\n>\n> I can plot to my screen now doing\n>\n> xyplot(log(count) ~ nread | sample,\n> ? ? ? ?as(gdapply(E1, islandReadSummary), \"data.frame\"),\n> ? ? ? ?subset = (chromosome == \"chr19.fa\" & nread <= 40),\n> ? ? ? ?layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n>\n> Its a very nice 4-paneled figure for control 1, control 2, treatment 1 and treatment 2.\n>\n> The not so successful story is when I try to plot to an eps file. I do\n>\n> postscript(file = fileOutputGraph,\n> ? ? ? ? ? ?horizontal=FALSE,\n> ? ? ? ? ? ?onefile=FALSE, # needed for EPS output. It is counterintuitive.\n> ? ? ? ? ? ?paper=\"letter\",\n> ? ? ? ? ? ?#width=8.5, height=8.5/3,\n> ? ? ? ? ? ?width=6, height=8.5,\n> ? ? ? ? ? ?colormodel=\"rgb\")\n>\n> xyplot(log(count) ~ nread | sample,\n> ? ? ? ?as(gdapply(E1, islandReadSummary), \"data.frame\"),\n> ? ? ? ?subset = (chromosome == \"chr19.fa\" & nread <= 40),\n> ? ? ? ?layout = c(1, 4), pch = 16, type = c(\"p\", \"g\"))\n>\n> but the eps that is produced has a beheaded top panel and the figure becomes only black and white.\n\nSee ?trellis.device for the color issue.\n\nAre you aware that you need to say\n\ndev.off()\n\nto complete writing your EPS/PDF/PNG files? Try that and let us know\nif you see something useful.\n\n-Deepayan",
+      "body_snippet": "On Wed, Apr 29, 2009 at 2:47 PM,  <ig2ar-saf2 at yahoo.co.uk> wrote:\n> Hi Deepayan,\n>\n> I had a partial victory with xyplot.\n>\n> Changing chromosome == \"chr19\" to chromosome == \"chr19.fa\" indeed fixed",
+      "thread_id": "thread-3a348d93da8c",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-8db920147ab3",
+      "message_id": "<2c8757af0904300722x1e07c31av945f83f7e425b4e0@mail.gmail.com>",
+      "from_name": "Dan Bolser",
+      "from_email_hash": "67a9076c733a86ea6e6c9bc7ba8c0b60fbdecc5e9e6a4791158310dfba72fe51",
+      "date": "2009-04-30T14:22:28Z",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "subject_clean": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "in_reply_to": "<49F5AB16.6000307@med.umich.edu>",
+      "references": [
+        "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>",
+        "<49F5AB16.6000307@med.umich.edu>"
+      ],
+      "body_plain": "2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n> There is some older information from BioC2008 here (starting on page 12):\n>\n> http://www.bioconductor.org/workshops/2008/BioC2008/labs/PairwiseSequenceAlignments/Alignments.pdf\n>\n> Or you could search the Bioc-sig-seq listserv for newer information:\n>\n> http://www.google.com/search?hl=en&as_q=adapter&as_epq=&as_oq=&as_eq=&num=10&lr=&as_filetype=&ft=i&as_sitesearch=https%3A%2F%2Fstat.ethz.ch%2Fpipermail%2Fbioc-sig-sequencing%2F&as_qdr=all&as_rights=&as_occt=any&cr=&as_nlo=&as_nhi=&safe=images\n\nIs there a wiki where this info gets logged?\n\n\n> Best,\n>\n> Jim\n>\n>\n> Xiang Xu wrote:\n>>\n>> Hello all,\n>>\n>> Is there someone can show me some software or tools for trimming the\n>> adaptors of Solexa short reads? Do you have any protocol for analysis\n>> sequencing data of gene expression and small RNA?\n>>\n>> Thanks in advance.\n>>\n>> Regards,\n>>\n>> Xiang Xu\n>>\n>> ? ? ? ?[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n> --\n> James W. MacDonald, M.S.\n> Biostatistician\n> Douglas Lab\n> University of Michigan\n> Department of Human Genetics\n> 5912 Buhl\n> 1241 E. Catherine St.\n> Ann Arbor MI 48109-5618\n> 734-615-7826\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n> There is some older information from BioC2008 here (starting on page 12):\n>\n> http://www.bioconductor.org/workshops/2008/BioC2008/labs/Pairwi",
+      "thread_id": "thread-fa3e6057edda",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-f4daaf957a56",
+      "message_id": "<49F9BD6B.7000108@med.umich.edu>",
+      "from_name": "James W. MacDonald",
+      "from_email_hash": "51e0486782bd6ed6ad0d8d179dbc9204aca523620b6842837909c743527fce1d",
+      "date": "2009-04-30T15:02:03Z",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "subject_clean": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "in_reply_to": "<2c8757af0904300722x1e07c31av945f83f7e425b4e0@mail.gmail.com>",
+      "references": [
+        "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>",
+        "<49F5AB16.6000307@med.umich.edu>",
+        "<2c8757af0904300722x1e07c31av945f83f7e425b4e0@mail.gmail.com>"
+      ],
+      "body_plain": "Dan Bolser wrote:\n> 2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n>> There is some older information from BioC2008 here (starting on page 12):\n>>\n>> http://www.bioconductor.org/workshops/2008/BioC2008/labs/PairwiseSequenceAlignments/Alignments.pdf\n>>\n>> Or you could search the Bioc-sig-seq listserv for newer information:\n>>\n>> http://www.google.com/search?hl=en&as_q=adapter&as_epq=&as_oq=&as_eq=&num=10&lr=&as_filetype=&ft=i&as_sitesearch=https%3A%2F%2Fstat.ethz.ch%2Fpipermail%2Fbioc-sig-sequencing%2F&as_qdr=all&as_rights=&as_occt=any&cr=&as_nlo=&as_nhi=&safe=images\n> \n> Is there a wiki where this info gets logged?\n\nUnfortunately, no (or fortunately, if you are the person charged with \nupdating the wiki). We have dabbled a bit with using a wiki to track \ninformation or certain long-running discussions, but it's like having a \nmicrowave at work - most people want to use it, but nobody has the time \nor inclination to keep it clean.\n\nFortunately there are many people who subscribe to the various BioC \nlists who are more than helpful, and our friend google is really good at \nfinding their responses, given the correct search string. So we rely on \nthe list archives as the primary store of information rather than a wiki.\n\nBest,\n\nJim\n\n> \n> \n>> Best,\n>>\n>> Jim\n>>\n>>\n>> Xiang Xu wrote:\n>>> Hello all,\n>>>\n>>> Is there someone can show me some software or tools for trimming the\n>>> adaptors of Solexa short reads? Do you have any protocol for analysis\n>>> sequencing data of gene expression and small RNA?\n>>>\n>>> Thanks in advance.\n>>>\n>>> Regards,\n>>>\n>>> Xiang Xu\n>>>\n>>>        [[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> --\n>> James W. MacDonald, M.S.\n>> Biostatistician\n>> Douglas Lab\n>> University of Michigan\n>> Department of Human Genetics\n>> 5912 Buhl\n>> 1241 E. Catherine St.\n>> Ann Arbor MI 48109-5618\n>> 734-615-7826\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n\n-- \nJames W. MacDonald, M.S.\nBiostatistician\nDouglas Lab\nUniversity of Michigan\nDepartment of Human Genetics\n5912 Buhl\n1241 E. Catherine St.\nAnn Arbor MI 48109-5618\n734-615-7826",
+      "body_snippet": "Dan Bolser wrote:\n> 2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n>> There is some older information from BioC2008 here (starting on page 12):\n>>\n>> http://www.bioconductor.org/workshops/20",
+      "thread_id": "thread-fa3e6057edda",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-f13b419f968f",
+      "message_id": "<2c8757af0904300847t7e7cf5d7lafb94919e3ca6f@mail.gmail.com>",
+      "from_name": "Dan Bolser",
+      "from_email_hash": "67a9076c733a86ea6e6c9bc7ba8c0b60fbdecc5e9e6a4791158310dfba72fe51",
+      "date": "2009-04-30T15:47:18Z",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "subject_clean": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "in_reply_to": "<49F9BD6B.7000108@med.umich.edu>",
+      "references": [
+        "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>",
+        "<49F5AB16.6000307@med.umich.edu>",
+        "<2c8757af0904300722x1e07c31av945f83f7e425b4e0@mail.gmail.com>",
+        "<49F9BD6B.7000108@med.umich.edu>"
+      ],
+      "body_plain": "2009/4/30 James W. MacDonald <jmacdon at med.umich.edu>:\n>\n>\n> Dan Bolser wrote:\n>>\n>> 2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n>>>\n>>> There is some older information from BioC2008 here (starting on page 12):\n>>>\n>>>\n>>> http://www.bioconductor.org/workshops/2008/BioC2008/labs/PairwiseSequenceAlignments/Alignments.pdf\n>>>\n>>> Or you could search the Bioc-sig-seq listserv for newer information:\n>>>\n>>>\n>>> http://www.google.com/search?hl=en&as_q=adapter&as_epq=&as_oq=&as_eq=&num=10&lr=&as_filetype=&ft=i&as_sitesearch=https%3A%2F%2Fstat.ethz.ch%2Fpipermail%2Fbioc-sig-sequencing%2F&as_qdr=all&as_rights=&as_occt=any&cr=&as_nlo=&as_nhi=&safe=images\n>>\n>> Is there a wiki where this info gets logged?\n>\n> Unfortunately, no (or fortunately, if you are the person charged with\n> updating the wiki). We have dabbled a bit with using a wiki to track\n> information or certain long-running discussions, but it's like having a\n> microwave at work - most people want to use it, but nobody has the time or\n> inclination to keep it clean.\n\nGood analogy ;-)\n\n\n> Fortunately there are many people who subscribe to the various BioC lists\n> who are more than helpful, and our friend google is really good at finding\n> their responses, given the correct search string. So we rely on the list\n> archives as the primary store of information rather than a wiki.\n\n\nYeah, but for simple 'how-to's and the like, I love to have dedicated\ncategorized pages. My personal approach is to keep rough notes when\nlearning a new package, and it would be easy to do that on a wiki. The\nresulting 'log' could then be tidied up into a (series of) simple\n'how-to's. I know it doesn't sound like much, but at least seeing the\nfunctions that people use in use can be a big help to learning.\n\nI'll try to log some of my explorations somewhere on bioinformatics.org or OWW.\n\n\nCheers,\nDan.\n\n\n> Best,\n>\n> Jim\n>\n>>\n>>\n>>> Best,\n>>>\n>>> Jim\n>>>\n>>>\n>>> Xiang Xu wrote:\n>>>>\n>>>> Hello all,\n>>>>\n>>>> Is there someone can show me some software or tools for trimming the\n>>>> adaptors of Solexa short reads? Do you have any protocol for analysis\n>>>> sequencing data of gene expression and small RNA?\n>>>>\n>>>> Thanks in advance.\n>>>>\n>>>> Regards,\n>>>>\n>>>> Xiang Xu\n>>>>\n>>>> ? ? ? [[alternative HTML version deleted]]\n>>>>\n>>>> _______________________________________________\n>>>> Bioc-sig-sequencing mailing list\n>>>> Bioc-sig-sequencing at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>> --\n>>> James W. MacDonald, M.S.\n>>> Biostatistician\n>>> Douglas Lab\n>>> University of Michigan\n>>> Department of Human Genetics\n>>> 5912 Buhl\n>>> 1241 E. Catherine St.\n>>> Ann Arbor MI 48109-5618\n>>> 734-615-7826\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>\n> --\n> James W. MacDonald, M.S.\n> Biostatistician\n> Douglas Lab\n> University of Michigan\n> Department of Human Genetics\n> 5912 Buhl\n> 1241 E. Catherine St.\n> Ann Arbor MI 48109-5618\n> 734-615-7826\n>",
+      "body_snippet": "2009/4/30 James W. MacDonald <jmacdon at med.umich.edu>:\n>\n>\n> Dan Bolser wrote:\n>>\n>> 2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n>>>\n>>> There is some older information from BioC2008 he",
+      "thread_id": "thread-fa3e6057edda",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-de4fdb26cc3c",
+      "message_id": "<20090430155726.GA13640@biocluster.ucr.edu>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2009-04-30T15:57:26Z",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "subject_clean": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "in_reply_to": "<49F9BD6B.7000108@med.umich.edu>",
+      "references": [
+        "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>",
+        "<49F5AB16.6000307@med.umich.edu>",
+        "<2c8757af0904300722x1e07c31av945f83f7e425b4e0@mail.gmail.com>",
+        "<49F9BD6B.7000108@med.umich.edu>"
+      ],
+      "body_plain": "I would use the trimLRPatterns function in Biostrings that Patrick Aboyoun \nimplemented recently (available in BioC 2.4). The function does exactly what \nis needed for trimming adaptors in short read data sets, e.g. small RNA \nexperiments. In addition, it runs really fast. \n\nHere is a short example from one of our recent workshops on short read analysis\nwith BioC:\nhttp://htseq.ucr.edu/HT_BioC_Manual#TrimmingofFlankingSequences\n\n\nThomas\n\n\nOn Thu, Apr 30, 2009 at 11:02:03AM -0400, James W. MacDonald wrote:\n> \n> \n> Dan Bolser wrote:\n> >2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n> >>There is some older information from BioC2008 here (starting on page 12):\n> >>\n> >>http://www.bioconductor.org/workshops/2008/BioC2008/labs/PairwiseSequenceAlignments/Alignments.pdf\n> >>\n> >>Or you could search the Bioc-sig-seq listserv for newer information:\n> >>\n> >>http://www.google.com/search?hl=en&as_q=adapter&as_epq=&as_oq=&as_eq=&num=10&lr=&as_filetype=&ft=i&as_sitesearch=https%3A%2F%2Fstat.ethz.ch%2Fpipermail%2Fbioc-sig-sequencing%2F&as_qdr=all&as_rights=&as_occt=any&cr=&as_nlo=&as_nhi=&safe=images\n> >\n> >Is there a wiki where this info gets logged?\n> \n> Unfortunately, no (or fortunately, if you are the person charged with \n> updating the wiki). We have dabbled a bit with using a wiki to track \n> information or certain long-running discussions, but it's like having a \n> microwave at work - most people want to use it, but nobody has the time \n> or inclination to keep it clean.\n> \n> Fortunately there are many people who subscribe to the various BioC \n> lists who are more than helpful, and our friend google is really good at \n> finding their responses, given the correct search string. So we rely on \n> the list archives as the primary store of information rather than a wiki.\n> \n> Best,\n> \n> Jim\n> \n> >\n> >\n> >>Best,\n> >>\n> >>Jim\n> >>\n> >>\n> >>Xiang Xu wrote:\n> >>>Hello all,\n> >>>\n> >>>Is there someone can show me some software or tools for trimming the\n> >>>adaptors of Solexa short reads? Do you have any protocol for analysis\n> >>>sequencing data of gene expression and small RNA?\n> >>>\n> >>>Thanks in advance.\n> >>>\n> >>>Regards,\n> >>>\n> >>>Xiang Xu\n> >>>\n> >>>       [[alternative HTML version deleted]]\n> >>>\n> >>>_______________________________________________\n> >>>Bioc-sig-sequencing mailing list\n> >>>Bioc-sig-sequencing at r-project.org\n> >>>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >>--\n> >>James W. MacDonald, M.S.\n> >>Biostatistician\n> >>Douglas Lab\n> >>University of Michigan\n> >>Department of Human Genetics\n> >>5912 Buhl\n> >>1241 E. Catherine St.\n> >>Ann Arbor MI 48109-5618\n> >>734-615-7826\n> >>\n> >>_______________________________________________\n> >>Bioc-sig-sequencing mailing list\n> >>Bioc-sig-sequencing at r-project.org\n> >>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >>\n> \n> -- \n> James W. MacDonald, M.S.\n> Biostatistician\n> Douglas Lab\n> University of Michigan\n> Department of Human Genetics\n> 5912 Buhl\n> 1241 E. Catherine St.\n> Ann Arbor MI 48109-5618\n> 734-615-7826\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "I would use the trimLRPatterns function in Biostrings that Patrick Aboyoun \nimplemented recently (available in BioC 2.4). The function does exactly what \nis needed for trimming adaptors in short read ",
+      "thread_id": "thread-fa3e6057edda",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-5454fadef28b",
+      "message_id": "<49F9CA7B.1030303@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-04-30T15:57:47Z",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "subject_clean": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "in_reply_to": "<2c8757af0904300847t7e7cf5d7lafb94919e3ca6f@mail.gmail.com>",
+      "references": [
+        "<4a73d6b30904262147y777a34f2tab23393ebe8f2223@mail.gmail.com>",
+        "<49F5AB16.6000307@med.umich.edu>",
+        "<2c8757af0904300722x1e07c31av945f83f7e425b4e0@mail.gmail.com>",
+        "<49F9BD6B.7000108@med.umich.edu>",
+        "<2c8757af0904300847t7e7cf5d7lafb94919e3ca6f@mail.gmail.com>"
+      ],
+      "body_plain": "Dan Bolser wrote:\n> 2009/4/30 James W. MacDonald <jmacdon at med.umich.edu>:\n>>\n>> Dan Bolser wrote:\n>>> 2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n>>>> There is some older information from BioC2008 here (starting on page 12):\n>>>>\n>>>>\n>>>> http://www.bioconductor.org/workshops/2008/BioC2008/labs/PairwiseSequenceAlignments/Alignments.pdf\n>>>>\n>>>> Or you could search the Bioc-sig-seq listserv for newer information:\n>>>>\n>>>>\n>>>> http://www.google.com/search?hl=en&as_q=adapter&as_epq=&as_oq=&as_eq=&num=10&lr=&as_filetype=&ft=i&as_sitesearch=https%3A%2F%2Fstat.ethz.ch%2Fpipermail%2Fbioc-sig-sequencing%2F&as_qdr=all&as_rights=&as_occt=any&cr=&as_nlo=&as_nhi=&safe=images\n>>> Is there a wiki where this info gets logged?\n>> Unfortunately, no (or fortunately, if you are the person charged with\n>> updating the wiki). We have dabbled a bit with using a wiki to track\n>> information or certain long-running discussions, but it's like having a\n>> microwave at work - most people want to use it, but nobody has the time or\n>> inclination to keep it clean.\n> \n> Good analogy ;-)\n> \n> \n>> Fortunately there are many people who subscribe to the various BioC lists\n>> who are more than helpful, and our friend google is really good at finding\n>> their responses, given the correct search string. So we rely on the list\n>> archives as the primary store of information rather than a wiki.\n> \n> \n> Yeah, but for simple 'how-to's and the like, I love to have dedicated\n> categorized pages. My personal approach is to keep rough notes when\n> learning a new package, and it would be easy to do that on a wiki. The\n> resulting 'log' could then be tidied up into a (series of) simple\n> 'how-to's. I know it doesn't sound like much, but at least seeing the\n> functions that people use in use can be a big help to learning.\n> \n> I'll try to log some of my explorations somewhere on bioinformatics.org or OWW.\n\nI think ideally vignettes represent accumulated wisdom on 'how-to', so \nthe 'in-project' way of doing this is to (suggesting to the package \nmaintainer, if necessary) update the relevant vignette. Probably the \nissue is that as information / simple tasks accumulate one faces the \ntask of navigating increasingly daunting documentation. Certainly \nnavigating complex docs on the web can be facilitated by searches, \nhyperlinks, etc., and an interesting direction might be to produce the \nvignettes as HTML documents in addition to pdf. In some ways latex2HTML \nmight be a very straight-forward way of doing this.\n\nMartin\n\n> \n> Cheers,\n> Dan.\n> \n> \n>> Best,\n>>\n>> Jim\n>>\n>>>\n>>>> Best,\n>>>>\n>>>> Jim\n>>>>\n>>>>\n>>>> Xiang Xu wrote:\n>>>>> Hello all,\n>>>>>\n>>>>> Is there someone can show me some software or tools for trimming the\n>>>>> adaptors of Solexa short reads? Do you have any protocol for analysis\n>>>>> sequencing data of gene expression and small RNA?\n>>>>>\n>>>>> Thanks in advance.\n>>>>>\n>>>>> Regards,\n>>>>>\n>>>>> Xiang Xu\n>>>>>\n>>>>>       [[alternative HTML version deleted]]\n>>>>>\n>>>>> _______________________________________________\n>>>>> Bioc-sig-sequencing mailing list\n>>>>> Bioc-sig-sequencing at r-project.org\n>>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>> --\n>>>> James W. MacDonald, M.S.\n>>>> Biostatistician\n>>>> Douglas Lab\n>>>> University of Michigan\n>>>> Department of Human Genetics\n>>>> 5912 Buhl\n>>>> 1241 E. Catherine St.\n>>>> Ann Arbor MI 48109-5618\n>>>> 734-615-7826\n>>>>\n>>>> _______________________________________________\n>>>> Bioc-sig-sequencing mailing list\n>>>> Bioc-sig-sequencing at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>>\n>> --\n>> James W. MacDonald, M.S.\n>> Biostatistician\n>> Douglas Lab\n>> University of Michigan\n>> Department of Human Genetics\n>> 5912 Buhl\n>> 1241 E. Catherine St.\n>> Ann Arbor MI 48109-5618\n>> 734-615-7826\n>>\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Dan Bolser wrote:\n> 2009/4/30 James W. MacDonald <jmacdon at med.umich.edu>:\n>>\n>> Dan Bolser wrote:\n>>> 2009/4/27 James W. MacDonald <jmacdon at med.umich.edu>:\n>>>> There is some older information f",
+      "thread_id": "thread-fa3e6057edda",
+      "thread_depth": 5,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-049b44264412",
+      "message_id": "<C61F22AA.9973%grobertson@bcgsc.ca>",
+      "from_name": "Gordon Robertson",
+      "from_email_hash": "ea459d42215bf8d59f10f3441b71bf30ab8f5cc556cda1946588ea0dc94cba59",
+      "date": "2009-04-30T16:40:58Z",
+      "subject": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "subject_clean": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I'm starting to learn to use ShortRead, so apologize if I've missed\nsomething simple. I've read the relevant sections of the three PDF docs that\nare available from the ShortRead web page.\n\nI'm using R-2.9.0, compiled from source on 64-bit RehHat Enterprise Linux,\nand installed ShortRead within the past two weeks.\n\nBriefly, I'm able to load an Illumina Export file, but not the corresponding\nMaq file. I don't understand the MAQmap error message, but I don't get such\nan error when I change the dirPath, pattern and type and rerun to load the\nSolexaExport file, which is in the folder above the 'map' file. And I seem\nto be able to start to load the 'map' file using an incorrect 'MAQMapview'\ntype.\n\n1. Attempt to read a MAQ 0.7.1 'map' file\n> readAligned(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/\",\npattern=\"30WLMAAXX_5.map\", type=\"MAQMap\")\nError: UserArgumentMismatch\n  'dirPath', 'pattern' must be 'character(1)'\n\n2. Try the Illumina 'export' file\n> readAligned(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/\",\npattern=\"30WLMAAXX_5_export.txt\", type=\"SolexaExport\")\nclass: AlignedRead\nlength: 15256798 reads; width: 76 cycles\nchromosome: QC QC ... QC QC\nposition: NA NA ... NA NA\nstrand: NA NA ... NA NA\nalignQuality: NumericQuality\nalignData varLabels: run lane ... y filtering\n>\n\n3. As a test, I can apparently start to load the 'map' file using\ntype=MAQMapview. \n> readAligned('/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/',\npattern='30WLMAAXX_5.map', type='MAQMapview')\nError: Input/Output\n  'readAligned' failed to parse files\n  dirPath: '/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/'\n  pattern: '30WLMAAXX_5.map'\n  type: 'MAQMapview'\n  error: scan() expected 'an integer', got\n'vv####################]}################?##Mq###7,##^|D#####X~!D######'\n\n--\nCould you help me understand why I'm unable to readAligned the 'map' file?\nAgain, I apologize if I've missed something simple. Thanks for your help.\n\nG\n-- \nGordon Robertson\nGene Regulation Informatics\nCanada's Michael Smith Genome Sciences Centre\nVancouver BC Canada\nwww.bcgsc.ca",
+      "body_snippet": "I'm starting to learn to use ShortRead, so apologize if I've missed\nsomething simple. I've read the relevant sections of the three PDF docs that\nare available from the ShortRead web page.\n\nI'm using R",
+      "thread_id": "thread-049b44264412",
+      "thread_depth": 0,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-e6690cbd740c",
+      "message_id": "<49F9EAEF.4080508@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-04-30T18:16:15Z",
+      "subject": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "subject_clean": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "in_reply_to": "<C61F22AA.9973%grobertson@bcgsc.ca>",
+      "references": [
+        "<C61F22AA.9973%grobertson@bcgsc.ca>"
+      ],
+      "body_plain": "Hi Gordon --\n\nGordon Robertson wrote:\n> I'm starting to learn to use ShortRead, so apologize if I've missed\n> something simple. I've read the relevant sections of the three PDF docs that\n> are available from the ShortRead web page.\n> \n> I'm using R-2.9.0, compiled from source on 64-bit RehHat Enterprise Linux,\n> and installed ShortRead within the past two weeks.\n> \n> Briefly, I'm able to load an Illumina Export file, but not the corresponding\n> Maq file. I don't understand the MAQmap error message, but I don't get such\n> an error when I change the dirPath, pattern and type and rerun to load the\n> SolexaExport file, which is in the folder above the 'map' file. And I seem\n> to be able to start to load the 'map' file using an incorrect 'MAQMapview'\n> type.\n> \n> 1. Attempt to read a MAQ 0.7.1 'map' file\n>> readAligned(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/\",\n> pattern=\"30WLMAAXX_5.map\", type=\"MAQMap\")\n> Error: UserArgumentMismatch\n>   'dirPath', 'pattern' must be 'character(1)'\n\nI think the problem is that your 'pattern' isn't specific enough, e.g.,\n\n   list.files(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/\",\n              pattern=\"30WLMAAXX_5.map\")\n\nmatches more than one file; often \"^30WLMAAXX_5.map$\" is more appropriate.\n\nMartin\n\n> \n> 2. Try the Illumina 'export' file\n>> readAligned(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/\",\n> pattern=\"30WLMAAXX_5_export.txt\", type=\"SolexaExport\")\n> class: AlignedRead\n> length: 15256798 reads; width: 76 cycles\n> chromosome: QC QC ... QC QC\n> position: NA NA ... NA NA\n> strand: NA NA ... NA NA\n> alignQuality: NumericQuality\n> alignData varLabels: run lane ... y filtering\n> \n> 3. As a test, I can apparently start to load the 'map' file using\n> type=MAQMapview. \n>> readAligned('/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/',\n> pattern='30WLMAAXX_5.map', type='MAQMapview')\n> Error: Input/Output\n>   'readAligned' failed to parse files\n>   dirPath: '/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/'\n>   pattern: '30WLMAAXX_5.map'\n>   type: 'MAQMapview'\n>   error: scan() expected 'an integer', got\n> 'vv####################]}################?##Mq###7,##^|D#####X~!D######'\n> \n> --\n> Could you help me understand why I'm unable to readAligned the 'map' file?\n> Again, I apologize if I've missed something simple. Thanks for your help.\n> \n> G\n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Gordon --\n\nGordon Robertson wrote:\n> I'm starting to learn to use ShortRead, so apologize if I've missed\n> something simple. I've read the relevant sections of the three PDF docs that\n> are availab",
+      "thread_id": "thread-049b44264412",
+      "thread_depth": 1,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-fd1583ca7534",
+      "message_id": "<C61F3BC5.9991%grobertson@bcgsc.ca>",
+      "from_name": "Gordon Robertson",
+      "from_email_hash": "ea459d42215bf8d59f10f3441b71bf30ab8f5cc556cda1946588ea0dc94cba59",
+      "date": "2009-04-30T18:28:05Z",
+      "subject": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "subject_clean": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "in_reply_to": "<49F9EAEF.4080508@fhcrc.org>",
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090430/e80c64be/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090430/e80c64be/attachment.pl>",
+      "thread_id": "thread-049b44264412",
+      "thread_depth": 2,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-a894a8c2e579",
+      "message_id": "<49F9F252.5090606@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-04-30T18:47:46Z",
+      "subject": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "subject_clean": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "in_reply_to": "<C61F3BC5.9991%grobertson@bcgsc.ca>",
+      "references": [
+        "<C61F3BC5.9991%grobertson@bcgsc.ca>"
+      ],
+      "body_plain": "Hi Gordon --\n\nGordon Robertson wrote:\n> Thanks, Martin,\n> \n> Given the folder contents, the original pattern would have matched both \n> ?map? and ?mapstats?:\n> {xhost06}/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq> ll\n> ...\n> -rw-rw-r--  1 rvarhol slx_service 508774 Apr 22 15:52 30WLMAAXX_5.map\n> -rw-rw-r--  1 rvarhol slx_service      2 Apr 22 15:52 30WLMAAXX_5.mapstats\n> ...\n> \n> The more specific pattern that you suggested worked:\n>>  readAligned(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/\", \n> pattern=\"^30WLMAAXX_5.map$\", type=\"MAQMap\")\n> class: AlignedRead\n> length: 9057150 reads; width: 50 cycles\n> chromosome: 1 1 ... Y Y\n> position: 2 9 ... 57442746 57443286\n> strand: - - ... - -\n> alignQuality: IntegerQuality\n> alignData varLabels: nMismatchBestHit mismatchQuality nExactMatch24 \n> nOneMismatch24\n> ...\n> \n> Note though that when I specified the incorrect type=MAQMapview, pattern \n> ambiguity seemed not to be an issue. I?d expect to see the ambiguity \n> error in both MAQMap and MAQMapview cases.\n\nyes and this is also the reason for the poor error message -- MQAMap \ndiffers from most input functions in that it really expects just a \nsingle file for input; MAQMapview would have happily read in (to a \nsingle AlignedRead object) all files matching the pattern.\n\nI'll try to improve the error message (in the development branch).\n\nMartin\n\n> G\n> \n> On 4/30/09 11:16 AM, \"Martin Morgan\" <mtmorgan at fhcrc.org> wrote:\n> \n>     Hi Gordon --\n> \n>     Gordon Robertson wrote:\n>     >  I'm starting to learn to use ShortRead, so apologize if I've missed\n>     >  something simple. I've read the relevant sections of the three PDF\n>     docs that\n>     >  are available from the ShortRead web page.\n>     >\n>     >  I'm using R-2.9.0, compiled from source on 64-bit RehHat\n>     Enterprise Linux,\n>     >  and installed ShortRead within the past two weeks.\n>     >\n>     >  Briefly, I'm able to load an Illumina Export file, but not the\n>     corresponding\n>     >  Maq file. I don't understand the MAQmap error message, but I don't\n>     get such\n>     >  an error when I change the dirPath, pattern and type and rerun to\n>     load the\n>     >  SolexaExport file, which is in the folder above the 'map' file.\n>     And I seem\n>     >  to be able to start to load the 'map' file using an incorrect\n>     'MAQMapview'\n>     >  type.\n>     >\n>     >  1. Attempt to read a MAQ 0.7.1 'map' file\n>     > > readAligned(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/\",\n>     >  pattern=\"30WLMAAXX_5.map\", type=\"MAQMap\")\n>     >  Error: UserArgumentMismatch\n>     >    'dirPath', 'pattern' must be 'character(1)'\n> \n>     I think the problem is that your 'pattern' isn't specific enough, e.g.,\n> \n>        list.files(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/\",\n>                   pattern=\"30WLMAAXX_5.map\")\n> \n>     matches more than one file; often \"^30WLMAAXX_5.map$\" is more\n>     appropriate.\n> \n>     Martin\n> \n>     >\n>     >  2. Try the Illumina 'export' file\n>     > > readAligned(\"/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/\",\n>     >  pattern=\"30WLMAAXX_5_export.txt\", type=\"SolexaExport\")\n>     >  class: AlignedRead\n>     >  length: 15256798 reads; width: 76 cycles\n>     >  chromosome: QC QC ... QC QC\n>     >  position: NA NA ... NA NA\n>     >  strand: NA NA ... NA NA\n>     >  alignQuality: NumericQuality\n>     >  alignData varLabels: run lane ... y filtering\n>     >\n>     >  3. As a test, I can apparently start to load the 'map' file using\n>     >  type=MAQMapview.\n>     > > readAligned('/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/',\n>     >  pattern='30WLMAAXX_5.map', type='MAQMapview')\n>     >  Error: Input/Output\n>     >    'readAligned' failed to parse files\n>     >    dirPath: '/archive/solexa1_4/analysis/HS1035/30WLMAAXX_5/maq/'\n>     >    pattern: '30WLMAAXX_5.map'\n>     >    type: 'MAQMapview'\n>     >    error: scan() expected 'an integer', got\n>     >\n>     'vv####################]}################?##Mq###7,##^|D#####X~!D######'\n>     >\n>     >  --\n>     >  Could you help me understand why I'm unable to readAligned the\n>     'map' file?\n>     >  Again, I apologize if I've missed something simple. Thanks for\n>     your help.\n>     >\n>     >  G\n> \n> \n>     --\n>     Martin Morgan\n>     Computational Biology / Fred Hutchinson Cancer Research Center\n>     1100 Fairview Ave. N.\n>     PO Box 19024 Seattle, WA 98109\n> \n>     Location: Arnold Building M1 B861\n>     Phone: (206) 667-2793\n> \n> \n> \n> -- \n> Gordon Robertson\n> Gene Regulation Informatics\n> Canada's Michael Smith Genome Sciences Centre\n> Vancouver BC Canada\n> www.bcgsc.ca\n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Gordon --\n\nGordon Robertson wrote:\n> Thanks, Martin,\n> \n> Given the folder contents, the original pattern would have matched both \n> ?map? and ?mapstats?:\n> {xhost06}/archive/solexa1_4/analysis/HS1",
+      "thread_id": "thread-049b44264412",
+      "thread_depth": 3,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-7ccc0185155f",
+      "message_id": "<C61F426F.999F%grobertson@bcgsc.ca>",
+      "from_name": "Gordon Robertson",
+      "from_email_hash": "ea459d42215bf8d59f10f3441b71bf30ab8f5cc556cda1946588ea0dc94cba59",
+      "date": "2009-04-30T18:56:31Z",
+      "subject": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "subject_clean": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "in_reply_to": "<49F9F252.5090606@fhcrc.org>",
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090430/82efd2bc/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090430/82efd2bc/attachment.pl>",
+      "thread_id": "thread-049b44264412",
+      "thread_depth": 4,
+      "month": "2009-04"
+    },
+    {
+      "id": "msg-7ff3266644d9",
+      "message_id": "<32F4B2EF-9825-4F96-8AF2-729F5EE9B0D5@stat.berkeley.edu>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "9a03c24fb214ead4f1fb06e73398fa7d78699f400998d0e2afa9e2804a617dbc",
+      "date": "2009-05-01T04:33:08Z",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "subject_clean": "[Bioc-sig-seq] gapped alignment",
+      "in_reply_to": "<20090424194530.GA7587@biocluster.ucr.edu>",
+      "references": [
+        "<91063BD4A9EA054D8452E3C4E6F516F112D4FA@EXCHV2.lj.ad.scripps.edu>",
+        "<20090424162101.GA16111@biocluster.ucr.edu>",
+        "<49F1FCE8.6040705@fhcrc.org>",
+        "<20090424181702.GA17537@biocluster.ucr.edu>",
+        "<49F209F0.8080804@fhcrc.org>",
+        "<20090424194530.GA7587@biocluster.ucr.edu>"
+      ],
+      "body_plain": "On Apr 24, 2009, at 12:45 , Thomas Girke wrote:\n\n> Thanks for pointing this out. I wasn't aware that such a fast 'SW  \n> search'\n> option is now available. This will be very useful for many of my own\n> applications.\n\nThis is simply a consequence of the fact that SW can be pretty fast  \nwhen aligning against a small reference. It won't work in  \n'general' (say mammalian genomes).\n\nKasper",
+      "body_snippet": "On Apr 24, 2009, at 12:45 , Thomas Girke wrote:\n\n> Thanks for pointing this out. I wasn't aware that such a fast 'SW  \n> search'\n> option is now available. This will be very useful for many of my own\n",
+      "thread_id": "thread-dc6600b83f3b",
+      "thread_depth": 6,
+      "month": "2009-04"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-81a3d39bf435",
+      "subject": "[Bioc-sig-seq] Linear interpolation for BED formatted data",
+      "message_count": 2,
+      "participants": [
+        "Wolfgang Huber",
+        "ig2ar-saf2 at yahoo.co.uk"
+      ],
+      "started": "2009-04-08T19:05:03Z",
+      "last_reply": "2009-04-08T19:18:55Z",
+      "root_message_id": "msg-81a3d39bf435"
+    },
+    {
+      "id": "thread-bbbf24f95e9c",
+      "subject": "[Bioc-sig-seq] retrieving from SRA using fasp:",
+      "message_count": 3,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "Vincent Carey",
+        "ig2ar-saf2 at yahoo.co.uk"
+      ],
+      "started": "2009-04-13T20:33:02Z",
+      "last_reply": "2009-04-14T15:08:44Z",
+      "root_message_id": "msg-bbbf24f95e9c"
+    },
+    {
+      "id": "thread-7847a3f4327b",
+      "subject": "[Bioc-sig-seq] filtering using solexa quality scores",
+      "message_count": 5,
+      "participants": [
+        "Cei Abreu-Goodger",
+        "Martin Morgan",
+        "Vincent Carey"
+      ],
+      "started": "2009-04-15T22:08:35Z",
+      "last_reply": "2009-04-15T22:44:04Z",
+      "root_message_id": "msg-7847a3f4327b"
+    },
+    {
+      "id": "thread-0067aa786baf",
+      "subject": "[Bioc-sig-seq] A myriad of classes",
+      "message_count": 8,
+      "participants": [
+        "Deepayan Sarkar",
+        "Martin Morgan",
+        "Michael Lawrence",
+        "ig2ar-saf2 at yahoo.co.uk"
+      ],
+      "started": "2009-04-20T18:19:44Z",
+      "last_reply": "2009-04-20T21:44:26Z",
+      "root_message_id": "msg-0067aa786baf"
+    },
+    {
+      "id": "thread-5230d675789f",
+      "subject": "[Bioc-sig-seq] Rmpi",
+      "message_count": 4,
+      "participants": [
+        "Sean Davis",
+        "Steve Lianoglou",
+        "ig2ar-saf2 at yahoo.co.uk"
+      ],
+      "started": "2009-04-23T01:30:01Z",
+      "last_reply": "2009-04-23T01:40:27Z",
+      "root_message_id": "msg-5230d675789f"
+    },
+    {
+      "id": "thread-61c2a86524a6",
+      "subject": "[Bioc-sig-seq] chipseq package",
+      "message_count": 4,
+      "participants": [
+        "Nicolas Delhomme",
+        "Vincent Carey",
+        "Wu, Xiwei"
+      ],
+      "started": "2009-04-23T15:03:15Z",
+      "last_reply": "2009-04-24T04:29:05Z",
+      "root_message_id": "msg-61c2a86524a6"
+    },
+    {
+      "id": "thread-a99b0f095465",
+      "subject": "[Bioc-sig-seq] Standard 454 quality checks?",
+      "message_count": 2,
+      "participants": [
+        "Dan Bolser",
+        "Martin Morgan"
+      ],
+      "started": "2009-04-23T15:36:43Z",
+      "last_reply": "2009-04-23T16:27:40Z",
+      "root_message_id": "msg-a99b0f095465"
+    },
+    {
+      "id": "thread-cacca1a3f1f1",
+      "subject": "[Bioc-sig-seq] Input from multiple Solexa runs",
+      "message_count": 7,
+      "participants": [
+        "Deepayan Sarkar",
+        "ig2ar-saf2 at yahoo.co.uk"
+      ],
+      "started": "2009-04-23T19:24:01Z",
+      "last_reply": "2009-04-24T01:38:01Z",
+      "root_message_id": "msg-cacca1a3f1f1"
+    },
+    {
+      "id": "thread-d1f21ff793e9",
+      "subject": "[Bioc-sig-seq] Chipseq package",
+      "message_count": 1,
+      "participants": [
+        "Nicolas Delhomme"
+      ],
+      "started": "2009-04-24T09:24:05Z",
+      "last_reply": "2009-04-24T09:24:05Z",
+      "root_message_id": "msg-d1f21ff793e9"
+    },
+    {
+      "id": "thread-dc6600b83f3b",
+      "subject": "[Bioc-sig-seq] gapped alignment",
+      "message_count": 7,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "Lana Schaffer",
+        "Patrick Aboyoun",
+        "Robert Gentleman",
+        "Thomas Girke"
+      ],
+      "started": "2009-04-24T14:42:21Z",
+      "last_reply": "2009-05-01T04:33:08Z",
+      "root_message_id": "msg-dc6600b83f3b"
+    },
+    {
+      "id": "thread-fa3e6057edda",
+      "subject": "[Bioc-sig-seq] About trimming adaptor of Solexa short reads",
+      "message_count": 7,
+      "participants": [
+        "Dan Bolser",
+        "James W. MacDonald",
+        "Martin Morgan",
+        "Thomas Girke",
+        "Xiang Xu"
+      ],
+      "started": "2009-04-27T04:47:52Z",
+      "last_reply": "2009-04-30T15:57:47Z",
+      "root_message_id": "msg-fa3e6057edda"
+    },
+    {
+      "id": "thread-4a8af8d38e58",
+      "subject": "[Bioc-sig-seq] how to identify differentially expressed genes?",
+      "message_count": 2,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "joseph"
+      ],
+      "started": "2009-04-28T00:23:19Z",
+      "last_reply": "2009-04-29T16:47:45Z",
+      "root_message_id": "msg-4a8af8d38e58"
+    },
+    {
+      "id": "thread-3a348d93da8c",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "message_count": 7,
+      "participants": [
+        "Deepayan Sarkar",
+        "Laurent Gautier",
+        "Sean Davis",
+        "ig2ar-saf2 at yahoo.co.uk"
+      ],
+      "started": "2009-04-28T16:58:13Z",
+      "last_reply": "2009-04-29T22:28:12Z",
+      "root_message_id": "msg-3a348d93da8c"
+    },
+    {
+      "id": "thread-a6adf4635d39",
+      "subject": "[Bioc-sig-seq] Error while trying to xyplot. Perhaps a lattice problem.",
+      "message_count": 1,
+      "participants": [
+        "ig2ar-saf2 at yahoo.co.uk"
+      ],
+      "started": "2009-04-28T17:03:45Z",
+      "last_reply": "2009-04-28T17:03:45Z",
+      "root_message_id": "msg-a6adf4635d39"
+    },
+    {
+      "id": "thread-1db16f338301",
+      "subject": "[Bioc-sig-seq] call genomic structural variation",
+      "message_count": 3,
+      "participants": [
+        "Cei Abreu-Goodger",
+        "João Fadista"
+      ],
+      "started": "2009-04-29T14:19:53Z",
+      "last_reply": "2009-04-29T14:25:42Z",
+      "root_message_id": "msg-1db16f338301"
+    },
+    {
+      "id": "thread-049b44264412",
+      "subject": "[Bioc-sig-seq] Problem loading MAQ map file in ShortRead",
+      "message_count": 5,
+      "participants": [
+        "Gordon Robertson",
+        "Martin Morgan"
+      ],
+      "started": "2009-04-30T16:40:58Z",
+      "last_reply": "2009-04-30T18:56:31Z",
+      "root_message_id": "msg-049b44264412"
+    }
+  ]
+}

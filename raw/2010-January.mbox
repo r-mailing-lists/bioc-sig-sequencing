@@ -1,0 +1,3618 @@
+From brian.wilhelm at umontreal.ca  Mon Jan  4 16:17:59 2010
+From: brian.wilhelm at umontreal.ca (Wilhelm Brian)
+Date: Mon, 4 Jan 2010 10:17:59 -0500
+Subject: [Bioc-sig-seq] Illumina vs. ABI Solid
+In-Reply-To: <85E5C11C-16F2-4957-B511-A4B5EF324FD2@stat.berkeley.edu>
+References: <125BD1BB-09F5-4670-8C1B-3E02DB23100A@ircm.qc.ca><bbdc7ed00912221802x257ee3b8n3b40d86365a5f662@mail.gmail.com><4EE82027-7501-40B8-89C0-B77B74EFEEC6@ut.ee>
+	<85E5C11C-16F2-4957-B511-A4B5EF324FD2@stat.berkeley.edu>
+Message-ID: <6557B12CC3987F4CA0C4E0F09FD3F223EE48FA@MAPIUDEM2.sim.umontreal.ca>
+
+> On Dec 23, 2009, at 2:16 AM, Sulev K?ks wrote:
+> 
+> > Hi,
+> > It actually depends... I'm not so convinced on the superiority of
+> Illumina. In fact, I know labs where Illuminas collecting dust.
+> >
+> > We use SOLID 3plus and are very satisfied. One very important issue for
+> us - SOLID is the ONLY platform what allows to preserve strandedness. For
+> any kind of RNA seq applications, this is actually cornerstone for the
+> analysis of transcriptome. Without this information you just throw away
+> substantial part of the data.
+> 
+> This is not true.  I know of at least two library preps for Illumina that
+> preserve strandedness.
+
+The maintenance of strandedness for RNA-seq is completely independent of machine type; as Kasper points out, there are several protocols for getting strand specific RNA-seq data using Illumina machines.
+
+> 
+> > There is no price difference between platforms - but with one run in
+> SOLID you get up to 60 GB of reads. Illumina doesn't reach this yet.
+> 
+> There is a big difference between labs regarding how many reads they get.
+> The market moves pretty fast.  I am not too sure that SOLiD produces the
+> most reads right now.  And as far as I know they produce shorter reads,
+> which is critical for some applications.
+ 
+We have a SOLiD machine in place (3plus) and although it works well, we have never gotten close to getting the upper limit yields reported by either AB test or field labs.  It works well when the sample is properly prepared and good quality.  The development of read number and read length is fairly comparable between Illumina and SOLiD (at least close enough to not make a huge difference).  AB has a kit for 50bp reads and will have a kit for 75bp soon (like Illumina currently has).
+
+> > So, I do not think that Illumina is better than SOLID. There are labs
+> who prefer Illumina, and labs who prefer SOLID. SOLID came out later and
+> lost a lot of market share, but this is not the reason to think its worse
+> that Illu.
+> 
+> One major difference is that most tools right now operate directly on
+> FASTQ files.  This means that they do not operate in colorspace, and a big
+> (possible) advantage of the SOLiD platform is lost.  If you are in a lab
+> with substantial bioinformatics resources this might not be a problem,
+> because you can work around it.  But if not, the selection of tools for
+> the SOLiD platform is - in my impression - much smaller.  And analysis is
+> quickly becoming the the bottleneck for these types of data.
+> 
+
+Our experience as well in analyzing SOLiD data is that although some software works on colourspace data as well as fastq files, having colourspace limits your options for analysis.  It's not yet a problem in terms of being able to carry out analysis but some tools just can't be used.  
+
+It's worth keeping in mind also that the wet-lab sample prep time is shorter for the Illumina than for the SOLiD.
+
+Brian
+
+> Kasper
+> 
+> > Cheers
+> > Sulev
+> >
+> > On 23.12.2009, at 4:02, Steve Lianoglou wrote:
+> >
+> >> Hi,
+> >>
+> >> 2009/12/22 Droit Arnaud <Arnaud.Droit at ircm.qc.ca>:
+> >>> Hi all,
+> >>>
+> >>> The institute where I currently work is in the process of buying a new
+> HT sequencer. We are debating whether we should get an Illumina or a Solid
+> sequencer. I was wondering if anyone of you could give me some advice in
+> terms of analysis. As a bioinformatician using R, I am particularly
+> interested in comparisons in terms of analysis, data manipulation/storage
+> in R, etc. We have some experience analyzing Illumina data but no
+> experience with Solid data.
+> >>
+> >> For whatever its worth, we had someone from The Broad recently give a
+> >> talk about some work he's been doing with RNA-seq.
+> >>
+> >> Near the beginning of the talk he had a slide with the number of
+> >> machines they had from each platform, it broke down to something
+> >> roughly like so (if I remember correctly):
+> >>
+> >> Illumina: ~ 90
+> >> SOLiD: < 10
+> >> 454 : < 10
+> >>
+> >> And he mentioned that the solid and 454 machines are just basically
+> >> collecting dust.
+> >>
+> >> I don't really have enough experience with either platform to draw and
+> >> judgements myself, but the guy giving the talk seemed pretty convinced
+> >> and thought it was relevant to share.
+> >>
+> >> -steve
+> >>
+> >> --
+> >> Steve Lianoglou
+> >> Graduate Student: Computational Systems Biology
+> >> | Memorial Sloan-Kettering Cancer Center
+> >> | Weill Medical College of Cornell University
+> >> Contact Info: http://cbio.mskcc.org/~lianos/contact
+> >>
+> >> _______________________________________________
+> >> Bioc-sig-sequencing mailing list
+> >> Bioc-sig-sequencing at r-project.org
+> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> >
+> > _______________________________________________
+> > Bioc-sig-sequencing mailing list
+> > Bioc-sig-sequencing at r-project.org
+> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From paboyoun at fhcrc.org  Mon Jan  4 19:27:17 2010
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Mon, 04 Jan 2010 10:27:17 -0800
+Subject: [Bioc-sig-seq] 'agregate' error message
+In-Reply-To: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEBE3@BL2PRD0102MB029.prod.exchangelabs.com>
+References: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEBE3@BL2PRD0102MB029.prod.exchangelabs.com>
+Message-ID: <4B423305.4060500@fhcrc.org>
+
+P.,
+The error message from aggregate isn't very informative and I'll clean 
+it up.
+
+The aggregate function threw an error for the cov.y object because the 
+ranges in allPeaks referenced indices outside of the bounds of cov.y, in 
+particular cov.y is an Rle of length 11 and allPeaks included the 
+interval [17, 19]. If you know the length of underlying sequence, you 
+can pass that into the width argument to the coverage function. For 
+example, if the underlying sequence is of length 19, then the coverage 
+from the y ranges would be calculated as shown below. (I also added code 
+for more efficient summation withing the specified ranges.)
+
+ > cov.y <- coverage(y, width = 19)
+ > cov.y
+'integer' Rle of length 19 with 5 runs
+  Lengths:  3 2 4 2 8
+  Values :  0 3 0 3 0
+ > y.counts <- aggregate(cov.y, allPeaks, sum)
+ > y.counts
+[1] 6 0
+ > y.counts.efficient <- viewSums(Views(cov.y, allPeaks))
+ > y.counts.efficient
+[1] 6 0
+ > sessionInfo()
+R version 2.10.1 Patched (2009-12-14 r50738)
+i386-apple-darwin9.8.0
+
+locale:
+[1] C/en_US.UTF-8/C/C/C/C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base    
+
+other attached packages:
+[1] IRanges_1.4.9
+
+loaded via a namespace (and not attached):
+[1] tools_2.10.1
+
+
+Cheers,
+Patrick
+
+
+pterry at huskers.unl.edu wrote:
+> Dear bioc-sig-sequencing,
+>
+> I am working with a toy example to learn the material covered in part 3 (Differential expression, pages 10-11) of 'A ChIP-Seq Data Analysis' handout for a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+>
+> I generated an error message in the following output.  Can you comment?
+> (I note that when I use the sample data & code from the handout, ctcf.rda & gfp.rda, no errors are generated)
+>
+>   
+>> x <- IRanges(start=c(1L, 9L, 4L, 1L, 5L, 10L, 15L, 17L, 17L),
+>>     
+> +                     width=c(5L, 6L, 3L, 4L, 3L, 3L, 5L, 3L, 3L))
+>
+>   
+>> y <- IRanges(start=c(4L, 4L, 4L, 10L, 10L, 10L),
+>>     
+> +                     width=c(2L, 2L, 2L, 2L, 2L, 2L))
+>
+>   
+>> cov.x <- coverage(x)
+>> cov.y <- coverage(y)
+>> allPeaks <- slice(cov.x, lower = 3)
+>> allPeaks
+>>     
+> Views on a 19-length Rle subject
+>
+> views:
+>     start end width
+> [1]     4   5     2 [3 3]
+> [2]    17  19     3 [3 3 3]
+>   
+>> x.counts <- aggregate(cov.x, allPeaks, sum)
+>> x.counts
+>>     
+> [1] 6 9
+>   
+>> y.counts <- aggregate(cov.y, allPeaks, sum)
+>>     
+> Error in findIntervalAndStartFromWidth(start, runLength(x)) :
+>   'x' must be less than 'sum(width)'
+>
+>   
+>> sessionInfo()
+>>     
+> R version 2.10.1 (2009-12-14)
+> x86_64-pc-linux-gnu
+>
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] ChIPseqTutorial_0.0.1              BSgenome.Mmusculus.UCSC.mm9_1.3.16
+> [3] chipseq_0.2.0                      ShortRead_1.4.0
+> [5] lattice_0.17-26                    BSgenome_1.14.0
+> [7] Biostrings_2.14.1                  IRanges_1.4.2
+>
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.6.0 grid_2.10.1   hwriter_1.1
+>   
+>
+> Thanks,
+> P. Terry
+> huskers.unl.edu
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From paboyoun at fhcrc.org  Mon Jan  4 22:47:17 2010
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Mon, 04 Jan 2010 13:47:17 -0800
+Subject: [Bioc-sig-seq] 'coverage' error message
+In-Reply-To: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEC11@BL2PRD0102MB029.prod.exchangelabs.com>
+References: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEC11@BL2PRD0102MB029.prod.exchangelabs.com>
+Message-ID: <4B4261E5.5070207@fhcrc.org>
+
+P.,
+As the error message suggests, there is a mismatch between 
+names(arab.chromlens) and levels(chromosome(alns)), meaning the 
+chromosome lengths vector and the AlignedRead object are not in sync. 
+The aligned reads for this experiment were from a mouse model, not 
+arabidopsis thaliana, so you would need to reference 
+BSgenome.Mmusculus.UCSC.mm9 when performing these operations:
+
+
+ > filt1 <- alignDataFilter(expression(filtering=="Y"))
+ > filt2 <- chromosomeFilter("chr[0-9XYM]+.fa")
+ > filt <- compose(filt1, filt2)
+
+ > alns <- readAligned(extdataDir, pattern, type="SolexaExport", 
+filter=filt)
+ > alns
+class: AlignedRead
+length: 195719 reads; width: 35 cycles
+chromosome: chr11.fa chr9.fa ... chr8.fa chr4.fa
+position: 104853312 3036336 ... 44295163 47191474
+strand: - - ... - -
+alignQuality: NumericQuality
+alignData varLabels: run lane ... filtering contig
+
+ > levels(alns at chromosome) <- sub(".fa$", "", levels(chromosome(alns)))
+
+ > library(BSgenome.Mmusculus.UCSC.mm9)
+ > mm9.chromlens <- seqlengths(Mmusculus)
+ > head(mm9.chromlens)
+     chr1      chr2      chr3      chr4      chr5      chr6
+197195432 181748087 159599783 155630120 152537259 149517037
+
+ > cov.mm9 <- coverage(alns, width = mm9.chromlens, extend = 126L)
+ > cov.mm9
+SimpleRleList of length 22
+$chr1
+'integer' Rle of length 197195432 with 27263 runs
+  Lengths:  3018534 161 16703 161 68815 161 33063 161 58217 161 ...
+  Values :  0 1 0 1 0 1 0 1 0 1 ...
+
+$chr10
+'integer' Rle of length 129993255 with 21699 runs
+  Lengths:  3019736 161 11311 161 4238 161 10661 161 793 161 ...
+  Values :  0 1 0 1 0 1 0 1 0 1 ...
+
+$chr11
+'integer' Rle of length 121843856 with 22105 runs
+  Lengths:  3000315 6 40 79 9 4 23 6 2 38 ...
+  Values :  0 1 2 3 4 5 6 5 4 5 ...
+
+$chr12
+'integer' Rle of length 121257530 with 18183 runs
+  Lengths:  3002552 161 6903 161 4375 161 5041 161 2491 161 ...
+  Values :  0 1 0 1 0 1 0 1 0 1 ...
+
+$chr13
+'integer' Rle of length 120284312 with 15907 runs
+  Lengths:  3001262 161 5650 161 29080 161 111 40 121 40 ...
+  Values :  0 1 0 1 0 1 0 1 2 1 ...
+
+...
+<17 more elements>
+ > sessionInfo()
+R version 2.11.0 Under development (unstable) (2010-01-02 r50884)
+i386-apple-darwin9.8.0
+
+locale:
+[1] C/C/C/C/C/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets
+[6] methods   base    
+
+other attached packages:
+[1] BSgenome.Mmusculus.UCSC.mm9_1.3.16    
+[2] BSgenome.Athaliana.TAIR.04232008_1.3.16
+[3] ShortReadTutorial_0.0.1               
+[4] ShortRead_1.5.10                      
+[5] lattice_0.17-26                       
+[6] BSgenome_1.15.3                       
+[7] Biostrings_2.15.11                    
+[8] IRanges_1.5.23                        
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.7.3 grid_2.11.0   hwriter_1.1   tools_2.11.0
+
+
+Cheers,
+Patrick
+
+
+
+pterry at huskers.unl.edu wrote:
+> Dear bioc-sig-sequencing,
+>
+> I am trying to analyze Eland aligned files for differential expression, using the 'A ChIP-Seq Data Analysis' handout from a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+>
+> I generated an error message in the following output.  Can you comment?
+>
+> ...
+>
+>   
+>> alns_8 <- readAligned(cdataDir, pattern, "SolexaExport")
+>> alns_8
+>>     
+> class: AlignedRead
+> length: 1380439 reads; width: 35 cycles
+> chromosome: chr1.fas chr1.fas ... chr1.fas chr1.fas
+> position: 7568294 167488 ... 4687256 5376960
+> strand: + + ... + +
+> alignQuality: NumericQuality
+> alignData varLabels: run lane ... filtering contig
+>   
+>> head(sread(alns_8))
+>>     
+>   A DNAStringSet instance of length 6
+>     width seq
+> [1]    35 AGCTATGATCAAGAGAACCTTTCACGATCANNNCN
+> [2]    35 CGGACGACGGGTAGTTTCGGGCTGTACCAANNNAN
+> [3]    35 AGCTCAGCGATCTGAGCCACTTGCTCTTTGNNNTN
+> [4]    35 GGGCCATAGGCCCGTTAAAATATTTTTCTCTNNCT
+> [5]    35 ATTGTCCATTGACAAATGAAGATATTGGGATNNTT
+> [6]    35 ACCCCTCCACCAGTATGTTGGCGAAAATCTCNNCC
+>   
+>> table(strand(alns_8), useNA="ifany")
+>>     
+>
+>      -      +      *
+> 689912 690527      0
+>
+> ...
+>
+>   
+>> library(BSgenome.Athaliana.TAIR.04232008)
+>> arab.chromlens <- seqlengths(Athaliana)
+>> head(arab.chromlens)
+>>     
+>     chr1     chr2     chr3     chr4     chr5     chrC
+> 30432563 19705359 23470805 18585042 26992728   154478
+>   
+>> cov.arab8 <- coverage(alns_8, width = arab.chromlens, extend = 126L)
+>>     
+> Error: UserArgumentMismatch
+>   'names(width)' (or 'names(end)') mismatch with 'levels(chromosome(x))'
+>   see ?"AlignedRead-class"
+>
+>   
+>> sessionInfo()
+>>     
+> R version 2.10.1 (2009-12-14)
+> x86_64-pc-linux-gnu
+>
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] BSgenome.Athaliana.TAIR.04232008_1.3.16
+> [2] chipseq_0.2.0
+> [3] ShortRead_1.4.0
+> [4] lattice_0.17-26
+> [5] BSgenome_1.14.0
+> [6] Biostrings_2.14.1
+> [7] IRanges_1.4.2
+>
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.6.0 grid_2.10.1   hwriter_1.1
+>   
+>
+>
+> Thanks,
+> P. Terry
+> pterry at huskers.unl.edu
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From mmuratet at hudsonalpha.org  Tue Jan  5 22:31:04 2010
+From: mmuratet at hudsonalpha.org (Michael Muratet)
+Date: Tue, 5 Jan 2010 15:31:04 -0600
+Subject: [Bioc-sig-seq] Normalization tools in Genominator
+Message-ID: <4B14EF2D-3244-4273-99BC-0C895C0DDF98@hudsonalpha.org>
+
+Greetings
+
+I have successfully installed Genominator and GenomeGraphs having  
+first made sure my R was up-to-date and read the documentation. I was  
+expecting to find methods for normalization and testing differential  
+expression per the discussion in Bullard et al., www.bepress.com/ucbbiostat/paper247 
+.  Are they in there and I have missed them? Is there another package  
+forthcoming? What's there is very useful, thanks for making it  
+available.
+
+Thanks
+
+Mike
+
+Michael Muratet, Ph.D.
+Senior Scientist
+HudsonAlpha Institute for Biotechnology
+mmuratet at hudsonalpha.org
+(256) 327-0473 (p)
+(256) 327-0966 (f)
+
+Room 4005
+601 Genome Way
+Huntsville, Alabama 35806
+
+
+From khansen at stat.berkeley.edu  Wed Jan  6 00:00:05 2010
+From: khansen at stat.berkeley.edu (Kasper Daniel Hansen)
+Date: Tue, 5 Jan 2010 18:00:05 -0500
+Subject: [Bioc-sig-seq] Normalization tools in Genominator
+In-Reply-To: <4B14EF2D-3244-4273-99BC-0C895C0DDF98@hudsonalpha.org>
+References: <4B14EF2D-3244-4273-99BC-0C895C0DDF98@hudsonalpha.org>
+Message-ID: <E16D066D-D076-47A1-B840-F5E3B4CDF903@stat.berkeley.edu>
+
+
+On Jan 5, 2010, at 16:31 PM, Michael Muratet wrote:
+
+> Greetings
+> 
+> I have successfully installed Genominator and GenomeGraphs having first made sure my R was up-to-date and read the documentation. I was expecting to find methods for normalization and testing differential expression per the discussion in Bullard et al., www.bepress.com/ucbbiostat/paper247.  Are they in there and I have missed them? Is there another package forthcoming? What's there is very useful, thanks for making it available.
+
+This functionality will soon be added to Genominator.  We do have beta code for it, but nothing final, yet.  Hopefully within a few weeks.
+
+This will (of course) be added to the devel branch of Bioconductor.
+
+Kasper
+
+From ramzi.temanni at gmail.com  Wed Jan  6 08:57:20 2010
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Wed, 6 Jan 2010 08:57:20 +0100
+Subject: [Bioc-sig-seq] ShortRead internal: too many 'snap' entries
+Message-ID: <68bbfdd41001052357u2e93780dr61c198f28e39ebd@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100106/5151eb3f/attachment.pl>
+
+From mtmorgan at fhcrc.org  Wed Jan  6 09:30:23 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 06 Jan 2010 00:30:23 -0800
+Subject: [Bioc-sig-seq] ShortRead internal: too many 'snap' entries
+In-Reply-To: <68bbfdd41001052357u2e93780dr61c198f28e39ebd@mail.gmail.com>
+References: <68bbfdd41001052357u2e93780dr61c198f28e39ebd@mail.gmail.com>
+Message-ID: <4B444A1F.7050708@fhcrc.org>
+
+Hi --
+
+Ramzi TEMANNI wrote:
+> Hi,
+> I'm using the following function to extract a subselection of reads based on
+> their ID from a FastQ file:
+> extract.reads.fq<-function(dir,fq.file,id.list)
+> {
+> rfq <- readFastq(dir, pattern=fq.file)
+> tmp=extract.id(rfq)
+> sv.reads=rfq[which(id.list%in%tmp)]
+> writeFastq(sv.reads, paste("sv_",fq.file,sep=""))
+> }
+> 
+> The function works well but for one file i got the following error :
+> Error in .local(dirPath, pattern, ...) :
+>   ShortRead internal: too many 'snap' entries
+
+Probably the format of the one file is causing problems -- maybe a
+missing new line after the last file record?
+
+Can you post the result of sessionInfo(), and if the format of the file
+is not obviously wrong can you make it available to me?
+
+Martin
+
+
+> Tried to google it but nothing is coming out, anyone encoutred this error ?
+> 
+> Thanks in advance for your help.
+> 
+> 
+> 
+> 
+> ----------------------------------------------------------------
+> Kind regards / Met vriendelijke groet,
+> Mohamed-Ramzi Temanni,
+> ----------------------------------------------------------------
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From ramzi.temanni at gmail.com  Wed Jan  6 09:50:45 2010
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Wed, 6 Jan 2010 09:50:45 +0100
+Subject: [Bioc-sig-seq] ShortRead internal: too many 'snap' entries
+In-Reply-To: <4B444A1F.7050708@fhcrc.org>
+References: <68bbfdd41001052357u2e93780dr61c198f28e39ebd@mail.gmail.com>
+	<4B444A1F.7050708@fhcrc.org>
+Message-ID: <68bbfdd41001060050u282bf350s5569a8d925af975b@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100106/cdaab09f/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Wed Jan  6 22:58:19 2010
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Wed, 6 Jan 2010 16:58:19 -0500
+Subject: [Bioc-sig-seq] Rsamtools: Select reads on a chromosome
+Message-ID: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>
+
+Hi,
+
+Not a pressing issue, but I feel like I'm doing this wrong.
+
+Currently in order to get all the reads on a chromosome using
+Rsamtools (to extract from a BAM file), I'm making an IRanges object
+that's "as long" as the chromosome I want the reads for.
+
+For instance, for chr1:
+
+which <- RangesList(chr1=IRanges(start=1, end=247249719))
+params <- ScanBamParams(which=which)
+reads <- scanBam(my.bam.file, param=params)[[1]]
+
+Is there are "better" way to do it, eg. w/o making the IRanges object
+that's stretches over the chromosome?
+
+Just curious, thanks.
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From mtmorgan at fhcrc.org  Thu Jan  7 07:11:43 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 06 Jan 2010 22:11:43 -0800
+Subject: [Bioc-sig-seq] Rsamtools: Select reads on a chromosome
+In-Reply-To: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>
+References: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>
+Message-ID: <4B457B1F.5060701@fhcrc.org>
+
+Steve Lianoglou wrote:
+> Hi,
+> 
+> Not a pressing issue, but I feel like I'm doing this wrong.
+> 
+> Currently in order to get all the reads on a chromosome using
+> Rsamtools (to extract from a BAM file), I'm making an IRanges object
+> that's "as long" as the chromosome I want the reads for.
+> 
+> For instance, for chr1:
+> 
+> which <- RangesList(chr1=IRanges(start=1, end=247249719))
+> params <- ScanBamParams(which=which)
+> reads <- scanBam(my.bam.file, param=params)[[1]]
+> 
+> Is there are "better" way to do it, eg. w/o making the IRanges object
+> that's stretches over the chromosome?
+
+I don't think so, though 'end' doesn't have to be a literal end, e.g,.
+.Machine$integer.max and 'stretches' doesn't really involve any cost --
+just two numbers.
+
+The use case I was thinking of was a well-defined collection of regions
+of interest, probably coming from some genome annotation, but I guess
+you're interested in chromosome-at-a-time processing?
+
+Martin
+
+> 
+> Just curious, thanks.
+> -steve
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From mailinglist.honeypot at gmail.com  Thu Jan  7 22:55:13 2010
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Thu, 7 Jan 2010 16:55:13 -0500
+Subject: [Bioc-sig-seq] Rsamtools: Select reads on a chromosome
+In-Reply-To: <4B457B1F.5060701@fhcrc.org>
+References: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>
+	<4B457B1F.5060701@fhcrc.org>
+Message-ID: <bbdc7ed01001071355w244201aes86e5fe6e8c58c043@mail.gmail.com>
+
+Hi Martin,
+
+On Thu, Jan 7, 2010 at 1:11 AM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+<snip>
+
+>> Is there are "better" way to do it, eg. w/o making the IRanges object
+>> that's stretches over the chromosome?
+>
+> I don't think so, though 'end' doesn't have to be a literal end, e.g,.
+> .Machine$integer.max and 'stretches' doesn't really involve any cost --
+> just two numbers.
+
+Yeah, I know re: no real cost -- was just curious is all. Good point
+on simply using $integer.max, though.
+
+> The use case I was thinking of was a well-defined collection of regions
+> of interest, probably coming from some genome annotation, but I guess
+> you're interested in chromosome-at-a-time processing?
+
+Yup -- I've been creating some libraries to help deal with *-seq
+experiments + data and didn't really have a good way to store and load
+the reads quickly until I tried BAM files. Although Rsamtools + BAM
+files are really fast, I still like to pull all of my reads per
+chromosome into an IntervalTree and do whatever batch processing I
+need to against that.
+
+Thanks,
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From aconesa at cipf.es  Fri Jan  8 13:22:17 2010
+From: aconesa at cipf.es (Ana Conesa)
+Date: Fri, 8 Jan 2010 13:22:17 +0100
+Subject: [Bioc-sig-seq] =?utf-8?q?2_post-doc_and_one_PhD_positions_at_the_?=
+	=?utf-8?q?_Bioinformatics_and_Genomics_Department_of_the_Centro_de?=
+	=?utf-8?q?_Investigaciones_Pr=C3=ADncipe_Felipe=2C_Valencia=2C_Spa?=
+	=?utf-8?b?aW4u?=
+Message-ID: <201001081322.25136.aconesa@cipf.es>
+
+Dear colleague(s),
+
+Please find below the announcement of bioinformatics positions at our 
+Department. Please, send it to potentially interested colleagues
+
+Thank you in advance
+
+Ana Conesa
+------------------------------------------------------------------------------------------------------------------
+
+We are seeking for qualified and motivated researchers to be enrolled in 
+different bioinformatics projects in the field of Functional Genomics and 
+analysis of Next Generation Sequencing Data.
+
+- One post-doc (2 years) to participate in the ERA-Net Pathogenomics 
+Project ?Pathomics, Host-pathogen protein-protein interactomes and their 
+influence on the host metabolome? 
+- One post-doc (3 years) and one PhD student (4 years) to participate in the 
+Spanish MCINN project ?Exploring novel genome-transcriptome relationships by 
+next generation sequencing approaches?
+
+PostDoc applicants should have a doctor degree in Bioinformatics, 
+Biochemistry, Computer Sciences or related disciplines with a bioinformatics 
+orientation. Programming skills and fluent English are required.
+Pre-doctoral applicants must hold a degree in Biology, Biotechnology, Computer 
+or Statistical Sciences. Additional training in bioinformatics is highly 
+recommended. 
+
+Researchers will address different biological questions related to 
+pathogenicity mechanisms and genome regulation through transcriptome analysis 
+using high-throughout sequencing approaches. We offer incorporation into a 
+multidisciplinary, cooperative and dynamic team of above 20 scientist within 
+an internationally oriented  research institute. For further questions and 
+applications (before January 21st), contact Ana Conesa (aconesa at cipf.es)
+
+
+Ana Conesa
+Bioinformatics and Genomics Department
+Centro de Investigaciones Pr?ncipe Felipe
+Avda. Autopista Saler, 16
+46012 Valencia
+Phone: +34 96 328 96 80
+aconesa at cipf.es
+http://www.cipf.es
+http://bioinfo.cipf.es
+http://bioinfo.cipf.es/aconesa
+
+
+From pterry at huskers.unl.edu  Thu Jan  7 21:59:47 2010
+From: pterry at huskers.unl.edu (pterry at huskers.unl.edu)
+Date: Thu, 7 Jan 2010 20:59:47 +0000
+Subject: [Bioc-sig-seq] 'coverage' error message (2)
+Message-ID: <5E09189DCC2AB149B8EE6F595890EFAD1E8F301A@BL2PRD0102MB016.prod.exchangelabs.com>
+
+Dear bioc-sig-sequencing,
+
+I am trying to analyze Eland aligned files (Arabidopsis) for differential expression, using as a guide the 'A ChIP-Seq Data Analysis' handout from a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+
+I generated the error message in the following output.  Can you comment?
+
+Notes:
+
+i. This is my second email on this problem.  My first email omitted some info which appears to me may have affected the response by persons monitoring the mailing list.
+
+ii. One misunderstanding would appear to be that I used the mouse 'reads' data supplied during the lab.  Instead, I used what I'm told is Eland-aligned Arabidopsis data (s_8_export_chr1.txt file derived from s_8_export.txt using grep).
+
+iii. The error message suggests a mismatch between:
+> names(arab.chromlens)
+[1] "chr1" "chr2" "chr3" "chr4" "chr5" "chrC" "chrM"
+and
+> levels(chromosome(alns_8))
+[1] "chr1.fas"
+
+I don't know what to do about this 'mismatch'?  Perhaps I need to arrange so:
+> names(arab.chromlens)
+gives output of only:
+"chr1"?
+
+iv. I note using 'available.genomes()', there are two BSgenome data packages for Arabidopsis.  Could my arbitrary choice be a problem?  Would one have to coordinate the choice with the Arabidopsis genome Eland must have used during alignment?
+
+
+...
+
+> cerudataDir <- "/home/mterry/data09/wang_892spr09/rob_hw6/ceru_data"
+> cerudataDir
+[1] "/home/mterry/data09/wang_892spr09/rob_hw6/ceru_data"
+
+> pattern <- "s_8_export_chr1.txt"
+> list.files(cerudataDir, pattern)
+[1] "s_8_export_chr1.txt"
+> filt1 <- alignDataFilter(expression(filtering=="Y"))
+> filt2 <- chromosomeFilter("chr[0-9XYM]+.fa")
+> filt <- compose(filt1, filt2)
+> alns_8 <- readAligned(cerudataDir, pattern, type="SolexaExport",
++ filter=filt)
+> alns_8
+class: AlignedRead
+length: 1022848 reads; width: 35 cycles
+chromosome: chr1.fas chr1.fas ... chr1.fas chr1.fas
+position: 7568294 167488 ... 4687256 5376960
+strand: + + ... + +
+alignQuality: NumericQuality
+alignData varLabels: run lane ... filtering contig
+
+> levels(alns_8 at chromosome) <- sub(".fa$", "", levels(chromosome(alns_8)))
+
+> head(levels(alns_8 at chromosome))
+[1] "chr1.fas"
+> levels(chromosome(alns_8))
+[1] "chr1.fas"
+> library(BSgenome.Athaliana.TAIR.04232008)
+> arab.chromlens <- seqlengths(Athaliana)
+> head(arab.chromlens)
+    chr1     chr2     chr3     chr4     chr5     chrC
+30432563 19705359 23470805 18585042 26992728   154478
+> names(arab.chromlens)
+[1] "chr1" "chr2" "chr3" "chr4" "chr5" "chrC" "chrM"
+> cov.arab8 <- coverage(alns_8, width = arab.chromlens, extend = 126L)
+Error: UserArgumentMismatch
+  'names(width)' (or 'names(end)') mismatch with 'levels(chromosome(x))'
+  see ?"AlignedRead-class"
+
+> sessionInfo()
+R version 2.10.1 (2009-12-14)
+x86_64-pc-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] BSgenome.Athaliana.TAIR.04232008_1.3.16
+[2] chipseq_0.2.1
+[3] ShortRead_1.4.0
+[4] lattice_0.17-26
+[5] BSgenome_1.14.2
+[6] Biostrings_2.14.10
+[7] IRanges_1.4.9
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.1 grid_2.10.1   hwriter_1.1
+>
+
+
+Thanks,
+P. Terry
+pterry at huskers.unl.edu
+
+
+From khansen at stat.berkeley.edu  Fri Jan  8 18:28:04 2010
+From: khansen at stat.berkeley.edu (Kasper Daniel Hansen)
+Date: Fri, 8 Jan 2010 12:28:04 -0500
+Subject: [Bioc-sig-seq] 'coverage' error message (2)
+In-Reply-To: <5E09189DCC2AB149B8EE6F595890EFAD1E8F301A@BL2PRD0102MB016.prod.exchangelabs.com>
+References: <5E09189DCC2AB149B8EE6F595890EFAD1E8F301A@BL2PRD0102MB016.prod.exchangelabs.com>
+Message-ID: <EE7BFF73-6476-4864-90DA-0816524C0CE1@stat.berkeley.edu>
+
+I have only spend 5s reading your email.
+
+But it seems you have the incredible common problem of chromosome name mismatch.  For a given organism there is no standard for how the chr are named.  Depending on the source (genome, what source, what annotation etc), I have -- for the same genome -- seen at least
+ chr1
+ chr01
+ chrI  (<- roman 1)
+ scchr1
+I would not find it strange at all if whoever aligned using ELAND used a different chr. name.  This is pretty hard to make work automatically.  You usually have to modify the objects yourself.
+
+Kasper
+
+
+On Jan 7, 2010, at 15:59 PM, pterry at huskers.unl.edu wrote:
+
+> Dear bioc-sig-sequencing,
+> 
+> I am trying to analyze Eland aligned files (Arabidopsis) for differential expression, using as a guide the 'A ChIP-Seq Data Analysis' handout from a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+> 
+> I generated the error message in the following output.  Can you comment?
+> 
+> Notes:
+> 
+> i. This is my second email on this problem.  My first email omitted some info which appears to me may have affected the response by persons monitoring the mailing list.
+> 
+> ii. One misunderstanding would appear to be that I used the mouse 'reads' data supplied during the lab.  Instead, I used what I'm told is Eland-aligned Arabidopsis data (s_8_export_chr1.txt file derived from s_8_export.txt using grep).
+> 
+> iii. The error message suggests a mismatch between:
+>> names(arab.chromlens)
+> [1] "chr1" "chr2" "chr3" "chr4" "chr5" "chrC" "chrM"
+> and
+>> levels(chromosome(alns_8))
+> [1] "chr1.fas"
+> 
+> I don't know what to do about this 'mismatch'?  Perhaps I need to arrange so:
+>> names(arab.chromlens)
+> gives output of only:
+> "chr1"?
+> 
+> iv. I note using 'available.genomes()', there are two BSgenome data packages for Arabidopsis.  Could my arbitrary choice be a problem?  Would one have to coordinate the choice with the Arabidopsis genome Eland must have used during alignment?
+> 
+> 
+> ...
+> 
+>> cerudataDir <- "/home/mterry/data09/wang_892spr09/rob_hw6/ceru_data"
+>> cerudataDir
+> [1] "/home/mterry/data09/wang_892spr09/rob_hw6/ceru_data"
+> 
+>> pattern <- "s_8_export_chr1.txt"
+>> list.files(cerudataDir, pattern)
+> [1] "s_8_export_chr1.txt"
+>> filt1 <- alignDataFilter(expression(filtering=="Y"))
+>> filt2 <- chromosomeFilter("chr[0-9XYM]+.fa")
+>> filt <- compose(filt1, filt2)
+>> alns_8 <- readAligned(cerudataDir, pattern, type="SolexaExport",
+> + filter=filt)
+>> alns_8
+> class: AlignedRead
+> length: 1022848 reads; width: 35 cycles
+> chromosome: chr1.fas chr1.fas ... chr1.fas chr1.fas
+> position: 7568294 167488 ... 4687256 5376960
+> strand: + + ... + +
+> alignQuality: NumericQuality
+> alignData varLabels: run lane ... filtering contig
+> 
+>> levels(alns_8 at chromosome) <- sub(".fa$", "", levels(chromosome(alns_8)))
+> 
+>> head(levels(alns_8 at chromosome))
+> [1] "chr1.fas"
+>> levels(chromosome(alns_8))
+> [1] "chr1.fas"
+>> library(BSgenome.Athaliana.TAIR.04232008)
+>> arab.chromlens <- seqlengths(Athaliana)
+>> head(arab.chromlens)
+>    chr1     chr2     chr3     chr4     chr5     chrC
+> 30432563 19705359 23470805 18585042 26992728   154478
+>> names(arab.chromlens)
+> [1] "chr1" "chr2" "chr3" "chr4" "chr5" "chrC" "chrM"
+>> cov.arab8 <- coverage(alns_8, width = arab.chromlens, extend = 126L)
+> Error: UserArgumentMismatch
+>  'names(width)' (or 'names(end)') mismatch with 'levels(chromosome(x))'
+>  see ?"AlignedRead-class"
+> 
+>> sessionInfo()
+> R version 2.10.1 (2009-12-14)
+> x86_64-pc-linux-gnu
+> 
+> locale:
+> [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+> [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+> [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+> [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+> [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> other attached packages:
+> [1] BSgenome.Athaliana.TAIR.04232008_1.3.16
+> [2] chipseq_0.2.1
+> [3] ShortRead_1.4.0
+> [4] lattice_0.17-26
+> [5] BSgenome_1.14.2
+> [6] Biostrings_2.14.10
+> [7] IRanges_1.4.9
+> 
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.6.1 grid_2.10.1   hwriter_1.1
+>> 
+> 
+> 
+> Thanks,
+> P. Terry
+> pterry at huskers.unl.edu
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From Arnaud.Droit at ircm.qc.ca  Fri Jan 15 22:07:08 2010
+From: Arnaud.Droit at ircm.qc.ca (Droit Arnaud)
+Date: Fri, 15 Jan 2010 16:07:08 -0500
+Subject: [Bioc-sig-seq] Extract masked sequences
+Message-ID: <C776432C.FC1C%arnaud.droit@ircm.qc.ca>
+
+Hi,
+
+I wondering if anybody can help me to generate masked (by RepeatMasker for instance) sequences.
+
+I'm currently using Bsgenome to extract sequence from a BED file such as :
+
+library(BSgenome.Hsapiens.UCSC.hg18)
+genome<-Hsapiens
+FastaSeq<-getSeq(genome,"chr1",start=1000,end=1200, as.character=FALSE)
+
+I know that Bsgenome contains masks that can be apply by using :
+
+chr1 <- genome$chr1
+active(masks(chr1)) <- TRUE
+
+So, I'm trying to use it to change the masks of the genome object. But I cannot modify it :
+
+active(masks(genome$chr1)) <- TRUE
+ Error in `$<-`(`*tmp*`, "chr1", value = <S4 object of class "MaskedDNAString">) :
+ no method for assigning subsets of this S4 class
+
+Is there a way get the masked sequence with the getSeq function ?
+
+Thanks.
+
+Arnaud.
+
+
+From paboyoun at fhcrc.org  Wed Jan 20 01:38:52 2010
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Tue, 19 Jan 2010 16:38:52 -0800
+Subject: [Bioc-sig-seq] Extract masked sequences
+In-Reply-To: <C776432C.FC1C%arnaud.droit@ircm.qc.ca>
+References: <C776432C.FC1C%arnaud.droit@ircm.qc.ca>
+Message-ID: <4B56509C.4080503@fhcrc.org>
+
+Arnaud,
+The BSgenome object, in this case Hsapiens, contains references to on 
+disk storage of information such as masks. Since this information is not 
+in memory and the data stored on disk is considered read-only, you 
+cannot change the mask information on a BSgenome object. Instead, you 
+need to modify the masks chromosome by chromosome after they have been 
+loaded into memory as you showed in your code below.
+
+What is your use case that motivated your e-mail?
+
+If you never want to deal with masks, you can always use the unmasked 
+function to strip the masks when you load the chromosome:
+
+ > unmasked(Hsapiens$chr1)
+  247249719-letter "DNAString" instance
+seq: 
+TAACCCTAACCCTAACCCTAACCCTAACCCTAACCC...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
+
+
+Patrick
+
+
+
+Droit Arnaud wrote:
+> Hi,
+>
+> I wondering if anybody can help me to generate masked (by RepeatMasker for instance) sequences.
+>
+> I'm currently using Bsgenome to extract sequence from a BED file such as :
+>
+> library(BSgenome.Hsapiens.UCSC.hg18)
+> genome<-Hsapiens
+> FastaSeq<-getSeq(genome,"chr1",start=1000,end=1200, as.character=FALSE)
+>
+> I know that Bsgenome contains masks that can be apply by using :
+>
+> chr1 <- genome$chr1
+> active(masks(chr1)) <- TRUE
+>
+> So, I'm trying to use it to change the masks of the genome object. But I cannot modify it :
+>
+> active(masks(genome$chr1)) <- TRUE
+>  Error in `$<-`(`*tmp*`, "chr1", value = <S4 object of class "MaskedDNAString">) :
+>  no method for assigning subsets of this S4 class
+>
+> Is there a way get the masked sequence with the getSeq function ?
+>
+> Thanks.
+>
+> Arnaud.
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From APratap at som.umaryland.edu  Wed Jan 20 18:52:06 2010
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Wed, 20 Jan 2010 12:52:06 -0500
+Subject: [Bioc-sig-seq] Calculating insert size for paired-end /mate pair
+	samples
+Message-ID: <B58C34D85CF5A04FA38C2E9176F26DD181457F@ISSOMMAIL01.som.umaryland.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100120/3ac1dc59/attachment.pl>
+
+From tbackman at ucr.edu  Wed Jan 20 19:13:56 2010
+From: tbackman at ucr.edu (Tyler Backman)
+Date: Wed, 20 Jan 2010 10:13:56 -0800
+Subject: [Bioc-sig-seq] Calculating insert size for paired-end /mate
+	pair samples
+In-Reply-To: <B58C34D85CF5A04FA38C2E9176F26DD181457F@ISSOMMAIL01.som.umaryland.edu>
+References: <B58C34D85CF5A04FA38C2E9176F26DD181457F@ISSOMMAIL01.som.umaryland.edu>
+Message-ID: <F9626515-B0F9-4369-82DF-B1DA5BE39855@ucr.edu>
+
+Hello Abhi,
+
+Here is an example for calculating insert size of GA reads via a bowtie alignment:
+
+# align with bowtie
+system("bowtie -q reference.fasta -1 "pair1filtered.fastq" -2 "pair2filtered.fastq" -n 3 -e 160 -p 5 -I 0 -X 500 --fr > alignment.bowtie")
+# import alignment
+alignedReads <- readAligned("./", pattern="alignment.bowtie", type="Bowtie")
+# calculate insert sizes
+distance <- position(alignedReads[seq(2,length(alignedReads),by=2)]) - position(alignedReads[seq(1,length(alignedReads),by=2)]) + width(alignedReads)[1]
+# look at stats
+median(distance)
+sd(distance)
+
+Sincerely,
+Tyler William H Backman
+Bioinformatics Analyst
+Institute for Integrative Genome Biology (IIGB)
+Department of Botany and Plant Sciences
+E-mail: tyler.backman at ucr.edu
+1207E Genomics Building
+University of California
+Riverside, CA 92521
+
+On Jan 20, 2010, at 9:52 AM, Pratap, Abhishek wrote:
+
+> Hi All
+> 
+> Recently it has been quiet here. I hope you all had a good start to 2010.
+> 
+> I wanted to know if there is already a method in ShortRead or some other package to calculate the insert size for pair end or mate pair data from GA and plot it on a graph. I guess the latter part is trivial.
+> 
+> Thanks,
+> -Abhi
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From tbackman at ucr.edu  Wed Jan 20 19:16:39 2010
+From: tbackman at ucr.edu (Tyler Backman)
+Date: Wed, 20 Jan 2010 10:16:39 -0800
+Subject: [Bioc-sig-seq] Calculating insert size for paired-end /mate
+	pair samples
+In-Reply-To: <F9626515-B0F9-4369-82DF-B1DA5BE39855@ucr.edu>
+References: <B58C34D85CF5A04FA38C2E9176F26DD181457F@ISSOMMAIL01.som.umaryland.edu>
+	<F9626515-B0F9-4369-82DF-B1DA5BE39855@ucr.edu>
+Message-ID: <C3BF92E1-DA7E-4FD6-9531-D38398911D22@ucr.edu>
+
+I forgot to mention- this is for use with ShortRead.
+
+Sincerely,
+Tyler William H Backman
+Bioinformatics Analyst
+Institute for Integrative Genome Biology (IIGB)
+Department of Botany and Plant Sciences
+E-mail: tyler.backman at ucr.edu
+1207E Genomics Building
+University of California
+Riverside, CA 92521
+
+On Jan 20, 2010, at 10:13 AM, Tyler Backman wrote:
+
+> Hello Abhi,
+> 
+> Here is an example for calculating insert size of GA reads via a bowtie alignment:
+> 
+> # align with bowtie
+> system("bowtie -q reference.fasta -1 "pair1filtered.fastq" -2 "pair2filtered.fastq" -n 3 -e 160 -p 5 -I 0 -X 500 --fr > alignment.bowtie")
+> # import alignment
+> alignedReads <- readAligned("./", pattern="alignment.bowtie", type="Bowtie")
+> # calculate insert sizes
+> distance <- position(alignedReads[seq(2,length(alignedReads),by=2)]) - position(alignedReads[seq(1,length(alignedReads),by=2)]) + width(alignedReads)[1]
+> # look at stats
+> median(distance)
+> sd(distance)
+> 
+> Sincerely,
+> Tyler William H Backman
+> Bioinformatics Analyst
+> Institute for Integrative Genome Biology (IIGB)
+> Department of Botany and Plant Sciences
+> E-mail: tyler.backman at ucr.edu
+> 1207E Genomics Building
+> University of California
+> Riverside, CA 92521
+> 
+> On Jan 20, 2010, at 9:52 AM, Pratap, Abhishek wrote:
+> 
+>> Hi All
+>> 
+>> Recently it has been quiet here. I hope you all had a good start to 2010.
+>> 
+>> I wanted to know if there is already a method in ShortRead or some other package to calculate the insert size for pair end or mate pair data from GA and plot it on a graph. I guess the latter part is trivial.
+>> 
+>> Thanks,
+>> -Abhi
+>> 
+>> 
+>> 	[[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From mailinglist.honeypot at gmail.com  Wed Jan 20 23:04:43 2010
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Wed, 20 Jan 2010 17:04:43 -0500
+Subject: [Bioc-sig-seq] Rsamtools: Select reads on a chromosome
+In-Reply-To: <4B457B1F.5060701@fhcrc.org>
+References: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>
+	<4B457B1F.5060701@fhcrc.org>
+Message-ID: <bbdc7ed01001201404i65cc2071tc3b0de95861cb293@mail.gmail.com>
+
+Hi,
+
+About selecting all reads on a chromosome:
+
+On Thu, Jan 7, 2010 at 1:11 AM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+<snip>
+
+>> which <- RangesList(chr1=IRanges(start=1, end=247249719))
+>> params <- ScanBamParams(which=which)
+>> reads <- scanBam(my.bam.file, param=params)[[1]]
+>>
+>> Is there are "better" way to do it, eg. w/o making the IRanges object
+>> that's stretches over the chromosome?
+>
+> I don't think so, though 'end' doesn't have to be a literal end, e.g,.
+> .Machine$integer.max and 'stretches' doesn't really involve any cost --
+> just two numbers.
+
+I just tried to do this in another context, but this actually send R
+into a tailspin, eg:
+
+R> which <- RangesList(chr1=IRanges(start=1, end=.Machine$integer.max-1))
+R> r <- scanBam('scratch-sorted.bam', param=ScanBamParam(what='pos',
+which=which))
+
+ *** caught segfault ***
+address 0x0, cause 'unknown'
+
+Traceback:
+ 1: .Call(func, file, index, "rb", list(space(which),
+.uunlist(start(which)),     .uunlist(end(which))), flag, simpleCigar,
+...)
+ 2: .io_bam(.scan_bam, file, index, tmpl, param = param)
+ 3: .local(file, index, ...)
+ 4: scanBam("scratch-sorted.bam", param = ScanBamParam(what = "pos",
+  which = which))
+ 5: scanBam("scratch-sorted.bam", param = ScanBamParam(what = "pos",
+  which = which))
+
+I have access to chromosome length information, so it's not really a
+problem for me, but it seems as if something is happening which you
+didn't expect, so I thought you'd like to know.
+
+Thanks,
+-steve
+
+ps: I'm using IRanges(.., end=.Machine$integer.max-1) because using
+.Machine$integer.max causes an integer overflow
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From mailinglist.honeypot at gmail.com  Wed Jan 20 23:08:28 2010
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Wed, 20 Jan 2010 17:08:28 -0500
+Subject: [Bioc-sig-seq] Rsamtools: Select reads on a chromosome
+In-Reply-To: <bbdc7ed01001201404i65cc2071tc3b0de95861cb293@mail.gmail.com>
+References: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>
+	<4B457B1F.5060701@fhcrc.org>
+	<bbdc7ed01001201404i65cc2071tc3b0de95861cb293@mail.gmail.com>
+Message-ID: <bbdc7ed01001201408q7ad9212enae0d086af7513313@mail.gmail.com>
+
+Sorry, forgot to provide sessionInfo()
+
+R version 2.11.0 Under development (unstable) (2009-12-28 r50849)
+x86_64-apple-darwin9.8.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] Rsamtools_0.1.21   BSgenome_1.15.3    Biostrings_2.15.13 IRanges_1.5.26
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.7.0
+
+
+On Wed, Jan 20, 2010 at 5:04 PM, Steve Lianoglou
+<mailinglist.honeypot at gmail.com> wrote:
+> Hi,
+>
+> About selecting all reads on a chromosome:
+>
+> On Thu, Jan 7, 2010 at 1:11 AM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+> <snip>
+>
+>>> which <- RangesList(chr1=IRanges(start=1, end=247249719))
+>>> params <- ScanBamParams(which=which)
+>>> reads <- scanBam(my.bam.file, param=params)[[1]]
+>>>
+>>> Is there are "better" way to do it, eg. w/o making the IRanges object
+>>> that's stretches over the chromosome?
+>>
+>> I don't think so, though 'end' doesn't have to be a literal end, e.g,.
+>> .Machine$integer.max and 'stretches' doesn't really involve any cost --
+>> just two numbers.
+>
+> I just tried to do this in another context, but this actually send R
+> into a tailspin, eg:
+>
+> R> which <- RangesList(chr1=IRanges(start=1, end=.Machine$integer.max-1))
+> R> r <- scanBam('scratch-sorted.bam', param=ScanBamParam(what='pos',
+> which=which))
+>
+> ?*** caught segfault ***
+> address 0x0, cause 'unknown'
+>
+> Traceback:
+> ?1: .Call(func, file, index, "rb", list(space(which),
+> .uunlist(start(which)), ? ? .uunlist(end(which))), flag, simpleCigar,
+> ...)
+> ?2: .io_bam(.scan_bam, file, index, tmpl, param = param)
+> ?3: .local(file, index, ...)
+> ?4: scanBam("scratch-sorted.bam", param = ScanBamParam(what = "pos",
+> ?which = which))
+> ?5: scanBam("scratch-sorted.bam", param = ScanBamParam(what = "pos",
+> ?which = which))
+>
+> I have access to chromosome length information, so it's not really a
+> problem for me, but it seems as if something is happening which you
+> didn't expect, so I thought you'd like to know.
+>
+> Thanks,
+> -steve
+>
+> ps: I'm using IRanges(.., end=.Machine$integer.max-1) because using
+> .Machine$integer.max causes an integer overflow
+>
+> --
+> Steve Lianoglou
+> Graduate Student: Computational Systems Biology
+> ?| Memorial Sloan-Kettering Cancer Center
+> ?| Weill Medical College of Cornell University
+> Contact Info: http://cbio.mskcc.org/~lianos/contact
+>
+
+
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From lawrence.michael at gene.com  Wed Jan 20 23:10:01 2010
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Wed, 20 Jan 2010 14:10:01 -0800
+Subject: [Bioc-sig-seq] Rsamtools: Select reads on a chromosome
+In-Reply-To: <bbdc7ed01001201404i65cc2071tc3b0de95861cb293@mail.gmail.com>
+References: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>
+	<4B457B1F.5060701@fhcrc.org>
+	<bbdc7ed01001201404i65cc2071tc3b0de95861cb293@mail.gmail.com>
+Message-ID: <acbd1aed1001201410h6e9110b9vf34a2f9bee0876cc@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100120/0588c338/attachment.pl>
+
+From mtmorgan at fhcrc.org  Thu Jan 21 05:21:29 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 20 Jan 2010 20:21:29 -0800
+Subject: [Bioc-sig-seq] Rsamtools: Select reads on a chromosome
+In-Reply-To: <bbdc7ed01001201404i65cc2071tc3b0de95861cb293@mail.gmail.com>
+References: <bbdc7ed01001061358s1fe48d29v4c69d0f00adc6c73@mail.gmail.com>	
+	<4B457B1F.5060701@fhcrc.org>
+	<bbdc7ed01001201404i65cc2071tc3b0de95861cb293@mail.gmail.com>
+Message-ID: <4B57D649.6040500@fhcrc.org>
+
+Hi Steve --
+
+Steve Lianoglou wrote:
+> Hi,
+> 
+> About selecting all reads on a chromosome:
+> 
+> On Thu, Jan 7, 2010 at 1:11 AM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+> <snip>
+> 
+>>> which <- RangesList(chr1=IRanges(start=1, end=247249719))
+>>> params <- ScanBamParams(which=which)
+>>> reads <- scanBam(my.bam.file, param=params)[[1]]
+>>>
+>>> Is there are "better" way to do it, eg. w/o making the IRanges object
+>>> that's stretches over the chromosome?
+>> I don't think so, though 'end' doesn't have to be a literal end, e.g,.
+>> .Machine$integer.max and 'stretches' doesn't really involve any cost --
+>> just two numbers.
+> 
+> I just tried to do this in another context, but this actually send R
+> into a tailspin, eg:
+> 
+> R> which <- RangesList(chr1=IRanges(start=1, end=.Machine$integer.max-1))
+> R> r <- scanBam('scratch-sorted.bam', param=ScanBamParam(what='pos',
+> which=which))
+> 
+>  *** caught segfault ***
+> address 0x0, cause 'unknown'
+
+Yes my suggestion seems right in principle but wrong in practice -- the
+limit is 536870912L, and Rsamtools now checks for this. An easy way to
+specify 'an entire chromosome' sounds like a reasonable feature request.
+
+Thanks for the report, Steve.
+
+Martin
+
+
+> 
+> Traceback:
+>  1: .Call(func, file, index, "rb", list(space(which),
+> .uunlist(start(which)),     .uunlist(end(which))), flag, simpleCigar,
+> ...)
+>  2: .io_bam(.scan_bam, file, index, tmpl, param = param)
+>  3: .local(file, index, ...)
+>  4: scanBam("scratch-sorted.bam", param = ScanBamParam(what = "pos",
+>   which = which))
+>  5: scanBam("scratch-sorted.bam", param = ScanBamParam(what = "pos",
+>   which = which))
+> 
+> I have access to chromosome length information, so it's not really a
+> problem for me, but it seems as if something is happening which you
+> didn't expect, so I thought you'd like to know.
+> 
+> Thanks,
+> -steve
+> 
+> ps: I'm using IRanges(.., end=.Machine$integer.max-1) because using
+> .Machine$integer.max causes an integer overflow
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From delhomme at embl.de  Thu Jan 21 16:03:00 2010
+From: delhomme at embl.de (Nicolas Delhomme)
+Date: Thu, 21 Jan 2010 16:03:00 +0100
+Subject: [Bioc-sig-seq] EdgeR bug (stable (1.4.3) and devel (1.5.5)) : the
+	genes "columns" does not get ordered as the "counts" in the
+	topTags results.
+Message-ID: <946E7253-C1C1-4496-9615-2660259CB368@embl.de>
+
+Good afternoon,
+
+I've had the following bug in edgeR version 1.4.3 (bioC 2.5 stable).
+
+I created my object like this:
+
+dge<-DGEList(
+                counts=counts,
+                group=sub("\\.\\d","",colnames(counts)),
+                lib.size=colSums(counts),
+                genes=transcripts)
+
+Then I estimated the common dispersion:
+
+dge <- estimateCommonDisp(dge)
+
+And did a contrast between two conditions and got the information back  
+in a data.frame:
+
+tags <- topTags(exactTest(dge,pair=c("gal4","twi")),n=.Machine 
+$integer.max)
+
+There, I realized that the genes were not ordered accordingly to the  
+colnames. The colnames are correct. See the results below.
+
+ > tags$table[1:10,]
+                   genes   logConc     logFC       PValue          FDR
+FBtr0084431 FBtr0087887 -33.16413 33.703845 9.050816e-50 1.834510e-45
+FBtr0084439 FBtr0087893 -17.89889  5.696000 2.391551e-45 2.423717e-41
+FBtr0071928 FBtr0074873 -19.97871  7.066663 1.814922e-43 1.226222e-39
+FBtr0077809 FBtr0070400 -33.99876 32.034581 1.677380e-29 8.499706e-26
+FBtr0300181 FBtr0074211 -21.99303  7.636927 1.945823e-26 7.887978e-23
+FBtr0301322 FBtr0084735 -34.32748 31.377138 8.141553e-24 2.750352e-20
+FBtr0299839 FBtr0084424 -19.89508  4.299143 9.575473e-23 2.426066e-19
+FBtr0299841 FBtr0084426 -19.89508  4.299143 9.575473e-23 2.426066e-19
+FBtr0299840 FBtr0084425 -19.91022  4.268863 2.075009e-22 4.673152e-19
+FBtr0079322 FBtr0071074 -19.40663  3.933231 1.308765e-21 2.652735e-18
+
+So I downloaded the latest version (1.5.5, bioC 2.6 devel) and I could  
+reproduce the same bug. Actually before I could do that I got yet  
+another error message saying:
+
+"Number of rows in the annotation object 'genes' is not equal to the  
+number of rows in the matrix of counts.
+   Must have an annotation for each gene/tag, if annotation is to be  
+used."
+
+whereas I didn't change anything to the above command lines. I tracked  
+it down and what happens is that rows with empty counts are removed  
+from the counts object but not from the genes one. And this obviously  
+has the sanity check failing.
+
+Changing the line 76 in classes.R (today's svn checkout) from
+
+	else if(nrow(as.data.frame(genes))==nrow(x$counts)) x$genes <-  
+as.data.frame(genes, stringsAsFactors=FALSE)
+
+to
+
+	else if(nrow(as.data.frame(genes)[!allZeros,,drop=FALSE])==nrow(x 
+$counts)) x$genes <- as.data.frame(genes, stringsAsFactors=FALSE)[! 
+allZeros,,drop=FALSE]
+
+corrects that problem. I haven't investigated the afore mentioned one,  
+as I expect it to be in some deeper functions and that I could work  
+around it by selecting on the colnames.
+
+Regards,
+
+Nicolas Delhomme
+
+PS: sessionInfo()
+
+R version 2.10.0 (2009-10-26)
+x86_64-unknown-linux-gnu
+
+locale:
+  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+  [1] doMC_1.2.0      multicore_0.1-3 foreach_1.3.0   codetools_0.2-2
+  [5] iterators_1.0.3 edgeR_1.5.5     DESeq_0.7.4     locfit_1.5-5
+  [9] lattice_0.18-3  akima_0.5-4     Biobase_2.6.1
+
+loaded via a namespace (and not attached):
+  [1] annotate_1.24.1     AnnotationDbi_1.8.1 DBI_0.2-5
+  [4] dgenb_0.4.0         genefilter_1.28.2   geneplotter_1.24.0
+  [7] grid_2.10.0         limma_3.2.1         MASS_7.3-4
+[10] RColorBrewer_1.0-2  RSQLite_0.8-1       splines_2.10.0
+[13] survival_2.35-8     xtable_1.5-6
+
+
+
+
+
+---------------------------------------------------------------
+Nicolas Delhomme
+
+High Throughput Functional Genomics Center
+
+European Molecular Biology Laboratory
+
+Tel: +49 6221 387 8426
+Email: nicolas.delhomme at embl.de
+Meyerhofstrasse 1 - Postfach 10.2209
+69102 Heidelberg, Germany
+
+
+From APratap at som.umaryland.edu  Thu Jan 21 18:19:08 2010
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Thu, 21 Jan 2010 12:19:08 -0500
+Subject: [Bioc-sig-seq] Calculating insert size for paired-end /mate
+ pair samples
+In-Reply-To: <C3BF92E1-DA7E-4FD6-9531-D38398911D22@ucr.edu>
+References: <B58C34D85CF5A04FA38C2E9176F26DD181457F@ISSOMMAIL01.som.umaryland.edu>
+	<F9626515-B0F9-4369-82DF-B1DA5BE39855@ucr.edu>
+	<C3BF92E1-DA7E-4FD6-9531-D38398911D22@ucr.edu>
+Message-ID: <B58C34D85CF5A04FA38C2E9176F26DD1814646@ISSOMMAIL01.som.umaryland.edu>
+
+Thanks Tyler for a quick reply. I see with few manipulations we can get to the insert size. Although this isn't bad but it will be nice to include direct function in ShortRead to infer insert size.
+
+Cheers,
+-Abhi
+
+-----Original Message-----
+From: Tyler Backman [mailto:tbackman at ucr.edu] 
+Sent: Wednesday, January 20, 2010 1:17 PM
+To: Tyler Backman
+Cc: Pratap, Abhishek; bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Calculating insert size for paired-end /mate pair samples
+
+I forgot to mention- this is for use with ShortRead.
+
+Sincerely,
+Tyler William H Backman
+Bioinformatics Analyst
+Institute for Integrative Genome Biology (IIGB)
+Department of Botany and Plant Sciences
+E-mail: tyler.backman at ucr.edu
+1207E Genomics Building
+University of California
+Riverside, CA 92521
+
+On Jan 20, 2010, at 10:13 AM, Tyler Backman wrote:
+
+> Hello Abhi,
+> 
+> Here is an example for calculating insert size of GA reads via a bowtie alignment:
+> 
+> # align with bowtie
+> system("bowtie -q reference.fasta -1 "pair1filtered.fastq" -2 "pair2filtered.fastq" -n 3 -e 160 -p 5 -I 0 -X 500 --fr > alignment.bowtie")
+> # import alignment
+> alignedReads <- readAligned("./", pattern="alignment.bowtie", type="Bowtie")
+> # calculate insert sizes
+> distance <- position(alignedReads[seq(2,length(alignedReads),by=2)]) - position(alignedReads[seq(1,length(alignedReads),by=2)]) + width(alignedReads)[1]
+> # look at stats
+> median(distance)
+> sd(distance)
+> 
+> Sincerely,
+> Tyler William H Backman
+> Bioinformatics Analyst
+> Institute for Integrative Genome Biology (IIGB)
+> Department of Botany and Plant Sciences
+> E-mail: tyler.backman at ucr.edu
+> 1207E Genomics Building
+> University of California
+> Riverside, CA 92521
+> 
+> On Jan 20, 2010, at 9:52 AM, Pratap, Abhishek wrote:
+> 
+>> Hi All
+>> 
+>> Recently it has been quiet here. I hope you all had a good start to 2010.
+>> 
+>> I wanted to know if there is already a method in ShortRead or some other package to calculate the insert size for pair end or mate pair data from GA and plot it on a graph. I guess the latter part is trivial.
+>> 
+>> Thanks,
+>> -Abhi
+>> 
+>> 
+>> 	[[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From smyth at wehi.EDU.AU  Fri Jan 22 03:09:22 2010
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Fri, 22 Jan 2010 13:09:22 +1100 (AUS Eastern Daylight Time)
+Subject: [Bioc-sig-seq] EdgeR bug (stable (1.4.3) and devel (1.5.5)) :
+ the genes "columns" does not get ordered as the "counts" in the topTags
+ results.
+In-Reply-To: <946E7253-C1C1-4496-9615-2660259CB368@embl.de>
+References: <946E7253-C1C1-4496-9615-2660259CB368@embl.de>
+Message-ID: <Pine.WNT.4.64.1001221306030.5524@PC602.alpha.wehi.edu.au>
+
+Dear Nicolas,
+
+Thanks very much for the bug report.  I have committed a fix to edgeR 
+versions 1.4.6 (release) and 1.5.6 (devel).
+
+Best wishes
+Gordon
+
+On Thu, 21 Jan 2010, Nicolas Delhomme wrote:
+
+> Good afternoon,
+>
+> I've had the following bug in edgeR version 1.4.3 (bioC 2.5 stable).
+>
+> I created my object like this:
+>
+> dge<-DGEList(
+>              counts=counts,
+>              group=sub("\\.\\d","",colnames(counts)),
+>              lib.size=colSums(counts),
+>              genes=transcripts)
+>
+> Then I estimated the common dispersion:
+>
+> dge <- estimateCommonDisp(dge)
+>
+> And did a contrast between two conditions and got the information back in a 
+> data.frame:
+>
+> tags <- topTags(exactTest(dge,pair=c("gal4","twi")),n=.Machine$integer.max)
+>
+> There, I realized that the genes were not ordered accordingly to the 
+> colnames. The colnames are correct. See the results below.
+>
+>> tags$table[1:10,]
+>                 genes   logConc     logFC       PValue          FDR
+> FBtr0084431 FBtr0087887 -33.16413 33.703845 9.050816e-50 1.834510e-45
+> FBtr0084439 FBtr0087893 -17.89889  5.696000 2.391551e-45 2.423717e-41
+> FBtr0071928 FBtr0074873 -19.97871  7.066663 1.814922e-43 1.226222e-39
+> FBtr0077809 FBtr0070400 -33.99876 32.034581 1.677380e-29 8.499706e-26
+> FBtr0300181 FBtr0074211 -21.99303  7.636927 1.945823e-26 7.887978e-23
+> FBtr0301322 FBtr0084735 -34.32748 31.377138 8.141553e-24 2.750352e-20
+> FBtr0299839 FBtr0084424 -19.89508  4.299143 9.575473e-23 2.426066e-19
+> FBtr0299841 FBtr0084426 -19.89508  4.299143 9.575473e-23 2.426066e-19
+> FBtr0299840 FBtr0084425 -19.91022  4.268863 2.075009e-22 4.673152e-19
+> FBtr0079322 FBtr0071074 -19.40663  3.933231 1.308765e-21 2.652735e-18
+>
+> So I downloaded the latest version (1.5.5, bioC 2.6 devel) and I could 
+> reproduce the same bug. Actually before I could do that I got yet another 
+> error message saying:
+>
+> "Number of rows in the annotation object 'genes' is not equal to the number 
+> of rows in the matrix of counts.
+> Must have an annotation for each gene/tag, if annotation is to be used."
+>
+> whereas I didn't change anything to the above command lines. I tracked it 
+> down and what happens is that rows with empty counts are removed from the 
+> counts object but not from the genes one. And this obviously has the sanity 
+> check failing.
+>
+> Changing the line 76 in classes.R (today's svn checkout) from
+>
+> 	else if(nrow(as.data.frame(genes))==nrow(x$counts)) x$genes <- 
+> as.data.frame(genes, stringsAsFactors=FALSE)
+>
+> to
+>
+> 	else 
+> if(nrow(as.data.frame(genes)[!allZeros,,drop=FALSE])==nrow(x$counts)) x$genes 
+> <- as.data.frame(genes, stringsAsFactors=FALSE)[!allZeros,,drop=FALSE]
+>
+> corrects that problem. I haven't investigated the afore mentioned one, as I 
+> expect it to be in some deeper functions and that I could work around it by 
+> selecting on the colnames.
+>
+> Regards,
+>
+> Nicolas Delhomme
+>
+> PS: sessionInfo()
+>
+> R version 2.10.0 (2009-10-26)
+> x86_64-unknown-linux-gnu
+>
+> locale:
+> [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+> [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+> [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+> [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+> [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] doMC_1.2.0      multicore_0.1-3 foreach_1.3.0   codetools_0.2-2
+> [5] iterators_1.0.3 edgeR_1.5.5     DESeq_0.7.4     locfit_1.5-5
+> [9] lattice_0.18-3  akima_0.5-4     Biobase_2.6.1
+>
+> loaded via a namespace (and not attached):
+> [1] annotate_1.24.1     AnnotationDbi_1.8.1 DBI_0.2-5
+> [4] dgenb_0.4.0         genefilter_1.28.2   geneplotter_1.24.0
+> [7] grid_2.10.0         limma_3.2.1         MASS_7.3-4
+> [10] RColorBrewer_1.0-2  RSQLite_0.8-1       splines_2.10.0
+> [13] survival_2.35-8     xtable_1.5-6
+>
+>
+>
+>
+>
+> ---------------------------------------------------------------
+> Nicolas Delhomme
+>
+> High Throughput Functional Genomics Center
+>
+> European Molecular Biology Laboratory
+>
+> Tel: +49 6221 387 8426
+> Email: nicolas.delhomme at embl.de
+> Meyerhofstrasse 1 - Postfach 10.2209
+> 69102 Heidelberg, Germany
+> ---------------------------------------------------------------
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From Arnaud.Droit at ircm.qc.ca  Mon Jan 25 19:25:36 2010
+From: Arnaud.Droit at ircm.qc.ca (Droit Arnaud)
+Date: Mon, 25 Jan 2010 13:25:36 -0500
+Subject: [Bioc-sig-seq] Extract masked sequences
+In-Reply-To: <4B56509C.4080503@fhcrc.org>
+Message-ID: <C7834C50.10157%arnaud.droit@ircm.qc.ca>
+
+Hi Patrick,
+
+Thanks for your answer.
+
+We are developing an motif discovery and analysis pipeline for ChIP-Seq experiment.
+We're using BSgenome to convert BED file into fasta sequence with getseq function.
+
+We would like to get masked sequences to improve the motif analysis by eliminating repeats or other low interest regions.
+
+So, is there a way to get masked region instead of the original sequence containing in BSgenome ?
+Not only "show" the sequence, but convert the masked sequence into a string.
+
+Because activated the masks chromosome only allow me to visualize the masked sequence of the BSgenome object.
+But I'm still not able to access to the masked sequence.
+
+Thanks,
+
+Arnaud.
+
+On 10-01-19 7:38 PM, "Patrick Aboyoun" <paboyoun at fhcrc.org> wrote:
+
+Arnaud,
+The BSgenome object, in this case Hsapiens, contains references to on
+disk storage of information such as masks. Since this information is not
+in memory and the data stored on disk is considered read-only, you
+cannot change the mask information on a BSgenome object. Instead, you
+need to modify the masks chromosome by chromosome after they have been
+loaded into memory as you showed in your code below.
+
+What is your use case that motivated your e-mail?
+
+If you never want to deal with masks, you can always use the unmasked
+function to strip the masks when you load the chromosome:
+
+ > unmasked(Hsapiens$chr1)
+  247249719-letter "DNAString" instance
+seq:
+TAACCCTAACCCTAACCCTAACCCTAACCCTAACCC...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
+
+
+Patrick
+
+
+
+Droit Arnaud wrote:
+> Hi,
+>
+> I wondering if anybody can help me to generate masked (by RepeatMasker for instance) sequences.
+>
+> I'm currently using Bsgenome to extract sequence from a BED file such as :
+>
+> library(BSgenome.Hsapiens.UCSC.hg18)
+> genome<-Hsapiens
+> FastaSeq<-getSeq(genome,"chr1",start=1000,end=1200, as.character=FALSE)
+>
+> I know that Bsgenome contains masks that can be apply by using :
+>
+> chr1 <- genome$chr1
+> active(masks(chr1)) <- TRUE
+>
+> So, I'm trying to use it to change the masks of the genome object. But I cannot modify it :
+>
+> active(masks(genome$chr1)) <- TRUE
+>  Error in `$<-`(`*tmp*`, "chr1", value = <S4 object of class "MaskedDNAString">) :
+>  no method for assigning subsets of this S4 class
+>
+> Is there a way get the masked sequence with the getSeq function ?
+>
+> Thanks.
+>
+> Arnaud.
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From lawrence.michael at gene.com  Mon Jan 25 19:54:58 2010
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Mon, 25 Jan 2010 10:54:58 -0800
+Subject: [Bioc-sig-seq] Extract masked sequences
+In-Reply-To: <C7834C50.10157%arnaud.droit@ircm.qc.ca>
+References: <4B56509C.4080503@fhcrc.org>
+	<C7834C50.10157%arnaud.droit@ircm.qc.ca>
+Message-ID: <acbd1aed1001251054l155b3e13q6dedde792b11f3ad@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100125/acaa93ba/attachment.pl>
+
+From mdavy86 at gmail.com  Tue Jan 26 03:54:09 2010
+From: mdavy86 at gmail.com (Marcus Davy)
+Date: Tue, 26 Jan 2010 15:54:09 +1300
+Subject: [Bioc-sig-seq] trimLRPatterns vs vmatchPattern
+Message-ID: <29eb05dc1001251854o1f424b12s6113916089e40cfb@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100126/bccdd755/attachment.pl>
+
+From ivangreg at gmail.com  Tue Jan 26 15:16:10 2010
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Tue, 26 Jan 2010 09:16:10 -0500
+Subject: [Bioc-sig-seq] Shuffling genomic positions at random
+Message-ID: <a394a9181001260616s5ffeb1bapc3ae74c7ec0a1522@mail.gmail.com>
+
+Dear Bioconductor connoisseurs,
+
+Is there an algorithm to produce a random set of genomic positions?
+
+
+In more detail now:
+
+I have two sets of ChIP-seq peak locations. Say they are 10000 peaks
+each. There is partial overlap between both sets. The question that I
+need to answer is whether or not that overlap is statistically
+significant.
+
+I can answer that question if I can randomly shuffle one of the sets
+many times and compute the overlap with the non-shuffled set.
+
+IMPORTANT: some portions of the mouse genome must be excluded because
+their are repetitive or poorly sequenced. For instance, those familiar
+with the mm9 assembly know that the first 3 million bases of almost
+all chromosomes are to be excluded.
+
+Any pointer would be appreciated,
+
+Ivan
+
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+From laugraud at prabi.fr  Tue Jan 26 15:41:21 2010
+From: laugraud at prabi.fr (Aurelie Laugraud)
+Date: Tue, 26 Jan 2010 15:41:21 +0100
+Subject: [Bioc-sig-seq] Rsamtools
+Message-ID: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+
+Dear all, 
+I have read about Rsamtools being in dev repositories and advices about waiting for it to be stable to use it ...
+my question is therefore how long before it comes as a "regular"  R package ? Or is that that awful to make the dev version working ?
+I am using mac os X 10.6.2
+
+Thanks a lot
+
+Aur?lie 
+
+--
+Aurelie Laugraud
+Fondation Synergie Lyon Cancer
+Centre Leon Berard
+0426556711
+laugraud at lyon.fnclcc.fr
+
+
+From mtmorgan at fhcrc.org  Tue Jan 26 15:51:39 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 26 Jan 2010 06:51:39 -0800
+Subject: [Bioc-sig-seq] Rsamtools
+In-Reply-To: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+References: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+Message-ID: <4B5F017B.8030903@fhcrc.org>
+
+On 01/26/2010 06:41 AM, Aurelie Laugraud wrote:
+> Dear all, 
+> I have read about Rsamtools being in dev repositories and advices about waiting for it to be stable to use it ...
+> my question is therefore how long before it comes as a "regular"  R package ? Or is that that awful to make the dev version working ?
+> I am using mac os X 10.6.2
+
+Oops, pressed the send button a little quickly.
+
+The intention is that Rsamtools will be ready for inclusion in the next
+release of Bioconductor. That release hasn't been scheduled, but is
+usually in the April time frame.
+
+Rsamtools is available for the 'devel' version of R using svn
+
+  http://wiki.fhcrc.org/bioc/SvnHowTo
+  https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+
+Martin
+
+> 
+> Thanks a lot
+> 
+> Aur?lie 
+> 
+> --
+> Aurelie Laugraud
+> Fondation Synergie Lyon Cancer
+> Centre Leon Berard
+> 0426556711
+> laugraud at lyon.fnclcc.fr
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From mtmorgan at fhcrc.org  Tue Jan 26 15:47:48 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 26 Jan 2010 06:47:48 -0800
+Subject: [Bioc-sig-seq] Rsamtools
+In-Reply-To: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+References: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+Message-ID: <4B5F0094.5020609@fhcrc.org>
+
+On 01/26/2010 06:41 AM, Aurelie Laugraud wrote:
+> Dear all, 
+> I have read about Rsamtools being in dev repositories and advices about waiting for it to be stable to use it ...
+> my question is therefore how long before it comes as a "regular"  R package ? Or is that that awful to make the dev version working ?
+> I am using mac os X 10.6.2
+
+
+> 
+> Thanks a lot
+> 
+> Aur?lie 
+> 
+> --
+> Aurelie Laugraud
+> Fondation Synergie Lyon Cancer
+> Centre Leon Berard
+> 0426556711
+> laugraud at lyon.fnclcc.fr
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From hj at jhu.edu  Tue Jan 26 15:55:49 2010
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Tue, 26 Jan 2010 09:55:49 -0500
+Subject: [Bioc-sig-seq] trimLRPatterns vs vmatchPattern
+In-Reply-To: <29eb05dc1001251854o1f424b12s6113916089e40cfb@mail.gmail.com>
+References: <29eb05dc1001251854o1f424b12s6113916089e40cfb@mail.gmail.com>
+Message-ID: <D1066AB1-0E41-4486-996B-7BF6F0EB9A73@jhu.edu>
+
+You can get the with.Lindels=TRUE behavior you want by reversing your  
+data
+and calling trimLRPatterns with with.Rindels=TRUE and an Rpattern  
+equal to
+the reverse of your Lpattern, and then reversing the results.
+
+But the behavior you like with indels might be considered a bug, or  
+at least
+something that trimLRPatterns shouldn't do, in the sense that the  
+match you
+like isn't flanking, so might be artificial.  Also, setting the  
+max.mismatch
+values is difficult because one can't know in advance how many  
+letters of the
+current pattern will extend off the edge of the subject, which  
+depends on the
+match, i.e. how many inserts into the pattern will be required.   
+Worse, "the"
+match-with-indels is not at all unique.  In my mind, it also isn't  
+clear that
+Herve's 'best local match' (shortest one with the minimal edit  
+distance) is
+what trimLRPatterns wants.  It might want the longest match with the  
+minimal
+edit distance, the longest match with maximal allowed edit distance,  
+etc.
+
+I have a version that demands that matches-with-indels start at the  
+beginning
+of the subject, for Lpattern, and end at the end of the subject, for  
+Rpattern.
+[The ending part would also not be implemented yet, if I needed  
+Proffset, but
+I do it by the reversing trick.]  I trim by the length of the current  
+pattern
+rather than the length of the match.  This is a one-size-fits-all  
+solution,
+since the match could be shorter or longer.  Maybe I should trim by  
+the length
+of the pattern plus the number of allowed edits.  The max.mismatch  
+limits are
+less circular, so easier to set.
+
+I was about to submit a patch, but now it's open to debate.
+
+On Jan 25, 2010, at 9:54 PM, Marcus Davy wrote:
+
+> Hi,
+> I have some 454 data which is expected to contain a primer at the  
+> beginning.
+>
+> I noticed that using trimLRPatterns to trim an Lpattern at the 5'  
+> start of a
+> sequence with 1 mismatch does not allow matches to the subject  
+> sequence up
+> to the number of mismatches directly to the right of the sequence  
+> start (and
+> also to the left of an Rpattern at the 3' end).
+>
+> So if my example primer Lpattern is 23 bases in length,  
+> trimLRPatterns with
+> 1 mismatch will match all sequences at positions 0 to 22 and 1 to  
+> 23, but
+> not 2 to 24 whereas if you use vmatchPattern, it will find all  
+> three of
+> these positions.
+>
+> My question is should an option/arg in trimLRPatterns be made  
+> available that
+> allows matches to the right of the Lpattern up to the number of  
+> mismatches,
+> and to the left of the Rpattern up to the number of mismatches?
+>
+> I think the arg e.g. 'with.Lindels=TRUE' (which appears to have not  
+> been
+> enabled yet in Biostrings_2.14.8) may partially resolve this if the
+> insertion is somewhere at the beginning of a subject sequence   
+> (within the
+> number of mismatches allowed) which can then be matched by the  
+> Lpattern.
+>
+>
+>> mismatches <- 1
+>> pattern    <- "AAGCAGTGGTATCAACGCAGAGT"
+>> w          <- width(pattern)
+>> mm         <- rep(mismatches, w)
+>> base       <- "G"
+>> n          <- 20
+>>
+>> subjectList <- list(
+> +                     "Primer0+poly(T)" = paste(substring(pattern, 
+> 2,w),
+> polyn(base, n), sep=""),
+> +                     "Primer1+poly(T)"  = paste(pattern, polyn 
+> (base, n),
+> sep=""),
+> +                     "Primer2+poly(T)" = paste("A", substring 
+> (pattern,1,w),
+> polyn(base,n), sep="")
+> +                     )
+>>
+>> subjectSet <- DNAStringSet(unlist(subjectList))
+>>
+>> print(subjectSet)
+>   A DNAStringSet instance of length 3
+>     width seq                                               names
+>
+> [1]    42 AGCAGTGGTATCAACGCAGAGTGGGGGGGGGGGGGGGGGGGG        Primer0 
+> +poly(T)
+> [2]    43 AAGCAGTGGTATCAACGCAGAGTGGGGGGGGGGGGGGGGGGGG       Primer1 
+> +poly(T)
+> [3]    44 AAAGCAGTGGTATCAACGCAGAGTGGGGGGGGGGGGGGGGGGGG      Primer2 
+> +poly(T)
+>> cat("Primer:  ", pattern, "\n")
+> Primer:  AAGCAGTGGTATCAACGCAGAGT
+>>
+>> ## trimLRPatterns -LPattern
+>> LRcoords     <- trimLRPatterns(Lpattern = pattern, subject =  
+>> subjectSet,
+>  max.Lmismatch=mm, ranges=TRUE, with.Lindels=FALSE)
+>> ## Fails to match subjectSet[3:4] - trimming with mismatches is to  
+>> the
+> left of Lpattern (and to the right of Rpattern)
+>> DNAStringSet(subjectSet,start(LRcoords), end(LRcoords))
+>   A DNAStringSet instance of length 3
+>     width seq                                               names
+>
+> [1]    20 GGGGGGGGGGGGGGGGGGGG                              Primer0 
+> +poly(T)
+> [2]    20 GGGGGGGGGGGGGGGGGGGG                              Primer1 
+> +poly(T)
+> [3]    43 AAGCAGTGGTATCAACGCAGAGTGGGGGGGGGGGGGGGGGGGG       Primer2 
+> +poly(T)
+>>
+>> ## vmatchPattern
+>> tmp <- vmatchPattern(pattern, subjectSet, max.mismatch=mismatches)
+>> matchIndex <- which(as.logical(countIndex(tmp)))
+>> ## only one match per sequence so indices preserved with unlist
+>> VMcoords <- unlist(tmp)
+>> ## Matches to subjectSet[3]
+>> DNAStringSet(subjectSet[matchIndex],end(VMcoords)+1,
+> width(subjectSet)[matchIndex])
+>   A DNAStringSet instance of length 3
+>     width seq                                               names
+>
+> [1]    20 GGGGGGGGGGGGGGGGGGGG                              Primer0 
+> +poly(T)
+> [2]    20 GGGGGGGGGGGGGGGGGGGG                              Primer1 
+> +poly(T)
+> [3]    20 GGGGGGGGGGGGGGGGGGGG                              Primer2 
+> +poly(T)
+>
+> cheers,
+>
+>
+>  Marcus
+>
+>
+>> sessionInfo()
+> R version 2.10.0 (2009-10-26)
+> powerpc-apple-darwin8.11.1
+>
+> locale:
+> [1] C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] hgu95av2probe_2.5.0 AnnotationDbi_1.8.1 Biobase_2.6.1
+> [4] ShortRead_1.4.0     lattice_0.17-26     BSgenome_1.14.2
+> [7] Biostrings_2.14.8   IRanges_1.4.9
+>
+> loaded via a namespace (and not attached):
+> [1] DBI_0.2-4     RSQLite_0.7-3 grid_2.10.0   hwriter_1.1    
+> tools_2.10.0
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From mailinglist.honeypot at gmail.com  Tue Jan 26 15:58:55 2010
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Tue, 26 Jan 2010 09:58:55 -0500
+Subject: [Bioc-sig-seq] Rsamtools
+In-Reply-To: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+References: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+Message-ID: <bbdc7ed01001260658j34d5124es4f960b85ad8232bb@mail.gmail.com>
+
+Hi,
+
+On Tue, Jan 26, 2010 at 9:41 AM, Aurelie Laugraud <laugraud at prabi.fr> wrote:
+> Dear all,
+> I have read about Rsamtools being in dev repositories and advices about waiting for it to be stable to use it ...
+> my question is therefore how long before it comes as a "regular" ?R package ? Or is that that awful to make the dev version working ?
+> I am using mac os X 10.6.2
+
+For what it's worth, I'm using the version of Rsamtools from SVN in
+order to read BAM files, and it works "as advertised". Note that this
+means you (should be) using R 2.11 (you can get it from here:
+http://r.research.att.com/).
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From jdsandjd at yahoo.com  Wed Jan 27 21:33:30 2010
+From: jdsandjd at yahoo.com (joseph)
+Date: Wed, 27 Jan 2010 12:33:30 -0800 (PST)
+Subject: [Bioc-sig-seq] unique reads count
+Message-ID: <465842.42689.qm@web36903.mail.mud.yahoo.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/7c7bf0a4/attachment.pl>
+
+From mtmorgan at fhcrc.org  Wed Jan 27 22:06:55 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 27 Jan 2010 13:06:55 -0800
+Subject: [Bioc-sig-seq] unique reads count
+In-Reply-To: <465842.42689.qm@web36903.mail.mud.yahoo.com>
+References: <465842.42689.qm@web36903.mail.mud.yahoo.com>
+Message-ID: <4B60AAEF.70107@fhcrc.org>
+
+Hi Joseph --
+
+On 01/27/2010 12:33 PM, joseph wrote:
+> Hello
+> I have a ShortReadQ object: 
+>> rfq
+> class: ShortReadQ
+> length: 16115723 reads; width: 34 cycles
+> 
+> I used the negation of the result from srduplicated to count the unique reads:
+>> sum(!srduplicated(sread(rfq)))
+> [1] 4545719
+> 
+> But also I looked at the frequency with which each read occurs using the tables function:
+>> head(tables(rfq_s_3_mel)$distribution)
+>   nOccurrences  nReads
+> 1            1 4022038
+> 2            2  255649
+
+srduplicated is behaving like 'duplicated', which is to return TRUE when
+an element has already been seen
+
+> duplicated(c("A", "B", "B", "C"))
+[1] FALSE FALSE  TRUE FALSE
+
+There's one duplicate, the second 'B'.
+
+After example(srduplicated) I have
+
+> tables(sread(rfq))$distribution
+  nOccurrences nReads
+1            1    239
+2            2      7
+3            3      1
+> sum(srduplicated(sread(rfq)))
+[1] 9
+
+there are 7 reads that are the second of two reads, and 2 reads that are
+the second and third of three reads.
+
+Martin
+
+> 
+> I expected that for nOccurrences=1, the nReads should be the same as what I got with !srduplicated.
+> 
+> Can anybody explain why I got different counts?
+> Thank you
+> Joseph Dhahbi
+> 
+> 
+>       
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From mdavy86 at gmail.com  Wed Jan 27 22:27:08 2010
+From: mdavy86 at gmail.com (Marcus Davy)
+Date: Thu, 28 Jan 2010 10:27:08 +1300
+Subject: [Bioc-sig-seq] trimLRPatterns vs vmatchPattern
+In-Reply-To: <D1066AB1-0E41-4486-996B-7BF6F0EB9A73@jhu.edu>
+References: <29eb05dc1001251854o1f424b12s6113916089e40cfb@mail.gmail.com>
+	<D1066AB1-0E41-4486-996B-7BF6F0EB9A73@jhu.edu>
+Message-ID: <29eb05dc1001271327u6f7b4703mc40dfc3673c816d0@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100128/857e8743/attachment.pl>
+
+From Karl.Dykema at vai.org  Wed Jan 27 23:00:53 2010
+From: Karl.Dykema at vai.org (Dykema, Karl)
+Date: Wed, 27 Jan 2010 17:00:53 -0500
+Subject: [Bioc-sig-seq] Rsamtools
+In-Reply-To: <bbdc7ed01001260658j34d5124es4f960b85ad8232bb@mail.gmail.com>
+References: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+	<bbdc7ed01001260658j34d5124es4f960b85ad8232bb@mail.gmail.com>
+Message-ID: <9A6509A94A33124187515A9901DC551F0EF7C0375B@VAIEXCH05.vai.org>
+
+Hi all,
+
+We have been using Rsamtools to import BAM files also. On previous sequencing runs the BAM files were around 800 megs and I could import the entire BAM with .readAligned_bam(). Our new sequencing data creates larger BAM files and I am unable to import them like before. So, as Steve pointed out to me offline, I probably will need to import the reads from each chromosome individually. Unfortunately it does not seem to be recognizing my chromosome names, error msg below. Has anyone had a similar problem or recognize something that I might be doing incorrectly? Thanks in advance.
+
+
+> which <- RangesList(chr1=IRanges(start=1,end=247249719))
+> params <- ScanBamParam(which=which)
+>
+> chr1reads <- scanBam("../aln.sorted.nodupes.bam",param=params)
+Error in function (bam, tmpl, space, start, end)  : failed to scan BAM
+  file: ?
+  last record: 0
+In addition: Warning message:
+In function (bam, tmpl, space, start, end)  : 'space' not in BAM header
+  file: ../aln.sorted.nodupes.bam
+  space: chr1
+
+
+
+-------------------------------------------
+Karl Dykema
+Computational Biologist
+Van Andel Research Institute
+
+
+
+
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Steve Lianoglou
+Sent: Tuesday, January 26, 2010 9:59 AM
+To: Aurelie Laugraud
+Cc: Bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Rsamtools
+
+Hi,
+
+On Tue, Jan 26, 2010 at 9:41 AM, Aurelie Laugraud <laugraud at prabi.fr> wrote:
+> Dear all,
+> I have read about Rsamtools being in dev repositories and advices about waiting for it to be stable to use it ...
+> my question is therefore how long before it comes as a "regular" ?R package ? Or is that that awful to make the dev version working ?
+> I am using mac os X 10.6.2
+
+For what it's worth, I'm using the version of Rsamtools from SVN in
+order to read BAM files, and it works "as advertised". Note that this
+means you (should be) using R 2.11 (you can get it from here:
+http://r.research.att.com/).
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+The information transmitted is intended only for the person or entity to which it is addressed and may contain confidential and/or privileged material. Any review, retransmission, dissemination or other use of, or taking of any action in reliance upon, this information by persons or entities other than the intended recipient is prohibited. If you received this in error, please contact the sender and delete the material from any computer.
+
+From hj at jhu.edu  Wed Jan 27 23:13:19 2010
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Wed, 27 Jan 2010 17:13:19 -0500
+Subject: [Bioc-sig-seq] trimLRPatterns vs vmatchPattern
+In-Reply-To: <29eb05dc1001271327u6f7b4703mc40dfc3673c816d0@mail.gmail.com>
+References: <29eb05dc1001251854o1f424b12s6113916089e40cfb@mail.gmail.com>
+	<D1066AB1-0E41-4486-996B-7BF6F0EB9A73@jhu.edu>
+	<29eb05dc1001271327u6f7b4703mc40dfc3673c816d0@mail.gmail.com>
+Message-ID: <A75E53C6-049C-427E-A03F-0FDD4B3E0814@jhu.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/489065a6/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Wed Jan 27 23:18:06 2010
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Wed, 27 Jan 2010 17:18:06 -0500
+Subject: [Bioc-sig-seq] Rsamtools
+In-Reply-To: <9A6509A94A33124187515A9901DC551F0EF7C0375B@VAIEXCH05.vai.org>
+References: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+	<bbdc7ed01001260658j34d5124es4f960b85ad8232bb@mail.gmail.com>
+	<9A6509A94A33124187515A9901DC551F0EF7C0375B@VAIEXCH05.vai.org>
+Message-ID: <bbdc7ed01001271418y661fd2d2m30e9f30e28b65aad@mail.gmail.com>
+
+Hi Karl,
+
+On Wed, Jan 27, 2010 at 5:00 PM, Dykema, Karl <Karl.Dykema at vai.org> wrote:
+> Hi all,
+>
+> We have been using Rsamtools to import BAM files also. On previous sequencing runs the BAM files were around 800 megs and I could import the entire BAM with .readAligned_bam(). Our new sequencing data creates larger BAM files and I am unable to import them like before. So, as Steve pointed out to me offline, I probably will need to import the reads from each chromosome individually. Unfortunately it does not seem to be recognizing my chromosome names, error msg below. Has anyone had a similar problem or recognize something that I might be doing incorrectly? Thanks in advance.
+>
+>
+>> which <- RangesList(chr1=IRanges(start=1,end=247249719))
+>> params <- ScanBamParam(which=which)
+>>
+>> chr1reads <- scanBam("../aln.sorted.nodupes.bam",param=params)
+> Error in function (bam, tmpl, space, start, end) ?: failed to scan BAM
+> ?file: ?
+> ?last record: 0
+> In addition: Warning message:
+> In function (bam, tmpl, space, start, end) ?: 'space' not in BAM header
+> ?file: ../aln.sorted.nodupes.bam
+> ?space: chr1
+
+Perhaps the chromosome names are different in your BAM file. I think
+you can list them using samtools, like so (from the command line):
+
+$ samtools view -H aln.sorted.nodupes.bam
+
+You should get a lot of lines that start with @SQ -- the names of "the
+spaces" are there, some of the output from one of my files looks like:
+
+@SQ	SN:chr1	LN:247249719
+@SQ	SN:chr2	LN:242951149
+@SQ	SN:chr3	LN:199501827
+...
+
+That's why this works for me:
+
+which <- RangesList(chr1=IRanges(start=1,end=247249719))
+
+Maybe your's might look like:
+
+@SQ	SN:chromo1	LN:247249719
+@SQ	SN:chromo2	LN:242951149
+@SQ	SN:chromo3	LN:199501827
+
+(or something)
+
+Then the appropriate call for you would be:
+
+which <- RangesList(chromo1=IRanges(start=1,end=247249719))
+
+Does that work for you?
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From mdavy86 at gmail.com  Wed Jan 27 23:45:01 2010
+From: mdavy86 at gmail.com (Marcus Davy)
+Date: Thu, 28 Jan 2010 11:45:01 +1300
+Subject: [Bioc-sig-seq] trimLRPatterns vs vmatchPattern
+In-Reply-To: <A75E53C6-049C-427E-A03F-0FDD4B3E0814@jhu.edu>
+References: <29eb05dc1001251854o1f424b12s6113916089e40cfb@mail.gmail.com>
+	<D1066AB1-0E41-4486-996B-7BF6F0EB9A73@jhu.edu>
+	<29eb05dc1001271327u6f7b4703mc40dfc3673c816d0@mail.gmail.com>
+	<A75E53C6-049C-427E-A03F-0FDD4B3E0814@jhu.edu>
+Message-ID: <29eb05dc1001271445s1f0dee32me916d53193722ed5@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100128/c0e0d74b/attachment.pl>
+
+From hzh0005 at auburn.edu  Wed Jan 27 21:45:07 2010
+From: hzh0005 at auburn.edu (Hongtao Hu)
+Date: Wed, 27 Jan 2010 14:45:07 -0600
+Subject: [Bioc-sig-seq] ABout how to trim out the adaptor of soleax short
+	data!
+Message-ID: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+
+Hey, dear all,
+The adapotor in our dataset seems variable. Usually, how should it be trimmed out or which software would be used?
+The length of 3' and 5' adapotr are sperately over 20 nt, but the total length of reads is 39 nt.  I wondering if Anyone who ever did the similar job can share your experience? Appreciate!
+
+
+Bests,
+Hongtao Hu
+Department of Biological Sicences
+Auburn University
+Auburn, Al 36832
+cell phone: 334-524-7282
+Hongtao webpage: http://www.auburn.edu/~hzh0005/
+
+
+From jdsandjd at yahoo.com  Wed Jan 27 23:57:24 2010
+From: jdsandjd at yahoo.com (joseph)
+Date: Wed, 27 Jan 2010 14:57:24 -0800 (PST)
+Subject: [Bioc-sig-seq] unique reads count
+In-Reply-To: <4B60AAEF.70107@fhcrc.org>
+References: <465842.42689.qm@web36903.mail.mud.yahoo.com>
+	<4B60AAEF.70107@fhcrc.org>
+Message-ID: <251965.18309.qm@web36903.mail.mud.yahoo.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/fee6fcee/attachment.pl>
+
+From hj at jhu.edu  Thu Jan 28 00:40:39 2010
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Wed, 27 Jan 2010 18:40:39 -0500
+Subject: [Bioc-sig-seq] ABout how to trim out the adaptor of soleax
+	short	data!
+In-Reply-To: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+References: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+Message-ID: <B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+
+Patrick's trimLRPatterns function in the Biostrings package.
+
+Beware that the allowed mismatches arguments, including the defaults  
+of 0,
+are turned into vectors of the same length as the relevant pattern.   
+If a
+single integer is specified, including the default, it is turned into a
+vector with many -1's at the beginning, preventing any partial  
+matching of
+the pattern.  So, the only possible trimming will be by the whole  
+pattern,
+assuming that it matches well enough.  But the presence of the whole  
+adaptor
+would be a rare event.  To permit arbitrary partial matching, exact  
+or not,
+you have to give a vector of the same length as the relevant pattern,  
+e.g.
+rep(e, nchar(pattern)), for whatever non-negative e you want to  
+allow.  You
+can do this separately for the right and left adaptors.
+
+On Jan 27, 2010, at 3:45 PM, Hongtao Hu wrote:
+
+> Hey, dear all,
+> The adapotor in our dataset seems variable. Usually, how should it  
+> be trimmed out or which software would be used?
+> The length of 3' and 5' adapotr are sperately over 20 nt, but the  
+> total length of reads is 39 nt.  I wondering if Anyone who ever did  
+> the similar job can share your experience? Appreciate!
+>
+>
+> Bests,
+> Hongtao Hu
+> Department of Biological Sicences
+> Auburn University
+> Auburn, Al 36832
+> cell phone: 334-524-7282
+> Hongtao webpage: http://www.auburn.edu/~hzh0005/
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From hj at jhu.edu  Thu Jan 28 00:50:00 2010
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Wed, 27 Jan 2010 18:50:00 -0500
+Subject: [Bioc-sig-seq] ABout how to trim out the adaptor of
+	soleax	short data!
+In-Reply-To: <B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+References: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+	<B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+Message-ID: <323E11B6-F0B6-41C8-B0CA-89F933225858@jhu.edu>
+
+Also useful is a single numeric mismatch value in (0,1). It is viewed
+as an "error rate", relative to the length of the current sub-pattern.
+
+On Jan 27, 2010, at 6:40 PM, Harris A. Jaffee wrote:
+> To permit arbitrary partial matching, exact or not,
+> you have to give a vector of the same length as the relevant  
+> pattern, e.g.
+> rep(e, nchar(pattern))
+
+
+From jdsandjd at yahoo.com  Thu Jan 28 01:57:53 2010
+From: jdsandjd at yahoo.com (joseph)
+Date: Wed, 27 Jan 2010 16:57:53 -0800 (PST)
+Subject: [Bioc-sig-seq] ABout how to trim out the adaptor of soleax
+	short data!
+In-Reply-To: <B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+References: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+	<B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+Message-ID: <530085.72312.qm@web36904.mail.mud.yahoo.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/e445a6f7/attachment.pl>
+
+From mtmorgan at fhcrc.org  Thu Jan 28 02:26:28 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 27 Jan 2010 17:26:28 -0800
+Subject: [Bioc-sig-seq] Rsamtools
+In-Reply-To: <bbdc7ed01001271418y661fd2d2m30e9f30e28b65aad@mail.gmail.com>
+References: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>	<bbdc7ed01001260658j34d5124es4f960b85ad8232bb@mail.gmail.com>	<9A6509A94A33124187515A9901DC551F0EF7C0375B@VAIEXCH05.vai.org>
+	<bbdc7ed01001271418y661fd2d2m30e9f30e28b65aad@mail.gmail.com>
+Message-ID: <4B60E7C4.8030304@fhcrc.org>
+
+On 01/27/2010 02:18 PM, Steve Lianoglou wrote:
+> Hi Karl,
+> 
+> On Wed, Jan 27, 2010 at 5:00 PM, Dykema, Karl <Karl.Dykema at vai.org> wrote:
+>> Hi all,
+>>
+>> We have been using Rsamtools to import BAM files also. On previous sequencing runs the BAM files were around 800 megs and I could import the entire BAM with .readAligned_bam(). Our new sequencing data creates larger BAM files and I am unable to import them like before. So, as Steve pointed out to me offline, I probably will need to import the reads from each chromosome individually. Unfortunately it does not seem to be recognizing my chromosome names, error msg below. Has anyone had a similar problem or recognize something that I might be doing incorrectly? Thanks in advance.
+>>
+>>
+>>> which <- RangesList(chr1=IRanges(start=1,end=247249719))
+>>> params <- ScanBamParam(which=which)
+>>>
+>>> chr1reads <- scanBam("../aln.sorted.nodupes.bam",param=params)
+>> Error in function (bam, tmpl, space, start, end)  : failed to scan BAM
+>>  file: ?
+>>  last record: 0
+>> In addition: Warning message:
+>> In function (bam, tmpl, space, start, end)  : 'space' not in BAM header
+>>  file: ../aln.sorted.nodupes.bam
+>>  space: chr1
+> 
+> Perhaps the chromosome names are different in your BAM file. I think
+> you can list them using samtools, like so (from the command line):
+> 
+> $ samtools view -H aln.sorted.nodupes.bam
+
+I think also the currently undocumented scanBamHeader
+
+  bam = list.files(system.file("extdata", package="Rsamtools"),
+                   "bam$",full=TRUE)
+  scanBamHeader(bam)[[1]]$targets
+
+which reports targets and numbers recorded in the header (the numbers
+are NOT the number of reads in the file, but numbers inserted by
+arbitrary upstream software, likewise the names reported in the header
+might differ from the names actually present in the bam file).
+
+seq1 seq2
+1575 1584
+
+
+Martin
+
+> 
+> You should get a lot of lines that start with @SQ -- the names of "the
+> spaces" are there, some of the output from one of my files looks like:
+> 
+> @SQ	SN:chr1	LN:247249719
+> @SQ	SN:chr2	LN:242951149
+> @SQ	SN:chr3	LN:199501827
+> ...
+> 
+> That's why this works for me:
+> 
+> which <- RangesList(chr1=IRanges(start=1,end=247249719))
+> 
+> Maybe your's might look like:
+> 
+> @SQ	SN:chromo1	LN:247249719
+> @SQ	SN:chromo2	LN:242951149
+> @SQ	SN:chromo3	LN:199501827
+> 
+> (or something)
+> 
+> Then the appropriate call for you would be:
+> 
+> which <- RangesList(chromo1=IRanges(start=1,end=247249719))
+> 
+> Does that work for you?
+> 
+> -steve
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From mtmorgan at fhcrc.org  Thu Jan 28 02:29:00 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 27 Jan 2010 17:29:00 -0800
+Subject: [Bioc-sig-seq] unique reads count
+In-Reply-To: <251965.18309.qm@web36903.mail.mud.yahoo.com>
+References: <465842.42689.qm@web36903.mail.mud.yahoo.com>
+	<4B60AAEF.70107@fhcrc.org>
+	<251965.18309.qm@web36903.mail.mud.yahoo.com>
+Message-ID: <4B60E85C.5010008@fhcrc.org>
+
+On 01/27/2010 02:57 PM, joseph wrote:
+> If I understand this correctly, !duplicated does not count unique reads:
+> !duplicated(c("A", "B", "B", "C"))
+> [1]  TRUE  TRUE FALSE  TRUE
+> 
+> in your example, there are only two uniques (not 3 as counted by !duplicated).
+
+Well, it depends on what your definition of 'duplicate' is, but yes, I
+think we agree.
+
+> Is it correct to say that the number of unique reads is given by the nReads when  nOccurrences=1 using the tables function? 
+
+again unique needs definition (see unique(c("A", "B", "B", "C")), for
+instance!) but yes, nOccurrences is the number of reads that occur
+exactly once.
+
+Martin
+
+> 
+> 
+> ________________________________
+> From: Martin Morgan <mtmorgan at fhcrc.org>
+> To: joseph <jdsandjd at yahoo.com>
+> Cc: bioc-sig-sequencing at r-project.org
+> Sent: Wed, January 27, 2010 1:06:55 PM
+> Subject: Re: [Bioc-sig-seq] unique reads count
+> 
+> Hi Joseph --
+> 
+> On 01/27/2010 12:33 PM, joseph wrote:
+>> Hello
+>> I have a ShortReadQ object: 
+>>> rfq
+>> class: ShortReadQ
+>> length: 16115723 reads; width: 34 cycles
+>>
+>> I used the negation of the result from srduplicated to count the unique reads:
+>>> sum(!srduplicated(sread(rfq)))
+>> [1] 4545719
+>>
+>> But also I looked at the frequency with which each read occurs using the tables function:
+>>> head(tables(rfq_s_3_mel)$distribution)
+>>   nOccurrences  nReads
+>> 1            1 4022038
+>> 2            2  255649
+> 
+> srduplicated is behaving like 'duplicated', which is to return TRUE when
+> an element has already been seen
+> 
+>> duplicated(c("A", "B", "B", "C"))
+> [1] FALSE FALSE  TRUE FALSE
+> 
+> There's one duplicate, the second 'B'.
+> 
+> After example(srduplicated) I have
+> 
+>> tables(sread(rfq))$distribution
+>   nOccurrences nReads
+> 1            1    239
+> 2            2      7
+> 3            3      1
+>> sum(srduplicated(sread(rfq)))
+> [1] 9
+> 
+> there are 7 reads that are the second of two reads, and 2 reads that are
+> the second and third of three reads.
+> 
+> Martin
+> 
+>>
+>> I expected that for nOccurrences=1, the nReads should be the same as what I got with !srduplicated.
+>>
+>> Can anybody explain why I got different counts?
+>> Thank you
+>> Joseph Dhahbi
+>>
+>>
+>>      
+>>     [[alternative HTML version deleted]]
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From jdsandjd at yahoo.com  Thu Jan 28 02:34:53 2010
+From: jdsandjd at yahoo.com (joseph)
+Date: Wed, 27 Jan 2010 17:34:53 -0800 (PST)
+Subject: [Bioc-sig-seq] unique reads count
+In-Reply-To: <4B60E85C.5010008@fhcrc.org>
+References: <465842.42689.qm@web36903.mail.mud.yahoo.com>
+	<4B60AAEF.70107@fhcrc.org>
+	<251965.18309.qm@web36903.mail.mud.yahoo.com>
+	<4B60E85C.5010008@fhcrc.org>
+Message-ID: <881553.98565.qm@web36903.mail.mud.yahoo.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/8068e4f3/attachment.pl>
+
+From hj at jhu.edu  Thu Jan 28 03:27:35 2010
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Wed, 27 Jan 2010 21:27:35 -0500
+Subject: [Bioc-sig-seq] ABout how to trim out the adaptor of soleax
+	short data!
+In-Reply-To: <530085.72312.qm@web36904.mail.mud.yahoo.com>
+References: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+	<B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+	<530085.72312.qm@web36904.mail.mud.yahoo.com>
+Message-ID: <53D7118E-10E7-470A-ABAE-0E65B2AE3739@jhu.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/8921a2a8/attachment.pl>
+
+From jdsandjd at yahoo.com  Thu Jan 28 03:48:02 2010
+From: jdsandjd at yahoo.com (joseph)
+Date: Wed, 27 Jan 2010 18:48:02 -0800 (PST)
+Subject: [Bioc-sig-seq] ABout how to trim out the adaptor of soleax
+	short data!
+In-Reply-To: <53D7118E-10E7-470A-ABAE-0E65B2AE3739@jhu.edu>
+References: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+	<B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+	<530085.72312.qm@web36904.mail.mud.yahoo.com>
+	<53D7118E-10E7-470A-ABAE-0E65B2AE3739@jhu.edu>
+Message-ID: <867809.77745.qm@web36901.mail.mud.yahoo.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/a0a38f7e/attachment.pl>
+
+From mtmorgan at fhcrc.org  Thu Jan 28 03:53:17 2010
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 27 Jan 2010 18:53:17 -0800
+Subject: [Bioc-sig-seq] unique reads count
+In-Reply-To: <881553.98565.qm@web36903.mail.mud.yahoo.com>
+References: <465842.42689.qm@web36903.mail.mud.yahoo.com>
+	<4B60AAEF.70107@fhcrc.org>
+	<251965.18309.qm@web36903.mail.mud.yahoo.com>
+	<4B60E85C.5010008@fhcrc.org>
+	<881553.98565.qm@web36903.mail.mud.yahoo.com>
+Message-ID: <4B60FC1D.7060601@fhcrc.org>
+
+On 01/27/2010 05:34 PM, joseph wrote:
+> Thanks for the clarification.
+> How do I filter the reads that occur exactly once?
+
+Hi Joseph --
+
+One way is to
+
+  rnk = srrank(sread(rfq))
+
+identical reads are assigned the same srrank, so
+
+  rnk %in% which(tabulate(rnk)==1)
+
+returns those reads whose rank occurs exactly once and
+
+  rfq1 = rfq[rnk %in% which(tabulate(rnk)==1)]
+
+subsets the rfq object. We should check this with
+
+  any(srduplicated(sread(rfq1)))
+
+which should return FALSE.
+
+Maybe worth pointing out that the reads might have different quality
+base scores, and then it's not clear that they are the 'same'. Also in
+aligned reads that they might not have been aligned to the same
+chr/strand/position even when the sequence (and base quality!, yes, some
+aligners chose amongst equally likely alignment positions by tossing a
+coin) is the same.
+
+Martin
+
+> 
+> 
+> 
+> ________________________________
+> From: Martin Morgan <mtmorgan at fhcrc.org>
+> To: joseph <jdsandjd at yahoo.com>
+> Cc: bioc-sig-sequencing at r-project.org
+> Sent: Wed, January 27, 2010 5:29:00 PM
+> Subject: Re: [Bioc-sig-seq] unique reads count
+> 
+> On 01/27/2010 02:57 PM, joseph wrote:
+>> If I understand this correctly, !duplicated does not count unique reads:
+>> !duplicated(c("A", "B", "B", "C"))
+>> [1]  TRUE  TRUE FALSE  TRUE
+>>
+>> in your example, there are only two uniques (not 3 as counted by !duplicated).
+> 
+> Well, it depends on what your definition of 'duplicate' is, but yes, I
+> think we agree.
+> 
+>> Is it correct to say that the number of unique reads is given by the nReads when  nOccurrences=1 using the tables function? 
+> 
+> again unique needs definition (see unique(c("A", "B", "B", "C")), for
+> instance!) but yes, nOccurrences is the number of reads that occur
+> exactly once.
+> 
+> Martin
+> 
+>>
+>>
+>> ________________________________
+>> From: Martin Morgan <mtmorgan at fhcrc.org>
+>> To: joseph <jdsandjd at yahoo.com>
+>> Cc: bioc-sig-sequencing at r-project.org
+>> Sent: Wed, January 27, 2010 1:06:55 PM
+>> Subject: Re: [Bioc-sig-seq] unique reads count
+>>
+>> Hi Joseph --
+>>
+>> On 01/27/2010 12:33 PM, joseph wrote:
+>>> Hello
+>>> I have a ShortReadQ object: 
+>>>> rfq
+>>> class: ShortReadQ
+>>> length: 16115723 reads; width: 34 cycles
+>>>
+>>> I used the negation of the result from srduplicated to count the unique reads:
+>>>> sum(!srduplicated(sread(rfq)))
+>>> [1] 4545719
+>>>
+>>> But also I looked at the frequency with which each read occurs using the tables function:
+>>>> head(tables(rfq_s_3_mel)$distribution)
+>>>   nOccurrences  nReads
+>>> 1            1 4022038
+>>> 2            2  255649
+>>
+>> srduplicated is behaving like 'duplicated', which is to return TRUE when
+>> an element has already been seen
+>>
+>>> duplicated(c("A", "B", "B", "C"))
+>> [1] FALSE FALSE  TRUE FALSE
+>>
+>> There's one duplicate, the second 'B'.
+>>
+>> After example(srduplicated) I have
+>>
+>>> tables(sread(rfq))$distribution
+>>   nOccurrences nReads
+>> 1            1    239
+>> 2            2      7
+>> 3            3      1
+>>> sum(srduplicated(sread(rfq)))
+>> [1] 9
+>>
+>> there are 7 reads that are the second of two reads, and 2 reads that are
+>> the second and third of three reads.
+>>
+>> Martin
+>>
+>>>
+>>> I expected that for nOccurrences=1, the nReads should be the same as what I got with !srduplicated.
+>>>
+>>> Can anybody explain why I got different counts?
+>>> Thank you
+>>> Joseph Dhahbi
+>>>
+>>>
+>>>      
+>>>     [[alternative HTML version deleted]]
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+> 
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From tanasa at gmail.com  Thu Jan 28 03:57:34 2010
+From: tanasa at gmail.com (Bogdan Tanasa)
+Date: Wed, 27 Jan 2010 18:57:34 -0800
+Subject: [Bioc-sig-seq] smoothing techniques
+Message-ID: <47d9979f1001271857y7d67d73fh20167b4fe653a147@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100127/e4d950ec/attachment.pl>
+
+From paboyoun at fhcrc.org  Thu Jan 28 08:47:15 2010
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Wed, 27 Jan 2010 23:47:15 -0800
+Subject: [Bioc-sig-seq] smoothing techniques
+In-Reply-To: <47d9979f1001271857y7d67d73fh20167b4fe653a147@mail.gmail.com>
+References: <47d9979f1001271857y7d67d73fh20167b4fe653a147@mail.gmail.com>
+Message-ID: <4B614103.2030208@fhcrc.org>
+
+Bogdan,
+The IRanges package (in BioC 2.5/R 2.10 and BioC 2.6/R-devel) has the 
+following methods for smoothing coverage vectors (stored as Rle or 
+RleList objects):
+
+runsum - Running window sums
+runmean - Running window means
+runwtsum - Running window weighted sums (i.e. fixed kernel smoothing)
+runmed - Running window medians
+runq - Running window order statistics (mins, maxs, etc.)
+
+
+To find out more about these functions, load the IRanges package and 
+type help(runmean). Here is a toy example:
+
+ > library(IRanges)
+ > x <- Rle(1:10)
+ > x
+'integer' Rle of length 10 with 10 runs
+  Lengths:  1 1 1 1 1 1 1 1 1 1
+  Values :  1 2 3 4 5 6 7 8 9 10
+ > runmean(x, k = 5, endrule="constant")
+'numeric' Rle of length 10 with 6 runs
+  Lengths:  3 1 1 1 1 3
+  Values :  3 4 5 6 7 8
+ > runmed(x, k = 3)
+'integer' Rle of length 10 with 10 runs
+  Lengths:  1 1 1 1 1 1 1 1 1 1
+  Values :  1 2 3 4 5 6 7 8 9 10
+
+
+
+Patrick
+
+
+Bogdan Tanasa wrote:
+> Dear all,
+>
+> please could you let me know whether any smoothing techniques (eg moving
+> average)
+> were implemented in any of the BioC packages that handle Chip-Seq/RNA-seq
+> data ?
+>
+> thanks,
+>
+> bogdan
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From hj at jhu.edu  Thu Jan 28 15:38:49 2010
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Thu, 28 Jan 2010 09:38:49 -0500
+Subject: [Bioc-sig-seq] ABout how to trim out the adaptor of soleax
+	short data!
+In-Reply-To: <867809.77745.qm@web36901.mail.mud.yahoo.com>
+References: <4B60516C020000EA00038575@TMIA1.AUBURN.EDU>
+	<B2C71129-2794-4015-8AFE-A0EDF01E841C@jhu.edu>
+	<530085.72312.qm@web36904.mail.mud.yahoo.com>
+	<53D7118E-10E7-470A-ABAE-0E65B2AE3739@jhu.edu>
+	<867809.77745.qm@web36901.mail.mud.yahoo.com>
+Message-ID: <338ACA8C-FE7A-4BBA-A2DA-ADB473E91B42@jhu.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100128/5b1534f0/attachment.pl>
+
+From ivangreg at gmail.com  Thu Jan 28 16:46:40 2010
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 28 Jan 2010 10:46:40 -0500
+Subject: [Bioc-sig-seq] Operations between sets of ChIP-seq peak locations
+Message-ID: <a394a9181001280746j66226a89w9c903546f7eb968@mail.gmail.com>
+
+Hi everybody,
+
+I have two sets of ChIP-seq peaks: A and B.
+How do I select the peaks in A that are not overlapped by any peak in B?
+
+
+Now in more detail:
+
+I do
+
+library(rtracklayer)
+A <- import('condition_A.bed', 'bed')
+B <- import('condition_B.bed', 'bed')
+
+they are both RangedData instances.
+
+I need to compute A - B.
+
+How do you guys do it?
+
+Thank you,
+
+Ivan
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+From mailinglist.honeypot at gmail.com  Thu Jan 28 19:22:35 2010
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Thu, 28 Jan 2010 13:22:35 -0500
+Subject: [Bioc-sig-seq] Operations between sets of ChIP-seq peak
+	locations
+In-Reply-To: <a394a9181001280746j66226a89w9c903546f7eb968@mail.gmail.com>
+References: <a394a9181001280746j66226a89w9c903546f7eb968@mail.gmail.com>
+Message-ID: <bbdc7ed01001281022k31399ea5x4417aa0210058501@mail.gmail.com>
+
+Hi Ivan,
+
+On Thu, Jan 28, 2010 at 10:46 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+> Hi everybody,
+>
+> I have two sets of ChIP-seq peaks: A and B.
+> How do I select the peaks in A that are not overlapped by any peak in B?
+>
+>
+> Now in more detail:
+>
+> I do
+>
+> library(rtracklayer)
+> A <- import('condition_A.bed', 'bed')
+> B <- import('condition_B.bed', 'bed')
+>
+> they are both RangedData instances.
+>
+> I need to compute A - B.
+>
+> How do you guys do it?
+
+You could try to pull out the range data from `import`-ed bed files
+and look at the documentation for ?setdiff and ?findOverlaps in the
+IRanges package to get at the answer.
+
+This is semi-untested, but it might look something like this:
+
+A.range <- range(A)
+B.range <- range(B)
+o <- findOverlaps(A.range, B.range)
+
+Assuming your "space" (chromosome) names are like 'chr1', 'chr2', etc,
+I think something like:
+
+A.range$chr1[-unique(queryHits(o$chr1))] will tell you the intervals
+in A that don't overlap with intervals in B.
+
+Maybe not the best way, but that could do it.
+
+Using IRanges::setdiff might work too, but will return you unique
+ranges in one object that aren't in the other. The subtlety here is
+that if there is partial overlap between two ranges, it will just
+remove the partial overlap of a range, and not the entirety of the
+range that shares the overlap (ugh .. does that make sense?)
+
+Anyway, just look at the ?findOverlaps and ?setdiff documentation in
+the IRanges package, and you can likely find an even more intuitive
+way to do it. I expect the @fhcrc folk will probably also chime in
+with a better way soon, too ..
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From lawrence.michael at gene.com  Thu Jan 28 19:46:03 2010
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Thu, 28 Jan 2010 10:46:03 -0800
+Subject: [Bioc-sig-seq] Operations between sets of ChIP-seq peak
+	locations
+In-Reply-To: <a394a9181001280746j66226a89w9c903546f7eb968@mail.gmail.com>
+References: <a394a9181001280746j66226a89w9c903546f7eb968@mail.gmail.com>
+Message-ID: <acbd1aed1001281046j19b7c29wa290b3d06c80a2c2@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100128/1f9016c1/attachment.pl>
+
+From Karl.Dykema at vai.org  Thu Jan 28 22:50:34 2010
+From: Karl.Dykema at vai.org (Dykema, Karl)
+Date: Thu, 28 Jan 2010 16:50:34 -0500
+Subject: [Bioc-sig-seq] Rsamtools
+In-Reply-To: <4B60E7C4.8030304@fhcrc.org>
+References: <CD52EFAB-AFAA-432A-96F4-F4A9F7B47B67@prabi.fr>
+	<bbdc7ed01001260658j34d5124es4f960b85ad8232bb@mail.gmail.com>
+	<9A6509A94A33124187515A9901DC551F0EF7C0375B@VAIEXCH05.vai.org>
+	<bbdc7ed01001271418y661fd2d2m30e9f30e28b65aad@mail.gmail.com>
+	<4B60E7C4.8030304@fhcrc.org>
+Message-ID: <9A6509A94A33124187515A9901DC551F0EF7C03771@VAIEXCH05.vai.org>
+
+Martin/Steve,
+
+Thanks a lot guys, using the correct chromosome names fixed that problem. Instead of "chr1", I simply needed to use "1". Now I am able to import reads by looping through, but I am getting some strange results. In this whole-exon-capture dataset I would expect the largest chromosomes to have the highest number of reads but that does not appear to be what I am getting (highlighted below). With respect to file size the BAM appears to be within the range I would expect, but after importing into my AlignedRead object I should have roughly 100 times the number of reads I am getting now. Anyone see something I am doing incorrectly? 
+
+Thanks again!
+
+-karl
+
+
+
+
+library(org.Hs.eg.db)
+
+lens <- org.Hs.egCHRLENGTHS
+lens <- lens[c(1:22,"X","Y")]
+
+i=1
+which <- RangesList(IRanges(start=1,end=lens[i]))
+names(which) <- names(lens)[i]
+params <- ScanBamParam(which=which)
+finAR <- .readAligned_bam("../aln.sorted.nodupes.bam",param=params)
+
+for(i in c(2:length(lens))){
+	
+	which <- RangesList(IRanges(start=1,end=lens[i]))
+	names(which) <- names(lens)[i]
+	params <- ScanBamParam(which=which)
+	
+	finAR <- append(finAR,.readAligned_bam("../aln.sorted.nodupes.bam",param=params))
+}
+
+
+> sort(table(chromosome(finAR)),dec=T)[1:5]
+
+    12     11      8      X      2
+619386 281709 260369 217034 173985
+
+
+
+
+
+
+-----Original Message-----
+From: Martin Morgan [mailto:mtmorgan at fhcrc.org] 
+Sent: Wednesday, January 27, 2010 8:26 PM
+To: Steve Lianoglou
+Cc: Dykema, Karl; Bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Rsamtools
+
+On 01/27/2010 02:18 PM, Steve Lianoglou wrote:
+> Hi Karl,
+> 
+> On Wed, Jan 27, 2010 at 5:00 PM, Dykema, Karl <Karl.Dykema at vai.org> wrote:
+>> Hi all,
+>>
+>> We have been using Rsamtools to import BAM files also. On previous sequencing runs the BAM files were around 800 megs and I could import the entire BAM with .readAligned_bam(). Our new sequencing data creates larger BAM files and I am unable to import them like before. So, as Steve pointed out to me offline, I probably will need to import the reads from each chromosome individually. Unfortunately it does not seem to be recognizing my chromosome names, error msg below. Has anyone had a similar problem or recognize something that I might be doing incorrectly? Thanks in advance.
+>>
+>>
+>>> which <- RangesList(chr1=IRanges(start=1,end=247249719))
+>>> params <- ScanBamParam(which=which)
+>>>
+>>> chr1reads <- scanBam("../aln.sorted.nodupes.bam",param=params)
+>> Error in function (bam, tmpl, space, start, end)  : failed to scan BAM
+>>  file: ?
+>>  last record: 0
+>> In addition: Warning message:
+>> In function (bam, tmpl, space, start, end)  : 'space' not in BAM header
+>>  file: ../aln.sorted.nodupes.bam
+>>  space: chr1
+> 
+> Perhaps the chromosome names are different in your BAM file. I think
+> you can list them using samtools, like so (from the command line):
+> 
+> $ samtools view -H aln.sorted.nodupes.bam
+
+I think also the currently undocumented scanBamHeader
+
+  bam = list.files(system.file("extdata", package="Rsamtools"),
+                   "bam$",full=TRUE)
+  scanBamHeader(bam)[[1]]$targets
+
+which reports targets and numbers recorded in the header (the numbers
+are NOT the number of reads in the file, but numbers inserted by
+arbitrary upstream software, likewise the names reported in the header
+might differ from the names actually present in the bam file).
+
+seq1 seq2
+1575 1584
+
+
+Martin
+
+
+The information transmitted is intended only for the person or entity to which it is addressed and may contain confidential and/or privileged material. Any review, retransmission, dissemination or other use of, or taking of any action in reliance upon, this information by persons or entities other than the intended recipient is prohibited. If you received this in error, please contact the sender and delete the material from any computer.
+
+From ivangreg at gmail.com  Thu Jan 28 22:56:09 2010
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 28 Jan 2010 16:56:09 -0500
+Subject: [Bioc-sig-seq] Operations between sets of ChIP-seq peak
+	locations
+In-Reply-To: <acbd1aed1001281046j19b7c29wa290b3d06c80a2c2@mail.gmail.com>
+References: <a394a9181001280746j66226a89w9c903546f7eb968@mail.gmail.com> 
+	<acbd1aed1001281046j19b7c29wa290b3d06c80a2c2@mail.gmail.com>
+Message-ID: <a394a9181001281356x75e319d8qe70e1262f0aa0a1f@mail.gmail.com>
+
+Thank you.
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+
+On Thu, Jan 28, 2010 at 1:46 PM, Michael Lawrence
+<lawrence.michael at gene.com> wrote:
+> A[!ranges(A) %in% ranges(B),]
+>
+> On Thu, Jan 28, 2010 at 7:46 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+>>
+>> Hi everybody,
+>>
+>> I have two sets of ChIP-seq peaks: A and B.
+>> How do I select the peaks in A that are not overlapped by any peak in B?
+>>
+>>
+>> Now in more detail:
+>>
+>> I do
+>>
+>> library(rtracklayer)
+>> A <- import('condition_A.bed', 'bed')
+>> B <- import('condition_B.bed', 'bed')
+>>
+>> they are both RangedData instances.
+>>
+>> I need to compute A - B.
+>>
+>> How do you guys do it?
+>>
+>> Thank you,
+>>
+>> Ivan
+>>
+>>
+>> Ivan Gregoretti, PhD
+>> National Institute of Diabetes and Digestive and Kidney Diseases
+>> National Institutes of Health
+>> 5 Memorial Dr, Building 5, Room 205.
+>> Bethesda, MD 20892. USA.
+>> Phone: 1-301-496-1592
+>> Fax: 1-301-496-9878
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+
+
+From thomas.girke at ucr.edu  Sat Jan 30 03:59:55 2010
+From: thomas.girke at ucr.edu (Thomas Girke)
+Date: Fri, 29 Jan 2010 18:59:55 -0800
+Subject: [Bioc-sig-seq] read sequences from the web
+Message-ID: <20100130025955.GA18073@biocluster.ucr.edu>
+
+Dear Biostrings Developers,
+
+There seems to be a change (bug?) in the behavior of the read.XXStringSet functions
+in the latest Biostrings version when pointing to files on the web. 
+
+For instance: 
+
+## This works under R-2.10.0
+library(Biostrings)
+read.AAStringSet("ftp://ftp.ncbi.nih.gov/genbank/genomes/Bacteria/Halobacterium_sp/AE004437.faa", "fasta") 
+
+## But the same command under R-2.10.1 returns the following error:
+Error in .read.fasta.in.XStringSet(filepath, set.names, elementType, lkup) :
+cannot open file 'ftp://ftp.ncbi.nih.gov/genbank/genomes/Bacteria/Halobacterium_sp/AE004437.faa'
+
+My session info for R-2.10.0 is:
+
+R version 2.10.1 (2009-12-14) 
+x86_64-unknown-linux-gnu 
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8     LC_MONETARY=C 
+             LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] Biostrings_2.14.10 IRanges_1.4.9     
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.1
+
+
+Thanks in advance for your help.
+
+Thomas
+
+
+From D.Strbenac at garvan.org.au  Wed Jan 27 23:38:14 2010
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Thu, 28 Jan 2010 09:38:14 +1100 (EST)
+Subject: [Bioc-sig-seq] countOverlaps Help
+Message-ID: <20100128093814.BEM73157@gimr.garvan.unsw.edu.au>
+
+Hi all,
+
+I can't seem to get countOverlaps to work and from the documentation I seem to be doing it the right way. When I replace countOverlaps by findOverlaps, the last code line in this example works though.
+
+-----------------------------------------
+subjRanges <- mapply(IRanges, start = split(subjRegions$start, subjRegions$chr), end = split(subjRegions$end, SubjRegions$chr))
+SubjRangesList <- do.call(RangesList, SubjRanges)
+queryRanges <- mapply(IRanges, start = split(queryTable$genoStart, queryTable$genoName), end = split(queryTable$genoEnd, queryTable$genoName))
+queryRangesList <- do.call(RangesList, queryRanges)
+
+counts <- countOverlaps(queryRangesList, SubjRangesList)
+# gives : Error in function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function "countOverlaps", for signature "SimpleRangesList", "SimpleRangesList"
+-----------------------------------------
+
+What's really happening here ?
+
+Thanks,
+       Dario.
+
+

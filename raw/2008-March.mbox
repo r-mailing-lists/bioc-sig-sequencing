@@ -1,0 +1,548 @@
+From mtmorgan at fhcrc.org  Mon Mar  3 21:22:13 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 03 Mar 2008 12:22:13 -0800
+Subject: [Bioc-sig-seq] (no subject) Changed: Overall directions
+In-Reply-To: <61B482B74D6EE443B90356E080476E3402732E88@exc2.cruciform.wibr.ucl.ac.uk>
+	(Stephen Henderson's message of "Fri, 29 Feb 2008 17:40:08 -0000")
+References: <61B482B74D6EE443B90356E080476E3402732E88@exc2.cruciform.wibr.ucl.ac.uk>
+Message-ID: <6phablfo8wa.fsf@gopher4.fhcrc.org>
+
+Hi Stephen -- putting this back 'on-list' so everyone can participate;
+sorry if this is not as intended...
+
+> By front end I really mean R wrappers not GUIs. It sounds like a
+> great idea to be able to do as much of my work as possible from
+> within R. From what I have seen?of SOAP the minimum necessary
+> memory?that programs use for?alignment of illumina data is?ca 16Gb
+> of RAM. The alignment problem is very threadable but whilst this may
+> speed processing I do not think this helps break the memory
+> requirement down as the look up tables have to be stored as a single
+> entity (as far as I understand).
+
+> http://soap.genomics.org.cn/
+
+> Incidentally SOAP alignment looks like it might integrate easily with R and is
+> competitive for time and alignment with MAQ and Eland.
+
+Yes developers should keep the data structure in mind, and the
+opportunities for partitioning tasks. It seems like many operations
+(though perhaps not alignments) can treat reads as independent of one
+another, and this represents a natural way of dividing big tasks into
+more memory-efficient and distributed ones. Chromosomal structure also
+provides a natural way to think of how operations might be distributed
+across processors.
+
+A basic transformation seems to be from really very big data
+(sequences) to just moderately big (e.g., alignments and scores;
+apparent SNP polymorphisms; ...).
+
+> An 'expressionSet like' object of pre-aligned or unassembled data which was
+> stored in R would be a list of length?ca. 40 million with strings of ca 25-30
+> (single end). An output of alignment from SOAP would be a table of about 11
+> columns (with original seq, QC, chr, positions, flags etc..), and a bit less
+> than 40 million rows (if all are not aligned).
+
+> Is the 'expressionSet like'?object really going to store this? Or
+> will it be a reference to a database or external file? I guess as
+> you say you don't necessarily need to store all of this but can
+> sample a lot of it for QC, plotting and analysis?
+
+The main conceptual insights of the ExpressionSet are an association
+of phenotype with 'data', and the abstraction of how the data is
+represented internally from how the user interacts with it.
+
+We've taken different approaches in our preliminary work (comments
+from how other developers are dealing with these issues is most
+welcome!). For QA types of operations it turns out to be fairly
+effective to visit relatively small files (e.g., solexa lanes or
+tiles) and summarize these into useful statistics for further
+manipulation (e.g., reports and visualization) at the whole-run
+level. For some exploratory alignment algorithms (see matchPDict in
+the development version of the Biobase package) that require more
+structured data representations, the approach is more
+straight-forward: representing the data requires large memory
+machines. Even here though there are some nuances, e.g., processing
+each chromosome separately.
+
+Maybe a closing thought on this is that the data describing the
+experiment might belong in SQL tables (but also fit easily into R's
+memory), but it's less clear that the sequences belong in a relational
+data base. So some other format is likely appropriate for the big
+data. Here we've basically been using the disk-based storage
+structures implied by output of the Solexa (or other) software
+pipeline. Obviously a sub-optimal solution, and it would be great to
+hear solutions that other developers have explored.
+
+Martin
+
+------------------------------------------------------------------------------
+
+From: Martin Morgan [mailto:mtmorgan at fhcrc.org]
+Sent: Fri 29/02/2008 17:23
+To: Stephen Henderson
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] (no subject) Changed: Overall directions
+
+
+"Stephen Henderson" <s.henderson at ucl.ac.uk> writes:
+> OK
+>
+> Perhaps I can be first by asking what tasks you plan to cover? And how
+> do you plan to implement them in R (given the memory restrictions)? Do
+> you plan a nice front end for lots of C-code?
+Hi Stephen --
+It'll depend of course on who in the community steps up. Probably
+packages will start as a standard R interface that gets the job done,
+with pretty gui's later. Probably an early step (though perhaps not
+the very first) will be settling on a common set of S4-style classes
+to represent experiments and data, in the manner of an ExpressionSet.
+>From our end, our first pass is to assume that computer resources are
+not really an issue -- a 2 or 4 GB 32-bit operating system is not what
+we're targeting.
+Also in terms of preliminary experience, it seems like some operations
+can be done effectively at the R level (data input and QA assessment)
+but that some important steps (e.g., alignments) require clever data
+structures and algorithms that get implemented in C. It's also
+possible for some questions to exploit the structure of the data,
+e.g., analyzing Solexa data in manageable chunks corresponding to
+individual tiles.
+Martin
+> Stephen Henderson
+>
+> Cancer Institute, Paul O'Gorman Building
+>
+> Gower Street, University College London
+>
+> United Kingdom, WC1E 6BT
+>
+> +44 (0)207 679 6827
+>
+>?
+>
+>
+> **********************************************************************
+> This email and any files transmitted with it are confide...{{dropped:11}}
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+
+From mwkimpel at gmail.com  Tue Mar  4 00:30:47 2008
+From: mwkimpel at gmail.com (Mark W Kimpel)
+Date: Mon, 03 Mar 2008 18:30:47 -0500
+Subject: [Bioc-sig-seq] (no subject) Changed: Overall directions
+In-Reply-To: <6phablfo8wa.fsf@gopher4.fhcrc.org>
+References: <61B482B74D6EE443B90356E080476E3402732E88@exc2.cruciform.wibr.ucl.ac.uk>
+	<6phablfo8wa.fsf@gopher4.fhcrc.org>
+Message-ID: <47CC8A27.4040104@gmail.com>
+
+As a potential end-user who is just beginning to use a large Linux 
+cluster and explore Rmpi, I would lobby for structures and algorithms 
+that rely more heavily on parallel processing and not on massive amounts 
+of RAM. The systems that I have available consist of nodes with 4 
+processors which have to share 8 GB of RAM. OTOH, I can request up to 40 
+nodes for one batch.
+
+It might be interesting what other end users will have available in 
+regards to compute platforms and from the developers the feasibility of 
+parallelizing the process as much as possible.
+
+I'm not an expert, just very interested in this as one of my close 
+colleagues is preparing a grant which will require these types of analyses.
+
+Mark
+
+Mark W. Kimpel MD  ** Neuroinformatics ** Dept. of Psychiatry
+Indiana University School of Medicine
+
+15032 Hunter Court, Westfield, IN  46074
+
+(317) 490-5129 Work, & Mobile & VoiceMail
+(317) 204-4202 Home (no voice mail please)
+
+mwkimpel<at>gmail<dot>com
+
+******************************************************************
+
+
+Martin Morgan wrote:
+> Hi Stephen -- putting this back 'on-list' so everyone can participate;
+> sorry if this is not as intended...
+> 
+>> By front end I really mean R wrappers not GUIs. It sounds like a
+>> great idea to be able to do as much of my work as possible from
+>> within R. From what I have seen of SOAP the minimum necessary
+>> memory that programs use for alignment of illumina data is ca 16Gb
+>> of RAM. The alignment problem is very threadable but whilst this may
+>> speed processing I do not think this helps break the memory
+>> requirement down as the look up tables have to be stored as a single
+>> entity (as far as I understand).
+> 
+>> http://soap.genomics.org.cn/
+> 
+>> Incidentally SOAP alignment looks like it might integrate easily with R and is
+>> competitive for time and alignment with MAQ and Eland.
+> 
+> Yes developers should keep the data structure in mind, and the
+> opportunities for partitioning tasks. It seems like many operations
+> (though perhaps not alignments) can treat reads as independent of one
+> another, and this represents a natural way of dividing big tasks into
+> more memory-efficient and distributed ones. Chromosomal structure also
+> provides a natural way to think of how operations might be distributed
+> across processors.
+> 
+> A basic transformation seems to be from really very big data
+> (sequences) to just moderately big (e.g., alignments and scores;
+> apparent SNP polymorphisms; ...).
+> 
+>> An 'expressionSet like' object of pre-aligned or unassembled data which was
+>> stored in R would be a list of length ca. 40 million with strings of ca 25-30
+>> (single end). An output of alignment from SOAP would be a table of about 11
+>> columns (with original seq, QC, chr, positions, flags etc..), and a bit less
+>> than 40 million rows (if all are not aligned).
+> 
+>> Is the 'expressionSet like' object really going to store this? Or
+>> will it be a reference to a database or external file? I guess as
+>> you say you don't necessarily need to store all of this but can
+>> sample a lot of it for QC, plotting and analysis?
+> 
+> The main conceptual insights of the ExpressionSet are an association
+> of phenotype with 'data', and the abstraction of how the data is
+> represented internally from how the user interacts with it.
+> 
+> We've taken different approaches in our preliminary work (comments
+> from how other developers are dealing with these issues is most
+> welcome!). For QA types of operations it turns out to be fairly
+> effective to visit relatively small files (e.g., solexa lanes or
+> tiles) and summarize these into useful statistics for further
+> manipulation (e.g., reports and visualization) at the whole-run
+> level. For some exploratory alignment algorithms (see matchPDict in
+> the development version of the Biobase package) that require more
+> structured data representations, the approach is more
+> straight-forward: representing the data requires large memory
+> machines. Even here though there are some nuances, e.g., processing
+> each chromosome separately.
+> 
+> Maybe a closing thought on this is that the data describing the
+> experiment might belong in SQL tables (but also fit easily into R's
+> memory), but it's less clear that the sequences belong in a relational
+> data base. So some other format is likely appropriate for the big
+> data. Here we've basically been using the disk-based storage
+> structures implied by output of the Solexa (or other) software
+> pipeline. Obviously a sub-optimal solution, and it would be great to
+> hear solutions that other developers have explored.
+> 
+> Martin
+> 
+> ------------------------------------------------------------------------------
+> 
+> From: Martin Morgan [mailto:mtmorgan at fhcrc.org]
+> Sent: Fri 29/02/2008 17:23
+> To: Stephen Henderson
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] (no subject) Changed: Overall directions
+> 
+> 
+> "Stephen Henderson" <s.henderson at ucl.ac.uk> writes:
+>> OK
+>>
+>> Perhaps I can be first by asking what tasks you plan to cover? And how
+>> do you plan to implement them in R (given the memory restrictions)? Do
+>> you plan a nice front end for lots of C-code?
+> Hi Stephen --
+> It'll depend of course on who in the community steps up. Probably
+> packages will start as a standard R interface that gets the job done,
+> with pretty gui's later. Probably an early step (though perhaps not
+> the very first) will be settling on a common set of S4-style classes
+> to represent experiments and data, in the manner of an ExpressionSet.
+>>From our end, our first pass is to assume that computer resources are
+> not really an issue -- a 2 or 4 GB 32-bit operating system is not what
+> we're targeting.
+> Also in terms of preliminary experience, it seems like some operations
+> can be done effectively at the R level (data input and QA assessment)
+> but that some important steps (e.g., alignments) require clever data
+> structures and algorithms that get implemented in C. It's also
+> possible for some questions to exploit the structure of the data,
+> e.g., analyzing Solexa data in manageable chunks corresponding to
+> individual tiles.
+> Martin
+>> Stephen Henderson
+>>
+>> Cancer Institute, Paul O'Gorman Building
+>>
+>> Gower Street, University College London
+>>
+>> United Kingdom, WC1E 6BT
+>>
+>> +44 (0)207 679 6827
+>>
+>>  
+>>
+>>
+>> **********************************************************************
+>> This email and any files transmitted with it are confide...{{dropped:11}}
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From simonlin at duke.edu  Wed Mar  5 18:55:32 2008
+From: simonlin at duke.edu (Simon Lin)
+Date: Wed, 5 Mar 2008 11:55:32 -0600
+Subject: [Bioc-sig-seq] Overall directions (Martin Morgan)
+References: <mailman.7.1204628402.20359.bioc-sig-sequencing@r-project.org>
+Message-ID: <004e01c87eea$1b164330$e5987ca5@lurie.northwestern.edu>
+
+I agree that SQL should be in the design mix. Here are a few additional 
+thoughts:
+1) Let R do what it is good at -- statistics!
+2) Reuse established sequence analysis methods: BLAST, assembly, 
+PHRED/PHRAP/CONSED etc
+3) Define clear object structures in R, so wrappers can be used and differnt 
+algorithms can be tried using the same interface
+4) Use SQL as a conduit between R and the sequence analysis results, because 
+of large size of the results (not only the raw data)
+
+Simon Lin
+Northwestern
+
+=============================
+Maybe a closing thought on this is that the data describing the
+experiment might belong in SQL tables (but also fit easily into R's
+memory), but it's less clear that the sequences belong in a relational
+data base. So some other format is likely appropriate for the big
+data. Here we've basically been using the disk-based storage
+structures implied by output of the Solexa (or other) software
+pipeline. Obviously a sub-optimal solution, and it would be great to
+hear solutions that other developers have explored.
+
+Martin
+
+
+From s.henderson at ucl.ac.uk  Wed Mar  5 19:24:44 2008
+From: s.henderson at ucl.ac.uk (Stephen Henderson)
+Date: Wed, 5 Mar 2008 18:24:44 -0000
+Subject: [Bioc-sig-seq] Overall directions (Martin Morgan)
+Message-ID: <61B482B74D6EE443B90356E080476E3402732E93@exc2.cruciform.wibr.ucl.ac.uk>
+
+I think keep sequence data as binary fasta files (which all the current
+alignment/assembly tools use) and let exprSet handle where they are, and
+what they are. This should be fine unless you are a real poweruser in
+which case migrating to a db should be simple with the info you have
+collected.
+
+When you need to import very large chunks of this for viewing/statistics
+have you thought about using a 2-bit datatype for each base: this is
+what the GenABEL package does with SNP calls (e.g. AA, BB, AB, NA). This
+should save a lot of redundant memory--as even a Raw uses 8-bits.
+
+Stephen Henderson
+Cancer Institute, Paul O'Gorman Building
+Huntley Street, University College London
+United Kingdom, WC1E 6BT
++44 (0)207 679 6827
+ 
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org
+[mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Simon
+Lin
+Sent: 05 March 2008 17:56
+To: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Overall directions (Martin Morgan)
+
+I agree that SQL should be in the design mix. Here are a few additional 
+thoughts:
+1) Let R do what it is good at -- statistics!
+2) Reuse established sequence analysis methods: BLAST, assembly, 
+PHRED/PHRAP/CONSED etc
+3) Define clear object structures in R, so wrappers can be used and
+differnt 
+algorithms can be tried using the same interface
+4) Use SQL as a conduit between R and the sequence analysis results,
+because 
+of large size of the results (not only the raw data)
+
+Simon Lin
+Northwestern
+
+=============================
+Maybe a closing thought on this is that the data describing the
+experiment might belong in SQL tables (but also fit easily into R's
+memory), but it's less clear that the sequences belong in a relational
+data base. So some other format is likely appropriate for the big
+data. Here we've basically been using the disk-based storage
+structures implied by output of the Solexa (or other) software
+pipeline. Obviously a sub-optimal solution, and it would be great to
+hear solutions that other developers have explored.
+
+Martin
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+**********************************************************************
+This email and any files transmitted with it are confide...{{dropped:7}}
+
+
+From mtmorgan at fhcrc.org  Wed Mar  5 20:06:58 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 05 Mar 2008 11:06:58 -0800
+Subject: [Bioc-sig-seq] Overall directions (Martin Morgan)
+In-Reply-To: <61B482B74D6EE443B90356E080476E3402732E93@exc2.cruciform.wibr.ucl.ac.uk>
+	(Stephen Henderson's message of "Wed, 5 Mar 2008 18:24:44 -0000")
+References: <61B482B74D6EE443B90356E080476E3402732E93@exc2.cruciform.wibr.ucl.ac.uk>
+Message-ID: <6phfxv5j8h9.fsf@gopher4.fhcrc.org>
+
+"Stephen Henderson" <s.henderson at ucl.ac.uk> writes:
+
+> I think keep sequence data as binary fasta files (which all the current
+> alignment/assembly tools use) and let exprSet handle where they are, and
+> what they are. This should be fine unless you are a real poweruser in
+> which case migrating to a db should be simple with the info you have
+> collected.
+
+One school of thought is very much along these lines -- the sequence
+data is not really relational, so storing it in a database might not
+be the right solution. The main challenge in terms of R is reading in
+'chunks' at a time. The DB interfaces allow you to do this, but so
+would maintaining a 'catalog' of files on disk (as for instance is
+done with the solexa pipeline) or other approaches. There are more
+performant solutions, and it would be good to hear from people
+exploring those.
+
+> When you need to import very large chunks of this for viewing/statistics
+> have you thought about using a 2-bit datatype for each base: this is
+> what the GenABEL package does with SNP calls (e.g. AA, BB, AB, NA). This
+> should save a lot of redundant memory--as even a Raw uses 8-bits.
+
+Yes, the GenABEL and other SNP packages are very good at this. The
+Biostrings package represents DNA (and other) sequences as 'raw'
+vectors that have reference semantics, meaning that they store (IUPAC)
+DNA strings in a memory-efficient, read-only (so no extra copies made)
+way. There is also effort to expose a C-level interface to Biostrings,
+making for a very efficient way to access this data. This is probably
+a very good starting point for those wishing to represent sequence
+data. Perhaps Herve Pages will say a few words more...
+
+A trade-off that developers might keep in mind is that many useful
+algorithms then need to be re-written to operate on raw types. For
+instance, a not-too-efficient way of calculating nucleotide
+frequencies in a vector of reads represented as character sequences is
+
+> table(unlist(strsplit(reads, "")))
+
+This is much easier to implement than something at the C level, though
+if it is a common operation then it makes a lot of sense to make the
+effort (and is available with alphabetFrequency in Biostrings).
+
+Martin
+
+> Stephen Henderson
+> Cancer Institute, Paul O'Gorman Building
+> Huntley Street, University College London
+> United Kingdom, WC1E 6BT
+> +44 (0)207 679 6827
+>  
+>
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Simon
+> Lin
+> Sent: 05 March 2008 17:56
+> To: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] Overall directions (Martin Morgan)
+>
+> I agree that SQL should be in the design mix. Here are a few additional 
+> thoughts:
+> 1) Let R do what it is good at -- statistics!
+> 2) Reuse established sequence analysis methods: BLAST, assembly, 
+> PHRED/PHRAP/CONSED etc
+> 3) Define clear object structures in R, so wrappers can be used and
+> differnt 
+> algorithms can be tried using the same interface
+> 4) Use SQL as a conduit between R and the sequence analysis results,
+> because 
+> of large size of the results (not only the raw data)
+>
+> Simon Lin
+> Northwestern
+>
+> =============================
+> Maybe a closing thought on this is that the data describing the
+> experiment might belong in SQL tables (but also fit easily into R's
+> memory), but it's less clear that the sequences belong in a relational
+> data base. So some other format is likely appropriate for the big
+> data. Here we've basically been using the disk-based storage
+> structures implied by output of the Solexa (or other) software
+> pipeline. Obviously a sub-optimal solution, and it would be great to
+> hear solutions that other developers have explored.
+>
+> Martin
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> **********************************************************************
+> This email and any files transmitted with it are confi...{{dropped:16}}
+
+
+From mtmorgan at fhcrc.org  Wed Mar  5 20:16:37 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 05 Mar 2008 11:16:37 -0800
+Subject: [Bioc-sig-seq] Use case solutions?
+Message-ID: <6phbq5tj816.fsf@gopher4.fhcrc.org>
+
+As a follow-on to Wade Davis' question of what technologies people
+use, I wonder how people have been trying to address their questions
+(e.g., software they're using) and especially how they think R fits in
+to their dream work flow? In particular I think it would help to have
+some ideas about the sorts of statistical analyses R can (be made to)
+perform and that are most useful to the community at the moment.
+
+Martni
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+
+From simonlin at duke.edu  Thu Mar  6 01:03:17 2008
+From: simonlin at duke.edu (Simon Lin)
+Date: Wed, 5 Mar 2008 18:03:17 -0600
+Subject: [Bioc-sig-seq] Overall directions (Martin Morgan)
+References: <61B482B74D6EE443B90356E080476E3402732E93@exc2.cruciform.wibr.ucl.ac.uk>
+	<6phfxv5j8h9.fsf@gopher4.fhcrc.org>
+Message-ID: <008e01c87f1d$7b31cea0$e5987ca5@lurie.northwestern.edu>
+
+> I think keep sequence data as binary fasta files (which all the current
+
+Completely agree. We tried to import the sequence data a relational 
+database, which results in a disaster. A pointer or ID in the DB seems 
+sufficient.
+
+Long life FASTA!
+
+Simon
+
+

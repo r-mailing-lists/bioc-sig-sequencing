@@ -1,0 +1,555 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2008-06",
+  "messages": [
+    {
+      "id": "msg-2181d8bef536",
+      "message_id": "<web-10464904@chori.chori.org>",
+      "from_name": "Joseph Dhahbi, P.h.D.",
+      "from_email_hash": "eec9583a5dc693521f378cb51ccde7ebc71494d5150ae5e493ef2f78aed1d91b",
+      "date": "2008-06-03T15:21:56Z",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "subject_clean": "[Bioc-sig-seq] PDict question",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello\nI need help on how to get around the memory error reported \nbelow, especially when I can not add anymore RAM:\nHere is the Hardware Overview:\n   Model Name:\tMac Pro\n   Model Identifier:\tMacPro1,1\n   Processor Name:\tDual-Core Intel Xeon\n   Processor Speed:\t2.66 GHz\n   Number Of Processors:\t2\n   Total Number Of Cores:\t4\n   L2 Cache (per processor):\t4 MB\n   Memory:\t20 GB\n   Bus Speed:\t1.33 GHz\n   Boot ROM Version:\tMP11.005C.B08\n   SMC Version:\t1.7f10\n   Serial Number:\tG87052SGUPZ\n\n\n\n> NM_seq=readSolexaFastA(NM_fa)\n> NM_alf=alphabetFrequency(NM_seq, baseOnly=TRUE)\n> NM_seq_clean = NM_seq[NM_alf[,\"other\"]==0]\n> length(NM_seq)\n[1] 4820218\n> length(NM_seq_clean)\n[1] 4817537\n> NM_seq_clean\n   A DNAStringSet instance of length 4817537\n           width seq\n       [1]    36 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAT\n       [2]    36 GTGGTAATTCATCAGATCTCGGATGGCATTGGTCAT\n       [3]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n       [4]    36 GGGATTGGTTTTTTGTTACTGATTTGTTTGAGTTCA\n       [5]    36 GTGGTAATTTTGACTTTTTAGGTTAATTTATTTTTT\n       [6]    36 GATCGGAAGGAGCTCGTATGCCGTCTTCTGCTTAGA\n       [7]    36 GGTCAGTTGTGTTCTCCTGAGTAGGTTGTGTGAATG\n       [8]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n       [9]    36 GGGAGGCTGAGGCAGGAGAATGGCATGAACCTAGAT\n       ...   ... ...\n[4817529]    36 TTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAG\n[4817530]    36 CATCAATGTATCTTAAGGCGTAAATTGTAAGCGTTA\n[4817531]    36 CGAGCAGCGACGCATCACCCAGCTAGATCGGAAGAG\n[4817532]    36 GCAATGCCACTGGCGCGACAACCGGGACACCATAGG\n[4817533]    36 CCTCGCCGGACACGCTGAACTTGTGGCCGTTTTCGT\n[4817534]    36 CCATTGTACAACGTATCGACATATCCTCCACCCGCC\n[4817535]    36 CCCCCTGAACCTGAAACATAAAATGAATGCAATTGT\n[4817536]    36 ACCATGTTGTCCAAGGGCGAATTCTGCAGATATCCA\n[4817537]    36 CAGGGGCCGGCGGCTGGCTAGGGCTGCAGCGTTAAA\n\n> NM_seq_pDict=PDict(NM_seq_clean)\nError in .PDict(dict, names(dict), tb.start, tb.end, \ndrop.head, drop.tail,  :\n   alloc_actree_nodes_buf(): failed to alloc \nactree_nodes_buf\nR(433,0xa000d000) malloc: *** vm_allocate(size=4032987136) \nfailed (error code=3)\nR(433,0xa000d000) malloc: *** error: can't allocate region\nR(433,0xa000d000) malloc: *** set a breakpoint in \nszone_error to debug\n\n> sessionInfo()\nR version 2.7.0 (2008-04-22)\ni386-apple-darwin8.10.1\n\nlocale:\nen_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] tools     stats     graphics  grDevices utils \n    datasets  methods   base\n\nother attached packages:\n[1] BiostringsCinterfaceDemo_0.1.2 Biostrings_2.8.9 \n              Biobase_2.0.1\n\n\n\n\nRegards,\nJoseph\n\nJoseph M. Dhahbi, PhD\nChildrens Hospital Oakland Research Institute\n5700 Martin Luther King Jr. Way\nOakland, CA 94609\nUSA\nPh.(510)428-3885 EXT.5743\nCell.(702)335-0795\nFax (510)450-7910\njdhahbi at chori.org\n The email message (and any attachments) is for the sole...{{dropped:3}}",
+      "body_snippet": "Hello\nI need help on how to get around the memory error reported \nbelow, especially when I can not add anymore RAM:\nHere is the Hardware Overview:\n   Model Name:\tMac Pro\n   Model Identifier:\tMacPro1,1",
+      "thread_id": "thread-2181d8bef536",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-28e4fe857d1f",
+      "message_id": "<61B482B74D6EE443B90356E080476E340189550E@exc2.cruciform.wibr.ucl.ac.uk>",
+      "from_name": "Stephen Henderson",
+      "from_email_hash": "846d881430ade316243531d192b758e414c7445b84afe371156a3adf78167110",
+      "date": "2008-06-03T15:36:21Z",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "subject_clean": "[Bioc-sig-seq] PDict question",
+      "in_reply_to": null,
+      "references": [
+        "<web-10464904@chori.chori.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080603/a88bd68e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080603/a88bd68e/attachment.pl>",
+      "thread_id": "thread-2181d8bef536",
+      "thread_depth": 1,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-137fc61252ca",
+      "message_id": "<F56F65C4-441E-4EB6-B0C1-021B31D42288@mac.com>",
+      "from_name": "Raphael Gottardo",
+      "from_email_hash": "0056463695f9377b9835db165ee06521b3c0da5a4ad81f50be38c839e7fc7ece",
+      "date": "2008-06-03T15:39:15Z",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "subject_clean": "[Bioc-sig-seq] PDict question",
+      "in_reply_to": "<web-10464904@chori.chori.org>",
+      "references": [
+        "<web-10464904@chori.chori.org>"
+      ],
+      "body_plain": "You need to use a 64 bit version of R.\n\nRaphael\n\nOn 3-Jun-08, at 8:21 AM, Joseph Dhahbi, P.h.D. wrote:\n\n> Hello\n> I need help on how to get around the memory error reported below,  \n> especially when I can not add anymore RAM:\n> Here is the Hardware Overview:\n>  Model Name:\tMac Pro\n>  Model Identifier:\tMacPro1,1\n>  Processor Name:\tDual-Core Intel Xeon\n>  Processor Speed:\t2.66 GHz\n>  Number Of Processors:\t2\n>  Total Number Of Cores:\t4\n>  L2 Cache (per processor):\t4 MB\n>  Memory:\t20 GB\n>  Bus Speed:\t1.33 GHz\n>  Boot ROM Version:\tMP11.005C.B08\n>  SMC Version:\t1.7f10\n>  Serial Number:\tG87052SGUPZ\n>\n>\n>\n>> NM_seq=readSolexaFastA(NM_fa)\n>> NM_alf=alphabetFrequency(NM_seq, baseOnly=TRUE)\n>> NM_seq_clean = NM_seq[NM_alf[,\"other\"]==0]\n>> length(NM_seq)\n> [1] 4820218\n>> length(NM_seq_clean)\n> [1] 4817537\n>> NM_seq_clean\n>  A DNAStringSet instance of length 4817537\n>          width seq\n>      [1]    36 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAT\n>      [2]    36 GTGGTAATTCATCAGATCTCGGATGGCATTGGTCAT\n>      [3]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n>      [4]    36 GGGATTGGTTTTTTGTTACTGATTTGTTTGAGTTCA\n>      [5]    36 GTGGTAATTTTGACTTTTTAGGTTAATTTATTTTTT\n>      [6]    36 GATCGGAAGGAGCTCGTATGCCGTCTTCTGCTTAGA\n>      [7]    36 GGTCAGTTGTGTTCTCCTGAGTAGGTTGTGTGAATG\n>      [8]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n>      [9]    36 GGGAGGCTGAGGCAGGAGAATGGCATGAACCTAGAT\n>      ...   ... ...\n> [4817529]    36 TTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAG\n> [4817530]    36 CATCAATGTATCTTAAGGCGTAAATTGTAAGCGTTA\n> [4817531]    36 CGAGCAGCGACGCATCACCCAGCTAGATCGGAAGAG\n> [4817532]    36 GCAATGCCACTGGCGCGACAACCGGGACACCATAGG\n> [4817533]    36 CCTCGCCGGACACGCTGAACTTGTGGCCGTTTTCGT\n> [4817534]    36 CCATTGTACAACGTATCGACATATCCTCCACCCGCC\n> [4817535]    36 CCCCCTGAACCTGAAACATAAAATGAATGCAATTGT\n> [4817536]    36 ACCATGTTGTCCAAGGGCGAATTCTGCAGATATCCA\n> [4817537]    36 CAGGGGCCGGCGGCTGGCTAGGGCTGCAGCGTTAAA\n>\n>> NM_seq_pDict=PDict(NM_seq_clean)\n> Error in .PDict(dict, names(dict), tb.start, tb.end, drop.head,  \n> drop.tail,  :\n>  alloc_actree_nodes_buf(): failed to alloc actree_nodes_buf\n> R(433,0xa000d000) malloc: *** vm_allocate(size=4032987136) failed  \n> (error code=3)\n> R(433,0xa000d000) malloc: *** error: can't allocate region\n> R(433,0xa000d000) malloc: *** set a breakpoint in szone_error to debug\n>\n>> sessionInfo()\n> R version 2.7.0 (2008-04-22)\n> i386-apple-darwin8.10.1\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] tools     stats     graphics  grDevices utils    datasets   \n> methods   base\n>\n> other attached packages:\n> [1] BiostringsCinterfaceDemo_0.1.2 Biostrings_2.8.9               \n> Biobase_2.0.1\n>\n>\n>\n>\n> Regards,\n> Joseph\n>\n> Joseph M. Dhahbi, PhD\n> Childrens Hospital Oakland Research Institute\n> 5700 Martin Luther King Jr. Way\n> Oakland, CA 94609\n> USA\n> Ph.(510)428-3885 EXT.5743\n> Cell.(702)335-0795\n> Fax (510)450-7910\n> jdhahbi at chori.org\n> The email message (and any attachments) is for the sol...{{dropped:26}}",
+      "body_snippet": "You need to use a 64 bit version of R.\n\nRaphael\n\nOn 3-Jun-08, at 8:21 AM, Joseph Dhahbi, P.h.D. wrote:\n\n> Hello\n> I need help on how to get around the memory error reported below,  \n> especially when ",
+      "thread_id": "thread-2181d8bef536",
+      "thread_depth": 1,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-00aebc50ebf6",
+      "message_id": "<484573CA.1090706@fhcrc.org>",
+      "from_name": "Robert Gentleman",
+      "from_email_hash": "7de55c0000c437ab05b37d16b5a00e42a9bba6254ce27d76eb635498d1e3dda7",
+      "date": "2008-06-03T16:39:38Z",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "subject_clean": "[Bioc-sig-seq] PDict question",
+      "in_reply_to": "<61B482B74D6EE443B90356E080476E340189550E@exc2.cruciform.wibr.ucl.ac.uk>",
+      "references": [
+        "<web-10464904@chori.chori.org>",
+        "<61B482B74D6EE443B90356E080476E340189550E@exc2.cruciform.wibr.ucl.ac.uk>"
+      ],
+      "body_plain": "Hi,\n\n  Whether you have enough RAM will be a function of lots of things - \nwhich genome you are matching too (some are larger than others), how \ncareful  you are about dropping sequences when they are not needed etc. \n  And as you have not provide those details it is not possible to give \nmore concrete advice.\n\nYou could try breaking the sequences down into smaller subsets, say \nbuild a PDict on half of the data - match, then repeat on the other half \n(or thirds or whatever size does work for your architecture).  In \ngeneral, you may want to consider moving the analysis to a Linux box \nwith more RAM (we typically use machines with 32 or 64 GB of RAM - which \nare surprisingly inexpensive these days).\n\n   best wishes\n    Robert\n\n\n\nStephen Henderson wrote:\n> Hi Joseph\n> You look like you should have enough RAM on your MacPro. Have you compiled a 64-bit version of R for the Mac? The CRAN binaries are 32-bit and will restrict the available memory.\n>  \n> Stephen\n>  \n> \n> ________________________________\n> \n> From: bioc-sig-sequencing-bounces at r-project.org on behalf of Joseph Dhahbi, P.h.D.\n> Sent: Tue 03/06/2008 16:21\n> To: bioc-sig-sequencing at r-project.org\n> Cc: bioc-sig-sequencing at r-project.org\n> Subject: [Bioc-sig-seq] PDict question\n> \n> \n> \n> Hello\n> I need help on how to get around the memory error reported\n> below, especially when I can not add anymore RAM:\n> Here is the Hardware Overview:\n>    Model Name:  Mac Pro\n>    Model Identifier:    MacPro1,1\n>    Processor Name:      Dual-Core Intel Xeon\n>    Processor Speed:     2.66 GHz\n>    Number Of Processors:        2\n>    Total Number Of Cores:       4\n>    L2 Cache (per processor):    4 MB\n>    Memory:      20 GB\n>    Bus Speed:   1.33 GHz\n>    Boot ROM Version:    MP11.005C.B08\n>    SMC Version: 1.7f10\n>    Serial Number:       G87052SGUPZ\n> \n> \n> \n>> NM_seq=readSolexaFastA(NM_fa)\n>> NM_alf=alphabetFrequency(NM_seq, baseOnly=TRUE)\n>> NM_seq_clean = NM_seq[NM_alf[,\"other\"]==0]\n>> length(NM_seq)\n> [1] 4820218\n>> length(NM_seq_clean)\n> [1] 4817537\n>> NM_seq_clean\n>    A DNAStringSet instance of length 4817537\n>            width seq\n>        [1]    36 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAT\n>        [2]    36 GTGGTAATTCATCAGATCTCGGATGGCATTGGTCAT\n>        [3]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n>        [4]    36 GGGATTGGTTTTTTGTTACTGATTTGTTTGAGTTCA\n>        [5]    36 GTGGTAATTTTGACTTTTTAGGTTAATTTATTTTTT\n>        [6]    36 GATCGGAAGGAGCTCGTATGCCGTCTTCTGCTTAGA\n>        [7]    36 GGTCAGTTGTGTTCTCCTGAGTAGGTTGTGTGAATG\n>        [8]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n>        [9]    36 GGGAGGCTGAGGCAGGAGAATGGCATGAACCTAGAT\n>        ...   ... ...\n> [4817529]    36 TTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAG\n> [4817530]    36 CATCAATGTATCTTAAGGCGTAAATTGTAAGCGTTA\n> [4817531]    36 CGAGCAGCGACGCATCACCCAGCTAGATCGGAAGAG\n> [4817532]    36 GCAATGCCACTGGCGCGACAACCGGGACACCATAGG\n> [4817533]    36 CCTCGCCGGACACGCTGAACTTGTGGCCGTTTTCGT\n> [4817534]    36 CCATTGTACAACGTATCGACATATCCTCCACCCGCC\n> [4817535]    36 CCCCCTGAACCTGAAACATAAAATGAATGCAATTGT\n> [4817536]    36 ACCATGTTGTCCAAGGGCGAATTCTGCAGATATCCA\n> [4817537]    36 CAGGGGCCGGCGGCTGGCTAGGGCTGCAGCGTTAAA\n> \n>> NM_seq_pDict=PDict(NM_seq_clean)\n> Error in .PDict(dict, names(dict), tb.start, tb.end,\n> drop.head, drop.tail,  :\n>    alloc_actree_nodes_buf(): failed to alloc\n> actree_nodes_buf\n> R(433,0xa000d000) malloc: *** vm_allocate(size=4032987136)\n> failed (error code=3)\n> R(433,0xa000d000) malloc: *** error: can't allocate region\n> R(433,0xa000d000) malloc: *** set a breakpoint in\n> szone_error to debug\n> \n>> sessionInfo()\n> R version 2.7.0 (2008-04-22)\n> i386-apple-darwin8.10.1\n> \n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] tools     stats     graphics  grDevices utils\n>     datasets  methods   base\n> \n> other attached packages:\n> [1] BiostringsCinterfaceDemo_0.1.2 Biostrings_2.8.9\n>               Biobase_2.0.1\n> \n> \n> \n> \n> Regards,\n> Joseph\n> \n> Joseph M. Dhahbi, PhD\n> Childrens Hospital Oakland Research Institute\n> 5700 Martin Luther King Jr. Way\n> Oakland, CA 94609\n> USA\n> Ph.(510)428-3885 EXT.5743\n> Cell.(702)335-0795\n> Fax (510)450-7910\n> jdhahbi at chori.org\n>  The email message (and any attachments) is for the sole...{{dropped:21}}\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nRobert Gentleman, PhD\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nPO Box 19024\nSeattle, Washington 98109-1024\n206-667-7700\nrgentlem at fhcrc.org",
+      "body_snippet": "Hi,\n\n  Whether you have enough RAM will be a function of lots of things - \nwhich genome you are matching too (some are larger than others), how \ncareful  you are about dropping sequences when they are",
+      "thread_id": "thread-2181d8bef536",
+      "thread_depth": 2,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-7e4e811f20c0",
+      "message_id": "<20080603113632.64s1eb0dusgg8ws4@webmail.fhcrc.org>",
+      "from_name": "hpages at fhcrc.org",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2008-06-03T18:36:32Z",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "subject_clean": "[Bioc-sig-seq] PDict question",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi Joseph,\n\nYou could run PDict() in debug mode by calling:\n\n   > Biostrings:::debug_ACtree_utils()\n\nfirst and then try to run your example again and you would see\nsomething like this:\n\n   > NM_seq_pDict=PDict(NM_seq_clean)\n   [DEBUG] alloc_actree_nodes_buf(): length=4817537 width=36 maxnodes=126030830\n   [DEBUG] alloc_actree_nodes_buf(): allocating actree_nodes_buf  \n(bufsize=4032986560) ... OK\n   [DEBUG] CWdna_free_actree_nodes_buf(): freeing actree_nodes_buf ... OK\n\nThis indicates that PDict() needs to allocate a temporary buffer (the\nactree_nodes_buf C variable) of about 4GB to build the Aho-Corasick\ntree.\nThis buffer has exactly the same size as an integer vector of length\n1008246640. Can you allocate such vector? Try:\n\n   > x <- integer(1008246640)\n\nGiven that you have 20GB of RAM, this should work, unless something\nis wrong with your R installation...\n\nMore about the \"fixed-size temporary buffer\" approach:\n\nThe size of this buffer is chosen in a way so that it is guaranteed to\nbe big enough to store the entire Aho-Corasick tree with no need of\nreallocation. It may be that the real size of this tree will in fact\nbe smaller (sometimes much smaller) than the size of the temporary\nbuffer but AFAICS there is no easy way to know this in advance.\nThe real size of the tree (in bytes) can be obtained with:\n\n   > length(NM_seq_pDict at actree) * 32\n\nNote that the formula used to compute the size of the buffer only depends\non the length and width of the input dictionary and that this formula\nis an optimal a priori estimate in the sense that it is possible\nthat the tree will fill up the temp buffer entirely.\n\nWe chose to use a fixed-size temporary buffer for the construction\nof the AC tree because we wanted to make PDict() as fast as possible\nat the cost of some increased memory requirement. The current approach\nis not written in stone though and we might change this in the future.\nMaybe a better approach would be to do some sort of compromise by choosing\na buffer size that is 50% of the best a priori estimate and do 1\nreallocation if the temp buffer happens to be too small with the hope\nthat this will be a rare situation when using real-world data.\nBut more expertise will be needed before we can choose the good ratio\n(50% ? 25% ? 75% ?...)\n\nCheers,\nH.\n\nQuoting \"Joseph Dhahbi, P.h.D.\" <jdhahbi at chori.org>:\n\n> Hello\n> I need help on how to get around the memory error reported below,\n> especially when I can not add anymore RAM:\n> Here is the Hardware Overview:\n>   Model Name:\tMac Pro\n>   Model Identifier:\tMacPro1,1\n>   Processor Name:\tDual-Core Intel Xeon\n>   Processor Speed:\t2.66 GHz\n>   Number Of Processors:\t2\n>   Total Number Of Cores:\t4\n>   L2 Cache (per processor):\t4 MB\n>   Memory:\t20 GB\n>   Bus Speed:\t1.33 GHz\n>   Boot ROM Version:\tMP11.005C.B08\n>   SMC Version:\t1.7f10\n>   Serial Number:\tG87052SGUPZ\n>\n>\n>\n>> NM_seq=readSolexaFastA(NM_fa)\n>> NM_alf=alphabetFrequency(NM_seq, baseOnly=TRUE)\n>> NM_seq_clean = NM_seq[NM_alf[,\"other\"]==0]\n>> length(NM_seq)\n> [1] 4820218\n>> length(NM_seq_clean)\n> [1] 4817537\n>> NM_seq_clean\n>   A DNAStringSet instance of length 4817537\n>           width seq\n>       [1]    36 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAT\n>       [2]    36 GTGGTAATTCATCAGATCTCGGATGGCATTGGTCAT\n>       [3]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n>       [4]    36 GGGATTGGTTTTTTGTTACTGATTTGTTTGAGTTCA\n>       [5]    36 GTGGTAATTTTGACTTTTTAGGTTAATTTATTTTTT\n>       [6]    36 GATCGGAAGGAGCTCGTATGCCGTCTTCTGCTTAGA\n>       [7]    36 GGTCAGTTGTGTTCTCCTGAGTAGGTTGTGTGAATG\n>       [8]    36 GGGAGGTCACTAATGGAGACACACAGAAATGTAACA\n>       [9]    36 GGGAGGCTGAGGCAGGAGAATGGCATGAACCTAGAT\n>       ...   ... ...\n> [4817529]    36 TTCAAGTCCGCCATGCCCGAAGGCTACGTCCAGGAG\n> [4817530]    36 CATCAATGTATCTTAAGGCGTAAATTGTAAGCGTTA\n> [4817531]    36 CGAGCAGCGACGCATCACCCAGCTAGATCGGAAGAG\n> [4817532]    36 GCAATGCCACTGGCGCGACAACCGGGACACCATAGG\n> [4817533]    36 CCTCGCCGGACACGCTGAACTTGTGGCCGTTTTCGT\n> [4817534]    36 CCATTGTACAACGTATCGACATATCCTCCACCCGCC\n> [4817535]    36 CCCCCTGAACCTGAAACATAAAATGAATGCAATTGT\n> [4817536]    36 ACCATGTTGTCCAAGGGCGAATTCTGCAGATATCCA\n> [4817537]    36 CAGGGGCCGGCGGCTGGCTAGGGCTGCAGCGTTAAA\n>\n>> NM_seq_pDict=PDict(NM_seq_clean)\n> Error in .PDict(dict, names(dict), tb.start, tb.end, drop.head, drop.tail,  :\n>   alloc_actree_nodes_buf(): failed to alloc actree_nodes_buf\n> R(433,0xa000d000) malloc: *** vm_allocate(size=4032987136) failed\n> (error code=3)\n> R(433,0xa000d000) malloc: *** error: can't allocate region\n> R(433,0xa000d000) malloc: *** set a breakpoint in szone_error to debug\n>\n>> sessionInfo()\n> R version 2.7.0 (2008-04-22)\n> i386-apple-darwin8.10.1\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] tools     stats     graphics  grDevices utils    datasets  methods   base\n>\n> other attached packages:\n> [1] BiostringsCinterfaceDemo_0.1.2 Biostrings_2.8.9                \n> Biobase_2.0.1\n>\n>\n>\n>\n> Regards,\n> Joseph\n>\n> Joseph M. Dhahbi, PhD\n> Childrens Hospital Oakland Research Institute\n> 5700 Martin Luther King Jr. Way\n> Oakland, CA 94609\n> USA\n> Ph.(510)428-3885 EXT.5743\n> Cell.(702)335-0795\n> Fax (510)450-7910\n> jdhahbi at chori.org\n> The email message (and any attachments) is for the sol...{{dropped:9}}",
+      "body_snippet": "Hi Joseph,\n\nYou could run PDict() in debug mode by calling:\n\n   > Biostrings:::debug_ACtree_utils()\n\nfirst and then try to run your example again and you would see\nsomething like this:\n\n   > NM_seq_pD",
+      "thread_id": "thread-7e4e811f20c0",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-36a83f724ade",
+      "message_id": "<61B482B74D6EE443B90356E080476E3401895515@exc2.cruciform.wibr.ucl.ac.uk>",
+      "from_name": "Stephen Henderson",
+      "from_email_hash": "846d881430ade316243531d192b758e414c7445b84afe371156a3adf78167110",
+      "date": "2008-06-03T19:12:38Z",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "subject_clean": "[Bioc-sig-seq] PDict question",
+      "in_reply_to": null,
+      "references": [
+        "<20080603113632.64s1eb0dusgg8ws4@webmail.fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080603/ecf025d3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080603/ecf025d3/attachment.pl>",
+      "thread_id": "thread-7e4e811f20c0",
+      "thread_depth": 1,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-4cc48973ecb6",
+      "message_id": "<4845AE2F.4040505@fhcrc.org>",
+      "from_name": "Herve Pages",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2008-06-03T20:48:47Z",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "subject_clean": "[Bioc-sig-seq] PDict question",
+      "in_reply_to": "<1606B098-81A7-4271-8476-B64173155CC5@jhu.edu>",
+      "references": [
+        "<20080603113632.64s1eb0dusgg8ws4@webmail.fhcrc.org>",
+        "<1606B098-81A7-4271-8476-B64173155CC5@jhu.edu>"
+      ],
+      "body_plain": "Hi Harris,\n\n[Sorry but this discussion belongs to where it came from so I'm\nputting it back there.]\n\nHarris A. Jaffee wrote:\n> Nothing intelligent to say, but I agree -- it seems\n> very suspicious that he had a failure.  Also, if you\n> use some form of malloc(), won't you have accesss to\n> *virtual* memory, so his so-called \"20GB\" of RAM is\n> somewhat irrelevant.  More than that is available.\n> \n> But I don't understand your memory allocation scheme.\n> I just did PDict on 4M unique strings of width 36.  It\n> ran up about 10 minutes of CPU time and was increasing\n> in size VERY gradually from 2.5G to about 12G, but it\n> didn't pass 5G until 9 minutes or so.  Certainly doesn't\n> sound like everything is pre-allocated, as you describe.\n> Is there an easy way to delineate what I am missing?\n\nGood point! I forgot to mention that the temp buffer uses\nuser-controlled memory (malloc) instead of R-controlled (aka\ntransient) memory (Salloc). The reason I decided to use malloc()\nis that it's *much* faster than Salloc(), at least on Linux (you\ndon't say what your OS is), but this might just be due to the fact\nthat Linux's malloc() is cheating i.e. it doesn't really allocate\nthe memory pages until the process actually tries to access them\n(lazy memory allocation). So in the end the Linux kernel will end\nup making a lot of small real allocations behind the scene as the\ntemp buffer is being filled up with the AC tree that is currently\nunder construction. And that could explain why top (you don't say\nhow you monitor this) is reporting that the memory used by your R\nprocess is increasing gradually.\n\n From malloc()'s man page on my 64-bit openSUSE 10.3 system:\n\nBUGS\n        By  default,  Linux  follows  an optimistic memory allocation\n        strategy.  This means that  when  malloc()  returns  non-NULL\n        there  is  no  guarantee that the memory really is available.\n        This is a really bad bug.  In case it turns out that the sys?\n        tem is out of memory, one or more processes will be killed by\n        the infamous OOM killer.  In case  Linux  is  employed  under\n        circumstances  where  it  would be less desirable to suddenly\n        lose some randomly picked processes, and moreover the  kernel\n        version is sufficiently recent, one can switch off this over?\n        committing behavior using a command like:\n\n             # echo 2 > /proc/sys/vm/overcommit_memory\n\nCan you try the above and see whether the R process is actually using\nthe 5G of mem from the very beginning or not? PDict() will also need\nsome extra G towards the end for copying the final AC tree back to\nthe R space (to an R integer vector that corresponds more or less to\nthe @actree at nodes slot of the PDict object) but I have to admit that\nthis doesn't really explain why you need 7 extra G for this. I'm not\nsure what's going on...\n\nIn theory the total amount of memory you need is BPS + RS where\nBPS is the biggest possible size of the tree and RS its real size\n(BPS >= RS).\n\nThen the amount of memory used by PDict() should be something like\nthis:\n\n   PDict() progression                              Memory in use\n   -------------------                              -------------\n\n   phase 1: build AC tree in temp buffer            BPS\n\n   phase 2: copy the temp buf to the                BPS + RS\n            @actree at nodes slot of the PDict object\n\n   phase 3: after freeing the temp buffer           RS\n\nThat's for the AC tree only but there is also the @dups slot in\nthe resulting PDict object that can be big too, it all depends on\nhow many duplicated reads you have in your input dictionary.\n\nHope this helps,\nH.\n\n\n> \n> Perhaps 'conservative' is better than your 'optimal'.\n> \n> On Jun 3, 2008, at 2:36 PM, hpages at fhcrc.org wrote:\n>>",
+      "body_snippet": "Hi Harris,\n\n[Sorry but this discussion belongs to where it came from so I'm\nputting it back there.]\n\nHarris A. Jaffee wrote:\n> Nothing intelligent to say, but I agree -- it seems\n> very suspicious tha",
+      "thread_id": "thread-4cc48973ecb6",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-afa74059de58",
+      "message_id": "<web-10467580@chori.chori.org>",
+      "from_name": "Joseph Dhahbi, P.h.D.",
+      "from_email_hash": "eec9583a5dc693521f378cb51ccde7ebc71494d5150ae5e493ef2f78aed1d91b",
+      "date": "2008-06-03T21:02:49Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi\nI downloaded the drosophila RepeatMasker from UCSC GB as a \ntext file which is in fasta format and looks like this:\n>dm3_rmsk_NINJA_I range=chr4:2-434 5'pad=0 3'pad=0 strand=+ repeatMasking=none\nAATTCGCGTCCGCTTA......\n>dm3_rmsk_NINJA_LTR range=chr4:435-611 5'pad=0 3'pad=0 strand=+ repeatMasking=none\nTGTCGCGGATC....\n>dm3_rmsk_Baggins1 range=chr4:638-1723 5'pad=0 3'pad=0 strand=- repeatMasking=none\nATACGATGG......\n\nI made the input dictionary and I would like to make the \nRepeatMasker sequences as the target.  When I used \n?read.DNAStringSet? it recognized only the first sequence \nof the fasts file.  Ho do I merge all of the sequences in \nand make them as a target.\nThank you for your help\n\n\nRegards,\nJoseph\n\nJoseph M. Dhahbi, PhD\nChildrens Hospital Oakland Research Institute\n5700 Martin Luther King Jr. Way\nOakland, CA 94609\nUSA\nPh.(510)428-3885 EXT.5743\nCell.(702)335-0795\nFax (510)450-7910\njdhahbi at chori.org\n The email message (and any attachments) is for the sole...{{dropped:3}}",
+      "body_snippet": "Hi\nI downloaded the drosophila RepeatMasker from UCSC GB as a \ntext file which is in fasta format and looks like this:\n>dm3_rmsk_NINJA_I range=chr4:2-434 5'pad=0 3'pad=0 strand=+ repeatMasking=none\nAA",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-7d94a289c816",
+      "message_id": "<4845DE52.9010504@fhcrc.org>",
+      "from_name": "Herve Pages",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2008-06-04T00:14:10Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": "<web-10467580@chori.chori.org>",
+      "references": [
+        "<web-10467580@chori.chori.org>"
+      ],
+      "body_plain": "Hi Joseph,\n\nJoseph Dhahbi, P.h.D. wrote:\n> \n> Hi\n> I downloaded the drosophila RepeatMasker from UCSC GB as a text file \n> which is in fasta format and looks like this:\n>> dm3_rmsk_NINJA_I range=chr4:2-434 5'pad=0 3'pad=0 strand=+ \n>> repeatMasking=none\n> AATTCGCGTCCGCTTA......\n>> dm3_rmsk_NINJA_LTR range=chr4:435-611 5'pad=0 3'pad=0 strand=+ \n>> repeatMasking=none\n> TGTCGCGGATC....\n>> dm3_rmsk_Baggins1 range=chr4:638-1723 5'pad=0 3'pad=0 strand=- \n>> repeatMasking=none\n> ATACGATGG......\n> \n> I made the input dictionary and I would like to make the RepeatMasker \n> sequences as the target.  When I used ?read.DNAStringSet? it recognized \n> only the first sequence of the fasts file.  Ho do I merge all of the \n> sequences in and make them as a target.\n\nIf your file is really FASTA then read.DNAStringSet() should extract all\nthe records and return a DNAStringSet object where each element corresponds\nto a record in the original file. So it seems like you've hit a bug in the\nread.DNAStringSet() function. Can you please provide the URL to the file\nyou downloaded so we can try to reproduce?\n\nAnyway, what you are trying to achieve can be done in an easier (and more\nefficient) way. You don't need to download the RepeatMasker sequences for\nthis; just use the BSgenome.Dmelanogaster.UCSC.dm3 package. The RepeatMasker\ninformation is already included in it as part of the built-in masks provided\nfor each chromosome:\n\n   > library(BSgenome.Dmelanogaster.UCSC.dm3)\n   > Dmelanogaster\n   Fly genome\n   |\n   | organism: Drosophila melanogaster\n   | provider: UCSC\n   | provider version: dm3\n   | release date: Apr. 2006\n   | release name: BDGP Release 5\n   |\n   | single sequences (see '?seqnames'):\n   |   chr2L      chr2R      chr3L      chr3R      chr4       chrX       chrU\n   |   chrM       chr2LHet   chr2RHet   chr3LHet   chr3RHet   chrXHet    chrYHet\n   |   chrUextra\n   |\n   | multiple sequences (see '?mseqnames'):\n   |   upstream1000  upstream2000  upstream5000\n   |\n   | (use the '$' or '[[' operator to access a given sequence)\n   > chr2L <- Dmelanogaster$chr2L\n   > chr2L\n     23011544-letter \"MaskedDNAString\" instance (# for masking)\n   seq: CGACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTTGATGAACCCCCCTTTCAAA\n   masks:\n     maskedwidth  maskedratio active                              names\n   1         200 8.691290e-06  FALSE                      assembly gaps\n   2     1966561 8.545976e-02  FALSE                       RepeatMasker\n   3       61603 2.677048e-03  FALSE Tandem Repeats Finder [period<=12]\n   all masks together:\n     maskedwidth maskedratio\n         1988181  0.08639929\n   all active masks together:\n     maskedwidth maskedratio\n               0           0\n\nNote that the built-in masks are always inactive by default. To activate\na mask do:\n\n   > active(masks(chr2L))[2] <- TRUE  # activate the RepeatMasker mask\n\nNow only the parts of chr2L that are NOT repeat regions are visible.\nTo invert this, use gaps():\n\n   > chr2Lrepeats <- gaps(chr2L)\n   > chr2Lrepeats\n     23011544-letter \"MaskedDNAString\" instance (# for masking)\n   seq: #GACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTT###################\n   masks:\n     maskedwidth maskedratio active\n   1    21044983   0.9145402   TRUE\n\nThen use matchPDict() (or countPDict()) in the usual way.\n\nThe GenomeSearching vignette in the BSgenome package has more\ninformation about masking (some sections are still incomplete but\nwill be completed soon).\n\nHope this helps,\nH.\n\n\n> Thank you for your help\n> \n> \n> Regards,\n> Joseph\n> \n> Joseph M. Dhahbi, PhD\n> Childrens Hospital Oakland Research Institute\n> 5700 Martin Luther King Jr. Way\n> Oakland, CA 94609\n> USA\n> Ph.(510)428-3885 EXT.5743\n> Cell.(702)335-0795\n> Fax (510)450-7910\n> jdhahbi at chori.org\n> The email message (and any attachments) is for the sole...{{dropped:3}}\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Joseph,\n\nJoseph Dhahbi, P.h.D. wrote:\n> \n> Hi\n> I downloaded the drosophila RepeatMasker from UCSC GB as a text file \n> which is in fasta format and looks like this:\n>> dm3_rmsk_NINJA_I range=chr4:",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 1,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-e5b1a6b80ce8",
+      "message_id": "<web-10468823@chori.chori.org>",
+      "from_name": "Joseph Dhahbi, P.h.D.",
+      "from_email_hash": "eec9583a5dc693521f378cb51ccde7ebc71494d5150ae5e493ef2f78aed1d91b",
+      "date": "2008-06-04T00:42:49Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": "<4845DE52.9010504@fhcrc.org>",
+      "references": [
+        "<web-10467580@chori.chori.org>",
+        "<4845DE52.9010504@fhcrc.org>"
+      ],
+      "body_plain": "I downloaded RepeatMasker from the Table Browser:\nhttp://genome.ucsc.edu/cgi-bin/hgTables?command=start\nI will try your suggestion\nThank you for your help\n\nOn Tue, 03 Jun 2008 17:14:10 -0700\n  Herve Pages <hpages at fhcrc.org> wrote:\n> Hi Joseph,\n> \n> Joseph Dhahbi, P.h.D. wrote:\n>> \n>> Hi\n>> I downloaded the drosophila RepeatMasker from UCSC GB as \n>>a text file \n>> which is in fasta format and looks like this:\n>>> dm3_rmsk_NINJA_I range=chr4:2-434 5'pad=0 3'pad=0 \n>>>strand=+ \n>>> repeatMasking=none\n>> AATTCGCGTCCGCTTA......\n>>> dm3_rmsk_NINJA_LTR range=chr4:435-611 5'pad=0 3'pad=0 \n>>>strand=+ \n>>> repeatMasking=none\n>> TGTCGCGGATC....\n>>> dm3_rmsk_Baggins1 range=chr4:638-1723 5'pad=0 3'pad=0 \n>>>strand=- \n>>> repeatMasking=none\n>> ATACGATGG......\n>> \n>> I made the input dictionary and I would like to make the \n>>RepeatMasker \n>> sequences as the target.  When I used \n>>?read.DNAStringSet? it recognized \n>> only the first sequence of the fasts file.  Ho do I \n>>merge all of the \n>> sequences in and make them as a target.\n> \n> If your file is really FASTA then read.DNAStringSet() \n>should extract all\n> the records and return a DNAStringSet object where each \n>element corresponds\n> to a record in the original file. So it seems like \n>you've hit a bug in the\n> read.DNAStringSet() function. Can you please provide the \n>URL to the file\n> you downloaded so we can try to reproduce?\n> \n> Anyway, what you are trying to achieve can be done in an \n>easier (and more\n> efficient) way. You don't need to download the \n>RepeatMasker sequences for\n> this; just use the BSgenome.Dmelanogaster.UCSC.dm3 \n>package. The RepeatMasker\n> information is already included in it as part of the \n>built-in masks provided\n> for each chromosome:\n> \n>   > library(BSgenome.Dmelanogaster.UCSC.dm3)\n>   > Dmelanogaster\n>   Fly genome\n>   |\n>   | organism: Drosophila melanogaster\n>   | provider: UCSC\n>   | provider version: dm3\n>   | release date: Apr. 2006\n>   | release name: BDGP Release 5\n>   |\n>   | single sequences (see '?seqnames'):\n>   |   chr2L      chr2R      chr3L      chr3R      chr4 \n>      chrX       chrU\n>   |   chrM       chr2LHet   chr2RHet   chr3LHet \n>  chr3RHet   chrXHet    chrYHet\n>   |   chrUextra\n>   |\n>   | multiple sequences (see '?mseqnames'):\n>   |   upstream1000  upstream2000  upstream5000\n>   |\n>   | (use the '$' or '[[' operator to access a given \n>sequence)\n>   > chr2L <- Dmelanogaster$chr2L\n>   > chr2L\n>     23011544-letter \"MaskedDNAString\" instance (# for \n>masking)\n>   seq: \n>CGACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTTGATGAACCCCCCTTTCAAA\n>   masks:\n>     maskedwidth  maskedratio active \n>                             names\n>   1         200 8.691290e-06  FALSE \n>                     assembly gaps\n>   2     1966561 8.545976e-02  FALSE \n>                      RepeatMasker\n>   3       61603 2.677048e-03  FALSE Tandem Repeats \n>Finder [period<=12]\n>   all masks together:\n>     maskedwidth maskedratio\n>         1988181  0.08639929\n>   all active masks together:\n>     maskedwidth maskedratio\n>               0           0\n> \n> Note that the built-in masks are always inactive by \n>default. To activate\n> a mask do:\n> \n>   > active(masks(chr2L))[2] <- TRUE  # activate the \n>RepeatMasker mask\n> \n> Now only the parts of chr2L that are NOT repeat regions \n>are visible.\n> To invert this, use gaps():\n> \n>   > chr2Lrepeats <- gaps(chr2L)\n>   > chr2Lrepeats\n>     23011544-letter \"MaskedDNAString\" instance (# for \n>masking)\n>   seq: \n>#GACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTT###################\n>   masks:\n>     maskedwidth maskedratio active\n>   1    21044983   0.9145402   TRUE\n> \n> Then use matchPDict() (or countPDict()) in the usual \n>way.\n> \n> The GenomeSearching vignette in the BSgenome package has \n>more\n> information about masking (some sections are still \n>incomplete but\n> will be completed soon).\n> \n> Hope this helps,\n> H.\n> \n> \n>> Thank you for your help\n>> \n>> \n>> Regards,\n>> Joseph\n>> \n>> Joseph M. Dhahbi, PhD\n>> Childrens Hospital Oakland Research Institute\n>> 5700 Martin Luther King Jr. Way\n>> Oakland, CA 94609\n>> USA\n>> Ph.(510)428-3885 EXT.5743\n>> Cell.(702)335-0795\n>> Fax (510)450-7910\n>> jdhahbi at chori.org\n>> The email message (and any attachments) is for the \n>>sole...{{dropped:3}}\n>> \n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n\n\n\n\nRegards,\nJoseph\n\nJoseph M. Dhahbi, PhD\nChildrens Hospital Oakland Research Institute\n5700 Martin Luther King Jr. Way\nOakland, CA 94609\nUSA\nPh.(510)428-3885 EXT.5743\nCell.(702)335-0795\nFax (510)450-7910\njdhahbi at chori.org\n The email message (and any attachments) is for the sole...{{dropped:3}}",
+      "body_snippet": "I downloaded RepeatMasker from the Table Browser:\nhttp://genome.ucsc.edu/cgi-bin/hgTables?command=start\nI will try your suggestion\nThank you for your help\n\nOn Tue, 03 Jun 2008 17:14:10 -0700\n  Herve P",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 2,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-71d7b37fa3a0",
+      "message_id": "<4845FFBF.3030004@fhcrc.org>",
+      "from_name": "Herve Pages",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2008-06-04T02:36:47Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": "<web-10468823@chori.chori.org>",
+      "references": [
+        "<web-10467580@chori.chori.org>",
+        "<4845DE52.9010504@fhcrc.org>",
+        "<web-10468823@chori.chori.org>"
+      ],
+      "body_plain": "Joseph Dhahbi, P.h.D. wrote:\n> \n> I downloaded RepeatMasker from the Table Browser:\n> http://genome.ucsc.edu/cgi-bin/hgTables?command=start\n\nThanks! So I downloaded it and loaded in R with:\n\n   > allrepeats <- read.DNAStringSet(\"dm3rm\", format=\"fasta\")\n   Read 1126586 items\n   > allrepeats\n     A DNAStringSet instance of length 154993\n            width seq                                          names\n        [1]   433 AATTCGCGTCCGCTTACCCAT...GTTATTCACGGGGTCGGGGA dm3_rmsk_NINJA_I ...\n        [2]   177 TGTCGCGGATCGAACGGTGCA...GCGGTAAGATAAGATTAAAT dm3_rmsk_NINJA_LT...\n        [3]  1086 ATACGATGGCTGTACCTCATG...CATGGCGCTTTCCATCAGGA dm3_rmsk_Baggins1...\n        [4]    62 TCTGCATAGTCTCCGTGTCCA...GGTGCAGCATAAACACTTCT dm3_rmsk_DMLTR5 r...\n        [5]   346 AAATAATCCTGGAGGAGGCAA...GTCCTTCAGGACTCTATACT dm3_rmsk_Gypsy_I ...\n        [6]   243 CCTGGCTCAGTTATTCCGAGA...GAGTATAGAGTCCTGAAGGA dm3_rmsk_DMRT1C r...\n        [7]   149 CGGATGCTATAGGCCGCACCC...CTCAGTTATTCCGAGAGCAC dm3_rmsk_DMRT1C r...\n        [8]   230 AACCAGAATCACTGCACGGCT...GCAGATGGTGGGTGTACAGC dm3_rmsk_DMRT1C r...\n        [9]   210 CAGCAGCAGTGGTGGCTATCA...CATAGCGGGCCACTGTAGAA dm3_rmsk_DMRT1C r...\n        ...   ... ...\n   [154985]   164 GAGATGAGATGAGAAGAGAAG...ATAGAATAGAAGAGAATAGA dm3_rmsk_(GAGAA)n...\n   [154986]   169 AGAAGAGAAGAGAAGAGAAGA...GATAAGAGAATAGATGAGAA dm3_rmsk_(GAGAA)n...\n   [154987]   157 CAACACAACACAACACAACAC...ACACAACATTTCACAACACA dm3_rmsk_(CACAA)n...\n   [154988]   153 AGAGAGCAGAGAGAAGAGAGA...CGAGAGAAGAGAGAAGAGAG dm3_rmsk_(GA)n ra...\n   [154989]   119 ATCGACTCCCTGGAAATCCCA...AAGAAGCCAAAATGGAAGCC dm3_rmsk_DMRT1B r...\n   [154990]    52 ATGGAAGCCGGTCCAAAAAGA...GGCAGGTGTTCCCCAAGGAT dm3_rmsk_DMRT1B r...\n   [154991]   155 TCTCTTCTCTTCTCTTCTCTT...TCTCTTCTCTTCTCTTCTCT dm3_rmsk_(TTCTC)n...\n   [154992]   150 AGAGAAGAGAAGAGAAGAGAA...AGAGAAGAGAAGAGACGAGA dm3_rmsk_(GAGAA)n...\n   [154993]   147 ACAAGACAAGACAAGACAAGA...AAGACAAGACAAGACAAGAC dm3_rmsk_(CAAGA)n...\n\nIt works fine for me. Here is my sessionInfo():\n\n   > sessionInfo()\n   R version 2.7.0 (2008-04-22)\n   x86_64-unknown-linux-gnu\n\n   locale:\n \nLC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C\n\n   attached base packages:\n   [1] stats     graphics  grDevices utils     datasets  methods   base\n\n   other attached packages:\n   [1] Biostrings_2.8.12\n\nCould you send yours please?\n\n> I will try your suggestion\n\nNote that if you only want to count the number of matches of your PDict object\nin the repeat regions of the *entire* genome (without actually caring about\nwhere the matches are actually occuring), then you could do something like\nthis (use read.XStringViews instead of read.DNAStringSet):\n\n   > allrepeats <- read.XStringViews(\"dm3rm\", format=\"fasta\", subjectClass=\"DNAString\", collapse=\"-\")\n\nand then call countPDict(pdict, subject(allrepeats)).\nThe purpose of using 'collapse=\"-\"' when reading the file is to separate the\nRepeatMasker chunks with this letter when they are all put together in the\nbig 'subject(allrepeats)' sequence. This is in order to avoid the matches\nthat would span across several chunks.\n\nCheers,\nH.\n\n\n> Thank you for your help\n> \n> On Tue, 03 Jun 2008 17:14:10 -0700\n>  Herve Pages <hpages at fhcrc.org> wrote:\n>> Hi Joseph,\n>>\n>> Joseph Dhahbi, P.h.D. wrote:\n>>>\n>>> Hi\n>>> I downloaded the drosophila RepeatMasker from UCSC GB as a text file \n>>> which is in fasta format and looks like this:\n>>>> dm3_rmsk_NINJA_I range=chr4:2-434 5'pad=0 3'pad=0 strand=+ \n>>>> repeatMasking=none\n>>> AATTCGCGTCCGCTTA......\n>>>> dm3_rmsk_NINJA_LTR range=chr4:435-611 5'pad=0 3'pad=0 strand=+ \n>>>> repeatMasking=none\n>>> TGTCGCGGATC....\n>>>> dm3_rmsk_Baggins1 range=chr4:638-1723 5'pad=0 3'pad=0 strand=- \n>>>> repeatMasking=none\n>>> ATACGATGG......\n>>>\n>>> I made the input dictionary and I would like to make the RepeatMasker \n>>> sequences as the target.  When I used ?read.DNAStringSet? it \n>>> recognized only the first sequence of the fasts file.  Ho do I merge \n>>> all of the sequences in and make them as a target.\n>>\n>> If your file is really FASTA then read.DNAStringSet() should extract all\n>> the records and return a DNAStringSet object where each element \n>> corresponds\n>> to a record in the original file. So it seems like you've hit a bug in \n>> the\n>> read.DNAStringSet() function. Can you please provide the URL to the file\n>> you downloaded so we can try to reproduce?\n>>\n>> Anyway, what you are trying to achieve can be done in an easier (and more\n>> efficient) way. You don't need to download the RepeatMasker sequences for\n>> this; just use the BSgenome.Dmelanogaster.UCSC.dm3 package. The \n>> RepeatMasker\n>> information is already included in it as part of the built-in masks \n>> provided\n>> for each chromosome:\n>>\n>>   > library(BSgenome.Dmelanogaster.UCSC.dm3)\n>>   > Dmelanogaster\n>>   Fly genome\n>>   |\n>>   | organism: Drosophila melanogaster\n>>   | provider: UCSC\n>>   | provider version: dm3\n>>   | release date: Apr. 2006\n>>   | release name: BDGP Release 5\n>>   |\n>>   | single sequences (see '?seqnames'):\n>>   |   chr2L      chr2R      chr3L      chr3R      chr4      chrX       \n>> chrU\n>>   |   chrM       chr2LHet   chr2RHet   chr3LHet  chr3RHet   chrXHet    \n>> chrYHet\n>>   |   chrUextra\n>>   |\n>>   | multiple sequences (see '?mseqnames'):\n>>   |   upstream1000  upstream2000  upstream5000\n>>   |\n>>   | (use the '$' or '[[' operator to access a given sequence)\n>>   > chr2L <- Dmelanogaster$chr2L\n>>   > chr2L\n>>     23011544-letter \"MaskedDNAString\" instance (# for masking)\n>>   seq: \n>> CGACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTTGATGAACCCCCCTTTCAAA \n>>\n>>   masks:\n>>     maskedwidth  maskedratio active                             names\n>>   1         200 8.691290e-06  FALSE                     assembly gaps\n>>   2     1966561 8.545976e-02  FALSE                      RepeatMasker\n>>   3       61603 2.677048e-03  FALSE Tandem Repeats Finder [period<=12]\n>>   all masks together:\n>>     maskedwidth maskedratio\n>>         1988181  0.08639929\n>>   all active masks together:\n>>     maskedwidth maskedratio\n>>               0           0\n>>\n>> Note that the built-in masks are always inactive by default. To activate\n>> a mask do:\n>>\n>>   > active(masks(chr2L))[2] <- TRUE  # activate the RepeatMasker mask\n>>\n>> Now only the parts of chr2L that are NOT repeat regions are visible.\n>> To invert this, use gaps():\n>>\n>>   > chr2Lrepeats <- gaps(chr2L)\n>>   > chr2Lrepeats\n>>     23011544-letter \"MaskedDNAString\" instance (# for masking)\n>>   seq: \n>> #GACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTT################### \n>>\n>>   masks:\n>>     maskedwidth maskedratio active\n>>   1    21044983   0.9145402   TRUE\n>>\n>> Then use matchPDict() (or countPDict()) in the usual way.\n>>\n>> The GenomeSearching vignette in the BSgenome package has more\n>> information about masking (some sections are still incomplete but\n>> will be completed soon).\n>>\n>> Hope this helps,\n>> H.\n>>\n>>\n>>> Thank you for your help\n>>>\n>>>\n>>> Regards,\n>>> Joseph\n>>>\n>>> Joseph M. Dhahbi, PhD\n>>> Childrens Hospital Oakland Research Institute\n>>> 5700 Martin Luther King Jr. Way\n>>> Oakland, CA 94609\n>>> USA\n>>> Ph.(510)428-3885 EXT.5743\n>>> Cell.(702)335-0795\n>>> Fax (510)450-7910\n>>> jdhahbi at chori.org\n>>> The email message (and any attachments) is for the sole...{{dropped:3}}\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n> \n> \n> \n> \n> Regards,\n> Joseph\n> \n> Joseph M. Dhahbi, PhD\n> Childrens Hospital Oakland Research Institute\n> 5700 Martin Luther King Jr. Way\n> Oakland, CA 94609\n> USA\n> Ph.(510)428-3885 EXT.5743\n> Cell.(702)335-0795\n> Fax (510)450-7910\n> jdhahbi at chori.org\n> The email message (and any attachments) is for the sol...{{dropped:8}}",
+      "body_snippet": "Joseph Dhahbi, P.h.D. wrote:\n> \n> I downloaded RepeatMasker from the Table Browser:\n> http://genome.ucsc.edu/cgi-bin/hgTables?command=start\n\nThanks! So I downloaded it and loaded in R with:\n\n   > allr",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 3,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-4d806a89af4c",
+      "message_id": "<web-10469440@chori.chori.org>",
+      "from_name": "Joseph Dhahbi, P.h.D.",
+      "from_email_hash": "eec9583a5dc693521f378cb51ccde7ebc71494d5150ae5e493ef2f78aed1d91b",
+      "date": "2008-06-04T06:01:12Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": "<4845DE52.9010504@fhcrc.org>",
+      "references": [
+        "<web-10467580@chori.chori.org>",
+        "<4845DE52.9010504@fhcrc.org>"
+      ],
+      "body_plain": "Hi Herve\nThank you very much for your help. Using the built-in \nmasks as you suggested was easy.\nDo I need to do it for each chromosome separately? Is \nthere a way to apply it to the whole genome and create \nMaskedDNAString of the whole genome?\nOnce I create a whole genome MaskedDNAString, I would like \nto use the runAnalysis1 script in the GenomeSearching.pdf \nto analyze my input dictionary.\n\n\n\nOn Tue, 03 Jun 2008 17:14:10 -0700\n  Herve Pages <hpages at fhcrc.org> wrote:\n> Hi Joseph,\n> \n> Joseph Dhahbi, P.h.D. wrote:\n>> \n>> Hi\n>> I downloaded the drosophila RepeatMasker from UCSC GB as \n>>a text file \n>> which is in fasta format and looks like this:\n>>> dm3_rmsk_NINJA_I range=chr4:2-434 5'pad=0 3'pad=0 \n>>>strand=+ \n>>> repeatMasking=none\n>> AATTCGCGTCCGCTTA......\n>>> dm3_rmsk_NINJA_LTR range=chr4:435-611 5'pad=0 3'pad=0 \n>>>strand=+ \n>>> repeatMasking=none\n>> TGTCGCGGATC....\n>>> dm3_rmsk_Baggins1 range=chr4:638-1723 5'pad=0 3'pad=0 \n>>>strand=- \n>>> repeatMasking=none\n>> ATACGATGG......\n>> \n>> I made the input dictionary and I would like to make the \n>>RepeatMasker \n>> sequences as the target.  When I used \n>>?read.DNAStringSet? it recognized \n>> only the first sequence of the fasts file.  Ho do I \n>>merge all of the \n>> sequences in and make them as a target.\n> \n> If your file is really FASTA then read.DNAStringSet() \n>should extract all\n> the records and return a DNAStringSet object where each \n>element corresponds\n> to a record in the original file. So it seems like \n>you've hit a bug in the\n> read.DNAStringSet() function. Can you please provide the \n>URL to the file\n> you downloaded so we can try to reproduce?\n> \n> Anyway, what you are trying to achieve can be done in an \n>easier (and more\n> efficient) way. You don't need to download the \n>RepeatMasker sequences for\n> this; just use the BSgenome.Dmelanogaster.UCSC.dm3 \n>package. The RepeatMasker\n> information is already included in it as part of the \n>built-in masks provided\n> for each chromosome:\n> \n>   > library(BSgenome.Dmelanogaster.UCSC.dm3)\n>   > Dmelanogaster\n>   Fly genome\n>   |\n>   | organism: Drosophila melanogaster\n>   | provider: UCSC\n>   | provider version: dm3\n>   | release date: Apr. 2006\n>   | release name: BDGP Release 5\n>   |\n>   | single sequences (see '?seqnames'):\n>   |   chr2L      chr2R      chr3L      chr3R      chr4 \n>      chrX       chrU\n>   |   chrM       chr2LHet   chr2RHet   chr3LHet \n>  chr3RHet   chrXHet    chrYHet\n>   |   chrUextra\n>   |\n>   | multiple sequences (see '?mseqnames'):\n>   |   upstream1000  upstream2000  upstream5000\n>   |\n>   | (use the '$' or '[[' operator to access a given \n>sequence)\n>   > chr2L <- Dmelanogaster$chr2L\n>   > chr2L\n>     23011544-letter \"MaskedDNAString\" instance (# for \n>masking)\n>   seq: \n>CGACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTTGATGAACCCCCCTTTCAAA\n>   masks:\n>     maskedwidth  maskedratio active \n>                             names\n>   1         200 8.691290e-06  FALSE \n>                     assembly gaps\n>   2     1966561 8.545976e-02  FALSE \n>                      RepeatMasker\n>   3       61603 2.677048e-03  FALSE Tandem Repeats \n>Finder [period<=12]\n>   all masks together:\n>     maskedwidth maskedratio\n>         1988181  0.08639929\n>   all active masks together:\n>     maskedwidth maskedratio\n>               0           0\n> \n> Note that the built-in masks are always inactive by \n>default. To activate\n> a mask do:\n> \n>   > active(masks(chr2L))[2] <- TRUE  # activate the \n>RepeatMasker mask\n> \n> Now only the parts of chr2L that are NOT repeat regions \n>are visible.\n> To invert this, use gaps():\n> \n>   > chr2Lrepeats <- gaps(chr2L)\n>   > chr2Lrepeats\n>     23011544-letter \"MaskedDNAString\" instance (# for \n>masking)\n>   seq: \n>#GACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTT###################\n>   masks:\n>     maskedwidth maskedratio active\n>   1    21044983   0.9145402   TRUE\n> \n> Then use matchPDict() (or countPDict()) in the usual \n>way.\n> \n> The GenomeSearching vignette in the BSgenome package has \n>more\n> information about masking (some sections are still \n>incomplete but\n> will be completed soon).\n> \n> Hope this helps,\n> H.\n> \n> \n>> Thank you for your help\n>> \n>> \n>> Regards,\n>> Joseph\n>> \n>> Joseph M. Dhahbi, PhD\n>> Childrens Hospital Oakland Research Institute\n>> 5700 Martin Luther King Jr. Way\n>> Oakland, CA 94609\n>> USA\n>> Ph.(510)428-3885 EXT.5743\n>> Cell.(702)335-0795\n>> Fax (510)450-7910\n>> jdhahbi at chori.org\n>> The email message (and any attachments) is for the \n>>sole...{{dropped:3}}\n>> \n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n\n\n\n\nRegards,\nJoseph\n\nJoseph M. Dhahbi, PhD\nChildrens Hospital Oakland Research Institute\n5700 Martin Luther King Jr. Way\nOakland, CA 94609\nUSA\nPh.(510)428-3885 EXT.5743\nCell.(702)335-0795\nFax (510)450-7910\njdhahbi at chori.org\n The email message (and any attachments) is for the sole...{{dropped:3}}",
+      "body_snippet": "Hi Herve\nThank you very much for your help. Using the built-in \nmasks as you suggested was easy.\nDo I need to do it for each chromosome separately? Is \nthere a way to apply it to the whole genome and ",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 2,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-1b0531a72015",
+      "message_id": "<web-10470824@chori.chori.org>",
+      "from_name": "Joseph Dhahbi, P.h.D.",
+      "from_email_hash": "eec9583a5dc693521f378cb51ccde7ebc71494d5150ae5e493ef2f78aed1d91b",
+      "date": "2008-06-04T15:51:31Z",
+      "subject": "[Bioc-sig-seq] sum of maskedwidth vs. maskedwidth in 'all masks together'",
+      "subject_clean": "[Bioc-sig-seq] sum of maskedwidth vs. maskedwidth in 'all masks together'",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi\n\nIf the masked width is the total number of nucleotide \npositions that are masked, then why the maskedwidth in \n'all masks together:\" is not equal to the sum of \nmaskedwidth of all 3 masks?\n   \n> chr2L=Dmelanogaster$chr2L\n> chr2L\n   23011544-letter \"MaskedDNAString\" instance (# for \nmasking)\nseq: \nCGACAATGCACGACAGAGGAAGCAGAACAGATATTTAGATTGCCTCTCATTTTCTCTCCCATATTATAGGGAGAAATAT...CAATCAAACTGTGTTCGAAAAAGAGAAAACTAACATTTTTTTGGCATATTTGCAAATTTTGATGAACCCCCCTTTCAAA\nmasks:\n   maskedwidth  maskedratio active \n                             names\n1         200 8.691290e-06  FALSE \n                     assembly gaps\n2     1966561 8.545976e-02  FALSE \n                      RepeatMasker\n3       61603 2.677048e-03  FALSE Tandem Repeats Finder \n[period<=12]\nall masks together:\n   maskedwidth maskedratio\n       1988181  0.08639929\nall active masks together:\n   maskedwidth maskedratio\n             0           0\n\n\n> sum(200, 1966561, 61603)\n[1] 2028364\n\n\n\n\nRegards,\nJoseph\n\nJoseph M. Dhahbi, PhD\nChildrens Hospital Oakland Research Institute\n5700 Martin Luther King Jr. Way\nOakland, CA 94609\nUSA\nPh.(510)428-3885 EXT.5743\nCell.(702)335-0795\nFax (510)450-7910\njdhahbi at chori.org\n The email message (and any attachments) is for the sole...{{dropped:3}}",
+      "body_snippet": "Hi\n\nIf the masked width is the total number of nucleotide \npositions that are masked, then why the maskedwidth in \n'all masks together:\" is not equal to the sum of \nmaskedwidth of all 3 masks?\n   \n> c",
+      "thread_id": "thread-1b0531a72015",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-ed969e8e5fed",
+      "message_id": "<264855a00806040925s424a7b28pc2131fad1fb6e43d@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2008-06-04T16:25:23Z",
+      "subject": "[Bioc-sig-seq] sum of maskedwidth vs. maskedwidth in 'all masks together'",
+      "subject_clean": "[Bioc-sig-seq] sum of maskedwidth vs. maskedwidth in 'all masks together'",
+      "in_reply_to": "<web-10470824@chori.chori.org>",
+      "references": [
+        "<web-10470824@chori.chori.org>"
+      ],
+      "body_plain": "On Wed, Jun 4, 2008 at 11:51 AM, Joseph Dhahbi, P.h.D.\n<jdhahbi at chori.org> wrote:\n>\n> Hi\n>\n> If the masked width is the total number of nucleotide positions that are\n> masked, then why the maskedwidth in 'all masks together:\" is not equal to\n> the sum of maskedwidth of all 3 masks?\n\nHi, Joseph.\n\nThe maskedwidth is the sum of the number of nucleotide positions\ncovered by the selected masks.  If a base is included in more than one\nmask, it is counted only once.\n\nSean\n\n>> chr2L=Dmelanogaster$chr2L\n>> chr2L\n>\n>  23011544-letter \"MaskedDNAString\" instance (# for masking)\n> seq:\n> CGACAATGCACGACAGAGGAAGCAGAACAGATATTTAGATTGCCTCTCATTTTCTCTCCCATATTATAGGGAGAAATAT...CAATCAAACTGTGTTCGAAAAAGAGAAAACTAACATTTTTTTGGCATATTTGCAAATTTTGATGAACCCCCCTTTCAAA\n> masks:\n>  maskedwidth  maskedratio active                            names\n> 1         200 8.691290e-06  FALSE                    assembly gaps\n> 2     1966561 8.545976e-02  FALSE                     RepeatMasker\n> 3       61603 2.677048e-03  FALSE Tandem Repeats Finder [period<=12]\n> all masks together:\n>  maskedwidth maskedratio\n>      1988181  0.08639929\n> all active masks together:\n>  maskedwidth maskedratio\n>            0           0\n>\n>\n>> sum(200, 1966561, 61603)\n>\n> [1] 2028364",
+      "body_snippet": "On Wed, Jun 4, 2008 at 11:51 AM, Joseph Dhahbi, P.h.D.\n<jdhahbi at chori.org> wrote:\n>\n> Hi\n>\n> If the masked width is the total number of nucleotide positions that are\n> masked, then why the maskedwi",
+      "thread_id": "thread-1b0531a72015",
+      "thread_depth": 1,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-4a75e60d08a6",
+      "message_id": "<4846F8AE.4080504@fhcrc.org>",
+      "from_name": "Herve Pages",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2008-06-04T20:18:54Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": "<web-10469440@chori.chori.org>",
+      "references": [
+        "<web-10467580@chori.chori.org>",
+        "<4845DE52.9010504@fhcrc.org>",
+        "<web-10469440@chori.chori.org>"
+      ],
+      "body_plain": "Hi Joseph,\n\nJoseph Dhahbi, P.h.D. wrote:\n> \n> Hi Herve\n> Thank you very much for your help. Using the built-in masks as you \n> suggested was easy.\n> Do I need to do it for each chromosome separately? Is there a way to \n> apply it to the whole genome and create MaskedDNAString of the whole \n> genome?\n\nNo way to create a MaskedDNAString object of the whole genome. Note that\nthis would be a very big object and that most machines would not have\nenough memory for this. Of course, with a medium-size genome like the Fly,\nthe problem is not as severe as with the Human genome but still...\n\nHow about using the trick I've sent you in a previous email (see the email\nfor the details):\n\n   > allrepeats <- read.XStringViews(\"dm3rm\", format=\"fasta\", subjectClass=\"DNAString\", collapse=\"-\")\n   > c <- countPDict(pdict, subject(allrepeats))\n\nAlso, in my previous email, I was trying to reproduce the problem you had\nwith read.DNAStringSet() but couldn't and was asking your sessionInfo().\nDid read.DNAStringSet() finally work for you?\n\n> Once I create a whole genome MaskedDNAString, I would like to use the \n> runAnalysis1 script in the GenomeSearching.pdf to analyze my input \n> dictionary.\n\nLook at the runAnalysis2 script. I guess it's closer to what you are\ntrying to do (you have a dictionary of patterns, not a single pattern).\nYou'll need to make some modifications though e.g. use of countPDict\ninstead of matchPDict and store the results for each chromosome in a\nlist that you return to the caller at the end of the script. No need\nto write the results to a file like in the vignette.\n\nCheers,\nH.",
+      "body_snippet": "Hi Joseph,\n\nJoseph Dhahbi, P.h.D. wrote:\n> \n> Hi Herve\n> Thank you very much for your help. Using the built-in masks as you \n> suggested was easy.\n> Do I need to do it for each chromosome separately? ",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 3,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-4499ed04f833",
+      "message_id": "<web-10473400@chori.chori.org>",
+      "from_name": "Joseph Dhahbi, P.h.D.",
+      "from_email_hash": "eec9583a5dc693521f378cb51ccde7ebc71494d5150ae5e493ef2f78aed1d91b",
+      "date": "2008-06-04T20:59:59Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": "<4845FFBF.3030004@fhcrc.org>",
+      "references": [
+        "<web-10467580@chori.chori.org>",
+        "<4845DE52.9010504@fhcrc.org>",
+        "<web-10468823@chori.chori.org>",
+        "<4845FFBF.3030004@fhcrc.org>"
+      ],
+      "body_plain": "Hi Herve\nThe read.DNAStringSet works now, I think the problem was \nmy downloaded fasta file.\nHere is the result and the session Info:\n\n> Fly_RM\n[1] \n\"/Users/jdhahbi/JosephDhahbi/SOLEXA/Fly/R/export.files/s-2/*.RData/RepeatMasker.fa\"\n> fly_rm=read.DNAStringSet(Fly_RM, format=\"fasta\")\nRead 1126586 items\n> fly_rm\n   A DNAStringSet instance of length 154993\n          width seq \n                                                            \n                                                            \n       names\n      [1]   433 \nAATTCGCGTCCGCTTACCCATGTGCCTGTGGATGCCGAACAGGAGGCGCCGTTGACGGCGAATG...GCTACCCGTCTCTAAGCTTGCAGTTTTGGATTTAAGTGAATCGGTTATTCACGGGGTCGGGGA \ndm3_rmsk_NINJA_I ...\n      [2]   177 \nTGTCGCGGATCGAACGGTGCAATCGATAGGCGTAATCAGTATTTCCAGATAGTGATAAGATTTG...AAGCTTAGCGTGCATTGTCGATCGAGAGTTTGGAGGGCAAACTGCGGTAAGATAAGATTAAAT \ndm3_rmsk_NINJA_LT...\n      [3]  1086 \nATACGATGGCTGTACCTCATGGTAGTCAGACCATACTAACCTATGAGGCAATAGCCTGGGGTGA...ACTGCATGGAGGAGGAGAGCTCTGCACATATTATATGTGACTGCATGGCGCTTTCCATCAGGA \ndm3_rmsk_Baggins1...\n      [4]    62 \nTCTGCATAGTCTCCGTGTCCATCAACGCCAACGAACGGTTAAGGTGCAGCATAAACACTTCT \n                                                            \n        dm3_rmsk_DMLTR5 r...\n      [5]   346 \nAAATAATCCTGGAGGAGGCAAGCCAGCCCTCACAGCGACATTTTATTGTTTTTGGAAACAAAAA...GCACAACCGCGCCCATAGGGCAGCCCAGGAAAATGTTAAGCAAGTCCTTCAGGACTCTATACT \ndm3_rmsk_Gypsy_I ...\n      [6]   243 \nCCTGGCTCAGTTATTCCGAGAGCACTTCCCACGGAGAGCAGAGAAGGAGATGAGCTGACGGCAG...CGAGAGTGTGAGAGGTGCGGAGTCCTTTGCCGAACGCCAATCCGAGTATAGAGTCCTGAAGGA \ndm3_rmsk_DMRT1C r...\n      [7]   149 \nCGGATGCTATAGGCCGCACCCAGTTTCTCAAAGCTGGCGACTTCAACGCATGGTCAAAAAGCTG...AGAGGCAAGATGGTGCTGGAGGCATTCGCGACGTTGGACCTGGCTCAGTTATTCCGAGAGCAC \ndm3_rmsk_DMRT1C r...\n      [8]   230 \nAACCAGAATCACTGCACGGCTGTCCAAGACCTGCCCAAGACGGTGCGCGAACACAGAGTGGAGC...ACCGATGTTTTTTCGGACATTGGGTTTGTTAGGGCATGGGTGGGCAGATGGTGGGTGTACAGC \ndm3_rmsk_DMRT1C r...\n      [9]   210 \nCAGCAGCAGTGGTGGCTATCAAGAGCATCCGTCAAACGCCGTATGGAGGGAAGTCTGCTATAAT...TGGAGCCACGCCAAAGATGCTTCAAATGTCTGGAGGAAGGCCACATAGCGGGCCACTGTAGAA \ndm3_rmsk_DMRT1C r...\n      ...   ... ...\n[154985]   164 \nGAGATGAGATGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGA...AGAAGAGAAGAGAAGAGAAGAGAAGAGAAGATAAGAGAAGAGAATAGAATAGAAGAGAATAGA \ndm3_rmsk_(GAGAA)n...\n[154986]   169 \nAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAA...GAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGACTAGACGAGACGATAAGAGAATAGATGAGAA \ndm3_rmsk_(GAGAA)n...\n[154987]   157 \nCAACACAACACAACACAACACAACACAACACAACACAACACAACACAACACAACACAACACAAC...ACAACACAACACAACACAACACAACACAACACAACACAACACAACACAACATTTCACAACACA \ndm3_rmsk_(CACAA)n...\n[154988]   153 \nAGAGAGCAGAGAGAAGAGAGAAGAGAGAAGAGAGAAGAGAGAAGAGAGAAGAGAGAAGAGAGAA...ACGAGAGACGAGAGACGAGAGTAGAGAGACGAGAGAAGAGAGACGAGAGAAGAGAGAAGAGAG \ndm3_rmsk_(GA)n ra...\n[154989]   119 \nATCGACTCCCTGGAAATCCCAAATGGGGATGCAGAAAGTATGGCGGCTATCCTCATGAACATGCTGGGCAGACTTTGCGACCCATCCATGCCAAGAAAAAAGAAGCCAAAATGGAAGCC \n           dm3_rmsk_DMRT1B r...\n[154990]    52 \nATGGAAGCCGGTCCAAAAAGATACCGTGTTTCGGCAGGTGTTCCCCAAGGAT \n                                                            \n                  dm3_rmsk_DMRT1B r...\n[154991]   155 \nTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTC...TCTTCTCTTCTCTTCTCTTCTCATCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCTTCTCT \ndm3_rmsk_(TTCTC)n...\n[154992]   150 \nAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAG...AGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGAAGAGACGAGA \ndm3_rmsk_(GAGAA)n...\n[154993]   147 \nACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAA...GACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGACAAGAC \ndm3_rmsk_(CAAGA)n...\n\n\n\nA quick question: when I use \"\" with the file name as you \ndid I get the folloiwng error:\n  \n> fly_rm=read.DNAStringSet(\"Fly_RM\", format=\"fasta\")\nError in file(file, \"r\") : cannot open the connection\nIn addition: Warning message:\nIn file(file, \"r\") : cannot open file 'Fly_RM': No such \nfile or directory\nError in XStringSet(\"DNAString\", x, start = start, end = \nend, width = width,  :\n   error in evaluating the argument 'x' in selecting a \nmethod for function 'XStringSet'\n\n\n  \n> sessionInfo()\nR version 2.7.0 (2008-04-22)\ni386-apple-darwin8.10.1\n\nlocale:\nen_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] tools     stats     graphics  grDevices utils \n    datasets  methods   base\n\nother attached packages:\n[1] BiostringsCinterfaceDemo_0.1.2 \n       BSgenome.Dmelanogaster.UCSC.dm3_1.3.7 \nBSgenome_1.8.3                        Biostrings_2.8.9\n[5] Biobase_2.0.1\n> \n\n\nThanks\n\n\n\n\n\n\n\n\n\nOn Tue, 03 Jun 2008 19:36:47 -0700\n  Herve Pages <hpages at fhcrc.org> wrote:\n> Joseph Dhahbi, P.h.D. wrote:\n>> \n>> I downloaded RepeatMasker from the Table Browser:\n>> http://genome.ucsc.edu/cgi-bin/hgTables?command=start\n> \n> Thanks! So I downloaded it and loaded in R with:\n> \n>   > allrepeats <- read.DNAStringSet(\"dm3rm\", \n>format=\"fasta\")\n>   Read 1126586 items\n>   > allrepeats\n>     A DNAStringSet instance of length 154993\n>            width seq \n>                                         names\n>        [1]   433 \n>AATTCGCGTCCGCTTACCCAT...GTTATTCACGGGGTCGGGGA \n>dm3_rmsk_NINJA_I ...\n>        [2]   177 \n>TGTCGCGGATCGAACGGTGCA...GCGGTAAGATAAGATTAAAT \n>dm3_rmsk_NINJA_LT...\n>        [3]  1086 \n>ATACGATGGCTGTACCTCATG...CATGGCGCTTTCCATCAGGA \n>dm3_rmsk_Baggins1...\n>        [4]    62 \n>TCTGCATAGTCTCCGTGTCCA...GGTGCAGCATAAACACTTCT \n>dm3_rmsk_DMLTR5 r...\n>        [5]   346 \n>AAATAATCCTGGAGGAGGCAA...GTCCTTCAGGACTCTATACT \n>dm3_rmsk_Gypsy_I ...\n>        [6]   243 \n>CCTGGCTCAGTTATTCCGAGA...GAGTATAGAGTCCTGAAGGA \n>dm3_rmsk_DMRT1C r...\n>        [7]   149 \n>CGGATGCTATAGGCCGCACCC...CTCAGTTATTCCGAGAGCAC \n>dm3_rmsk_DMRT1C r...\n>        [8]   230 \n>AACCAGAATCACTGCACGGCT...GCAGATGGTGGGTGTACAGC \n>dm3_rmsk_DMRT1C r...\n>        [9]   210 \n>CAGCAGCAGTGGTGGCTATCA...CATAGCGGGCCACTGTAGAA \n>dm3_rmsk_DMRT1C r...\n>        ...   ... ...\n>   [154985]   164 \n>GAGATGAGATGAGAAGAGAAG...ATAGAATAGAAGAGAATAGA \n>dm3_rmsk_(GAGAA)n...\n>   [154986]   169 \n>AGAAGAGAAGAGAAGAGAAGA...GATAAGAGAATAGATGAGAA \n>dm3_rmsk_(GAGAA)n...\n>   [154987]   157 \n>CAACACAACACAACACAACAC...ACACAACATTTCACAACACA \n>dm3_rmsk_(CACAA)n...\n>   [154988]   153 \n>AGAGAGCAGAGAGAAGAGAGA...CGAGAGAAGAGAGAAGAGAG \n>dm3_rmsk_(GA)n ra...\n>   [154989]   119 \n>ATCGACTCCCTGGAAATCCCA...AAGAAGCCAAAATGGAAGCC \n>dm3_rmsk_DMRT1B r...\n>   [154990]    52 \n>ATGGAAGCCGGTCCAAAAAGA...GGCAGGTGTTCCCCAAGGAT \n>dm3_rmsk_DMRT1B r...\n>   [154991]   155 \n>TCTCTTCTCTTCTCTTCTCTT...TCTCTTCTCTTCTCTTCTCT \n>dm3_rmsk_(TTCTC)n...\n>   [154992]   150 \n>AGAGAAGAGAAGAGAAGAGAA...AGAGAAGAGAAGAGACGAGA \n>dm3_rmsk_(GAGAA)n...\n>   [154993]   147 \n>ACAAGACAAGACAAGACAAGA...AAGACAAGACAAGACAAGAC \n>dm3_rmsk_(CAAGA)n...\n> \n> It works fine for me. Here is my sessionInfo():\n> \n>   > sessionInfo()\n>   R version 2.7.0 (2008-04-22)\n>   x86_64-unknown-linux-gnu\n> \n>   locale:\n> \n> LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C\n> \n>   attached base packages:\n>   [1] stats     graphics  grDevices utils     datasets \n> methods   base\n> \n>   other attached packages:\n>   [1] Biostrings_2.8.12\n> \n> Could you send yours please?\n> \n>> I will try your suggestion\n> \n> Note that if you only want to count the number of \n>matches of your PDict object\n> in the repeat regions of the *entire* genome (without \n>actually caring about\n> where the matches are actually occuring), then you could \n>do something like\n> this (use read.XStringViews instead of \n>read.DNAStringSet):\n> \n>   > allrepeats <- read.XStringViews(\"dm3rm\", \n>format=\"fasta\", subjectClass=\"DNAString\", collapse=\"-\")\n> \n> and then call countPDict(pdict, subject(allrepeats)).\n> The purpose of using 'collapse=\"-\"' when reading the \n>file is to separate the\n> RepeatMasker chunks with this letter when they are all \n>put together in the\n> big 'subject(allrepeats)' sequence. This is in order to \n>avoid the matches\n> that would span across several chunks.\n> \n> Cheers,\n> H.\n> \n> \n>> Thank you for your help\n>> \n>> On Tue, 03 Jun 2008 17:14:10 -0700\n>>  Herve Pages <hpages at fhcrc.org> wrote:\n>>> Hi Joseph,\n>>>\n>>> Joseph Dhahbi, P.h.D. wrote:\n>>>>\n>>>> Hi\n>>>> I downloaded the drosophila RepeatMasker from UCSC GB as \n>>>>a text file \n>>>> which is in fasta format and looks like this:\n>>>>> dm3_rmsk_NINJA_I range=chr4:2-434 5'pad=0 3'pad=0 \n>>>>>strand=+ \n>>>>> repeatMasking=none\n>>>> AATTCGCGTCCGCTTA......\n>>>>> dm3_rmsk_NINJA_LTR range=chr4:435-611 5'pad=0 3'pad=0 \n>>>>>strand=+ \n>>>>> repeatMasking=none\n>>>> TGTCGCGGATC....\n>>>>> dm3_rmsk_Baggins1 range=chr4:638-1723 5'pad=0 3'pad=0 \n>>>>>strand=- \n>>>>> repeatMasking=none\n>>>> ATACGATGG......\n>>>>\n>>>> I made the input dictionary and I would like to make the \n>>>>RepeatMasker \n>>>> sequences as the target.  When I used \n>>>>?read.DNAStringSet? it \n>>>> recognized only the first sequence of the fasts file. \n>>>> Ho do I merge \n>>>> all of the sequences in and make them as a target.\n>>>\n>>> If your file is really FASTA then read.DNAStringSet() \n>>>should extract all\n>>> the records and return a DNAStringSet object where each \n>>>element \n>>> corresponds\n>>> to a record in the original file. So it seems like \n>>>you've hit a bug in \n>>> the\n>>> read.DNAStringSet() function. Can you please provide the \n>>>URL to the file\n>>> you downloaded so we can try to reproduce?\n>>>\n>>> Anyway, what you are trying to achieve can be done in an \n>>>easier (and more\n>>> efficient) way. You don't need to download the \n>>>RepeatMasker sequences for\n>>> this; just use the BSgenome.Dmelanogaster.UCSC.dm3 \n>>>package. The \n>>> RepeatMasker\n>>> information is already included in it as part of the \n>>>built-in masks \n>>> provided\n>>> for each chromosome:\n>>>\n>>>   > library(BSgenome.Dmelanogaster.UCSC.dm3)\n>>>   > Dmelanogaster\n>>>   Fly genome\n>>>   |\n>>>   | organism: Drosophila melanogaster\n>>>   | provider: UCSC\n>>>   | provider version: dm3\n>>>   | release date: Apr. 2006\n>>>   | release name: BDGP Release 5\n>>>   |\n>>>   | single sequences (see '?seqnames'):\n>>>   |   chr2L      chr2R      chr3L      chr3R      chr4 \n>>>     chrX       \n>>> chrU\n>>>   |   chrM       chr2LHet   chr2RHet   chr3LHet \n>>> chr3RHet   chrXHet    \n>>> chrYHet\n>>>   |   chrUextra\n>>>   |\n>>>   | multiple sequences (see '?mseqnames'):\n>>>   |   upstream1000  upstream2000  upstream5000\n>>>   |\n>>>   | (use the '$' or '[[' operator to access a given \n>>>sequence)\n>>>   > chr2L <- Dmelanogaster$chr2L\n>>>   > chr2L\n>>>     23011544-letter \"MaskedDNAString\" instance (# for \n>>>masking)\n>>>   seq: \n>>> CGACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTTGATGAACCCCCCTTTCAAA \n>>>\n>>>   masks:\n>>>     maskedwidth  maskedratio active \n>>>                            names\n>>>   1         200 8.691290e-06  FALSE \n>>>                    assembly gaps\n>>>   2     1966561 8.545976e-02  FALSE \n>>>                     RepeatMasker\n>>>   3       61603 2.677048e-03  FALSE Tandem Repeats \n>>>Finder [period<=12]\n>>>   all masks together:\n>>>     maskedwidth maskedratio\n>>>         1988181  0.08639929\n>>>   all active masks together:\n>>>     maskedwidth maskedratio\n>>>               0           0\n>>>\n>>> Note that the built-in masks are always inactive by \n>>>default. To activate\n>>> a mask do:\n>>>\n>>>   > active(masks(chr2L))[2] <- TRUE  # activate the \n>>>RepeatMasker mask\n>>>\n>>> Now only the parts of chr2L that are NOT repeat regions \n>>>are visible.\n>>> To invert this, use gaps():\n>>>\n>>>   > chr2Lrepeats <- gaps(chr2L)\n>>>   > chr2Lrepeats\n>>>     23011544-letter \"MaskedDNAString\" instance (# for \n>>>masking)\n>>>   seq: \n>>> #GACAATGCACGACAGAGGAAGCAGAACAGATATTT...GCATATTTGCAAATTTT################### \n>>>\n>>>   masks:\n>>>     maskedwidth maskedratio active\n>>>   1    21044983   0.9145402   TRUE\n>>>\n>>> Then use matchPDict() (or countPDict()) in the usual \n>>>way.\n>>>\n>>> The GenomeSearching vignette in the BSgenome package has \n>>>more\n>>> information about masking (some sections are still \n>>>incomplete but\n>>> will be completed soon).\n>>>\n>>> Hope this helps,\n>>> H.\n>>>\n>>>\n>>>> Thank you for your help\n>>>>\n>>>>\n>>>> Regards,\n>>>> Joseph\n>>>>\n>>>> Joseph M. Dhahbi, PhD\n>>>> Childrens Hospital Oakland Research Institute\n>>>> 5700 Martin Luther King Jr. Way\n>>>> Oakland, CA 94609\n>>>> USA\n>>>> Ph.(510)428-3885 EXT.5743\n>>>> Cell.(702)335-0795\n>>>> Fax (510)450-7910\n>>>> jdhahbi at chori.org\n>>>> The email message (and any attachments) is for the \n>>>>sole...{{dropped:3}}\n>>>>\n>>>> _______________________________________________\n>>>> Bioc-sig-sequencing mailing list\n>>>> Bioc-sig-sequencing at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>> \n>> \n>> \n>> \n>> Regards,\n>> Joseph\n>> \n>> Joseph M. Dhahbi, PhD\n>> Childrens Hospital Oakland Research Institute\n>> 5700 Martin Luther King Jr. Way\n>> Oakland, CA 94609\n>> USA\n>> Ph.(510)428-3885 EXT.5743\n>> Cell.(702)335-0795\n>> Fax (510)450-7910\n>> jdhahbi at chori.org\n>> The email message (and any attachments) is for the sole \n>>use of the \n>> intended recipient(s) and may contain confidential \n>>information.  Any \n>> unauthorized review, use, disclosure or distribution is \n>>prohibited.  If \n>> you are not the intended recipient, please contact the \n>>sender by reply \n>> email and destroy all copies of the original message \n>>(and any \n>> attachments).  Thank You.\n>> \n> \n\n\n\n\nRegards,\nJoseph\n\nJoseph M. Dhahbi, PhD\nChildrens Hospital Oakland Research Institute\n5700 Martin Luther King Jr. Way\nOakland, CA 94609\nUSA\nPh.(510)428-3885 EXT.5743\nCell.(702)335-0795\nFax (510)450-7910\njdhahbi at chori.org\n The email message (and any attachments) is for the sole...{{dropped:3}}",
+      "body_snippet": "Hi Herve\nThe read.DNAStringSet works now, I think the problem was \nmy downloaded fasta file.\nHere is the result and the session Info:\n\n> Fly_RM\n[1] \n\"/Users/jdhahbi/JosephDhahbi/SOLEXA/Fly/R/export.fi",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 4,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-df2a3b94d3db",
+      "message_id": "<264855a00806041558n2601cb5by6ae0c3d004ccf8fe@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2008-06-04T22:58:57Z",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "subject_clean": "[Bioc-sig-seq] making target from fasta file",
+      "in_reply_to": "<web-10473400@chori.chori.org>",
+      "references": [
+        "<web-10467580@chori.chori.org>",
+        "<4845DE52.9010504@fhcrc.org>",
+        "<web-10468823@chori.chori.org>",
+        "<4845FFBF.3030004@fhcrc.org>",
+        "<web-10473400@chori.chori.org>"
+      ],
+      "body_plain": "On Wed, Jun 4, 2008 at 4:59 PM, Joseph Dhahbi, P.h.D. <jdhahbi at chori.org> wrote:\n> Hi Herve\n> The read.DNAStringSet works now, I think the problem was my downloaded fasta\n> file.\n> Here is the result and the session Info:\n>\n>> Fly_RM\n>\n> [1]\n> \"/Users/jdhahbi/JosephDhahbi/SOLEXA/Fly/R/export.files/s-2/*.RData/RepeatMasker.fa\"\n>>\n>> fly_rm=read.DNAStringSet(Fly_RM, format=\"fasta\")\n>\n> Read 1126586 items\n>>\n>> fly_rm\n>\n>  A DNAStringSet instance of length 154993\n\n> A quick question: when I use \"\" with the file name as you did I get the\n> folloiwng error:\n>\n>>\n>> fly_rm=read.DNAStringSet(\"Fly_RM\", format=\"fasta\")\n>\n> Error in file(file, \"r\") : cannot open the connection\n> In addition: Warning message:\n> In file(file, \"r\") : cannot open file 'Fly_RM': No such file or directory\n> Error in XStringSet(\"DNAString\", x, start = start, end = end, width = width,\n>  :\n>  error in evaluating the argument 'x' in selecting a method for function\n> 'XStringSet'\n>\n\nFly_RM is a variable with the value of the path to your file.\n\"Fly_RM\" is a string constant--totally different.  Or is there some\nmore complication to your question?\n\nSean\n\n>> sessionInfo()\n>\n> R version 2.7.0 (2008-04-22)\n> i386-apple-darwin8.10.1\n>\n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] tools     stats     graphics  grDevices utils   datasets  methods   base\n>\n> other attached packages:\n> [1] BiostringsCinterfaceDemo_0.1.2\n>  BSgenome.Dmelanogaster.UCSC.dm3_1.3.7 BSgenome_1.8.3\n>  Biostrings_2.8.9\n> [5] Biobase_2.0.1\n>>",
+      "body_snippet": "On Wed, Jun 4, 2008 at 4:59 PM, Joseph Dhahbi, P.h.D. <jdhahbi at chori.org> wrote:\n> Hi Herve\n> The read.DNAStringSet works now, I think the problem was my downloaded fasta\n> file.\n> Here is the resu",
+      "thread_id": "thread-afa74059de58",
+      "thread_depth": 5,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-60504ee737a5",
+      "message_id": "<DE3D1F203DAF7A4CB259560D2801DF8B029A5976@UQEXMB2.soe.uq.edu.au>",
+      "from_name": "Paul Leo",
+      "from_email_hash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+      "date": "2008-06-06T00:55:35Z",
+      "subject": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "subject_clean": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080606/77a88265/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080606/77a88265/attachment.pl>",
+      "thread_id": "thread-60504ee737a5",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-32dae28c63b3",
+      "message_id": "<264855a00806060412g5965463bk5060a9932503228@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2008-06-06T11:12:22Z",
+      "subject": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "subject_clean": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "in_reply_to": "<DE3D1F203DAF7A4CB259560D2801DF8B029A5976@UQEXMB2.soe.uq.edu.au>",
+      "references": [
+        "<DE3D1F203DAF7A4CB259560D2801DF8B029A5976@UQEXMB2.soe.uq.edu.au>"
+      ],
+      "body_plain": "On Thu, Jun 5, 2008 at 8:55 PM, Paul Leo <p.leo at uq.edu.au> wrote:\n> I've been reading with great interest since Bioc-sig-seq started, we finally have a Solexa GA2... but still in the box so I have no hands on experience yet...\n> Must admit I've not sorted out in my head what parts of the analysis are most suited R (my preference is as much as possible by but I understand some of the limitations...)\n> Anyway the new hardware comes with a cluster of PCs (IPAR) that does the image analysis and they promise will do the base calling soon (not alignment?)\n>\n\nHi, Paul.\n\nYou might want to look at http://seqanswers.com/ for some ideas.  That\nsaid, I'll give you my $0.02 worth.\n\nThere are several good options for doing alignments including\nR/Biostrings, MAQ, ELAND, SOAP, and others....\n\n> Given this, and that we like using R when possible, and that we have some modest resources, can someone comment between the suggested server for the GA2 system: quad Xeon 7000 series with 32GB Ram verses a quad Xeon box with the 5000 series processor (3 GHz). We have some experience setting up the 5000 series box which is about ? the cost of the 7000 series.  We do have High Performance computing at an off-site location but transferring LARGE files to that location may be an issue...so would like to do as much in-house as possible.\n>\n\nIf you have IPAR, the total file size will not include the images, so\nyou may be able to go the off-site route.\n\n> Do you find that the analysis you have done benefits greatly from the faster processor or would 2x 5000 boxes by better option in your opinion? Any comments on the amount of memory per processor, I was thinking that perhaps this should be higher than recommended if we like to use R? These things I need to resolve before I use the sequencer unfortunately. I see in some posts that people are using machines with 64GB of memory, is that typical?\n>\n\nWe deal with 32GB on our 8-processor machines.  Machine is not\nlimiting for any part of the Solexa pipeline and running any of the\nalignment algorithms mentioned above (except perhaps Biostrings) can\nbe done pretty easily on the human genome on all eight processors\nsimultaneously with only 32GB of RAM.  That said, memory is\n\"relatively\" cheap, so if you go with 32 GB up front, you may want to\nconfigure that to allow future expansion or just go with 64GB to\nstart.\n\n> Also if anyone with real word experience can comment on the typical size of the alignment file (for paired end reads on a good day), that is the  s_N_export.txt file generated by ELAND and the s*_sequences.txt file generated by GERALD  that would be helpful too (I have the standard product info). Are there other files generated by the pipeline that you have found particularly useful in downstream analysis or that are useful in other 3rd party applications that you have tried?\n>\n\nIf you are asking about disk space, think pretty big, and think\nexpandable if you can.  The Short Read Archive (SRA) at NCBI is\naccepting submissions from solexa.  Basically, the entire Bustard\ndirectory is needed for this, so think about saving at least the\nbustard and GERALD (or equivalent) directories; ideally you could save\nthe firecrest directory as well.\n\nSean",
+      "body_snippet": "On Thu, Jun 5, 2008 at 8:55 PM, Paul Leo <p.leo at uq.edu.au> wrote:\n> I've been reading with great interest since Bioc-sig-seq started, we finally have a Solexa GA2... but still in the box so I have ",
+      "thread_id": "thread-60504ee737a5",
+      "thread_depth": 1,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-a244123719f9",
+      "message_id": "<6ph63sma2yo.fsf@lamprey.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-06-06T17:27:27Z",
+      "subject": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "subject_clean": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "in_reply_to": null,
+      "references": [
+        "<DE3D1F203DAF7A4CB259560D2801DF8B029A5976@UQEXMB2.soe.uq.edu.au>"
+      ],
+      "body_plain": "\"Paul Leo\" <p.leo at uq.edu.au> writes:\n\n[snip]\n\n> Also if anyone with real word experience can comment on the typical\n> size of the alignment file (for paired end reads on a good day), that\n> is the s_N_export.txt file generated by ELAND and the s*_sequences.txt\n> file generated by GERALD that would be helpful too (I have the\n\nHere are file sizes from a typical middling-quality recent run, in MB;\nnot too bad by this point. These are NOT paired-end reads.\n\n> library(ShortRead)\n> sp <- SolexaPath(\"/path/to/run\")\n> seqs <- list.files(analysisPath(sp), \"s_[1-8]_sequence.txt\", full=TRUE)\n> exps <- list.files(analysisPath(sp), \"s_[1-8]_export.txt\", full=TRUE)\n> file.info(seqs)$size/(1024^2)\n[1] 421.8892 461.4935 362.4373 426.9607 628.7526 353.9122 441.2186 475.7593\n> file.info(exps)$size/(1024^2) # lane 5 not mapped so no export\n[1] 603.0924 646.3515 466.8608 570.8070 445.1177 602.2756 691.8376\n\n> standard product info). Are there other files generated by the\n> pipeline that you have found particularly useful in downstream\n\nI've sometimes found the image intensity (_int), unfiltered sequence\n(_seq.txt) and base call probability (_prb) files useful, and also\n'RunBrowser' files created during the run. The intensity and _prb\nfiles are large (5-10Mb per tile x 300 tiles per lane). These and\nother intermediate files are likely to be essential in any critical\nassessment of the technology or methods (as opposed to down-stream\napplication).\n\nSean mentioned that multi-core processors mean requirments for\nappropriate memory per-core. Other than PDict, I've found manipulating\nobjects either on a per-tile or per-lane basis to use on the order of\n4-5 Gb. To effectively use an 8-core processor means that 32Gb is a\nkind of hard 'minimum'.\n\nMartin\n\n> analysis or that are useful in other 3rd party applications that you\n> have tried?\n\n> Thanks in advance Paul\n>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________ Bioc-sig-sequencing\n> mailing list Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "\"Paul Leo\" <p.leo at uq.edu.au> writes:\n\n[snip]\n\n> Also if anyone with real word experience can comment on the typical\n> size of the alignment file (for paired end reads on a good day), that\n> is the ",
+      "thread_id": "thread-60504ee737a5",
+      "thread_depth": 1,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-7efdc9e55d07",
+      "message_id": "<DE3D1F203DAF7A4CB259560D2801DF8B029A5E0B@UQEXMB2.soe.uq.edu.au>",
+      "from_name": "Paul Leo",
+      "from_email_hash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+      "date": "2008-06-10T00:12:54Z",
+      "subject": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "subject_clean": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "in_reply_to": "<264855a00806060412g5965463bk5060a9932503228@mail.gmail.com>",
+      "references": [
+        "<DE3D1F203DAF7A4CB259560D2801DF8B029A5976@UQEXMB2.soe.uq.edu.au>",
+        "<264855a00806060412g5965463bk5060a9932503228@mail.gmail.com>"
+      ],
+      "body_plain": "Thankyou Sean and Martin,\nMuch appreciate the advice. I had not thought about what to keep for submissions to data repositories...I doubt I could FTP that much data next door let alone to the East Coast....I'll have to think about that one! Maybe I'll just have to visit NIH and bring the bricks with me, the perfect solution ;-)\nThanks again\nPaul\n\nDiamantina Institute , Australia\n\n\n-----Original Message-----\nFrom: seandavi at gmail.com [mailto:seandavi at gmail.com] On Behalf Of Sean Davis\nSent: Friday, June 06, 2008 9:12 PM\nTo: Paul Leo\nCc: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] Seeking advice on hardware options\n\nOn Thu, Jun 5, 2008 at 8:55 PM, Paul Leo <p.leo at uq.edu.au> wrote:\n> I've been reading with great interest since Bioc-sig-seq started, we finally have a Solexa GA2... but still in the box so I have no hands on experience yet...\n> Must admit I've not sorted out in my head what parts of the analysis are most suited R (my preference is as much as possible by but I understand some of the limitations...)\n> Anyway the new hardware comes with a cluster of PCs (IPAR) that does the image analysis and they promise will do the base calling soon (not alignment?)\n>\n\nHi, Paul.\n\nYou might want to look at http://seqanswers.com/ for some ideas.  That\nsaid, I'll give you my $0.02 worth.\n\nThere are several good options for doing alignments including\nR/Biostrings, MAQ, ELAND, SOAP, and others....\n\n> Given this, and that we like using R when possible, and that we have some modest resources, can someone comment between the suggested server for the GA2 system: quad Xeon 7000 series with 32GB Ram verses a quad Xeon box with the 5000 series processor (3 GHz). We have some experience setting up the 5000 series box which is about ? the cost of the 7000 series.  We do have High Performance computing at an off-site location but transferring LARGE files to that location may be an issue...so would like to do as much in-house as possible.\n>\n\nIf you have IPAR, the total file size will not include the images, so\nyou may be able to go the off-site route.\n\n> Do you find that the analysis you have done benefits greatly from the faster processor or would 2x 5000 boxes by better option in your opinion? Any comments on the amount of memory per processor, I was thinking that perhaps this should be higher than recommended if we like to use R? These things I need to resolve before I use the sequencer unfortunately. I see in some posts that people are using machines with 64GB of memory, is that typical?\n>\n\nWe deal with 32GB on our 8-processor machines.  Machine is not\nlimiting for any part of the Solexa pipeline and running any of the\nalignment algorithms mentioned above (except perhaps Biostrings) can\nbe done pretty easily on the human genome on all eight processors\nsimultaneously with only 32GB of RAM.  That said, memory is\n\"relatively\" cheap, so if you go with 32 GB up front, you may want to\nconfigure that to allow future expansion or just go with 64GB to\nstart.\n\n> Also if anyone with real word experience can comment on the typical size of the alignment file (for paired end reads on a good day), that is the  s_N_export.txt file generated by ELAND and the s*_sequences.txt file generated by GERALD  that would be helpful too (I have the standard product info). Are there other files generated by the pipeline that you have found particularly useful in downstream analysis or that are useful in other 3rd party applications that you have tried?\n>\n\nIf you are asking about disk space, think pretty big, and think\nexpandable if you can.  The Short Read Archive (SRA) at NCBI is\naccepting submissions from solexa.  Basically, the entire Bustard\ndirectory is needed for this, so think about saving at least the\nbustard and GERALD (or equivalent) directories; ideally you could save\nthe firecrest directory as well.\n\nSean",
+      "body_snippet": "Thankyou Sean and Martin,\nMuch appreciate the advice. I had not thought about what to keep for submissions to data repositories...I doubt I could FTP that much data next door let alone to the East Coa",
+      "thread_id": "thread-60504ee737a5",
+      "thread_depth": 2,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-f3df7076768a",
+      "message_id": "<6phmyltp20a.fsf@lamprey.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-06-10T18:40:21Z",
+      "subject": "[Bioc-sig-seq] [BioC] analysis ChIP-seq data",
+      "subject_clean": "[Bioc-sig-seq] [BioC] analysis ChIP-seq data",
+      "in_reply_to": "<47d9979f0806101014j149d83d1kbf34025596283ea2@mail.gmail.com> (Bogdan Tanasa's message of \"Tue, 10 Jun 2008 10:14:06 -0700\")",
+      "references": [
+        "<47d9979f0806100946t3aa0b12g8a25f9be9fbf0931@mail.gmail.com>",
+        "<47d9979f0806101014j149d83d1kbf34025596283ea2@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Bodan --\n\n\"Bogdan Tanasa\" <tanasa at gmail.com> writes:\n\n> Hi everyone,\n>\n> I am in the process of analyzing a lot of ChIP-seq data and I am writing to ask\n> if an analysis module becomes available for R/Bioconductor anytime soon.\n\nVisit the bioc-sig-sequencing news group (Cc'd in the reply)\n\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\nCurrent packages include Biostrings (for lots of string matching /\nmanipulation facilities) and ShortRead (for IO from ELAND or MAQ, for\ninstance, plus additional sorting, counting, and qa-related\nfunctionality. There are posts in the bioc-sig-sequencing news group\nabout package use.\n\nMaybe others will reply (to bioc-sig-sequencing) with additional\ndevelopments; I know people are working with and developing packages\nfor this data in R.\n\nMartin\n\n> Any information would be greatly appreciated. Thanks and best regards.\n>\n> Bogdan\n>\n> _______________________________________________\n> Bioconductor mailing list\n> Bioconductor at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/bioconductor\n> Search the archives: http://news.gmane.org/gmane.science.biology.informatics.conductor\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Bodan --\n\n\"Bogdan Tanasa\" <tanasa at gmail.com> writes:\n\n> Hi everyone,\n>\n> I am in the process of analyzing a lot of ChIP-seq data and I am writing to ask\n> if an analysis module becomes available",
+      "thread_id": "thread-f3df7076768a",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-d93a11791b14",
+      "message_id": "<6phlk1dp1ze.fsf@lamprey.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-06-10T18:40:53Z",
+      "subject": "[Bioc-sig-seq] [BioC] analysis ChIP-seq data",
+      "subject_clean": "[Bioc-sig-seq] [BioC] analysis ChIP-seq data",
+      "in_reply_to": "<47d9979f0806101014j149d83d1kbf34025596283ea2@mail.gmail.com> (Bogdan Tanasa's message of \"Tue, 10 Jun 2008 10:14:06 -0700\")",
+      "references": [
+        "<47d9979f0806100946t3aa0b12g8a25f9be9fbf0931@mail.gmail.com>",
+        "<47d9979f0806101014j149d83d1kbf34025596283ea2@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Bodan --\n\n\"Bogdan Tanasa\" <tanasa at gmail.com> writes:\n\n> Hi everyone,\n>\n> I am in the process of analyzing a lot of ChIP-seq data and I am writing to ask\n> if an analysis module becomes available for R/Bioconductor anytime soon.\n\nVisit the bioc-sig-sequencing news group (Cc'd in the reply)\n\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\nCurrent packages include Biostrings (for lots of string matching /\nmanipulation facilities) BSgenome (reference sequences, including\nmasked and SNP-injected versions) and ShortRead (for IO from ELAND or\nMAQ, for instance, plus additional sorting, counting, and qa-related\nfunctionality. There are posts in the bioc-sig-sequencing news group\nabout package use.\n\nMaybe others will reply (to bioc-sig-sequencing) with additional\ndevelopments; I know people are working with and developing packages\nfor this data in R.\n\nMartin\n\n> Any information would be greatly appreciated. Thanks and best regards.\n>\n> Bogdan\n>\n> _______________________________________________\n> Bioconductor mailing list\n> Bioconductor at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/bioconductor\n> Search the archives: http://news.gmane.org/gmane.science.biology.informatics.conductor\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Bodan --\n\n\"Bogdan Tanasa\" <tanasa at gmail.com> writes:\n\n> Hi everyone,\n>\n> I am in the process of analyzing a lot of ChIP-seq data and I am writing to ask\n> if an analysis module becomes available",
+      "thread_id": "thread-d93a11791b14",
+      "thread_depth": 0,
+      "month": "2008-06"
+    },
+    {
+      "id": "msg-f8edf60a387e",
+      "message_id": "<47d9979f0806102139k7b1fac8ay37454fdebb3d2613@mail.gmail.com>",
+      "from_name": "Bogdan Tanasa",
+      "from_email_hash": "bc1b32bc2d214565b1d915961bd032024cecc368fb0f727c63da90509657992e",
+      "date": "2008-06-11T04:39:56Z",
+      "subject": "[Bioc-sig-seq] analysis ChIP-seq data",
+      "subject_clean": "[Bioc-sig-seq] analysis ChIP-seq data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi everyone.\n\nI would like to have your comments on the best way to analyze the\nChIP-seq data in order to identify the peaks of TF binding.\nWe have used Solexa alignment program (ELAND) to align the sequences\nand I do have the genome coordinates for all the\ntags. The question I want to address now is : what is the best model l\nto use in order to select the peaks in the data\n(and what is the most appropriate cut-off for the number of tags in a peak) ...\n\nAny suggestions will be greatly appreciated. Thanks very much.\n\nBogdan",
+      "body_snippet": "Hi everyone.\n\nI would like to have your comments on the best way to analyze the\nChIP-seq data in order to identify the peaks of TF binding.\nWe have used Solexa alignment program (ELAND) to align the s",
+      "thread_id": "thread-f8edf60a387e",
+      "thread_depth": 0,
+      "month": "2008-06"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-2181d8bef536",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "message_count": 4,
+      "participants": [
+        "Joseph Dhahbi, P.h.D.",
+        "Raphael Gottardo",
+        "Robert Gentleman",
+        "Stephen Henderson"
+      ],
+      "started": "2008-06-03T15:21:56Z",
+      "last_reply": "2008-06-03T16:39:38Z",
+      "root_message_id": "msg-2181d8bef536"
+    },
+    {
+      "id": "thread-7e4e811f20c0",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "message_count": 2,
+      "participants": [
+        "Stephen Henderson",
+        "hpages at fhcrc.org"
+      ],
+      "started": "2008-06-03T18:36:32Z",
+      "last_reply": "2008-06-03T19:12:38Z",
+      "root_message_id": "msg-7e4e811f20c0"
+    },
+    {
+      "id": "thread-4cc48973ecb6",
+      "subject": "[Bioc-sig-seq] PDict question",
+      "message_count": 1,
+      "participants": [
+        "Herve Pages"
+      ],
+      "started": "2008-06-03T20:48:47Z",
+      "last_reply": "2008-06-03T20:48:47Z",
+      "root_message_id": "msg-4cc48973ecb6"
+    },
+    {
+      "id": "thread-afa74059de58",
+      "subject": "[Bioc-sig-seq] making target from fasta file",
+      "message_count": 8,
+      "participants": [
+        "Herve Pages",
+        "Joseph Dhahbi, P.h.D.",
+        "Sean Davis"
+      ],
+      "started": "2008-06-03T21:02:49Z",
+      "last_reply": "2008-06-04T22:58:57Z",
+      "root_message_id": "msg-afa74059de58"
+    },
+    {
+      "id": "thread-1b0531a72015",
+      "subject": "[Bioc-sig-seq] sum of maskedwidth vs. maskedwidth in 'all masks together'",
+      "message_count": 2,
+      "participants": [
+        "Joseph Dhahbi, P.h.D.",
+        "Sean Davis"
+      ],
+      "started": "2008-06-04T15:51:31Z",
+      "last_reply": "2008-06-04T16:25:23Z",
+      "root_message_id": "msg-1b0531a72015"
+    },
+    {
+      "id": "thread-60504ee737a5",
+      "subject": "[Bioc-sig-seq] Seeking advice on hardware options",
+      "message_count": 4,
+      "participants": [
+        "Martin Morgan",
+        "Paul Leo",
+        "Sean Davis"
+      ],
+      "started": "2008-06-06T00:55:35Z",
+      "last_reply": "2008-06-10T00:12:54Z",
+      "root_message_id": "msg-60504ee737a5"
+    },
+    {
+      "id": "thread-f3df7076768a",
+      "subject": "[Bioc-sig-seq] [BioC] analysis ChIP-seq data",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2008-06-10T18:40:21Z",
+      "last_reply": "2008-06-10T18:40:21Z",
+      "root_message_id": "msg-f3df7076768a"
+    },
+    {
+      "id": "thread-d93a11791b14",
+      "subject": "[Bioc-sig-seq] [BioC] analysis ChIP-seq data",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2008-06-10T18:40:53Z",
+      "last_reply": "2008-06-10T18:40:53Z",
+      "root_message_id": "msg-d93a11791b14"
+    },
+    {
+      "id": "thread-f8edf60a387e",
+      "subject": "[Bioc-sig-seq] analysis ChIP-seq data",
+      "message_count": 1,
+      "participants": [
+        "Bogdan Tanasa"
+      ],
+      "started": "2008-06-11T04:39:56Z",
+      "last_reply": "2008-06-11T04:39:56Z",
+      "root_message_id": "msg-f8edf60a387e"
+    }
+  ]
+}

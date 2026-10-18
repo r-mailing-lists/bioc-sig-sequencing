@@ -1,0 +1,94 @@
+From h.klein at uni-muenster.de  Sat Dec 13 22:40:54 2008
+From: h.klein at uni-muenster.de (Hans-Ulrich Klein)
+Date: Sat, 13 Dec 2008 22:40:54 +0100
+Subject: [Bioc-sig-seq] IRanges - coverage
+Message-ID: <49442BE6.6000709@uni-muenster.de>
+
+Dear List,
+
+I find this behavior of the coverage function quite inconvenient:
+
+ > myRanges = IRanges(start=c(10,20,30,100), width=5)
+ > myCov = coverage(myRanges, start=50, end=80)
+ > myCov
+   31-integer "XRleInteger" instance
+  [1] Error in x at values[group, drop = TRUE] : subscript out of bounds
+
+When I apply the coverage function, I do not care whether there are is 
+at least one sequence within the specified region. I think, it would be 
+more sensible to return an XRleInteger object with 31 "0" in the 
+situation above.
+
+Best wishes,
+Hans-Ulrich
+
+
+From paboyoun at fhcrc.org  Mon Dec 15 07:02:59 2008
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Sun, 14 Dec 2008 22:02:59 -0800
+Subject: [Bioc-sig-seq] IRanges - coverage
+Message-ID: <20081214220259.pctvl2teokcg4c0k@webmail.fhcrc.org>
+
+Hans-Ulrich,
+Thanks for finding the coverage bug for IRanges objects when the  
+coverage is 0 everywhere. I forgot to allocate the necessary length 1  
+vectors at the C level to store the rle information. I checked in  
+fixes to both the BioC 2.3 and BioC 2.4 code lines.  It will take a  
+day or so to come through the build system, but when they are  
+available they will be versions 1.0.8 (BioC 2.3) and 1.1.9 (BioC 2.4).  
+You could always check out the IRanges package directly from svn and  
+build the package yourself if you need it sooner.
+
+Cheers,
+Patrick
+
+
+> library(IRanges)
+> myRanges = IRanges(start=c(10,20,30,100), width=5)
+> myCov = coverage(myRanges, start=50, end=80)
+> myCov
+   31-integer "XRleInteger" instance
+  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+> sessionInfo()
+R version 2.9.0 Under development (unstable) (2008-12-02 r47033)
+i386-apple-darwin9.5.0
+
+locale:
+en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] IRanges_1.1.9
+
+loaded via a namespace (and not attached):
+[1] Matrix_0.999375-16 grid_2.9.0         lattice_0.17-17
+
+
+
+Hans-Ulrich Klein wrote:
+> Dear List,
+>
+> I find this behavior of the coverage function quite inconvenient:
+>
+> > myRanges = IRanges(start=c(10,20,30,100), width=5)
+> > myCov = coverage(myRanges, start=50, end=80)
+> > myCov
+>   31-integer "XRleInteger" instance
+>  [1] Error in x at values[group, drop = TRUE] : subscript out of bounds
+>
+> When I apply the coverage function, I do not care whether there are  
+> is at least one sequence within the specified region. I think, it  
+> would be more sensible to return an XRleInteger object with 31 "0"  
+> in the situation above.
+>
+> Best wishes,
+> Hans-Ulrich
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+

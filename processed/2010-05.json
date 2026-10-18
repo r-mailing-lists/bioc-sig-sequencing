@@ -1,0 +1,648 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2010-05",
+  "messages": [
+    {
+      "id": "msg-946bd6d9f462",
+      "message_id": "<j2ldac81b0d1005020828ya26b6abeu53659283cfe31052@mail.gmail.com>",
+      "from_name": "Alper Yilmaz",
+      "from_email_hash": "81f8c877455e8e9ff909baf3ee6f448e05fb2728617cbe782dcd4004f5bc982a",
+      "date": "2010-05-02T15:28:30Z",
+      "subject": "[Bioc-sig-seq] microarray to RNA-Seq",
+      "subject_clean": "[Bioc-sig-seq] microarray to RNA-Seq",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nThere's very nice tutorial about using Bioconductor to calculate\nclusters (of genes) with different algoritms using microarray data.\n\nI would like to use the similar approach to calculate gene clusters\nusing RNA-Seq data. My question is, would it be okay to take the ratio\nof RPMK values of Exp1 and Exp2 and use the natural log of that ratio\nas if it's microarray data?\n\nLet's say Exp1 is control and Exp2 is treatment. I have RPMK value for\neach gene for both samples. Then, ratio of Exp2(RPMK) over Exp1(RPMK)\nis calculated and then natural log of that ratio is calculated. And\nfrom here on, use the tutorial to calculate gene clusters.\n\nIf log( Exp1-rpmk / Exp2-rpmk) is not a valid approach, what should I\ndo instead, so that I can use invaluable bioconductor tools that are\ndesigned for microarray data mining, for RNA-Seq analysis?\n\nRegards,\n\nAlper Yilmaz\nPost-doctoral Researcher\nPlant Biotechnology Center\nThe Ohio State University\n1060 Carmack Rd\nColumbus, OH 43210\n(614)688-4954",
+      "body_snippet": "Hi,\n\nThere's very nice tutorial about using Bioconductor to calculate\nclusters (of genes) with different algoritms using microarray data.\n\nI would like to use the similar approach to calculate gene cl",
+      "thread_id": "thread-946bd6d9f462",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-800eb5812a34",
+      "message_id": "<y2qdac81b0d1005020914pd77eb291ya0f9889333cc9def@mail.gmail.com>",
+      "from_name": "Alper Yilmaz",
+      "from_email_hash": "81f8c877455e8e9ff909baf3ee6f448e05fb2728617cbe782dcd4004f5bc982a",
+      "date": "2010-05-02T16:14:20Z",
+      "subject": "[Bioc-sig-seq] microarray to RNA-Seq",
+      "subject_clean": "[Bioc-sig-seq] microarray to RNA-Seq",
+      "in_reply_to": "<j2ldac81b0d1005020828ya26b6abeu53659283cfe31052@mail.gmail.com>",
+      "references": [
+        "<j2ldac81b0d1005020828ya26b6abeu53659283cfe31052@mail.gmail.com>"
+      ],
+      "body_plain": "Sorry, I forgot to include the URL for the tutorial that I'm referring to:\n\nhttp://manuals.bioinformatics.ucr.edu/home/R_BioCondManual#R_clustering\n\nthanks,\n\nalper yilmaz\n\n\nOn Sun, May 2, 2010 at 11:28 AM, Alper Yilmaz <alperyilmaz at gmail.com> wrote:\n> Hi,\n>\n> There's very nice tutorial about using Bioconductor to calculate\n> clusters (of genes) with different algoritms using microarray data.\n>\n> I would like to use the similar approach to calculate gene clusters\n> using RNA-Seq data. My question is, would it be okay to take the ratio\n> of RPMK values of Exp1 and Exp2 and use the natural log of that ratio\n> as if it's microarray data?\n>\n> Let's say Exp1 is control and Exp2 is treatment. I have RPMK value for\n> each gene for both samples. Then, ratio of Exp2(RPMK) over Exp1(RPMK)\n> is calculated and then natural log of that ratio is calculated. And\n> from here on, use the tutorial to calculate gene clusters.\n>\n> If log( Exp1-rpmk / Exp2-rpmk) is not a valid approach, what should I\n> do instead, so that I can use invaluable bioconductor tools that are\n> designed for microarray data mining, for RNA-Seq analysis?\n>\n> Regards,\n>\n> Alper Yilmaz\n> Post-doctoral Researcher\n> Plant Biotechnology Center\n> The Ohio State University\n> 1060 Carmack Rd\n> Columbus, OH 43210\n> (614)688-4954\n>",
+      "body_snippet": "Sorry, I forgot to include the URL for the tutorial that I'm referring to:\n\nhttp://manuals.bioinformatics.ucr.edu/home/R_BioCondManual#R_clustering\n\nthanks,\n\nalper yilmaz\n\n\nOn Sun, May 2, 2010 at 11:2",
+      "thread_id": "thread-946bd6d9f462",
+      "thread_depth": 1,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-d5bf43fdadc3",
+      "message_id": "<4BDDF1FD.1070303@embl.de>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "d1a63444f5f832df785367f2b3a99cf6f993043c1f7d4ce60ed61efc9547a2b1",
+      "date": "2010-05-02T21:43:25Z",
+      "subject": "[Bioc-sig-seq] microarray to RNA-Seq",
+      "subject_clean": "[Bioc-sig-seq] microarray to RNA-Seq",
+      "in_reply_to": "<j2ldac81b0d1005020828ya26b6abeu53659283cfe31052@mail.gmail.com>",
+      "references": [
+        "<j2ldac81b0d1005020828ya26b6abeu53659283cfe31052@mail.gmail.com>"
+      ],
+      "body_plain": "Dear Alper\n\nthis sort of clustering is an explorative data analysis technique, as \nsuch there is no single 'right' answer (although there are 'wrong' ones :)\n\nSo, what you suggest below is valid, although it could be suboptimal \nsince the clustering could be dominated by few very large, but unprecise \nper-gene ratios especially when one of (Exp1-rpmk) or (Exp2-rpmk) is \nsmall. Section 4.6 and Fig.5 of this paper suggest a remedy: \nhttp://precedings.nature.com/documents/4282/version/2\n\n\tBest wishes\n\tWolfgang\n\n\n\n\nOn 02/05/10 17:28, Alper Yilmaz wrote:\n> Hi,\n>\n> There's very nice tutorial about using Bioconductor to calculate\n> clusters (of genes) with different algoritms using microarray data.\n>\n> I would like to use the similar approach to calculate gene clusters\n> using RNA-Seq data. My question is, would it be okay to take the ratio\n> of RPMK values of Exp1 and Exp2 and use the natural log of that ratio\n> as if it's microarray data?\n>\n> Let's say Exp1 is control and Exp2 is treatment. I have RPMK value for\n> each gene for both samples. Then, ratio of Exp2(RPMK) over Exp1(RPMK)\n> is calculated and then natural log of that ratio is calculated. And\n> from here on, use the tutorial to calculate gene clusters.\n>\n> If log( Exp1-rpmk / Exp2-rpmk) is not a valid approach, what should I\n> do instead, so that I can use invaluable bioconductor tools that are\n> designed for microarray data mining, for RNA-Seq analysis?\n>\n> Regards,\n>\n> Alper Yilmaz\n> Post-doctoral Researcher\n> Plant Biotechnology Center\n> The Ohio State University\n> 1060 Carmack Rd\n> Columbus, OH 43210\n> (614)688-4954\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \n\n\nWolfgang Huber\nEMBL\nhttp://www.embl.de/research/units/genome_biology/huber",
+      "body_snippet": "Dear Alper\n\nthis sort of clustering is an explorative data analysis technique, as \nsuch there is no single 'right' answer (although there are 'wrong' ones :)\n\nSo, what you suggest below is valid, alth",
+      "thread_id": "thread-946bd6d9f462",
+      "thread_depth": 1,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-6febdbcc3757",
+      "message_id": "<A9CAAC7EB5FE2C41926BF54BD26653C102B9734B@POSTOFFICE01.genomichealth.com>",
+      "from_name": "Kunbin Qu",
+      "from_email_hash": "dd2563c28824bc3e2c72aae6a45a538e8fb306a1025709b9168ccb7057e28bbc",
+      "date": "2010-05-03T21:24:40Z",
+      "subject": "[Bioc-sig-seq] quantile normalization for RNA-seq",
+      "subject_clean": "[Bioc-sig-seq] quantile normalization for RNA-seq",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100503/55f296ba/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100503/55f296ba/attachment.pl>",
+      "thread_id": "thread-6febdbcc3757",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-706b74680caf",
+      "message_id": "<Pine.WNT.4.64.1005040919030.268@PC602.alpha.wehi.edu.au>",
+      "from_name": "Gordon K Smyth",
+      "from_email_hash": "a978abba6e869c142fda92319a9ab9659112ab762e437af84e6581fe4481f132",
+      "date": "2010-05-03T23:25:50Z",
+      "subject": "[Bioc-sig-seq]  microarray to RNA-Seq",
+      "subject_clean": "[Bioc-sig-seq]  microarray to RNA-Seq",
+      "in_reply_to": "<mailman.7.1272880803.21988.bioc-sig-sequencing@r-project.org>",
+      "references": [
+        "<mailman.7.1272880803.21988.bioc-sig-sequencing@r-project.org>"
+      ],
+      "body_plain": "Dear Alper,\n\nSee the edgeR and GOseq Bioconductor packages, also the DEseq package. \nThe edgeR package User's Guide gives a number of case studies:\n\nhttp://www.bioconductor.org/packages/2.6/bioc/vignettes/edgeR/inst/doc/edgeR.pdf\n\nUnfortunately, just treating RNA-seq as if it was microarray data will \nlose much of the benefit of the new platform.\n\nBest wishes\nGordon\n\n-----------------------------------------------\nAssociate Professor Gordon K Smyth,\nNHMRC Senior Research Fellow,\nBioinformatics Division, \nWalter and Eliza Hall Institute of Medical Research, \n1G Royal Parade, Parkville, Vic 3052, Australia.\nTel: (03) 9345 2326, Fax (03) 9347 0852,\nsmyth at wehi.edu.au\nhttp://www.wehi.edu.au\nhttp://www.statsci.org/smyth\n\n> Date: Sun, 2 May 2010 11:28:30 -0400\n> From: Alper Yilmaz <alperyilmaz at gmail.com>\n> To: bioc-sig-sequencing at r-project.org\n> Subject: [Bioc-sig-seq] microarray to RNA-Seq\n> Content-Type: text/plain; charset=ISO-8859-1\n>\n> Hi,\n>\n> There's very nice tutorial about using Bioconductor to calculate\n> clusters (of genes) with different algoritms using microarray data.\n>\n> I would like to use the similar approach to calculate gene clusters\n> using RNA-Seq data. My question is, would it be okay to take the ratio\n> of RPMK values of Exp1 and Exp2 and use the natural log of that ratio\n> as if it's microarray data?\n>\n> Let's say Exp1 is control and Exp2 is treatment. I have RPMK value for\n> each gene for both samples. Then, ratio of Exp2(RPMK) over Exp1(RPMK)\n> is calculated and then natural log of that ratio is calculated. And\n> from here on, use the tutorial to calculate gene clusters.\n>\n> If log( Exp1-rpmk / Exp2-rpmk) is not a valid approach, what should I\n> do instead, so that I can use invaluable bioconductor tools that are\n> designed for microarray data mining, for RNA-Seq analysis?\n>\n> Regards,\n>\n> Alper Yilmaz\n> Post-doctoral Researcher\n> Plant Biotechnology Center\n> The Ohio State University\n> 1060 Carmack Rd\n> Columbus, OH 43210\n> (614)688-4954\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:4}}",
+      "body_snippet": "Dear Alper,\n\nSee the edgeR and GOseq Bioconductor packages, also the DEseq package. \nThe edgeR package User's Guide gives a number of case studies:\n\nhttp://www.bioconductor.org/packages/2.6/bioc/vigne",
+      "thread_id": "thread-706b74680caf",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-f94ae566fb85",
+      "message_id": "<C8059EC5.151F6%arnaud.droit@ircm.qc.ca>",
+      "from_name": "Droit Arnaud",
+      "from_email_hash": "c5b709e53467de0f22baefc2fbb53acb48badda0c1636ef801371d41a70104ea",
+      "date": "2010-05-04T13:52:05Z",
+      "subject": "[Bioc-sig-seq] News about PICS/rGADEM/MotIV",
+      "subject_clean": "[Bioc-sig-seq] News about PICS/rGADEM/MotIV",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi All,\n\nWe just wanted to send you a news update about PICS, rGADEM and MotIV. As you may already know, all three packages are now available from Bioconductor.\nYou can now go from short reads to enriched regions, validated motifs, motifs occurrences, and modules using our pipeline. We have worked very hard to make it as easy as possible to use.\nOur packages are well integrated with other Bioconductor packages (IRanges, ChIPpeakAnno, Rsamtools....) which makes it easy for users to construct sophisticated analysis approaches that also leverage other R/Bioconductor functionally\n\nWe are still improving the overall pipeline and we would love to hear from you if you have any comments/suggestions that could improve it further.\n\nPlease note that we have fixed a bug in PICS preventing the proper normalization of the enrichment scores. Among other things this could have affected the proper estimation of the FDR so we recommend you to upgrade to version 1.01 (Release 1.2.0). In addition, release 1.2.0 now supports the multicore package and improve some of the graphics capabilities. The default is to use multicore over snowfall, so if both packages are loaded, multicore will be used and the number of cores will automatically be set for you based on your machine. We have included a NEWS file in PICS, so type news(package=\"PICS\") for details.\n\nSimilarly, rGADEM (as of 1.0.0) also include supports for multicore based calculation via Grand Central Dispatch and this is only available on snow leopard. No special configuration is required as long as you are running snow leopard on a multicore machine rGADEM will use multiple cores. Although GCD is also available on FreeBSD, it's not yet available on other *nix systems, so we will look at openmp as on option. We will keep you posted as soon as we have a working version. The multicore version of rGADEM is way faster!\n\nMotIV (1.1.3) has also been updated so that now jaspar motifs and scores are automatically exported and don't need to be loaded.\n\nFinally, we are working in developing tutorials that will be complementary to the vignettes provided. These will be available on our wiki: wiki.rglab.org. Preliminary tutorials for PICS and rGADEM are already available.\nAgain comments/suggestions are welcome.\n\nArnaud.\n\nBioinformatician/Programmer Analyst\nComputational Biology Research Unit\nClinical Research Institute of Montreal (IRCM)\n110, avenue des Pins Ouest\nMontr?al (Qu?bec) H2W 1R7\nurl: http://www.rglab.org",
+      "body_snippet": "Hi All,\n\nWe just wanted to send you a news update about PICS, rGADEM and MotIV. As you may already know, all three packages are now available from Bioconductor.\nYou can now go from short reads to enri",
+      "thread_id": "thread-f94ae566fb85",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-c3ceac6377b8",
+      "message_id": "<4BE174B4.9090302@uni-muenster.de>",
+      "from_name": "Hans-Ulrich Klein",
+      "from_email_hash": "f5e3c255ba8c591ba34ebbe9a6c82dcd7b8dc1d03cdc7a1a100a5e6c8cd9cb87",
+      "date": "2010-05-05T13:37:56Z",
+      "subject": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "subject_clean": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "in_reply_to": "<1271423836.4082.134.camel@paddy>",
+      "references": [
+        "<1271423836.4082.134.camel@paddy>"
+      ],
+      "body_plain": "Hi,\n\nI have have the same problem. I want to write ~ 4Mio small (25bps) \nsequences into one fasta file. write.XStringSet() is very slow. Also, \nwriteFASTA() is very low. Only about 1500 sequences are written per minute.\n\nAre there any alternatives?\n\nBest wishes,\nHans-Ulrich\n\n\n > sessionInfo()\nR version 2.11.0 RC (2010-04-19 r51778)\nx86_64-pc-linux-gnu\n\nlocale:\n[1] C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.18-5\n[4] Biostrings_2.16.0   GenomicRanges_1.0.1 IRanges_1.6.0\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0 grid_2.11.0   hwriter_1.2   tools_2.11.0\n\n\n\n\n\nSteffen Neumann wrote:\n> Hi,\n>\n> I have some major performance problems writing fasta files\n> with Biostrings. I have the full Arabidopsis Chr1 (30MByte) in one DNAString,\n> and writing that to a file takes ages, as you see from the strace output\n> below: I obtain ~5 lines (80 chars each) per second. The runtime\n> of the system call<in brackets>  is neglectible.\n>\n> library(Biostrings)\n> chromosome<-read.DNAStringSet(\"Chr1_TAIR9.fasta\", \"fasta\")\n> write.XStringSet(chromosome, file=\"/tmp/test.fasta\", format=\"fasta\")\n>\n> Is there a fundamental flaw in my thinking ?\n> Is there an alternative to write.XStringSet() ?\n> This happens both on my laptop and a beefy server.\n>\n> I also tried the (ancient) IRanges_1.0.16 and Biostrings_2.10.22,\n> and get ~11 lines per second.\n>\n> Yours,\n> Steffen\n>\n> 13:06:09.949290 write(4, \"TAGGAGTTGATGAAGACATCTAACGAAAATTC\"..., 80) = 80<0.000137>\n> 13:06:10.138835 write(4, \"GTGCTCAGGCTTCATTGATAAGGAAAGAAACA\"..., 80) = 80<0.000142>\n> 13:06:10.328395 write(4, \"AAAGCAGAAACCGACGTGAAATATTACAGAGA\"..., 80) = 80<0.000133>\n> 13:06:10.537475 write(4, \"AGACTACTCGAGAATCATTGCACTGAAGAAAG\"..., 80) = 80<0.000159>\n> 13:06:10.727281 write(4, \"AAGTGAAAAGAGAAAGAGAATGTGTGATGTGT\"..., 80) = 80<0.000133>\n> 13:06:10.916854 write(4, \"CTTTGCTTTAAATGCAATCAGCTTCACGAGAA\"..., 80) = 80<0.000136>\n> 13:06:11.105687 write(4, \"GATTCAAGCTCGTTTCGCTCGCTCCGGGTGAA\"..., 80) = 80<0.000594>\n>\n> sessionInfo()\n> R version 2.10.0 (2009-10-26)\n> x86_64-unknown-linux-gnu\n>\n> locale:\n>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>   [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>   [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>   [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] Biostrings_2.14.12 IRanges_1.4.16\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.6.0\n>\n>    \n\n\n-- \nHans-Ulrich Klein\nDepartment of Medical Informatics and Biomathematics\nUniversity of M?nster\nDomagkstrasse 9\n48149 M?nster, Germany\nTel.: +49 (0)251 83-58405",
+      "body_snippet": "Hi,\n\nI have have the same problem. I want to write ~ 4Mio small (25bps) \nsequences into one fasta file. write.XStringSet() is very slow. Also, \nwriteFASTA() is very low. Only about 1500 sequences are ",
+      "thread_id": "thread-c3ceac6377b8",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-7d15f669ddae",
+      "message_id": "<4BE1DE87.2040703@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-05-05T21:09:27Z",
+      "subject": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "subject_clean": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "in_reply_to": "<4BE174B4.9090302@uni-muenster.de>",
+      "references": [
+        "<1271423836.4082.134.camel@paddy>",
+        "<4BE174B4.9090302@uni-muenster.de>"
+      ],
+      "body_plain": "Hans-Ulrich Klein wrote:\n> Hi,\n> \n> I have have the same problem. I want to write ~ 4Mio small (25bps) \n> sequences into one fasta file. write.XStringSet() is very slow. Also, \n> writeFASTA() is very low. Only about 1500 sequences are written per minute.\n\nOK, I guess it's time to bite the bullet as they say.\n\nIt has been on my TODO list for a long time to implement\nwrite.XStringSet() in C so I will work on this and let you\nknow when it's ready.\n\nCheers,\nH.\n\n> \n> Are there any alternatives?\n> \n> Best wishes,\n> Hans-Ulrich\n> \n> \n>  > sessionInfo()\n> R version 2.11.0 RC (2010-04-19 r51778)\n> x86_64-pc-linux-gnu\n> \n> locale:\n> [1] C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.18-5\n> [4] Biostrings_2.16.0   GenomicRanges_1.0.1 IRanges_1.6.0\n> \n> loaded via a namespace (and not attached):\n> [1] Biobase_2.8.0 grid_2.11.0   hwriter_1.2   tools_2.11.0\n> \n> \n> \n> \n> \n> Steffen Neumann wrote:\n>> Hi,\n>>\n>> I have some major performance problems writing fasta files\n>> with Biostrings. I have the full Arabidopsis Chr1 (30MByte) in one \n>> DNAString,\n>> and writing that to a file takes ages, as you see from the strace output\n>> below: I obtain ~5 lines (80 chars each) per second. The runtime\n>> of the system call<in brackets>  is neglectible.\n>>\n>> library(Biostrings)\n>> chromosome<-read.DNAStringSet(\"Chr1_TAIR9.fasta\", \"fasta\")\n>> write.XStringSet(chromosome, file=\"/tmp/test.fasta\", format=\"fasta\")\n>>\n>> Is there a fundamental flaw in my thinking ?\n>> Is there an alternative to write.XStringSet() ?\n>> This happens both on my laptop and a beefy server.\n>>\n>> I also tried the (ancient) IRanges_1.0.16 and Biostrings_2.10.22,\n>> and get ~11 lines per second.\n>>\n>> Yours,\n>> Steffen\n>>\n>> 13:06:09.949290 write(4, \"TAGGAGTTGATGAAGACATCTAACGAAAATTC\"..., 80) = \n>> 80<0.000137>\n>> 13:06:10.138835 write(4, \"GTGCTCAGGCTTCATTGATAAGGAAAGAAACA\"..., 80) = \n>> 80<0.000142>\n>> 13:06:10.328395 write(4, \"AAAGCAGAAACCGACGTGAAATATTACAGAGA\"..., 80) = \n>> 80<0.000133>\n>> 13:06:10.537475 write(4, \"AGACTACTCGAGAATCATTGCACTGAAGAAAG\"..., 80) = \n>> 80<0.000159>\n>> 13:06:10.727281 write(4, \"AAGTGAAAAGAGAAAGAGAATGTGTGATGTGT\"..., 80) = \n>> 80<0.000133>\n>> 13:06:10.916854 write(4, \"CTTTGCTTTAAATGCAATCAGCTTCACGAGAA\"..., 80) = \n>> 80<0.000136>\n>> 13:06:11.105687 write(4, \"GATTCAAGCTCGTTTCGCTCGCTCCGGGTGAA\"..., 80) = \n>> 80<0.000594>\n>>\n>> sessionInfo()\n>> R version 2.10.0 (2009-10-26)\n>> x86_64-unknown-linux-gnu\n>>\n>> locale:\n>>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>>   [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>>   [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>>   [9] LC_ADDRESS=C               LC_TELEPHONE=C\n>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] Biostrings_2.14.12 IRanges_1.4.16\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.6.0\n>>\n>>    \n> \n> \n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hans-Ulrich Klein wrote:\n> Hi,\n> \n> I have have the same problem. I want to write ~ 4Mio small (25bps) \n> sequences into one fasta file. write.XStringSet() is very slow. Also, \n> writeFASTA() is very ",
+      "thread_id": "thread-c3ceac6377b8",
+      "thread_depth": 1,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-b66822f5658c",
+      "message_id": "<4BE1E494.3040007@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-05-05T21:35:16Z",
+      "subject": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "subject_clean": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "in_reply_to": "<4BE1DE87.2040703@fhcrc.org>",
+      "references": [
+        "<1271423836.4082.134.camel@paddy>",
+        "<4BE174B4.9090302@uni-muenster.de>",
+        "<4BE1DE87.2040703@fhcrc.org>"
+      ],
+      "body_plain": "On 05/05/2010 02:09 PM, Herv? Pag?s wrote:\n> Hans-Ulrich Klein wrote:\n>> Hi,\n>>\n>> I have have the same problem. I want to write ~ 4Mio small (25bps)\n>> sequences into one fasta file. write.XStringSet() is very slow. Also,\n>> writeFASTA() is very low. Only about 1500 sequences are written per\n>> minute.\n\nif 'dna' is a DNAStringSet with names, and for this case where reaads\nare < 80 characters, then maybe\n\n  fasta  = paste(paste(\">\", names(dna), sep=\"\"),\n                 as.character(dna), sep=\"\\n\", collapse=\"\\n\")\n  fl = tempfile()\n  writeLines(fasta, fl)\n\nMartin\n\n> \n> OK, I guess it's time to bite the bullet as they say.\n> \n> It has been on my TODO list for a long time to implement\n> write.XStringSet() in C so I will work on this and let you\n> know when it's ready.\n> \n> Cheers,\n> H.\n> \n>>\n>> Are there any alternatives?\n>>\n>> Best wishes,\n>> Hans-Ulrich\n>>\n>>\n>>  > sessionInfo()\n>> R version 2.11.0 RC (2010-04-19 r51778)\n>> x86_64-pc-linux-gnu\n>>\n>> locale:\n>> [1] C\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.18-5\n>> [4] Biostrings_2.16.0   GenomicRanges_1.0.1 IRanges_1.6.0\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.8.0 grid_2.11.0   hwriter_1.2   tools_2.11.0\n>>\n>>\n>>\n>>\n>>\n>> Steffen Neumann wrote:\n>>> Hi,\n>>>\n>>> I have some major performance problems writing fasta files\n>>> with Biostrings. I have the full Arabidopsis Chr1 (30MByte) in one\n>>> DNAString,\n>>> and writing that to a file takes ages, as you see from the strace output\n>>> below: I obtain ~5 lines (80 chars each) per second. The runtime\n>>> of the system call<in brackets>  is neglectible.\n>>>\n>>> library(Biostrings)\n>>> chromosome<-read.DNAStringSet(\"Chr1_TAIR9.fasta\", \"fasta\")\n>>> write.XStringSet(chromosome, file=\"/tmp/test.fasta\", format=\"fasta\")\n>>>\n>>> Is there a fundamental flaw in my thinking ?\n>>> Is there an alternative to write.XStringSet() ?\n>>> This happens both on my laptop and a beefy server.\n>>>\n>>> I also tried the (ancient) IRanges_1.0.16 and Biostrings_2.10.22,\n>>> and get ~11 lines per second.\n>>>\n>>> Yours,\n>>> Steffen\n>>>\n>>> 13:06:09.949290 write(4, \"TAGGAGTTGATGAAGACATCTAACGAAAATTC\"..., 80) =\n>>> 80<0.000137>\n>>> 13:06:10.138835 write(4, \"GTGCTCAGGCTTCATTGATAAGGAAAGAAACA\"..., 80) =\n>>> 80<0.000142>\n>>> 13:06:10.328395 write(4, \"AAAGCAGAAACCGACGTGAAATATTACAGAGA\"..., 80) =\n>>> 80<0.000133>\n>>> 13:06:10.537475 write(4, \"AGACTACTCGAGAATCATTGCACTGAAGAAAG\"..., 80) =\n>>> 80<0.000159>\n>>> 13:06:10.727281 write(4, \"AAGTGAAAAGAGAAAGAGAATGTGTGATGTGT\"..., 80) =\n>>> 80<0.000133>\n>>> 13:06:10.916854 write(4, \"CTTTGCTTTAAATGCAATCAGCTTCACGAGAA\"..., 80) =\n>>> 80<0.000136>\n>>> 13:06:11.105687 write(4, \"GATTCAAGCTCGTTTCGCTCGCTCCGGGTGAA\"..., 80) =\n>>> 80<0.000594>\n>>>\n>>> sessionInfo()\n>>> R version 2.10.0 (2009-10-26)\n>>> x86_64-unknown-linux-gnu\n>>>\n>>> locale:\n>>>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>>>   [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>>>   [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>>>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>>>   [9] LC_ADDRESS=C               LC_TELEPHONE=C\n>>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>>\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>\n>>> other attached packages:\n>>> [1] Biostrings_2.14.12 IRanges_1.4.16\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] Biobase_2.6.0\n>>>\n>>>    \n>>\n>>\n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "On 05/05/2010 02:09 PM, Herv? Pag?s wrote:\n> Hans-Ulrich Klein wrote:\n>> Hi,\n>>\n>> I have have the same problem. I want to write ~ 4Mio small (25bps)\n>> sequences into one fasta file. write.XStringSet",
+      "thread_id": "thread-c3ceac6377b8",
+      "thread_depth": 2,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-a244f152003d",
+      "message_id": "<4BE1E6DA.3090400@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-05-05T21:44:58Z",
+      "subject": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "subject_clean": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "in_reply_to": "<4BE1E494.3040007@fhcrc.org>",
+      "references": [
+        "<1271423836.4082.134.camel@paddy>",
+        "<4BE174B4.9090302@uni-muenster.de>",
+        "<4BE1DE87.2040703@fhcrc.org>",
+        "<4BE1E494.3040007@fhcrc.org>"
+      ],
+      "body_plain": "On 05/05/2010 02:35 PM, Martin Morgan wrote:\n> On 05/05/2010 02:09 PM, Herv? Pag?s wrote:\n>> Hans-Ulrich Klein wrote:\n>>> Hi,\n>>>\n>>> I have have the same problem. I want to write ~ 4Mio small (25bps)\n>>> sequences into one fasta file. write.XStringSet() is very slow. Also,\n>>> writeFASTA() is very low. Only about 1500 sequences are written per\n>>> minute.\n> \n> if 'dna' is a DNAStringSet with names, and for this case where reaads\n> are < 80 characters, then maybe\n> \n>   fasta  = paste(paste(\">\", names(dna), sep=\"\"),\n>                  as.character(dna), sep=\"\\n\", collapse=\"\\n\")\n>   fl = tempfile()\n>   writeLines(fasta, fl)\n\nor probably better\n\n  fasta = character(2 * length(dna))\n  fasta[c(TRUE, FALSE)] = paste(\">\", names(dna), sep=\"\")\n  fasta[c(FALSE, TRUE)] = as.character(dna)\n  writeLines(fasta, fl)\n\nMartin\n\n> \n> Martin\n> \n>>\n>> OK, I guess it's time to bite the bullet as they say.\n>>\n>> It has been on my TODO list for a long time to implement\n>> write.XStringSet() in C so I will work on this and let you\n>> know when it's ready.\n>>\n>> Cheers,\n>> H.\n>>\n>>>\n>>> Are there any alternatives?\n>>>\n>>> Best wishes,\n>>> Hans-Ulrich\n>>>\n>>>\n>>>  > sessionInfo()\n>>> R version 2.11.0 RC (2010-04-19 r51778)\n>>> x86_64-pc-linux-gnu\n>>>\n>>> locale:\n>>> [1] C\n>>>\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>\n>>> other attached packages:\n>>> [1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.18-5\n>>> [4] Biostrings_2.16.0   GenomicRanges_1.0.1 IRanges_1.6.0\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] Biobase_2.8.0 grid_2.11.0   hwriter_1.2   tools_2.11.0\n>>>\n>>>\n>>>\n>>>\n>>>\n>>> Steffen Neumann wrote:\n>>>> Hi,\n>>>>\n>>>> I have some major performance problems writing fasta files\n>>>> with Biostrings. I have the full Arabidopsis Chr1 (30MByte) in one\n>>>> DNAString,\n>>>> and writing that to a file takes ages, as you see from the strace output\n>>>> below: I obtain ~5 lines (80 chars each) per second. The runtime\n>>>> of the system call<in brackets>  is neglectible.\n>>>>\n>>>> library(Biostrings)\n>>>> chromosome<-read.DNAStringSet(\"Chr1_TAIR9.fasta\", \"fasta\")\n>>>> write.XStringSet(chromosome, file=\"/tmp/test.fasta\", format=\"fasta\")\n>>>>\n>>>> Is there a fundamental flaw in my thinking ?\n>>>> Is there an alternative to write.XStringSet() ?\n>>>> This happens both on my laptop and a beefy server.\n>>>>\n>>>> I also tried the (ancient) IRanges_1.0.16 and Biostrings_2.10.22,\n>>>> and get ~11 lines per second.\n>>>>\n>>>> Yours,\n>>>> Steffen\n>>>>\n>>>> 13:06:09.949290 write(4, \"TAGGAGTTGATGAAGACATCTAACGAAAATTC\"..., 80) =\n>>>> 80<0.000137>\n>>>> 13:06:10.138835 write(4, \"GTGCTCAGGCTTCATTGATAAGGAAAGAAACA\"..., 80) =\n>>>> 80<0.000142>\n>>>> 13:06:10.328395 write(4, \"AAAGCAGAAACCGACGTGAAATATTACAGAGA\"..., 80) =\n>>>> 80<0.000133>\n>>>> 13:06:10.537475 write(4, \"AGACTACTCGAGAATCATTGCACTGAAGAAAG\"..., 80) =\n>>>> 80<0.000159>\n>>>> 13:06:10.727281 write(4, \"AAGTGAAAAGAGAAAGAGAATGTGTGATGTGT\"..., 80) =\n>>>> 80<0.000133>\n>>>> 13:06:10.916854 write(4, \"CTTTGCTTTAAATGCAATCAGCTTCACGAGAA\"..., 80) =\n>>>> 80<0.000136>\n>>>> 13:06:11.105687 write(4, \"GATTCAAGCTCGTTTCGCTCGCTCCGGGTGAA\"..., 80) =\n>>>> 80<0.000594>\n>>>>\n>>>> sessionInfo()\n>>>> R version 2.10.0 (2009-10-26)\n>>>> x86_64-unknown-linux-gnu\n>>>>\n>>>> locale:\n>>>>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>>>>   [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>>>>   [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>>>>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>>>>   [9] LC_ADDRESS=C               LC_TELEPHONE=C\n>>>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>>>\n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>>\n>>>> other attached packages:\n>>>> [1] Biostrings_2.14.12 IRanges_1.4.16\n>>>>\n>>>> loaded via a namespace (and not attached):\n>>>> [1] Biobase_2.6.0\n>>>>\n>>>>    \n>>>\n>>>\n>>\n> \n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "On 05/05/2010 02:35 PM, Martin Morgan wrote:\n> On 05/05/2010 02:09 PM, Herv? Pag?s wrote:\n>> Hans-Ulrich Klein wrote:\n>>> Hi,\n>>>\n>>> I have have the same problem. I want to write ~ 4Mio small (25bps)",
+      "thread_id": "thread-c3ceac6377b8",
+      "thread_depth": 3,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-bc8c82970ea5",
+      "message_id": "<4BE27A12.10106@uni-muenster.de>",
+      "from_name": "Hans-Ulrich Klein",
+      "from_email_hash": "f5e3c255ba8c591ba34ebbe9a6c82dcd7b8dc1d03cdc7a1a100a5e6c8cd9cb87",
+      "date": "2010-05-06T08:13:06Z",
+      "subject": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "subject_clean": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "in_reply_to": "<4BE1E6DA.3090400@fhcrc.org>",
+      "references": [
+        "<1271423836.4082.134.camel@paddy>",
+        "<4BE174B4.9090302@uni-muenster.de>",
+        "<4BE1DE87.2040703@fhcrc.org>",
+        "<4BE1E494.3040007@fhcrc.org>",
+        "<4BE1E6DA.3090400@fhcrc.org>"
+      ],
+      "body_plain": "Hi,\n\nYes, that is much faster. Thank you. I will use that for now and for the \nfuture I will hope for Herve's faster implementation of write.XStringSet().\n\nBest,\nHans-Ulrich\n\n\nMartin Morgan wrote:\n> On 05/05/2010 02:35 PM, Martin Morgan wrote:\n>    \n>> On 05/05/2010 02:09 PM, Herv? Pag?s wrote:\n>>      \n>>> Hans-Ulrich Klein wrote:\n>>>        \n>>>> Hi,\n>>>>\n>>>> I have have the same problem. I want to write ~ 4Mio small (25bps)\n>>>> sequences into one fasta file. write.XStringSet() is very slow. Also,\n>>>> writeFASTA() is very low. Only about 1500 sequences are written per\n>>>> minute.\n>>>>          \n>> if 'dna' is a DNAStringSet with names, and for this case where reaads\n>> are<  80 characters, then maybe\n>>\n>>    fasta  = paste(paste(\">\", names(dna), sep=\"\"),\n>>                   as.character(dna), sep=\"\\n\", collapse=\"\\n\")\n>>    fl = tempfile()\n>>    writeLines(fasta, fl)\n>>      \n> or probably better\n>\n>    fasta = character(2 * length(dna))\n>    fasta[c(TRUE, FALSE)] = paste(\">\", names(dna), sep=\"\")\n>    fasta[c(FALSE, TRUE)] = as.character(dna)\n>    writeLines(fasta, fl)\n>\n> Martin\n>\n>    \n>> Martin\n>>\n>>      \n>>> OK, I guess it's time to bite the bullet as they say.\n>>>\n>>> It has been on my TODO list for a long time to implement\n>>> write.XStringSet() in C so I will work on this and let you\n>>> know when it's ready.\n>>>\n>>> Cheers,\n>>> H.\n>>>\n>>>        \n>>>> Are there any alternatives?\n>>>>\n>>>> Best wishes,\n>>>> Hans-Ulrich\n>>>>\n>>>>\n>>>>   >  sessionInfo()\n>>>> R version 2.11.0 RC (2010-04-19 r51778)\n>>>> x86_64-pc-linux-gnu\n>>>>\n>>>> locale:\n>>>> [1] C\n>>>>\n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>>\n>>>> other attached packages:\n>>>> [1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.18-5\n>>>> [4] Biostrings_2.16.0   GenomicRanges_1.0.1 IRanges_1.6.0\n>>>>\n>>>> loaded via a namespace (and not attached):\n>>>> [1] Biobase_2.8.0 grid_2.11.0   hwriter_1.2   tools_2.11.0\n>>>>\n>>>>\n>>>>\n>>>>\n>>>>\n>>>> Steffen Neumann wrote:\n>>>>          \n>>>>> Hi,\n>>>>>\n>>>>> I have some major performance problems writing fasta files\n>>>>> with Biostrings. I have the full Arabidopsis Chr1 (30MByte) in one\n>>>>> DNAString,\n>>>>> and writing that to a file takes ages, as you see from the strace output\n>>>>> below: I obtain ~5 lines (80 chars each) per second. The runtime\n>>>>> of the system call<in brackets>   is neglectible.\n>>>>>\n>>>>> library(Biostrings)\n>>>>> chromosome<-read.DNAStringSet(\"Chr1_TAIR9.fasta\", \"fasta\")\n>>>>> write.XStringSet(chromosome, file=\"/tmp/test.fasta\", format=\"fasta\")\n>>>>>\n>>>>> Is there a fundamental flaw in my thinking ?\n>>>>> Is there an alternative to write.XStringSet() ?\n>>>>> This happens both on my laptop and a beefy server.\n>>>>>\n>>>>> I also tried the (ancient) IRanges_1.0.16 and Biostrings_2.10.22,\n>>>>> and get ~11 lines per second.\n>>>>>\n>>>>> Yours,\n>>>>> Steffen\n>>>>>\n>>>>> 13:06:09.949290 write(4, \"TAGGAGTTGATGAAGACATCTAACGAAAATTC\"..., 80) =\n>>>>> 80<0.000137>\n>>>>> 13:06:10.138835 write(4, \"GTGCTCAGGCTTCATTGATAAGGAAAGAAACA\"..., 80) =\n>>>>> 80<0.000142>\n>>>>> 13:06:10.328395 write(4, \"AAAGCAGAAACCGACGTGAAATATTACAGAGA\"..., 80) =\n>>>>> 80<0.000133>\n>>>>> 13:06:10.537475 write(4, \"AGACTACTCGAGAATCATTGCACTGAAGAAAG\"..., 80) =\n>>>>> 80<0.000159>\n>>>>> 13:06:10.727281 write(4, \"AAGTGAAAAGAGAAAGAGAATGTGTGATGTGT\"..., 80) =\n>>>>> 80<0.000133>\n>>>>> 13:06:10.916854 write(4, \"CTTTGCTTTAAATGCAATCAGCTTCACGAGAA\"..., 80) =\n>>>>> 80<0.000136>\n>>>>> 13:06:11.105687 write(4, \"GATTCAAGCTCGTTTCGCTCGCTCCGGGTGAA\"..., 80) =\n>>>>> 80<0.000594>\n>>>>>\n>>>>> sessionInfo()\n>>>>> R version 2.10.0 (2009-10-26)\n>>>>> x86_64-unknown-linux-gnu\n>>>>>\n>>>>> locale:\n>>>>>    [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>>>>>    [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>>>>>    [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>>>>>    [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>>>>>    [9] LC_ADDRESS=C               LC_TELEPHONE=C\n>>>>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>>>>\n>>>>> attached base packages:\n>>>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>>>\n>>>>> other attached packages:\n>>>>> [1] Biostrings_2.14.12 IRanges_1.4.16\n>>>>>\n>>>>> loaded via a namespace (and not attached):\n>>>>> [1] Biobase_2.6.0\n>>>>>\n>>>>>\n>>>>>            \n>>>>\n>>>>          \n>>>        \n>>\n>>      \n>\n>    \n\n\n-- \nHans-Ulrich Klein\nDepartment of Medical Informatics and Biomathematics\nUniversity of M?nster\nDomagkstrasse 9\n48149 M?nster, Germany\nTel.: +49 (0)251 83-58405",
+      "body_snippet": "Hi,\n\nYes, that is much faster. Thank you. I will use that for now and for the \nfuture I will hope for Herve's faster implementation of write.XStringSet().\n\nBest,\nHans-Ulrich\n\n\nMartin Morgan wrote:\n> O",
+      "thread_id": "thread-c3ceac6377b8",
+      "thread_depth": 4,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-4fc91b514154",
+      "message_id": "<4BF28FD6.4070207@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-05-18T13:02:14Z",
+      "subject": "[Bioc-sig-seq] BioC 2010 Afternoon Practical Proposals",
+      "subject_clean": "[Bioc-sig-seq] BioC 2010 Afternoon Practical Proposals",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "BioC 2010 is July 29 / 30 (developer day July 28). Take this opportunity\nto register today, at\n\n  https://secure.bioconductor.org/BioC2010/\n\nWant to promote your package(s), gain user feedback, and contribute to\nthe success of others working in similar research areas? Consider\ncontributing a 2 hour afternoon practical\n\n  https://secure.bioconductor.org/BioC2010/lab_submit.php\n\nThe deadline for practical submission is May 31. Uncertain whether your\nproposal is appropriate? Feel free to contact me directly for guidance.\n\nSee you in Seattle!\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "BioC 2010 is July 29 / 30 (developer day July 28). Take this opportunity\nto register today, at\n\n  https://secure.bioconductor.org/BioC2010/\n\nWant to promote your package(s), gain user feedback, and co",
+      "thread_id": "thread-4fc91b514154",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-2f37895b6d6f",
+      "message_id": "<00E8FD36-0582-4412-A634-DF6B73EC5881@gmail.com>",
+      "from_name": "Xuekui Zhang",
+      "from_email_hash": "7adbccdfbf4a552bbc316e3dc9a9d5e89f984f28a8a258a88fe2c0e6e68ee845",
+      "date": "2010-05-18T18:55:07Z",
+      "subject": "[Bioc-sig-seq] Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?",
+      "subject_clean": "[Bioc-sig-seq] Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100518/149286dd/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100518/149286dd/attachment.pl>",
+      "thread_id": "thread-2f37895b6d6f",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-e0d6c0408963",
+      "message_id": "<4BF2F151.90700@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-05-18T19:58:09Z",
+      "subject": "[Bioc-sig-seq] Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?",
+      "subject_clean": "[Bioc-sig-seq] Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?",
+      "in_reply_to": "<00E8FD36-0582-4412-A634-DF6B73EC5881@gmail.com>",
+      "references": [
+        "<00E8FD36-0582-4412-A634-DF6B73EC5881@gmail.com>"
+      ],
+      "body_plain": "On 05/18/2010 11:55 AM, Xuekui Zhang wrote:\n> Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?\n\nChIPseqR is one package explicitly mentioning nucleosome positioning --\n\n  http://bioconductor.org/packages/release/bioc/html/ChIPseqR.html\n\nother packages in the ChIPseq biocViews might be appropriate\n\n  http://bioconductor.org/packages/release/ChIPseq.html\n\nMartin\n\n> \n> Thanks,\n> Xuekui\n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "On 05/18/2010 11:55 AM, Xuekui Zhang wrote:\n> Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?\n\nChIPseqR is one package explicitly mentioning nucleosome positioning",
+      "thread_id": "thread-2f37895b6d6f",
+      "thread_depth": 1,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-3b81a4e12ad4",
+      "message_id": "<C81B10CA.2B2D%julie.zhu@umassmed.edu>",
+      "from_name": "Zhu, Julie",
+      "from_email_hash": "586a1cc121daa6c710a09ab5e98a06366851a60afc8b50ff208bd88dadc78533",
+      "date": "2010-05-20T23:16:10Z",
+      "subject": "[Bioc-sig-seq] RangedData::findOverlaps feature request",
+      "subject_clean": "[Bioc-sig-seq] RangedData::findOverlaps feature request",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi Patrick,\n\nThank you very much for explaining to me the rational for replacing the\nparameter multiple with select.\n\nAs we discussed today, it would be great if the seclect parameter of\nfindOverlaps can have an option for selecting the one with the most overlap,\nand overlap >= a specified % such as overlap >=50%.\n\nThank you very much for all your helps!\n\nBest regards,\n\nJulie\n\n\n*******************************************\nLihua Julie Zhu, Ph.D\nResearch Associate Professor\nProgram in Gene Function and Expression\nUniversity of Massachusetts Medical School\n364 Plantation Street, Room 613\nWorcester, MA 01605\n508-856-5256\nhttp://www.umassmed.edu/pgfe/faculty/zhu.cfm",
+      "body_snippet": "Hi Patrick,\n\nThank you very much for explaining to me the rational for replacing the\nparameter multiple with select.\n\nAs we discussed today, it would be great if the seclect parameter of\nfindOverlaps ",
+      "thread_id": "thread-3b81a4e12ad4",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-1d86671f3f26",
+      "message_id": "<52002353-C21A-4C7B-B69E-34EA0BEC3D19@ircm.qc.ca>",
+      "from_name": "Gottardo Raphaël",
+      "from_email_hash": "62f61f061c55e65ef2bff6561462f5722d8ba8016c37392b325e1c6e05d4b756",
+      "date": "2010-05-21T13:06:46Z",
+      "subject": "[Bioc-sig-seq] MapProfileShort data error?",
+      "subject_clean": "[Bioc-sig-seq] MapProfileShort data error?",
+      "in_reply_to": "<31FB2AA8DCE3D941B9B6C574D8BF156D0474E63D@SQNMEP2.sequenom.com>",
+      "references": [
+        "<31FB2AA8DCE3D941B9B6C574D8BF156D0474E63D@SQNMEP2.sequenom.com>"
+      ],
+      "body_plain": "MapProfileShort is just a toy like example, it's actually a small part of a real mappability profile.\nWe had to make it smaller for the package, so what you are reporting is probably normal.\nWe are in the process of generating mappability profiles for a bunch of genomes, everything will be posted on our wiki (wiki.rglab.org<http://wiki.rglab.org>).\n\n\n\nOn 2010-05-20, at 10:32 PM, Tim Lu wrote:\n\nDear Raphael Gottardo,\n\n   I happened to come across your recent manuscript ?PICS ? Probabilistic Inference for ChIPseq? and downloaded the R package and data accompanying the paper. Looking at the data in the MapProfileShort file, I noticed that the regions for chr13, chr14, chr15, chr21 and chr22 were identical. I am not sure if this is deliberate or not, I suspect that there may be an error in this file. I thought I would alert you to this potential problem before your paper comes out in Biometrics (congratulations by the way).\n\n   Best wishes, Tim Lu\n\n\nTHIS EMAIL MESSAGE IS FOR THE SOLE USE OF THE INTENDED RECIPIENT(S) AND MAY CONTAIN CONFIDENTIAL INFORMATION. ANY UNAUTHORIZED REVIEW, USE, DISCLOSURE OR DISTRIBUTION IS PROHIBITED. IF YOU ARE NOT THE INTENDED RECIPIENT, PLEASE CONTACT THE SENDER BY REPLY EMAIL AND DESTROY ALL COPIES OF THE ORIGINAL MESSAGE.",
+      "body_snippet": "MapProfileShort is just a toy like example, it's actually a small part of a real mappability profile.\nWe had to make it smaller for the package, so what you are reporting is probably normal.\nWe are in",
+      "thread_id": "thread-1d86671f3f26",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-6f2e08a74916",
+      "message_id": "<4BFA78FF.8000702@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-05-24T13:02:55Z",
+      "subject": "[Bioc-sig-seq] REVISED BioC 2010 Scholarship Application due date",
+      "subject_clean": "[Bioc-sig-seq] REVISED BioC 2010 Scholarship Application due date",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The BioC2010 Scholarship Application due date has been revised to June\n15; please accept our apologies for any inconvenience this may cause.\n\nSee\n\n  https://secure.bioconductor.org/BioC2010/\n\nfor more conference information.\n\nBest,\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "The BioC2010 Scholarship Application due date has been revised to June\n15; please accept our apologies for any inconvenience this may cause.\n\nSee\n\n  https://secure.bioconductor.org/BioC2010/\n\nfor more",
+      "thread_id": "thread-6f2e08a74916",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-5ed0ebe9738a",
+      "message_id": "<AANLkTin_Yp-Ad0EnppAQYIr6Ouq00-LF31YKp69Y5Rrs@mail.gmail.com>",
+      "from_name": "Andrew Yee",
+      "from_email_hash": "743798a349ea45dc2d5bd70c72aaefe50690db4e841359de0eac0c7d38f03d9f",
+      "date": "2010-05-26T15:25:01Z",
+      "subject": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "subject_clean": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/b9d56571/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/b9d56571/attachment.pl>",
+      "thread_id": "thread-5ed0ebe9738a",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-35886e2de54d",
+      "message_id": "<AANLkTinmMkHyxvzEYQYpQqaXH5HgCCAQqitGJz7LIoux@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-05-26T18:32:52Z",
+      "subject": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "subject_clean": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "in_reply_to": "<AANLkTin_Yp-Ad0EnppAQYIr6Ouq00-LF31YKp69Y5Rrs@mail.gmail.com>",
+      "references": [
+        "<AANLkTin_Yp-Ad0EnppAQYIr6Ouq00-LF31YKp69Y5Rrs@mail.gmail.com>"
+      ],
+      "body_plain": "Hi,\n\nOn Wed, May 26, 2010 at 11:25 AM, Andrew Yee <yee at post.harvard.edu> wrote:\n> I'm a complete novice in Biostrings and am starting to learn about\n> DNAStringSet. ?I was wondering how do you do a subseq operation on just one\n> of the DNAStrings in the set.\n>\n> library('Biostrings')\n>\n> a <- DNAStringSet('TTGGAACT')\n> subseq(a, start=2, end=3) <- NULL # works fine\n>\n>\n> x <- c(DNAStringSet('TTGGAACT'), DNAStringSet('AAGGTT'))\n> names(x) <- c('a', 'b')\n>\n> # now I'm interested in doing this operation on just the a string and not b\n>\n> subseq(x[['a']], start=2, end=3) <- NULL # doesn't work\n>\n> a1 <- x[['a']]\n> subseq(a1, start=2, end=3) <- NULL # does work\n>\n> Welcome any thoughts or suggestions!\n\nIt looks like the \"subseq(SOMETHING)<-\" assignment will work when that\nSOMETHING is a DNAStringSet.\n\nYou can use single-bracket indexing to return a DNAStringSet of length\n1 and subseq into that, eg:\n\nR> x <- DNAStringSet(c('TTGGAACT', 'AAGGTT'))\nR> x\n  A DNAStringSet instance of length 2\n    width seq\n[1]     8 TTGGAACT\n[2]     6 AAGGTT\n\nR> is(x[[1]])\n[1] \"DNAString\" \"XString\"   \"XRaw\"      \"XVector\"   \"Sequence\"  \"Annotated\"\n\nR> is(x[1])\n[1] \"DNAStringSet\" \"XStringSet\"   \"XRawList\"     \"XVectorList\"\n\"Sequence\"     \"Annotated\"\n\n## assigning `<-` into a DNAString in *this* context will fail\nR> subseq(x[1], 2, 3) <- NULL\nError in `[[<-`(`*tmp*`, 1, value = <S4 object of class \"DNAString\">) :\n  no method for assigning subsets of this S4 class\n\n## But assigning `<-` into a DNAStringSet here will work\n\nR> subseq(x[1], 2, 3) <- NULL\nR> x\n  A DNAStringSet instance of length 2\n    width seq\n[1]     6 TGAACT\n[2]     6 AAGGTT\n\nAlso note that x['a'] doesn't work, so you have to use the index of\nthe elements you want to select for subseq.\n\nI reckon you can use this approach for now to do what you want until\none of the guru's can comment on why it's working (or not) like this\nin this context.\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n | Memorial Sloan-Kettering Cancer Center\n | Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Wed, May 26, 2010 at 11:25 AM, Andrew Yee <yee at post.harvard.edu> wrote:\n> I'm a complete novice in Biostrings and am starting to learn about\n> DNAStringSet. ?I was wondering how do you do a",
+      "thread_id": "thread-5ed0ebe9738a",
+      "thread_depth": 1,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-190c7076e170",
+      "message_id": "<AANLkTil9NibbPsSOfC6afC96rRoRjP2ZGzhNQpAvto11@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-05-26T18:35:06Z",
+      "subject": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "subject_clean": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "in_reply_to": "<AANLkTinmMkHyxvzEYQYpQqaXH5HgCCAQqitGJz7LIoux@mail.gmail.com>",
+      "references": [
+        "<AANLkTin_Yp-Ad0EnppAQYIr6Ouq00-LF31YKp69Y5Rrs@mail.gmail.com>",
+        "<AANLkTinmMkHyxvzEYQYpQqaXH5HgCCAQqitGJz7LIoux@mail.gmail.com>"
+      ],
+      "body_plain": "Woops, small type in my example:\n\n## assigning `<-` into a DNAString in *this* context will fail\nR> subseq(x[1], 2, 3) <- NULL\nError in `[[<-`(`*tmp*`, 1, value = <S4 object of class \"DNAString\">) :\n?no method for assigning subsets of this S4 class\n\nShould have been:\nR> subseq(x[[1]], 2, 3) <- NULL\n\nNot sure how that slipped through like that, sorry.\n\nBtw:\n\nsessionInfo()\nR version 2.11.0 Patched (2010-05-05 r51909)\nx86_64-apple-darwin9.8.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices datasets  utils     methods   base\n\nother attached packages:\n[1] Biostrings_2.16.0 IRanges_1.7.1\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n | Memorial Sloan-Kettering Cancer Center\n | Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Woops, small type in my example:\n\n## assigning `<-` into a DNAString in *this* context will fail\nR> subseq(x[1], 2, 3) <- NULL\nError in `[[<-`(`*tmp*`, 1, value = <S4 object of class \"DNAString\">) :\n?",
+      "thread_id": "thread-5ed0ebe9738a",
+      "thread_depth": 2,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-95bd696129e7",
+      "message_id": "<AANLkTinsthLcKzgw4kEOnY5svH8FPkLMT99ZqBN3qnQY@mail.gmail.com>",
+      "from_name": "Andrew Yee",
+      "from_email_hash": "743798a349ea45dc2d5bd70c72aaefe50690db4e841359de0eac0c7d38f03d9f",
+      "date": "2010-05-26T19:33:40Z",
+      "subject": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "subject_clean": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "in_reply_to": "<AANLkTil9NibbPsSOfC6afC96rRoRjP2ZGzhNQpAvto11@mail.gmail.com>",
+      "references": [
+        "<AANLkTin_Yp-Ad0EnppAQYIr6Ouq00-LF31YKp69Y5Rrs@mail.gmail.com>",
+        "<AANLkTinmMkHyxvzEYQYpQqaXH5HgCCAQqitGJz7LIoux@mail.gmail.com>",
+        "<AANLkTil9NibbPsSOfC6afC96rRoRjP2ZGzhNQpAvto11@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/da4a6f93/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/da4a6f93/attachment.pl>",
+      "thread_id": "thread-5ed0ebe9738a",
+      "thread_depth": 3,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-ddeb02202c3d",
+      "message_id": "<4BFE8000.6020507@uni-muenster.de>",
+      "from_name": "Hans-Ulrich Klein",
+      "from_email_hash": "f5e3c255ba8c591ba34ebbe9a6c82dcd7b8dc1d03cdc7a1a100a5e6c8cd9cb87",
+      "date": "2010-05-27T14:21:52Z",
+      "subject": "[Bioc-sig-seq] size of DNAString object",
+      "subject_clean": "[Bioc-sig-seq] size of DNAString object",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\nI observed that some DNAStrings (and also DNAStringSets) objects are to \nlarge after subsetting:\n\n > library(\"Rsamtools\")\n > parameters = ScanBamParam()\n > bam = scanBam(\"data/N01.bam\", param=parameters)\n > ss = bam[[1]]$seq\n > ss\n   A DNAStringSet instance of length 230980\n   [...]\n > print(object.size(ss), units=\"Mb\")\n83.3 Mb\n > dnaS = ss[[5]]\n > dnaS\n   128-letter \"DNAString\" instance\nseq: \nTAGCGTGGATACAGAGGGACATCTATTGACCAGCTA...AAAGTTGTGCTTTATTTGATGAATAAGTATTGAACA\n > print(object.size(dnaS), units=\"Mb\")\n80.7 Mb\n > print(object.size(as.character(dnaS)), units=\"Kb\")\n0.2 Kb\n\nWhen I write the 128-letter DNAString to disk, it remains quite large (~ \n20Mb).\n\nBest wishes,\nHans-Ulrich\n\n\n\n\n > sessionInfo()\nR version 2.11.0 (2010-04-22)\nx86_64-pc-linux-gnu\n\nlocale:\n[1] C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] Rsamtools_1.0.1     Biostrings_2.16.2   GenomicRanges_1.0.1\n[4] IRanges_1.6.4\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0\n\n\n-- \nHans-Ulrich Klein\nDepartment of Medical Informatics and Biomathematics\nUniversity of M?nster\nDomagkstrasse 9\n48149 M?nster, Germany\nTel.: +49 (0)251 83-58405",
+      "body_snippet": "Hi all,\n\nI observed that some DNAStrings (and also DNAStringSets) objects are to \nlarge after subsetting:\n\n > library(\"Rsamtools\")\n > parameters = ScanBamParam()\n > bam = scanBam(\"data/N01.bam\", param",
+      "thread_id": "thread-ddeb02202c3d",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-4f6a3255e533",
+      "message_id": "<AANLkTilSZ2e7VSjYtJKsx7qW6il4qFA23EFhWmgk2n8s@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2010-05-27T14:53:50Z",
+      "subject": "[Bioc-sig-seq] size of DNAString object",
+      "subject_clean": "[Bioc-sig-seq] size of DNAString object",
+      "in_reply_to": "<4BFE8000.6020507@uni-muenster.de>",
+      "references": [
+        "<4BFE8000.6020507@uni-muenster.de>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100527/883502e3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100527/883502e3/attachment.pl>",
+      "thread_id": "thread-ddeb02202c3d",
+      "thread_depth": 1,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-aad23e400603",
+      "message_id": "<4BFE917E.1060406@uni-muenster.de>",
+      "from_name": "Hans-Ulrich Klein",
+      "from_email_hash": "f5e3c255ba8c591ba34ebbe9a6c82dcd7b8dc1d03cdc7a1a100a5e6c8cd9cb87",
+      "date": "2010-05-27T15:36:30Z",
+      "subject": "[Bioc-sig-seq] size of DNAString object",
+      "subject_clean": "[Bioc-sig-seq] size of DNAString object",
+      "in_reply_to": "<AANLkTilSZ2e7VSjYtJKsx7qW6il4qFA23EFhWmgk2n8s@mail.gmail.com>",
+      "references": [
+        "<4BFE8000.6020507@uni-muenster.de>",
+        "<AANLkTilSZ2e7VSjYtJKsx7qW6il4qFA23EFhWmgk2n8s@mail.gmail.com>"
+      ],
+      "body_plain": "Thank you! That helped me a lot.\n\nA further question: Is there any way to access the complete DNAStringSet \n\"dnaS\" after I removed it using the rm() function? If not, keeping the \ncomplete DNAStringSet in memory does not make much sense to me.\n\nThank you,\nHans-Ulrich\n\n\n\nVincent Carey wrote:\n> see the information on compact() method in XStringSet-class          \n> package:Biostrings           R Documentation\n>\n> to rationalize this you need to think about the difference between a \n> view and a concrete instance.  typically you do not want a copy to be \n> made on each view\n>\n> On Thu, May 27, 2010 at 10:21 AM, Hans-Ulrich Klein \n> <h.klein at uni-muenster.de <mailto:h.klein at uni-muenster.de>> wrote:\n>\n>     Hi all,\n>\n>     I observed that some DNAStrings (and also DNAStringSets) objects\n>     are to large after subsetting:\n>\n>     > library(\"Rsamtools\")\n>     > parameters = ScanBamParam()\n>     > bam = scanBam(\"data/N01.bam\", param=parameters)\n>     > ss = bam[[1]]$seq\n>     > ss\n>      A DNAStringSet instance of length 230980\n>      [...]\n>     > print(object.size(ss), units=\"Mb\")\n>     83.3 Mb\n>     > dnaS = ss[[5]]\n>     > dnaS\n>      128-letter \"DNAString\" instance\n>     seq:\n>     TAGCGTGGATACAGAGGGACATCTATTGACCAGCTA...AAAGTTGTGCTTTATTTGATGAATAAGTATTGAACA\n>     > print(object.size(dnaS), units=\"Mb\")\n>     80.7 Mb\n>     > print(object.size(as.character(dnaS)), units=\"Kb\")\n>     0.2 Kb\n>\n>     When I write the 128-letter DNAString to disk, it remains quite\n>     large (~ 20Mb).\n>\n>     Best wishes,\n>     Hans-Ulrich\n>\n>\n>\n>\n>     > sessionInfo()\n>     R version 2.11.0 (2010-04-22)\n>     x86_64-pc-linux-gnu\n>\n>     locale:\n>     [1] C\n>\n>     attached base packages:\n>     [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n>     other attached packages:\n>     [1] Rsamtools_1.0.1     Biostrings_2.16.2   GenomicRanges_1.0.1\n>     [4] IRanges_1.6.4\n>\n>     loaded via a namespace (and not attached):\n>     [1] Biobase_2.8.0\n>\n>\n>     -- \n>     Hans-Ulrich Klein\n>     Department of Medical Informatics and Biomathematics\n>     University of M?nster\n>     Domagkstrasse 9\n>     48149 M?nster, Germany\n>     Tel.: +49 (0)251 83-58405\n>\n>     _______________________________________________\n>     Bioc-sig-sequencing mailing list\n>     Bioc-sig-sequencing at r-project.org\n>     <mailto:Bioc-sig-sequencing at r-project.org>\n>     https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n\n\n-- \nHans-Ulrich Klein\nDepartment of Medical Informatics and Biomathematics\nUniversity of M?nster\nDomagkstrasse 9\n48149 M?nster, Germany\nTel.: +49 (0)251 83-58405",
+      "body_snippet": "Thank you! That helped me a lot.\n\nA further question: Is there any way to access the complete DNAStringSet \n\"dnaS\" after I removed it using the rm() function? If not, keeping the \ncomplete DNAStringSe",
+      "thread_id": "thread-ddeb02202c3d",
+      "thread_depth": 2,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-5ba733a31943",
+      "message_id": "<4BFEB9E1.06F1.00BB.1@med.umich.edu>",
+      "from_name": "Craig Johnson",
+      "from_email_hash": "8b963fe3b51fb0376b3f362f830c28dd21950e36263a26abc7fcf79576706de9",
+      "date": "2010-05-27T22:29:15Z",
+      "subject": "[Bioc-sig-seq] readBamGappedAlignments() cigar error",
+      "subject_clean": "[Bioc-sig-seq] readBamGappedAlignments() cigar error",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have two BAM files generated from ABI's Bioscope aligner that I want to import using readBamGappedAlignments(). One of the files imports without issue but the second gives me this error:\n\nError in cigarToIRangesListByAlignment(x at cigar, x at start) : \n  in 'cigar' element 3315124: invalid CIGAR operation length at char 5\n\nThe cigar at line 3315124 of the SAM file is 9M0N32M9H\n\nCan anyone suggest what causes this error? I have reads earlier in the SAM/BAM file that have 'ON' in them so even though I don't know what 'ON' means that doesn't seem to be the issue. \n\n> sessionInfo()\nR version 2.11.0 (2010-04-22) \nx86_64-unknown-linux-gnu \n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    \n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   \n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       \n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n [1] org.Hs.eg.db_2.4.1    RSQLite_0.9-0         DBI_0.2-5            \n [4] AnnotationDbi_1.10.1  Biobase_2.8.0         rtracklayer_1.8.1    \n [7] RCurl_1.4-2           bitops_1.0-4.1        GenomicFeatures_1.0.0\n[10] Rsamtools_1.0.1       Biostrings_2.16.0     GenomicRanges_1.0.1  \n[13] IRanges_1.6.2        \n\nloaded via a namespace (and not attached):\n[1] biomaRt_2.4.0   BSgenome_1.16.1 tools_2.11.0    XML_3.1-0     \n\nThank you,\nCraig\n\n**********************************************************\nElectronic Mail is not secure, may not be read every day, and should not be used for urgent or sensitive issues",
+      "body_snippet": "I have two BAM files generated from ABI's Bioscope aligner that I want to import using readBamGappedAlignments(). One of the files imports without issue but the second gives me this error:\n\nError in c",
+      "thread_id": "thread-5ba733a31943",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-caeb8e735544",
+      "message_id": "<20100531111536.BGW17964@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-05-31T01:15:36Z",
+      "subject": "[Bioc-sig-seq] RangedData Ordering",
+      "subject_clean": "[Bioc-sig-seq] RangedData Ordering",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI'd like to keep my RangedData object in the same order as I constructed it. I can't find any options in the documentation about this. Anyone know how to do this ?\n\ne.g. \n\n> peaksRangedData <- RangedData(space = c(\"chr1\", \"chr2\", \"chr3\", \"chr20\"), ranges = IRanges(start = c(1000, 2000, 3000, 4000), end =  c(5000, 6000, 7000, 8000)))\n> peaksRangedData\nRangedData with 4 rows and 0 value columns across 4 spaces\n        space       ranges |\n  <character>    <IRanges> |\n1        chr1 [1000, 5000] |\n2        chr2 [2000, 6000] |\n3       chr20 [4000, 8000] |\n4        chr3 [3000, 7000] |\n\ni. e. The object was automatically sorted based on the ASCII ordering of 'space'.\n\nCan this be done ?\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Hello,\n\nI'd like to keep my RangedData object in the same order as I constructed it. I can't find any options in the documentation about this. Anyone know how to do this ?\n\ne.g. \n\n> peaksRangedData <-",
+      "thread_id": "thread-caeb8e735544",
+      "thread_depth": 0,
+      "month": "2010-05"
+    },
+    {
+      "id": "msg-a8ed5410a2d3",
+      "message_id": "<AANLkTikYksbGuv9ZpL0Q9bFqPYH3HP4XmxZ_fjXVLMjl@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-05-31T01:25:33Z",
+      "subject": "[Bioc-sig-seq] RangedData Ordering",
+      "subject_clean": "[Bioc-sig-seq] RangedData Ordering",
+      "in_reply_to": "<20100531111536.BGW17964@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20100531111536.BGW17964@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100530/399a5adb/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100530/399a5adb/attachment.pl>",
+      "thread_id": "thread-caeb8e735544",
+      "thread_depth": 1,
+      "month": "2010-05"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-946bd6d9f462",
+      "subject": "[Bioc-sig-seq] microarray to RNA-Seq",
+      "message_count": 3,
+      "participants": [
+        "Alper Yilmaz",
+        "Wolfgang Huber"
+      ],
+      "started": "2010-05-02T15:28:30Z",
+      "last_reply": "2010-05-02T21:43:25Z",
+      "root_message_id": "msg-946bd6d9f462"
+    },
+    {
+      "id": "thread-6febdbcc3757",
+      "subject": "[Bioc-sig-seq] quantile normalization for RNA-seq",
+      "message_count": 1,
+      "participants": [
+        "Kunbin Qu"
+      ],
+      "started": "2010-05-03T21:24:40Z",
+      "last_reply": "2010-05-03T21:24:40Z",
+      "root_message_id": "msg-6febdbcc3757"
+    },
+    {
+      "id": "thread-706b74680caf",
+      "subject": "[Bioc-sig-seq]  microarray to RNA-Seq",
+      "message_count": 1,
+      "participants": [
+        "Gordon K Smyth"
+      ],
+      "started": "2010-05-03T23:25:50Z",
+      "last_reply": "2010-05-03T23:25:50Z",
+      "root_message_id": "msg-706b74680caf"
+    },
+    {
+      "id": "thread-f94ae566fb85",
+      "subject": "[Bioc-sig-seq] News about PICS/rGADEM/MotIV",
+      "message_count": 1,
+      "participants": [
+        "Droit Arnaud"
+      ],
+      "started": "2010-05-04T13:52:05Z",
+      "last_reply": "2010-05-04T13:52:05Z",
+      "root_message_id": "msg-f94ae566fb85"
+    },
+    {
+      "id": "thread-c3ceac6377b8",
+      "subject": "[Bioc-sig-seq] write.XStringSet() terribly slow",
+      "message_count": 5,
+      "participants": [
+        "Hans-Ulrich Klein",
+        "Hervé Pagès",
+        "Martin Morgan"
+      ],
+      "started": "2010-05-05T13:37:56Z",
+      "last_reply": "2010-05-06T08:13:06Z",
+      "root_message_id": "msg-c3ceac6377b8"
+    },
+    {
+      "id": "thread-4fc91b514154",
+      "subject": "[Bioc-sig-seq] BioC 2010 Afternoon Practical Proposals",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2010-05-18T13:02:14Z",
+      "last_reply": "2010-05-18T13:02:14Z",
+      "root_message_id": "msg-4fc91b514154"
+    },
+    {
+      "id": "thread-2f37895b6d6f",
+      "subject": "[Bioc-sig-seq] Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?",
+      "message_count": 2,
+      "participants": [
+        "Martin Morgan",
+        "Xuekui Zhang"
+      ],
+      "started": "2010-05-18T18:55:07Z",
+      "last_reply": "2010-05-18T19:58:09Z",
+      "root_message_id": "msg-2f37895b6d6f"
+    },
+    {
+      "id": "thread-3b81a4e12ad4",
+      "subject": "[Bioc-sig-seq] RangedData::findOverlaps feature request",
+      "message_count": 1,
+      "participants": [
+        "Zhu, Julie"
+      ],
+      "started": "2010-05-20T23:16:10Z",
+      "last_reply": "2010-05-20T23:16:10Z",
+      "root_message_id": "msg-3b81a4e12ad4"
+    },
+    {
+      "id": "thread-1d86671f3f26",
+      "subject": "[Bioc-sig-seq] MapProfileShort data error?",
+      "message_count": 1,
+      "participants": [
+        "Gottardo Raphaël"
+      ],
+      "started": "2010-05-21T13:06:46Z",
+      "last_reply": "2010-05-21T13:06:46Z",
+      "root_message_id": "msg-1d86671f3f26"
+    },
+    {
+      "id": "thread-6f2e08a74916",
+      "subject": "[Bioc-sig-seq] REVISED BioC 2010 Scholarship Application due date",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2010-05-24T13:02:55Z",
+      "last_reply": "2010-05-24T13:02:55Z",
+      "root_message_id": "msg-6f2e08a74916"
+    },
+    {
+      "id": "thread-5ed0ebe9738a",
+      "subject": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
+      "message_count": 4,
+      "participants": [
+        "Andrew Yee",
+        "Steve Lianoglou"
+      ],
+      "started": "2010-05-26T15:25:01Z",
+      "last_reply": "2010-05-26T19:33:40Z",
+      "root_message_id": "msg-5ed0ebe9738a"
+    },
+    {
+      "id": "thread-ddeb02202c3d",
+      "subject": "[Bioc-sig-seq] size of DNAString object",
+      "message_count": 3,
+      "participants": [
+        "Hans-Ulrich Klein",
+        "Vincent Carey"
+      ],
+      "started": "2010-05-27T14:21:52Z",
+      "last_reply": "2010-05-27T15:36:30Z",
+      "root_message_id": "msg-ddeb02202c3d"
+    },
+    {
+      "id": "thread-5ba733a31943",
+      "subject": "[Bioc-sig-seq] readBamGappedAlignments() cigar error",
+      "message_count": 1,
+      "participants": [
+        "Craig Johnson"
+      ],
+      "started": "2010-05-27T22:29:15Z",
+      "last_reply": "2010-05-27T22:29:15Z",
+      "root_message_id": "msg-5ba733a31943"
+    },
+    {
+      "id": "thread-caeb8e735544",
+      "subject": "[Bioc-sig-seq] RangedData Ordering",
+      "message_count": 2,
+      "participants": [
+        "Dario Strbenac",
+        "Michael Lawrence"
+      ],
+      "started": "2010-05-31T01:15:36Z",
+      "last_reply": "2010-05-31T01:25:33Z",
+      "root_message_id": "msg-caeb8e735544"
+    }
+  ]
+}

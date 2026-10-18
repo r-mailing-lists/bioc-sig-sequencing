@@ -1,0 +1,1536 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2010-10",
+  "messages": [
+    {
+      "id": "msg-a90eea898072",
+      "message_id": "<AANLkTinhSun8wFGr92nyDzxK2O4CzqBSQOuxAjpfj68D@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-10-01T13:38:21Z",
+      "subject": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "subject_clean": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "in_reply_to": "<AANLkTi=AO1RF5UPtfHGVM9v4R==fd0gEGnxwH=2KStaO@mail.gmail.com>",
+      "references": [
+        "<AANLkTimcv7SBVqyazCMDfseNkHR6B0MO=9n2Ob6PER=h@mail.gmail.com>",
+        "<AANLkTi=AO1RF5UPtfHGVM9v4R==fd0gEGnxwH=2KStaO@mail.gmail.com>"
+      ],
+      "body_plain": "This sounds like a serious increase in computing efficiency.\n\nCan somebody update the pertinent documentation to include an example\nusing this strategy?\n\nThank you,\n\nIvan\n\n\n\nOn Fri, Oct 1, 2010 at 12:05 AM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n> One easy way to get something like this:\n>\n> rangesList <- seqapply(as(gr, \"RangesList\"), IntervalTree)\n>\n> Then you'll have a RangesList of IntervalTree objects for range queries.\n>\n> Might need latest IRanges svn for this to work reliably (problem with\n> subsetting IRanges with metadata).\n>\n> On Thu, Sep 30, 2010 at 6:48 PM, Kasper Daniel Hansen <\n> kasperdanielhansen at gmail.com> wrote:\n>\n>> I would like to see 'IntervalTrees for GRanges'. ?Specifically, if I\n>> am repeatedly doing findOverlaps lookups on a big GRanges, I want to\n>> be able to store the IntervalTrees that (right now?) gets computed\n>> each time.\n>>\n>> This may of course already exist, in which case I would be satisfied\n>> with a pointer :)\n>>\n>> Thanks,\n>> Kasper\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n> ? ? ? ?[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "This sounds like a serious increase in computing efficiency.\n\nCan somebody update the pertinent documentation to include an example\nusing this strategy?\n\nThank you,\n\nIvan\n\n\n\nOn Fri, Oct 1, 2010 at 12:",
+      "thread_id": "thread-a90eea898072",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-0fddac10216c",
+      "message_id": "<AANLkTinavDJ3dK-pycNrWBx=Wey6jE8=WpdUc+RFVrkk@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "b2b45a5f3ad330d8561a4711d1f95ff6a445243a303a83a7a709685fab3e068c",
+      "date": "2010-10-01T13:58:30Z",
+      "subject": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "subject_clean": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "in_reply_to": "<AANLkTi=AO1RF5UPtfHGVM9v4R==fd0gEGnxwH=2KStaO@mail.gmail.com>",
+      "references": [
+        "<AANLkTimcv7SBVqyazCMDfseNkHR6B0MO=9n2Ob6PER=h@mail.gmail.com>",
+        "<AANLkTi=AO1RF5UPtfHGVM9v4R==fd0gEGnxwH=2KStaO@mail.gmail.com>"
+      ],
+      "body_plain": "Seems like the required changes hasn't yet been pushed from svn to the builds.\n\nI do have one possible caveat: it is not clear to me how this would\nwork when the GRanges is not sorted by chromosome as I get\n\n> gr1\nGRanges with 3 ranges and 0 elementMetadata values\n    seqnames    ranges strand |\n       <Rle> <IRanges>  <Rle> |\n[1]     chr1    [1, 3]      * |\n[2]     chr2    [2, 4]      * |\n[3]     chr1    [6, 8]      * |\n\nseqlengths\n chr1 chr2\n   NA   NA\n> as(gr1, \"RangesList\")\nCompressedIRangesList of length 2\n$chr1\nIRanges of length 2\n    start end width\n[1]     1   3     3\n[2]     6   8     3\n\n$chr2\nIRanges of length 1\n    start end width\n[1]     2   4     3\n\nWhen I go back to the original GRanges I will need to interweave the\nresults from the RangesList.\n\nOf course, being able to do IntervalTrees directly on GRanges will\nalso be very convenient.\n\nKasper\n\n\nOn Fri, Oct 1, 2010 at 12:05 AM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n> One easy way to get something like this:\n>\n> rangesList <- seqapply(as(gr, \"RangesList\"), IntervalTree)\n>\n> Then you'll have a RangesList of IntervalTree objects for range queries.\n>\n> Might need latest IRanges svn for this to work reliably (problem with\n> subsetting IRanges with metadata).\n>\n> On Thu, Sep 30, 2010 at 6:48 PM, Kasper Daniel Hansen\n> <kasperdanielhansen at gmail.com> wrote:\n>>\n>> I would like to see 'IntervalTrees for GRanges'. ?Specifically, if I\n>> am repeatedly doing findOverlaps lookups on a big GRanges, I want to\n>> be able to store the IntervalTrees that (right now?) gets computed\n>> each time.\n>>\n>> This may of course already exist, in which case I would be satisfied\n>> with a pointer :)\n>>\n>> Thanks,\n>> Kasper\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>",
+      "body_snippet": "Seems like the required changes hasn't yet been pushed from svn to the builds.\n\nI do have one possible caveat: it is not clear to me how this would\nwork when the GRanges is not sorted by chromosome as",
+      "thread_id": "thread-0fddac10216c",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-a084a5947f9b",
+      "message_id": "<AANLkTintmhYsDwRhYDXjuXVN_BpBouug=sGYbxOoMtqD@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-01T14:05:03Z",
+      "subject": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "subject_clean": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "in_reply_to": "<AANLkTinavDJ3dK-pycNrWBx=Wey6jE8=WpdUc+RFVrkk@mail.gmail.com>",
+      "references": [
+        "<AANLkTimcv7SBVqyazCMDfseNkHR6B0MO=9n2Ob6PER=h@mail.gmail.com>",
+        "<AANLkTi=AO1RF5UPtfHGVM9v4R==fd0gEGnxwH=2KStaO@mail.gmail.com>",
+        "<AANLkTinavDJ3dK-pycNrWBx=Wey6jE8=WpdUc+RFVrkk@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101001/e5bc54f5/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101001/e5bc54f5/attachment.pl>",
+      "thread_id": "thread-0fddac10216c",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-795907f2742b",
+      "message_id": "<AANLkTik78RWA2d7=hx3zsnZSzVe3NQQFVNf0d8LKS0-Q@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-10-01T16:00:01Z",
+      "subject": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "subject_clean": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "in_reply_to": "<AANLkTimTGJkgqFO1upvyQ5oSX4bdkQKznK8UqDq-k4HT@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvYSPzOT9vqT2+4sTiPHrsb=y2tdinsBDf4kKn@mail.gmail.com>",
+        "<AANLkTikqZNkV=P0mTO30BcwEXf6RxwGZbDaRAr8U+TzH@mail.gmail.com>",
+        "<AANLkTi=cQTUxYdbC6CqHiO6UWGVZNkWkku-fWTUh8ZkP@mail.gmail.com>",
+        "<4C97E6B9.40003@fhcrc.org>",
+        "<AANLkTimTGJkgqFO1upvyQ5oSX4bdkQKznK8UqDq-k4HT@mail.gmail.com>"
+      ],
+      "body_plain": "Hi,\n\nOn 09/14/2010 01:46 PM, Michael Lawrence wrote:\n> I just checked in some changes to IRanges, that make this method work:\n>\n> setMethod(\"resize\", \"GenomicRanges\",\n> ? ? ? ? ? function(x, width, fix = \"start\", use.names = TRUE)\n> ? ? ? ? ? {\n> ? ? ? ? ? ? revFix <- c(start = \"end\", end = \"start\", center = \"center\")\n> ? ? ? ? ? ? fix <- ifelse(strand(x) == \"-\", revFix[fix], fix)\n> ? ? ? ? ? ? ranges <-\n> ? ? ? ? ? ? ? resize(ranges(x), width = width, fix = fix, use.names =\n> use.names)\n> ? ? ? ? ? ? if (!IRanges:::anyMissing(seqlengths(x))) {\n> ? ? ? ? ? ? ? start(x) <- start(ranges)\n> ? ? ? ? ? ? ? end(x) <- end(ranges)\n> ? ? ? ? ? ? } else {\n> ? ? ? ? ? ? ? x <- clone(x, ranges = ranges)\n> ? ? ? ? ? ? }\n> ? ? ? ? ? ? x\n> ? ? ? ? ? }\n> ? ? ? ? ? )\n>\n> That will accept the fix argument, ...\n\nSorry to bring up an old thread -- but I want to use the \"fix\"\nparameter in resizing GRanges objects in some of my code.\n\nI see that this change has been made to SVN, but if I'm not mistaken,\nit seems to not be coming to the GRanges stuff that's scheduled to\nland w/ BioC 2.7/R-2.12?\n\nIs this intentional? If so, how come? I don't think it'll break\nbackwards compatibility, right?\n\nMaybe an oversight? (perhaps on my part, or \"yours\" :-)?\n\nFor now I think I'm just going to take this code and override the\nBioC-2.7 version of resize, since I'd like to use it but can't upgrad\nto svn GRanges since some of my stuff is getting hosed with the\n\"circular\" stuff that's starting to be introduced.\n\nThanks,\n-steve\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn 09/14/2010 01:46 PM, Michael Lawrence wrote:\n> I just checked in some changes to IRanges, that make this method work:\n>\n> setMethod(\"resize\", \"GenomicRanges\",\n> ? ? ? ? ? function(x, width, fi",
+      "thread_id": "thread-795907f2742b",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-0777c69fc4ed",
+      "message_id": "<AANLkTin1wFrozoGR497n+EZo9MeW9Uy2Ot-RaE4pUpov@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-01T17:20:04Z",
+      "subject": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "subject_clean": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "in_reply_to": "<AANLkTik78RWA2d7=hx3zsnZSzVe3NQQFVNf0d8LKS0-Q@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvYSPzOT9vqT2+4sTiPHrsb=y2tdinsBDf4kKn@mail.gmail.com>",
+        "<AANLkTikqZNkV=P0mTO30BcwEXf6RxwGZbDaRAr8U+TzH@mail.gmail.com>",
+        "<AANLkTi=cQTUxYdbC6CqHiO6UWGVZNkWkku-fWTUh8ZkP@mail.gmail.com>",
+        "<4C97E6B9.40003@fhcrc.org>",
+        "<AANLkTimTGJkgqFO1upvyQ5oSX4bdkQKznK8UqDq-k4HT@mail.gmail.com>",
+        "<AANLkTik78RWA2d7=hx3zsnZSzVe3NQQFVNf0d8LKS0-Q@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101001/0a6149a8/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101001/0a6149a8/attachment.pl>",
+      "thread_id": "thread-795907f2742b",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-3b31ded4572d",
+      "message_id": "<AANLkTikV=1tpEtB1rTCv5FWgGEuBftB+_o4ibtJVAapX@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-10-01T17:40:47Z",
+      "subject": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "subject_clean": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "in_reply_to": "<AANLkTin1wFrozoGR497n+EZo9MeW9Uy2Ot-RaE4pUpov@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvYSPzOT9vqT2+4sTiPHrsb=y2tdinsBDf4kKn@mail.gmail.com>",
+        "<AANLkTikqZNkV=P0mTO30BcwEXf6RxwGZbDaRAr8U+TzH@mail.gmail.com>",
+        "<AANLkTi=cQTUxYdbC6CqHiO6UWGVZNkWkku-fWTUh8ZkP@mail.gmail.com>",
+        "<4C97E6B9.40003@fhcrc.org>",
+        "<AANLkTimTGJkgqFO1upvyQ5oSX4bdkQKznK8UqDq-k4HT@mail.gmail.com>",
+        "<AANLkTik78RWA2d7=hx3zsnZSzVe3NQQFVNf0d8LKS0-Q@mail.gmail.com>",
+        "<AANLkTin1wFrozoGR497n+EZo9MeW9Uy2Ot-RaE4pUpov@mail.gmail.com>"
+      ],
+      "body_plain": "On Fri, Oct 1, 2010 at 1:20 PM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n> In theory we should be able to back-port this change. I have no idea why it\n> is not making it into the release. It was committed after the circular stuff\n> (which breaks serialized object compatibility), but does not depend on it.\n\nI changed:\n\n1. the type of x from \"GenomicRanges\" to \"GRanges\" (probably not necessary)\n2. and also maybe not necessary, but:\n x <- clone(x, ranges = ranges)\nto:\n x <- initialize(x, ranges=ranges)\n\nOtherwise it works as advertised, otherwise.\n\n-steve\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "On Fri, Oct 1, 2010 at 1:20 PM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n> In theory we should be able to back-port this change. I have no idea why it\n> is not making it into the release",
+      "thread_id": "thread-795907f2742b",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-f3e22da3f9e1",
+      "message_id": "<4CA61EAC.8060400@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-10-01T17:47:24Z",
+      "subject": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "subject_clean": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "in_reply_to": "<AANLkTin1wFrozoGR497n+EZo9MeW9Uy2Ot-RaE4pUpov@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvYSPzOT9vqT2+4sTiPHrsb=y2tdinsBDf4kKn@mail.gmail.com>",
+        "<AANLkTikqZNkV=P0mTO30BcwEXf6RxwGZbDaRAr8U+TzH@mail.gmail.com>",
+        "<AANLkTi=cQTUxYdbC6CqHiO6UWGVZNkWkku-fWTUh8ZkP@mail.gmail.com>",
+        "<4C97E6B9.40003@fhcrc.org>",
+        "<AANLkTimTGJkgqFO1upvyQ5oSX4bdkQKznK8UqDq-k4HT@mail.gmail.com>",
+        "<AANLkTik78RWA2d7=hx3zsnZSzVe3NQQFVNf0d8LKS0-Q@mail.gmail.com>",
+        "<AANLkTin1wFrozoGR497n+EZo9MeW9Uy2Ot-RaE4pUpov@mail.gmail.com>"
+      ],
+      "body_plain": "On 10/01/2010 10:20 AM, Michael Lawrence wrote:\n> In theory we should be able to back-port this change. I have no idea why it\n> is not making it into the release. It was committed after the circular stuff\n> (which breaks serialized object compatibility), but does not depend on it.\n\n> \n> Michael\n> \n> On Fri, Oct 1, 2010 at 9:00 AM, Steve Lianoglou <\n> mailinglist.honeypot at gmail.com> wrote:\n> \n>> Hi,\n>>\n>> On 09/14/2010 01:46 PM, Michael Lawrence wrote:\n>>> I just checked in some changes to IRanges, that make this method work:\n>>>\n>\n>> Sorry to bring up an old thread -- but I want to use the \"fix\"\n>> parameter in resizing GRanges objects in some of my code.\n>>\n>> I see that this change has been made to SVN, but if I'm not mistaken,\n>> it seems to not be coming to the GRanges stuff that's scheduled to\n>> land w/ BioC 2.7/R-2.12?\n\nI'm a little confused about what's being said here. If you're concerned\nthat things in svn will not make it to Bioc 2.7, then... the Bioc 2.7\nbranch has not been cut, so things in svn will definitely end up in Bioc\n2.7. Packages that fail to pass R CMD build / check don't get pushed to\nthe repository seen by biocLite(). From\n\nhttp://bioconductor.org/checkResults/devel/bioc-LATEST/\n\n(see bioconductor.org -> Develoeprs -> Source Code & Build Reports) it\nseems like there are issues with GenomicRanges. When those are cleared\nup, the svn commits will get exposed. The issues will be cleared up\nbefore the release. The tentative release schedule is at\n\nhttp://bioconductor.org/developers/release-schedule/\n\n(also from the Developers page) which suggests the Bioc 2.7 branch will\nbe cut Oct 15.\n\nMartin\n\n>>\n>> Is this intentional? If so, how come? I don't think it'll break\n>> backwards compatibility, right?\n>>\n>> Maybe an oversight? (perhaps on my part, or \"yours\" :-)?\n>>\n>> For now I think I'm just going to take this code and override the\n>> BioC-2.7 version of resize, since I'd like to use it but can't upgrad\n>> to svn GRanges since some of my stuff is getting hosed with the\n>> \"circular\" stuff that's starting to be introduced.\n>>\n>> Thanks,\n>> -steve\n>>\n>> --\n>> Steve Lianoglou\n>> Graduate Student: Computational Systems Biology\n>>  | Memorial Sloan-Kettering Cancer Center\n>>  | Weill Medical College of Cornell University\n>> Contact Info: http://cbio.mskcc.org/~lianos/contact<http://cbio.mskcc.org/%7Elianos/contact>\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 10/01/2010 10:20 AM, Michael Lawrence wrote:\n> In theory we should be able to back-port this change. I have no idea why it\n> is not making it into the release. It was committed after the circular s",
+      "thread_id": "thread-795907f2742b",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-489c2d100dc5",
+      "message_id": "<AANLkTim+Z-n4CKp8oS8qAPcnwLVEUEqvKUizbbacCeou@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-10-01T18:21:10Z",
+      "subject": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "subject_clean": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "in_reply_to": "<4CA61EAC.8060400@fhcrc.org>",
+      "references": [
+        "<AANLkTimvYSPzOT9vqT2+4sTiPHrsb=y2tdinsBDf4kKn@mail.gmail.com>",
+        "<AANLkTikqZNkV=P0mTO30BcwEXf6RxwGZbDaRAr8U+TzH@mail.gmail.com>",
+        "<AANLkTi=cQTUxYdbC6CqHiO6UWGVZNkWkku-fWTUh8ZkP@mail.gmail.com>",
+        "<4C97E6B9.40003@fhcrc.org>",
+        "<AANLkTimTGJkgqFO1upvyQ5oSX4bdkQKznK8UqDq-k4HT@mail.gmail.com>",
+        "<AANLkTik78RWA2d7=hx3zsnZSzVe3NQQFVNf0d8LKS0-Q@mail.gmail.com>",
+        "<AANLkTin1wFrozoGR497n+EZo9MeW9Uy2Ot-RaE4pUpov@mail.gmail.com>",
+        "<4CA61EAC.8060400@fhcrc.org>"
+      ],
+      "body_plain": "On Fri, Oct 1, 2010 at 1:47 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:\n<snip>\n> I'm a little confused about what's being said here. If you're concerned\n> that things in svn will not make it to Bioc 2.7, then... the Bioc 2.7\n> branch has not been cut, so things in svn will definitely end up in Bioc\n> 2.7. Packages that fail to pass R CMD build / check don't get pushed to\n> the repository seen by biocLite(). From\n> http://bioconductor.org/checkResults/devel/bioc-LATEST/\n\nAhh, cool ... I see. Thanks for the detailed explanation.\n\nI mistakenly assumed that \"the cut\" had already been made since this\ncheckin happened quite a while ago and it hasn't been propagated\nthrough to biocLite for v2.7.\n\nI didn't realize there have been problems with building GenomicRanges\nthat was causing what I was seeing.\n\nI'll read through more of the BioC-dev info stuff ...\n\nCheers,\n\n-steve\n\n>\n> (see bioconductor.org -> Develoeprs -> Source Code & Build Reports) it\n> seems like there are issues with GenomicRanges. When those are cleared\n> up, the svn commits will get exposed. The issues will be cleared up\n> before the release. The tentative release schedule is at\n>\n> http://bioconductor.org/developers/release-schedule/\n>\n> (also from the Developers page) which suggests the Bioc 2.7 branch will\n> be cut Oct 15.\n>\n> Martin\n>\n>>>\n>>> Is this intentional? If so, how come? I don't think it'll break\n>>> backwards compatibility, right?\n>>>\n>>> Maybe an oversight? (perhaps on my part, or \"yours\" :-)?\n>>>\n>>> For now I think I'm just going to take this code and override the\n>>> BioC-2.7 version of resize, since I'd like to use it but can't upgrad\n>>> to svn GRanges since some of my stuff is getting hosed with the\n>>> \"circular\" stuff that's starting to be introduced.\n>>>\n>>> Thanks,\n>>> -steve\n>>>\n>>> --\n>>> Steve Lianoglou\n>>> Graduate Student: Computational Systems Biology\n>>> ?| Memorial Sloan-Kettering Cancer Center\n>>> ?| Weill Medical College of Cornell University\n>>> Contact Info: http://cbio.mskcc.org/~lianos/contact<http://cbio.mskcc.org/%7Elianos/contact>\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>\n>> ? ? ? [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n> --\n> Computational Biology\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>\n> Location: M1-B861\n> Telephone: 206 667-2793\n>\n\n\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "On Fri, Oct 1, 2010 at 1:47 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:\n<snip>\n> I'm a little confused about what's being said here. If you're concerned\n> that things in svn will not make it to B",
+      "thread_id": "thread-795907f2742b",
+      "thread_depth": 3,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-9291277a2b71",
+      "message_id": "<2729C3E8973BB8438B396F8C59C0A7419F0B@CH1PRD0104MB084.prod.exchangelabs.com>",
+      "from_name": "pterry at huskers.unl.edu",
+      "from_email_hash": "451b60417347881d1411be90e0dc48b9af1cc31e0974d2d23e738160d3b043e7",
+      "date": "2010-10-05T18:30:33Z",
+      "subject": "[Bioc-sig-seq] BioC2010 Simple RNA-seq Use Case lab",
+      "subject_clean": "[Bioc-sig-seq] BioC2010 Simple RNA-seq Use Case lab",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101005/148acc4c/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101005/148acc4c/attachment.pl>",
+      "thread_id": "thread-9291277a2b71",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-a39ebfaf5400",
+      "message_id": "<AANLkTikt3wtGMp+Z0p0NQULBfiV1VzkwPxv-M7H39gjJ@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-10-05T19:12:19Z",
+      "subject": "[Bioc-sig-seq] BioC2010 Simple RNA-seq Use Case lab",
+      "subject_clean": "[Bioc-sig-seq] BioC2010 Simple RNA-seq Use Case lab",
+      "in_reply_to": "<2729C3E8973BB8438B396F8C59C0A7419F0B@CH1PRD0104MB084.prod.exchangelabs.com>",
+      "references": [
+        "<2729C3E8973BB8438B396F8C59C0A7419F0B@CH1PRD0104MB084.prod.exchangelabs.com>"
+      ],
+      "body_plain": "Hi,\n\nOn Tue, Oct 5, 2010 at 2:30 PM, pterry at huskers.unl.edu\n<pterry at huskers.unl.edu> wrote:\n> ?Dear bioc-sig-sequencing,\n>\n> I would like to work thru the BioC2010 workshop lab, http://www.bioconductor.org/help/course-materials/2010/BioC2010/Exercises-SimpleRNAseqUseCase.pdf.\n>\n> At least three functions and a data set were in a package distributed at the lab in the package HTSandGeneCentricLabs.\n>\n> geneBounds\n> rpkm\n> countExonIdsByTxOverlaps\n> multiplex_export.txt.gz\n>\n> Might these functions be incorporated into regular bioconductor packages by now? ?Or can you recommend how I might work thru this lab now?\n\nLots of these can be done with a bit of proficiency with the\nGenomicFeatures package.\n\nFor instance, there was a thread from a bit over a week ago that\nhelped the OP get a bit on the way to an RPKM calculation:\n\nhttp://thread.gmane.org/gmane.science.biology.informatics.conductor/31032\n\nI'm not sure what geneBounds is, but I guess you are looking for the\ntxstart/end of genes. You can get there by, for example, loading some\ntest data:\n\nR> library(GenomicFeatures)\nR> txdb_file <- system.file(\"extdata\", \"UCSC_knownGene_sample.sqlite\",\n                           package=\"GenomicFeatures\")\nR> txdb <- loadFeatures(txdb_file)\nR> xcripts <- transcriptsBy(txdb, \"gene\")\nR> gene.bounds <- lapply(xcripts, range)\n\nThe rest of your requests should work themselves out within a day or\ntwo of getting to know the rest of the GenomicFeatures functionality.\n\n-steve\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Tue, Oct 5, 2010 at 2:30 PM, pterry at huskers.unl.edu\n<pterry at huskers.unl.edu> wrote:\n> ?Dear bioc-sig-sequencing,\n>\n> I would like to work thru the BioC2010 workshop lab, http://www.bioco",
+      "thread_id": "thread-9291277a2b71",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-4ef2e55f4950",
+      "message_id": "<4CAB883E.1090309@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-10-05T20:19:10Z",
+      "subject": "[Bioc-sig-seq] BioC2010 Simple RNA-seq Use Case lab",
+      "subject_clean": "[Bioc-sig-seq] BioC2010 Simple RNA-seq Use Case lab",
+      "in_reply_to": "<2729C3E8973BB8438B396F8C59C0A7419F0B@CH1PRD0104MB084.prod.exchangelabs.com>",
+      "references": [
+        "<2729C3E8973BB8438B396F8C59C0A7419F0B@CH1PRD0104MB084.prod.exchangelabs.com>"
+      ],
+      "body_plain": "On 10/05/2010 11:30 AM, pterry at huskers.unl.edu wrote:\n>  Dear bioc-sig-sequencing,\n> \n> I would like to work thru the BioC2010 workshop lab, http://www.bioconductor.org/help/course-materials/2010/BioC2010/Exercises-SimpleRNAseqUseCase.pdf.\n> \n> At least three functions and a data set were in a package distributed at the lab in the package HTSandGeneCentricLabs.\n> \n> geneBounds\n> rpkm\n> countExonIdsByTxOverlaps\n> multiplex_export.txt.gz\n> \n> Might these functions be incorporated into regular bioconductor packages by now?  Or can you recommend how I might work thru this lab now?\n> \n\nNot sure whether you had\n\n  source(\"http://bioconductor.org/course-packages/install-HTSTrack.R\")\n\nas indicated on\n\n  http://www.bioconductor.org/help/course-materials/2010/BioC2010/\n\nand then\n\n  library(HTSandGeneCentricLabs)\n\n? Martin\n\n\n> Thanks,\n> P. Terry\n> pterry at huskers.unl.edu\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 10/05/2010 11:30 AM, pterry at huskers.unl.edu wrote:\n>  Dear bioc-sig-sequencing,\n> \n> I would like to work thru the BioC2010 workshop lab, http://www.bioconductor.org/help/course-materials/2010/B",
+      "thread_id": "thread-9291277a2b71",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-dc3edc3dd461",
+      "message_id": "<1286399444.22795@venus.he.net>",
+      "from_name": "Chris Seidel",
+      "from_email_hash": "021f6f5624656d1863097736e3b57ef70cbe334ac3d2ce10331e53ada73b3c59",
+      "date": "2010-10-06T21:10:44Z",
+      "subject": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "subject_clean": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nHow do I remove a factor level for the sequence names of a GRanges object?\n\nSometimes I work with data sets that have not been aligned to all the\nsame chromosomes. To make them comparable I have to remove or ignore\nreads for the odd chromosome. So if I have a GRanges object for which I\nwant to remove all reads matching a given chromosome, e.g.:\n\ngr <- gr[seqnames(gr) != \"chrXHet\"]\n\nlevels(seqnames(gr)) will return all original seqnames, but I would like\nto exclude \"chrXHet\" since I've removed all the reads matching that\nchromosome. How do I do this?\n\n-Chris",
+      "body_snippet": "Hello,\n\nHow do I remove a factor level for the sequence names of a GRanges object?\n\nSometimes I work with data sets that have not been aligned to all the\nsame chromosomes. To make them comparable I ha",
+      "thread_id": "thread-dc3edc3dd461",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-ee5e75d32d82",
+      "message_id": "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-06T21:30:02Z",
+      "subject": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "subject_clean": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "in_reply_to": "<1286399444.22795@venus.he.net>",
+      "references": [
+        "<1286399444.22795@venus.he.net>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101006/759667eb/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101006/759667eb/attachment.pl>",
+      "thread_id": "thread-dc3edc3dd461",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-e61d6d390f93",
+      "message_id": "<4CAD10FD.70701@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-10-07T00:14:53Z",
+      "subject": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges\tobject",
+      "subject_clean": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges\tobject",
+      "in_reply_to": "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>",
+      "references": [
+        "<1286399444.22795@venus.he.net>",
+        "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Michael, Chris,\n\nYes it seems that at the moment seqlengths<-(), the replacement form\nof seqlengths(), doesn't let me remove levels, only add new ones:\n\n > gr\nGRanges with 2 ranges and 0 elementMetadata values\n     seqnames    ranges strand |\n        <Rle> <IRanges>  <Rle> |\n[1]        A   [5, 11]      * |\n[2]        B   [6, 12]      * |\n\nseqlengths\n   A  B  C\n  NA NA NA\n\n > seqlengths(gr) <- seqlengths(gr)[-3]\n > gr\nGRanges with 2 ranges and 0 elementMetadata values\n     seqnames    ranges strand |\n        <Rle> <IRanges>  <Rle> |\n[1]        A   [5, 11]      * |\n[2]        B   [6, 12]      * |\n\nseqlengths\n   A  B  C\n  NA NA NA\n\n > seqlengths(gr) <- c(seqlengths(gr), D=40L)\n > gr\nGRanges with 2 ranges and 0 elementMetadata values\n     seqnames    ranges strand |\n        <Rle> <IRanges>  <Rle> |\n[1]        A   [5, 11]      * |\n[2]        B   [6, 12]      * |\n\nseqlengths\n   A  B  C  D\n  NA NA NA 40\n\nI agree with Michael that it would be nice to be able to do\n\n   seqlengths(gr) <- seqlengths(gr)[-3]\n\nand have level C actually dropped. And of course\n\n   seqlengths(gr) <- seqlengths(gr)[-1]\n\nshould fail (one should not be allowed to drop levels that are used).\n\nCheers,\nH.\n\n\nOn 10/06/2010 02:30 PM, Michael Lawrence wrote:\n> At the moment, this is extremely difficult and requires obscure hacks to\n> achieve. It's been brought up numerous times.\n>\n> It happens all the time when comparing gene annotations to read alignments.\n> The gene annotations from GenomicFeatures include the entire set\n> chromosomes, which is nice, but the sequence reads are usually loaded in a\n> genome-independent way and only have the chromosomes present in the data. It\n> would be best to add the additional chromosomes to the read dataset, even if\n> there are no mappings, rather than throw away intervals from the other set.\n>\n> The main problem is that the seqlengths and seqnames need to updated\n> simultaneously.  Really one should take precedence over the other, and I\n> recently changed the GRanges constructor to favor seqlengths, so that the\n> levels of seqnames are set to the names of seqlengths. Thus, it would be\n> nice if one could call seqlengths<- and have it add the necessary levels to\n> seqnames automatically.  Then you can just do:\n>\n> seqlengths(reads)<- seqlengths(genes)\n>\n> and be done with it. Of course, if seqnames contains values that are not\n> present in the new seqlengths, it should fail.\n>\n> Comments? Should I make it work this way?\n>\n> Michael\n>\n> On Wed, Oct 6, 2010 at 2:10 PM, Chris Seidel<seidel at phaget4.org>  wrote:\n>\n>> Hello,\n>>\n>> How do I remove a factor level for the sequence names of a GRanges object?\n>>\n>> Sometimes I work with data sets that have not been aligned to all the\n>> same chromosomes. To make them comparable I have to remove or ignore\n>> reads for the odd chromosome. So if I have a GRanges object for which I\n>> want to remove all reads matching a given chromosome, e.g.:\n>>\n>> gr<- gr[seqnames(gr) != \"chrXHet\"]\n>>\n>> levels(seqnames(gr)) will return all original seqnames, but I would like\n>> to exclude \"chrXHet\" since I've removed all the reads matching that\n>> chromosome. How do I do this?\n>>\n>> -Chris\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Michael, Chris,\n\nYes it seems that at the moment seqlengths<-(), the replacement form\nof seqlengths(), doesn't let me remove levels, only add new ones:\n\n > gr\nGRanges with 2 ranges and 0 elementMet",
+      "thread_id": "thread-dc3edc3dd461",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-d7ff5d346b46",
+      "message_id": "<AANLkTikV3uU4YG4Yim6g6LLzvpJ0gP4kAVdU5CqaPud_@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "b2b45a5f3ad330d8561a4711d1f95ff6a445243a303a83a7a709685fab3e068c",
+      "date": "2010-10-07T01:29:52Z",
+      "subject": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "subject_clean": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "in_reply_to": "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>",
+      "references": [
+        "<1286399444.22795@venus.he.net>",
+        "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Michael\n\nFor what it is worth, yesterday I \"expected\" the seqlength()<- thing\nto work.  So yes, I find that solution natural.\n\nAnything that allows you to do additional manipulation easily would be\nwelcome, for example like a drop unused levels.\n\nBut seqlengths()<- will go a long way to help this out.\n\nKasper\n\nOn Wed, Oct 6, 2010 at 5:30 PM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n> At the moment, this is extremely difficult and requires obscure hacks to\n> achieve. It's been brought up numerous times.\n>\n> It happens all the time when comparing gene annotations to read alignments.\n> The gene annotations from GenomicFeatures include the entire set\n> chromosomes, which is nice, but the sequence reads are usually loaded in a\n> genome-independent way and only have the chromosomes present in the data. It\n> would be best to add the additional chromosomes to the read dataset, even if\n> there are no mappings, rather than throw away intervals from the other set.\n>\n> The main problem is that the seqlengths and seqnames need to updated\n> simultaneously. ?Really one should take precedence over the other, and I\n> recently changed the GRanges constructor to favor seqlengths, so that the\n> levels of seqnames are set to the names of seqlengths. Thus, it would be\n> nice if one could call seqlengths<- and have it add the necessary levels to\n> seqnames automatically. ?Then you can just do:\n>\n> seqlengths(reads) <- seqlengths(genes)\n>\n> and be done with it. Of course, if seqnames contains values that are not\n> present in the new seqlengths, it should fail.\n>\n> Comments? Should I make it work this way?\n>\n> Michael\n>\n> On Wed, Oct 6, 2010 at 2:10 PM, Chris Seidel <seidel at phaget4.org> wrote:\n>\n>> Hello,\n>>\n>> How do I remove a factor level for the sequence names of a GRanges object?\n>>\n>> Sometimes I work with data sets that have not been aligned to all the\n>> same chromosomes. To make them comparable I have to remove or ignore\n>> reads for the odd chromosome. So if I have a GRanges object for which I\n>> want to remove all reads matching a given chromosome, e.g.:\n>>\n>> gr <- gr[seqnames(gr) != \"chrXHet\"]\n>>\n>> levels(seqnames(gr)) will return all original seqnames, but I would like\n>> to exclude \"chrXHet\" since I've removed all the reads matching that\n>> chromosome. How do I do this?\n>>\n>> -Chris\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n> ? ? ? ?[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hi Michael\n\nFor what it is worth, yesterday I \"expected\" the seqlength()<- thing\nto work.  So yes, I find that solution natural.\n\nAnything that allows you to do additional manipulation easily would be",
+      "thread_id": "thread-dc3edc3dd461",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-cf0ae6b26fa4",
+      "message_id": "<Pine.LNX.4.64.1010110817410.17005@tajo.ucsd.edu>",
+      "from_name": "Charles C. Berry",
+      "from_email_hash": "2e60b7324e5cc583defcedd7a675a324250ffb84da081638c31baf739e5c08e2",
+      "date": "2010-10-11T15:24:06Z",
+      "subject": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "subject_clean": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "We are liking the idioms that go with GenomicRanges and RangedData Objects \n(follow, precede, findOverlaps, etc), but we are bumping up against \nmemory demands of loading very large objects.\n\nIs there now or will there soon be a cached version of these that will \nlessen our memory requirements?\n\nIf not, is there a cookbook as to how to create and save cached versions \nof these objects.\n\nOr maybe a place to look in the bioConductor codebase to get some ideas of \nhow to go about constructing cached versions of these classes?\n\nThanks,\n\nChuck\n\n\nCharles C. Berry                            (858) 534-2098\n                                             Dept of Family/Preventive Medicine\nE mailto:cberry at tajo.ucsd.edu\t            UC San Diego\nhttp://famprevmed.ucsd.edu/faculty/cberry/  La Jolla, San Diego 92093-0901",
+      "body_snippet": "We are liking the idioms that go with GenomicRanges and RangedData Objects \n(follow, precede, findOverlaps, etc), but we are bumping up against \nmemory demands of loading very large objects.\n\nIs there",
+      "thread_id": "thread-cf0ae6b26fa4",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-62a673a98c8b",
+      "message_id": "<AANLkTimj_bLb7JrAM41F_-HMB4vrb0m6xTJ55hWVULRA@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-10-11T15:50:44Z",
+      "subject": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "subject_clean": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "in_reply_to": "<Pine.LNX.4.64.1010110817410.17005@tajo.ucsd.edu>",
+      "references": [
+        "<Pine.LNX.4.64.1010110817410.17005@tajo.ucsd.edu>"
+      ],
+      "body_plain": "Hi Chuck,\n\nOn Mon, Oct 11, 2010 at 11:24 AM, Charles C. Berry <cberry at tajo.ucsd.edu> wrote:\n>\n> We are liking the idioms that go with GenomicRanges and RangedData Objects\n> (follow, precede, findOverlaps, etc), but we are bumping up against memory\n> demands of loading very large objects.\n>\n> Is there now or will there soon be a cached version of these that will\n> lessen our memory requirements?\n>\n> If not, is there a cookbook as to how to create and save cached versions of\n> these objects.\n>\n> Or maybe a place to look in the bioConductor codebase to get some ideas of\n> how to go about constructing cached versions of these classes?\n\nI'm not sure what you mean by caching -- do you want them serialized\nto disk and you read off parts when you need them, or?\n\nAlso -- I typically split my data and processing to work on a\nchromosome by chromosome basis -- even though the GenomicRanges\ninfrastructure allows you to keep ranges spanning multiple chromosomes\nin one object. Although it's a bit more book keeping code on my part,\nI find that doing so helps to keep my RAM requirements down a bit.\nPerhaps that obvious/marginal suggestion might help for the time\nbeing?\n\n-steve\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi Chuck,\n\nOn Mon, Oct 11, 2010 at 11:24 AM, Charles C. Berry <cberry at tajo.ucsd.edu> wrote:\n>\n> We are liking the idioms that go with GenomicRanges and RangedData Objects\n> (follow, precede, findOv",
+      "thread_id": "thread-cf0ae6b26fa4",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-f9a9465b2730",
+      "message_id": "<Pine.LNX.4.64.1010110852210.17093@tajo.ucsd.edu>",
+      "from_name": "Charles C. Berry",
+      "from_email_hash": "2e60b7324e5cc583defcedd7a675a324250ffb84da081638c31baf739e5c08e2",
+      "date": "2010-10-11T15:59:17Z",
+      "subject": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "subject_clean": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "in_reply_to": "<AANLkTimj_bLb7JrAM41F_-HMB4vrb0m6xTJ55hWVULRA@mail.gmail.com>",
+      "references": [
+        "<Pine.LNX.4.64.1010110817410.17005@tajo.ucsd.edu>",
+        "<AANLkTimj_bLb7JrAM41F_-HMB4vrb0m6xTJ55hWVULRA@mail.gmail.com>"
+      ],
+      "body_plain": "On Mon, 11 Oct 2010, Steve Lianoglou wrote:\n\n> Hi Chuck,\n>\n> On Mon, Oct 11, 2010 at 11:24 AM, Charles C. Berry <cberry at tajo.ucsd.edu> wrote:\n>>\n>> We are liking the idioms that go with GenomicRanges and RangedData Objects\n>> (follow, precede, findOverlaps, etc), but we are bumping up against memory\n>> demands of loading very large objects.\n>>\n>> Is there now or will there soon be a cached version of these that will\n>> lessen our memory requirements?\n>>\n>> If not, is there a cookbook as to how to create and save cached versions of\n>> these objects.\n>>\n>> Or maybe a place to look in the bioConductor codebase to get some ideas of\n>> how to go about constructing cached versions of these classes?\n>\n> I'm not sure what you mean by caching -- do you want them serialized\n> to disk and you read off parts when you need them, or?\n\nThat's basically the idea. I looked at how BSGenome handles FASTA, and it \nallows you to read in one chromosome, make apparent copies that do not \nphysically copy the object unless it is modified, and then clean up \nafterwards without much of the work under the hood.\n\n\n>\n> Also -- I typically split my data and processing to work on a\n> chromosome by chromosome basis -- even though the GenomicRanges\n> infrastructure allows you to keep ranges spanning multiple chromosomes\n> in one object. Although it's a bit more book keeping code on my part,\n> I find that doing so helps to keep my RAM requirements down a bit.\n> Perhaps that obvious/marginal suggestion might help for the time\n> being?\n\nThanks. We have bits and pieces of a pipeline that do that. But we are \nabout to refactor that pipeline, so the hope is to make something that is \nfairly clean, will endure, and handle the large objects that new \nsequencing technologies are likely to throw at us.\n\nChuck\n>\n> -steve\n>\n> -- \n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n> ?| Memorial Sloan-Kettering Cancer Center\n> ?| Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>\n\nCharles C. Berry                            (858) 534-2098\n                                             Dept of Family/Preventive Medicine\nE mailto:cberry at tajo.ucsd.edu\t            UC San Diego\nhttp://famprevmed.ucsd.edu/faculty/cberry/  La Jolla, San Diego 92093-0901",
+      "body_snippet": "On Mon, 11 Oct 2010, Steve Lianoglou wrote:\n\n> Hi Chuck,\n>\n> On Mon, Oct 11, 2010 at 11:24 AM, Charles C. Berry <cberry at tajo.ucsd.edu> wrote:\n>>\n>> We are liking the idioms that go with GenomicRang",
+      "thread_id": "thread-cf0ae6b26fa4",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-8f610feda9d2",
+      "message_id": "<AANLkTi=9WS8yWgS9_ssNU93cVrXiCcXjk+9UvwgSehdD@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "b2b45a5f3ad330d8561a4711d1f95ff6a445243a303a83a7a709685fab3e068c",
+      "date": "2010-10-11T17:51:52Z",
+      "subject": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "subject_clean": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "in_reply_to": "<Pine.LNX.4.64.1010110852210.17093@tajo.ucsd.edu>",
+      "references": [
+        "<Pine.LNX.4.64.1010110817410.17005@tajo.ucsd.edu>",
+        "<AANLkTimj_bLb7JrAM41F_-HMB4vrb0m6xTJ55hWVULRA@mail.gmail.com>",
+        "<Pine.LNX.4.64.1010110852210.17093@tajo.ucsd.edu>"
+      ],
+      "body_plain": "When you are saying you're bumping up against the limits of RAM, how\nmuch do you have?  It might be nice to have a GRanges that has\npass-by-reference semantics, but in general I find my GRanges to be\nsmaller (at most a couple of GB).  My \"problems\" are with the\nassociated data.\n\nKasper\n\nOn Mon, Oct 11, 2010 at 11:59 AM, Charles C. Berry <cberry at tajo.ucsd.edu> wrote:\n> On Mon, 11 Oct 2010, Steve Lianoglou wrote:\n>\n>> Hi Chuck,\n>>\n>> On Mon, Oct 11, 2010 at 11:24 AM, Charles C. Berry <cberry at tajo.ucsd.edu>\n>> wrote:\n>>>\n>>> We are liking the idioms that go with GenomicRanges and RangedData\n>>> Objects\n>>> (follow, precede, findOverlaps, etc), but we are bumping up against\n>>> memory\n>>> demands of loading very large objects.\n>>>\n>>> Is there now or will there soon be a cached version of these that will\n>>> lessen our memory requirements?\n>>>\n>>> If not, is there a cookbook as to how to create and save cached versions\n>>> of\n>>> these objects.\n>>>\n>>> Or maybe a place to look in the bioConductor codebase to get some ideas\n>>> of\n>>> how to go about constructing cached versions of these classes?\n>>\n>> I'm not sure what you mean by caching -- do you want them serialized\n>> to disk and you read off parts when you need them, or?\n>\n> That's basically the idea. I looked at how BSGenome handles FASTA, and it\n> allows you to read in one chromosome, make apparent copies that do not\n> physically copy the object unless it is modified, and then clean up\n> afterwards without much of the work under the hood.\n>\n>\n>>\n>> Also -- I typically split my data and processing to work on a\n>> chromosome by chromosome basis -- even though the GenomicRanges\n>> infrastructure allows you to keep ranges spanning multiple chromosomes\n>> in one object. Although it's a bit more book keeping code on my part,\n>> I find that doing so helps to keep my RAM requirements down a bit.\n>> Perhaps that obvious/marginal suggestion might help for the time\n>> being?\n>\n> Thanks. We have bits and pieces of a pipeline that do that. But we are about\n> to refactor that pipeline, so the hope is to make something that is fairly\n> clean, will endure, and handle the large objects that new sequencing\n> technologies are likely to throw at us.\n>\n> Chuck\n>>\n>> -steve\n>>\n>> --\n>> Steve Lianoglou\n>> Graduate Student: Computational Systems Biology\n>> ?| Memorial Sloan-Kettering Cancer Center\n>> ?| Weill Medical College of Cornell University\n>> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>>\n>\n> Charles C. Berry ? ? ? ? ? ? ? ? ? ? ? ? ? ?(858) 534-2098\n> ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ?Dept of Family/Preventive\n> Medicine\n> E mailto:cberry at tajo.ucsd.edu ? ? ? ? ? ? ? UC San Diego\n> http://famprevmed.ucsd.edu/faculty/cberry/ ?La Jolla, San Diego 92093-0901\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>",
+      "body_snippet": "When you are saying you're bumping up against the limits of RAM, how\nmuch do you have?  It might be nice to have a GRanges that has\npass-by-reference semantics, but in general I find my GRanges to be\n",
+      "thread_id": "thread-cf0ae6b26fa4",
+      "thread_depth": 3,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-f6b488f3c5b7",
+      "message_id": "<AANLkTinVkU7QMHC5YNG3n+SgtPAGsBbRVUt_gG7n_8Vz@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-11T17:56:22Z",
+      "subject": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "subject_clean": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "in_reply_to": "<AANLkTi=9WS8yWgS9_ssNU93cVrXiCcXjk+9UvwgSehdD@mail.gmail.com>",
+      "references": [
+        "<Pine.LNX.4.64.1010110817410.17005@tajo.ucsd.edu>",
+        "<AANLkTimj_bLb7JrAM41F_-HMB4vrb0m6xTJ55hWVULRA@mail.gmail.com>",
+        "<Pine.LNX.4.64.1010110852210.17093@tajo.ucsd.edu>",
+        "<AANLkTi=9WS8yWgS9_ssNU93cVrXiCcXjk+9UvwgSehdD@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101011/b23968eb/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101011/b23968eb/attachment.pl>",
+      "thread_id": "thread-cf0ae6b26fa4",
+      "thread_depth": 4,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-b99af1397fa2",
+      "message_id": "<Pine.LNX.4.64.1010111129330.17292@tajo.ucsd.edu>",
+      "from_name": "Charles C. Berry",
+      "from_email_hash": "2e60b7324e5cc583defcedd7a675a324250ffb84da081638c31baf739e5c08e2",
+      "date": "2010-10-11T18:33:53Z",
+      "subject": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "subject_clean": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "in_reply_to": "<AANLkTinVkU7QMHC5YNG3n+SgtPAGsBbRVUt_gG7n_8Vz@mail.gmail.com>",
+      "references": [
+        "<Pine.LNX.4.64.1010110817410.17005@tajo.ucsd.edu>",
+        "<AANLkTimj_bLb7JrAM41F_-HMB4vrb0m6xTJ55hWVULRA@mail.gmail.com>",
+        "<Pine.LNX.4.64.1010110852210.17093@tajo.ucsd.edu>",
+        "<AANLkTi=9WS8yWgS9_ssNU93cVrXiCcXjk+9UvwgSehdD@mail.gmail.com>",
+        "<AANLkTinVkU7QMHC5YNG3n+SgtPAGsBbRVUt_gG7n_8Vz@mail.gmail.com>"
+      ],
+      "body_plain": "On Mon, 11 Oct 2010, Michael Lawrence wrote:\n\n> I have a pass-by-reference GRanges that I have been playing around with for\n> interactive graphics. I'll stick the package into svn soon.\n>\n\nThanks. We'll look forward to trying that out.\n\n> Also I'd point out that rtracklayer has bigWig support, which lets you\n> access smaller portions of your data fairly efficiently.\n>\n\nWill check this out, too.\n\n> Michael\n>\n> On Mon, Oct 11, 2010 at 10:51 AM, Kasper Daniel Hansen <\n> kasperdanielhansen at gmail.com> wrote:\n>\n>> When you are saying you're bumping up against the limits of RAM, how\n>> much do you have?  It might be nice to have a GRanges that has\n>> pass-by-reference semantics, but in general I find my GRanges to be\n>> smaller (at most a couple of GB).  My \"problems\" are with the\n>> associated data.\n>>\n\nLikewise. The GRanges aren't prohibitive, but every bit helps. Also, if we \nwant to hand this software to others, it would be nice to not have to \nrequire others to mimic our hardware.\n\nChuck\n\n\n>> Kasper\n>>\n>> On Mon, Oct 11, 2010 at 11:59 AM, Charles C. Berry <cberry at tajo.ucsd.edu>\n>> wrote:\n>>> On Mon, 11 Oct 2010, Steve Lianoglou wrote:\n>>>\n>>>> Hi Chuck,\n>>>>\n>>>> On Mon, Oct 11, 2010 at 11:24 AM, Charles C. Berry <\n>> cberry at tajo.ucsd.edu>\n>>>> wrote:\n>>>>>\n>>>>> We are liking the idioms that go with GenomicRanges and RangedData\n>>>>> Objects\n>>>>> (follow, precede, findOverlaps, etc), but we are bumping up against\n>>>>> memory\n>>>>> demands of loading very large objects.\n>>>>>\n>>>>> Is there now or will there soon be a cached version of these that will\n>>>>> lessen our memory requirements?\n>>>>>\n>>>>> If not, is there a cookbook as to how to create and save cached\n>> versions\n>>>>> of\n>>>>> these objects.\n>>>>>\n>>>>> Or maybe a place to look in the bioConductor codebase to get some ideas\n>>>>> of\n>>>>> how to go about constructing cached versions of these classes?\n>>>>\n>>>> I'm not sure what you mean by caching -- do you want them serialized\n>>>> to disk and you read off parts when you need them, or?\n>>>\n>>> That's basically the idea. I looked at how BSGenome handles FASTA, and it\n>>> allows you to read in one chromosome, make apparent copies that do not\n>>> physically copy the object unless it is modified, and then clean up\n>>> afterwards without much of the work under the hood.\n>>>\n>>>\n>>>>\n>>>> Also -- I typically split my data and processing to work on a\n>>>> chromosome by chromosome basis -- even though the GenomicRanges\n>>>> infrastructure allows you to keep ranges spanning multiple chromosomes\n>>>> in one object. Although it's a bit more book keeping code on my part,\n>>>> I find that doing so helps to keep my RAM requirements down a bit.\n>>>> Perhaps that obvious/marginal suggestion might help for the time\n>>>> being?\n>>>\n>>> Thanks. We have bits and pieces of a pipeline that do that. But we are\n>> about\n>>> to refactor that pipeline, so the hope is to make something that is\n>> fairly\n>>> clean, will endure, and handle the large objects that new sequencing\n>>> technologies are likely to throw at us.\n>>>\n>>> Chuck\n>>>>\n>>>> -steve\n>>>>\n>>>> --\n>>>> Steve Lianoglou\n>>>> Graduate Student: Computational Systems Biology\n>>>>  | Memorial Sloan-Kettering Cancer Center\n>>>>  | Weill Medical College of Cornell University\n>>>> Contact Info: http://cbio.mskcc.org/~lianos/contact<http://cbio.mskcc.org/%7Elianos/contact>\n>>>>\n>>>\n>>> Charles C. Berry                            (858) 534-2098\n>>>                                            Dept of Family/Preventive\n>>> Medicine\n>>> E mailto:cberry at tajo.ucsd.edu               UC San Diego\n>>> http://famprevmed.ucsd.edu/faculty/cberry/  La Jolla, San Diego\n>> 92093-0901\n>>>\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>>\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n\nCharles C. Berry                            (858) 534-2098\n                                             Dept of Family/Preventive Medicine\nE mailto:cberry at tajo.ucsd.edu\t            UC San Diego\nhttp://famprevmed.ucsd.edu/faculty/cberry/  La Jolla, San Diego 92093-0901",
+      "body_snippet": "On Mon, 11 Oct 2010, Michael Lawrence wrote:\n\n> I have a pass-by-reference GRanges that I have been playing around with for\n> interactive graphics. I'll stick the package into svn soon.\n>\n\nThanks. We'",
+      "thread_id": "thread-cf0ae6b26fa4",
+      "thread_depth": 5,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-c4963ce28fe2",
+      "message_id": "<AANLkTinKc46wxjP+o3huUT8tyADWYzz89CYkcwCrkQBc@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-12T20:14:24Z",
+      "subject": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "subject_clean": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "in_reply_to": "<AANLkTikV3uU4YG4Yim6g6LLzvpJ0gP4kAVdU5CqaPud_@mail.gmail.com>",
+      "references": [
+        "<1286399444.22795@venus.he.net>",
+        "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>",
+        "<AANLkTikV3uU4YG4Yim6g6LLzvpJ0gP4kAVdU5CqaPud_@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101012/a7eb4d31/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101012/a7eb4d31/attachment.pl>",
+      "thread_id": "thread-dc3edc3dd461",
+      "thread_depth": 3,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-4b6be1d0ee60",
+      "message_id": "<AANLkTimBqdFNMgpKRW7XHr8eV6uJrb8wg7tXvMZA3c+Y@mail.gmail.com>",
+      "from_name": "Alper Yilmaz",
+      "from_email_hash": "81f8c877455e8e9ff909baf3ee6f448e05fb2728617cbe782dcd4004f5bc982a",
+      "date": "2010-10-14T18:24:31Z",
+      "subject": "[Bioc-sig-seq] visualize peaks in genome (overall)",
+      "subject_clean": "[Bioc-sig-seq] visualize peaks in genome (overall)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nWhat is the most suitable R/Bioconductor package to visualize 3,000\npeaks in a genome with 10 chromosomes?\nI was interested in a layout that is similar to generated by Flash\nGviewer (http://gmod.org/wiki/Flashgviewer/).\n\nThanks,\n\nalper",
+      "body_snippet": "Hi,\n\nWhat is the most suitable R/Bioconductor package to visualize 3,000\npeaks in a genome with 10 chromosomes?\nI was interested in a layout that is similar to generated by Flash\nGviewer (http://gmod.",
+      "thread_id": "thread-4b6be1d0ee60",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-8c264c1d4f74",
+      "message_id": "<AANLkTimw4jto3USvcmXEQtPMo1SUEDb_ZfKu9bJZ0ePr@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-14T19:45:53Z",
+      "subject": "[Bioc-sig-seq] visualize peaks in genome (overall)",
+      "subject_clean": "[Bioc-sig-seq] visualize peaks in genome (overall)",
+      "in_reply_to": "<AANLkTimBqdFNMgpKRW7XHr8eV6uJrb8wg7tXvMZA3c+Y@mail.gmail.com>",
+      "references": [
+        "<AANLkTimBqdFNMgpKRW7XHr8eV6uJrb8wg7tXvMZA3c+Y@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101014/892ea1f5/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101014/892ea1f5/attachment.pl>",
+      "thread_id": "thread-4b6be1d0ee60",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-f8830c2785ec",
+      "message_id": "<3EAC17E8-324F-4589-8295-988B584D2393@gmail.com>",
+      "from_name": "Ying Ye",
+      "from_email_hash": "53522f470d271163f69210ca5436526e87bf75b9dd33ede0ca8dd1fa6a186e5d",
+      "date": "2010-10-15T13:39:55Z",
+      "subject": "[Bioc-sig-seq] Error in DGEList function in edgeR",
+      "subject_clean": "[Bioc-sig-seq] Error in DGEList function in edgeR",
+      "in_reply_to": null,
+      "references": [
+        "<C9B35B83-445C-443B-8A43-110110E0A6C3@gmail.com>"
+      ],
+      "body_plain": "> Hi!\n>\n> I am a new R user and have no clue of this error (see below) while  \n> using edgeR package:\n>\n> > Y <- clade_reads\n> > y <- Y[,c(g1,g2)]\n> > grouping <- c( rep(1,length(g1)), rep(2,length(g2)) )\n> > size <- apply(y, 2, sum)\n> > d <- DGEList(data = y, group = grouping, lib.size = size)\n> Error in DGEList(data = y, group = grouping, lib.size = size) :\n>  unused argument(s) (data = y)\n>\n>\n> And g1 and g2 are two defined groups. Could anyone kindly interpret  \n> this?\n>\n> Many thanks!\n>\n> mikecrux",
+      "body_snippet": "> Hi!\n>\n> I am a new R user and have no clue of this error (see below) while  \n> using edgeR package:\n>\n> > Y <- clade_reads\n> > y <- Y[,c(g1,g2)]\n> > grouping <- c( rep(1,length(g1)), rep(2,length(g2",
+      "thread_id": "thread-f8830c2785ec",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-defaff55a2bc",
+      "message_id": "<51762.85.210.172.33.1287164709.squirrel@webmail.ebi.ac.uk>",
+      "from_name": "Heidi Dvinge",
+      "from_email_hash": "26cb0cf94e3807414cdf9575e4137a1f3608a468695f23f76f812266ead6a773",
+      "date": "2010-10-15T17:45:09Z",
+      "subject": "[Bioc-sig-seq] Error in DGEList function in edgeR",
+      "subject_clean": "[Bioc-sig-seq] Error in DGEList function in edgeR",
+      "in_reply_to": "<3EAC17E8-324F-4589-8295-988B584D2393@gmail.com>",
+      "references": [
+        "<C9B35B83-445C-443B-8A43-110110E0A6C3@gmail.com>",
+        "<3EAC17E8-324F-4589-8295-988B584D2393@gmail.com>"
+      ],
+      "body_plain": "Hello Mike,\n\n>\n>> Hi!\n>>\n>> I am a new R user and have no clue of this error (see below) while\n>> using edgeR package:\n>>\n>> > Y <- clade_reads\n>> > y <- Y[,c(g1,g2)]\n>> > grouping <- c( rep(1,length(g1)), rep(2,length(g2)) )\n>> > size <- apply(y, 2, sum)\n>> > d <- DGEList(data = y, group = grouping, lib.size = size)\n>> Error in DGEList(data = y, group = grouping, lib.size = size) :\n>>  unused argument(s) (data = y)\n>>\nIf you look at ?DGEList you'll see that none of the input arguments are\ncalled \"data\", hence hte error about an unused argument. You probably want\nDGEList(counts = y, group = grouping, lib.size = size).\n\nHTH\n\\Heidi\n\n>>\n>> And g1 and g2 are two defined groups. Could anyone kindly interpret\n>> this?\n>>\n>> Many thanks!\n>>\n>> mikecrux\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hello Mike,\n\n>\n>> Hi!\n>>\n>> I am a new R user and have no clue of this error (see below) while\n>> using edgeR package:\n>>\n>> > Y <- clade_reads\n>> > y <- Y[,c(g1,g2)]\n>> > grouping <- c( rep(1,length(",
+      "thread_id": "thread-f8830c2785ec",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-aae20a9aa8af",
+      "message_id": "<806E483E7E5A1E4CA78AC236E1F3324F10702B83@SRV321.genomichealth.com>",
+      "from_name": "Kunbin Qu",
+      "from_email_hash": "dd2563c28824bc3e2c72aae6a45a538e8fb306a1025709b9168ccb7057e28bbc",
+      "date": "2010-10-15T21:42:31Z",
+      "subject": "[Bioc-sig-seq] readFastq",
+      "subject_clean": "[Bioc-sig-seq] readFastq",
+      "in_reply_to": "<AANLkTikV3uU4YG4Yim6g6LLzvpJ0gP4kAVdU5CqaPud_@mail.gmail.com>",
+      "references": [
+        "<1286399444.22795@venus.he.net>",
+        "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>",
+        "<AANLkTikV3uU4YG4Yim6g6LLzvpJ0gP4kAVdU5CqaPud_@mail.gmail.com>"
+      ],
+      "body_plain": "Dear all,\n\nI have a fastq file with reads having variable length of adapters. I have trimmed them with trimLRPatterns. Some of them was shortened to 0 bp. I would like to draw a histogram on the trimmed reads, but when I used readFastq, it crashed out when it encountered the reads with 0 bp. Is there a way to get around? Thanks.\n\n-Kunbin\n\n\n______________________________________________________________________\nThe contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.",
+      "body_snippet": "Dear all,\n\nI have a fastq file with reads having variable length of adapters. I have trimmed them with trimLRPatterns. Some of them was shortened to 0 bp. I would like to draw a histogram on the trimm",
+      "thread_id": "thread-dc3edc3dd461",
+      "thread_depth": 3,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-53df1cdf1461",
+      "message_id": "<4CB8D567.3060706@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-10-15T22:27:51Z",
+      "subject": "[Bioc-sig-seq] readFastq",
+      "subject_clean": "[Bioc-sig-seq] readFastq",
+      "in_reply_to": "<806E483E7E5A1E4CA78AC236E1F3324F10702B83@SRV321.genomichealth.com>",
+      "references": [
+        "<1286399444.22795@venus.he.net>",
+        "<AANLkTinKS4V51zzPWFC8EUbWTH1JxBjDzXbdJoHfsdbR@mail.gmail.com>",
+        "<AANLkTikV3uU4YG4Yim6g6LLzvpJ0gP4kAVdU5CqaPud_@mail.gmail.com>",
+        "<806E483E7E5A1E4CA78AC236E1F3324F10702B83@SRV321.genomichealth.com>"
+      ],
+      "body_plain": "On 10/15/2010 02:42 PM, Kunbin Qu wrote:\n> Dear all,\n> \n> I have a fastq file with reads having variable length of adapters. I\n> have trimmed them with trimLRPatterns. Some of them was shortened to\n> 0 bp. I would like to draw a histogram on the trimmed reads, but when\n> I used readFastq, it crashed out when it encountered the reads with 0\n> bp. Is there a way to get around? Thanks.\n\nI suspect this is a bug in ShortRead's parsing of fastq files. Maybe\nfilter the zero-width trimmed reads before writing them to disk?\n\n   fq = fq[width(fq) != 0]\n\nMartin\n\n> \n> -Kunbin\n> \n> \n> ______________________________________________________________________\n>\n> \nThe contents of this electronic message, including any attachments, are\nintended only for the use of the individual or entity to which they are\naddressed and may contain confidential information. If you are not the\nintended recipient, you are hereby notified that any use, dissemination,\ndistribution, or copying of this message or any attachment is strictly\nprohibited. If you have received this transmission in error, please send\nan e-mail to postmaster at genomichealth.com and delete this message, along\nwith any attachments, from your computer.\n> \n> _______________________________________________ Bioc-sig-sequencing\n> mailing list Bioc-sig-sequencing at r-project.org \n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 10/15/2010 02:42 PM, Kunbin Qu wrote:\n> Dear all,\n> \n> I have a fastq file with reads having variable length of adapters. I\n> have trimmed them with trimLRPatterns. Some of them was shortened to\n> ",
+      "thread_id": "thread-dc3edc3dd461",
+      "thread_depth": 4,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-406113d0e06d",
+      "message_id": "<A5344CB1-7415-4D1D-86A3-4E63AE54FC63@gmail.com>",
+      "from_name": "Ying Ye",
+      "from_email_hash": "53522f470d271163f69210ca5436526e87bf75b9dd33ede0ca8dd1fa6a186e5d",
+      "date": "2010-10-18T11:22:20Z",
+      "subject": "[Bioc-sig-seq] EdgeR questions in analyzing 454 data-about prior.n, TMM, and p_value",
+      "subject_clean": "[Bioc-sig-seq] EdgeR questions in analyzing 454 data-about prior.n, TMM, and p_value",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101018/350a6e9e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101018/350a6e9e/attachment.pl>",
+      "thread_id": "thread-406113d0e06d",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-e16f02b745cc",
+      "message_id": "<4CBCC34D.3070408@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-10-18T21:59:41Z",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.7 is released",
+      "subject_clean": "[Bioc-sig-seq] Bioconductor 2.7 is released",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Bioconductors:\n\nWe are pleased to announce Bioconductor 2.7, consisting of 419\nsoftware packages. There are 34 new packages, and many updates and\nimprovements to existing packages. Bioconductor 2.7 is compatible with\nR 2.12.0, and is supported on Linux, 32- and 64-bit Windows, and Mac\nOS.  Visit\n\n  http://bioconductor.org\n\nfor details and downloads.\n\nContents\n========\n\no Getting Started with Bioconductor 2.7\no New Software Packages\no Web Site Updates\n\nGetting Started with Bioconductor 2.7\n=====================================\n\nTo install Bioconductor 2.7:\n\n1. Install R 2.12.0.  Bioconductor 2.7 has been designed expressly for\nthis version of R.\n\n2. Follow the instructions here:\n\n  http://bioconductor.org/install/\n\nPlease visit http://bioconductor.org for details and downloads.\n\nNew Software Packages\n=====================\n\nThere are 34 new packages in this release of Bioconductor.\n\nADaCGH2\n\n  Analysis of aCGH experiments using parallel computing and ff objects\n\nattract\n\n  Methods to find gene expression modules representing drivers in\n  Kauffman's Attractor Landscape\n\nBHC\n\n  Bayesian Hierarchical Clustering\n\nBioNet\n\n  Functional analysis of biological networks\n\nCGEN\n\n  Case-control studies in genetic epidemiology\n\nCoGAPS\n\n  Coordinated Gene Activity in Pattern Sets\n\ncoRNAi\n\n  Analysis of co-knock-down RNAi data\n\nCRImage\n\n  Classify cells and calculate tumor cellularity\n\nDEgraph\n\n  Two-sample tests on a graph\n\nfabia\n\n  Factor Analysis for Bicluster Acquisition\n\nfarms\n\n  Factor Analysis for Robust Microarray Summarization\n\ngage\n\n  Generally Applicable Gene-set Enrichment for Pathway Analysis\n\nGeneGA\n\n  Design gene based on both mRNA secondary structure and codon usage\n  bias using Genetic algorithm\n\nHTSanalyzeR\n\n  Network and gene set enrichment analysis pipeline for high\n  throughput screens.\n\nimageHTS\n\n  Analysis of high-throughput microscopy-based screens\n\niSeq\n\n  Bayesian Hierarchical Modeling of ChIP-seq Data Through Hidden Ising\n  Models\n\nIsoGeneGUI\n\n  A graphical user interface to dose-response analysis of microarray\n  data\n\nles\n\n  Identifying Loci of Enhanced Significance in Tiling Microarray Data\n\nLVSmiRNA\n\n  LVS normalization for Agilent miRNA data\n\nMBCB\n\n  Model-based Background Correction for Beadarray\n\nMEDIPS\n\n  MeDIP-Seq data analysis\n\nMulcom\n\n  Differential expression and false discovery rate calculation through\n  multiple comparison\n\nnetresponse\n\n  Functional network analysis\n\nNTW\n\n  Predict gene network using an Ordinary Differential Equation (ODE)\n  based method\n\nNuPoP\n\n  Nucleosome positioning prediction\n\nontoCAT\n\n  Ontology parsing\n\nOTUbase\n\n  Deals with OTU data\n\nPatientGeneSets\n\n  Patient-oriented gene-set analysis\n\nR453Plus1Toolbox\n\n  Import and analyze data from Roche's Genome Sequencer System.\n\nRCytoscape\n\n  Display and manipulate graphs in Cytoscape\n\nRDRToolbox\n\n  Nonlinear dimension reduction with Isomap and LLE.\n\nRMAPPER\n\n  Interface to the MAPPER database of transcription factor binding\n  sites\n\nrnaSeqMap\n\n  rnaSeq analyses using xmapcore database\n\nSQUADD\n\n  Add-on to Standardized Qualitative Dynamical Systems software for\n  the logical models approach to analysis of complex dynamic systems\n\nWeb Site Updates\n================\n\nThe Bioconductor web site underwent significant changes during the last\nrelease cycle. The web site includes extensive help resources for both\nusers and package developers, in addition to information on package\ninstallation. One particularly useful feature in navigating the large\nnumbers of available packages is the updated biocViews widget\n\n  http://bioconductor.org/help/bioc-views/release/BiocViews.html\n\n\nOn behalf of the Bioconductor team,\n\n\nMartin Morgan\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "Bioconductors:\n\nWe are pleased to announce Bioconductor 2.7, consisting of 419\nsoftware packages. There are 34 new packages, and many updates and\nimprovements to existing packages. Bioconductor 2.7 is",
+      "thread_id": "thread-e16f02b745cc",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-02862c734d53",
+      "message_id": "<E5000091-F549-4BA1-A181-B4B40D50C377@wehi.edu.au>",
+      "from_name": "Mark Robinson",
+      "from_email_hash": "acbef4359804cd94338b09a62f410eb3884f75299503e7cbdef2774b13a7e7a3",
+      "date": "2010-10-18T22:43:10Z",
+      "subject": "[Bioc-sig-seq] EdgeR questions in analyzing 454 data-about prior.n, TMM, and p_value",
+      "subject_clean": "[Bioc-sig-seq] EdgeR questions in analyzing 454 data-about prior.n, TMM, and p_value",
+      "in_reply_to": "<A5344CB1-7415-4D1D-86A3-4E63AE54FC63@gmail.com>",
+      "references": [
+        "<A5344CB1-7415-4D1D-86A3-4E63AE54FC63@gmail.com>"
+      ],
+      "body_plain": "Hi Ying.\n\nSome comments below.\n\nOn 2010-10-18, at 10:22 PM, Ying Ye wrote:\n\n> Dear edgeR users and developers?\n> \n> I have few questions about edgeR when recently I use it for 454  \n> pyrosequencing data:\n> \n> 1. prior.n\n>     According to users' manual, we may not use too low prior.n in  \n> moderated tagwise dispersion approach. But in my dataset, there are  \n> more than 15 samples in each comparison group and the freedom is  \n> larger than 30. prior.n <- estimateSmoothing(d) gives 0.0005329. So I  \n> am wondering if I could use 0.0005329 since I have rather big number  \n> of samples in each group. Or I should adjust prior.n into 10 according  \n> to the manual's suggestion.\n\nWell, its hard to give a prescription for prior.n for all datasets.  Since you have so many degrees of freedom, you shouldn't need prior.n as high as 10.  You might try something lower, say 1-3.\n\n\n> 2. TMM\n>     I am not sure if this is also applicable to 454 microbiota data.  \n> I suppose I should do TMM normalization as well since the  \n> normalization factors from my samples have a big variation (f is from  \n> 0.41 to 4.58). Is that right?\n\nI must admit that I'm not intimately aware of all the nuances of microbiota data, but I will say that those factors you mention above are generally lower/higher than we see in RNA-seq data.  I'd say its probably best to look at some \"smear\" plots -- through maPlot() for example -- to assess whether the TMM normalization is appropriately capturing shifts due to composition or the like.\n\nAs always for exploratory analysis, it would be good to look multidimension scaling plots -- see plotMDS.dge().  There is no substitute for looking at your data.\n\n\n> 3. p_value\n>     According to your experience, is it reasonable and reliable to  \n> use p_value < 0.05 as significance criteria? or only <0.01 can be  \n> reliable.\n\nFirst off, you'll probably want to do some multiple testing correction, which can be done through the topTags() function.  As to where to set the threshold on significance, that is a matter of your false discovery tolerance ... the status quo is 5%, but you may want to be more or less stringent.\n\nHope that helps.\n\nMark\n\n\n\n> I am a new users in this package and hope you may give some  \n> suggestions. Many thanks!\n> \n> Ying Ye\n> \n> \n> \n> \n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n------------------------------\nMark Robinson, PhD (Melb)\nEpigenetics Laboratory, Garvan\nBioinformatics Division, WEHI\ne: m.robinson at garvan.org.au\ne: mrobinson at wehi.edu.au\np: +61 (0)3 9345 2628\nf: +61 (0)3 9347 0852\n------------------------------\n\n\n\n\n\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:6}}",
+      "body_snippet": "Hi Ying.\n\nSome comments below.\n\nOn 2010-10-18, at 10:22 PM, Ying Ye wrote:\n\n> Dear edgeR users and developers?\n> \n> I have few questions about edgeR when recently I use it for 454  \n> pyrosequencing d",
+      "thread_id": "thread-406113d0e06d",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-122fc403040b",
+      "message_id": "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-10-19T02:00:23Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nThis conversion used to work before but it seems like it doesn't any longer.\n\n> summary(rs)\n    Length      Class       Mode \n        25 GenomeData         S4\n> as(rs, \"RangedData\")\nError in FUN(X[[1L]], ...) : \n  no method or default for coercing \"list\" to \"RangedData\"\n> sessionInfo()\nR version 2.12.0 (2010-10-15)\nPlatform: x86_64-pc-mingw32/x64 (64-bit)\n\nlocale:\n[1] LC_COLLATE=English_Australia.1252  LC_CTYPE=English_Australia.1252    LC_MONETARY=English_Australia.1252 LC_NUMERIC=C                      \n[5] LC_TIME=English_Australia.1252    \n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] BSgenome_1.18.0     Biostrings_2.18.0   GenomicRanges_1.2.0 IRanges_1.8.0      \n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0",
+      "body_snippet": "Hello,\n\nThis conversion used to work before but it seems like it doesn't any longer.\n\n> summary(rs)\n    Length      Class       Mode \n        25 GenomeData         S4\n> as(rs, \"RangedData\")\nError in F",
+      "thread_id": "thread-122fc403040b",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-0fc650449d36",
+      "message_id": "<AANLkTi=oeW5AwOyAWO3osQ7j_AMS_Y1A8Xs4m8bTTjVB@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2010-10-19T02:38:46Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "My reading of the doc suggests it should work.  Perhaps this is a\nworkaround: after example(\"GenomeData-class\"),\n\n> as(as(as(gd, \"RangesList\"), \"GRanges\"), \"RangedData\")\n\n\nOn Mon, Oct 18, 2010 at 10:00 PM, Dario Strbenac\n<D.Strbenac at garvan.org.au> wrote:\n> Hello,\n>\n> This conversion used to work before but it seems like it doesn't any longer.\n>\n>> summary(rs)\n> ? ?Length ? ? ?Class ? ? ? Mode\n> ? ? ? ?25 GenomeData ? ? ? ? S4\n>> as(rs, \"RangedData\")\n> Error in FUN(X[[1L]], ...) :\n> ?no method or default for coercing \"list\" to \"RangedData\"\n>> sessionInfo()\n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-pc-mingw32/x64 (64-bit)\n>\n> locale:\n> [1] LC_COLLATE=English_Australia.1252 ?LC_CTYPE=English_Australia.1252 ? ?LC_MONETARY=English_Australia.1252 LC_NUMERIC=C\n> [5] LC_TIME=English_Australia.1252\n>\n> attached base packages:\n> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>\n> other attached packages:\n> [1] BSgenome_1.18.0 ? ? Biostrings_2.18.0 ? GenomicRanges_1.2.0 IRanges_1.8.0\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.8.0\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "My reading of the doc suggests it should work.  Perhaps this is a\nworkaround: after example(\"GenomeData-class\"),\n\n> as(as(as(gd, \"RangesList\"), \"GRanges\"), \"RangedData\")\n\n\nOn Mon, Oct 18, 2010 at 10:0",
+      "thread_id": "thread-122fc403040b",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-58e0e364c1fa",
+      "message_id": "<AANLkTinf+rbDgMn-7PhmTDpe5qCyBjOcPvY0n_xSFCmJ@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-19T02:48:37Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101018/e555b987/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101018/e555b987/attachment.pl>",
+      "thread_id": "thread-122fc403040b",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-a2077744954c",
+      "message_id": "<20101019130013.BJK00738@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-10-19T03:00:13Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": "<AANLkTi=oeW5AwOyAWO3osQ7j_AMS_Y1A8Xs4m8bTTjVB@mail.gmail.com>",
+      "references": [
+        "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>",
+        "<AANLkTi=oeW5AwOyAWO3osQ7j_AMS_Y1A8Xs4m8bTTjVB@mail.gmail.com>"
+      ],
+      "body_plain": "Hello,\n\nThe workaround still causes me problems :\n\n> gd = rs\n> as(as(as(gd, \"RangesList\"), \"GRanges\"), \"RangedData\")\nError in FUN(X[[1L]], ...) : \n  no method or default for coercing \"list\" to \"Ranges\"\n> traceback()\n13: stop(gettextf(\"no method or default for coercing \\\"%s\\\" to \\\"%s\\\"\", \n        thisClass, Class), domain = NA)\n12: FUN(X[[1L]], ...)\n11: lapply(as.list(X), FUN = FUN, ...)\n10: lapply(as.list(X), FUN = FUN, ...)\n9: lapply(from, as, \"Ranges\")\n8: lapply(from, as, \"Ranges\")\n7: do.call(\"RangesList\", lapply(from, as, \"Ranges\"))\n6: asMethod(object)\n5: as(gd, \"RangesList\")\n4: .class1(object)\n3: as(as(gd, \"RangesList\"), \"GRanges\")\n2: .class1(object)\n1: as(as(as(gd, \"RangesList\"), \"GRanges\"), \"RangedData\")\n\nI'm not sure why it would be treating the \"GenomeData\" object as a \"list\".\n\n- Dario.\n\n---- Original message ----\n>Date: Mon, 18 Oct 2010 22:38:46 -0400\n>From: Vincent Carey <stvjc at channing.harvard.edu>  \n>Subject: Re: [Bioc-sig-seq] Coercion of GenomeData to RangedData  \n>To: D.Strbenac at garvan.org.au\n>Cc: bioc-sig-sequencing at r-project.org\n>\n>My reading of the doc suggests it should work.  Perhaps this is a\n>workaround: after example(\"GenomeData-class\"),\n>\n>> as(as(as(gd, \"RangesList\"), \"GRanges\"), \"RangedData\")\n>\n>\n>On Mon, Oct 18, 2010 at 10:00 PM, Dario Strbenac\n><D.Strbenac at garvan.org.au> wrote:\n>> Hello,\n>>\n>> This conversion used to work before but it seems like it doesn't any longer.\n>>\n>>> summary(rs)\n>> ? ?Length ? ? ?Class ? ? ? Mode\n>> ? ? ? ?25 GenomeData ? ? ? ? S4\n>>> as(rs, \"RangedData\")\n>> Error in FUN(X[[1L]], ...) :\n>> ?no method or default for coercing \"list\" to \"RangedData\"\n>>> sessionInfo()\n>> R version 2.12.0 (2010-10-15)\n>> Platform: x86_64-pc-mingw32/x64 (64-bit)\n>>\n>> locale:\n>> [1] LC_COLLATE=English_Australia.1252 ?LC_CTYPE=English_Australia.1252 ? ?LC_MONETARY=English_Australia.1252 LC_NUMERIC=C\n>> [5] LC_TIME=English_Australia.1252\n>>\n>> attached base packages:\n>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>>\n>> other attached packages:\n>> [1] BSgenome_1.18.0 ? ? Biostrings_2.18.0 ? GenomicRanges_1.2.0 IRanges_1.8.0\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.8.0\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>",
+      "body_snippet": "Hello,\n\nThe workaround still causes me problems :\n\n> gd = rs\n> as(as(as(gd, \"RangesList\"), \"GRanges\"), \"RangedData\")\nError in FUN(X[[1L]], ...) : \n  no method or default for coercing \"list\" to \"Ranges",
+      "thread_id": "thread-122fc403040b",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-372ec9fd60b5",
+      "message_id": "<20101019130503.BJK00878@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-10-19T03:05:03Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": "<AANLkTinf+rbDgMn-7PhmTDpe5qCyBjOcPvY0n_xSFCmJ@mail.gmail.com>",
+      "references": [
+        "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>",
+        "<AANLkTinf+rbDgMn-7PhmTDpe5qCyBjOcPvY0n_xSFCmJ@mail.gmail.com>"
+      ],
+      "body_plain": "Here is a string representation :\n\n> str(rs)\nFormal class 'GenomeData' [package \"BSgenome\"] with 4 slots\n  ..@ listData       :List of 25\n  .. ..$ chr1 :List of 2\n  .. .. ..$ -: int [1:375671] 184 191 194 507 511 522 526 545 551 562 ...\n  .. .. ..$ +: int [1:376001] 152 234 244 248 277 440 450 451 452 458 ...\n  .. ..$ chr2 :List of 2\n  .. .. ..$ -: int [1:331924] 384 392 570 660 716 720 729 731 741 747 ...\n  .. .. ..$ +: int [1:332302] 234 283 535 590 659 663 682 704 710 724 ...\n  .. ..$ chr3 :List of 2\n  .. .. ..$ -: int [1:212665] 46758 50637 50654 50691 50703 50723 50735 50789 54970 55050 ...\n  .. .. ..$ +: int [1:212274] 38885 50529 50545 50551 50581 50582 50583 50630 50695 54859 ...\n\n   ...            ...              ... \n\n  ..@ elementMetadata: NULL\n  ..@ elementType    : chr \"ANY\"\n  ..@ metadata       :List of 3\n  .. ..$ organism       : NULL\n  .. ..$ provider       : NULL\n  .. ..$ providerVersion: NULL\n\n---- Original message ----\n>Date: Mon, 18 Oct 2010 19:48:37 -0700\n>From: Michael Lawrence <lawrence.michael at gene.com>  \n>Subject: Re: [Bioc-sig-seq] Coercion of GenomeData to RangedData  \n>To: D.Strbenac at garvan.org.au\n>Cc: bioc-sig-sequencing at r-project.org\n>\n>   That coercion only works if the elements of your\n>   GenomeData are coercible to RangedData (which after\n>   coercion are combined into a single RangedData). So\n>   it would be good to know what's in your GenomeData.\n>   If each element is a list, as your error message\n>   suggests, it won't work, as there really is no way\n>   to convert a list to a RangedData.\n>\n>   Michael\n>\n>   On Mon, Oct 18, 2010 at 7:00 PM, Dario Strbenac\n>   <D.Strbenac at garvan.org.au> wrote:\n>\n>     Hello,\n>\n>     This conversion used to work before but it seems\n>     like it doesn't any longer.\n>\n>     > summary(rs)\n>     ? ?Length ? ? ?Class ? ? ? Mode\n>     ? ? ? ?25 GenomeData ? ? ? ? S4\n>     > as(rs, \"RangedData\")\n>     Error in FUN(X[[1L]], ...) :\n>     ?no method or default for coercing \"list\" to\n>     \"RangedData\"\n>     > sessionInfo()\n>     R version 2.12.0 (2010-10-15)\n>     Platform: x86_64-pc-mingw32/x64 (64-bit)\n>\n>     locale:\n>     [1] LC_COLLATE=English_Australia.1252\n>     ?LC_CTYPE=English_Australia.1252 ?\n>     ?LC_MONETARY=English_Australia.1252 LC_NUMERIC=C\n>     [5] LC_TIME=English_Australia.1252\n>\n>     attached base packages:\n>     [1] stats ? ? graphics ?grDevices utils ? ?\n>     datasets ?methods ? base\n>\n>     other attached packages:\n>     [1] BSgenome_1.18.0 ? ? Biostrings_2.18.0 ?\n>     GenomicRanges_1.2.0 IRanges_1.8.0\n>\n>     loaded via a namespace (and not attached):\n>     [1] Biobase_2.8.0\n>\n>     _______________________________________________\n>     Bioc-sig-sequencing mailing list\n>     Bioc-sig-sequencing at r-project.org\n>     https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Here is a string representation :\n\n> str(rs)\nFormal class 'GenomeData' [package \"BSgenome\"] with 4 slots\n  ..@ listData       :List of 25\n  .. ..$ chr1 :List of 2\n  .. .. ..$ -: int [1:375671] 184 191",
+      "thread_id": "thread-122fc403040b",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-f14ea0e96d66",
+      "message_id": "<AANLkTimZHMi3XUzopEGFWc6jdDEX_VzvVw4A6nJhe=U4@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-19T03:17:09Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": "<20101019130503.BJK00878@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101019120023.BJJ98954@gimr.garvan.unsw.edu.au>",
+        "<AANLkTinf+rbDgMn-7PhmTDpe5qCyBjOcPvY0n_xSFCmJ@mail.gmail.com>",
+        "<20101019130503.BJK00878@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101018/dc673e38/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101018/dc673e38/attachment.pl>",
+      "thread_id": "thread-122fc403040b",
+      "thread_depth": 3,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-308039bb1787",
+      "message_id": "<4C8DBD6F.3020900@xs4all.nl>",
+      "from_name": "Ludo Pagie",
+      "from_email_hash": "8070ca58c357fe7ba688863f34fc338685d8a88dea6811bbe4f92e3e047fae75",
+      "date": "2010-10-19T08:14:43Z",
+      "subject": "[Bioc-sig-seq] X11 fatal IO error",
+      "subject_clean": "[Bioc-sig-seq] X11 fatal IO error",
+      "in_reply_to": "<2729C3E8973BB8438B396F8C59C0A741680B@CH1PRD0104MB090.prod.exchangelabs.com>",
+      "references": [
+        "<2729C3E8973BB8438B396F8C59C0A741680B@CH1PRD0104MB090.prod.exchangelabs.com>"
+      ],
+      "body_plain": "sounds a bit like\nhttp://www.mail-archive.com/r-devel at r-project.org/msg18494.html\n\nthe corresponding bug-report (#14055) was closed as it was declared\nnot-reproducible and solely due to the X-server (although the same code\nkills windows machines as well).\n\nDoes the error only occur when drawing large polygons, as in #14055?\n\n\nLudo\n\nOn 09/13/2010 03:45 AM, pterry at huskers.unl.edu wrote:\n>  Dear bioc-sig-sequencing,\n> \n> I received the following error message while running code from slide 17 from the workshop lab CoverageEDA.pdf, 01/29/10 in Seattle, (http://www.bioconductor.org/help/course-materials/2010/SeattleJan10/day3/CoverageEDA.pdf)\n> \n>> plotCoverage <-\n> + function (x, chrom, start = 1, end = length(x[[chrom]]), col = \"blue\",\n> + xlab = \"Index\", ylab = \"Coverage\", main = chrom)\n> + {\n> + xWindow <- as.vector(window(x[[chrom]], start, end))\n> + x <- start:end\n> + xlim <- c(start, end)\n> + ylim <- c(0, max(xWindow))\n> + plot(x = start, y = 0, xlim = xlim, ylim = ylim, xlab = xlab,\n> + ylab = ylab, main = main, type = \"n\")\n> + polygon(c(start, x, end), c(0, xWindow, 0), col = col)\n> + }\n>> plotCoverage(cov.arabtest1_s8, \"chr1\")\n> Error in polygon(c(start, x, end), c(0, xWindow, 0), col = col) :\n>   X11 fatal IO error: please save work and shut down R\n> \n>> sessionInfo()\n> R version 2.12.0 Under development (unstable) (2010-08-02 r52661)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n> \n> locale:\n>  [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C\n>  [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8\n>  [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8\n>  [7] LC_PAPER=en_US.utf8       LC_NAME=C\n>  [9] LC_ADDRESS=C              LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] chipseq_0.99.1       BSgenome_1.17.6      ShortRead_1.7.11\n> [4] Rsamtools_1.1.11     lattice_0.18-8       Biostrings_2.17.27\n> [7] GenomicRanges_1.1.20 IRanges_1.7.15\n> \n> loaded via a namespace (and not attached):\n> [1] Biobase_2.9.0 grid_2.12.0   hwriter_1.2\n>>\n> \n> The plot works fine with the 2.11 release vesion of R.  This is a linux Ubuntu laptop running 10.04, 8 Gb ram.\n> \n> Thanks,\n> P. Terry\n> pterry at huskers.unl.edu\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "sounds a bit like\nhttp://www.mail-archive.com/r-devel at r-project.org/msg18494.html\n\nthe corresponding bug-report (#14055) was closed as it was declared\nnot-reproducible and solely due to the X-serve",
+      "thread_id": "thread-308039bb1787",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-badba473044c",
+      "message_id": "<2729C3E8973BB8438B396F8C59C0A741010476@CH1PRD0104MB090.prod.exchangelabs.com>",
+      "from_name": "pterry at huskers.unl.edu",
+      "from_email_hash": "451b60417347881d1411be90e0dc48b9af1cc31e0974d2d23e738160d3b043e7",
+      "date": "2010-10-19T20:18:07Z",
+      "subject": "[Bioc-sig-seq] Converting GRanges to data.frame, RangedData, back to GRanges object",
+      "subject_clean": "[Bioc-sig-seq] Converting GRanges to data.frame, RangedData, back to GRanges object",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101019/a778a750/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101019/a778a750/attachment.pl>",
+      "thread_id": "thread-badba473044c",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-7899cb5355aa",
+      "message_id": "<AANLkTin4fkDL+DBhg9teFKUKCgDzXLZ-pg2JoMxvqdSD@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-19T20:30:37Z",
+      "subject": "[Bioc-sig-seq] Converting GRanges to data.frame, RangedData, back to GRanges object",
+      "subject_clean": "[Bioc-sig-seq] Converting GRanges to data.frame, RangedData, back to GRanges object",
+      "in_reply_to": "<2729C3E8973BB8438B396F8C59C0A741010476@CH1PRD0104MB090.prod.exchangelabs.com>",
+      "references": [
+        "<2729C3E8973BB8438B396F8C59C0A741010476@CH1PRD0104MB090.prod.exchangelabs.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101019/310bda5e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101019/310bda5e/attachment.pl>",
+      "thread_id": "thread-badba473044c",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-341d703a598f",
+      "message_id": "<4CBE8CAD.9040306@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-10-20T06:31:09Z",
+      "subject": "[Bioc-sig-seq] Mac binaries for R 2.12 fixed",
+      "subject_clean": "[Bioc-sig-seq] Mac binaries for R 2.12 fixed",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Bioconductors,\n\nSome users have reported problems with the Mac universal binaries\nwe've made available since yesterday as part of the new BioC 2.7\nrelease.\n\nNote that only R 2.12 users on Mac who installed from binary\n(i.e. who didn't use type=\"source\") are affected by this problem.\n\nWe've fixed the problem and new universal binaries are now available\nfor installation. Note that we didn't bump their version numbers so\nyou won't be able to update your installation using update.packages().\nPlease just re-install your Bioconductor packages with biocLite().\n\nIMPORTANT: Only R 2.12 users on Mac who installed BioC packages\nfrom binary need to re-install them.\n\nSorry again for the inconvenience this is causing and please let us\nknow if you have any question.\n\nThanks,\nH.\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Bioconductors,\n\nSome users have reported problems with the Mac universal binaries\nwe've made available since yesterday as part of the new BioC 2.7\nrelease.\n\nNote that only R 2.12 users on Mac who inst",
+      "thread_id": "thread-341d703a598f",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-441cd4962e38",
+      "message_id": "<AANLkTimromRgQfP2ZgUmoATHgBaux6xb4oCVpB8oi3ce@mail.gmail.com>",
+      "from_name": "Leonardo Collado Torres",
+      "from_email_hash": "b87acec20d5a39fa09dc19fb4c79fb378f5a2e1583724c41714b09eb6a9b011d",
+      "date": "2010-10-21T00:24:46Z",
+      "subject": "[Bioc-sig-seq] Problem with GenomicRanges: GRanges created prior to R 2.12.0 cannot be loaded with R 2.12.0",
+      "subject_clean": "[Bioc-sig-seq] Problem with GenomicRanges: GRanges created prior to R 2.12.0 cannot be loaded with R 2.12.0",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101020/8210a4c3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101020/8210a4c3/attachment.pl>",
+      "thread_id": "thread-441cd4962e38",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-d71ebac2396f",
+      "message_id": "<AANLkTi=wyh3G1_RDcyy5=E0ndC37QYaKz5c-4gBQBVob@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2010-10-21T01:01:43Z",
+      "subject": "[Bioc-sig-seq] Problem with GenomicRanges: GRanges created prior to R 2.12.0 cannot be loaded with R 2.12.0",
+      "subject_clean": "[Bioc-sig-seq] Problem with GenomicRanges: GRanges created prior to R 2.12.0 cannot be loaded with R 2.12.0",
+      "in_reply_to": "<AANLkTimromRgQfP2ZgUmoATHgBaux6xb4oCVpB8oi3ce@mail.gmail.com>",
+      "references": [
+        "<AANLkTimromRgQfP2ZgUmoATHgBaux6xb4oCVpB8oi3ce@mail.gmail.com>"
+      ],
+      "body_plain": "try updateObject() on the loaded instances.  you will have to\nreserialize after this.  it is unfortunate that many objects may need\nreserialization as definitions change, but updateObject() reduces the\npain.\n\nOn Wed, Oct 20, 2010 at 8:24 PM, Leonardo Collado Torres\n<lcollado at lcg.unam.mx> wrote:\n> Dear bioc-sig-sequencing list,\n>\n> For several steps in our pipeline we've been saving GRanges objects into\n> Rdata files, load them later, and move on. Everything has been smooth so\n> far, yet with the new R Release and hence new GenomicRanges there is a\n> problem related to the print or show methods in GRanges objects.\n>\n> The error is related to the new 'seqinfo' part of GRanges objects. The help\n> page for seqinfo didn't help us find out if there is a way to make 'old'\n> GRanges objects print correctly with the new GenomicRanges package.\n>\n> With small GRanges objects, R prints an error after printing the head of the\n> GRanges object. With longer GRanges objects, only the error is printed. My\n> guess is that this is related to the show method for GRanges objects.\n>\n> Ideally for us, 'old' GRanges objects should still print correctly with the\n> new GenomicRanges without having to modify them.\n>\n> Thank you and greetings,\n> Leonardo\n>\n>\n> Case 1: small GRanges\n>\n> Part 1: creating the object in an older version of R (in this case from\n> Ubuntu). The GRanges is the one from the first example of the GenomicRanges\n> vignette.\n>\n>> library(GenomicRanges)\n> Loading required package: IRanges\n>\n> Attaching package: 'IRanges'\n>\n> The following object(s) are masked from 'package:base':\n>\n> ? ?cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,\n> ? ?pmin.int, rbind, rep.int, table\n>\n>> gr <- GRanges(seqnames =\n> + ? ? ? ? ? Rle(c(\"chr1\", \"chr2\", \"chr1\", \"chr3\"), c(1, 3, 2, 4)),\n> + ? ? ? ? ? ranges =\n> + ? ? ? ? ? IRanges(1:10, end = 7:16, names = head(letters, 10)),\n> + ? ? ? ? ? strand =\n> + ? ? ? ? ? Rle(strand(c(\"-\", \"+\", \"*\", \"+\", \"-\")),\n> + ? ? ? ? ? ? ? c(1, 2, 2, 3, 2)),\n> + ? ? ? ? ? score = 1:10,\n> + ? ? ? ? ? GC = seq(1, 0, length=10))\n>> gr\n> GRanges with 10 ranges and 2 elementMetadata values\n> ?seqnames ? ?ranges strand | ? ? score ? ? ? ?GC\n> ? ? <Rle> <IRanges> ?<Rle> | <integer> <numeric>\n> a ? ? chr1 ?[ 1, ?7] ? ? ?- | ? ? ? ? 1 1.0000000\n> b ? ? chr2 ?[ 2, ?8] ? ? ?+ | ? ? ? ? 2 0.8888889\n> c ? ? chr2 ?[ 3, ?9] ? ? ?+ | ? ? ? ? 3 0.7777778\n> d ? ? chr2 ?[ 4, 10] ? ? ?* | ? ? ? ? 4 0.6666667\n> e ? ? chr1 ?[ 5, 11] ? ? ?* | ? ? ? ? 5 0.5555556\n> f ? ? chr1 ?[ 6, 12] ? ? ?+ | ? ? ? ? 6 0.4444444\n> g ? ? chr3 ?[ 7, 13] ? ? ?+ | ? ? ? ? 7 0.3333333\n> h ? ? chr3 ?[ 8, 14] ? ? ?+ | ? ? ? ? 8 0.2222222\n> i ? ? chr3 ?[ 9, 15] ? ? ?- | ? ? ? ? 9 0.1111111\n> j ? ? chr3 ?[10, 16] ? ? ?- | ? ? ? ?10 0.0000000\n>\n> seqlengths\n> ?chr1 chr2 chr3\n> ? NA ? NA ? NA\n>> save(gr, file=\"gr.Rdata\")\n>> sessionInfo()\n> R version 2.12.0 Under development (unstable) (2010-09-08 r52880)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n> ?[1] LC_CTYPE=en_US.utf8 ? ? ? LC_NUMERIC=C\n> ?[3] LC_TIME=en_US.utf8 ? ? ? ?LC_COLLATE=en_US.utf8\n> ?[5] LC_MONETARY=C ? ? ? ? ? ? LC_MESSAGES=en_US.utf8\n> ?[7] LC_PAPER=en_US.utf8 ? ? ? LC_NAME=C\n> ?[9] LC_ADDRESS=C ? ? ? ? ? ? ?LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>\n> other attached packages:\n> [1] GenomicRanges_1.1.25 IRanges_1.7.34\n>>\n>\n> Part 2:\n> Loading the GRanges object with R 2.11.1 (in this case from Windows). In\n> this case everything works fine :)\n>\n>> load(\"gr.Rdata\")\n>> gr\n> GRanges with 10 ranges and 2 elementMetadata values\n> ?seqnames ? ?ranges strand | ? ? score ? ? ? ?GC\n> ? ? <Rle> <IRanges> ?<Rle> | <integer> <numeric>\n> a ? ? chr1 ?[ 1, ?7] ? ? ?- | ? ? ? ? 1 1.0000000\n> b ? ? chr2 ?[ 2, ?8] ? ? ?+ | ? ? ? ? 2 0.8888889\n> c ? ? chr2 ?[ 3, ?9] ? ? ?+ | ? ? ? ? 3 0.7777778\n> d ? ? chr2 ?[ 4, 10] ? ? ?* | ? ? ? ? 4 0.6666667\n> e ? ? chr1 ?[ 5, 11] ? ? ?* | ? ? ? ? 5 0.5555556\n> f ? ? chr1 ?[ 6, 12] ? ? ?+ | ? ? ? ? 6 0.4444444\n> g ? ? chr3 ?[ 7, 13] ? ? ?+ | ? ? ? ? 7 0.3333333\n> h ? ? chr3 ?[ 8, 14] ? ? ?+ | ? ? ? ? 8 0.2222222\n> i ? ? chr3 ?[ 9, 15] ? ? ?- | ? ? ? ? 9 0.1111111\n> j ? ? chr3 ?[10, 16] ? ? ?- | ? ? ? ?10 0.0000000\n>\n> seqlengths\n> ?chr1 chr2 chr3\n> ? NA ? NA ? NA\n>> sessionInfo()\n> R version 2.11.1 (2010-05-31)\n> x86_64-pc-mingw32\n>\n> locale:\n> [1] LC_COLLATE=English_United States.1252\n> [2] LC_CTYPE=English_United States.1252\n> [3] LC_MONETARY=English_United States.1252\n> [4] LC_NUMERIC=C\n> [5] LC_TIME=English_United States.1252\n>\n> attached base packages:\n> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>\n> other attached packages:\n> [1] GenomicRanges_1.0.6 IRanges_1.6.8\n>>\n>\n>\n> Part 3:\n> Loading the GRanges object into the new R (2.12.0) pops an error:\n>\n>> library(GenomicRanges)\n> Loading required package: IRanges\n>\n> Attaching package: 'IRanges'\n>\n> The following object(s) are masked from 'package:base':\n>\n> ? ?cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,\n> ? ?pmin.int, rbind, rep.int, table\n>\n>> load(\"gr.Rdata\")\n>> gr\n> GRanges with 10 ranges and 2 elementMetadata values\n> ?seqnames ? ?ranges strand | ? ? score ? ? ? ?GC\n> ? ? <Rle> <IRanges> ?<Rle> | <integer> <numeric>\n> a ? ? chr1 ?[ 1, ?7] ? ? ?- | ? ? ? ? 1 1.0000000\n> b ? ? chr2 ?[ 2, ?8] ? ? ?+ | ? ? ? ? 2 0.8888889\n> c ? ? chr2 ?[ 3, ?9] ? ? ?+ | ? ? ? ? 3 0.7777778\n> d ? ? chr2 ?[ 4, 10] ? ? ?* | ? ? ? ? 4 0.6666667\n> e ? ? chr1 ?[ 5, 11] ? ? ?* | ? ? ? ? 5 0.5555556\n> f ? ? chr1 ?[ 6, 12] ? ? ?+ | ? ? ? ? 6 0.4444444\n> g ? ? chr3 ?[ 7, 13] ? ? ?+ | ? ? ? ? 7 0.3333333\n> h ? ? chr3 ?[ 8, 14] ? ? ?+ | ? ? ? ? 8 0.2222222\n> i ? ? chr3 ?[ 9, 15] ? ? ?- | ? ? ? ? 9 0.1111111\n> j ? ? chr3 ?[10, 16] ? ? ?- | ? ? ? ?10 0.0000000\n> Error in seqlengths(seqinfo(x)) :\n> ?error in evaluating the argument 'x' in selecting a method for function\n> 'seqlengths'\n>> sessionInfo()\n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-pc-mingw32/x64 (64-bit)\n>\n> locale:\n> [1] LC_COLLATE=English_United States.1252\n> [2] LC_CTYPE=English_United States.1252\n> [3] LC_MONETARY=English_United States.1252\n> [4] LC_NUMERIC=C\n> [5] LC_TIME=English_United States.1252\n>\n> attached base packages:\n> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>\n> other attached packages:\n> [1] GenomicRanges_1.2.0 IRanges_1.8.0\n>>\n>\n>\n>\n>\n>\n> Case 2: long GRanges object (longer 21 ranges)\n>\n> Part 1: Creating the GRanges object in R 2.11.1\n>\n>> library(GenomicRanges)\n> Loading required package: IRanges\n>\n> Attaching package: 'IRanges'\n>\n> The following object(s) are masked from 'package:base':\n>\n> ? ?cbind, Map, mapply, order, paste, pmax, pmax.int, pmin, pmin.int,\n> ? ?rbind, rep.int, table\n>\n>> longGR <- GRanges(seqnames=rep(\"chr\", 100), ranges=IRanges(start=1:101,\n> width=10), strand=rep(\"*\", 100))\n> Error in validObject(.Object) :\n> ?invalid class \"GRanges\" object: slot lengths are not all equal\n>> length(1:101)\n> [1] 101\n>> longGR <- GRanges(seqnames=rep(\"chr\", 100), ranges=IRanges(start=1:100,\n> width=10), strand=rep(\"*\", 100))\n>>\n>>\n>> save(longGR, file=\"longGR.Rdata\")\n>> sessionInfo()\n> R version 2.11.1 (2010-05-31)\n> x86_64-pc-mingw32\n>\n> locale:\n> [1] LC_COLLATE=English_United States.1252\n> [2] LC_CTYPE=English_United States.1252\n> [3] LC_MONETARY=English_United States.1252\n> [4] LC_NUMERIC=C\n> [5] LC_TIME=English_United States.1252\n>\n> attached base packages:\n> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>\n> other attached packages:\n> [1] GenomicRanges_1.0.6 IRanges_1.6.8\n>>\n>\n>\n> Part 2: loading the file in R 2.12.0 pops an error:\n>\n>> load(\"longGR.Rdata\")\n>> longGR\n> GRanges with 100 ranges and 0 elementMetadata values\n> Error in validObject(.Object) :\n> ?invalid class \"GRanges\" object: slots in class definition but not in\n> object: \"seqinfo\"\n>> sessionInfo()\n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-pc-mingw32/x64 (64-bit)\n>\n> locale:\n> [1] LC_COLLATE=English_United States.1252\n> [2] LC_CTYPE=English_United States.1252\n> [3] LC_MONETARY=English_United States.1252\n> [4] LC_NUMERIC=C\n> [5] LC_TIME=English_United States.1252\n>\n> attached base packages:\n> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>\n> other attached packages:\n> [1] GenomicRanges_1.2.0 IRanges_1.8.0\n>>\n>\n> ? ? ? ?[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "try updateObject() on the loaded instances.  you will have to\nreserialize after this.  it is unfortunate that many objects may need\nreserialization as definitions change, but updateObject() reduces th",
+      "thread_id": "thread-441cd4962e38",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-8c6a2ab2617a",
+      "message_id": "<AANLkTiniU2DyOua4BpwuY1zKKYWrgcS4+m+3AnzzAY_u@mail.gmail.com>",
+      "from_name": "Leonardo Collado Torres",
+      "from_email_hash": "b87acec20d5a39fa09dc19fb4c79fb378f5a2e1583724c41714b09eb6a9b011d",
+      "date": "2010-10-21T14:34:22Z",
+      "subject": "[Bioc-sig-seq] Unable to read a Bowtie file into ShortRead in a Mac OS X version 10.5.8 with R 2.11.1 and ShortRead 1.6.2",
+      "subject_clean": "[Bioc-sig-seq] Unable to read a Bowtie file into ShortRead in a Mac OS X version 10.5.8 with R 2.11.1 and ShortRead 1.6.2",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101021/8702965e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101021/8702965e/attachment.pl>",
+      "thread_id": "thread-8c6a2ab2617a",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-dddb59d9b7ba",
+      "message_id": "<AANLkTikg7W7BYWw_Xio2uZBi9rf_NKw9xwUV+5hNWfw0@mail.gmail.com>",
+      "from_name": "Leonardo Collado Torres",
+      "from_email_hash": "b87acec20d5a39fa09dc19fb4c79fb378f5a2e1583724c41714b09eb6a9b011d",
+      "date": "2010-10-21T14:41:31Z",
+      "subject": "[Bioc-sig-seq] Problem with GenomicRanges: GRanges created prior to R 2.12.0 cannot be loaded with R 2.12.0",
+      "subject_clean": "[Bioc-sig-seq] Problem with GenomicRanges: GRanges created prior to R 2.12.0 cannot be loaded with R 2.12.0",
+      "in_reply_to": "<AANLkTi=wyh3G1_RDcyy5=E0ndC37QYaKz5c-4gBQBVob@mail.gmail.com>",
+      "references": [
+        "<AANLkTimromRgQfP2ZgUmoATHgBaux6xb4oCVpB8oi3ce@mail.gmail.com>",
+        "<AANLkTi=wyh3G1_RDcyy5=E0ndC37QYaKz5c-4gBQBVob@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101021/a26fe9f8/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101021/a26fe9f8/attachment.pl>",
+      "thread_id": "thread-441cd4962e38",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-832490fd080f",
+      "message_id": "<4CC18ED4.4060207@dkfz.de>",
+      "from_name": "Nora Rieber",
+      "from_email_hash": "ebb05177c443f57b25cf0db61a48ff36d24386c53b428efefaeb6e5647937515",
+      "date": "2010-10-22T13:17:08Z",
+      "subject": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize + segfault in MEDIPS.plotCalibrationPlot",
+      "subject_clean": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize + segfault in MEDIPS.plotCalibrationPlot",
+      "in_reply_to": "<mailman.11.1287655204.31036.bioc-sig-sequencing@r-project.org>",
+      "references": [
+        "<mailman.11.1287655204.31036.bioc-sig-sequencing@r-project.org>"
+      ],
+      "body_plain": "Dear all,\n\nI am working with the MEDIPS package and get the following error when\ncalling the function MEDIPS.CpGenrich:\n\n\n> > cpgEnrichment_barr<-MEDIPS.CpGenrich(data=barr,extend=fraglen)\n>   \nPreprocessing...\nError in .local(x, width, fix, use.names, ...) :\n  unused argument(s) (start = FALSE)\nCalls: MEDIPS.CpGenrich -> resize -> resize -> .local\n\nI checked the resize function which indeed does not require a \"start\"\nargument, the function call in MEDIPS.CpGenrich however looks like this:\n\nranges(pos2) <- resize(ranges(pos2), extend + 1, start = FALSE)\n\nThis sounds like a version problem.\nThis is my sessionInfo:\n\nR version 2.11.1 (2010-05-31)\nx86_64-unknown-linux-gnu\n\nlocale:\n [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_GB.UTF-8\n [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] BSgenome.Hsapiens.UCSC.hg19_1.3.16 MEDIPS_1.2\n[3] gtools_2.6.2                       BSgenome_1.16.3\n[5] Biostrings_2.16.5                  GenomicRanges_1.0.3\n[7] IRanges_1.6.6\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0 tools_2.11.\n\n\nAlso, later on, when I call MEDIPS.plotCalibrationPlot, I get the\nfollowing:\n\n\n> > png(\"CalibrationPlot.png\")\n> >     for(bar in calib_list){    #for each barcode:\n>   \n+         counter=counter+1\n+         MEDIPS.plotCalibrationPlot(data=bar, linearFit=T,\nplot_chr=\"all\", rpm=T, xrange=10, main=paste(\"Calibration plot (bar \",\ncounter, \")\", sep=\"\"))\n+     }\nPlotting calibration plot for all chromosomes. It is recommended to call\na png() function before!\n\n *** caught segfault ***\naddress 0x135d8f794d18, cause 'memory not mapped'\n\nTraceback:\n 1: axis(side = side, at = at, labels = labels, ...)\n 2: Axis.default(...)\n 3: Axis(...)\n 4: localAxis(if (is.null(y)) xy$x else x, side = 1, ...)\n 5: plot.default(signal, coupling, pch = \".\", main = \"Calibration\nplot\",     xlab = paste(descSignal, \"\", sep = \"\"), ylab =\npaste(seq_pattern,         \" coupling factor\", sep = \"\"), col = \"lightblue\")\n 6: plot(signal, coupling, pch = \".\", main = \"Calibration plot\",    \nxlab = paste(descSignal, \"\", sep = \"\"), ylab =\npaste(seq_pattern,         \" coupling factor\", sep = \"\"), col = \"lightblue\")\n 7: MEDIPS.plotCalibrationPlot(data = bar, linearFit = T, plot_chr =\n\"all\",     rpm = T, xrange = 10, main = paste(\"Calibration plot (bar\n\",         counter, \")\", sep = \"\"))\naborting ...\n\nIs this a problem on my side or is it in the code?\n\nThank you in advance for your help!\n\nBest,\nNora\n\n\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101022/56e33147/attachment.html>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: n_rieber.vcf\nType: text/x-vcard\nSize: 251 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101022/56e33147/attachment.vcf>",
+      "body_snippet": "Dear all,\n\nI am working with the MEDIPS package and get the following error when\ncalling the function MEDIPS.CpGenrich:\n\n\n> > cpgEnrichment_barr<-MEDIPS.CpGenrich(data=barr,extend=fraglen)\n>   \nPrepro",
+      "thread_id": "thread-832490fd080f",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-2e0bada59746",
+      "message_id": "<AANLkTims2kJEdSqcuLW-m5YrkursPC0sv3PkwFuY=yY7@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-10-22T13:48:53Z",
+      "subject": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize + segfault in MEDIPS.plotCalibrationPlot",
+      "subject_clean": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize + segfault in MEDIPS.plotCalibrationPlot",
+      "in_reply_to": "<4CC18ED4.4060207@dkfz.de>",
+      "references": [
+        "<mailman.11.1287655204.31036.bioc-sig-sequencing@r-project.org>",
+        "<4CC18ED4.4060207@dkfz.de>"
+      ],
+      "body_plain": "Hi Nora,\n\nOn Fri, Oct 22, 2010 at 9:17 AM, Nora Rieber\n<n.rieber at dkfz-heidelberg.de> wrote:\n> Dear all,\n>\n> I am working with the MEDIPS package and get the following error when\n> calling the function MEDIPS.CpGenrich:\n>\n>> cpgEnrichment_barr<-MEDIPS.CpGenrich(data=barr,extend=fraglen)\n>\n>\n> Preprocessing...\n> Error in .local(x, width, fix, use.names, ...) :\n>   unused argument(s) (start = FALSE)\n> Calls: MEDIPS.CpGenrich -> resize -> resize -> .local\n>\n> I checked the resize function which indeed does not require a \"start\"\n> argument, the function call in MEDIPS.CpGenrich however looks like this:\n>\n> ranges(pos2) <- resize(ranges(pos2), extend + 1, start = FALSE)\n>\n> This sounds like a version problem.\n> This is my sessionInfo:\n>\n> R version 2.11.1 (2010-05-31)\n> x86_64-unknown-linux-gnu\n\nYou're correct in thinking that it's a version problem and I'm pretty\nsure that upgrading to the latest version of R (2.12) will solve your\nproblem.\n\nIt looks as if the MEDIP package was just released in bioconductor 2.7\n(which is only meant to run on R 2.12), so I guess you installed MEDIP\nby some \"other\" (not supported) means?\n\nKeep in mind that using biocLite to install your packages is probably\nthe best way to ensure that you don't run into versioning problems, so\ngo ahead and:\n\n(i) download/install the latest R;\n(ii) biocLite() your way into the base bioconductor install; and\n(iii) biocLite(\"MEDIP\")\n\nYou should be good to go after that.\n\nHope that helps,\n-steve\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi Nora,\n\nOn Fri, Oct 22, 2010 at 9:17 AM, Nora Rieber\n<n.rieber at dkfz-heidelberg.de> wrote:\n> Dear all,\n>\n> I am working with the MEDIPS package and get the following error when\n> calling the funct",
+      "thread_id": "thread-832490fd080f",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-cc31258a8ff0",
+      "message_id": "<2729C3E8973BB8438B396F8C59C0A7410104DA@CH1PRD0104MB090.prod.exchangelabs.com>",
+      "from_name": "pterry at huskers.unl.edu",
+      "from_email_hash": "451b60417347881d1411be90e0dc48b9af1cc31e0974d2d23e738160d3b043e7",
+      "date": "2010-10-22T18:12:13Z",
+      "subject": "[Bioc-sig-seq] estimate.mean.fraglen question",
+      "subject_clean": "[Bioc-sig-seq] estimate.mean.fraglen question",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101022/391f1684/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101022/391f1684/attachment.pl>",
+      "thread_id": "thread-cc31258a8ff0",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-585126168cea",
+      "message_id": "<AANLkTi=Pq3MEMWo_HtfjKhAUy5q6pvvDnd2p9AHn3TQv@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-22T18:33:05Z",
+      "subject": "[Bioc-sig-seq] estimate.mean.fraglen question",
+      "subject_clean": "[Bioc-sig-seq] estimate.mean.fraglen question",
+      "in_reply_to": "<2729C3E8973BB8438B396F8C59C0A7410104DA@CH1PRD0104MB090.prod.exchangelabs.com>",
+      "references": [
+        "<2729C3E8973BB8438B396F8C59C0A7410104DA@CH1PRD0104MB090.prod.exchangelabs.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101022/92d59003/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101022/92d59003/attachment.pl>",
+      "thread_id": "thread-cc31258a8ff0",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-741a9bf15894",
+      "message_id": "<31A76414-CFD7-4377-9CEC-B35686F970C4@uni.no>",
+      "from_name": "Michael Dondrup",
+      "from_email_hash": "802d21e21b38daedbcdec0e36300247ddbe0d3cce64f7414517dc7af6dc6362d",
+      "date": "2010-10-25T09:58:42Z",
+      "subject": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "subject_clean": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI need some statistical advise for the following problem. Given an RNA-seq experiment I would like to assess \nstatistical significance of differential read-counts >within< a sample. Given a sample with read counts\nfor two (adjacent) regions out of all all regions of the genome I am interested in, say gene A and intron B. \n\nI wish to detect if region B has a significantly lower read count than A, lengths of regions A and B are known to be different,\nso I think fisher's-exact test does not apply here. Region length should be taken into account for this, as I think that\nthe more positions are different between regions, the more significant the result should be. I also have biol. replicates,\nbut these replicates have different numbers of reads. \n\nPackages like DEseq and edgeR seem to be tailored to between samples comparison. So which method\nwould you recommend for within sample comparison?\n\nThank you very much\nMichael",
+      "body_snippet": "Hi,\n\nI need some statistical advise for the following problem. Given an RNA-seq experiment I would like to assess \nstatistical significance of differential read-counts >within< a sample. Given a sampl",
+      "thread_id": "thread-741a9bf15894",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-18ae85497bd5",
+      "message_id": "<4CC55938.1020206@molgen.mpg.de>",
+      "from_name": "Lukas Chavez Wurm",
+      "from_email_hash": "bfc6cd8047593e05e03724b59cc1f8ee2b1d5cb00edcce9c729d292e3c905f9b",
+      "date": "2010-10-25T10:17:28Z",
+      "subject": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +, segfault in MEDIPS.plotCalibrationPlot",
+      "subject_clean": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +, segfault in MEDIPS.plotCalibrationPlot",
+      "in_reply_to": "<mailman.7.1287828002.26870.bioc-sig-sequencing@r-project.org>",
+      "references": [
+        "<mailman.7.1287828002.26870.bioc-sig-sequencing@r-project.org>"
+      ],
+      "body_plain": "Hello,\n\nas recommended by Steve, the best is to switch to R 2.12. and to install \nMEDIPS via biocLite().\n\nHowever, your MEDIPS.CpGenrich(data=barr, extend=fraglen) induced error \nwill remain. This is because the resize() function has no start \nparameter anymore. Therefore, we have updated our MEDIPS.CpGenrich() \nfunction. The updated version (MEDIPS v. 1.1.2) should be available the \nnext days via biocLite(). Until then you can run the MEDIPS.CpGenrich() \nfunction without specifying the extend parameter. By this, the CpG \ndensity of your short reads will be tested without an additional \nsmoothing. This should be fine also.\n\nRegarding the error that appears in the context of the \nMEDIPS.plotCalibrationPlot() function, I have seen that you try to \nspecify a main parameter that does not exist. I have also updated the \nMEDIPS.plotCalibrationPlot() function in order to allow defining custom \nheaders for the plots  by a main parameter (also available from version \n1.1.2). Until then try to create the calibration plots without \nspecifying a main parameter. I have also seen that you first call the \npng() function and afterwards calibration plots are plotted in a loop. \nMaybe you can try to create the calibration plots one after the other in \nthe loop as:\n\nfor(bar in calib_list){  \npng(paste(\"Calibration_plot_bar\", counter, \".png\", sep=\"\"))\nMEDIPS.plotCalibrationPlot(data=bar, linearFit=T, plot_chr=\"all\", rpm=T, \nxrange=10)\ndev.off()\ncounter=counter+1\n}\n\nAll the best,\nLukas\n\n\nbioc-sig-sequencing-request at r-project.org wrote:\n> Date: Fri, 22 Oct 2010 09:48:53 -0400\n> From: Steve Lianoglou <mailinglist.honeypot at gmail.com>\n> To: Nora Rieber <n.rieber at dkfz-heidelberg.de>\n> Cc: \"bioc-sig-sequencing at r-project.org\"\n> \t<bioc-sig-sequencing at r-project.org>\n> Subject: Re: [Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +\n> \tsegfault in MEDIPS.plotCalibrationPlot\n> Message-ID:\n> \t<AANLkTims2kJEdSqcuLW-m5YrkursPC0sv3PkwFuY=yY7 at mail.gmail.com>\n> Content-Type: text/plain; charset=ISO-8859-1\n>\n> Hi Nora,\n>\n> On Fri, Oct 22, 2010 at 9:17 AM, Nora Rieber\n> <n.rieber at dkfz-heidelberg.de> wrote:\n>   \n>> Dear all,\n>>\n>> I am working with the MEDIPS package and get the following error when\n>> calling the function MEDIPS.CpGenrich:\n>>\n>>     \n>>> cpgEnrichment_barr<-MEDIPS.CpGenrich(data=barr,extend=fraglen)\n>>>       \n>> Preprocessing...\n>> Error in .local(x, width, fix, use.names, ...) :\n>>   unused argument(s) (start = FALSE)\n>> Calls: MEDIPS.CpGenrich -> resize -> resize -> .local\n>>\n>> I checked the resize function which indeed does not require a \"start\"\n>> argument, the function call in MEDIPS.CpGenrich however looks like this:\n>>\n>> ranges(pos2) <- resize(ranges(pos2), extend + 1, start = FALSE)\n>>\n>> This sounds like a version problem.\n>> This is my sessionInfo:\n>>\n>> R version 2.11.1 (2010-05-31)\n>> x86_64-unknown-linux-gnu\n>>     \n>\n> You're correct in thinking that it's a version problem and I'm pretty\n> sure that upgrading to the latest version of R (2.12) will solve your\n> problem.\n>\n> It looks as if the MEDIP package was just released in bioconductor 2.7\n> (which is only meant to run on R 2.12), so I guess you installed MEDIP\n> by some \"other\" (not supported) means?\n>\n> Keep in mind that using biocLite to install your packages is probably\n> the best way to ensure that you don't run into versioning problems, so\n> go ahead and:\n>\n> (i) download/install the latest R;\n> (ii) biocLite() your way into the base bioconductor install; and\n> (iii) biocLite(\"MEDIP\")\n>\n> You should be good to go after that.\n>\n> Hope that helps,\n> -steve\n>",
+      "body_snippet": "Hello,\n\nas recommended by Steve, the best is to switch to R 2.12. and to install \nMEDIPS via biocLite().\n\nHowever, your MEDIPS.CpGenrich(data=barr, extend=fraglen) induced error \nwill remain. This is ",
+      "thread_id": "thread-18ae85497bd5",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-3f036e58e1b7",
+      "message_id": "<AANLkTinxQb03qx8Q1dGtnsu7iVS=eY+vZhYkYABhxLx+@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2010-10-25T10:50:52Z",
+      "subject": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "subject_clean": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "in_reply_to": "<31A76414-CFD7-4377-9CEC-B35686F970C4@uni.no>",
+      "references": [
+        "<31A76414-CFD7-4377-9CEC-B35686F970C4@uni.no>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101025/356ae495/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101025/356ae495/attachment.pl>",
+      "thread_id": "thread-741a9bf15894",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-3e3738bf0ee8",
+      "message_id": "<D2583DE5-3996-4005-933F-12B03621E933@uni.no>",
+      "from_name": "Michael Dondrup",
+      "from_email_hash": "802d21e21b38daedbcdec0e36300247ddbe0d3cce64f7414517dc7af6dc6362d",
+      "date": "2010-10-25T12:04:43Z",
+      "subject": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "subject_clean": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "in_reply_to": "<AANLkTinxQb03qx8Q1dGtnsu7iVS=eY+vZhYkYABhxLx+@mail.gmail.com>",
+      "references": [
+        "<31A76414-CFD7-4377-9CEC-B35686F970C4@uni.no>",
+        "<AANLkTinxQb03qx8Q1dGtnsu7iVS=eY+vZhYkYABhxLx+@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Sean,\n\nyes, I agree it is not totally straight forward,  otherwise such package might already exist. Possibly, the problem\nof sequencing bias and GC content could be solved by normalizing with a run of genomic DNA? Not that we have that yet,\nthough it  might be an option for the future. But then, let's assume that all bias has been accounted for. Would a simple Poisson model be \nsuitable? If so, I could compute a probability of seeing N or less reads for a single base position while its neighborhood has \na mean coverage estimated from the data. Or is this assumption invalid even in the case of no sequencing bias?\n\nBest\nMichael  \n\nOn Oct 25, 2010, at 12:50 PM, Sean Davis wrote:\n\n> \n> \n> On Mon, Oct 25, 2010 at 5:58 AM, Michael Dondrup <Michael.Dondrup at uni.no> wrote:\n> Hi,\n> \n> I need some statistical advise for the following problem. Given an RNA-seq experiment I would like to assess\n> statistical significance of differential read-counts >within< a sample. Given a sample with read counts\n> for two (adjacent) regions out of all all regions of the genome I am interested in, say gene A and intron B.\n> \n> \n> Hi, Michael.  \n> \n> Comparing two different regions directly in the same sample is a problem that introduces a few more sources of biological and technical variation than comparing the same region between samples.  Assume that the number of molecules for each of the two regions is identical in the cell.  First, the mappability of the two regions could be quite different, leading to differences in counts between the regions.  Second, the GC content or other sequence-level characteristics of the two regions could be different, leading to different efficiencies in the sequencing procedure, again leading to differences in counts between regions.  Third, the structure of the region in combination with an individual mapping method can also contribute to differences in read counts between two regions.  There may be clever ways to control for these issues, but I am not aware of fully general ways of doing so.  \n> \n> Sean\n>  \n> I wish to detect if region B has a significantly lower read count than A, lengths of regions A and B are known to be different,\n> so I think fisher's-exact test does not apply here. Region length should be taken into account for this, as I think that\n> the more positions are different between regions, the more significant the result should be. I also have biol. replicates,\n> but these replicates have different numbers of reads.\n> \n> Packages like DEseq and edgeR seem to be tailored to between samples comparison. So which method\n> would you recommend for within sample comparison?\n> \n> Thank you very much\n> Michael\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hi Sean,\n\nyes, I agree it is not totally straight forward,  otherwise such package might already exist. Possibly, the problem\nof sequencing bias and GC content could be solved by normalizing with a ru",
+      "thread_id": "thread-741a9bf15894",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-c30e3fb063c2",
+      "message_id": "<4CC59CD7.7050103@fgcz.ethz.ch>",
+      "from_name": "Michal Okoniewski",
+      "from_email_hash": "cfb8caf1d6b0da36a2543fe46ec3fdb882707bade3c422a7208d324409ee758b",
+      "date": "2010-10-25T15:05:59Z",
+      "subject": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "subject_clean": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "in_reply_to": "<31A76414-CFD7-4377-9CEC-B35686F970C4@uni.no>",
+      "references": [
+        "<31A76414-CFD7-4377-9CEC-B35686F970C4@uni.no>"
+      ],
+      "body_plain": "Hi Michael,\n\nRecently I have submitted to BioC a library called rnaSeqMap, which \nincludes the code we use locally\nfor problems like yours and similar.\nIt has the implementation of Aumann-Lindell algorithm for finding \nirreducible regions\nthat perhaps may be used here. It is not a purely statistical solution, \nit is more of data mining, but I would\nlook for the minimal level of coverage (mi), for which both your regions \nare irreducible - in order to compare\nthem on one sample.\nThat's the outline of the receipe:\n\n1. Take one region, create SeqReads object on it.    rs <- \nnewSeqReads(chr, st, en, strand)\n2. Fill the object with data using rs <- addDataToReadset() if you have \nthe reads data in your workspace,\nor use addExperimentsToReadset() if you are connected to xmap database \nwith the seq_reads table added.\n3. Run   nd <- getCoverageFromRS(rs, 1) to get the NucleotideDistr \nobject with coverage.\n4. Then - in some sort of adaptive procedure do:  nd.reg <- \nfindRegionsAsND(nd, mi, minsup)\nto get the minimal mi, for which distr(nd.reg) is filled with mi on all \nthe positions.\n\nThen repeat the procedure for both regions and compare mi.\n\nAlternatively one can think of some ttest comparing \"discretized\" with \nA-L algorithm values from distributions for both regions to make the \ncomparison more \"statistically correct\", eg:\n\n  nd.rbc1 <- regionBasedCoverage(nd1, steps, max_mi)\n  d1 <- distribs(nd.rbc1)\n  nd.rbc2 <- regionBasedCoverage(nd2, steps, max_mi)\n  d2 <- distribs(nd.rbc2)\nt.test(d1, d2)\n\nAs a side note: irreducible region in the sense of Aumann and Lindell \n(2003) has to start and end with coverage > mi\nSo if your region is not \"filled on both sides\" you may check a \nrepresentative sub-region.\nAnd all the functions except addExperimentsToReadset() do not require \nthe database connection.\n\nDo not know if this is what you precisely asked for - just my \napproximate solution :)\n\nCheers,\nMichal\n\n\nOn 25/10/2010 11:58, Michael Dondrup wrote:\n> Hi,\n>\n> I need some statistical advise for the following problem. Given an RNA-seq experiment I would like to assess\n> statistical significance of differential read-counts>within<  a sample. Given a sample with read counts\n> for two (adjacent) regions out of all all regions of the genome I am interested in, say gene A and intron B.\n>\n> I wish to detect if region B has a significantly lower read count than A, lengths of regions A and B are known to be different,\n> so I think fisher's-exact test does not apply here. Region length should be taken into account for this, as I think that\n> the more positions are different between regions, the more significant the result should be. I also have biol. replicates,\n> but these replicates have different numbers of reads.\n>\n> Packages like DEseq and edgeR seem to be tailored to between samples comparison. So which method\n> would you recommend for within sample comparison?\n>\n> Thank you very much\n> Michael\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hi Michael,\n\nRecently I have submitted to BioC a library called rnaSeqMap, which \nincludes the code we use locally\nfor problems like yours and similar.\nIt has the implementation of Aumann-Lindell algo",
+      "thread_id": "thread-741a9bf15894",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-5441a2e0d32c",
+      "message_id": "<4CC655B2.9090408@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-10-26T04:14:42Z",
+      "subject": "[Bioc-sig-seq] Course: Introduction to R / Bioconductor, Seattle Dec 9 / 10",
+      "subject_clean": "[Bioc-sig-seq] Course: Introduction to R / Bioconductor, Seattle Dec 9 / 10",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Title: Introduction to R and Bioconductor\nDate: December 9 and 10, 2010\nLocation: Fred Hutchinson Cancer Research Center, Seattle, WA\n\nThis workshop is designed to introduce new users to essential R /\nBioconductor tools useful in high throughput analysis. Topics are\ncovered at a very high level to provide participants with an overview of\navailable tools. Additional details and course registration are at\n\n  https://secure.bioconductor.org/SeattleDec10/\n\nBest,\n\nMartin Morgan\n-- \nBioconductor / Computational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "Title: Introduction to R and Bioconductor\nDate: December 9 and 10, 2010\nLocation: Fred Hutchinson Cancer Research Center, Seattle, WA\n\nThis workshop is designed to introduce new users to essential R /",
+      "thread_id": "thread-5441a2e0d32c",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-eb33f266b57e",
+      "message_id": "<67041CC2968586479E7F0D642BB8C19D0258F304DD72@SMITHERS.IMPPC.LOCAL>",
+      "from_name": "Lauro Sumoy",
+      "from_email_hash": "ad9eb4287a4adcef7ea755b1e28de83194e9b651127b9defa554c8fae5d694ad",
+      "date": "2010-10-26T10:40:36Z",
+      "subject": "[Bioc-sig-seq] Bioinformatician position opening at the IMPPC Genomics Unit - Badalona - Spain",
+      "subject_clean": "[Bioc-sig-seq] Bioinformatician position opening at the IMPPC Genomics Unit - Badalona - Spain",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear all,\nWe are accepting aplications for an open bioinformatician position at the IMPPC Genomics Unit to be filled by December 2010.\nPlease read details below.\n\nLauro\n\nLauro Sumoy\nGenomics Unit\nIMPPC\ne-mail: lsumoy at imppc.org<mailto:lsumoy at imppc.org>\nTel (+34) 93 554-3075\nFax (+34) 93 465-1472\n[cid:image001.jpg at 01CB750A.E1DF6D70]\nInstitute of Predictive and\nPersonalized Medicine of Cancer\nCrta Can Ruti, Cam? de les Escoles s/n\n08916 Badalona,\nBarcelona, Spain\nhttp://www.imppc.org\n--------------------------------------------------------\nBioinformatician (Genomics Unit)\nIMPPC Genomics Unit Overview\nThe Genomics Unit at the Institute of Predictive and Personalized Medicine of Cancer (IMPPC) serves as internal core facility addressed at fulfilling the genomics needs from institute researchers and collaborators. It has its own line of research focused on genomics technology development. The IMPPC is a new independent non-profit-making research centre founded by the Generalitat of Catalonia (Autonomous Government). The activities of the IMPPC are directed at the development of the necessary tools to make the concept of Predictive and Personalized Medicine in the field of cancer a reality.\nObjectives:\n* To provide bioinformatic support to processing and statistical analysis of genomics data derived from massively parallel sequencing, microarray, genotyping and high throughput qPCR technologies.\n* To implement and develop bioinformatic tools to identify molecular changes which serve as biomarkers of cancer and other diseases.\nMain areas of research:\n1.     Bioinformatics and genomics technology development\n2.     Cancer genomics and epigenomics\n3.     Biomarker discovery and predictor development for cancer risk assessment\nRequirements:\n* MSc or PhD in Bioinformatics (with relevant experience, degrees in Biology, Biochemistry, Biotechnology, Chemistry, Pharmacy, Medicine, Mathematics, Statistics or Computer Science will be considered)\n* Programming skills in biocomputing and statistical languages (perl, R or related)\n* Demonstrated experience in microarray, genotyping or sequence data analysis.\n* Formal training or experience in molecular biology, epidemiology, oncology, biostatistics, and/or bioinformatics a plus\n* The candidate should be highly motivated, with excellent communication skills, sufficiency in English, ability to interact with researchers from different fields, and to work as part of a team.\nPrincipal Investigator:\nLauro Sumoy\nConditions offered:\n* Full time 3 year contract, core funded, with possibility of extension\n* Competitive salary according to qualifications and experience\n* Support from a new scientific institution devoted to high quality research in the fields of genetics and epigenetics of cancer\n* Interaction with other leading cancer research groups\n* Interaction with other bioinformatics groups within and outside of the institution\n* Possibility for career advancement and attendance to specialized training courses\n\nApplications should be sent to:\ne-mail:               lsumoy at imppc.org<mailto:lsumoy at imppc.org>\n\nPlease include:\nCV (including contact details)\nIntroductory letter (experience,  motivation...)\n References (names and contact e-mail and phone numbers of at least two referees)\n\n-------------- next part --------------\nAn HTML attachment was scrubbed...\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101026/fc962c31/attachment.html>\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: image001.jpg\nType: image/jpeg\nSize: 3106 bytes\nDesc: image001.jpg\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101026/fc962c31/attachment.jpg>",
+      "body_snippet": "Dear all,\nWe are accepting aplications for an open bioinformatician position at the IMPPC Genomics Unit to be filled by December 2010.\nPlease read details below.\n\nLauro\n\nLauro Sumoy\nGenomics Unit\nIMPP",
+      "thread_id": "thread-eb33f266b57e",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-c9c546d5a7bf",
+      "message_id": "<4CC6C6BC.5010105@dkfz.de>",
+      "from_name": "Nora Rieber",
+      "from_email_hash": "ebb05177c443f57b25cf0db61a48ff36d24386c53b428efefaeb6e5647937515",
+      "date": "2010-10-26T12:17:00Z",
+      "subject": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +, segfault in MEDIPS.plotCalibrationPlot",
+      "subject_clean": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +, segfault in MEDIPS.plotCalibrationPlot",
+      "in_reply_to": "<mailman.15.1288087204.9788.bioc-sig-sequencing@r-project.org>",
+      "references": [
+        "<mailman.15.1288087204.9788.bioc-sig-sequencing@r-project.org>"
+      ],
+      "body_plain": "Hi Lukas,\n\nthank you for your answer and the quick changes!\n\nRegarding the MEDIPS.plotCalibrationPlot() function, I had actually\nrewritten the function to accept a \"main\" argument. Sorry, I forgot to\nmention that!\nI think the problem is indeed calling the png function before the loop.\nI usually use only pdf plots with multiple pages in order to avoid\ngetting hundreds of separate files, so I forgot that doing the same with\npng() will not work out.\n\nBest regards,\nNora\n\n> Message: 1\n> Date: Mon, 25 Oct 2010 12:17:28 +0200\n> From: Lukas Chavez Wurm <chavez at molgen.mpg.de>\n> To: bioc-sig-sequencing at r-project.org\n> Subject: Re: [Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +,\n>         segfault in MEDIPS.plotCalibrationPlot\n> Hello,\n>   \n> as recommended by Steve, the best is to switch to R 2.12. and to install\n> MEDIPS via biocLite().\n>\n> However, your MEDIPS.CpGenrich(data=barr, extend=fraglen) induced error\n> will remain. This is because the resize() function has no start\n> parameter anymore. Therefore, we have updated our MEDIPS.CpGenrich()\n> function. The updated version (MEDIPS v. 1.1.2) should be available the\n> next days via biocLite(). Until then you can run the MEDIPS.CpGenrich()\n> function without specifying the extend parameter. By this, the CpG\n> density of your short reads will be tested without an additional\n> smoothing. This should be fine also.\n>\n> Regarding the error that appears in the context of the\n> MEDIPS.plotCalibrationPlot() function, I have seen that you try to\n> specify a main parameter that does not exist. I have also updated the\n> MEDIPS.plotCalibrationPlot() function in order to allow defining custom\n> headers for the plots  by a main parameter (also available from version\n> 1.1.2). Until then try to create the calibration plots without\n> specifying a main parameter. I have also seen that you first call the\n> png() function and afterwards calibration plots are plotted in a loop.\n> Maybe you can try to create the calibration plots one after the other in\n> the loop as:\n>\n> for(bar in calib_list){\n> png(paste(\"Calibration_plot_bar\", counter, \".png\", sep=\"\"))\n> MEDIPS.plotCalibrationPlot(data=bar, linearFit=T, plot_chr=\"all\", rpm=T,\n> xrange=10)\n> dev.off()\n> counter=counter+1\n> }\n>\n> All the best,\n> Lukas\n>   \n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: n_rieber.vcf\nType: text/x-vcard\nSize: 251 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101026/57e3a9a6/attachment.vcf>",
+      "body_snippet": "Hi Lukas,\n\nthank you for your answer and the quick changes!\n\nRegarding the MEDIPS.plotCalibrationPlot() function, I had actually\nrewritten the function to accept a \"main\" argument. Sorry, I forgot to\n",
+      "thread_id": "thread-c9c546d5a7bf",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-ae6ba5dd5afe",
+      "message_id": "<806E483E7E5A1E4CA78AC236E1F3324F10EE96C2@SRV321.genomichealth.com>",
+      "from_name": "Kunbin Qu",
+      "from_email_hash": "dd2563c28824bc3e2c72aae6a45a538e8fb306a1025709b9168ccb7057e28bbc",
+      "date": "2010-10-26T20:51:58Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns related error",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns related error",
+      "in_reply_to": "<AANLkTi=Pq3MEMWo_HtfjKhAUy5q6pvvDnd2p9AHn3TQv@mail.gmail.com>",
+      "references": [
+        "<2729C3E8973BB8438B396F8C59C0A7410104DA@CH1PRD0104MB090.prod.exchangelabs.com>",
+        "<AANLkTi=Pq3MEMWo_HtfjKhAUy5q6pvvDnd2p9AHn3TQv@mail.gmail.com>"
+      ],
+      "body_plain": "Hi, all,\n\nI am trying to use trimLRPatterns to construct a set of reads after trimming from both ends. After trimming is done to the three prime, some reads are already down to zero. Then when I tried to trim from the five prime, the trimming (trimLRPatterns) did not raise any error, however, the following DNAStringSet construction threw some errors, like the following. Could anybody help me? Thanks a lot!\n\n-Kunbin\n\n> #after trimming from the five prime, read No. 2 now is zero in length\n> seqsART\n  A DNAStringSet instance of length 7\n    width seq\n[1]     5 NGTCA\n[2]     0 \n[3]     8 NCGGTGCA\n[4]    24 NGACGGTTCACCCCTCGTGGGCAA\n[5]    49 TATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAAAAAAAAAAAAA\n[6]    36 TATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAA\n[7]    49 TATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAACCTAAACCAGGG\n> trimCoordsAL<-trimLRPatterns(Lpattern=adapter, subject=seqsART, max.Lmismatch = rep(1,46), ranges=T, with.Lindels=TRUE)\n> adapter<-DNAString(\"TTTACACGCGTCTCCCGGGCTTATCTCGTATGCCGTCTTCTGCTTG\")\n> trimCoordsAL\nIRanges of length 7\n    start end width\n[1]     3   5     3\n[2]     2   1     0\n[3]     2   8     7\n[4]     3  24    22\n[5]    27  49    23\n[6]    27  36    10\n[7]    27  49    23\n> seqsAL <- DNAStringSet(seqsART, start=start(trimCoordsAL), end=end(trimCoordsAL))\nError in solveUserSEW(width(x), start = start, end = end, width = width) : \n  solving row 2: 'allow.nonnarrowing' is FALSE and the supplied start (2) is > refwidth + 1\n>\n\n______________________________________________________________________\nThe contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.",
+      "body_snippet": "Hi, all,\n\nI am trying to use trimLRPatterns to construct a set of reads after trimming from both ends. After trimming is done to the three prime, some reads are already down to zero. Then when I tried",
+      "thread_id": "thread-cc31258a8ff0",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-67f2d8ea9bf2",
+      "message_id": "<657EBB10-B8D0-4388-B840-C0FB8391B623@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2010-10-27T01:16:30Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns related error",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns related error",
+      "in_reply_to": "<806E483E7E5A1E4CA78AC236E1F3324F10EE96C2@SRV321.genomichealth.com>",
+      "references": [
+        "<2729C3E8973BB8438B396F8C59C0A7410104DA@CH1PRD0104MB090.prod.exchangelabs.com>",
+        "<AANLkTi=Pq3MEMWo_HtfjKhAUy5q6pvvDnd2p9AHn3TQv@mail.gmail.com>",
+        "<806E483E7E5A1E4CA78AC236E1F3324F10EE96C2@SRV321.genomichealth.com>"
+      ],
+      "body_plain": "Thanks for the bug report.\n\nAt the moment, you will have to patch the result of your 2nd call to  \ntrimLRPatterns:\n\n\ttrimCoordsAL<-trimLRPatterns(Lpattern=adapter, subject=seqsART, .....\n\t\n\t# correction\n\ttrimCoordsAL[width(trimCoordsAL)==0] <- IRanges(start=1, end=0)\n\t\n\tseqsAL <- DNAStringSet(seqsART, start=start(trimCoordsAL), end=end \n(trimCoordsAL))\n\nTo be clear, especially if others are reading, your \"After trimming  \nis done to the three\nprime...\" (which I think is correct) conflicts with \"#after trimming  \nfrom the five prime\".\n\nNow, this was essentially a known problem, as follows:\n\n > trimLRPatterns(subject=\"\", Lpattern=\"A\")\nError in solveSubseqSEW(length(x), start, end, width) :\n   Invalid sequence coordinates.\n   Please make sure the supplied 'start', 'end' and 'width' arguments\n   are defining a region that is within the limits of the sequence.\n\nWhat you experienced will happen even more simply this way:\n\n > r <- trimLRPatterns(subject=\"\", Lpattern=\"A\", ranges=TRUE)\n > r\nIRanges of length 1\n     start end width\n[1]     2   1     0\n > narrow(\"\", start=start(r), end=end(r))\nError in solveUserSEW(x_width, start = start, end = end, width =  \nwidth) :\n   solving row 1: 'allow.nonnarrowing' is FALSE and the supplied  \nstart (2) is > refwidth + 1\n\nOn the other hand:\n\n > narrow(\"\", start=1, end=0)\n[1] \"\"\n\nHopefully more to follow...\n\nOn Oct 26, 2010, at 4:51 PM, Kunbin Qu wrote:\n\n> Hi, all,\n>\n> I am trying to use trimLRPatterns to construct a set of reads after  \n> trimming from both ends. After trimming is done to the three prime,  \n> some reads are already down to zero. Then when I tried to trim from  \n> the five prime, the trimming (trimLRPatterns) did not raise any  \n> error, however, the following DNAStringSet construction threw some  \n> errors, like the following. Could anybody help me? Thanks a lot!\n>\n> -Kunbin\n>\n>> #after trimming from the five prime, read No. 2 now is zero in length\n>> seqsART\n>   A DNAStringSet instance of length 7\n>     width seq\n> [1]     5 NGTCA\n> [2]     0\n> [3]     8 NCGGTGCA\n> [4]    24 NGACGGTTCACCCCTCGTGGGCAA\n> [5]    49 TATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAAAAAAAAAAAAAA\n> [6]    36 TATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAA\n> [7]    49 TATCTCGTATGCCGTCTTCTGCTTGAAAAAAAAAAAACCTAAACCAGGG\n>> trimCoordsAL<-trimLRPatterns(Lpattern=adapter, subject=seqsART,  \n>> max.Lmismatch = rep(1,46), ranges=T, with.Lindels=TRUE)\n>> adapter<-DNAString(\"TTTACACGCGTCTCCCGGGCTTATCTCGTATGCCGTCTTCTGCTTG\")\n>> trimCoordsAL\n> IRanges of length 7\n>     start end width\n> [1]     3   5     3\n> [2]     2   1     0\n> [3]     2   8     7\n> [4]     3  24    22\n> [5]    27  49    23\n> [6]    27  36    10\n> [7]    27  49    23\n>> seqsAL <- DNAStringSet(seqsART, start=start(trimCoordsAL), end=end \n>> (trimCoordsAL))\n> Error in solveUserSEW(width(x), start = start, end = end, width =  \n> width) :\n>   solving row 2: 'allow.nonnarrowing' is FALSE and the supplied  \n> start (2) is > refwidth + 1\n>>\n>\n> ______________________________________________________________________\n> The contents of this electronic message, including any attachments,  \n> are intended only for the use of the individual or entity to which  \n> they are addressed and may contain confidential information. If you  \n> are not the intended recipient, you are hereby notified that any  \n> use, dissemination, distribution, or copying of this message or any  \n> attachment is strictly prohibited. If you have received this  \n> transmission in error, please send an e-mail to  \n> postmaster at genomichealth.com and delete this message, along with  \n> any attachments, from your computer.\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Thanks for the bug report.\n\nAt the moment, you will have to patch the result of your 2nd call to  \ntrimLRPatterns:\n\n\ttrimCoordsAL<-trimLRPatterns(Lpattern=adapter, subject=seqsART, .....\n\t\n\t# correcti",
+      "thread_id": "thread-cc31258a8ff0",
+      "thread_depth": 3,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-cd541954aac5",
+      "message_id": "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>",
+      "from_name": "Janet Young",
+      "from_email_hash": "b612d92af90a9818f7841b6384ae12053ce37bd9c09676cc60daa4ddbe797921",
+      "date": "2010-10-29T01:25:16Z",
+      "subject": "[Bioc-sig-seq] RangedData versus GenomicRanges/GRanges",
+      "subject_clean": "[Bioc-sig-seq] RangedData versus GenomicRanges/GRanges",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI've been on a long long vacation, so I'm a bit more out of the loop  \nthan I usually am.\n\nI've been using RangedData a lot in my code until now to represent  \nsets of genomic regions spread over multiple chromosomes, and I've  \njust realized that GenomicRanges has a lot of the same characteristics.\n\nI wanted to ask you all\n- whether RangedData and GenomicRanges are pretty much equivalent, or  \nif there are functions that exist for one but not the other?\n- whether I can use pretty much the same code and functions if I  \nswitch everything over to use GenomicRanges?\n- are there subtle differences I should be careful of if I make the  \nswitch?\n\nthanks very much,\n\nJanet Young\n\n\n-------------------------------------------------------------------\n\nDr. Janet Young (Trask lab)\n\nFred Hutchinson Cancer Research Center\n1100 Fairview Avenue N., C3-168,\nP.O. Box 19024, Seattle, WA 98109-1024, USA.\n\ntel: (206) 667 1471 fax: (206) 667 6524\nemail: jayoung  ...at...  fhcrc.org\n\nhttp://www.fhcrc.org/labs/trask/",
+      "body_snippet": "Hi,\n\nI've been on a long long vacation, so I'm a bit more out of the loop  \nthan I usually am.\n\nI've been using RangedData a lot in my code until now to represent  \nsets of genomic regions spread over",
+      "thread_id": "thread-cd541954aac5",
+      "thread_depth": 0,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-0ddfa4779825",
+      "message_id": "<AANLkTikGLrs+V5gqEdvtCnNYrgTjtKiT357EgTD14_9M@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-10-29T03:54:40Z",
+      "subject": "[Bioc-sig-seq] RangedData versus GenomicRanges/GRanges",
+      "subject_clean": "[Bioc-sig-seq] RangedData versus GenomicRanges/GRanges",
+      "in_reply_to": "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>",
+      "references": [
+        "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>"
+      ],
+      "body_plain": "Hello Janet,\n\nIt is a rare pleasure to have the opportunity to enlighten somebody\nfrom the Fred Hutchinson Cancer Research Center about R functionality.\n\nThe bottom line is this: GenomicRanges is much more biology-awared\nthan the generic RangedData class.\n\nGenomicRanges natively stores a strand value per feature. RangedData\ndoes not, unless you create it. GenomicRanges' strand values are very\nintuitive: +, -, and *.\n\nGenomicRanges \"rows\" can be ordered by any \"column\" even if it ends up\ndis-ordering the chromosomes. RangedData can only order features\nwithin each space.\n\nGenomicRanges can store the complete list of chromosomes and their\ncorresponding sizes four your particular organism. You can create a\nGenomicRanges instance out of a RangedData without providing\nexplicitly the list of chromosomes and their sizes. Just do\n\nlibrary(GenomicRanges)\nmy_gr <- as(my_rd,\"GRanges\")\n\nThe list of chromosomes is gathered on the fly from the features. The\nlist chromosome lengths still has to be assigned manually, which is\nfine.\n\nNowadays you can rtracklayer::import() BED directly as GenomicRanges.\n\nImporting large BED into either GenomicRanges or RangedData is, in my\nexperience, equally slow. There is no difference there.\n\nWhy not forgetting RangedData then? The advantage over GenomicRanges\nis, also in my experience, that it accepts features mapped beyond the\nlimits of chromosomes. The most unforgiving example is mitochondrial\nDNA. Because it is circular, it naturally gets sequencing reads with\n\"starts\" that are numerically larger than it \"ends\".\n\nIn high throughput sequencing I still use RangedData when\n1) I do not care about relatively few misbehaving reads\n2) I need my script to run without errors from GenomicRanges sanity check.\n\nFor everyday high throughput sequencing I use GenomicRanges keeping\nthe chromosome lengths unassigned. It could be called a hybrid.\n\nI hope this helps.\n\nIvan\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878\n\n\n\nOn Thu, Oct 28, 2010 at 9:25 PM, Janet Young <jayoung at fhcrc.org> wrote:\n> Hi,\n>\n> I've been on a long long vacation, so I'm a bit more out of the loop than I\n> usually am.\n>\n> I've been using RangedData a lot in my code until now to represent sets of\n> genomic regions spread over multiple chromosomes, and I've just realized\n> that GenomicRanges has a lot of the same characteristics.\n>\n> I wanted to ask you all\n> - whether RangedData and GenomicRanges are pretty much equivalent, or if\n> there are functions that exist for one but not the other?\n> - whether I can use pretty much the same code and functions if I switch\n> everything over to use GenomicRanges?\n> - are there subtle differences I should be careful of if I make the switch?\n>\n> thanks very much,\n>\n> Janet Young\n>\n>\n> -------------------------------------------------------------------\n>\n> Dr. Janet Young (Trask lab)\n>\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Avenue N., C3-168,\n> P.O. Box 19024, Seattle, WA 98109-1024, USA.\n>\n> tel: (206) 667 1471 fax: (206) 667 6524\n> email: jayoung ?...at... ?fhcrc.org\n>\n> http://www.fhcrc.org/labs/trask/\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hello Janet,\n\nIt is a rare pleasure to have the opportunity to enlighten somebody\nfrom the Fred Hutchinson Cancer Research Center about R functionality.\n\nThe bottom line is this: GenomicRanges is much",
+      "thread_id": "thread-cd541954aac5",
+      "thread_depth": 1,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-a2556146b450",
+      "message_id": "<AANLkTi=7yi59B=A6hxsjEwcmHq+mFg+H1bn8G6fiYO8-@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-10-29T12:22:31Z",
+      "subject": "[Bioc-sig-seq] RangedData versus GenomicRanges/GRanges",
+      "subject_clean": "[Bioc-sig-seq] RangedData versus GenomicRanges/GRanges",
+      "in_reply_to": "<AANLkTikGLrs+V5gqEdvtCnNYrgTjtKiT357EgTD14_9M@mail.gmail.com>",
+      "references": [
+        "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>",
+        "<AANLkTikGLrs+V5gqEdvtCnNYrgTjtKiT357EgTD14_9M@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101029/36b6d4b2/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101029/36b6d4b2/attachment.pl>",
+      "thread_id": "thread-cd541954aac5",
+      "thread_depth": 2,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-e1976c21951e",
+      "message_id": "<806E483E7E5A1E4CA78AC236E1F3324F10EEABF1@SRV321.genomichealth.com>",
+      "from_name": "Kunbin Qu",
+      "from_email_hash": "dd2563c28824bc3e2c72aae6a45a538e8fb306a1025709b9168ccb7057e28bbc",
+      "date": "2010-10-29T22:17:00Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns question",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns question",
+      "in_reply_to": "<AANLkTi=7yi59B=A6hxsjEwcmHq+mFg+H1bn8G6fiYO8-@mail.gmail.com>",
+      "references": [
+        "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>",
+        "<AANLkTikGLrs+V5gqEdvtCnNYrgTjtKiT357EgTD14_9M@mail.gmail.com>",
+        "<AANLkTi=7yi59B=A6hxsjEwcmHq+mFg+H1bn8G6fiYO8-@mail.gmail.com>"
+      ],
+      "body_plain": "Hi, all:\n\nIs there a way to NOT trim a segment in the pattern from trimLRPatterns? For example:\n\nt1<-DNAString(\"AAAATGGTAC\")\nt2<-DNAString(\"TGGTAC\")\nt3<-trimLRPatterns(Rpattern=t2, subject=t1, max.Rmismatch = rep(0,4), ranges=T, with.Rindels=TRUE)\nt4<-DNAStringSet(t1, start=start(t3), end=end(t3))\n\n> t4\n  A DNAStringSet instance of length 1\n    width seq\n[1]     4 AAAA\n> t1\n  10-letter \"DNAString\" instance\nseq: AAAATGGTAC\n> t2\n  6-letter \"DNAString\" instance\nseq: TGGTAC\n>\n\n\nIf I want to keep \"TG\" in t1, followed by the AAAA, which also appears in the beginning of the pattern t2, is there a way? The rep(0,4) does not help since it could find a perfect match at length 6 (the first try when starting to trim). I am trying to use \"TG\" as my anchor points to avoid false over-trimming. Thanks.\n\n-Kunbin\n\n\n\n______________________________________________________________________\nThe contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.",
+      "body_snippet": "Hi, all:\n\nIs there a way to NOT trim a segment in the pattern from trimLRPatterns? For example:\n\nt1<-DNAString(\"AAAATGGTAC\")\nt2<-DNAString(\"TGGTAC\")\nt3<-trimLRPatterns(Rpattern=t2, subject=t1, max.Rmi",
+      "thread_id": "thread-cd541954aac5",
+      "thread_depth": 3,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-59fc84576e98",
+      "message_id": "<CD5C7F9B-52AD-42A0-B726-2CE055D3D6F8@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2010-10-30T02:14:35Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns question",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns question",
+      "in_reply_to": "<806E483E7E5A1E4CA78AC236E1F3324F10EEABF1@SRV321.genomichealth.com>",
+      "references": [
+        "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>",
+        "<AANLkTikGLrs+V5gqEdvtCnNYrgTjtKiT357EgTD14_9M@mail.gmail.com>",
+        "<AANLkTi=7yi59B=A6hxsjEwcmHq+mFg+H1bn8G6fiYO8-@mail.gmail.com>",
+        "<806E483E7E5A1E4CA78AC236E1F3324F10EEABF1@SRV321.genomichealth.com>"
+      ],
+      "body_plain": "On Oct 29, 2010, at 6:17 PM, Kunbin Qu wrote:\n> Is there a way to NOT trim a segment in the pattern from  \n> trimLRPatterns? For example:\n>\n> t1<-DNAString(\"AAAATGGTAC\")\n> t2<-DNAString(\"TGGTAC\")\n> t3<-trimLRPatterns(Rpattern=t2, subject=t1, max.Rmismatch = rep \n> (0,4), ranges=T, with.Rindels=TRUE)\n> t4<-DNAStringSet(t1, start=start(t3), end=end(t3))\n>\n>> t4\n>   A DNAStringSet instance of length 1\n>     width seq\n> [1]     4 AAAA\n>> t1\n>   10-letter \"DNAString\" instance\n> seq: AAAATGGTAC\n>> t2\n>   6-letter \"DNAString\" instance\n> seq: TGGTAC\n>>\n>\n> If I want to keep \"TG\" in t1, followed by the AAAA, which also  \n> appears in the beginning of the pattern t2, is there a way? The rep \n> (0,4) does not help since it could find a perfect match at length 6  \n> (the first try when starting to trim). I am trying to use \"TG\" as  \n> my anchor points to avoid false over-trimming. Thanks.\n\n\nIf you mean to allow trimming a pattern like \"TG..\" in letters 7-10  \nor less of your subject, even\nif TG occurs in letters 5-6, as in your t1, then you might want  \nRpattern=\"TGGT\", and max.Rmismatch\nshould have length 4 (or less, if you want to prevent trimming less  \nthan 4 letters).\n\nIf I didn't get the point, a longer answer:\n\nUsually, I over-trimmed when I set the mismatch limits too high  \n(especially with indels allowed),\nprobably when I used the \"rate\" feature for the mismatch parameter,  \nand that resulted in certain\nmismatch elements being larger than I wanted.  But you have zero  \nmismatches allowed, and your whole\nRpattern occurs exactly, as the final 6 letters of your subject.  So  \nyour example is a good example\nof what the function does (except that you don't need to allow  \nindels, and you could get your t4 as\nthe value of trimLRPatterns by using ranges=F, the default).  You can  \nput -1 in the mismatch vector,\nfor example\n\n\tM = some integer\n\ttrimLRPatterns(Rpattern=t2, subject=t1, max.Rmismatch = c(rep(-1,5),  \nM))\n\nThis allows the 6-letter suffix of your subject to be trimmed if it  \nmatches your Rpattern with M\nor less errors, but it prevents trimming by anything shorter.   \nActually, your rep(0,4) is the same\nas c(rep(-1,2), rep(0,4)).  That is, trimming by 6 or 5 letters is  \nallowed, but not by less.  Thus,\n\n > trimLRPatterns(Rpattern=\"TGGTAC\", subject=\"AAAATGGTAC\",  \nmax.Rmismatch=0)\n[1] \"AAAA\"\n\n > trimLRPatterns(Rpattern=\"TGGTAC\", subject=\"AAAATGGTAC\",  \nmax.Rmismatch=c(rep(-1,5), 0))\n[1] \"AAAA\"\n\nYou can even put -1 as the 6th element of max.Rmismatch, but then you  \nmight as well start with\nRpattern=\"TGGTA\"; or -1 in positions 5 and 6, so, Rpattern=\"TGGT\".",
+      "body_snippet": "On Oct 29, 2010, at 6:17 PM, Kunbin Qu wrote:\n> Is there a way to NOT trim a segment in the pattern from  \n> trimLRPatterns? For example:\n>\n> t1<-DNAString(\"AAAATGGTAC\")\n> t2<-DNAString(\"TGGTAC\")\n> t3",
+      "thread_id": "thread-cd541954aac5",
+      "thread_depth": 4,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-0ea155b2f617",
+      "message_id": "<806E483E7E5A1E4CA78AC236E1F3324F10EEAC40@SRV321.genomichealth.com>",
+      "from_name": "Kunbin Qu",
+      "from_email_hash": "dd2563c28824bc3e2c72aae6a45a538e8fb306a1025709b9168ccb7057e28bbc",
+      "date": "2010-10-30T04:46:47Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns question",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns question",
+      "in_reply_to": "<CD5C7F9B-52AD-42A0-B726-2CE055D3D6F8@jhu.edu>",
+      "references": [
+        "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>",
+        "<AANLkTikGLrs+V5gqEdvtCnNYrgTjtKiT357EgTD14_9M@mail.gmail.com>",
+        "<AANLkTi=7yi59B=A6hxsjEwcmHq+mFg+H1bn8G6fiYO8-@mail.gmail.com>",
+        "<806E483E7E5A1E4CA78AC236E1F3324F10EEABF1@SRV321.genomichealth.com>",
+        "<CD5C7F9B-52AD-42A0-B726-2CE055D3D6F8@jhu.edu>"
+      ],
+      "body_plain": "I tried that, it did not work (and I do not quite understand why you suggest Rpattern=\"TGGT\" or \"TGAC\"):\n\n> t1<-DNAString(\"AAAATGGTAC\")\n> t2<-DNAString(\"TGGT\")\n> t3<-trimLRPatterns(Rpattern=t2,subject=t1)\n> t3\n  10-letter \"DNAString\" instance\nseq: AAAATGGTAC\n> t3<-trimLRPatterns(Rpattern=t2,subject=t1, max.Rmismatch=rep(0,4))\n> t3\n  10-letter \"DNAString\" instance\nseq: AAAATGGTAC\n> t2<-DNAString(\"TGAC\")\n> trimLRPatterns(Rpattern=t2,subject=t1, max.Rmismatch=rep(0,4))\n  10-letter \"DNAString\" instance\nseq: AAAATGGTAC\n\n\n\nIf you mean to allow trimming a pattern like \"TG..\" in letters 7-10  \nor less of your subject, even\nif TG occurs in letters 5-6, as in your t1, then you might want  \nRpattern=\"TGGT\", and max.Rmismatch\nshould have length 4 (or less, if you want to prevent trimming less  \nthan 4 letters).\n\nIf I didn't get the point, a longer answer:\n\nUsually, I over-trimmed when I set the mismatch limits too high  \n(especially with indels allowed),\nprobably when I used the \"rate\" feature for the mismatch parameter,  \nand that resulted in certain\nmismatch elements being larger than I wanted.  But you have zero  \nmismatches allowed, and your whole\nRpattern occurs exactly, as the final 6 letters of your subject.  So  \nyour example is a good example\nof what the function does (except that you don't need to allow  \nindels, and you could get your t4 as\nthe value of trimLRPatterns by using ranges=F, the default).  You can  \nput -1 in the mismatch vector,\nfor example\n\n\tM = some integer\n\ttrimLRPatterns(Rpattern=t2, subject=t1, max.Rmismatch = c(rep(-1,5),  \nM))\n\nThis allows the 6-letter suffix of your subject to be trimmed if it  \nmatches your Rpattern with M\nor less errors, but it prevents trimming by anything shorter.   \nActually, your rep(0,4) is the same\nas c(rep(-1,2), rep(0,4)).  That is, trimming by 6 or 5 letters is  \nallowed, but not by less.  Thus,\n\n > trimLRPatterns(Rpattern=\"TGGTAC\", subject=\"AAAATGGTAC\",  \nmax.Rmismatch=0)\n[1] \"AAAA\"\n\n > trimLRPatterns(Rpattern=\"TGGTAC\", subject=\"AAAATGGTAC\",  \nmax.Rmismatch=c(rep(-1,5), 0))\n[1] \"AAAA\"\n\nYou can even put -1 as the 6th element of max.Rmismatch, but then you  \nmight as well start with\nRpattern=\"TGGTA\"; or -1 in positions 5 and 6, so, Rpattern=\"TGGT\".\n\n\n\n\n\n______________________________________________________________________\nThe contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.",
+      "body_snippet": "I tried that, it did not work (and I do not quite understand why you suggest Rpattern=\"TGGT\" or \"TGAC\"):\n\n> t1<-DNAString(\"AAAATGGTAC\")\n> t2<-DNAString(\"TGGT\")\n> t3<-trimLRPatterns(Rpattern=t2,subject",
+      "thread_id": "thread-cd541954aac5",
+      "thread_depth": 5,
+      "month": "2010-10"
+    },
+    {
+      "id": "msg-727c5f33fb58",
+      "message_id": "<CE667B5F-4100-4DC7-9A8B-B2A055954B88@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2010-10-30T12:38:51Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns question",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns question",
+      "in_reply_to": "<806E483E7E5A1E4CA78AC236E1F3324F10EEAC40@SRV321.genomichealth.com>",
+      "references": [
+        "<0E62A2E2-469A-4D47-878C-42E05F31A61A@fhcrc.org>",
+        "<AANLkTikGLrs+V5gqEdvtCnNYrgTjtKiT357EgTD14_9M@mail.gmail.com>",
+        "<AANLkTi=7yi59B=A6hxsjEwcmHq+mFg+H1bn8G6fiYO8-@mail.gmail.com>",
+        "<806E483E7E5A1E4CA78AC236E1F3324F10EEABF1@SRV321.genomichealth.com>",
+        "<CD5C7F9B-52AD-42A0-B726-2CE055D3D6F8@jhu.edu>",
+        "<806E483E7E5A1E4CA78AC236E1F3324F10EEAC40@SRV321.genomichealth.com>"
+      ],
+      "body_plain": "On Oct 30, 2010, at 12:46 AM, Kunbin Qu wrote:\n> I tried that, it did not work (and I do not quite understand why  \n> you suggest Rpattern=\"TGGT\" or \"TGAC\"):\n>\n>> t1<-DNAString(\"AAAATGGTAC\")\n>> t2<-DNAString(\"TGGT\")\n>> t3<-trimLRPatterns(Rpattern=t2,subject=t1)\n>> t3\n>   10-letter \"DNAString\" instance\n> seq: AAAATGGTAC\n>> t3<-trimLRPatterns(Rpattern=t2,subject=t1, max.Rmismatch=rep(0,4))\n>> t3\n>   10-letter \"DNAString\" instance\n> seq: AAAATGGTAC\n>> t2<-DNAString(\"TGAC\")\n>> trimLRPatterns(Rpattern=t2,subject=t1, max.Rmismatch=rep(0,4))\n>   10-letter \"DNAString\" instance\nseq: AAAATGGTAC\n\nI got the impression that you wanted your pattern to start with TG  \nbut wanted any\ntrimming confined to letters 7-10 of your t1 (especially leaving the  \nTG at 5-6).\nEither of \"TGGT\" or \"TGAC\" might suffice depending on the mismatch  \nlimits.\n\nFor example, TGAC becomes TG|GT|AC by inserting GT, and it also  \nbecomes AC after\ndeleting TG, so the following call determines that there is a  \npermissible fuzzy\nmatch for TGAC, ending at the end of the subject, and it trims 4  \nletters:\n\n > trimLRPatterns(Rpattern=\"TGAC\", subject=\"AAAATGGTAC\",  \nwith.Rindels=T, max.Rmismatch=2)\n[1] \"AAAATG\"\n\nThe supporting C code finds the AC match, but doesn't return that  \ninformation.  We\ncurrently don't use the heavier pairwiseAlignment machinery, which  \ncould return all\npossible lengths of matches, especially the maximum (6: TGGTAC).  So  \ntrimLRPatterns\ntrims 4 letters as an approximation for the range [2, 6] of possible  \nmatch lengths.\n\nIt would seem contrary to your wishes, but I have lobbied for using  \nthe maximum of\nthat range, so TGGTAC would get trimmed, or maybe as a compromise,  \nhalf-way toward\nthat maximum, so trim GGTAC.  I have experimented with a new option  \nof this sort:\n\n\t0 <= \"R.extra.trim\" <= max.Rmismatch\n\nwhich can be implemented by post-processing (after using ranges=TRUE  \ninternally).\n\nWe should talk privately if I still don't understand your goal.\n\n> If you mean to allow trimming a pattern like \"TG..\" in letters 7-10\n> or less of your subject, even\n> if TG occurs in letters 5-6, as in your t1, then you might want\n> Rpattern=\"TGGT\", and max.Rmismatch\n> should have length 4 (or less, if you want to prevent trimming less\n> than 4 letters).\n>\n> If I didn't get the point, a longer answer:\n>\n> Usually, I over-trimmed when I set the mismatch limits too high\n> (especially with indels allowed),\n> probably when I used the \"rate\" feature for the mismatch parameter,\n> and that resulted in certain\n> mismatch elements being larger than I wanted.  But you have zero\n> mismatches allowed, and your whole\n> Rpattern occurs exactly, as the final 6 letters of your subject.  So\n> your example is a good example\n> of what the function does (except that you don't need to allow\n> indels, and you could get your t4 as\n> the value of trimLRPatterns by using ranges=F, the default).  You can\n> put -1 in the mismatch vector,\n> for example\n>\n> \tM = some integer\n> \ttrimLRPatterns(Rpattern=t2, subject=t1, max.Rmismatch = c(rep(-1,5),\n> M))\n>\n> This allows the 6-letter suffix of your subject to be trimmed if it\n> matches your Rpattern with M\n> or less errors, but it prevents trimming by anything shorter.\n> Actually, your rep(0,4) is the same\n> as c(rep(-1,2), rep(0,4)).  That is, trimming by 6 or 5 letters is\n> allowed, but not by less.  Thus,\n>\n>> trimLRPatterns(Rpattern=\"TGGTAC\", subject=\"AAAATGGTAC\",\n> max.Rmismatch=0)\n> [1] \"AAAA\"\n>\n>> trimLRPatterns(Rpattern=\"TGGTAC\", subject=\"AAAATGGTAC\",\n> max.Rmismatch=c(rep(-1,5), 0))\n> [1] \"AAAA\"\n>\n> You can even put -1 as the 6th element of max.Rmismatch, but then you\n> might as well start with\n> Rpattern=\"TGGTA\"; or -1 in positions 5 and 6, so, Rpattern=\"TGGT\".\n>\n>\n>\n>\n>\n> ______________________________________________________________________\n> The contents of this electronic message, including any attachments,  \n> are intended only for the use of the individual or entity to which  \n> they are addressed and may contain confidential information. If you  \n> are not the intended recipient, you are hereby notified that any  \n> use, dissemination, distribution, or copying of this message or any  \n> attachment is strictly prohibited. If you have received this  \n> transmission in error, please send an e-mail to  \n> postmaster at genomichealth.com and delete this message, along with  \n> any attachments, from your computer.",
+      "body_snippet": "On Oct 30, 2010, at 12:46 AM, Kunbin Qu wrote:\n> I tried that, it did not work (and I do not quite understand why  \n> you suggest Rpattern=\"TGGT\" or \"TGAC\"):\n>\n>> t1<-DNAString(\"AAAATGGTAC\")\n>> t2<-DN",
+      "thread_id": "thread-cd541954aac5",
+      "thread_depth": 6,
+      "month": "2010-10"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-a90eea898072",
+      "subject": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "message_count": 1,
+      "participants": [
+        "Ivan Gregoretti"
+      ],
+      "started": "2010-10-01T13:38:21Z",
+      "last_reply": "2010-10-01T13:38:21Z",
+      "root_message_id": "msg-a90eea898072"
+    },
+    {
+      "id": "thread-0fddac10216c",
+      "subject": "[Bioc-sig-seq] GenomicRanges wishlist: IntervalTrees for GRanges",
+      "message_count": 2,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "Michael Lawrence"
+      ],
+      "started": "2010-10-01T13:58:30Z",
+      "last_reply": "2010-10-01T14:05:03Z",
+      "root_message_id": "msg-0fddac10216c"
+    },
+    {
+      "id": "thread-795907f2742b",
+      "subject": "[Bioc-sig-seq] Resizing a GRanges object with elements on the \"*\" strand",
+      "message_count": 5,
+      "participants": [
+        "Martin Morgan",
+        "Michael Lawrence",
+        "Steve Lianoglou"
+      ],
+      "started": "2010-10-01T16:00:01Z",
+      "last_reply": "2010-10-01T18:21:10Z",
+      "root_message_id": "msg-795907f2742b"
+    },
+    {
+      "id": "thread-9291277a2b71",
+      "subject": "[Bioc-sig-seq] BioC2010 Simple RNA-seq Use Case lab",
+      "message_count": 3,
+      "participants": [
+        "Martin Morgan",
+        "Steve Lianoglou",
+        "pterry at huskers.unl.edu"
+      ],
+      "started": "2010-10-05T18:30:33Z",
+      "last_reply": "2010-10-05T20:19:10Z",
+      "root_message_id": "msg-9291277a2b71"
+    },
+    {
+      "id": "thread-dc3edc3dd461",
+      "subject": "[Bioc-sig-seq] drop factor level for seqnames of a GRanges object",
+      "message_count": 7,
+      "participants": [
+        "Chris Seidel",
+        "Hervé Pagès",
+        "Kasper Daniel Hansen",
+        "Kunbin Qu",
+        "Martin Morgan",
+        "Michael Lawrence"
+      ],
+      "started": "2010-10-06T21:10:44Z",
+      "last_reply": "2010-10-15T22:27:51Z",
+      "root_message_id": "msg-dc3edc3dd461"
+    },
+    {
+      "id": "thread-cf0ae6b26fa4",
+      "subject": "[Bioc-sig-seq] Cached GenomicRanges or RangedData Objects?",
+      "message_count": 6,
+      "participants": [
+        "Charles C. Berry",
+        "Kasper Daniel Hansen",
+        "Michael Lawrence",
+        "Steve Lianoglou"
+      ],
+      "started": "2010-10-11T15:24:06Z",
+      "last_reply": "2010-10-11T18:33:53Z",
+      "root_message_id": "msg-cf0ae6b26fa4"
+    },
+    {
+      "id": "thread-4b6be1d0ee60",
+      "subject": "[Bioc-sig-seq] visualize peaks in genome (overall)",
+      "message_count": 2,
+      "participants": [
+        "Alper Yilmaz",
+        "Michael Lawrence"
+      ],
+      "started": "2010-10-14T18:24:31Z",
+      "last_reply": "2010-10-14T19:45:53Z",
+      "root_message_id": "msg-4b6be1d0ee60"
+    },
+    {
+      "id": "thread-f8830c2785ec",
+      "subject": "[Bioc-sig-seq] Error in DGEList function in edgeR",
+      "message_count": 2,
+      "participants": [
+        "Heidi Dvinge",
+        "Ying Ye"
+      ],
+      "started": "2010-10-15T13:39:55Z",
+      "last_reply": "2010-10-15T17:45:09Z",
+      "root_message_id": "msg-f8830c2785ec"
+    },
+    {
+      "id": "thread-406113d0e06d",
+      "subject": "[Bioc-sig-seq] EdgeR questions in analyzing 454 data-about prior.n, TMM, and p_value",
+      "message_count": 2,
+      "participants": [
+        "Mark Robinson",
+        "Ying Ye"
+      ],
+      "started": "2010-10-18T11:22:20Z",
+      "last_reply": "2010-10-18T22:43:10Z",
+      "root_message_id": "msg-406113d0e06d"
+    },
+    {
+      "id": "thread-e16f02b745cc",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.7 is released",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2010-10-18T21:59:41Z",
+      "last_reply": "2010-10-18T21:59:41Z",
+      "root_message_id": "msg-e16f02b745cc"
+    },
+    {
+      "id": "thread-122fc403040b",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "message_count": 6,
+      "participants": [
+        "Dario Strbenac",
+        "Michael Lawrence",
+        "Vincent Carey"
+      ],
+      "started": "2010-10-19T02:00:23Z",
+      "last_reply": "2010-10-19T03:17:09Z",
+      "root_message_id": "msg-122fc403040b"
+    },
+    {
+      "id": "thread-308039bb1787",
+      "subject": "[Bioc-sig-seq] X11 fatal IO error",
+      "message_count": 1,
+      "participants": [
+        "Ludo Pagie"
+      ],
+      "started": "2010-10-19T08:14:43Z",
+      "last_reply": "2010-10-19T08:14:43Z",
+      "root_message_id": "msg-308039bb1787"
+    },
+    {
+      "id": "thread-badba473044c",
+      "subject": "[Bioc-sig-seq] Converting GRanges to data.frame, RangedData, back to GRanges object",
+      "message_count": 2,
+      "participants": [
+        "Michael Lawrence",
+        "pterry at huskers.unl.edu"
+      ],
+      "started": "2010-10-19T20:18:07Z",
+      "last_reply": "2010-10-19T20:30:37Z",
+      "root_message_id": "msg-badba473044c"
+    },
+    {
+      "id": "thread-341d703a598f",
+      "subject": "[Bioc-sig-seq] Mac binaries for R 2.12 fixed",
+      "message_count": 1,
+      "participants": [
+        "Hervé Pagès"
+      ],
+      "started": "2010-10-20T06:31:09Z",
+      "last_reply": "2010-10-20T06:31:09Z",
+      "root_message_id": "msg-341d703a598f"
+    },
+    {
+      "id": "thread-441cd4962e38",
+      "subject": "[Bioc-sig-seq] Problem with GenomicRanges: GRanges created prior to R 2.12.0 cannot be loaded with R 2.12.0",
+      "message_count": 3,
+      "participants": [
+        "Leonardo Collado Torres",
+        "Vincent Carey"
+      ],
+      "started": "2010-10-21T00:24:46Z",
+      "last_reply": "2010-10-21T14:41:31Z",
+      "root_message_id": "msg-441cd4962e38"
+    },
+    {
+      "id": "thread-8c6a2ab2617a",
+      "subject": "[Bioc-sig-seq] Unable to read a Bowtie file into ShortRead in a Mac OS X version 10.5.8 with R 2.11.1 and ShortRead 1.6.2",
+      "message_count": 1,
+      "participants": [
+        "Leonardo Collado Torres"
+      ],
+      "started": "2010-10-21T14:34:22Z",
+      "last_reply": "2010-10-21T14:34:22Z",
+      "root_message_id": "msg-8c6a2ab2617a"
+    },
+    {
+      "id": "thread-832490fd080f",
+      "subject": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize + segfault in MEDIPS.plotCalibrationPlot",
+      "message_count": 2,
+      "participants": [
+        "Nora Rieber",
+        "Steve Lianoglou"
+      ],
+      "started": "2010-10-22T13:17:08Z",
+      "last_reply": "2010-10-22T13:48:53Z",
+      "root_message_id": "msg-832490fd080f"
+    },
+    {
+      "id": "thread-cc31258a8ff0",
+      "subject": "[Bioc-sig-seq] estimate.mean.fraglen question",
+      "message_count": 4,
+      "participants": [
+        "Harris A. Jaffee",
+        "Kunbin Qu",
+        "Michael Lawrence",
+        "pterry at huskers.unl.edu"
+      ],
+      "started": "2010-10-22T18:12:13Z",
+      "last_reply": "2010-10-27T01:16:30Z",
+      "root_message_id": "msg-cc31258a8ff0"
+    },
+    {
+      "id": "thread-741a9bf15894",
+      "subject": "[Bioc-sig-seq] RNA-seq: test for within sample differential counts",
+      "message_count": 4,
+      "participants": [
+        "Michael Dondrup",
+        "Michal Okoniewski",
+        "Sean Davis"
+      ],
+      "started": "2010-10-25T09:58:42Z",
+      "last_reply": "2010-10-25T15:05:59Z",
+      "root_message_id": "msg-741a9bf15894"
+    },
+    {
+      "id": "thread-18ae85497bd5",
+      "subject": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +, segfault in MEDIPS.plotCalibrationPlot",
+      "message_count": 1,
+      "participants": [
+        "Lukas Chavez Wurm"
+      ],
+      "started": "2010-10-25T10:17:28Z",
+      "last_reply": "2010-10-25T10:17:28Z",
+      "root_message_id": "msg-18ae85497bd5"
+    },
+    {
+      "id": "thread-5441a2e0d32c",
+      "subject": "[Bioc-sig-seq] Course: Introduction to R / Bioconductor, Seattle Dec 9 / 10",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2010-10-26T04:14:42Z",
+      "last_reply": "2010-10-26T04:14:42Z",
+      "root_message_id": "msg-5441a2e0d32c"
+    },
+    {
+      "id": "thread-eb33f266b57e",
+      "subject": "[Bioc-sig-seq] Bioinformatician position opening at the IMPPC Genomics Unit - Badalona - Spain",
+      "message_count": 1,
+      "participants": [
+        "Lauro Sumoy"
+      ],
+      "started": "2010-10-26T10:40:36Z",
+      "last_reply": "2010-10-26T10:40:36Z",
+      "root_message_id": "msg-eb33f266b57e"
+    },
+    {
+      "id": "thread-c9c546d5a7bf",
+      "subject": "[Bioc-sig-seq] error with MEDIPS.CpGenrich -> resize +, segfault in MEDIPS.plotCalibrationPlot",
+      "message_count": 1,
+      "participants": [
+        "Nora Rieber"
+      ],
+      "started": "2010-10-26T12:17:00Z",
+      "last_reply": "2010-10-26T12:17:00Z",
+      "root_message_id": "msg-c9c546d5a7bf"
+    },
+    {
+      "id": "thread-cd541954aac5",
+      "subject": "[Bioc-sig-seq] RangedData versus GenomicRanges/GRanges",
+      "message_count": 7,
+      "participants": [
+        "Harris A. Jaffee",
+        "Ivan Gregoretti",
+        "Janet Young",
+        "Kunbin Qu",
+        "Michael Lawrence"
+      ],
+      "started": "2010-10-29T01:25:16Z",
+      "last_reply": "2010-10-30T12:38:51Z",
+      "root_message_id": "msg-cd541954aac5"
+    }
+  ]
+}

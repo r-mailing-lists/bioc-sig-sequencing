@@ -1,0 +1,1026 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2010-07",
+  "messages": [
+    {
+      "id": "msg-e1d8fe9e9fe9",
+      "message_id": "<AANLkTikrJ3VZjGFDAzl20XZXNzjU5rsu-qDrwxnBVyZl@mail.gmail.com>",
+      "from_name": "Aaron Statham",
+      "from_email_hash": "bb8213b0fbef1aff03de217e9704c0d12e68d86bab28f0c4d2748c3e4f8daf56",
+      "date": "2010-07-06T11:50:16Z",
+      "subject": "[Bioc-sig-seq] findOverlaps fails when querying a RangedData/RangesList against itself",
+      "subject_clean": "[Bioc-sig-seq] findOverlaps fails when querying a RangedData/RangesList against itself",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/2218c863/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/2218c863/attachment.pl>",
+      "thread_id": "thread-e1d8fe9e9fe9",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-333b973d0d1a",
+      "message_id": "<AANLkTimJTCzT7c2kXc3sXXe8c52cd8yhtflWaq2Wu55E@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-07-06T19:04:21Z",
+      "subject": "[Bioc-sig-seq] findOverlaps fails when querying a RangedData/RangesList against itself",
+      "subject_clean": "[Bioc-sig-seq] findOverlaps fails when querying a RangedData/RangesList against itself",
+      "in_reply_to": "<AANLkTikrJ3VZjGFDAzl20XZXNzjU5rsu-qDrwxnBVyZl@mail.gmail.com>",
+      "references": [
+        "<AANLkTikrJ3VZjGFDAzl20XZXNzjU5rsu-qDrwxnBVyZl@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/72599ba7/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/72599ba7/attachment.pl>",
+      "thread_id": "thread-e1d8fe9e9fe9",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-bfcb6a59e879",
+      "message_id": "<67033A0806429D469359E35EECA1B2DC46C16EA3BB@EXCH-CCR01.lj.ad.scripps.edu>",
+      "from_name": "Lana Schaffer",
+      "from_email_hash": "6d24a008ccd1e4d99a6930143aef8613b93ac69eeb8c0283e668538eab47b3b3",
+      "date": "2010-07-07T00:52:10Z",
+      "subject": "[Bioc-sig-seq] Bioc-sig-sequencing Digest, Vol 28, Issue 30",
+      "subject_clean": "[Bioc-sig-seq] Bioc-sig-sequencing Digest, Vol 28, Issue 30",
+      "in_reply_to": "<mailman.13.1277892002.30832.bioc-sig-sequencing@r-project.org>",
+      "references": [
+        "<mailman.13.1277892002.30832.bioc-sig-sequencing@r-project.org>"
+      ],
+      "body_plain": "Hi,\nWe have directional inserts to sequence (Illumina platform) and want to align\nto either the sense or antisense strand of DNA one at a time.  Is there\nalignment software to do this?\n\nLana Schaffer\nScripps Research Institute\nSan Diego, CA 92037\nBioinformtics",
+      "body_snippet": "Hi,\nWe have directional inserts to sequence (Illumina platform) and want to align\nto either the sense or antisense strand of DNA one at a time.  Is there\nalignment software to do this?\n\nLana Schaffer\n",
+      "thread_id": "thread-bfcb6a59e879",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-459fabe52fda",
+      "message_id": "<67033A0806429D469359E35EECA1B2DC46C16EA3BD@EXCH-CCR01.lj.ad.scripps.edu>",
+      "from_name": "Lana Schaffer",
+      "from_email_hash": "6d24a008ccd1e4d99a6930143aef8613b93ac69eeb8c0283e668538eab47b3b3",
+      "date": "2010-07-07T00:56:34Z",
+      "subject": "[Bioc-sig-seq] Alignment to only 1 direction DNA strand",
+      "subject_clean": "[Bioc-sig-seq] Alignment to only 1 direction DNA strand",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "________________________________________\nFrom: Lana Schaffer\nSent: Tuesday, July 06, 2010 5:52 PM\nTo: bioc-sig-sequencing at r-project.org\nSubject: RE: Bioc-sig-sequencing Digest, Vol 28, Issue 30\n\nHi,\nWe have directional inserts to sequence (Illumina platform) and want to align\nto either the sense or antisense strand of DNA one at a time.  Is there\nalignment software to do this?\n\nLana Schaffer\nScripps Research Institute\nSan Diego, CA 92037\nBioinformtics",
+      "body_snippet": "________________________________________\nFrom: Lana Schaffer\nSent: Tuesday, July 06, 2010 5:52 PM\nTo: bioc-sig-sequencing at r-project.org\nSubject: RE: Bioc-sig-sequencing Digest, Vol 28, Issue 30\n\nHi",
+      "thread_id": "thread-459fabe52fda",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-4195cc13bcb5",
+      "message_id": "<AANLkTilqT1-qsdcEbk7XpNnpoetZoCLOHRgX6rCFIlfA@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "b2b45a5f3ad330d8561a4711d1f95ff6a445243a303a83a7a709685fab3e068c",
+      "date": "2010-07-07T01:42:30Z",
+      "subject": "[Bioc-sig-seq] Bioc-sig-sequencing Digest, Vol 28, Issue 30",
+      "subject_clean": "[Bioc-sig-seq] Bioc-sig-sequencing Digest, Vol 28, Issue 30",
+      "in_reply_to": "<67033A0806429D469359E35EECA1B2DC46C16EA3BB@EXCH-CCR01.lj.ad.scripps.edu>",
+      "references": [
+        "<mailman.13.1277892002.30832.bioc-sig-sequencing@r-project.org>",
+        "<67033A0806429D469359E35EECA1B2DC46C16EA3BB@EXCH-CCR01.lj.ad.scripps.edu>"
+      ],
+      "body_plain": "Align to the genome using any standard short read mapper, say Bowtie.\n\nKasper\n\nOn Tue, Jul 6, 2010 at 8:52 PM, Lana Schaffer <schaffer at scripps.edu> wrote:\n> Hi,\n> We have directional inserts to sequence (Illumina platform) and want to align\n> to either the sense or antisense strand of DNA one at a time. ?Is there\n> alignment software to do this?\n>\n> Lana Schaffer\n> Scripps Research Institute\n> San Diego, CA 92037\n> Bioinformtics\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Align to the genome using any standard short read mapper, say Bowtie.\n\nKasper\n\nOn Tue, Jul 6, 2010 at 8:52 PM, Lana Schaffer <schaffer at scripps.edu> wrote:\n> Hi,\n> We have directional inserts to seq",
+      "thread_id": "thread-bfcb6a59e879",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-818d9c17418f",
+      "message_id": "<4C3482CA.90908@ebi.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+      "date": "2010-07-07T13:36:10Z",
+      "subject": "[Bioc-sig-seq] mappable length of a genome",
+      "subject_clean": "[Bioc-sig-seq] mappable length of a genome",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello all,\n\nAfter short-read alignment, one post-processing step might be to \nnormalize by the length (e.g. of an individual exon, of all genes, etc). \nThis should actually be the mappable length of these portions of the \ngenome, not the real length. Mappable length could be defined as the \nnumber of distinct k-mers that uniquely align in a given portion of the \ngenome.\n\nIn a previous thread, Simon Andrews mentioned a Bowtie perl wrapper:\n\nhttps://stat.ethz.ch/pipermail/bioc-sig-sequencing/2009-May/000315.html\n\nI seem to recall another post suggesting using the BSgenome packages for \na similar purpose...\n\nPerhaps I'm missing something obvious and this functionality is already \nincluded in one of the many sequencing-related packages out there.\n\nAny thoughts?\n\nCheers,\n\nCei",
+      "body_snippet": "Hello all,\n\nAfter short-read alignment, one post-processing step might be to \nnormalize by the length (e.g. of an individual exon, of all genes, etc). \nThis should actually be the mappable length of t",
+      "thread_id": "thread-818d9c17418f",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-4238618aaeed",
+      "message_id": "<AANLkTikjzuXI_dtVN31860b5eWv5EbiPLRlFB92kVCDm@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "b2b45a5f3ad330d8561a4711d1f95ff6a445243a303a83a7a709685fab3e068c",
+      "date": "2010-07-07T13:50:34Z",
+      "subject": "[Bioc-sig-seq] mappable length of a genome",
+      "subject_clean": "[Bioc-sig-seq] mappable length of a genome",
+      "in_reply_to": "<4C3482CA.90908@ebi.ac.uk>",
+      "references": [
+        "<4C3482CA.90908@ebi.ac.uk>"
+      ],
+      "body_plain": "On Wed, Jul 7, 2010 at 9:36 AM, Cei Abreu-Goodger <cei at ebi.ac.uk> wrote:\n> After short-read alignment, one post-processing step might be to normalize\n> by the length (e.g. of an individual exon, of all genes, etc). This should\n> actually be the mappable length of these portions of the genome, not the\n> real length. Mappable length could be defined as the number of distinct\n> k-mers that uniquely align in a given portion of the genome.\n\nOf course you want to use mappable length, as we did a long time ago:\n\nhttp://www.plosgenetics.org/article/info:doi/10.1371/journal.pgen.1000299\n\nYou can also find the Broad \"mappability\" track on UCSC.\n\nIn my opinion, mappable length ought to be computed under the same\nalignment strategy and aligner as you are using to map the reads.  Of\ncourse, one could claim that mappability under one strategy ought to\nbe pretty similar to mappability under another strategy, but I have\nnever seen any real investigation into these claims.\n\nIt is pretty easy to compute for small genomes, and it is computable\nfor larger genomes, although it does involve a lot of scripting and\npostproccesing.  You can cut down your time if your're only interested\nin say mappability for all ensembl genes (which is about 100x faster\nthan mappability for the entire human genome).\n\nI have always used custom scripts for this.\n\nKasper\n\n> In a previous thread, Simon Andrews mentioned a Bowtie perl wrapper:\n>\n> https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2009-May/000315.html\n>\n> I seem to recall another post suggesting using the BSgenome packages for a\n> similar purpose...\n>\n> Perhaps I'm missing something obvious and this functionality is already\n> included in one of the many sequencing-related packages out there.\n>\n> Any thoughts?\n>\n> Cheers,\n>\n> Cei\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "On Wed, Jul 7, 2010 at 9:36 AM, Cei Abreu-Goodger <cei at ebi.ac.uk> wrote:\n> After short-read alignment, one post-processing step might be to normalize\n> by the length (e.g. of an individual exon, of",
+      "thread_id": "thread-818d9c17418f",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-a624b238cfa4",
+      "message_id": "<AANLkTimaxgBKO4QDbs7gdjnxTaMLUNz7wcSXDNvPcnnQ@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-07-07T14:04:51Z",
+      "subject": "[Bioc-sig-seq] Alignment to only 1 direction DNA strand",
+      "subject_clean": "[Bioc-sig-seq] Alignment to only 1 direction DNA strand",
+      "in_reply_to": "<67033A0806429D469359E35EECA1B2DC46C16EA3BD@EXCH-CCR01.lj.ad.scripps.edu>",
+      "references": [
+        "<67033A0806429D469359E35EECA1B2DC46C16EA3BD@EXCH-CCR01.lj.ad.scripps.edu>"
+      ],
+      "body_plain": "Hi,\n\nOn Tue, Jul 6, 2010 at 8:56 PM, Lana Schaffer <schaffer at scripps.edu> wrote:\n\n> Hi,\n> We have directional inserts to sequence (Illumina platform) and want to align\n> to either the sense or antisense strand of DNA one at a time. ?Is there\n> alignment software to do this?\n\nI know that bowtie can do this (I'm guessing BWA can as well).\n\nLook for the description of the --nofw and --norc arguments here:\nhttp://bowtie-bio.sourceforge.net/manual.shtml\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n | Memorial Sloan-Kettering Cancer Center\n | Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Tue, Jul 6, 2010 at 8:56 PM, Lana Schaffer <schaffer at scripps.edu> wrote:\n\n> Hi,\n> We have directional inserts to sequence (Illumina platform) and want to align\n> to either the sense or anti",
+      "thread_id": "thread-459fabe52fda",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-65c45f5e97c0",
+      "message_id": "<4C349A38.3060108@ebi.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+      "date": "2010-07-07T15:16:08Z",
+      "subject": "[Bioc-sig-seq] mappable length of a genome",
+      "subject_clean": "[Bioc-sig-seq] mappable length of a genome",
+      "in_reply_to": "<AANLkTikjzuXI_dtVN31860b5eWv5EbiPLRlFB92kVCDm@mail.gmail.com>",
+      "references": [
+        "<4C3482CA.90908@ebi.ac.uk>",
+        "<AANLkTikjzuXI_dtVN31860b5eWv5EbiPLRlFB92kVCDm@mail.gmail.com>"
+      ],
+      "body_plain": "Thanks Kasper for pointing out the Mapability tracks on UCSC.\n\nFishing around a bit more, I found that the Bowtie distribution comes \nwith a \"mapability.pl\" script. It makes use of an undocumented (?) -F \nflag that fragments the input sequences given a window and step sizes \n(-F win,step).\n\nFor those using Bowtie, this would allow using the same alignment \nstrategy for mappable length and actual mapping, as Kasper suggests.\n\nCheers,\n\nCei\n\nKasper Daniel Hansen wrote:\n> On Wed, Jul 7, 2010 at 9:36 AM, Cei Abreu-Goodger <cei at ebi.ac.uk> wrote:\n>> After short-read alignment, one post-processing step might be to normalize\n>> by the length (e.g. of an individual exon, of all genes, etc). This should\n>> actually be the mappable length of these portions of the genome, not the\n>> real length. Mappable length could be defined as the number of distinct\n>> k-mers that uniquely align in a given portion of the genome.\n> \n> Of course you want to use mappable length, as we did a long time ago:\n> \n> http://www.plosgenetics.org/article/info:doi/10.1371/journal.pgen.1000299\n> \n> You can also find the Broad \"mappability\" track on UCSC.\n> \n> In my opinion, mappable length ought to be computed under the same\n> alignment strategy and aligner as you are using to map the reads.  Of\n> course, one could claim that mappability under one strategy ought to\n> be pretty similar to mappability under another strategy, but I have\n> never seen any real investigation into these claims.\n> \n> It is pretty easy to compute for small genomes, and it is computable\n> for larger genomes, although it does involve a lot of scripting and\n> postproccesing.  You can cut down your time if your're only interested\n> in say mappability for all ensembl genes (which is about 100x faster\n> than mappability for the entire human genome).\n> \n> I have always used custom scripts for this.\n> \n> Kasper\n> \n>> In a previous thread, Simon Andrews mentioned a Bowtie perl wrapper:\n>>\n>> https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2009-May/000315.html\n>>\n>> I seem to recall another post suggesting using the BSgenome packages for a\n>> similar purpose...\n>>\n>> Perhaps I'm missing something obvious and this functionality is already\n>> included in one of the many sequencing-related packages out there.\n>>\n>> Any thoughts?\n>>\n>> Cheers,\n>>\n>> Cei\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>",
+      "body_snippet": "Thanks Kasper for pointing out the Mapability tracks on UCSC.\n\nFishing around a bit more, I found that the Bowtie distribution comes \nwith a \"mapability.pl\" script. It makes use of an undocumented (?)",
+      "thread_id": "thread-818d9c17418f",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-9a6dd06ad7dd",
+      "message_id": "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-08T15:48:49Z",
+      "subject": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "subject_clean": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Can anybody show an example of how to sort GRanges by score?\n\nLets say I have this GRanges instance\n\nlibrary(GenomicRanges)\n\ngr <- GRanges(seqnames = Rle(c(\"chr1\", \"chr2\", \"chr1\", \"chr3\"), c(1,\n3, 2, 4)), ranges = IRanges(1:10, end = 7:16, names = head(letters,\n10)), strand = Rle(strand(c(\"-\", \"+\", \"*\", \"+\", \"-\")), c(1, 2, 2, 3,\n2)), score = 1:10, GC = seq(1, 0, length = 10))\n\ngr\nGRanges with 10 ranges and 2 elementMetadata values\n  seqnames    ranges strand |     score        GC\n     <Rle> <IRanges>  <Rle> | <integer> <numeric>\na     chr1  [ 1,  7]      - |         1 1.0000000\nb     chr2  [ 2,  8]      + |         2 0.8888889\nc     chr2  [ 3,  9]      + |         3 0.7777778\nd     chr2  [ 4, 10]      * |         4 0.6666667\ne     chr1  [ 5, 11]      * |         5 0.5555556\nf     chr1  [ 6, 12]      + |         6 0.4444444\ng     chr3  [ 7, 13]      + |         7 0.3333333\nh     chr3  [ 8, 14]      + |         8 0.2222222\ni     chr3  [ 9, 15]      - |         9 0.1111111\nj     chr3  [10, 16]      - |        10 0.0000000\n\nseqlengths\n chr1 chr2 chr3\n   NA   NA   NA\n\nHow do I re-order the rows in descending score values?\nHow do I subset the top 3 score ranges?\n\nThank you,\n\nIvan\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878",
+      "body_snippet": "Can anybody show an example of how to sort GRanges by score?\n\nLets say I have this GRanges instance\n\nlibrary(GenomicRanges)\n\ngr <- GRanges(seqnames = Rle(c(\"chr1\", \"chr2\", \"chr1\", \"chr3\"), c(1,\n3, 2, ",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-37ef3f0665f7",
+      "message_id": "<EFE8F44AA756FD4EA8621A227C10724F0E5073BC@BL2PRD0103MB043.prod.exchangelabs.com>",
+      "from_name": "pterry at huskers.unl.edu",
+      "from_email_hash": "451b60417347881d1411be90e0dc48b9af1cc31e0974d2d23e738160d3b043e7",
+      "date": "2010-07-08T16:38:06Z",
+      "subject": "[Bioc-sig-seq] Equalize number reads before chipseq analysis",
+      "subject_clean": "[Bioc-sig-seq] Equalize number reads before chipseq analysis",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100708/a509a794/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100708/a509a794/attachment.pl>",
+      "thread_id": "thread-37ef3f0665f7",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-761a8d152854",
+      "message_id": "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-07-08T16:40:06Z",
+      "subject": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "subject_clean": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "in_reply_to": "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+      "references": [
+        "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Ivan,\n\nOn Thu, Jul 8, 2010 at 11:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> Can anybody show an example of how to sort GRanges by score?\n>\n> Lets say I have this GRanges instance\n>\n> library(GenomicRanges)\n>\n> gr <- GRanges(seqnames = Rle(c(\"chr1\", \"chr2\", \"chr1\", \"chr3\"), c(1,\n> 3, 2, 4)), ranges = IRanges(1:10, end = 7:16, names = head(letters,\n> 10)), strand = Rle(strand(c(\"-\", \"+\", \"*\", \"+\", \"-\")), c(1, 2, 2, 3,\n> 2)), score = 1:10, GC = seq(1, 0, length = 10))\n>\n> gr\n> GRanges with 10 ranges and 2 elementMetadata values\n> ?seqnames ? ?ranges strand | ? ? score ? ? ? ?GC\n> ? ? <Rle> <IRanges> ?<Rle> | <integer> <numeric>\n> a ? ? chr1 ?[ 1, ?7] ? ? ?- | ? ? ? ? 1 1.0000000\n> b ? ? chr2 ?[ 2, ?8] ? ? ?+ | ? ? ? ? 2 0.8888889\n> c ? ? chr2 ?[ 3, ?9] ? ? ?+ | ? ? ? ? 3 0.7777778\n> d ? ? chr2 ?[ 4, 10] ? ? ?* | ? ? ? ? 4 0.6666667\n> e ? ? chr1 ?[ 5, 11] ? ? ?* | ? ? ? ? 5 0.5555556\n> f ? ? chr1 ?[ 6, 12] ? ? ?+ | ? ? ? ? 6 0.4444444\n> g ? ? chr3 ?[ 7, 13] ? ? ?+ | ? ? ? ? 7 0.3333333\n> h ? ? chr3 ?[ 8, 14] ? ? ?+ | ? ? ? ? 8 0.2222222\n> i ? ? chr3 ?[ 9, 15] ? ? ?- | ? ? ? ? 9 0.1111111\n> j ? ? chr3 ?[10, 16] ? ? ?- | ? ? ? ?10 0.0000000\n>\n> seqlengths\n> ?chr1 chr2 chr3\n> ? NA ? NA ? NA\n>\n> How do I re-order the rows in descending score values?\n\nHow about:\nR> o <- order(elementMetadata(gr)$score, decreasing=TRUE)\nR> gr <- gr[o]\n\n> How do I subset the top 3 score ranges?\nIf you did the above move:\nR> gr[1:3]\n\nIf you didn't reorder gr based on o, you could do:\n\nR> gr[o[1:3]]\n\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n | Memorial Sloan-Kettering Cancer Center\n | Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi Ivan,\n\nOn Thu, Jul 8, 2010 at 11:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> Can anybody show an example of how to sort GRanges by score?\n>\n> Lets say I have this GRanges instance\n>\n> l",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-f31c561f04bc",
+      "message_id": "<AANLkTinItR8vBfdZYmP3pXlOmqMRCvtGT58HTw5ZfuIx@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-08T16:48:11Z",
+      "subject": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "subject_clean": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "in_reply_to": "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>",
+      "references": [
+        "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+        "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>"
+      ],
+      "body_plain": "Thank you Steve. That answers my questions.\n\nIvan\n\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878\n\n\n\nOn Thu, Jul 8, 2010 at 12:40 PM, Steve Lianoglou\n<mailinglist.honeypot at gmail.com> wrote:\n> Hi Ivan,\n>\n> On Thu, Jul 8, 2010 at 11:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>> Can anybody show an example of how to sort GRanges by score?\n>>\n>> Lets say I have this GRanges instance\n>>\n>> library(GenomicRanges)\n>>\n>> gr <- GRanges(seqnames = Rle(c(\"chr1\", \"chr2\", \"chr1\", \"chr3\"), c(1,\n>> 3, 2, 4)), ranges = IRanges(1:10, end = 7:16, names = head(letters,\n>> 10)), strand = Rle(strand(c(\"-\", \"+\", \"*\", \"+\", \"-\")), c(1, 2, 2, 3,\n>> 2)), score = 1:10, GC = seq(1, 0, length = 10))\n>>\n>> gr\n>> GRanges with 10 ranges and 2 elementMetadata values\n>> ?seqnames ? ?ranges strand | ? ? score ? ? ? ?GC\n>> ? ? <Rle> <IRanges> ?<Rle> | <integer> <numeric>\n>> a ? ? chr1 ?[ 1, ?7] ? ? ?- | ? ? ? ? 1 1.0000000\n>> b ? ? chr2 ?[ 2, ?8] ? ? ?+ | ? ? ? ? 2 0.8888889\n>> c ? ? chr2 ?[ 3, ?9] ? ? ?+ | ? ? ? ? 3 0.7777778\n>> d ? ? chr2 ?[ 4, 10] ? ? ?* | ? ? ? ? 4 0.6666667\n>> e ? ? chr1 ?[ 5, 11] ? ? ?* | ? ? ? ? 5 0.5555556\n>> f ? ? chr1 ?[ 6, 12] ? ? ?+ | ? ? ? ? 6 0.4444444\n>> g ? ? chr3 ?[ 7, 13] ? ? ?+ | ? ? ? ? 7 0.3333333\n>> h ? ? chr3 ?[ 8, 14] ? ? ?+ | ? ? ? ? 8 0.2222222\n>> i ? ? chr3 ?[ 9, 15] ? ? ?- | ? ? ? ? 9 0.1111111\n>> j ? ? chr3 ?[10, 16] ? ? ?- | ? ? ? ?10 0.0000000\n>>\n>> seqlengths\n>> ?chr1 chr2 chr3\n>> ? NA ? NA ? NA\n>>\n>> How do I re-order the rows in descending score values?\n>\n> How about:\n> R> o <- order(elementMetadata(gr)$score, decreasing=TRUE)\n> R> gr <- gr[o]\n>\n>> How do I subset the top 3 score ranges?\n> If you did the above move:\n> R> gr[1:3]\n>\n> If you didn't reorder gr based on o, you could do:\n>\n> R> gr[o[1:3]]\n>\n>\n> --\n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n> ?| Memorial Sloan-Kettering Cancer Center\n> ?| Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>",
+      "body_snippet": "Thank you Steve. That answers my questions.\n\nIvan\n\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Roo",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-d84bb9fd9cda",
+      "message_id": "<4C3601D2.8080008@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-07-08T16:50:26Z",
+      "subject": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "subject_clean": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "in_reply_to": "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>",
+      "references": [
+        "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+        "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>"
+      ],
+      "body_plain": "On 07/08/2010 09:40 AM, Steve Lianoglou wrote:\n> Hi Ivan,\n> \n> On Thu, Jul 8, 2010 at 11:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>> Can anybody show an example of how to sort GRanges by score?\n>>\n>> Lets say I have this GRanges instance\n>>\n>> library(GenomicRanges)\n>>\n>> gr <- GRanges(seqnames = Rle(c(\"chr1\", \"chr2\", \"chr1\", \"chr3\"), c(1,\n>> 3, 2, 4)), ranges = IRanges(1:10, end = 7:16, names = head(letters,\n>> 10)), strand = Rle(strand(c(\"-\", \"+\", \"*\", \"+\", \"-\")), c(1, 2, 2, 3,\n>> 2)), score = 1:10, GC = seq(1, 0, length = 10))\n>>\n>> gr\n>> GRanges with 10 ranges and 2 elementMetadata values\n>>  seqnames    ranges strand |     score        GC\n>>     <Rle> <IRanges>  <Rle> | <integer> <numeric>\n>> a     chr1  [ 1,  7]      - |         1 1.0000000\n>> b     chr2  [ 2,  8]      + |         2 0.8888889\n>> c     chr2  [ 3,  9]      + |         3 0.7777778\n>> d     chr2  [ 4, 10]      * |         4 0.6666667\n>> e     chr1  [ 5, 11]      * |         5 0.5555556\n>> f     chr1  [ 6, 12]      + |         6 0.4444444\n>> g     chr3  [ 7, 13]      + |         7 0.3333333\n>> h     chr3  [ 8, 14]      + |         8 0.2222222\n>> i     chr3  [ 9, 15]      - |         9 0.1111111\n>> j     chr3  [10, 16]      - |        10 0.0000000\n>>\n>> seqlengths\n>>  chr1 chr2 chr3\n>>   NA   NA   NA\n>>\n>> How do I re-order the rows in descending score values?\n> \n> How about:\n> R> o <- order(elementMetadata(gr)$score, decreasing=TRUE)\n\nvalues(gr) is an alternative (shorter and semantically meaningful) to\nelementMetadata(gr). Also ranges(gr) and strand(gr) to extract the\nremaining components.\n\nMartin\n\n> R> gr <- gr[o]\n> \n>> How do I subset the top 3 score ranges?\n> If you did the above move:\n> R> gr[1:3]\n> \n> If you didn't reorder gr based on o, you could do:\n> \n> R> gr[o[1:3]]\n> \n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "On 07/08/2010 09:40 AM, Steve Lianoglou wrote:\n> Hi Ivan,\n> \n> On Thu, Jul 8, 2010 at 11:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>> Can anybody show an example of how to sort GRanges by ",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-a91dec67716c",
+      "message_id": "<201007191631238596973@gmail.com>",
+      "from_name": "xuxiang086",
+      "from_email_hash": "c614fcb37f5ea2a5f15923c6b76f9598d23ec01d1ccd73928777e7cf2632dedc",
+      "date": "2010-07-19T08:31:25Z",
+      "subject": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "subject_clean": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "in_reply_to": null,
+      "references": [
+        "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+        "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/73350111/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/73350111/attachment.pl>",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-081f35ddbaac",
+      "message_id": "<4C440E60.2020204@ebi.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+      "date": "2010-07-19T08:35:44Z",
+      "subject": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "subject_clean": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "in_reply_to": "<201007191631238596973@gmail.com>",
+      "references": [
+        "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+        "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>",
+        "<201007191631238596973@gmail.com>"
+      ],
+      "body_plain": "Hi Xiang,\n\nThis set of functions should help... But you could probably have found \nthem  by using google.\n\nchartr\ntoupper\ntolower\ncasefold\n\nCheers,\n\nCei\n\nxuxiang086 wrote:\n> Hi all,\n> \n> Could you tell me which function in R is for changing letter case? Thanks.\n> \n> Best,\n> \n> Xiang\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Xiang,\n\nThis set of functions should help... But you could probably have found \nthem  by using google.\n\nchartr\ntoupper\ntolower\ncasefold\n\nCheers,\n\nCei\n\nxuxiang086 wrote:\n> Hi all,\n> \n> Could you tel",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 3,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-5567a88eb3ce",
+      "message_id": "<201007191645340005112@gmail.com>",
+      "from_name": "xuxiang086",
+      "from_email_hash": "c614fcb37f5ea2a5f15923c6b76f9598d23ec01d1ccd73928777e7cf2632dedc",
+      "date": "2010-07-19T08:45:35Z",
+      "subject": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "subject_clean": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "in_reply_to": null,
+      "references": [
+        "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+        "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>",
+        "<201007191631238596973@gmail.com>",
+        "<4C440E60.2020204@ebi.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/03331f48/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/03331f48/attachment.pl>",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 4,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-ba7149610a12",
+      "message_id": "<20100719085223.M68250@curie.fr>",
+      "from_name": "Joern Toedling",
+      "from_email_hash": "4bd294c3b769bc80bb8bcc9ac0a636dcded69d7d4b7431f9693ff242f038e88e",
+      "date": "2010-07-19T08:56:03Z",
+      "subject": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "subject_clean": "[Bioc-sig-seq] How to convert upper case strings to lower case",
+      "in_reply_to": "<201007191631238596973@gmail.com>",
+      "references": [
+        "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
+        "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>",
+        "<201007191631238596973@gmail.com>"
+      ],
+      "body_plain": "Hi Xiang,\n\nhave a look at:\n?tolower\n\nI recommend downloading an R reference card, such as this one,\nhttp://cran.r-project.org/doc/contrib/Short-refcard.pdf\nThus you won't have to consult mailing lists for such basic questions.\n\nAlso \nwww.rseek.org\ncan be very helpful.\n\nRegards,\nJoern\n\nOn Mon, 19 Jul 2010 16:31:25 +0800, xuxiang086 wrote\n> Hi all,\n> \n> Could you tell me which function in R is for changing letter case? Thanks.\n> \n> Best,\n> \n> Xiang\n> \n\n---\nJoern Toedling\nInstitut Curie -- U900\n26 rue d'Ulm, 75005 Paris, FRANCE\nTel. +33 (0)156246927",
+      "body_snippet": "Hi Xiang,\n\nhave a look at:\n?tolower\n\nI recommend downloading an R reference card, such as this one,\nhttp://cran.r-project.org/doc/contrib/Short-refcard.pdf\nThus you won't have to consult mailing lists",
+      "thread_id": "thread-9a6dd06ad7dd",
+      "thread_depth": 3,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-856f8fb37b43",
+      "message_id": "<4C44A336.8010201@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-07-19T19:10:46Z",
+      "subject": "[Bioc-sig-seq] matchPDict, fixed=FALSE; \"walk_tb_nonfixed_subject(): implement me\"",
+      "subject_clean": "[Bioc-sig-seq] matchPDict, fixed=FALSE; \"walk_tb_nonfixed_subject(): implement me\"",
+      "in_reply_to": "<4C24EF64.4020107@fhcrc.org>",
+      "references": [
+        "<20100625104623.GC17337@onyx.nki.nl>",
+        "<4C24EF64.4020107@fhcrc.org>"
+      ],
+      "body_plain": "Hi Ludo,\n\nmatchPDict() and family now support fixed=FALSE by default (i.e.\nwhen the PDict object was used with algo=\"ACtree2\"):\n\n   > library(Biostrings)\n   > dict <- DNAStringSet(c(\"TTC\", \"CTT\"))\n   > pdict <- PDict(dict)\n   > subject <- DNAString(\"CYTCACTTC\")\n   > as.list(matchPDict(pdict, subject, fixed=\"pattern\"))\n   [[1]]\n   IRanges of length 2\n       start end width\n   [1]     2   4     3\n   [2]     7   9     3\n\n   [[2]]\n   IRanges of length 2\n       start end width\n   [1]     1   3     3\n   [2]     6   8     3\n\nMatching the probes of an Affy chip to the Human chr1 sequence\npreviously altered by injecting all known SNPs from dbSNP:\n\n   library(hgu95av2probe)\n   probes <- DNAStringSet(hgu95av2probe)\n   pdict <- PDict(probes)\n\n   library(BSgenome.Hsapiens.UCSC.hg19)\n   library(SNPlocs.Hsapiens.dbSNP.20100427)\n   SNP_Hsapiens <- injectSNPs(Hsapiens, \"SNPlocs.Hsapiens.dbSNP.20100427\")\n   SNP_subject <- SNP_Hsapiens$chr1\n\nThis takes about 2m40s on my laptop (and uses about 1.5GB of memory):\n\n   mi1 <- matchPDict(pdict, SNP_subject, fixed=\"pattern\")\n\nNote that the fixed=\"pattern\" feature only works if the density of\nambiguity letters in the subject is not too high. For your\nparticular situation where it contains a stretch of 20 N's it might\nnot work (hard to say because the limit also depends on the number\nof nodes in the Aho-Corasick tree, which itself depends on the number\nand lengths of your reads).\n\nCreate a 550bp subject with a 20N stretch in the middle:\n   subject <- DNAString(paste(c(sample(DNA_BASES, 265, replace=TRUE),\n                                rep.int(\"N\", 20),\n                                sample(DNA_BASES, 265, replace=TRUE)),\n                              collapse=\"\"))\n\nCreate 201800 80bp reads:\n   reads <- narrow(start=11,\n              xscat(probes, reverseComplement(probes),\n                    rev(probes), rev(reverseComplement(probes))),\n                   width=80)\n\nTry to align all the reads at once:\n\n   > pdict <- PDict(reads)\n   > mi2 <- matchPDict(pdict, subject, fixed=\"pattern\")\n   Error in .match.PDict3Parts.XString(pdict at threeparts, subject, \nmax.mismatch,  :\n     too many IUPAC ambiguity letters in 'subject'\n\nBut with a smaller dictionary:\n\n   > pdict <- PDict(reads[1:100000])\n   > mi3 <- matchPDict(pdict, subject, fixed=\"pattern\")\n\n...it works (and takes about 7s on my laptop).\n\nUnfortunately, while working on this, I discovered that the\n'fixed=FALSE' feature for matchPDict() and family was broken so\nfar (i.e. for Biostrings < 2.16.8): it would miss some matches\nunder certain circumstances.\nI spent some good amount of time testing the new implementation\n(my test is still running, should take about 5 days to complete)\nby comparing the matches obtained with matchPDict() with those\nobtained with calling matchPattern() within a loop (for the\nlatter the shift-or algo is used which is a completely different \napproach/implementation, it's also much slower). The dict used\nfor this test was hgu95av2probe and the subject was Human chr1\n(hg19), like in the 1st example above. The 2 methods are producing\nexactly the same set of matches so far (after checking the first\n126000 probes in hgu95av2probe).\n\nThis is available in the latest release version of Biostrings\n(2.16.8). Please update your packages as explained here:\n\n   http://bioconductor.org/docs/install/\n\nLet me know if you have any questions.\n\nCheers,\nH.\n\n\nOn 06/25/2010 11:03 AM, Herv? Pag?s wrote:\n> Hi Ludo,\n>\n> Yes matchPDict() used to support fixed=FALSE. It still does, but only\n> when the PDict object is made using the old implementation of the\n> Aho-Corasick algo ('algo=\"ACtree\"'):\n>\n>  > pdict <- PDict(c(\"ACCT\", \"GACC\", \"CCCT\", \"CCCA\"), algo=\"ACtree\")\n>  > matchPDict(pdict, DNAString(\"GNCCT\"), fixed=\"pattern\")[[3]]\n> IRanges of length 1\n> start end width\n> [1] 2 5 4\n>\n> The \"ACtree\" algo has been superseded by the \"ACtree2\" algo, a faster\n> and more memory efficient implementation of the same algo that uses a\n> different internal representation than \"ACtree\" for the Aho-Corasick\n> tree.\n>\n> The 'fixed=TRUE' (or 'fixed=\"pattern\"') option is not yet supported\n> for PDict objects built with the new algo. I'll add this ASAP. Thanks\n> for the reminder!\n>\n> Cheers,\n> H.\n>\n> On 06/25/2010 03:46 AM, Ludo Pagie wrote:\n>>\n>> hi all,\n>>\n>> I'm trying to match 80bp reads to a construct, a sequence of +/-\n>> 550bp. The construct contains a strecth of N's, representing a\n>> stretch of 20 random nucleotides.\n>>\n>> I constructed a pdict from the reads, and a DNAString from the\n>> construct. When I run matchPDict with fixed=TRUE, all goes fine\n>> and I get 1.2M matches.\n>>\n>>> construct_mindex<- matchPDict(pdict, DNAString(construct),\n>>> max.mismatch=3)\n>>> sum(countIndex(construct_mindex))\n>> [1] 1280283\n>>\n>>\n>> With fixed=FALSE I get the following error:\n>>\n>>> construct_mindex<- matchPDict(pdict, DNAString(construct),\n>>> max.mismatch=3, fixed=FALSE)\n>> Error in .match.PDict3Parts.XString(pdict at threeparts, subject,\n>> max.mismatch, :\n>> walk_tb_nonfixed_subject(): implement me\n>>\n>> Is there a way around this non-implemented function? Or any\n>> chance it will be implemented soon? Or am I missing something.\n>>\n>> If you need more background let me know.\n>>\n>> Ludo\n>>\n>>> sessionInfo()\n>> R version 2.12.0 Under development (unstable) (2010-06-17\n>> r52313)\n>> Platform: x86_64-unknown-linux-gnu (64-bit)\n>>\n>> locale:\n>> [1] LC_CTYPE=en_US.UTF-8 LC_NUMERIC=C\n>> [3] LC_TIME=en_US.UTF-8 LC_COLLATE=en_US.UTF-8\n>> [5] LC_MONETARY=C LC_MESSAGES=en_US.UTF-8\n>> [7] LC_PAPER=en_US.UTF-8 LC_NAME=C\n>> [9] LC_ADDRESS=C LC_TELEPHONE=C\n>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>\n>> attached base packages:\n>> [1] stats graphics grDevices utils datasets\n>> methods base\n>>\n>> other attached packages:\n>> [1] ShortRead_1.7.7 Rsamtools_1.1.7\n>> lattice_0.18-8\n>> [4] GenomicRanges_1.1.12 Biostrings_2.17.7 IRanges_1.7.7\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.9.0 grid_2.12.0 hwriter_1.2 tools_2.12.0\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Ludo,\n\nmatchPDict() and family now support fixed=FALSE by default (i.e.\nwhen the PDict object was used with algo=\"ACtree2\"):\n\n   > library(Biostrings)\n   > dict <- DNAStringSet(c(\"TTC\", \"CTT\"))\n   ",
+      "thread_id": "thread-856f8fb37b43",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-e2202d771e20",
+      "message_id": "<4C44A440.2010407@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-07-19T19:15:12Z",
+      "subject": "[Bioc-sig-seq] matchPDict, fixed=FALSE; \"walk_tb_nonfixed_subject(): implement me\"",
+      "subject_clean": "[Bioc-sig-seq] matchPDict, fixed=FALSE; \"walk_tb_nonfixed_subject(): implement me\"",
+      "in_reply_to": "<4C44A336.8010201@fhcrc.org>",
+      "references": [
+        "<20100625104623.GC17337@onyx.nki.nl>",
+        "<4C24EF64.4020107@fhcrc.org>",
+        "<4C44A336.8010201@fhcrc.org>"
+      ],
+      "body_plain": "On 07/19/2010 12:10 PM, Herv? Pag?s wrote:\n> Hi Ludo,\n>\n> matchPDict() and family now support fixed=FALSE by default (i.e.\n> when the PDict object was used with algo=\"ACtree2\"):\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                         was preprocessed with algo=\"ACtree2\", which\nis the default\n\nCheers,\nH.\n\n>\n>  > library(Biostrings)\n>  > dict <- DNAStringSet(c(\"TTC\", \"CTT\"))\n>  > pdict <- PDict(dict)\n>  > subject <- DNAString(\"CYTCACTTC\")\n>  > as.list(matchPDict(pdict, subject, fixed=\"pattern\"))\n> [[1]]\n> IRanges of length 2\n> start end width\n> [1] 2 4 3\n> [2] 7 9 3\n>\n> [[2]]\n> IRanges of length 2\n> start end width\n> [1] 1 3 3\n> [2] 6 8 3\n>\n> Matching the probes of an Affy chip to the Human chr1 sequence\n> previously altered by injecting all known SNPs from dbSNP:\n>\n> library(hgu95av2probe)\n> probes <- DNAStringSet(hgu95av2probe)\n> pdict <- PDict(probes)\n>\n> library(BSgenome.Hsapiens.UCSC.hg19)\n> library(SNPlocs.Hsapiens.dbSNP.20100427)\n> SNP_Hsapiens <- injectSNPs(Hsapiens, \"SNPlocs.Hsapiens.dbSNP.20100427\")\n> SNP_subject <- SNP_Hsapiens$chr1\n>\n> This takes about 2m40s on my laptop (and uses about 1.5GB of memory):\n>\n> mi1 <- matchPDict(pdict, SNP_subject, fixed=\"pattern\")\n>\n> Note that the fixed=\"pattern\" feature only works if the density of\n> ambiguity letters in the subject is not too high. For your\n> particular situation where it contains a stretch of 20 N's it might\n> not work (hard to say because the limit also depends on the number\n> of nodes in the Aho-Corasick tree, which itself depends on the number\n> and lengths of your reads).\n>\n> Create a 550bp subject with a 20N stretch in the middle:\n> subject <- DNAString(paste(c(sample(DNA_BASES, 265, replace=TRUE),\n> rep.int(\"N\", 20),\n> sample(DNA_BASES, 265, replace=TRUE)),\n> collapse=\"\"))\n>\n> Create 201800 80bp reads:\n> reads <- narrow(start=11,\n> xscat(probes, reverseComplement(probes),\n> rev(probes), rev(reverseComplement(probes))),\n> width=80)\n>\n> Try to align all the reads at once:\n>\n>  > pdict <- PDict(reads)\n>  > mi2 <- matchPDict(pdict, subject, fixed=\"pattern\")\n> Error in .match.PDict3Parts.XString(pdict at threeparts, subject,\n> max.mismatch, :\n> too many IUPAC ambiguity letters in 'subject'\n>\n> But with a smaller dictionary:\n>\n>  > pdict <- PDict(reads[1:100000])\n>  > mi3 <- matchPDict(pdict, subject, fixed=\"pattern\")\n>\n> ...it works (and takes about 7s on my laptop).\n>\n> Unfortunately, while working on this, I discovered that the\n> 'fixed=FALSE' feature for matchPDict() and family was broken so\n> far (i.e. for Biostrings < 2.16.8): it would miss some matches\n> under certain circumstances.\n> I spent some good amount of time testing the new implementation\n> (my test is still running, should take about 5 days to complete)\n> by comparing the matches obtained with matchPDict() with those\n> obtained with calling matchPattern() within a loop (for the\n> latter the shift-or algo is used which is a completely different\n> approach/implementation, it's also much slower). The dict used\n> for this test was hgu95av2probe and the subject was Human chr1\n> (hg19), like in the 1st example above. The 2 methods are producing\n> exactly the same set of matches so far (after checking the first\n> 126000 probes in hgu95av2probe).\n>\n> This is available in the latest release version of Biostrings\n> (2.16.8). Please update your packages as explained here:\n>\n> http://bioconductor.org/docs/install/\n>\n> Let me know if you have any questions.\n>\n> Cheers,\n> H.\n>\n>\n> On 06/25/2010 11:03 AM, Herv? Pag?s wrote:\n>> Hi Ludo,\n>>\n>> Yes matchPDict() used to support fixed=FALSE. It still does, but only\n>> when the PDict object is made using the old implementation of the\n>> Aho-Corasick algo ('algo=\"ACtree\"'):\n>>\n>> > pdict <- PDict(c(\"ACCT\", \"GACC\", \"CCCT\", \"CCCA\"), algo=\"ACtree\")\n>> > matchPDict(pdict, DNAString(\"GNCCT\"), fixed=\"pattern\")[[3]]\n>> IRanges of length 1\n>> start end width\n>> [1] 2 5 4\n>>\n>> The \"ACtree\" algo has been superseded by the \"ACtree2\" algo, a faster\n>> and more memory efficient implementation of the same algo that uses a\n>> different internal representation than \"ACtree\" for the Aho-Corasick\n>> tree.\n>>\n>> The 'fixed=TRUE' (or 'fixed=\"pattern\"') option is not yet supported\n>> for PDict objects built with the new algo. I'll add this ASAP. Thanks\n>> for the reminder!\n>>\n>> Cheers,\n>> H.\n>>\n>> On 06/25/2010 03:46 AM, Ludo Pagie wrote:\n>>>\n>>> hi all,\n>>>\n>>> I'm trying to match 80bp reads to a construct, a sequence of +/-\n>>> 550bp. The construct contains a strecth of N's, representing a\n>>> stretch of 20 random nucleotides.\n>>>\n>>> I constructed a pdict from the reads, and a DNAString from the\n>>> construct. When I run matchPDict with fixed=TRUE, all goes fine\n>>> and I get 1.2M matches.\n>>>\n>>>> construct_mindex<- matchPDict(pdict, DNAString(construct),\n>>>> max.mismatch=3)\n>>>> sum(countIndex(construct_mindex))\n>>> [1] 1280283\n>>>\n>>>\n>>> With fixed=FALSE I get the following error:\n>>>\n>>>> construct_mindex<- matchPDict(pdict, DNAString(construct),\n>>>> max.mismatch=3, fixed=FALSE)\n>>> Error in .match.PDict3Parts.XString(pdict at threeparts, subject,\n>>> max.mismatch, :\n>>> walk_tb_nonfixed_subject(): implement me\n>>>\n>>> Is there a way around this non-implemented function? Or any\n>>> chance it will be implemented soon? Or am I missing something.\n>>>\n>>> If you need more background let me know.\n>>>\n>>> Ludo\n>>>\n>>>> sessionInfo()\n>>> R version 2.12.0 Under development (unstable) (2010-06-17\n>>> r52313)\n>>> Platform: x86_64-unknown-linux-gnu (64-bit)\n>>>\n>>> locale:\n>>> [1] LC_CTYPE=en_US.UTF-8 LC_NUMERIC=C\n>>> [3] LC_TIME=en_US.UTF-8 LC_COLLATE=en_US.UTF-8\n>>> [5] LC_MONETARY=C LC_MESSAGES=en_US.UTF-8\n>>> [7] LC_PAPER=en_US.UTF-8 LC_NAME=C\n>>> [9] LC_ADDRESS=C LC_TELEPHONE=C\n>>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>>\n>>> attached base packages:\n>>> [1] stats graphics grDevices utils datasets\n>>> methods base\n>>>\n>>> other attached packages:\n>>> [1] ShortRead_1.7.7 Rsamtools_1.1.7\n>>> lattice_0.18-8\n>>> [4] GenomicRanges_1.1.12 Biostrings_2.17.7 IRanges_1.7.7\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] Biobase_2.9.0 grid_2.12.0 hwriter_1.2 tools_2.12.0\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "On 07/19/2010 12:10 PM, Herv? Pag?s wrote:\n> Hi Ludo,\n>\n> matchPDict() and family now support fixed=FALSE by default (i.e.\n> when the PDict object was used with algo=\"ACtree2\"):\n                      ",
+      "thread_id": "thread-856f8fb37b43",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-09b169abd7d7",
+      "message_id": "<AANLkTimGi7mw4aRhH2Mges8y5nVjJc-ZIe8mgWz5fkef@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-19T22:04:28Z",
+      "subject": "[Bioc-sig-seq] Downloading a sequence from the NCBI",
+      "subject_clean": "[Bioc-sig-seq] Downloading a sequence from the NCBI",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "How do I download the GeneBank record AF441733.2?\n(Mus musculus clone RP23-225M6 45S pre-ribosomal RNA gene, partial\nsequence; and intergenic spacer, partial sequence)\n\nI know that I could manually download it as a fasta file and then read\nit into R but there is probably a single step strategy.\n\nI wanted to use biomaRt but since the record seems to be absent from\nEnsembl, I can't expect biomaRt to fetch it. Can I?\n\nThank you,\n\nIvan\n\n> sessionInfo()\nR version 2.11.1 (2010-05-31)\nx86_64-redhat-linux-gnu\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\nLC_TIME=en_US.UTF-8\n [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=C\nLC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\nLC_ADDRESS=C\n[10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8\nLC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] biomaRt_2.4.0\n\nloaded via a namespace (and not attached):\n[1] RCurl_1.4-2 XML_3.1-0",
+      "body_snippet": "How do I download the GeneBank record AF441733.2?\n(Mus musculus clone RP23-225M6 45S pre-ribosomal RNA gene, partial\nsequence; and intergenic spacer, partial sequence)\n\nI know that I could manually do",
+      "thread_id": "thread-09b169abd7d7",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-76036310be58",
+      "message_id": "<4C44D118.90803@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-07-19T22:26:32Z",
+      "subject": "[Bioc-sig-seq] Downloading a sequence from the NCBI",
+      "subject_clean": "[Bioc-sig-seq] Downloading a sequence from the NCBI",
+      "in_reply_to": "<AANLkTimGi7mw4aRhH2Mges8y5nVjJc-ZIe8mgWz5fkef@mail.gmail.com>",
+      "references": [
+        "<AANLkTimGi7mw4aRhH2Mges8y5nVjJc-ZIe8mgWz5fkef@mail.gmail.com>"
+      ],
+      "body_plain": "On 07/19/2010 03:04 PM, Ivan Gregoretti wrote:\n> How do I download the GeneBank record AF441733.2?\n> (Mus musculus clone RP23-225M6 45S pre-ribosomal RNA gene, partial\n> sequence; and intergenic spacer, partial sequence)\n\nlibrary(annotate)\ngetSEQ(getGI(\"AF441733.2\"))\n\nis one way.\n\nMartin\n\n> \n> I know that I could manually download it as a fasta file and then read\n> it into R but there is probably a single step strategy.\n> \n> I wanted to use biomaRt but since the record seems to be absent from\n> Ensembl, I can't expect biomaRt to fetch it. Can I?\n> \n> Thank you,\n> \n> Ivan\n> \n>> sessionInfo()\n> R version 2.11.1 (2010-05-31)\n> x86_64-redhat-linux-gnu\n> \n> locale:\n>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n> LC_TIME=en_US.UTF-8\n>  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=C\n> LC_MESSAGES=en_US.UTF-8\n>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n> LC_ADDRESS=C\n> [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8\n> LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] biomaRt_2.4.0\n> \n> loaded via a namespace (and not attached):\n> [1] RCurl_1.4-2 XML_3.1-0\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "On 07/19/2010 03:04 PM, Ivan Gregoretti wrote:\n> How do I download the GeneBank record AF441733.2?\n> (Mus musculus clone RP23-225M6 45S pre-ribosomal RNA gene, partial\n> sequence; and intergenic space",
+      "thread_id": "thread-09b169abd7d7",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-0744bdfb004d",
+      "message_id": "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
+      "from_name": "Andrew Yee",
+      "from_email_hash": "743798a349ea45dc2d5bd70c72aaefe50690db4e841359de0eac0c7d38f03d9f",
+      "date": "2010-07-20T03:11:07Z",
+      "subject": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "subject_clean": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/8150eeef/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/8150eeef/attachment.pl>",
+      "thread_id": "thread-0744bdfb004d",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-a6b73e29cecd",
+      "message_id": "<AANLkTilwQe6ooLPRyA2hTQi4IyIvDHA6o7YnlI_btt_l@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-07-20T04:19:26Z",
+      "subject": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "subject_clean": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "in_reply_to": "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
+      "references": [
+        "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/34bbb968/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/34bbb968/attachment.pl>",
+      "thread_id": "thread-0744bdfb004d",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-3f4b685235e8",
+      "message_id": "<AANLkTilGKNKdYkhMFeyMdm-ylp_1_a-sgtDjh9rElAZr@mail.gmail.com>",
+      "from_name": "Vincent Carey",
+      "from_email_hash": "a2452f5b8291c3819d7bf5f8363b8501a99d965cccb34679af430953cca3c633",
+      "date": "2010-07-20T04:23:10Z",
+      "subject": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "subject_clean": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "in_reply_to": "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
+      "references": [
+        "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>"
+      ],
+      "body_plain": "This particular task might be solved with gsub():\n\n> foo <- DNAStringSet('ACTTA')\n> gsub(\"^(..)(.)\", \"\\\\1G\\\\2\", foo)\n[1] \"ACGTTA\"\n\nThere is of course a more concise solution than the one given here.\n\nOn Mon, Jul 19, 2010 at 11:11 PM, Andrew Yee <yee at post.harvard.edu> wrote:\n> Is there a way to use subseq() to insert nucleotides?\n>\n> Take for example foo:\n>\n> foo <- DNAStringSet('ACTTA')\n>\n> I'd like to insert e.g. a G between positions 2 and 3 so that foo looks like\n> 'ACGTTA' ?Is there a way to do this using subseq()? ?Or is an alternative\n> function recommended?\n>\n> Thanks,\n> Andrew\n>\n> ? ? ? ?[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "This particular task might be solved with gsub():\n\n> foo <- DNAStringSet('ACTTA')\n> gsub(\"^(..)(.)\", \"\\\\1G\\\\2\", foo)\n[1] \"ACGTTA\"\n\nThere is of course a more concise solution than the one given here.\n\n",
+      "thread_id": "thread-0744bdfb004d",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-17634d878481",
+      "message_id": "<AANLkTikcfM1Y4wW7HBzK5tuaN9m4AnKcVtSt8hpNtRKq@mail.gmail.com>",
+      "from_name": "Andrew Yee",
+      "from_email_hash": "743798a349ea45dc2d5bd70c72aaefe50690db4e841359de0eac0c7d38f03d9f",
+      "date": "2010-07-20T15:18:47Z",
+      "subject": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "subject_clean": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "in_reply_to": "<AANLkTilGKNKdYkhMFeyMdm-ylp_1_a-sgtDjh9rElAZr@mail.gmail.com>",
+      "references": [
+        "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
+        "<AANLkTilGKNKdYkhMFeyMdm-ylp_1_a-sgtDjh9rElAZr@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/83f3b1d8/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/83f3b1d8/attachment.pl>",
+      "thread_id": "thread-0744bdfb004d",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-6faf8e42815f",
+      "message_id": "<AANLkTikKIZZtyRjXKeY42PLuzGWxlxJ0NrKWMOYnP99l@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-20T15:23:51Z",
+      "subject": "[Bioc-sig-seq] Downloading a sequence from the NCBI",
+      "subject_clean": "[Bioc-sig-seq] Downloading a sequence from the NCBI",
+      "in_reply_to": "<4C44D118.90803@fhcrc.org>",
+      "references": [
+        "<AANLkTimGi7mw4aRhH2Mges8y5nVjJc-ZIe8mgWz5fkef@mail.gmail.com>",
+        "<4C44D118.90803@fhcrc.org>"
+      ],
+      "body_plain": "Thank you Martin. It works very well.",
+      "body_snippet": "Thank you Martin. It works very well.",
+      "thread_id": "thread-09b169abd7d7",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-ef6917a10da7",
+      "message_id": "<4C460AEE.1010706@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-07-20T20:45:34Z",
+      "subject": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "subject_clean": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "in_reply_to": "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
+      "references": [
+        "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Andrew,\n\nOn 07/19/2010 08:11 PM, Andrew Yee wrote:\n> Is there a way to use subseq() to insert nucleotides?\n>\n> Take for example foo:\n>\n> foo<- DNAStringSet('ACTTA')\n>\n> I'd like to insert e.g. a G between positions 2 and 3 so that foo looks like\n> 'ACGTTA'  Is there a way to do this using subseq()?  Or is an alternative\n> function recommended?\n\nJust do:\n\n   > foo <- DNAString('ACTTA')\n   > subseq(foo, start=3, end=2) <- DNAString(\"G\")\n   > foo\n     6-letter \"DNAString\" instance\n   seq: ACGTTA\n\nGenerally speaking, if performance is important, you should get better\nresults by *not* switching back and forth between DNAString/DNAStringSet\nobjects and regular character vectors. For example, if you want to\nreplace the nucleotides starting at pos 101 in Human chrY by those in\nchrM:\n\n   o Using subseq<-():\n\n     > library(BSgenome.Hsapiens.UCSC.hg19)\n     > chrY <- unmasked(Hsapiens$chrY)\n     > chrM <- unmasked(Hsapiens$chrM)\n     > system.time(subseq(chrY, start=101, width=length(chrM)) <- chrM)\n        user  system elapsed\n       0.190   0.010   0.193\n     > gc()\n                used  (Mb) gc trigger  (Mb) max used  (Mb)\n     Ncells  1158959  61.9    1835812  98.1  1394696  74.5\n     Vcells 15445470 117.9   17364147 132.5 15568274 118.8\n\n   o Using substr():\n\n     > library(BSgenome.Hsapiens.UCSC.hg19)\n     > chrY <- unmasked(Hsapiens$chrY)\n     > chrM <- unmasked(Hsapiens$chrM)\n     > system.time({tmp <- as.character(chrY);\n                    tmp2 <- paste(substr(tmp, start=1, stop=100),\n                                  as.character(chrM),\n                                  substr(tmp, start=101+length(chrM),\n                                              stop=length(chrY)),\n                                  sep=\"\");\n                    chrY <- DNAString(tmp2)})\n        user  system elapsed\n       1.860   0.230   2.088\n     > gc()\n                used  (Mb) gc trigger  (Mb) max used  (Mb)\n     Ncells  1128874  60.3    1835812  98.1  1368491  73.1\n     Vcells 30276832 231.0   35483245 270.8 30284765 231.1\n\nUsing subseq<-() is faster and more memory efficient. It's also\nmore convenient.\n\nCheers,\nH.\n\n\n>\n> Thanks,\n> Andrew\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Andrew,\n\nOn 07/19/2010 08:11 PM, Andrew Yee wrote:\n> Is there a way to use subseq() to insert nucleotides?\n>\n> Take for example foo:\n>\n> foo<- DNAStringSet('ACTTA')\n>\n> I'd like to insert e.g. a G ",
+      "thread_id": "thread-0744bdfb004d",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-66b5ac8213fb",
+      "message_id": "<AANLkTimc9xiA-D2a8rQr03vwlbNda3ttAjQ3FHxu_vUQ@mail.gmail.com>",
+      "from_name": "Andrew Yee",
+      "from_email_hash": "743798a349ea45dc2d5bd70c72aaefe50690db4e841359de0eac0c7d38f03d9f",
+      "date": "2010-07-20T21:05:32Z",
+      "subject": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "subject_clean": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "in_reply_to": "<4C460AEE.1010706@fhcrc.org>",
+      "references": [
+        "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
+        "<4C460AEE.1010706@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/bf0806fc/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/bf0806fc/attachment.pl>",
+      "thread_id": "thread-0744bdfb004d",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-afea9f8b4519",
+      "message_id": "<20100722113037.BHU30697@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-07-22T01:30:37Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nIt seems simple, but it is not working for me. Could it be that it is not implemented yet ?\n\n> asRD <- as(rs, \"RangedData\")\nError in FUN(X[[1L]], ...) : \n  no method or default for coercing \"list\" to \"RangedData\"\n> summary(rs)\n    Length      Class       Mode \n        25 GenomeData         S4\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Hello,\n\nIt seems simple, but it is not working for me. Could it be that it is not implemented yet ?\n\n> asRD <- as(rs, \"RangedData\")\nError in FUN(X[[1L]], ...) : \n  no method or default for coercing \"l",
+      "thread_id": "thread-afea9f8b4519",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-509409a3150e",
+      "message_id": "<AANLkTil0RDrRa3HPl6QLzK6rR16itBGPmyxbKXlwv3hJ@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-07-22T02:00:20Z",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "subject_clean": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "in_reply_to": "<20100722113037.BHU30697@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20100722113037.BHU30697@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100721/ddc33428/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100721/ddc33428/attachment.pl>",
+      "thread_id": "thread-afea9f8b4519",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-3d589d2b97d0",
+      "message_id": "<SNT115-W11C1BB3DAE7935B6CE8CC0D1A20@phx.gbl>",
+      "from_name": "Robert Morris",
+      "from_email_hash": "df9ebf9e32883c230966534aa9f904dbbc07dbfa6182c14e70ae621fba56ae2a",
+      "date": "2010-07-22T16:19:22Z",
+      "subject": "[Bioc-sig-seq] ChIPseqR question",
+      "subject_clean": "[Bioc-sig-seq] ChIPseqR question",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100722/7e6b2c88/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100722/7e6b2c88/attachment.pl>",
+      "thread_id": "thread-3d589d2b97d0",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-44cf1cc93aab",
+      "message_id": "<4C48B749.9010509@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-07-22T21:25:29Z",
+      "subject": "[Bioc-sig-seq] ChIPseqR question",
+      "subject_clean": "[Bioc-sig-seq] ChIPseqR question",
+      "in_reply_to": "<SNT115-W11C1BB3DAE7935B6CE8CC0D1A20@phx.gbl>",
+      "references": [
+        "<SNT115-W11C1BB3DAE7935B6CE8CC0D1A20@phx.gbl>"
+      ],
+      "body_plain": "Hi Robert,\n\nOn 07/22/2010 09:19 AM, Robert Morris wrote:\n>\n> Hello,\n>        I am interested in using the ChIPseqR package to\n> predict nucleosome positions from MNase-seq data. I have loaded the\n> read positions, length and strand data into a data frame following the\n> package introduction pdf provided. However, when I try to construct the counts\n> object using the strandPileup function I get the following error:\n>\n>\n>\n>> Chr1counts<-strandPileup(reads, chrLen=30427671, extend=1, plot=FALSE)\n>\n>\n>\n> Error in solveUserSEW0(start = start, end = end, width = width) :\n>\n>    solving row 1: range cannot be determined from the supplied arguments (too many NAs)\n\nIt looks like the \"start\", \"end\", \"position\" and/or \"length\" columns\nof your data frame 'reads' contains NAs, which of course the\nstrandPileup() function doesn't like. If that's the case, you might\nwant to get rid of those rows that have NAs.\n\nCheers,\nH.\n\nPS: Please remember to provide your sessionInfo() and reproducible code\n     when reporting problems like this one. See our Posting Guide:\n       http://bioconductor.org/docs/postingGuide.html\n     Thanks!\n\n>\n> Error in coverage(IRanges(start = start1, width = extend), ...) :\n>\n>    error in evaluating the argument 'x' in selecting a method for function 'coverage'\n>\n>\n>\n> Here is the traceback results:\n>\n>\n>\n>> traceback()\n>\n> 4: coverage(IRanges(start = start1, width = extend), ...)\n>\n> 3: .local(aligned, chrLen, ...)\n>\n> 2: strandPileup(reads, chrLen = 30427671, extend = 1, plot = FALSE)\n>\n> 1: strandPileup(reads, chrLen = 30427671, extend = 1, plot = FALSE)\n>\n>\n>\n> I would appreciate any insight into a solution for this problem.\n>\n>\n>\n> Cheers,\n>\n>          Robert Morris\n>\n>\n>\n>\n>\n> Robert Morris\n>\n> Research Associate\n>\n> Wyrick lab\n>\n> Washington State University\n>\n> Pullman, WA\n>\n> USA \t\t \t   \t\t\n> _________________________________________________________________\n> Learn more ways to connect with your buddies now\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Robert,\n\nOn 07/22/2010 09:19 AM, Robert Morris wrote:\n>\n> Hello,\n>        I am interested in using the ChIPseqR package to\n> predict nucleosome positions from MNase-seq data. I have loaded the\n> re",
+      "thread_id": "thread-3d589d2b97d0",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-19f430ab48ea",
+      "message_id": "<20100722232353.GA18501@biocluster.ucr.edu>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2010-07-22T23:23:53Z",
+      "subject": "[Bioc-sig-seq] Open Postdoc Positions",
+      "subject_clean": "[Bioc-sig-seq] Open Postdoc Positions",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear List Members,\n\nThere are currently two open postdoc positions in my group with secured\nfunding for 3-4 years. One position is in the area of next generation\nsequencing and the other one in the chemical informatics field related to\nchemical genomics and drug discovery. Both positions will involve a combination\nof software development and data analysis/mining tasks. Ideal candidates should\nhave a strong background in computer sciences and scientific data analysis, and\nshould be proficient in at least two of the following programming languages:\nC/C++, Python and R. Experience with web and database programming is also\nbeneficial, especially with Python/Django and MySQL/PostgreSQL, respectively. \n\nTo apply, please email your CV with a detailed description of your professional \nskills to thomas.girke at ucr.edu.\n\nThomas\n\n--\nThomas Girke\nAssociate Professor of Bioinformatics\nDirector, IIGB Bioinformatic Facility\nInstitute for Integrative Genome Biology (IIGB)\n1207F Genomics Building\nUniversity of California\nRiverside, CA 92521\n\nE-mail: thomas.girke at ucr.edu\nPersonal Site: http://girke.bioinformatics.ucr.edu\nPh: 951-905-5232\nFax: 951-827-5155",
+      "body_snippet": "Dear List Members,\n\nThere are currently two open postdoc positions in my group with secured\nfunding for 3-4 years. One position is in the area of next generation\nsequencing and the other one in the ch",
+      "thread_id": "thread-19f430ab48ea",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-ec39bdac4ed7",
+      "message_id": "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-23T14:02:11Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello listers,\n\nHow do you count how many of your Illumina tags match a particular sequence?\n\n\n\nWell, actually, I know at least two ways of doing this but they are\nboth slow. This is perhaps the fastest one:\n\nlibrary(ShortRead)\n\n# my sequence of interest (in my real case it is several kbs)\nmySeq <- 'AGTGAAGAAGCAAAGAGGCCTCTGCAAGTCACTCAAGAAGTCTACGATTTACATAGCTGACATA'\n\n# load my tags keeping only the ones that pass the filter\nA <- readAligned(\"/my/path\", \"s_5_export.txt.gz\", \"SolexaExport\",\nfilter=compose(alignDataFilter(expression(filtering==\"Y\"))))\n\n# keep only the tags that do not contain Ns\nA <- clean(A)\n\n# count how many tags match exactly some portion of mySeq\nsum_A <- sum(unlist(sapply(sread(A), function(x)grep(x, mySeq))))\n\n\nThis has been running since yesterday and a similar strategy using\nsrdistance has been running for 4 days. Can anybody suggest a more\ntime-efficient calculation?\n\nThank you,\n\nIvan\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878",
+      "body_snippet": "Hello listers,\n\nHow do you count how many of your Illumina tags match a particular sequence?\n\n\n\nWell, actually, I know at least two ways of doing this but they are\nboth slow. This is perhaps the faste",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-da1ea497c530",
+      "message_id": "<4C49A1FF.4060302@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2010-07-23T14:06:55Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>"
+      ],
+      "body_plain": "Ivan,\nHave you tried Biostrings::vmatchPattern?\n\n\nPatrick\n\n\nOn 7/23/10 7:02 AM, Ivan Gregoretti wrote:\n> Hello listers,\n>\n> How do you count how many of your Illumina tags match a particular sequence?\n>\n>\n>\n> Well, actually, I know at least two ways of doing this but they are\n> both slow. This is perhaps the fastest one:\n>\n> library(ShortRead)\n>\n> # my sequence of interest (in my real case it is several kbs)\n> mySeq<- 'AGTGAAGAAGCAAAGAGGCCTCTGCAAGTCACTCAAGAAGTCTACGATTTACATAGCTGACATA'\n>\n> # load my tags keeping only the ones that pass the filter\n> A<- readAligned(\"/my/path\", \"s_5_export.txt.gz\", \"SolexaExport\",\n> filter=compose(alignDataFilter(expression(filtering==\"Y\"))))\n>\n> # keep only the tags that do not contain Ns\n> A<- clean(A)\n>\n> # count how many tags match exactly some portion of mySeq\n> sum_A<- sum(unlist(sapply(sread(A), function(x)grep(x, mySeq))))\n>\n>\n> This has been running since yesterday and a similar strategy using\n> srdistance has been running for 4 days. Can anybody suggest a more\n> time-efficient calculation?\n>\n> Thank you,\n>\n> Ivan\n>\n>\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1016 and 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Ivan,\nHave you tried Biostrings::vmatchPattern?\n\n\nPatrick\n\n\nOn 7/23/10 7:02 AM, Ivan Gregoretti wrote:\n> Hello listers,\n>\n> How do you count how many of your Illumina tags match a particular sequence?",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-3bc2e3a4730d",
+      "message_id": "<4C49A29C.5050802@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2010-07-23T14:09:32Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": "<4C49A1FF.4060302@fhcrc.org>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+        "<4C49A1FF.4060302@fhcrc.org>"
+      ],
+      "body_plain": "Actually Biostrings::vcountPattern would be better. Then you can just \nfind the non-zero elements.\n\n\nPatrick\n\n\nOn 7/23/10 7:06 AM, Patrick Aboyoun wrote:\n> Ivan,\n> Have you tried Biostrings::vmatchPattern?\n>\n>\n> Patrick\n>\n>\n> On 7/23/10 7:02 AM, Ivan Gregoretti wrote:\n>> Hello listers,\n>>\n>> How do you count how many of your Illumina tags match a particular \n>> sequence?\n>>\n>>\n>>\n>> Well, actually, I know at least two ways of doing this but they are\n>> both slow. This is perhaps the fastest one:\n>>\n>> library(ShortRead)\n>>\n>> # my sequence of interest (in my real case it is several kbs)\n>> mySeq<- \n>> 'AGTGAAGAAGCAAAGAGGCCTCTGCAAGTCACTCAAGAAGTCTACGATTTACATAGCTGACATA'\n>>\n>> # load my tags keeping only the ones that pass the filter\n>> A<- readAligned(\"/my/path\", \"s_5_export.txt.gz\", \"SolexaExport\",\n>> filter=compose(alignDataFilter(expression(filtering==\"Y\"))))\n>>\n>> # keep only the tags that do not contain Ns\n>> A<- clean(A)\n>>\n>> # count how many tags match exactly some portion of mySeq\n>> sum_A<- sum(unlist(sapply(sread(A), function(x)grep(x, mySeq))))\n>>\n>>\n>> This has been running since yesterday and a similar strategy using\n>> srdistance has been running for 4 days. Can anybody suggest a more\n>> time-efficient calculation?\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>\n>>\n>> Ivan Gregoretti, PhD\n>> National Institute of Diabetes and Digestive and Kidney Diseases\n>> National Institutes of Health\n>> 5 Memorial Dr, Building 5, Room 205.\n>> Bethesda, MD 20892. USA.\n>> Phone: 1-301-496-1016 and 1-301-496-1592\n>> Fax: 1-301-496-9878\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Actually Biostrings::vcountPattern would be better. Then you can just \nfind the non-zero elements.\n\n\nPatrick\n\n\nOn 7/23/10 7:06 AM, Patrick Aboyoun wrote:\n> Ivan,\n> Have you tried Biostrings::vmatchPat",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 2,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-e0a6b233b74f",
+      "message_id": "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-23T14:45:31Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": "<4C49A29C.5050802@fhcrc.org>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+        "<4C49A1FF.4060302@fhcrc.org>",
+        "<4C49A29C.5050802@fhcrc.org>"
+      ],
+      "body_plain": "Hello Patrick,\n\nThe idea of vcountPattern is good but it does not quite work for two reasons\n\n1) mySeq is ~40kb. That is quite big and vcountPattern() throws the error\n\n> vcountPattern(mySeq, sread(A))\nError in .valid.algos(pattern, max.mismatch, min.mismatch, with.indels,  :\n  patterns with more than 20000 letters are not supported\n\n2) vcountPattern is designed to find a motif (small) contained in a\ngenome (large), like this\nvcountPattern(\"GCCACCAGGGGGCGC\", Mmusculus)\n\nIn my case, I have millions of motifs (the 36 bp tags) that I have to\nfind if they are contained in my single ~40kb. Its like a reverse\nscenario. So, if I try reversing the arguments, I also get an error:\n\n> vcountPattern(sread(A), mySeq)\nError in normargPattern(pattern, subject) :\n  'pattern' must be a single string or an XString object\n\nAny more suggestions?\n\nThank you,\n\nIvan\n\n> sessionInfo()\nR version 2.12.0 Under development (unstable) (2010-03-25 r51410)\nx86_64-unknown-linux-gnu\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\nLC_TIME=en_US.UTF-8\n [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=C\nLC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\nLC_ADDRESS=C\n[10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8\nLC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] annotate_1.27.1      AnnotationDbi_1.11.4 Biobase_2.9.0\nShortRead_1.7.9\n[5] Rsamtools_1.1.8      lattice_0.18-8       Biostrings_2.17.24\nGenomicRanges_1.1.17\n[9] IRanges_1.7.12\n\nloaded via a namespace (and not attached):\n[1] DBI_0.2-5     grid_2.12.0   hwriter_1.2   RSQLite_0.9-1 xtable_1.5-6\nan",
+      "body_snippet": "Hello Patrick,\n\nThe idea of vcountPattern is good but it does not quite work for two reasons\n\n1) mySeq is ~40kb. That is quite big and vcountPattern() throws the error\n\n> vcountPattern(mySeq, sread(A)",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 3,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-fa0b7924a680",
+      "message_id": "<4C49ADA2.8010005@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2010-07-23T14:56:34Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+        "<4C49A1FF.4060302@fhcrc.org>",
+        "<4C49A29C.5050802@fhcrc.org>",
+        "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>"
+      ],
+      "body_plain": "Ivan,\nHow about\n\ncountPDict(PDict(sread(A)), mySeq)\n\n\nPatrick\n\n\nOn 7/23/10 7:45 AM, Ivan Gregoretti wrote:\n> Hello Patrick,\n>\n> The idea of vcountPattern is good but it does not quite work for two reasons\n>\n> 1) mySeq is ~40kb. That is quite big and vcountPattern() throws the error\n>\n>    \n>> vcountPattern(mySeq, sread(A))\n>>      \n> Error in .valid.algos(pattern, max.mismatch, min.mismatch, with.indels,  :\n>    patterns with more than 20000 letters are not supported\n>\n> 2) vcountPattern is designed to find a motif (small) contained in a\n> genome (large), like this\n> vcountPattern(\"GCCACCAGGGGGCGC\", Mmusculus)\n>\n> In my case, I have millions of motifs (the 36 bp tags) that I have to\n> find if they are contained in my single ~40kb. Its like a reverse\n> scenario. So, if I try reversing the arguments, I also get an error:\n>\n>    \n>> vcountPattern(sread(A), mySeq)\n>>      \n> Error in normargPattern(pattern, subject) :\n>    'pattern' must be a single string or an XString object\n>\n> Any more suggestions?\n>\n> Thank you,\n>\n> Ivan\n>\n>    \n>> sessionInfo()\n>>      \n> R version 2.12.0 Under development (unstable) (2010-03-25 r51410)\n> x86_64-unknown-linux-gnu\n>\n> locale:\n>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n> LC_TIME=en_US.UTF-8\n>   [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=C\n> LC_MESSAGES=en_US.UTF-8\n>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n> LC_ADDRESS=C\n> [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8\n> LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] annotate_1.27.1      AnnotationDbi_1.11.4 Biobase_2.9.0\n> ShortRead_1.7.9\n> [5] Rsamtools_1.1.8      lattice_0.18-8       Biostrings_2.17.24\n> GenomicRanges_1.1.17\n> [9] IRanges_1.7.12\n>\n> loaded via a namespace (and not attached):\n> [1] DBI_0.2-5     grid_2.12.0   hwriter_1.2   RSQLite_0.9-1 xtable_1.5-6\n> an\n>",
+      "body_snippet": "Ivan,\nHow about\n\ncountPDict(PDict(sread(A)), mySeq)\n\n\nPatrick\n\n\nOn 7/23/10 7:45 AM, Ivan Gregoretti wrote:\n> Hello Patrick,\n>\n> The idea of vcountPattern is good but it does not quite work for two rea",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 4,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-8621064799c2",
+      "message_id": "<4C49AF02.6040001@ebi.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+      "date": "2010-07-23T15:02:26Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags.\t(looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags.\t(looking for speed)",
+      "in_reply_to": "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+        "<4C49A1FF.4060302@fhcrc.org>",
+        "<4C49A29C.5050802@fhcrc.org>",
+        "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>"
+      ],
+      "body_plain": "Why not use bowtie? (I think someone mentioned this earlier for a \nsimilar post?)\n\nIvan Gregoretti wrote:\n> Hello Patrick,\n> \n> The idea of vcountPattern is good but it does not quite work for two reasons\n> \n> 1) mySeq is ~40kb. That is quite big and vcountPattern() throws the error\n> \n>> vcountPattern(mySeq, sread(A))\n> Error in .valid.algos(pattern, max.mismatch, min.mismatch, with.indels,  :\n>   patterns with more than 20000 letters are not supported\n> \n> 2) vcountPattern is designed to find a motif (small) contained in a\n> genome (large), like this\n> vcountPattern(\"GCCACCAGGGGGCGC\", Mmusculus)\n> \n> In my case, I have millions of motifs (the 36 bp tags) that I have to\n> find if they are contained in my single ~40kb. Its like a reverse\n> scenario. So, if I try reversing the arguments, I also get an error:\n> \n>> vcountPattern(sread(A), mySeq)\n> Error in normargPattern(pattern, subject) :\n>   'pattern' must be a single string or an XString object\n> \n> Any more suggestions?\n> \n> Thank you,\n> \n> Ivan\n> \n>> sessionInfo()\n> R version 2.12.0 Under development (unstable) (2010-03-25 r51410)\n> x86_64-unknown-linux-gnu\n> \n> locale:\n>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n> LC_TIME=en_US.UTF-8\n>  [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=C\n> LC_MESSAGES=en_US.UTF-8\n>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n> LC_ADDRESS=C\n> [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8\n> LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] annotate_1.27.1      AnnotationDbi_1.11.4 Biobase_2.9.0\n> ShortRead_1.7.9\n> [5] Rsamtools_1.1.8      lattice_0.18-8       Biostrings_2.17.24\n> GenomicRanges_1.1.17\n> [9] IRanges_1.7.12\n> \n> loaded via a namespace (and not attached):\n> [1] DBI_0.2-5     grid_2.12.0   hwriter_1.2   RSQLite_0.9-1 xtable_1.5-6\n> an\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Why not use bowtie? (I think someone mentioned this earlier for a \nsimilar post?)\n\nIvan Gregoretti wrote:\n> Hello Patrick,\n> \n> The idea of vcountPattern is good but it does not quite work for two rea",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 4,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-900e6f0e9deb",
+      "message_id": "<AANLkTinneDY0zn-q9zrqJPJfmuU+NP1C8jAY0yuzk5H5@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-23T15:28:25Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": "<4C49ADA2.8010005@fhcrc.org>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+        "<4C49A1FF.4060302@fhcrc.org>",
+        "<4C49A29C.5050802@fhcrc.org>",
+        "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>",
+        "<4C49ADA2.8010005@fhcrc.org>"
+      ],
+      "body_plain": "It works. It produces and answer in under 2 minutes. I will flesh it\nout a bit for posterity.\n\nSome slight modifications must be applied. First, mySeq cannot be of\nclass character. So, it works if I do\n\ncountPDict(PDict(sread(A)), as(mySeq, \"DNAString\"))\n\nNow, that function outputs how many times a tag is found in mySeq. To\ncompute how many tags match mySeq once or more, I have to do\n\nsum(countPDict(PDict(sread(A)), as(mySeq, \"DNAString\"))!=0)\n\n\nBy the way, this could have been done with perl or python or any other\ntools. However, it helps to learn how to do it efficiently from within\nthe Bioconductor.\n\nThank you.\n\nIvan\n\n\n\nOn Fri, Jul 23, 2010 at 10:56 AM, Patrick Aboyoun <paboyoun at fhcrc.org> wrote:\n> Ivan,\n> How about\n>\n> countPDict(PDict(sread(A)), mySeq)\n>\n>\n> Patrick\n>\n>\n> On 7/23/10 7:45 AM, Ivan Gregoretti wrote:\n>>\n>> Hello Patrick,\n>>\n>> The idea of vcountPattern is good but it does not quite work for two\n>> reasons\n>>\n>> 1) mySeq is ~40kb. That is quite big and vcountPattern() throws the error\n>>\n>>\n>>>\n>>> vcountPattern(mySeq, sread(A))\n>>>\n>>\n>> Error in .valid.algos(pattern, max.mismatch, min.mismatch, with.indels, ?:\n>> ? patterns with more than 20000 letters are not supported\n>>\n>> 2) vcountPattern is designed to find a motif (small) contained in a\n>> genome (large), like this\n>> vcountPattern(\"GCCACCAGGGGGCGC\", Mmusculus)\n>>\n>> In my case, I have millions of motifs (the 36 bp tags) that I have to\n>> find if they are contained in my single ~40kb. Its like a reverse\n>> scenario. So, if I try reversing the arguments, I also get an error:\n>>\n>>\n>>>\n>>> vcountPattern(sread(A), mySeq)\n>>>\n>>\n>> Error in normargPattern(pattern, subject) :\n>> ? 'pattern' must be a single string or an XString object\n>>\n>> Any more suggestions?\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>\n>>>\n>>> sessionInfo()\n>>>\n>>\n>> R version 2.12.0 Under development (unstable) (2010-03-25 r51410)\n>> x86_64-unknown-linux-gnu\n>>\n>> locale:\n>> ?[1] LC_CTYPE=en_US.UTF-8 ? ? ? LC_NUMERIC=C\n>> LC_TIME=en_US.UTF-8\n>> ?[4] LC_COLLATE=en_US.UTF-8 ? ? LC_MONETARY=C\n>> LC_MESSAGES=en_US.UTF-8\n>> ?[7] LC_PAPER=en_US.UTF-8 ? ? ? LC_NAME=C\n>> LC_ADDRESS=C\n>> [10] LC_TELEPHONE=C ? ? ? ? ? ? LC_MEASUREMENT=en_US.UTF-8\n>> LC_IDENTIFICATION=C\n>>\n>> attached base packages:\n>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>>\n>> other attached packages:\n>> [1] annotate_1.27.1 ? ? ?AnnotationDbi_1.11.4 Biobase_2.9.0\n>> ShortRead_1.7.9\n>> [5] Rsamtools_1.1.8 ? ? ?lattice_0.18-8 ? ? ? Biostrings_2.17.24\n>> GenomicRanges_1.1.17\n>> [9] IRanges_1.7.12\n>>\n>> loaded via a namespace (and not attached):\n>> [1] DBI_0.2-5 ? ? grid_2.12.0 ? hwriter_1.2 ? RSQLite_0.9-1 xtable_1.5-6\n>> an\n>>\n>\n>",
+      "body_snippet": "It works. It produces and answer in under 2 minutes. I will flesh it\nout a bit for posterity.\n\nSome slight modifications must be applied. First, mySeq cannot be of\nclass character. So, it works if I d",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 5,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-2eed663cd417",
+      "message_id": "<4C49BAAA.4030805@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2010-07-23T15:52:10Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": "<AANLkTinneDY0zn-q9zrqJPJfmuU+NP1C8jAY0yuzk5H5@mail.gmail.com>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+        "<4C49A1FF.4060302@fhcrc.org>",
+        "<4C49A29C.5050802@fhcrc.org>",
+        "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>",
+        "<4C49ADA2.8010005@fhcrc.org>",
+        "<AANLkTinneDY0zn-q9zrqJPJfmuU+NP1C8jAY0yuzk5H5@mail.gmail.com>"
+      ],
+      "body_plain": "Ivan,\nSorry for the evolving answer, but this may prove to be faster\n\nlength(whichPDict(PDict(sread(A)), as(mySeq, \"DNAString\")))\n\n\nPatrick\n\n\nOn 7/23/10 8:28 AM, Ivan Gregoretti wrote:\n> It works. It produces and answer in under 2 minutes. I will flesh it\n> out a bit for posterity.\n>\n> Some slight modifications must be applied. First, mySeq cannot be of\n> class character. So, it works if I do\n>\n> countPDict(PDict(sread(A)), as(mySeq, \"DNAString\"))\n>\n> Now, that function outputs how many times a tag is found in mySeq. To\n> compute how many tags match mySeq once or more, I have to do\n>\n> sum(countPDict(PDict(sread(A)), as(mySeq, \"DNAString\"))!=0)\n>\n>\n> By the way, this could have been done with perl or python or any other\n> tools. However, it helps to learn how to do it efficiently from within\n> the Bioconductor.\n>\n> Thank you.\n>\n> Ivan\n>\n>\n>\n> On Fri, Jul 23, 2010 at 10:56 AM, Patrick Aboyoun<paboyoun at fhcrc.org>  wrote:\n>    \n>> Ivan,\n>> How about\n>>\n>> countPDict(PDict(sread(A)), mySeq)\n>>\n>>\n>> Patrick\n>>\n>>\n>> On 7/23/10 7:45 AM, Ivan Gregoretti wrote:\n>>      \n>>> Hello Patrick,\n>>>\n>>> The idea of vcountPattern is good but it does not quite work for two\n>>> reasons\n>>>\n>>> 1) mySeq is ~40kb. That is quite big and vcountPattern() throws the error\n>>>\n>>>\n>>>        \n>>>> vcountPattern(mySeq, sread(A))\n>>>>\n>>>>          \n>>> Error in .valid.algos(pattern, max.mismatch, min.mismatch, with.indels,  :\n>>>    patterns with more than 20000 letters are not supported\n>>>\n>>> 2) vcountPattern is designed to find a motif (small) contained in a\n>>> genome (large), like this\n>>> vcountPattern(\"GCCACCAGGGGGCGC\", Mmusculus)\n>>>\n>>> In my case, I have millions of motifs (the 36 bp tags) that I have to\n>>> find if they are contained in my single ~40kb. Its like a reverse\n>>> scenario. So, if I try reversing the arguments, I also get an error:\n>>>\n>>>\n>>>        \n>>>> vcountPattern(sread(A), mySeq)\n>>>>\n>>>>          \n>>> Error in normargPattern(pattern, subject) :\n>>>    'pattern' must be a single string or an XString object\n>>>\n>>> Any more suggestions?\n>>>\n>>> Thank you,\n>>>\n>>> Ivan\n>>>\n>>>\n>>>        \n>>>> sessionInfo()\n>>>>\n>>>>          \n>>> R version 2.12.0 Under development (unstable) (2010-03-25 r51410)\n>>> x86_64-unknown-linux-gnu\n>>>\n>>> locale:\n>>>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>>> LC_TIME=en_US.UTF-8\n>>>   [4] LC_COLLATE=en_US.UTF-8     LC_MONETARY=C\n>>> LC_MESSAGES=en_US.UTF-8\n>>>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>>> LC_ADDRESS=C\n>>> [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8\n>>> LC_IDENTIFICATION=C\n>>>\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>\n>>> other attached packages:\n>>> [1] annotate_1.27.1      AnnotationDbi_1.11.4 Biobase_2.9.0\n>>> ShortRead_1.7.9\n>>> [5] Rsamtools_1.1.8      lattice_0.18-8       Biostrings_2.17.24\n>>> GenomicRanges_1.1.17\n>>> [9] IRanges_1.7.12\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] DBI_0.2-5     grid_2.12.0   hwriter_1.2   RSQLite_0.9-1 xtable_1.5-6\n>>> an\n>>>\n>>>        \n>>\n>>",
+      "body_snippet": "Ivan,\nSorry for the evolving answer, but this may prove to be faster\n\nlength(whichPDict(PDict(sread(A)), as(mySeq, \"DNAString\")))\n\n\nPatrick\n\n\nOn 7/23/10 8:28 AM, Ivan Gregoretti wrote:\n> It works. It ",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 6,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-4efaade56be6",
+      "message_id": "<AANLkTimp3mWMKH5UCRg+TdXE4ie5dQfRcGHnyp=FvQ7f@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-07-23T16:03:05Z",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "subject_clean": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "in_reply_to": "<4C49BAAA.4030805@fhcrc.org>",
+      "references": [
+        "<AANLkTinfQEU2_P5g-sfqnei77aUooT0xBk+FKv5socV6@mail.gmail.com>",
+        "<4C49A1FF.4060302@fhcrc.org>",
+        "<4C49A29C.5050802@fhcrc.org>",
+        "<AANLkTinkY=V7kLG9LEBUYX5FrP1s-gdBwu+ojzszf=9i@mail.gmail.com>",
+        "<4C49ADA2.8010005@fhcrc.org>",
+        "<AANLkTinneDY0zn-q9zrqJPJfmuU+NP1C8jAY0yuzk5H5@mail.gmail.com>",
+        "<4C49BAAA.4030805@fhcrc.org>"
+      ],
+      "body_plain": "Indeed, its slightly faster: 103 seconds. countPDcit() was 117 seconds.\n\nExcellent. Thank you again.\n\nIvan\n\n\n\nOn Fri, Jul 23, 2010 at 11:52 AM, Patrick Aboyoun <paboyoun at fhcrc.org> wrote:\n> Ivan,\n> Sorry for the evolving answer, but this may prove to be faster\n>\n> length(whichPDict(PDict(sread(A)), as(mySeq, \"DNAString\")))\n>\n>\n> Patrick\n>\n>\n> On 7/23/10 8:28 AM, Ivan Gregoretti wrote:\n>>\n>> It works. It produces and answer in under 2 minutes. I will flesh it\n>> out a bit for posterity.\n>>\n>> Some slight modifications must be applied. First, mySeq cannot be of\n>> class character. So, it works if I do\n>>\n>> countPDict(PDict(sread(A)), as(mySeq, \"DNAString\"))\n>>\n>> Now, that function outputs how many times a tag is found in mySeq. To\n>> compute how many tags match mySeq once or more, I have to do\n>>\n>> sum(countPDict(PDict(sread(A)), as(mySeq, \"DNAString\"))!=0)\n>>\n>>\n>> By the way, this could have been done with perl or python or any other\n>> tools. However, it helps to learn how to do it efficiently from within\n>> the Bioconductor.\n>>\n>> Thank you.\n>>\n>> Ivan\n>>\n>>\n>>\n>> On Fri, Jul 23, 2010 at 10:56 AM, Patrick Aboyoun<paboyoun at fhcrc.org>\n>> ?wrote:\n>>\n>>>\n>>> Ivan,\n>>> How about\n>>>\n>>> countPDict(PDict(sread(A)), mySeq)\n>>>\n>>>\n>>> Patrick\n>>>\n>>>\n>>> On 7/23/10 7:45 AM, Ivan Gregoretti wrote:\n>>>\n>>>>\n>>>> Hello Patrick,\n>>>>\n>>>> The idea of vcountPattern is good but it does not quite work for two\n>>>> reasons\n>>>>\n>>>> 1) mySeq is ~40kb. That is quite big and vcountPattern() throws the\n>>>> error\n>>>>\n>>>>\n>>>>\n>>>>>\n>>>>> vcountPattern(mySeq, sread(A))\n>>>>>\n>>>>>\n>>>>\n>>>> Error in .valid.algos(pattern, max.mismatch, min.mismatch, with.indels,\n>>>> ?:\n>>>> ? patterns with more than 20000 letters are not supported\n>>>>\n>>>> 2) vcountPattern is designed to find a motif (small) contained in a\n>>>> genome (large), like this\n>>>> vcountPattern(\"GCCACCAGGGGGCGC\", Mmusculus)\n>>>>\n>>>> In my case, I have millions of motifs (the 36 bp tags) that I have to\n>>>> find if they are contained in my single ~40kb. Its like a reverse\n>>>> scenario. So, if I try reversing the arguments, I also get an error:\n>>>>\n>>>>\n>>>>\n>>>>>\n>>>>> vcountPattern(sread(A), mySeq)\n>>>>>\n>>>>>\n>>>>\n>>>> Error in normargPattern(pattern, subject) :\n>>>> ? 'pattern' must be a single string or an XString object\n>>>>\n>>>> Any more suggestions?\n>>>>\n>>>> Thank you,\n>>>>\n>>>> Ivan\n>>>>\n>>>>\n>>>>\n>>>>>\n>>>>> sessionInfo()\n>>>>>\n>>>>>\n>>>>\n>>>> R version 2.12.0 Under development (unstable) (2010-03-25 r51410)\n>>>> x86_64-unknown-linux-gnu\n>>>>\n>>>> locale:\n>>>> ?[1] LC_CTYPE=en_US.UTF-8 ? ? ? LC_NUMERIC=C\n>>>> LC_TIME=en_US.UTF-8\n>>>> ?[4] LC_COLLATE=en_US.UTF-8 ? ? LC_MONETARY=C\n>>>> LC_MESSAGES=en_US.UTF-8\n>>>> ?[7] LC_PAPER=en_US.UTF-8 ? ? ? LC_NAME=C\n>>>> LC_ADDRESS=C\n>>>> [10] LC_TELEPHONE=C ? ? ? ? ? ? LC_MEASUREMENT=en_US.UTF-8\n>>>> LC_IDENTIFICATION=C\n>>>>\n>>>> attached base packages:\n>>>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>>>>\n>>>> other attached packages:\n>>>> [1] annotate_1.27.1 ? ? ?AnnotationDbi_1.11.4 Biobase_2.9.0\n>>>> ShortRead_1.7.9\n>>>> [5] Rsamtools_1.1.8 ? ? ?lattice_0.18-8 ? ? ? Biostrings_2.17.24\n>>>> GenomicRanges_1.1.17\n>>>> [9] IRanges_1.7.12\n>>>>\n>>>> loaded via a namespace (and not attached):\n>>>> [1] DBI_0.2-5 ? ? grid_2.12.0 ? hwriter_1.2 ? RSQLite_0.9-1 xtable_1.5-6\n>>>> an\n>>>>\n>>>>\n>>>\n>>>\n>\n>",
+      "body_snippet": "Indeed, its slightly faster: 103 seconds. countPDcit() was 117 seconds.\n\nExcellent. Thank you again.\n\nIvan\n\n\n\nOn Fri, Jul 23, 2010 at 11:52 AM, Patrick Aboyoun <paboyoun at fhcrc.org> wrote:\n> Ivan,\n>",
+      "thread_id": "thread-ec39bdac4ed7",
+      "thread_depth": 7,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-c2da0c226acd",
+      "message_id": "<AANLkTi=G7tFjBzR4LNTmspzak0kuyNj4U2EFLDoaCWr7@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-07-27T22:27:39Z",
+      "subject": "[Bioc-sig-seq] There is a bug living in Rsamtools_1.0.6:::.io_bam codepath.",
+      "subject_clean": "[Bioc-sig-seq] There is a bug living in Rsamtools_1.0.6:::.io_bam codepath.",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Howdy,\n\nRunning this code (from the example section of ?scanBam) results in\nminor explosions:\n\n#############\nlibrary(Rsamtools)\nfl <- system.file(\"extdata\", \"ex1.bam\", package=\"Rsamtools\")\nwhich <- RangesList(seq1=IRanges(1000, 2000),\n                    seq2=IRanges(c(100, 1000), c(1000, 2000)))\np1 <- ScanBamParam(which=which)\nres1 <- scanBam(fl, param=p1)\n\n##Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl,\nparam = param) :\n##  internal: 'space[1]' must be character()\n#############\nExplicitly calling as.character(...) on what is returned from\n`space(which)` in Rsamtools:::.io_bam should do the trick.\nSpecifically Rsamtools_1.0.6/R/io_bam.R line 17, from:\n\nlist(space(which), .uunlist(start(which)),\n\nto\n\nlist(as.character(space(which)), .uunlist(start(which)),\n\nI'm not sure ... maybe IRanges::space recently switch to returning\nfactors in stead of strings?\n\nAnyway, the above bandaid is what I'm using now.\n\nR> sessionInfo()\nR version 2.11.1 (2010-05-31)\nx86_64-apple-darwin9.8.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] Rsamtools_1.0.6     Biostrings_2.16.9   GenomicRanges_1.0.6\nIRanges_1.6.10\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Howdy,\n\nRunning this code (from the example section of ?scanBam) results in\nminor explosions:\n\n#############\nlibrary(Rsamtools)\nfl <- system.file(\"extdata\", \"ex1.bam\", package=\"Rsamtools\")\nwhich <- Ra",
+      "thread_id": "thread-c2da0c226acd",
+      "thread_depth": 0,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-66697ef1afb7",
+      "message_id": "<4C4F797D.2000704@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-07-28T00:27:41Z",
+      "subject": "[Bioc-sig-seq] There is a bug living in Rsamtools_1.0.6:::.io_bam codepath.",
+      "subject_clean": "[Bioc-sig-seq] There is a bug living in Rsamtools_1.0.6:::.io_bam codepath.",
+      "in_reply_to": "<AANLkTi=G7tFjBzR4LNTmspzak0kuyNj4U2EFLDoaCWr7@mail.gmail.com>",
+      "references": [
+        "<AANLkTi=G7tFjBzR4LNTmspzak0kuyNj4U2EFLDoaCWr7@mail.gmail.com>"
+      ],
+      "body_plain": "On 07/27/2010 03:27 PM, Steve Lianoglou wrote:\n> Howdy,\n> \n> Running this code (from the example section of ?scanBam) results in\n> minor explosions:\n> \n> #############\n> library(Rsamtools)\n> fl <- system.file(\"extdata\", \"ex1.bam\", package=\"Rsamtools\")\n> which <- RangesList(seq1=IRanges(1000, 2000),\n>                     seq2=IRanges(c(100, 1000), c(1000, 2000)))\n> p1 <- ScanBamParam(which=which)\n> res1 <- scanBam(fl, param=p1)\n> \n> ##Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl,\n> param = param) :\n> ##  internal: 'space[1]' must be character()\n> #############\n> Explicitly calling as.character(...) on what is returned from\n> `space(which)` in Rsamtools:::.io_bam should do the trick.\n> Specifically Rsamtools_1.0.6/R/io_bam.R line 17, from:\n> \n> list(space(which), .uunlist(start(which)),\n> \n> to\n> \n> list(as.character(space(which)), .uunlist(start(which)),\n> \n> I'm not sure ... maybe IRanges::space recently switch to returning\n> factors in stead of strings?\n\nThanks Steve, fixed in 1.0.7, in svn now or via biocLite within 36 hours.\n\nMartin\n\n> \n> Anyway, the above bandaid is what I'm using now.\n> \n> R> sessionInfo()\n> R version 2.11.1 (2010-05-31)\n> x86_64-apple-darwin9.8.0\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] Rsamtools_1.0.6     Biostrings_2.16.9   GenomicRanges_1.0.6\n> IRanges_1.6.10\n> \n> loaded via a namespace (and not attached):\n> [1] Biobase_2.8.0\n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "On 07/27/2010 03:27 PM, Steve Lianoglou wrote:\n> Howdy,\n> \n> Running this code (from the example section of ?scanBam) results in\n> minor explosions:\n> \n> #############\n> library(Rsamtools)\n> fl <- sys",
+      "thread_id": "thread-c2da0c226acd",
+      "thread_depth": 1,
+      "month": "2010-07"
+    },
+    {
+      "id": "msg-272ce1f83696",
+      "message_id": "<C879395D.4DD3%apratap@som.umaryland.edu>",
+      "from_name": "Pratap, Abhishek",
+      "from_email_hash": "fad4dfd7a61d610e16cba5d775b56a546cda8b0d170ffbec5bcf53b50974edc2",
+      "date": "2010-07-31T06:22:21Z",
+      "subject": "[Bioc-sig-seq] Thanks for organizing BioC2010",
+      "subject_clean": "[Bioc-sig-seq] Thanks for organizing BioC2010",
+      "in_reply_to": "<4C4F797D.2000704@fhcrc.org>",
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100731/cddcdaf9/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100731/cddcdaf9/attachment.pl>",
+      "thread_id": "thread-c2da0c226acd",
+      "thread_depth": 2,
+      "month": "2010-07"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-e1d8fe9e9fe9",
+      "subject": "[Bioc-sig-seq] findOverlaps fails when querying a RangedData/RangesList against itself",
+      "message_count": 2,
+      "participants": [
+        "Aaron Statham",
+        "Michael Lawrence"
+      ],
+      "started": "2010-07-06T11:50:16Z",
+      "last_reply": "2010-07-06T19:04:21Z",
+      "root_message_id": "msg-e1d8fe9e9fe9"
+    },
+    {
+      "id": "thread-bfcb6a59e879",
+      "subject": "[Bioc-sig-seq] Bioc-sig-sequencing Digest, Vol 28, Issue 30",
+      "message_count": 2,
+      "participants": [
+        "Kasper Daniel Hansen",
+        "Lana Schaffer"
+      ],
+      "started": "2010-07-07T00:52:10Z",
+      "last_reply": "2010-07-07T01:42:30Z",
+      "root_message_id": "msg-bfcb6a59e879"
+    },
+    {
+      "id": "thread-459fabe52fda",
+      "subject": "[Bioc-sig-seq] Alignment to only 1 direction DNA strand",
+      "message_count": 2,
+      "participants": [
+        "Lana Schaffer",
+        "Steve Lianoglou"
+      ],
+      "started": "2010-07-07T00:56:34Z",
+      "last_reply": "2010-07-07T14:04:51Z",
+      "root_message_id": "msg-459fabe52fda"
+    },
+    {
+      "id": "thread-818d9c17418f",
+      "subject": "[Bioc-sig-seq] mappable length of a genome",
+      "message_count": 3,
+      "participants": [
+        "Cei Abreu-Goodger",
+        "Kasper Daniel Hansen"
+      ],
+      "started": "2010-07-07T13:36:10Z",
+      "last_reply": "2010-07-07T15:16:08Z",
+      "root_message_id": "msg-818d9c17418f"
+    },
+    {
+      "id": "thread-9a6dd06ad7dd",
+      "subject": "[Bioc-sig-seq] GRanges, ordering and subsetting",
+      "message_count": 8,
+      "participants": [
+        "Cei Abreu-Goodger",
+        "Ivan Gregoretti",
+        "Joern Toedling",
+        "Martin Morgan",
+        "Steve Lianoglou",
+        "xuxiang086"
+      ],
+      "started": "2010-07-08T15:48:49Z",
+      "last_reply": "2010-07-19T08:56:03Z",
+      "root_message_id": "msg-9a6dd06ad7dd"
+    },
+    {
+      "id": "thread-37ef3f0665f7",
+      "subject": "[Bioc-sig-seq] Equalize number reads before chipseq analysis",
+      "message_count": 1,
+      "participants": [
+        "pterry at huskers.unl.edu"
+      ],
+      "started": "2010-07-08T16:38:06Z",
+      "last_reply": "2010-07-08T16:38:06Z",
+      "root_message_id": "msg-37ef3f0665f7"
+    },
+    {
+      "id": "thread-856f8fb37b43",
+      "subject": "[Bioc-sig-seq] matchPDict, fixed=FALSE; \"walk_tb_nonfixed_subject(): implement me\"",
+      "message_count": 2,
+      "participants": [
+        "Hervé Pagès"
+      ],
+      "started": "2010-07-19T19:10:46Z",
+      "last_reply": "2010-07-19T19:15:12Z",
+      "root_message_id": "msg-856f8fb37b43"
+    },
+    {
+      "id": "thread-09b169abd7d7",
+      "subject": "[Bioc-sig-seq] Downloading a sequence from the NCBI",
+      "message_count": 3,
+      "participants": [
+        "Ivan Gregoretti",
+        "Martin Morgan"
+      ],
+      "started": "2010-07-19T22:04:28Z",
+      "last_reply": "2010-07-20T15:23:51Z",
+      "root_message_id": "msg-09b169abd7d7"
+    },
+    {
+      "id": "thread-0744bdfb004d",
+      "subject": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
+      "message_count": 6,
+      "participants": [
+        "Andrew Yee",
+        "Hervé Pagès",
+        "Michael Lawrence",
+        "Vincent Carey"
+      ],
+      "started": "2010-07-20T03:11:07Z",
+      "last_reply": "2010-07-20T21:05:32Z",
+      "root_message_id": "msg-0744bdfb004d"
+    },
+    {
+      "id": "thread-afea9f8b4519",
+      "subject": "[Bioc-sig-seq] Coercion of GenomeData to RangedData",
+      "message_count": 2,
+      "participants": [
+        "Dario Strbenac",
+        "Michael Lawrence"
+      ],
+      "started": "2010-07-22T01:30:37Z",
+      "last_reply": "2010-07-22T02:00:20Z",
+      "root_message_id": "msg-afea9f8b4519"
+    },
+    {
+      "id": "thread-3d589d2b97d0",
+      "subject": "[Bioc-sig-seq] ChIPseqR question",
+      "message_count": 2,
+      "participants": [
+        "Hervé Pagès",
+        "Robert Morris"
+      ],
+      "started": "2010-07-22T16:19:22Z",
+      "last_reply": "2010-07-22T21:25:29Z",
+      "root_message_id": "msg-3d589d2b97d0"
+    },
+    {
+      "id": "thread-19f430ab48ea",
+      "subject": "[Bioc-sig-seq] Open Postdoc Positions",
+      "message_count": 1,
+      "participants": [
+        "Thomas Girke"
+      ],
+      "started": "2010-07-22T23:23:53Z",
+      "last_reply": "2010-07-22T23:23:53Z",
+      "root_message_id": "msg-19f430ab48ea"
+    },
+    {
+      "id": "thread-ec39bdac4ed7",
+      "subject": "[Bioc-sig-seq] Applying grep to a large number of tags. (looking for speed)",
+      "message_count": 9,
+      "participants": [
+        "Cei Abreu-Goodger",
+        "Ivan Gregoretti",
+        "Patrick Aboyoun"
+      ],
+      "started": "2010-07-23T14:02:11Z",
+      "last_reply": "2010-07-23T16:03:05Z",
+      "root_message_id": "msg-ec39bdac4ed7"
+    },
+    {
+      "id": "thread-c2da0c226acd",
+      "subject": "[Bioc-sig-seq] There is a bug living in Rsamtools_1.0.6:::.io_bam codepath.",
+      "message_count": 3,
+      "participants": [
+        "Martin Morgan",
+        "Pratap, Abhishek",
+        "Steve Lianoglou"
+      ],
+      "started": "2010-07-27T22:27:39Z",
+      "last_reply": "2010-07-31T06:22:21Z",
+      "root_message_id": "msg-c2da0c226acd"
+    }
+  ]
+}

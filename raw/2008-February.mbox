@@ -1,0 +1,529 @@
+From s.henderson at ucl.ac.uk  Fri Feb 29 10:41:06 2008
+From: s.henderson at ucl.ac.uk (Stephen Henderson)
+Date: Fri, 29 Feb 2008 09:41:06 -0000
+Subject: [Bioc-sig-seq] (no subject)
+Message-ID: <61B482B74D6EE443B90356E080476E3402732E80@exc2.cruciform.wibr.ucl.ac.uk>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+Url: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/372f05d0/attachment.pl 
+
+From davisjwa at health.missouri.edu  Fri Feb 29 13:59:22 2008
+From: davisjwa at health.missouri.edu (Davis, Wade)
+Date: Fri, 29 Feb 2008 06:59:22 -0600
+Subject: [Bioc-sig-seq] What technologies are people using?
+Message-ID: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>
+
+First, let me say I am glad this list was formed.
+ 
+Second, let's get some discussion going. I am primarily interested in 454, and followed by Solexa. What else are people interested in? 
+ 
+Wade
+
+
+From lgoff at rci.rutgers.edu  Fri Feb 29 14:10:02 2008
+From: lgoff at rci.rutgers.edu (Loyal Goff)
+Date: Fri, 29 Feb 2008 08:10:02 -0500
+Subject: [Bioc-sig-seq] What technologies are people using?
+Message-ID: <A5BDDBBB-FD5E-43C4-BB44-E5B5442FF2D9@rci.rutgers.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+Url: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/0e82bf98/attachment.pl 
+
+From cei at sanger.ac.uk  Fri Feb 29 14:11:22 2008
+From: cei at sanger.ac.uk (Cei Abreu-Goodger)
+Date: Fri, 29 Feb 2008 13:11:22 +0000 (GMT)
+Subject: [Bioc-sig-seq] What technologies are people using?
+In-Reply-To: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>
+References: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>
+Message-ID: <Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>
+
+
+Mainly Solexa here...
+
+Cei
+
+On Fri, 29 Feb 2008, Davis, Wade wrote:
+
+> First, let me say I am glad this list was formed.
+>
+> Second, let's get some discussion going. I am primarily interested in 454, and followed by Solexa. What else are people interested in?
+>
+> Wade
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+-- 
+ The Wellcome Trust Sanger Institute is operated by Genome Research 
+ Limited, a charity registered in England with number 1021457 and a 
+ company registered in England with number 2742969, whose registered 
+ office is 215 Euston Road, London, NW1 2BE.
+
+
+From J.delasHeras at ed.ac.uk  Fri Feb 29 16:27:38 2008
+From: J.delasHeras at ed.ac.uk (J.delasHeras at ed.ac.uk)
+Date: Fri, 29 Feb 2008 15:27:38 +0000
+Subject: [Bioc-sig-seq] What technologies are people using?
+In-Reply-To: <Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>
+References: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>
+	<Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>
+Message-ID: <20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>
+
+Quoting Cei Abreu-Goodger <cei at sanger.ac.uk>:
+
+>
+> Mainly Solexa here...
+>
+> Cei
+
+Same here, as we recently got a Solexa machine.
+
+Jose
+
+-- 
+Dr. Jose I. de las Heras                      Email: J.delasHeras at ed.ac.uk
+The Wellcome Trust Centre for Cell Biology    Phone: +44 (0)131 6513374
+Institute for Cell & Molecular Biology        Fax:   +44 (0)131 6507360
+Swann Building, Mayfield Road
+University of Edinburgh
+Edinburgh EH9 3JR
+UK
+
+-- 
+The University of Edinburgh is a charitable body, registered in
+Scotland, with registration number SC005336.
+
+
+From jbelmont at bcm.tmc.edu  Fri Feb 29 16:42:49 2008
+From: jbelmont at bcm.tmc.edu (Belmont, John W)
+Date: Fri, 29 Feb 2008 09:42:49 -0600
+Subject: [Bioc-sig-seq] What technologies are people using?
+In-Reply-To: <20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>
+References: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu><Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>
+	<20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>
+Message-ID: <2567192B2ABE5B4DAC6A686CC8E67DD357A904@BCMEVS8.ad.bcm.edu>
+
+454 and SOLiD here
+
+John Belmont
+Baylor College of Medicine
+
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of J.delasHeras at ed.ac.uk
+Sent: Friday, February 29, 2008 9:28 AM
+To: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] What technologies are people using?
+
+Quoting Cei Abreu-Goodger <cei at sanger.ac.uk>:
+
+>
+> Mainly Solexa here...
+>
+> Cei
+
+Same here, as we recently got a Solexa machine.
+
+Jose
+
+-- 
+Dr. Jose I. de las Heras                      Email: J.delasHeras at ed.ac.uk
+The Wellcome Trust Centre for Cell Biology    Phone: +44 (0)131 6513374
+Institute for Cell & Molecular Biology        Fax:   +44 (0)131 6507360
+Swann Building, Mayfield Road
+University of Edinburgh
+Edinburgh EH9 3JR
+UK
+
+-- 
+The University of Edinburgh is a charitable body, registered in
+Scotland, with registration number SC005336.
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From SDurinck at lbl.gov  Fri Feb 29 17:13:11 2008
+From: SDurinck at lbl.gov (Steffen Durinck)
+Date: Fri, 29 Feb 2008 08:13:11 -0800
+Subject: [Bioc-sig-seq] What technologies are people using?
+In-Reply-To: <2567192B2ABE5B4DAC6A686CC8E67DD357A904@BCMEVS8.ad.bcm.edu>
+References: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>
+	<Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>
+	<20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>
+	<2567192B2ABE5B4DAC6A686CC8E67DD357A904@BCMEVS8.ad.bcm.edu>
+Message-ID: <f12e1fee2755.47c7be97@lbl.gov>
+
+Great to have this list set up.
+
+We're currently using Solexa and are mainly interested in applying it for mRNA-Seq.
+
+Cheers,
+Steffen
+
+-------------------------------------------------------------------------------
+Steffen Durinck, PhD
+
+Division of Biostatistics, University of California, Berkeley &
+Life Sciences Department, Lawrence Berkeley National Laboratory
+1 cyclotron Rd, Berkeley
+CA, 94720, USA
+Tel: +1-510-486-5123
+-------------------------------------------------------------------------------
+
+
+----- Original Message -----
+From: "Belmont, John W" <jbelmont at bcm.tmc.edu>
+Date: Friday, February 29, 2008 7:48 am
+Subject: Re: [Bioc-sig-seq] What technologies are people using?
+To: J.delasHeras at ed.ac.uk, bioc-sig-sequencing at r-project.org
+
+> 454 and SOLiD here
+> 
+> John Belmont
+> Baylor College of Medicine
+> 
+> 
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-
+> sequencing-bounces at r-project.org] On Behalf Of J.delasHeras at ed.ac.uk
+> Sent: Friday, February 29, 2008 9:28 AM
+> To: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] What technologies are people using?
+> 
+> Quoting Cei Abreu-Goodger <cei at sanger.ac.uk>:
+> 
+> >
+> > Mainly Solexa here...
+> >
+> > Cei
+> 
+> Same here, as we recently got a Solexa machine.
+> 
+> Jose
+> 
+> -- 
+> Dr. Jose I. de las Heras                      Email: 
+> J.delasHeras at ed.ac.ukThe Wellcome Trust Centre for Cell Biology    
+> Phone: +44 (0)131 6513374
+> Institute for Cell & Molecular Biology        Fax:   +44 (0)131 
+> 6507360Swann Building, Mayfield Road
+> University of Edinburgh
+> Edinburgh EH9 3JR
+> UK
+> 
+> -- 
+> The University of Edinburgh is a charitable body, registered in
+> Scotland, with registration number SC005336.
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From engencore at gwm.sc.edu  Fri Feb 29 17:36:04 2008
+From: engencore at gwm.sc.edu (Joe Jones)
+Date: Fri, 29 Feb 2008 11:36:04 -0500
+Subject: [Bioc-sig-seq] What technologies are people using?
+Message-ID: <47C83474.3000304@gwm.sc.edu>
+
+454 FLX here.
+-Joe
+
+-- 
+Environmental Genomics Core Facility
+Director
+921 Assembly Street, Room 413
+University of South Carolina
+Columbia SC 29208
+(t) 803-777-4338
+(l) 831-777-3999
+(e) engencore at gwm.sc.edu 
+(w) http://www.sph.sc.edu/engencore/
+
+
+From mtmorgan at fhcrc.org  Fri Feb 29 18:13:51 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Fri, 29 Feb 2008 09:13:51 -0800
+Subject: [Bioc-sig-seq] What technologies are people using?
+In-Reply-To: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>
+	(Wade Davis's message of "Fri, 29 Feb 2008 06:59:22 -0600")
+References: <09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>
+Message-ID: <6phd4qfu1m8.fsf@gopher4.fhcrc.org>
+
+Great to see the response to the list!
+
+We're seeing mostly Solexa here, for SNP discovery, ChIP-seq type
+applications.
+
+There's a wiki page
+
+http://wiki.fhcrc.org/bioc/Solexa_and_454
+
+(the url is misleading -- any technology is appropriate) that we can
+develop as a handy reference (anyone should be able to create an
+account and edit; watch for overwriting other people's changes over
+the first couple of days as we all enthusiastically try to get our
+thought there).
+
+It would be really helpful to get the three-bullet-point version of
+what the data looks like and how its used, as I've tried to sketch for
+solexa.
+
+Martin
+
+"Davis, Wade" <davisjwa at health.missouri.edu> writes:
+
+> First, let me say I am glad this list was formed.
+>  
+> Second, let's get some discussion going. I am primarily interested in 454, and followed by Solexa. What else are people interested in? 
+>  
+> Wade
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+
+From mtmorgan at fhcrc.org  Fri Feb 29 18:23:32 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Fri, 29 Feb 2008 09:23:32 -0800
+Subject: [Bioc-sig-seq] (no subject) Changed: Overall directions
+In-Reply-To: <61B482B74D6EE443B90356E080476E3402732E80@exc2.cruciform.wibr.ucl.ac.uk>
+	(Stephen Henderson's message of "Fri, 29 Feb 2008 09:41:06 -0000")
+References: <61B482B74D6EE443B90356E080476E3402732E80@exc2.cruciform.wibr.ucl.ac.uk>
+Message-ID: <6ph8x13u163.fsf@gopher4.fhcrc.org>
+
+"Stephen Henderson" <s.henderson at ucl.ac.uk> writes:
+
+> OK
+>
+> Perhaps I can be first by asking what tasks you plan to cover? And how
+> do you plan to implement them in R (given the memory restrictions)? Do
+> you plan a nice front end for lots of C-code?
+
+Hi Stephen --
+
+It'll depend of course on who in the community steps up. Probably
+packages will start as a standard R interface that gets the job done,
+with pretty gui's later. Probably an early step (though perhaps not
+the very first) will be settling on a common set of S4-style classes
+to represent experiments and data, in the manner of an ExpressionSet.
+
+>From our end, our first pass is to assume that computer resources are
+not really an issue -- a 2 or 4 GB 32-bit operating system is not what
+we're targeting.
+
+Also in terms of preliminary experience, it seems like some operations
+can be done effectively at the R level (data input and QA assessment)
+but that some important steps (e.g., alignments) require clever data
+structures and algorithms that get implemented in C. It's also
+possible for some questions to exploit the structure of the data,
+e.g., analyzing Solexa data in manageable chunks corresponding to
+individual tiles.
+
+Martin
+
+> Stephen Henderson
+>
+> Cancer Institute, Paul O'Gorman Building
+>
+> Gower Street, University College London
+>
+> United Kingdom, WC1E 6BT
+>
+> +44 (0)207 679 6827
+>
+>  
+>
+>
+> **********************************************************************
+> This email and any files transmitted with it are confide...{{dropped:11}}
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+
+From s.henderson at ucl.ac.uk  Fri Feb 29 18:40:08 2008
+From: s.henderson at ucl.ac.uk (Stephen Henderson)
+Date: Fri, 29 Feb 2008 17:40:08 -0000
+Subject: [Bioc-sig-seq] (no subject) Changed: Overall directions
+Message-ID: <61B482B74D6EE443B90356E080476E3402732E88@exc2.cruciform.wibr.ucl.ac.uk>
+
+I see. We are just in the process of buying a Solexa and people will be
+using it for MeDIP-seq (methylation), and ChIP-seq (Trans Factors).
+
+
+Stephen Henderson
+Cancer Institute, Paul O'Gorman Building
+Huntley Street, University College London
+United Kingdom, WC1E 6BT
++44 (0)207 679 6827
+ 
+-----Original Message-----
+From: Martin Morgan [mailto:mtmorgan at fhcrc.org] 
+Sent: 29 February 2008 17:24
+To: Stephen Henderson
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] (no subject) Changed: Overall directions
+
+"Stephen Henderson" <s.henderson at ucl.ac.uk> writes:
+
+> OK
+>
+> Perhaps I can be first by asking what tasks you plan to cover? And how
+> do you plan to implement them in R (given the memory restrictions)? Do
+> you plan a nice front end for lots of C-code?
+
+Hi Stephen --
+
+It'll depend of course on who in the community steps up. Probably
+packages will start as a standard R interface that gets the job done,
+with pretty gui's later. Probably an early step (though perhaps not
+the very first) will be settling on a common set of S4-style classes
+to represent experiments and data, in the manner of an ExpressionSet.
+
+>From our end, our first pass is to assume that computer resources are
+not really an issue -- a 2 or 4 GB 32-bit operating system is not what
+we're targeting.
+
+Also in terms of preliminary experience, it seems like some operations
+can be done effectively at the R level (data input and QA assessment)
+but that some important steps (e.g., alignments) require clever data
+structures and algorithms that get implemented in C. It's also
+possible for some questions to exploit the structure of the data,
+e.g., analyzing Solexa data in manageable chunks corresponding to
+individual tiles.
+
+Martin
+
+> Stephen Henderson
+>
+> Cancer Institute, Paul O'Gorman Building
+>
+> Gower Street, University College London
+>
+> United Kingdom, WC1E 6BT
+>
+> +44 (0)207 679 6827
+>
+>  
+>
+>
+> **********************************************************************
+> This email and any files transmitted with it are
+confide...{{dropped:11}}
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+**********************************************************************
+This email and any files transmitted with it are confide...{{dropped:7}}
+
+
+From simonlin at duke.edu  Fri Feb 29 19:41:40 2008
+From: simonlin at duke.edu (Simon Lin)
+Date: Fri, 29 Feb 2008 12:41:40 -0600
+Subject: [Bioc-sig-seq] What technologies are people using?
+References: <mailman.1391.1204305840.4536.bioc-sig-sequencing@r-project.org>
+Message-ID: <001c01c87b02$b9346970$e5987ca5@lurie.northwestern.edu>
+
+We have 454 already; will get SOLiD (ABI) soon.
+
+We have collected 454 data for ChIP-seq. Initial analysis suggest that 454 
+works well for the long reads, but the coverage is not enough.
+
+Simon Lin
+Northwestern University
+
+
+> Date: Fri, 29 Feb 2008 08:10:02 -0500
+> From: Loyal Goff <lgoff at rci.rutgers.edu>
+> Subject: Re: [Bioc-sig-seq] What technologies are people using?
+> To: Bioc-sig-sequencing at r-project.org
+> Message-ID: <A5BDDBBB-FD5E-43C4-BB44-E5B5442FF2D9 at rci.rutgers.edu>
+> Content-Type: text/plain
+>
+> Our group has just received our SOLiD (ABI) instrument, so we have a
+> vested interest in this platform as well.  And I would like to agree
+> with Wade, I am very happy to see this list and I look forward to
+> contributing/testing.
+>
+> Loyal Goff
+>
+>
+> Rutgers Stem Cell Research Center
+> Rutgers: The State University of New Jersey
+> lgoff at rci.rutgers.edu
+
+
+From bioinformatics.lists at gmail.com  Fri Feb 29 22:05:33 2008
+From: bioinformatics.lists at gmail.com (Dan Swan)
+Date: Fri, 29 Feb 2008 21:05:33 +0000
+Subject: [Bioc-sig-seq] Another 454 user
+Message-ID: <d606310d0802291305j47fb47aehcbc05c5a0727199b@mail.gmail.com>
+
+Just to add some weight to the 454 crowd, we are seeing an increasing
+amount of data generated internally and externally by researchers here
+on this platform but have yet to see any Solexa/SOLiD data
+
+*turns off digest mode to thread things properly in future*
+
+Dan
+
+-- 
+Bioinformatics Support Unit  || http://bsu.ncl.ac.uk/
+Institute for Cell and Molecular Biosciences,
+Faculty of Medical Sciences, Framlington Place,
+Newcastle University, Newcastle, NE2 4HH
+Tel: +44 (0)191 222 7253 (Leech offices: Rooms M.2046/M.2046A - Mon/Wed)
+Tel: +44 (0)191 246 4833 (Devonshire offices: Rooms G.25/G.26 - Thu/Fri)
+
+

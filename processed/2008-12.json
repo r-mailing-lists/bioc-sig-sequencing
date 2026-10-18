@@ -1,0 +1,63 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2008-12",
+  "messages": [
+    {
+      "id": "msg-dee2044b5db3",
+      "message_id": "<49442BE6.6000709@uni-muenster.de>",
+      "from_name": "Hans-Ulrich Klein",
+      "from_email_hash": "f5e3c255ba8c591ba34ebbe9a6c82dcd7b8dc1d03cdc7a1a100a5e6c8cd9cb87",
+      "date": "2008-12-13T21:40:54Z",
+      "subject": "[Bioc-sig-seq] IRanges - coverage",
+      "subject_clean": "[Bioc-sig-seq] IRanges - coverage",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear List,\n\nI find this behavior of the coverage function quite inconvenient:\n\n > myRanges = IRanges(start=c(10,20,30,100), width=5)\n > myCov = coverage(myRanges, start=50, end=80)\n > myCov\n   31-integer \"XRleInteger\" instance\n  [1] Error in x at values[group, drop = TRUE] : subscript out of bounds\n\nWhen I apply the coverage function, I do not care whether there are is \nat least one sequence within the specified region. I think, it would be \nmore sensible to return an XRleInteger object with 31 \"0\" in the \nsituation above.\n\nBest wishes,\nHans-Ulrich",
+      "body_snippet": "Dear List,\n\nI find this behavior of the coverage function quite inconvenient:\n\n > myRanges = IRanges(start=c(10,20,30,100), width=5)\n > myCov = coverage(myRanges, start=50, end=80)\n > myCov\n   31-inte",
+      "thread_id": "thread-dee2044b5db3",
+      "thread_depth": 0,
+      "month": "2008-12"
+    },
+    {
+      "id": "msg-e36b57ea5d59",
+      "message_id": "<20081214220259.pctvl2teokcg4c0k@webmail.fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2008-12-15T06:02:59Z",
+      "subject": "[Bioc-sig-seq] IRanges - coverage",
+      "subject_clean": "[Bioc-sig-seq] IRanges - coverage",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hans-Ulrich,\nThanks for finding the coverage bug for IRanges objects when the  \ncoverage is 0 everywhere. I forgot to allocate the necessary length 1  \nvectors at the C level to store the rle information. I checked in  \nfixes to both the BioC 2.3 and BioC 2.4 code lines.  It will take a  \nday or so to come through the build system, but when they are  \navailable they will be versions 1.0.8 (BioC 2.3) and 1.1.9 (BioC 2.4).  \nYou could always check out the IRanges package directly from svn and  \nbuild the package yourself if you need it sooner.\n\nCheers,\nPatrick\n\n\n> library(IRanges)\n> myRanges = IRanges(start=c(10,20,30,100), width=5)\n> myCov = coverage(myRanges, start=50, end=80)\n> myCov\n   31-integer \"XRleInteger\" instance\n  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n> sessionInfo()\nR version 2.9.0 Under development (unstable) (2008-12-02 r47033)\ni386-apple-darwin9.5.0\n\nlocale:\nen_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] IRanges_1.1.9\n\nloaded via a namespace (and not attached):\n[1] Matrix_0.999375-16 grid_2.9.0         lattice_0.17-17\n\n\n\nHans-Ulrich Klein wrote:\n> Dear List,\n>\n> I find this behavior of the coverage function quite inconvenient:\n>\n> > myRanges = IRanges(start=c(10,20,30,100), width=5)\n> > myCov = coverage(myRanges, start=50, end=80)\n> > myCov\n>   31-integer \"XRleInteger\" instance\n>  [1] Error in x at values[group, drop = TRUE] : subscript out of bounds\n>\n> When I apply the coverage function, I do not care whether there are  \n> is at least one sequence within the specified region. I think, it  \n> would be more sensible to return an XRleInteger object with 31 \"0\"  \n> in the situation above.\n>\n> Best wishes,\n> Hans-Ulrich\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hans-Ulrich,\nThanks for finding the coverage bug for IRanges objects when the  \ncoverage is 0 everywhere. I forgot to allocate the necessary length 1  \nvectors at the C level to store the rle informat",
+      "thread_id": "thread-e36b57ea5d59",
+      "thread_depth": 0,
+      "month": "2008-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-dee2044b5db3",
+      "subject": "[Bioc-sig-seq] IRanges - coverage",
+      "message_count": 1,
+      "participants": [
+        "Hans-Ulrich Klein"
+      ],
+      "started": "2008-12-13T21:40:54Z",
+      "last_reply": "2008-12-13T21:40:54Z",
+      "root_message_id": "msg-dee2044b5db3"
+    },
+    {
+      "id": "thread-e36b57ea5d59",
+      "subject": "[Bioc-sig-seq] IRanges - coverage",
+      "message_count": 1,
+      "participants": [
+        "Patrick Aboyoun"
+      ],
+      "started": "2008-12-15T06:02:59Z",
+      "last_reply": "2008-12-15T06:02:59Z",
+      "root_message_id": "msg-e36b57ea5d59"
+    }
+  ]
+}

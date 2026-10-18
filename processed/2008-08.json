@@ -1,0 +1,328 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2008-08",
+  "messages": [
+    {
+      "id": "msg-8b5ec6e14387",
+      "message_id": "<4896132B.1080504@ebi.ac.uk>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "8481a5f74e0203c0e279b0cd7f952f11ea65fcad4bf054f5268c275ad236a2d9",
+      "date": "2008-08-03T20:20:59Z",
+      "subject": "[Bioc-sig-seq] MINSEQE",
+      "subject_clean": "[Bioc-sig-seq] MINSEQE",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nAs discussed in Seattle, here is a link to existing efforts for agreeing \nwhat is \"Minimal Information about a High Throughput Sequencing Experiment\"\n\n    http://uhts.lbl.gov/index.php/Main_Page\n    http://uhts.lbl.gov/images/2/2a/MINSEQE.pdf\n\nwith a view that we might want to make our infrastructures compatible,\nand possibly participate in that discussion.\n\nIn the good tradition of MIAME, this is a conceptual description, not a \nfile format or alike.\n\nBest wishes\n   Wolfgang\n\n------------------------------------------------------------------\nWolfgang Huber  EBI/EMBL  Cambridge UK  http://www.ebi.ac.uk/huber",
+      "body_snippet": "Hi,\n\nAs discussed in Seattle, here is a link to existing efforts for agreeing \nwhat is \"Minimal Information about a High Throughput Sequencing Experiment\"\n\n    http://uhts.lbl.gov/index.php/Main_Page\n",
+      "thread_id": "thread-8b5ec6e14387",
+      "thread_depth": 0,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-25fbc11e2b74",
+      "message_id": "<6phsktk3otn.fsf@lamprey.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-08-04T13:13:56Z",
+      "subject": "[Bioc-sig-seq] MINSEQE",
+      "subject_clean": "[Bioc-sig-seq] MINSEQE",
+      "in_reply_to": "<4896132B.1080504@ebi.ac.uk> (Wolfgang Huber's message of \"Sun, 03 Aug 2008 21:20:59 +0100\")",
+      "references": [
+        "<4896132B.1080504@ebi.ac.uk>"
+      ],
+      "body_plain": "Wolfgang Huber <huber at ebi.ac.uk> writes:\n\n> Hi,\n>\n> As discussed in Seattle, here is a link to existing efforts for\n> agreeing what is \"Minimal Information about a High Throughput\n> Sequencing Experiment\"\n>\n>     http://uhts.lbl.gov/index.php/Main_Page\n>     http://uhts.lbl.gov/images/2/2a/MINSEQE.pdf\n>\n> with a view that we might want to make our infrastructures compatible,\n> and possibly participate in that discussion.\n>\n> In the good tradition of MIAME, this is a conceptual description, not\n> a file format or alike.\n\nOne challenge is how to coordinate MINSEQE information with the\ndata. The data seems too big to maintain in an R object, so the data\nand its metadata are decoupled and the entire object fragile.\n\nMartin\n\n> Best wishes\n>    Wolfgang\n>\n> ------------------------------------------------------------------\n> Wolfgang Huber  EBI/EMBL  Cambridge UK  http://www.ebi.ac.uk/huber\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Wolfgang Huber <huber at ebi.ac.uk> writes:\n\n> Hi,\n>\n> As discussed in Seattle, here is a link to existing efforts for\n> agreeing what is \"Minimal Information about a High Throughput\n> Sequencing Expe",
+      "thread_id": "thread-8b5ec6e14387",
+      "thread_depth": 1,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-3b8813a67a0f",
+      "message_id": "<BD62CBAC4395B94096109020651BE2EC129F97A059@exchmb-02.stowers-institute.org>",
+      "from_name": "Cook, Malcolm",
+      "from_email_hash": "8cf057bde0f4ca9785750d35bf3fbde68423ecb6d4ba5558203761a367d40a26",
+      "date": "2008-08-04T14:28:16Z",
+      "subject": "[Bioc-sig-seq] MINSEQE",
+      "subject_clean": "[Bioc-sig-seq] MINSEQE",
+      "in_reply_to": "<4896132B.1080504@ebi.ac.uk>",
+      "references": [
+        "<4896132B.1080504@ebi.ac.uk>"
+      ],
+      "body_plain": "drat.   http://uhts.lbl.gov/index.php/MINSEQE has been hacked / spammed\n\n\n\nMalcolm Cook\n\n-----Original Message-----\nFrom: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Wolfgang Huber\nSent: Sunday, August 03, 2008 3:21 PM\nTo: bioc-sig-sequencing at r-project.org\nSubject: [Bioc-sig-seq] MINSEQE\n\nHi,\n\nAs discussed in Seattle, here is a link to existing efforts for agreeing what is \"Minimal Information about a High Throughput Sequencing Experiment\"\n\n    http://uhts.lbl.gov/index.php/Main_Page\n    http://uhts.lbl.gov/images/2/2a/MINSEQE.pdf\n\nwith a view that we might want to make our infrastructures compatible, and possibly participate in that discussion.\n\nIn the good tradition of MIAME, this is a conceptual description, not a file format or alike.\n\nBest wishes\n   Wolfgang\n\n------------------------------------------------------------------\nWolfgang Huber  EBI/EMBL  Cambridge UK  http://www.ebi.ac.uk/huber\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "drat.   http://uhts.lbl.gov/index.php/MINSEQE has been hacked / spammed\n\n\n\nMalcolm Cook\n\n-----Original Message-----\nFrom: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounc",
+      "thread_id": "thread-8b5ec6e14387",
+      "thread_depth": 1,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-035d7d1e8759",
+      "message_id": "<48AAED05.5000307@ebi.ac.uk>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "8481a5f74e0203c0e279b0cd7f952f11ea65fcad4bf054f5268c275ad236a2d9",
+      "date": "2008-08-19T15:55:49Z",
+      "subject": "[Bioc-sig-seq] new MINSEQE page",
+      "subject_clean": "[Bioc-sig-seq] new MINSEQE page",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Data: Mon, 11 Aug 2008 18:03:48 +0100\nDa: Helen Parkinson <parkinson at ebi.ac.uk>\nOrganizzazione: EBI\n\nHi\n\nhttp://www.mged.org/minseqe/ now replaces the LBL wiki. Any suggestions\nor comments to niran at ebi.ac.uk, thanks to Niran for setting this up so\nquickly,\n\nHelen\n\n-- \nHelen Parkinson, PhD\nArrayExpress Production Coordinator,\nMicroarray Informatics Team,\nEBI\n\nEBI 01223 494672\nSkype: helen.parkinson.ebi",
+      "body_snippet": "Data: Mon, 11 Aug 2008 18:03:48 +0100\nDa: Helen Parkinson <parkinson at ebi.ac.uk>\nOrganizzazione: EBI\n\nHi\n\nhttp://www.mged.org/minseqe/ now replaces the LBL wiki. Any suggestions\nor comments to niran",
+      "thread_id": "thread-035d7d1e8759",
+      "thread_depth": 0,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-5a53940ea4dc",
+      "message_id": "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>",
+      "from_name": "Terry Therneau",
+      "from_email_hash": "382b7509cd09524d5383672b54b7679da321b2d7cddcbd90c1ab33e6472aece6",
+      "date": "2008-08-22T15:40:57Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have tried to install the shortreads package, with no success.\n\ntmt36% R\n\nR version 2.7.0 (2008-04-22)\nCopyright (C) 2008 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\n\n> biocLite('ShortRead')\nRunning biocinstall version 2.1.11 with R version 2.7.0 \nYour version of R requires version 2.1 of BioConductor.\nWarning in install.packages(pkgs = pkgs, repos = repos, dependencies = \ndependencies,  :\n  argument 'lib' is missing: using \n'/home/therneau/R/x86_64-unknown-linux-gnu-library/2.7'\nWarning message:\nIn install.packages(pkgs = pkgs, repos = repos, dependencies = dependencies,  :\n  package ?ShortRead? is not available\n\n----\n The bottom line says it all.\n \n So then I tried downloading the source, and using the standard R \ninstall.packages call.  That fails because it expects \"_Biostrings_stubs.c\" to \nbe in the standard R include directory, which is clearly false.\n \n  I'd like to install the new material in my own library -- but it rather looks \nlike bioconductor as a whole is designed to NOT work with the usual R install \ntools.  Is this correct?  (Bioconductor as a whole is installed on the system by \nour administrator).\n  \n    Terry Therneau\n    (working with Solexa data)",
+      "body_snippet": "I have tried to install the shortreads package, with no success.\n\ntmt36% R\n\nR version 2.7.0 (2008-04-22)\nCopyright (C) 2008 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\n\n> biocLite('S",
+      "thread_id": "thread-5a53940ea4dc",
+      "thread_depth": 0,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-0668fb561300",
+      "message_id": "<Pine.LNX.4.64.0808241536030.2928@tajo.ucsd.edu>",
+      "from_name": "Charles C. Berry",
+      "from_email_hash": "2e60b7324e5cc583defcedd7a675a324250ffb84da081638c31baf739e5c08e2",
+      "date": "2008-08-24T23:42:09Z",
+      "subject": "[Bioc-sig-seq] Finding Restriction sites and gaps",
+      "subject_clean": "[Bioc-sig-seq] Finding Restriction sites and gaps",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "In general, I am trying to get a handle on the capabilities of BioStrings \nand related packages.\n\nMy particular question is whether there is a slick (and efficient) way to \nconstruct a single object - along the lines of the XStringsViews class - \nthat contains info about restriction sites and N-gaps using functions in \nBiostrings or other bioC packages.\n\nSome background:\n\nI am considering retooling a pipeline I have for processing collections of \nretroviral integration sites, and I am weighing using bioConductor \npackages in the new version.\n\nAn early step in this pipeline involves finding the nearest restriction \nsite given the direction from which a fragment of DNA was sequenced (which \ndepends on the orientation/strand of the retroviral construct) and given a \ngenomic location( Chromo, Position ).\n\nCurrently this is done by putting together a list of the locations of \nrestriction sites for an enzyme (by piping the FASTA to a simple filter \nwritten in C) importing the list of gaps in the FASTA from UCSC's \nannotation database, then doing lookups (ala findInterval) on the lists \nand returning info on whether the upstream site could be found (i.e. there \nwas no intervening gap in the FASTA) and where it was.\n\nI see a way to do this with matchPattern(), but it requires a bunch of \ncalls and some cleanup afterwards. Specifically, I would do this something \nlike this: I'd load up BSgenome.Hsapiens.UCSC.hg18, then use matchPattern( \n\"TTAA\", Hsapiens[[ chromo.i ]] ) to find MSEI restriction sites (for \nexample), then matchPattern(\"AN\", Hsapiens[[ chromo.i ]] ) to find all the \ngaps that follow an 'A', matchPattern(\"NA\", Hsapiens[[ chromo.i ]] ) to \nfind all gaps that are terminated by an 'A', and so on. Then using start() \non each of the objects created, I can put together a data structure like \nthe one I described in the previous paragraph and then use findInterval to \ndo lookups.\n\nI'd be interested to know if there is a more _direct_ way to construct the \nlist of gaps or a unified list of sites and gaps with an annotation to \nsay which is which.\n\nAlso, I would be interested to know if there is an efficient way to do the \nlookup directly (for a given Chromo, Position, and Strand return the \nrestriction site) without the intermediate step of constructing the list \nof all restriction sites. Typically, runs involve from the low thousands \nto tens of thousands of retroviral integration events (read: genomic \nloci), but with higher throughput sequencing just around the corner, I \nexpect this will rise. So, a one-liner that takes a couple of seconds to \nrun for each event is impractical.\n\nCan I count on start( my.xstringsviews.object ) being unique and in order?\n\n\nTIA,\n\nChuck\n\n\nCharles C. Berry                            (858) 534-2098\n                                             Dept of Family/Preventive Medicine\nE mailto:cberry at tajo.ucsd.edu\t            UC San Diego\nhttp://famprevmed.ucsd.edu/faculty/cberry/  La Jolla, San Diego 92093-0901",
+      "body_snippet": "In general, I am trying to get a handle on the capabilities of BioStrings \nand related packages.\n\nMy particular question is whether there is a slick (and efficient) way to \nconstruct a single object -",
+      "thread_id": "thread-0668fb561300",
+      "thread_depth": 0,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-e2e8f5f15060",
+      "message_id": "<48B2DD04.5010900@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2008-08-25T16:25:40Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>",
+      "references": [
+        "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>"
+      ],
+      "body_plain": "Terry,\nThe ShortRead package is only available for the BioC 2.3 / R-devel code \nline. It depends on the development version of Biostrings. A number of C \ninterfaces to Biostrings were opened up in the development version of \nBiostrings to allow packages like ShortRead to have a tight integration \nfor fast string manipulation. Using biocLite(\"ShortRead\") when running \nR-devel will get you up and running.\n\n\nCheers,\nPatrick\n\n\nTerry Therneau wrote:\n> I have tried to install the shortreads package, with no success.\n>\n> tmt36% R\n>\n> R version 2.7.0 (2008-04-22)\n> Copyright (C) 2008 The R Foundation for Statistical Computing\n> ISBN 3-900051-07-0\n>\n>   \n>> biocLite('ShortRead')\n>>     \n> Running biocinstall version 2.1.11 with R version 2.7.0 \n> Your version of R requires version 2.1 of BioConductor.\n> Warning in install.packages(pkgs = pkgs, repos = repos, dependencies = \n> dependencies,  :\n>   argument 'lib' is missing: using \n> '/home/therneau/R/x86_64-unknown-linux-gnu-library/2.7'\n> Warning message:\n> In install.packages(pkgs = pkgs, repos = repos, dependencies = dependencies,  :\n>   package ?ShortRead? is not available\n>\n> ----\n>  The bottom line says it all.\n>  \n>  So then I tried downloading the source, and using the standard R \n> install.packages call.  That fails because it expects \"_Biostrings_stubs.c\" to \n> be in the standard R include directory, which is clearly false.\n>  \n>   I'd like to install the new material in my own library -- but it rather looks \n> like bioconductor as a whole is designed to NOT work with the usual R install \n> tools.  Is this correct?  (Bioconductor as a whole is installed on the system by \n> our administrator).\n>   \n>     Terry Therneau\n>     (working with Solexa data)\n>     \n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Terry,\nThe ShortRead package is only available for the BioC 2.3 / R-devel code \nline. It depends on the development version of Biostrings. A number of C \ninterfaces to Biostrings were opened up in the",
+      "thread_id": "thread-5a53940ea4dc",
+      "thread_depth": 1,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-ce87a31fd5d8",
+      "message_id": "<264855a00808250928o22134025tb199a1b4c379e9ac@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2008-08-25T16:28:19Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>",
+      "references": [
+        "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>"
+      ],
+      "body_plain": "On Fri, Aug 22, 2008 at 11:40 AM, Terry Therneau <therneau at mayo.edu> wrote:\n> I have tried to install the shortreads package, with no success.\n>\n> tmt36% R\n>\n> R version 2.7.0 (2008-04-22)\n> Copyright (C) 2008 The R Foundation for Statistical Computing\n> ISBN 3-900051-07-0\n>\n>> biocLite('ShortRead')\n> Running biocinstall version 2.1.11 with R version 2.7.0\n> Your version of R requires version 2.1 of BioConductor.\n> Warning in install.packages(pkgs = pkgs, repos = repos, dependencies =\n> dependencies,  :\n>  argument 'lib' is missing: using\n> '/home/therneau/R/x86_64-unknown-linux-gnu-library/2.7'\n> Warning message:\n> In install.packages(pkgs = pkgs, repos = repos, dependencies = dependencies,  :\n>  package ?ShortRead? is not available\n\nI think ShortRead is available for the R-devel only, at this point.\nYou can certainly install your own R-devel in your home directory for\nthe purposes of using ShortRead.  Martin Morgan might be able to\ncomment better on compatibility of the current version with older\nversions of R.\n\nAs for bioconductor being designed NOT to work with standard R install\ntools, that isn't quite true.  The problem is that for all of the\npackages of bioconductor to work well together and to work with the\ncorrect version of R, the Bioconductor team decided to use their own\nversioning system that necessitates using functions for installation\nthat are aware of the versioning--hence, biocLite().\n\nHope that helps,\nSean",
+      "body_snippet": "On Fri, Aug 22, 2008 at 11:40 AM, Terry Therneau <therneau at mayo.edu> wrote:\n> I have tried to install the shortreads package, with no success.\n>\n> tmt36% R\n>\n> R version 2.7.0 (2008-04-22)\n> Copyri",
+      "thread_id": "thread-5a53940ea4dc",
+      "thread_depth": 1,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-0a977628f59b",
+      "message_id": "<509e0620808250950y746a4905tbbb40087d7e2cea6@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2008-08-25T16:50:11Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": "<48B2DD04.5010900@fhcrc.org>",
+      "references": [
+        "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>",
+        "<48B2DD04.5010900@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080825/fc345bca/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080825/fc345bca/attachment.pl>",
+      "thread_id": "thread-5a53940ea4dc",
+      "thread_depth": 2,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-f2c43d6e95e6",
+      "message_id": "<48B2F35A.7000004@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-08-25T18:00:58Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": "<509e0620808250950y746a4905tbbb40087d7e2cea6@mail.gmail.com>",
+      "references": [
+        "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>",
+        "<48B2DD04.5010900@fhcrc.org>",
+        "<509e0620808250950y746a4905tbbb40087d7e2cea6@mail.gmail.com>"
+      ],
+      "body_plain": "Michael Lawrence wrote:\n> I might be wrong here, but it might be possible to run ShortRead on R 2.7.2\n> with all its dependencies (Biostrings, IRanges, ...) installed from\n> Bioconductor 2.3.\n\nIt won't, because ShortRead has C-level dependencies on two packages, \nand this support was not working until relatively recently in R-devel\n(r46267, Fri, 08 Aug 2008, I think).\n\nIn general I've found (though I'll admit to not being an ordinary R \nuser) that the cost to switching versions is minimal, and that R-devel \nrarely has changes that fundamentally break what was previously working. \nIf the need is for a package that has seen recent heavy development \n(ShortRead and Biostrings definitely fall into this category), then I'd \nrecommend switching to using R-devel.\n\nMartin\n\n\n\n> On Mon, Aug 25, 2008 at 9:25 AM, Patrick Aboyoun <paboyoun at fhcrc.org> wrote:\n> \n>> Terry,\n>> The ShortRead package is only available for the BioC 2.3 / R-devel code\n>> line. It depends on the development version of Biostrings. A number of C\n>> interfaces to Biostrings were opened up in the development version of\n>> Biostrings to allow packages like ShortRead to have a tight integration for\n>> fast string manipulation. Using biocLite(\"ShortRead\") when running R-devel\n>> will get you up and running.\n>>\n>>\n>> Cheers,\n>> Patrick\n>>\n>>\n>>\n>> Terry Therneau wrote:\n>>\n>>> I have tried to install the shortreads package, with no success.\n>>>\n>>> tmt36% R\n>>>\n>>> R version 2.7.0 (2008-04-22)\n>>> Copyright (C) 2008 The R Foundation for Statistical Computing\n>>> ISBN 3-900051-07-0\n>>>\n>>>\n>>>\n>>>> biocLite('ShortRead')\n>>>>\n>>>>\n>>> Running biocinstall version 2.1.11 with R version 2.7.0 Your version of R\n>>> requires version 2.1 of BioConductor.\n>>> Warning in install.packages(pkgs = pkgs, repos = repos, dependencies =\n>>> dependencies,  :\n>>>  argument 'lib' is missing: using\n>>> '/home/therneau/R/x86_64-unknown-linux-gnu-library/2.7'\n>>> Warning message:\n>>> In install.packages(pkgs = pkgs, repos = repos, dependencies =\n>>> dependencies,  :\n>>>  package ?ShortRead? is not available\n>>>\n>>> ----\n>>>  The bottom line says it all.\n>>>   So then I tried downloading the source, and using the standard R\n>>> install.packages call.  That fails because it expects \"_Biostrings_stubs.c\"\n>>> to be in the standard R include directory, which is clearly false.\n>>>    I'd like to install the new material in my own library -- but it rather\n>>> looks like bioconductor as a whole is designed to NOT work with the usual R\n>>> install tools.  Is this correct?  (Bioconductor as a whole is installed on\n>>> the system by our administrator).\n>>>      Terry Therneau\n>>>    (working with Solexa data)\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n> \n> \t[[alternative HTML version deleted]]\n> \n> \n> \n> ------------------------------------------------------------------------\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Michael Lawrence wrote:\n> I might be wrong here, but it might be possible to run ShortRead on R 2.7.2\n> with all its dependencies (Biostrings, IRanges, ...) installed from\n> Bioconductor 2.3.\n\nIt won'",
+      "thread_id": "thread-5a53940ea4dc",
+      "thread_depth": 3,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-7480e8c338ad",
+      "message_id": "<509e0620808251117n389872adh160cfad55f4aa59a@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2008-08-25T18:17:31Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": "<48B2F35A.7000004@fhcrc.org>",
+      "references": [
+        "<200808221540.m7MFeva13207@hsrnfs-101.mayo.edu>",
+        "<48B2DD04.5010900@fhcrc.org>",
+        "<509e0620808250950y746a4905tbbb40087d7e2cea6@mail.gmail.com>",
+        "<48B2F35A.7000004@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080825/65117612/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080825/65117612/attachment.pl>",
+      "thread_id": "thread-5a53940ea4dc",
+      "thread_depth": 4,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-5347018c6a6f",
+      "message_id": "<200808251848.m7PImea08764@hsrnfs-101.mayo.edu>",
+      "from_name": "Terry Therneau",
+      "from_email_hash": "382b7509cd09524d5383672b54b7679da321b2d7cddcbd90c1ab33e6472aece6",
+      "date": "2008-08-25T18:48:39Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Thanks for all the responses.\n\n  I have successfully put R-devel up on a machine, and then installed the \nshortread package.  To start, I was trying to have a local library with the \nadd-ons, working with the installed R base on a shared server.  This was not a \nstraightforward exercise.\n  \n  A suggestion: much of my confusion was due to the fact that there were not any \nmanual pages for biocLite, bioinstall, etc; or at least no documentation that I \neasily found.  So I tried the standard R install (no luck), and various other \nfruitless paths based on wrong guesses.  Sean's explanation of why biocLite does \nwhat it does was helpful; I'd already guessed some of it by reading source code. \nPerhaps the standard install of biocLite could finish with a message pointing \none to  a short 1-2 paragraph overview.  When it works biocLite is nice, but \nwhen it doesn't there isn't much hint of where to begin.  It consistently \nignored my \"lib\" directive, for instance.  And from my reading of the source \ncode it wouldn't have helped in the end if it had paid attention -- there is, is \nthere not, an assumption that the \"stubs\" are in an include directory in the R \nhome tree, not the user's?\n  \n  I anticipate that the Solexa, and the threat of a couple more coming in soon, \nwill accelerate my familiarity with bioconductor.  The shortread package already \nhas repaid with interest for these install nuisances.\n  \n  \tTerry T.",
+      "body_snippet": "Thanks for all the responses.\n\n  I have successfully put R-devel up on a machine, and then installed the \nshortread package.  To start, I was trying to have a local library with the \nadd-ons, working ",
+      "thread_id": "thread-5347018c6a6f",
+      "thread_depth": 0,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-ab2eaa3566d1",
+      "message_id": "<2c8757af0808260449i58e7457fj978adbb466af3a69@mail.gmail.com>",
+      "from_name": "Dan Bolser",
+      "from_email_hash": "67a9076c733a86ea6e6c9bc7ba8c0b60fbdecc5e9e6a4791158310dfba72fe51",
+      "date": "2008-08-26T11:49:08Z",
+      "subject": "[Bioc-sig-seq] A modified readFASTA for reading 'quality fasta' files.",
+      "subject_clean": "[Bioc-sig-seq] A modified readFASTA for reading 'quality fasta' files.",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\nI have been using phred/phrap to do some sequence assembly, and I\nthought that it might be useful to plot the 'quality scores' that are\noutput by phred.\n\nIn case you are interested, I have data from the ABI_3730, big-dye\nterminator (DT3730POP7{BDv3}.mob).\n\nI have adapted the readFASTA function in the Biostrings library to\nread in the 'quality fasta' files produced by phred. Here is a diff of\nthe two functions so you can see what I did on the off chance that it\nis useful for somebody else:\n\n*** readFASTA.R\n--- readQualityFASTA.R\n***************\n*** 1,5 ****\n\n! readFASTA <-\n    function (file, checkComments = TRUE, strip.desc = TRUE)\n  {\n    if (missing(strip.desc))\n--- 1,5 ----\n\n! readQualityFASTA <-\n    function (file, checkComments = TRUE, strip.desc = TRUE)\n  {\n    if (missing(strip.desc))\n***************\n*** 37,43 ****\n      desc <- s1[descriptions[i]]\n      if (strip.desc)\n        desc <- substr(desc, 2L, nchar(desc))\n!     seq <- paste(s1[dp[i]:end[i]], collapse = \"\")\n      list(desc = desc, seq = seq)\n    })\n  }\n--- 37,44 ----\n      desc <- s1[descriptions[i]]\n      if (strip.desc)\n        desc <- substr(desc, 2L, nchar(desc))\n!     seq <- paste(s1[dp[i]:end[i]], collapse = \" \")\n!     seq <- as.numeric(strsplit(seq, \" \", perl=TRUE)[[1]])\n      list(desc = desc, seq = seq)\n    })\n  }\n\n\nI am relatively new to BioC (and sequencing in general) so I am not\nsure if there isn't a better way to do this... please don't hesitate\nto point me at the relevant docs! In particular, where can I read\nabout the sequence assembly capabilities of R?\n\nAll the best,\n\nDan.\n\n----\n\nhttp://network.nature.com/profile/dan",
+      "body_snippet": "Hi all,\n\nI have been using phred/phrap to do some sequence assembly, and I\nthought that it might be useful to plot the 'quality scores' that are\noutput by phred.\n\nIn case you are interested, I have da",
+      "thread_id": "thread-ab2eaa3566d1",
+      "thread_depth": 0,
+      "month": "2008-08"
+    },
+    {
+      "id": "msg-1b6b21d12392",
+      "message_id": "<6phsksqmo3m.fsf@lamprey.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-08-27T16:14:53Z",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "subject_clean": "[Bioc-sig-seq] Shortreads",
+      "in_reply_to": null,
+      "references": [
+        "<200808251848.m7PImea08764@hsrnfs-101.mayo.edu>"
+      ],
+      "body_plain": "Hi Terry --\n\nTerry Therneau <therneau at mayo.edu> writes:\n\n>  \n>   Thanks for all the responses.\n>\n>   I have successfully put R-devel up on a machine, and then installed the \n> shortread package.  To start, I was trying to have a local library with the \n> add-ons, working with the installed R base on a shared server.  This was not a \n> straightforward exercise.\n>   \n>   A suggestion: much of my confusion was due to the fact that there were not any \n> manual pages for biocLite, bioinstall, etc; or at least no documentation that I \n> easily found.  So I tried the standard R install (no luck), and various other \n\nThe horse is out of the barn, but there is some documentation at\n\nhttp://bioconductor.org/install\n\nThe key to making 'install.packages' work is to use the appropriate\nrepositories, available with biocinstallRepos() once biocLite.R has\nbeen sourced. The idea of a message, e.g., 'See\nhttp://bioconductor.org/install for help' sounds good.\n\n> fruitless paths based on wrong guesses.  Sean's explanation of why biocLite does \n> what it does was helpful; I'd already guessed some of it by reading source code. \n> Perhaps the standard install of biocLite could finish with a message pointing \n> one to  a short 1-2 paragraph overview.  When it works biocLite is nice, but \n> when it doesn't there isn't much hint of where to begin.  It consistently \n> ignored my \"lib\" directive, for instance.  And from my reading of\n> the source\n\nHmm, more detail (off list, perhaps) might help, but the 'lib'\nargument gets passed to install.packages as expected, for me\n(sessionInfo() snippet below).  install.packages behavior is not\ntrivial when lib is provided.\n\n(My own approach is to set an environment variable R_LIBS. This gets\nincorporated into .libPaths(), and packages are installed and read\nfrom a consistent location across sessions, without explicitly\nproviding a 'lib' argument to biocLite).\n\n> code it wouldn't have helped in the end if it had paid attention -- there is, is \n> there not, an assumption that the \"stubs\" are in an include directory in the R \n> home tree, not the user's?\n   \nI don't think so. For instance, if IRanges is installed in\nR_HOME/library and Biostrings in /tmp/mydir, then ShortRead is\ncompiled with appropriate paths -- along the lines of\n\ngcc -std=gnu99 -I/home/mtmorgan/arch/x86_64/R-devel/include  \\\n    -I/usr/local/include \\\n    -I\"/home/mtmorgan/arch/x86_64/R-devel/include/IRanges/include\" \\\n    -I\"/tmp/mydir/Biostrings/include\" \\\n    -fpic  -g -O2 -c alphabet.c -o alphabet.o\n\nIt's complicated, though.\n\n> sessionInfo()\nR version 2.8.0 Under development (unstable) (2008-08-22 r46416) \nx86_64-unknown-linux-gnu \n\n>   I anticipate that the Solexa, and the threat of a couple more coming in soon, \n> will accelerate my familiarity with bioconductor.  The shortread package already \n> has repaid with interest for these install nuisances.\n\nAlways good to hear!\n\nMartin\n   \n>   \tTerry T.\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Terry --\n\nTerry Therneau <therneau at mayo.edu> writes:\n\n>  \n>   Thanks for all the responses.\n>\n>   I have successfully put R-devel up on a machine, and then installed the \n> shortread package.  T",
+      "thread_id": "thread-5347018c6a6f",
+      "thread_depth": 1,
+      "month": "2008-08"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-8b5ec6e14387",
+      "subject": "[Bioc-sig-seq] MINSEQE",
+      "message_count": 3,
+      "participants": [
+        "Cook, Malcolm",
+        "Martin Morgan",
+        "Wolfgang Huber"
+      ],
+      "started": "2008-08-03T20:20:59Z",
+      "last_reply": "2008-08-04T14:28:16Z",
+      "root_message_id": "msg-8b5ec6e14387"
+    },
+    {
+      "id": "thread-035d7d1e8759",
+      "subject": "[Bioc-sig-seq] new MINSEQE page",
+      "message_count": 1,
+      "participants": [
+        "Wolfgang Huber"
+      ],
+      "started": "2008-08-19T15:55:49Z",
+      "last_reply": "2008-08-19T15:55:49Z",
+      "root_message_id": "msg-035d7d1e8759"
+    },
+    {
+      "id": "thread-5a53940ea4dc",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "message_count": 6,
+      "participants": [
+        "Martin Morgan",
+        "Michael Lawrence",
+        "Patrick Aboyoun",
+        "Sean Davis",
+        "Terry Therneau"
+      ],
+      "started": "2008-08-22T15:40:57Z",
+      "last_reply": "2008-08-25T18:17:31Z",
+      "root_message_id": "msg-5a53940ea4dc"
+    },
+    {
+      "id": "thread-0668fb561300",
+      "subject": "[Bioc-sig-seq] Finding Restriction sites and gaps",
+      "message_count": 1,
+      "participants": [
+        "Charles C. Berry"
+      ],
+      "started": "2008-08-24T23:42:09Z",
+      "last_reply": "2008-08-24T23:42:09Z",
+      "root_message_id": "msg-0668fb561300"
+    },
+    {
+      "id": "thread-5347018c6a6f",
+      "subject": "[Bioc-sig-seq] Shortreads",
+      "message_count": 2,
+      "participants": [
+        "Martin Morgan",
+        "Terry Therneau"
+      ],
+      "started": "2008-08-25T18:48:39Z",
+      "last_reply": "2008-08-27T16:14:53Z",
+      "root_message_id": "msg-5347018c6a6f"
+    },
+    {
+      "id": "thread-ab2eaa3566d1",
+      "subject": "[Bioc-sig-seq] A modified readFASTA for reading 'quality fasta' files.",
+      "message_count": 1,
+      "participants": [
+        "Dan Bolser"
+      ],
+      "started": "2008-08-26T11:49:08Z",
+      "last_reply": "2008-08-26T11:49:08Z",
+      "root_message_id": "msg-ab2eaa3566d1"
+    }
+  ]
+}

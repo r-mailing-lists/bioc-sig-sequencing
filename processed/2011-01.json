@@ -1,0 +1,1100 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2011-01",
+  "messages": [
+    {
+      "id": "msg-9d07a0c2f6da",
+      "message_id": "<AANLkTintQ7+HnmDTrFaNJdD3+bB30bhD1LKJ2Kud5V0-@mail.gmail.com>",
+      "from_name": "Bogdan Tanasa",
+      "from_email_hash": "bc1b32bc2d214565b1d915961bd032024cecc368fb0f727c63da90509657992e",
+      "date": "2011-01-01T19:09:37Z",
+      "subject": "[Bioc-sig-seq] 2011",
+      "subject_clean": "[Bioc-sig-seq] 2011",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110101/ba37b6c8/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110101/ba37b6c8/attachment.pl>",
+      "thread_id": "thread-9d07a0c2f6da",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-3bd002231981",
+      "message_id": "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+      "from_name": "Gordon K Smyth",
+      "from_email_hash": "a978abba6e869c142fda92319a9ab9659112ab762e437af84e6581fe4481f132",
+      "date": "2011-01-03T03:36:52Z",
+      "subject": "[Bioc-sig-seq]  error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq]  error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>"
+      ],
+      "body_plain": "Dear Kirsten,\n\nThe error is arising in mglmOneGroup.  I have just updated the relevant, \ncode in edgeR version 2.0.3.  Can you try it and see if you get the same \nerror?\n\nWith regard to the warning message, I can't think of any reason why edgeR \nwould evaluate the Poisson density at a non-integer value if you have \nprovided integer values.  Have you checked that you have provided strictly \ninteger counts?  Try\n\n   data$counts <- round(data$counts)\n   data.cd = estimateCRDisp(data, design)\n\nto see if it makes any difference.  If it does, then the data you entered \nare not all integers.\n\nWe are planning to revise estimateCRDisp() quite a bit during the next \nmonth or so.\n\nBest wishes\nGordon\n\n> Date: Wed, 29 Dec 2010 15:39:01 -0500\n> From: <kristen.dang at syngenta.com>\n> To: <bioc-sig-sequencing at r-project.org>\n> Subject: [Bioc-sig-seq] error msg from edgeR estimateCRDisp\n>\n> Dear fellow edgeR users,\n>\n> I have an RNA-seq dataset with 2 factors and 24 samples (balanced) that \n> I am attempting to analyze with edgeR. I keep encountering the following \n> error when I use the estimateCRDisp function.\n>\n>> data.cd = estimateCRDisp(data, design)\n> Error in while (any(i)) { : missing value where TRUE/FALSE needed\n> In addition: There were 50 or more warnings (use warnings() to see the first 50)\n>> warnings()\n> Warning messages:\n> 1: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x = 530.381844\n> 2: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x = 676.500000\n> [etc]\n>\n>> traceback()\n> 3: mglmOneGroup(y, offset, dispersion)\n> 2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset = offset.mat.filt +\n>       lib.size.mat.filt)\n> 1: estimateCRDisp(data, design)\n>>\n>\n> I see why the \"dpois\" function is giving an error, but I am not sure why \n> a non-integer value is being sent to it. Any suggestions are greatly \n> appreciated.\n>\n>\n> Information about my session and commands follows:\n>\n> library(edgeR)\n> targets = read.csv(\"design_file.csv\")\n> targets$factor_a = factor(targets$factor_a)\n> targets$factor_b = factor(targets$factor_b)\n>\n> data = readDGE(targets)\n> data = calcNormFactors(data)\n>\n> contrasts(targets$factor_a) = contr.sum(2)\n> contrasts(targets$factor_b) = contr.sum(2)\n> design = model.matrix(~factor_a+factor_b, data = targets)\n> data.cd = estimateCRDisp(data, design)\n>\n>\n>> sessionInfo()\n> R version 2.12.0 (2010-10-15)\n> Platform: i386-pc-mingw32/i386 (32-bit)\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] edgeR_2.0.2\n>\n> loaded via a namespace (and not attached):\n> [1] limma_3.6.9  tools_2.12.0\n>\n>\n>\n> Kristen Dang, Ph.D.\n> Computational Biologist\n> Syngenta Biotechnology\n> Research Triangle Park, NC\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:4}}",
+      "body_snippet": "Dear Kirsten,\n\nThe error is arising in mglmOneGroup.  I have just updated the relevant, \ncode in edgeR version 2.0.3.  Can you try it and see if you get the same \nerror?\n\nWith regard to the warning me",
+      "thread_id": "thread-3bd002231981",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-51aad4d40da2",
+      "message_id": "<4D21B979.5010501@gmail.com>",
+      "from_name": "Laurent Gautier",
+      "from_email_hash": "bf804a19bca99afd3e8648a6bb32a7956ed8fcfdac81cf240f84fad273a2991e",
+      "date": "2011-01-03T11:56:41Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>"
+      ],
+      "body_plain": "Hi Gordon,\n\nWe seem to be experiencing the same issue here, although not originating \nfrom mglmOneGroup(), and edgeR-2.0.3 does not change the outcome:\n\n> dge_disp <- estimateCRDisp(dge_list, design)\nError in if (any(decr)) { : missing value where TRUE/FALSE needed\n> traceback()\n3: mglmLS(y, design, dispersion, offset = offset)\n2: adjustedProfileLik(spline.disp[i], y.select, design = design,\n        offset = offset.mat.select + lib.size.mat.select)\n1: estimateCRDisp(dge_list, design)\n> sessionInfo()\nR version 2.12.1 (2010-12-16)\nPlatform: x86_64-pc-linux-gnu (64-bit)\n\nlocale:\n[1] C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] edgeR_2.0.3\n\nloaded via a namespace (and not attached):\n[1] limma_3.6.9\n>\n\n\n\nBest,\n\n\nLaurent\n\n\n\nOn 1/3/11 4:36 AM, Gordon K Smyth wrote:\n> Dear Kirsten,\n>\n> The error is arising in mglmOneGroup. I have just updated the relevant,\n> code in edgeR version 2.0.3. Can you try it and see if you get the same\n> error?\n>\n> With regard to the warning message, I can't think of any reason why\n> edgeR would evaluate the Poisson density at a non-integer value if you\n> have provided integer values. Have you checked that you have provided\n> strictly integer counts? Try\n>\n> data$counts <- round(data$counts)\n> data.cd = estimateCRDisp(data, design)\n>\n> to see if it makes any difference. If it does, then the data you entered\n> are not all integers.\n>\n> We are planning to revise estimateCRDisp() quite a bit during the next\n> month or so.\n>\n> Best wishes\n> Gordon\n>\n>> Date: Wed, 29 Dec 2010 15:39:01 -0500\n>> From: <kristen.dang at syngenta.com>\n>> To: <bioc-sig-sequencing at r-project.org>\n>> Subject: [Bioc-sig-seq] error msg from edgeR estimateCRDisp\n>>\n>> Dear fellow edgeR users,\n>>\n>> I have an RNA-seq dataset with 2 factors and 24 samples (balanced)\n>> that I am attempting to analyze with edgeR. I keep encountering the\n>> following error when I use the estimateCRDisp function.\n>>\n>>> data.cd = estimateCRDisp(data, design)\n>> Error in while (any(i)) { : missing value where TRUE/FALSE needed\n>> In addition: There were 50 or more warnings (use warnings() to see the\n>> first 50)\n>>> warnings()\n>> Warning messages:\n>> 1: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>> 530.381844\n>> 2: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>> 676.500000\n>> [etc]\n>>\n>>> traceback()\n>> 3: mglmOneGroup(y, offset, dispersion)\n>> 2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset\n>> = offset.mat.filt +\n>> lib.size.mat.filt)\n>> 1: estimateCRDisp(data, design)\n>>>\n>>\n>> I see why the \"dpois\" function is giving an error, but I am not sure\n>> why a non-integer value is being sent to it. Any suggestions are\n>> greatly appreciated.\n>>\n>>\n>> Information about my session and commands follows:\n>>\n>> library(edgeR)\n>> targets = read.csv(\"design_file.csv\")\n>> targets$factor_a = factor(targets$factor_a)\n>> targets$factor_b = factor(targets$factor_b)\n>>\n>> data = readDGE(targets)\n>> data = calcNormFactors(data)\n>>\n>> contrasts(targets$factor_a) = contr.sum(2)\n>> contrasts(targets$factor_b) = contr.sum(2)\n>> design = model.matrix(~factor_a+factor_b, data = targets)\n>> data.cd = estimateCRDisp(data, design)\n>>\n>>\n>>> sessionInfo()\n>> R version 2.12.0 (2010-10-15)\n>> Platform: i386-pc-mingw32/i386 (32-bit)\n>>\n>> attached base packages:\n>> [1] stats graphics grDevices utils datasets methods base\n>>\n>> other attached packages:\n>> [1] edgeR_2.0.2\n>>\n>> loaded via a namespace (and not attached):\n>> [1] limma_3.6.9 tools_2.12.0\n>>\n>>\n>>\n>> Kristen Dang, Ph.D.\n>> Computational Biologist\n>> Syngenta Biotechnology\n>> Research Triangle Park, NC\n>\n> ______________________________________________________________________\n> The information in this email is confidential and inte...{{dropped:8}}",
+      "body_snippet": "Hi Gordon,\n\nWe seem to be experiencing the same issue here, although not originating \nfrom mglmOneGroup(), and edgeR-2.0.3 does not change the outcome:\n\n> dge_disp <- estimateCRDisp(dge_list, design)\n",
+      "thread_id": "thread-3bd002231981",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-1d0c8b850112",
+      "message_id": "<B4E038096093394CBFEBF30AE6F593CF08744C8591@USETCMSXMB02.NAFTA.SYNGENTA.ORG>",
+      "from_name": "kristen.dang at syngenta.com",
+      "from_email_hash": "d3f68eac7a1942429b9ea19ba51db1c72f210c86c986caebb4dc2b0da160b880",
+      "date": "2011-01-03T17:45:51Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<4D21B940.2080405@cbs.dtu.dk>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>"
+      ],
+      "body_plain": "Dear Gordon,\nMany thanks for your reply.\n\nI apologize, but I cannot find where to download version 2.0.3 of edgeR. I can only find 2.0.2 on the bioconductor site. Would you point me to the appropriate location?\n\nThank you for suggesting the rounding -- I had forgotten that the count data provided to me included decimals. However, after adding the rounding, I get a new error from the estimateCRDisp function:\n\n> data = readDGE(targets)\n> data$counts = round(data$counts)\n> data = calcNormFactors(data)\n> contrasts(targets$factor_a) = contr.sum(2)\n> contrasts(targets$factor_b) = contr.sum(2)\n> design = model.matrix(~factor_a + factor_b, data = targets)\n> data.cd = estimateCRDisp(data, design)\nError in chol.default(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion *  :\n  the leading minor of order 4 is not positive definite\n\n> traceback()\n5: .Call(\"La_chol\", as.matrix(x), PACKAGE = \"base\")\n4: chol.default(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion *\n       mu[i, ]), design)))\n3: chol(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion * mu[i,\n       ]), design)))\n2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset = offset.mat.filt +\n       lib.size.mat.filt)\n1: estimateCRDisp(data, design)\n>\n\nAny suggestions are much appreciated.\n\nRegards,\nKristen Dang\n\n\n\nmessage may contain confidential information. If you are not the designated recipient, please notify the sender immediately, and delete the original and any copies. Any use of the message by you is prohibited.",
+      "body_snippet": "Dear Gordon,\nMany thanks for your reply.\n\nI apologize, but I cannot find where to download version 2.0.3 of edgeR. I can only find 2.0.2 on the bioconductor site. Would you point me to the appropriate",
+      "thread_id": "thread-1d0c8b850112",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-b7e13d0a0c3f",
+      "message_id": "<4D221A01.2050405@cbs.dtu.dk>",
+      "from_name": "Laurent Gautier",
+      "from_email_hash": "a635fda8fe847a9175681499def119bd7b4c4ecd093e8b5891bc2511b24c6588",
+      "date": "2011-01-03T18:48:33Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<B4E038096093394CBFEBF30AE6F593CF08744C8591@USETCMSXMB02.NAFTA.SYNGENTA.ORG>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>",
+        "<B4E038096093394CBFEBF30AE6F593CF08744C8591@USETCMSXMB02.NAFTA.SYNGENTA.ORG>"
+      ],
+      "body_plain": "On 1/3/11 6:45 PM, kristen.dang at syngenta.com wrote:\n> Dear Gordon,\n> Many thanks for your reply.\n>\n> I apologize, but I cannot find where to download version 2.0.3 of edgeR. I can only find 2.0.2 on the bioconductor site. Would you point me to the appropriate location?\n\nThe build bots have not done it yet (at least they did not when I \nchecked). You can fetch it from the code repository/\n\nsvn --username readonly --password readonly co \nhttps://hedgehog.fhcrc.org/bioconductor/branches/RELEASE_2_7/madman/Rpacks/edgeR\n\n\n\nL.\n> Thank you for suggesting the rounding -- I had forgotten that the count data provided to me included decimals. However, after adding the rounding, I get a new error from the estimateCRDisp function:\n>\n>> data = readDGE(targets)\n>> data$counts = round(data$counts)\n>> data = calcNormFactors(data)\n>> contrasts(targets$factor_a) = contr.sum(2)\n>> contrasts(targets$factor_b) = contr.sum(2)\n>> design = model.matrix(~factor_a + factor_b, data = targets)\n>> data.cd = estimateCRDisp(data, design)\n> Error in chol.default(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion *  :\n>    the leading minor of order 4 is not positive definite\n>\n>> traceback()\n> 5: .Call(\"La_chol\", as.matrix(x), PACKAGE = \"base\")\n> 4: chol.default(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion *\n>         mu[i, ]), design)))\n> 3: chol(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion * mu[i,\n>         ]), design)))\n> 2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset = offset.mat.filt +\n>         lib.size.mat.filt)\n> 1: estimateCRDisp(data, design)\n> Any suggestions are much appreciated.\n>\n> Regards,\n> Kristen Dang\n>\n>\n>\n> message may contain confidential information. If you are not the designated recipient, please notify the sender immediately, and delete the original and any copies. Any use of the message by you is prohibited.\n>",
+      "body_snippet": "On 1/3/11 6:45 PM, kristen.dang at syngenta.com wrote:\n> Dear Gordon,\n> Many thanks for your reply.\n>\n> I apologize, but I cannot find where to download version 2.0.3 of edgeR. I can only find 2.0.2 o",
+      "thread_id": "thread-1d0c8b850112",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-455a53e60343",
+      "message_id": "<1916187955.3301.1294081988379.JavaMail.root@zimbra4.fhcrc.org>",
+      "from_name": "Wong, Chao-Jen",
+      "from_email_hash": "ecec871215abbc4f31e68a840ff2fe587a04631d0a18a0d3449b28c7dea6cc7c",
+      "date": "2011-01-03T19:13:08Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<B4E038096093394CBFEBF30AE6F593CF08744C8591@USETCMSXMB02.NAFTA.SYNGENTA.ORG>",
+      "references": [],
+      "body_plain": "Hi, Kristen,\n\nYou can find the newest version of edgeR here:\n\nhttp://bioconductor.org/help/bioc-views/2.8/bioc/html/edgeR.html\n\nYou can either manually install edgeR 2.1.4 or use the biocLite function if you are using R 2.13.\n\nChao-Jen\n----- Original Message -----\nFrom: \"kristen dang\" <kristen.dang at syngenta.com>\nTo: smyth at wehi.EDU.AU\nCc: laurent at cbs.dtu.dk, bioc-sig-sequencing at r-project.org\nSent: Monday, January 3, 2011 9:45:51 AM\nSubject: [Bioc-sig-seq] error msg from edgeR estimateCRDisp\n\nDear Gordon,\nMany thanks for your reply.\n\nI apologize, but I cannot find where to download version 2.0.3 of edgeR. I can only find 2.0.2 on the bioconductor site. Would you point me to the appropriate location?\n\nThank you for suggesting the rounding -- I had forgotten that the count data provided to me included decimals. However, after adding the rounding, I get a new error from the estimateCRDisp function:\n\n> data = readDGE(targets)\n> data$counts = round(data$counts)\n> data = calcNormFactors(data)\n> contrasts(targets$factor_a) = contr.sum(2)\n> contrasts(targets$factor_b) = contr.sum(2)\n> design = model.matrix(~factor_a + factor_b, data = targets)\n> data.cd = estimateCRDisp(data, design)\nError in chol.default(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion *  :\n  the leading minor of order 4 is not positive definite\n\n> traceback()\n5: .Call(\"La_chol\", as.matrix(x), PACKAGE = \"base\")\n4: chol.default(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion *\n       mu[i, ]), design)))\n3: chol(crossprod(design, .vecmat(mu[i, ]/(1 + dispersion * mu[i,\n       ]), design)))\n2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset = offset.mat.filt +\n       lib.size.mat.filt)\n1: estimateCRDisp(data, design)\n>\n\nAny suggestions are much appreciated.\n\nRegards,\nKristen Dang\n\n\n\nmessage may contain confidential information. If you are not the designated recipient, please notify the sender immediately, and delete the original and any copies. Any use of the message by you is prohibited. \n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nChao-Jen Wong \nProgram in Computational Biology \nDivision of Public Health Sciences \nFred Hutchinson Cancer Research Center \n1100 Fairview Avenue N., M1-B514 \nPO Box 19024 \nSeattle, WA 98109 \n206.667.4485 \ncwon2 at fhcrc.org",
+      "body_snippet": "Hi, Kristen,\n\nYou can find the newest version of edgeR here:\n\nhttp://bioconductor.org/help/bioc-views/2.8/bioc/html/edgeR.html\n\nYou can either manually install edgeR 2.1.4 or use the biocLite function",
+      "thread_id": "thread-1d0c8b850112",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-9e87a993b1b2",
+      "message_id": "<Pine.WNT.4.64.1101040953170.6088@PC602.wehi.edu.au>",
+      "from_name": "Gordon K Smyth",
+      "from_email_hash": "a978abba6e869c142fda92319a9ab9659112ab762e437af84e6581fe4481f132",
+      "date": "2011-01-03T22:54:58Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<4D21B940.2080405@cbs.dtu.dk>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>"
+      ],
+      "body_plain": "Hi Laurent,\n\nCould you possibly send me a data example?\n\nRegards\nGordon\n\nOn Mon, 3 Jan 2011, Laurent Gautier wrote:\n\n> Hi Gordon,\n>\n> We seem to be experiencing the same issue here, although not originating from \n> mglmOneGroup(), and edgeR-2.0.3 does not change the outcome:\n>\n>> dge_disp <- estimateCRDisp(dge_list, design)\n> Error in if (any(decr)) { : missing value where TRUE/FALSE needed\n>> traceback()\n> 3: mglmLS(y, design, dispersion, offset = offset)\n> 2: adjustedProfileLik(spline.disp[i], y.select, design = design,\n>       offset = offset.mat.select + lib.size.mat.select)\n> 1: estimateCRDisp(dge_list, design)\n>> sessionInfo()\n> R version 2.12.1 (2010-12-16)\n> Platform: x86_64-pc-linux-gnu (64-bit)\n>\n> locale:\n> [1] C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] edgeR_2.0.3\n>\n> loaded via a namespace (and not attached):\n> [1] limma_3.6.9\n>>\n>\n>\n>\n> Best,\n>\n>\n> Laurent\n>\n>\n>\n> On 1/3/11 4:36 AM, Gordon K Smyth wrote:\n>> Dear Kirsten,\n>> \n>> The error is arising in mglmOneGroup. I have just updated the relevant,\n>> code in edgeR version 2.0.3. Can you try it and see if you get the same\n>> error?\n>> \n>> With regard to the warning message, I can't think of any reason why\n>> edgeR would evaluate the Poisson density at a non-integer value if you\n>> have provided integer values. Have you checked that you have provided\n>> strictly integer counts? Try\n>> \n>> data$counts <- round(data$counts)\n>> data.cd = estimateCRDisp(data, design)\n>> \n>> to see if it makes any difference. If it does, then the data you entered\n>> are not all integers.\n>> \n>> We are planning to revise estimateCRDisp() quite a bit during the next\n>> month or so.\n>> \n>> Best wishes\n>> Gordon\n>> \n>>> Date: Wed, 29 Dec 2010 15:39:01 -0500\n>>> From: <kristen.dang at syngenta.com>\n>>> To: <bioc-sig-sequencing at r-project.org>\n>>> Subject: [Bioc-sig-seq] error msg from edgeR estimateCRDisp\n>>> \n>>> Dear fellow edgeR users,\n>>> \n>>> I have an RNA-seq dataset with 2 factors and 24 samples (balanced)\n>>> that I am attempting to analyze with edgeR. I keep encountering the\n>>> following error when I use the estimateCRDisp function.\n>>> \n>>>> data.cd = estimateCRDisp(data, design)\n>>> Error in while (any(i)) { : missing value where TRUE/FALSE needed\n>>> In addition: There were 50 or more warnings (use warnings() to see the\n>>> first 50)\n>>>> warnings()\n>>> Warning messages:\n>>> 1: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>>> 530.381844\n>>> 2: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>>> 676.500000\n>>> [etc]\n>>> \n>>>> traceback()\n>>> 3: mglmOneGroup(y, offset, dispersion)\n>>> 2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset\n>>> = offset.mat.filt +\n>>> lib.size.mat.filt)\n>>> 1: estimateCRDisp(data, design)\n>>>> \n>>> \n>>> I see why the \"dpois\" function is giving an error, but I am not sure\n>>> why a non-integer value is being sent to it. Any suggestions are\n>>> greatly appreciated.\n>>> \n>>> \n>>> Information about my session and commands follows:\n>>> \n>>> library(edgeR)\n>>> targets = read.csv(\"design_file.csv\")\n>>> targets$factor_a = factor(targets$factor_a)\n>>> targets$factor_b = factor(targets$factor_b)\n>>> \n>>> data = readDGE(targets)\n>>> data = calcNormFactors(data)\n>>> \n>>> contrasts(targets$factor_a) = contr.sum(2)\n>>> contrasts(targets$factor_b) = contr.sum(2)\n>>> design = model.matrix(~factor_a+factor_b, data = targets)\n>>> data.cd = estimateCRDisp(data, design)\n>>> \n>>> \n>>>> sessionInfo()\n>>> R version 2.12.0 (2010-10-15)\n>>> Platform: i386-pc-mingw32/i386 (32-bit)\n>>> \n>>> attached base packages:\n>>> [1] stats graphics grDevices utils datasets methods base\n>>> \n>>> other attached packages:\n>>> [1] edgeR_2.0.2\n>>> \n>>> loaded via a namespace (and not attached):\n>>> [1] limma_3.6.9 tools_2.12.0\n>>> \n>>> \n>>> \n>>> Kristen Dang, Ph.D.\n>>> Computational Biologist\n>>> Syngenta Biotechnology\n>>> Research Triangle Park, NC\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:4}}",
+      "body_snippet": "Hi Laurent,\n\nCould you possibly send me a data example?\n\nRegards\nGordon\n\nOn Mon, 3 Jan 2011, Laurent Gautier wrote:\n\n> Hi Gordon,\n>\n> We seem to be experiencing the same issue here, although not origi",
+      "thread_id": "thread-9e87a993b1b2",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-6904b0b668c1",
+      "message_id": "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-05T20:12:58Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello BioC listers,\n\nIs there a function that will take a list of RangedData instances and\nconsolidate them into a large RangedData instance?\n\nI'm looking for this:\n\nbigRangedData <- someFunction( LargeListOfSmallRangedData )\n\nThank you,\n\nIvan",
+      "body_snippet": "Hello BioC listers,\n\nIs there a function that will take a list of RangedData instances and\nconsolidate them into a large RangedData instance?\n\nI'm looking for this:\n\nbigRangedData <- someFunction( Lar",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-413217b07329",
+      "message_id": "<4D24D35D.2010408@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2011-01-05T20:23:57Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>"
+      ],
+      "body_plain": "On 01/05/2011 12:12 PM, Ivan Gregoretti wrote:\n> Hello BioC listers,\n> \n> Is there a function that will take a list of RangedData instances and\n> consolidate them into a large RangedData instance?\n\ndo.call(rbind, LargeListOfSmallRangedData)\n\n?\nMartin\n> \n> I'm looking for this:\n> \n> bigRangedData <- someFunction( LargeListOfSmallRangedData )\n> \n> Thank you,\n> \n> Ivan\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 01/05/2011 12:12 PM, Ivan Gregoretti wrote:\n> Hello BioC listers,\n> \n> Is there a function that will take a list of RangedData instances and\n> consolidate them into a large RangedData instance?\n\ndo",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-33a58bb91548",
+      "message_id": "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-05T20:45:11Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<4D24D35D.2010408@fhcrc.org>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>"
+      ],
+      "body_plain": "It works. Thanks, Martin.\n\nIt would be nice to have a pointer to this functionality in the\ndocumentation. For instance, when I do ?RangedData, I can see a\nRangedData constructor and coercion options. However, ?RangedDataList\nreports its constructor but no coercion.\n\nAgain, thank you.\n\nIvan\n\n\n\n\nOn Wed, Jan 5, 2011 at 3:23 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:\n> On 01/05/2011 12:12 PM, Ivan Gregoretti wrote:\n>> Hello BioC listers,\n>>\n>> Is there a function that will take a list of RangedData instances and\n>> consolidate them into a large RangedData instance?\n>\n> do.call(rbind, LargeListOfSmallRangedData)\n>\n> ?\n> Martin\n>>\n>> I'm looking for this:\n>>\n>> bigRangedData <- someFunction( LargeListOfSmallRangedData )\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n> --\n> Computational Biology\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>\n> Location: M1-B861\n> Telephone: 206 667-2793\n>",
+      "body_snippet": "It works. Thanks, Martin.\n\nIt would be nice to have a pointer to this functionality in the\ndocumentation. For instance, when I do ?RangedData, I can see a\nRangedData constructor and coercion options. ",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 2,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-8a42ea72fe76",
+      "message_id": "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-01-05T21:05:12Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110105/b6b433fe/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110105/b6b433fe/attachment.pl>",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 3,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-a29a0c1e8312",
+      "message_id": "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-05T21:13:59Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Michael,\n\nActually, I tried consolidating the list with stack() but I failed.\nPerhaps there is no need to change anything but only show how the\nconsolidation is done with stack().\n\nWould you mind showing it for the record?\n\nThank you,\n\nIvan\n\n\n\n\nOn Wed, Jan 5, 2011 at 4:05 PM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n>\n>\n> On Wed, Jan 5, 2011 at 12:45 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>>\n>> It works. Thanks, Martin.\n>>\n>> It would be nice to have a pointer to this functionality in the\n>> documentation. For instance, when I do ?RangedData, I can see a\n>> RangedData constructor and coercion options. However, ?RangedDataList\n>> reports its constructor but no coercion.\n>>\n>\n> It's not a coercion in the strict sense. The rbind method is documented for\n> RangedData. Also, RangedDataList has a stack method for rbind'ing them and\n> adding a factor column indicating the source of each record. The \"unlist\"\n> method on RangedDataList is a bit strange: it does a do.call(c, list)\n> instead of do.call(rbind, list). I'm thinking about changing that.\n>\n> Michael\n>\n>>\n>> Again, thank you.\n>>\n>> Ivan\n>>\n>>\n>>\n>>\n>> On Wed, Jan 5, 2011 at 3:23 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:\n>> > On 01/05/2011 12:12 PM, Ivan Gregoretti wrote:\n>> >> Hello BioC listers,\n>> >>\n>> >> Is there a function that will take a list of RangedData instances and\n>> >> consolidate them into a large RangedData instance?\n>> >\n>> > do.call(rbind, LargeListOfSmallRangedData)\n>> >\n>> > ?\n>> > Martin\n>> >>\n>> >> I'm looking for this:\n>> >>\n>> >> bigRangedData <- someFunction( LargeListOfSmallRangedData )\n>> >>\n>> >> Thank you,\n>> >>\n>> >> Ivan\n>> >>\n>> >> _______________________________________________\n>> >> Bioc-sig-sequencing mailing list\n>> >> Bioc-sig-sequencing at r-project.org\n>> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >\n>> >\n>> > --\n>> > Computational Biology\n>> > Fred Hutchinson Cancer Research Center\n>> > 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>> >\n>> > Location: M1-B861\n>> > Telephone: 206 667-2793\n>> >\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>",
+      "body_snippet": "Hi Michael,\n\nActually, I tried consolidating the list with stack() but I failed.\nPerhaps there is no need to change anything but only show how the\nconsolidation is done with stack().\n\nWould you mind s",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 4,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-ba5e0cb8c458",
+      "message_id": "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-01-05T21:51:07Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110105/3a23869f/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110105/3a23869f/attachment.pl>",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 5,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-aea933fa2e48",
+      "message_id": "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-05T22:08:05Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>"
+      ],
+      "body_plain": "I tried to use it to the best of my understanding:\n\nstack(LargeListOfSmallRangedData, indName='space')\n\nI think that the failure is due to misuse from my part rather than a bug.\n\nIvan\n\n\n\n\nOn Wed, Jan 5, 2011 at 4:51 PM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n> Well it would be good to see what you tried. I think there are some critical\n> bug fixes to stack in devel, but not release, so I would try with devel.\n>\n> Michael\n>\n> On Wed, Jan 5, 2011 at 1:13 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>>\n>> Hi Michael,\n>>\n>> Actually, I tried consolidating the list with stack() but I failed.\n>> Perhaps there is no need to change anything but only show how the\n>> consolidation is done with stack().\n>>\n>> Would you mind showing it for the record?\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>\n>>\n>>\n>> On Wed, Jan 5, 2011 at 4:05 PM, Michael Lawrence\n>> <lawrence.michael at gene.com> wrote:\n>> >\n>> >\n>> > On Wed, Jan 5, 2011 at 12:45 PM, Ivan Gregoretti <ivangreg at gmail.com>\n>> > wrote:\n>> >>\n>> >> It works. Thanks, Martin.\n>> >>\n>> >> It would be nice to have a pointer to this functionality in the\n>> >> documentation. For instance, when I do ?RangedData, I can see a\n>> >> RangedData constructor and coercion options. However, ?RangedDataList\n>> >> reports its constructor but no coercion.\n>> >>\n>> >\n>> > It's not a coercion in the strict sense. The rbind method is documented\n>> > for\n>> > RangedData. Also, RangedDataList has a stack method for rbind'ing them\n>> > and\n>> > adding a factor column indicating the source of each record. The\n>> > \"unlist\"\n>> > method on RangedDataList is a bit strange: it does a do.call(c, list)\n>> > instead of do.call(rbind, list). I'm thinking about changing that.\n>> >\n>> > Michael\n>> >\n>> >>\n>> >> Again, thank you.\n>> >>\n>> >> Ivan\n>> >>\n>> >>\n>> >>\n>> >>\n>> >> On Wed, Jan 5, 2011 at 3:23 PM, Martin Morgan <mtmorgan at fhcrc.org>\n>> >> wrote:\n>> >> > On 01/05/2011 12:12 PM, Ivan Gregoretti wrote:\n>> >> >> Hello BioC listers,\n>> >> >>\n>> >> >> Is there a function that will take a list of RangedData instances\n>> >> >> and\n>> >> >> consolidate them into a large RangedData instance?\n>> >> >\n>> >> > do.call(rbind, LargeListOfSmallRangedData)\n>> >> >\n>> >> > ?\n>> >> > Martin\n>> >> >>\n>> >> >> I'm looking for this:\n>> >> >>\n>> >> >> bigRangedData <- someFunction( LargeListOfSmallRangedData )\n>> >> >>\n>> >> >> Thank you,\n>> >> >>\n>> >> >> Ivan\n>> >> >>\n>> >> >> _______________________________________________\n>> >> >> Bioc-sig-sequencing mailing list\n>> >> >> Bioc-sig-sequencing at r-project.org\n>> >> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >> >\n>> >> >\n>> >> > --\n>> >> > Computational Biology\n>> >> > Fred Hutchinson Cancer Research Center\n>> >> > 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>> >> >\n>> >> > Location: M1-B861\n>> >> > Telephone: 206 667-2793\n>> >> >\n>> >>\n>> >> _______________________________________________\n>> >> Bioc-sig-sequencing mailing list\n>> >> Bioc-sig-sequencing at r-project.org\n>> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >\n>> >\n>\n>",
+      "body_snippet": "I tried to use it to the best of my understanding:\n\nstack(LargeListOfSmallRangedData, indName='space')\n\nI think that the failure is due to misuse from my part rather than a bug.\n\nIvan\n\n\n\n\nOn Wed, Jan ",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 6,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-d12bcb5c1353",
+      "message_id": "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-01-05T22:11:52Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+        "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110105/c80d6d41/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110105/c80d6d41/attachment.pl>",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 7,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-d83025c5843d",
+      "message_id": "<Pine.WNT.4.64.1101061106130.5736@PC602.wehi.edu.au>",
+      "from_name": "Gordon K Smyth",
+      "from_email_hash": "a978abba6e869c142fda92319a9ab9659112ab762e437af84e6581fe4481f132",
+      "date": "2011-01-06T00:08:22Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<4D21B940.2080405@cbs.dtu.dk>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>"
+      ],
+      "body_plain": "Dear Kristen and Laurent,\n\nA possible (likely) explanation for the error is that your design matrix \nisn't of full column rank.  Can you please check this:\n\n   library(limma)\n   is.fullrank(design)\n\nBest wishes\nGordon\n\n\nOn Mon, 3 Jan 2011, Laurent Gautier wrote:\n\n> Hi Gordon,\n>\n> We seem to be experiencing the same issue here, although not originating from \n> mglmOneGroup(), and edgeR-2.0.3 does not change the outcome:\n>\n>> dge_disp <- estimateCRDisp(dge_list, design)\n> Error in if (any(decr)) { : missing value where TRUE/FALSE needed\n>> traceback()\n> 3: mglmLS(y, design, dispersion, offset = offset)\n> 2: adjustedProfileLik(spline.disp[i], y.select, design = design,\n>       offset = offset.mat.select + lib.size.mat.select)\n> 1: estimateCRDisp(dge_list, design)\n>> sessionInfo()\n> R version 2.12.1 (2010-12-16)\n> Platform: x86_64-pc-linux-gnu (64-bit)\n>\n> locale:\n> [1] C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] edgeR_2.0.3\n>\n> loaded via a namespace (and not attached):\n> [1] limma_3.6.9\n>>\n>\n>\n>\n> Best,\n>\n>\n> Laurent\n>\n>\n>\n> On 1/3/11 4:36 AM, Gordon K Smyth wrote:\n>> Dear Kirsten,\n>> \n>> The error is arising in mglmOneGroup. I have just updated the relevant,\n>> code in edgeR version 2.0.3. Can you try it and see if you get the same\n>> error?\n>> \n>> With regard to the warning message, I can't think of any reason why\n>> edgeR would evaluate the Poisson density at a non-integer value if you\n>> have provided integer values. Have you checked that you have provided\n>> strictly integer counts? Try\n>> \n>> data$counts <- round(data$counts)\n>> data.cd = estimateCRDisp(data, design)\n>> \n>> to see if it makes any difference. If it does, then the data you entered\n>> are not all integers.\n>> \n>> We are planning to revise estimateCRDisp() quite a bit during the next\n>> month or so.\n>> \n>> Best wishes\n>> Gordon\n>> \n>>> Date: Wed, 29 Dec 2010 15:39:01 -0500\n>>> From: <kristen.dang at syngenta.com>\n>>> To: <bioc-sig-sequencing at r-project.org>\n>>> Subject: [Bioc-sig-seq] error msg from edgeR estimateCRDisp\n>>> \n>>> Dear fellow edgeR users,\n>>> \n>>> I have an RNA-seq dataset with 2 factors and 24 samples (balanced)\n>>> that I am attempting to analyze with edgeR. I keep encountering the\n>>> following error when I use the estimateCRDisp function.\n>>> \n>>>> data.cd = estimateCRDisp(data, design)\n>>> Error in while (any(i)) { : missing value where TRUE/FALSE needed\n>>> In addition: There were 50 or more warnings (use warnings() to see the\n>>> first 50)\n>>>> warnings()\n>>> Warning messages:\n>>> 1: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>>> 530.381844\n>>> 2: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>>> 676.500000\n>>> [etc]\n>>> \n>>>> traceback()\n>>> 3: mglmOneGroup(y, offset, dispersion)\n>>> 2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset\n>>> = offset.mat.filt +\n>>> lib.size.mat.filt)\n>>> 1: estimateCRDisp(data, design)\n>>>> \n>>> \n>>> I see why the \"dpois\" function is giving an error, but I am not sure\n>>> why a non-integer value is being sent to it. Any suggestions are\n>>> greatly appreciated.\n>>> \n>>> \n>>> Information about my session and commands follows:\n>>> \n>>> library(edgeR)\n>>> targets = read.csv(\"design_file.csv\")\n>>> targets$factor_a = factor(targets$factor_a)\n>>> targets$factor_b = factor(targets$factor_b)\n>>> \n>>> data = readDGE(targets)\n>>> data = calcNormFactors(data)\n>>> \n>>> contrasts(targets$factor_a) = contr.sum(2)\n>>> contrasts(targets$factor_b) = contr.sum(2)\n>>> design = model.matrix(~factor_a+factor_b, data = targets)\n>>> data.cd = estimateCRDisp(data, design)\n>>> \n>>> \n>>>> sessionInfo()\n>>> R version 2.12.0 (2010-10-15)\n>>> Platform: i386-pc-mingw32/i386 (32-bit)\n>>> \n>>> attached base packages:\n>>> [1] stats graphics grDevices utils datasets methods base\n>>> \n>>> other attached packages:\n>>> [1] edgeR_2.0.2\n>>> \n>>> loaded via a namespace (and not attached):\n>>> [1] limma_3.6.9 tools_2.12.0\n>>> \n>>> \n>>> \n>>> Kristen Dang, Ph.D.\n>>> Computational Biologist\n>>> Syngenta Biotechnology\n>>> Research Triangle Park, NC\n>> \n>> ______________________________________________________________________\n>> The information in this email is confidential and intend...{{dropped:4}}\n>> \n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n>\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:4}}",
+      "body_snippet": "Dear Kristen and Laurent,\n\nA possible (likely) explanation for the error is that your design matrix \nisn't of full column rank.  Can you please check this:\n\n   library(limma)\n   is.fullrank(design)\n\nB",
+      "thread_id": "thread-d83025c5843d",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-18533f0ed5d9",
+      "message_id": "<4D256591.6060908@cbs.dtu.dk>",
+      "from_name": "Laurent Gautier",
+      "from_email_hash": "a635fda8fe847a9175681499def119bd7b4c4ecd093e8b5891bc2511b24c6588",
+      "date": "2011-01-06T06:47:45Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<Pine.WNT.4.64.1101061106130.5736@PC602.wehi.edu.au>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>",
+        "<Pine.WNT.4.64.1101061106130.5736@PC602.wehi.edu.au>"
+      ],
+      "body_plain": "On 1/6/11 1:08 AM, Gordon K Smyth wrote:\n> Dear Kristen and Laurent,\n>\n> A possible (likely) explanation for the error is that your design \n> matrix isn't of full column rank.  Can you please check this:\n>\n>   library(limma)\n>   is.fullrank(design)\nThanks. It was the case here.\nFuture versions of estimateCRDisp() could test that and report an \ninformative error message.\n\n\nBest,\n\n\nLaurent\n\n> Best wishes\n> Gordon\n>\n>\n> On Mon, 3 Jan 2011, Laurent Gautier wrote:\n>\n>> Hi Gordon,\n>>\n>> We seem to be experiencing the same issue here, although not \n>> originating from mglmOneGroup(), and edgeR-2.0.3 does not change the \n>> outcome:\n>>\n>>> dge_disp <- estimateCRDisp(dge_list, design)\n>> Error in if (any(decr)) { : missing value where TRUE/FALSE needed\n>>> traceback()\n>> 3: mglmLS(y, design, dispersion, offset = offset)\n>> 2: adjustedProfileLik(spline.disp[i], y.select, design = design,\n>>       offset = offset.mat.select + lib.size.mat.select)\n>> 1: estimateCRDisp(dge_list, design)\n>>> sessionInfo()\n>> R version 2.12.1 (2010-12-16)\n>> Platform: x86_64-pc-linux-gnu (64-bit)\n>>\n>> locale:\n>> [1] C\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] edgeR_2.0.3\n>>\n>> loaded via a namespace (and not attached):\n>> [1] limma_3.6.9\n>>>\n>>\n>>\n>>\n>> Best,\n>>\n>>\n>> Laurent\n>>\n>>\n>>\n>> On 1/3/11 4:36 AM, Gordon K Smyth wrote:\n>>> Dear Kirsten,\n>>>\n>>> The error is arising in mglmOneGroup. I have just updated the relevant,\n>>> code in edgeR version 2.0.3. Can you try it and see if you get the same\n>>> error?\n>>>\n>>> With regard to the warning message, I can't think of any reason why\n>>> edgeR would evaluate the Poisson density at a non-integer value if you\n>>> have provided integer values. Have you checked that you have provided\n>>> strictly integer counts? Try\n>>>\n>>> data$counts <- round(data$counts)\n>>> data.cd = estimateCRDisp(data, design)\n>>>\n>>> to see if it makes any difference. If it does, then the data you \n>>> entered\n>>> are not all integers.\n>>>\n>>> We are planning to revise estimateCRDisp() quite a bit during the next\n>>> month or so.\n>>>\n>>> Best wishes\n>>> Gordon\n>>>\n>>>> Date: Wed, 29 Dec 2010 15:39:01 -0500\n>>>> From: <kristen.dang at syngenta.com>\n>>>> To: <bioc-sig-sequencing at r-project.org>\n>>>> Subject: [Bioc-sig-seq] error msg from edgeR estimateCRDisp\n>>>>\n>>>> Dear fellow edgeR users,\n>>>>\n>>>> I have an RNA-seq dataset with 2 factors and 24 samples (balanced)\n>>>> that I am attempting to analyze with edgeR. I keep encountering the\n>>>> following error when I use the estimateCRDisp function.\n>>>>\n>>>>> data.cd = estimateCRDisp(data, design)\n>>>> Error in while (any(i)) { : missing value where TRUE/FALSE needed\n>>>> In addition: There were 50 or more warnings (use warnings() to see the\n>>>> first 50)\n>>>>> warnings()\n>>>> Warning messages:\n>>>> 1: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>>>> 530.381844\n>>>> 2: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x =\n>>>> 676.500000\n>>>> [etc]\n>>>>\n>>>>> traceback()\n>>>> 3: mglmOneGroup(y, offset, dispersion)\n>>>> 2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset\n>>>> = offset.mat.filt +\n>>>> lib.size.mat.filt)\n>>>> 1: estimateCRDisp(data, design)\n>>>>>\n>>>>\n>>>> I see why the \"dpois\" function is giving an error, but I am not sure\n>>>> why a non-integer value is being sent to it. Any suggestions are\n>>>> greatly appreciated.\n>>>>\n>>>>\n>>>> Information about my session and commands follows:\n>>>>\n>>>> library(edgeR)\n>>>> targets = read.csv(\"design_file.csv\")\n>>>> targets$factor_a = factor(targets$factor_a)\n>>>> targets$factor_b = factor(targets$factor_b)\n>>>>\n>>>> data = readDGE(targets)\n>>>> data = calcNormFactors(data)\n>>>>\n>>>> contrasts(targets$factor_a) = contr.sum(2)\n>>>> contrasts(targets$factor_b) = contr.sum(2)\n>>>> design = model.matrix(~factor_a+factor_b, data = targets)\n>>>> data.cd = estimateCRDisp(data, design)\n>>>>\n>>>>\n>>>>> sessionInfo()\n>>>> R version 2.12.0 (2010-10-15)\n>>>> Platform: i386-pc-mingw32/i386 (32-bit)\n>>>>\n>>>> attached base packages:\n>>>> [1] stats graphics grDevices utils datasets methods base\n>>>>\n>>>> other attached packages:\n>>>> [1] edgeR_2.0.2\n>>>>\n>>>> loaded via a namespace (and not attached):\n>>>> [1] limma_3.6.9 tools_2.12.0\n>>>>\n>>>>\n>>>>\n>>>> Kristen Dang, Ph.D.\n>>>> Computational Biologist\n>>>> Syngenta Biotechnology\n>>>> Research Triangle Park, NC\n>>>\n>>> ______________________________________________________________________\n>>> The information in this email is confidential and \n>>> intend...{{dropped:4}}\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>>\n>>\n>\n> ______________________________________________________________________\n> The information in this email is confidential and inte...{{dropped:7}}",
+      "body_snippet": "On 1/6/11 1:08 AM, Gordon K Smyth wrote:\n> Dear Kristen and Laurent,\n>\n> A possible (likely) explanation for the error is that your design \n> matrix isn't of full column rank.  Can you please check th",
+      "thread_id": "thread-d83025c5843d",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-6d5220fc01d7",
+      "message_id": "<Pine.WNT.4.64.1101061802570.5908@PC602.wehi.edu.au>",
+      "from_name": "Gordon K Smyth",
+      "from_email_hash": "a978abba6e869c142fda92319a9ab9659112ab762e437af84e6581fe4481f132",
+      "date": "2011-01-06T07:03:38Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<4D256591.6060908@cbs.dtu.dk>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>",
+        "<Pine.WNT.4.64.1101061106130.5736@PC602.wehi.edu.au>",
+        "<4D256591.6060908@cbs.dtu.dk>"
+      ],
+      "body_plain": "On Thu, 6 Jan 2011, Laurent Gautier wrote:\n\n> On 1/6/11 1:08 AM, Gordon K Smyth wrote:\n>> Dear Kristen and Laurent,\n>> \n>> A possible (likely) explanation for the error is that your design matrix \n>> isn't of full column rank.  Can you please check this:\n>>\n>>   library(limma)\n>>   is.fullrank(design)\n> Thanks. It was the case here.\n> Future versions of estimateCRDisp() could test that and report an informative \n> error message.\n\nYes, done.\nGordon\n\n> Best,\n> Laurent\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:4}}",
+      "body_snippet": "On Thu, 6 Jan 2011, Laurent Gautier wrote:\n\n> On 1/6/11 1:08 AM, Gordon K Smyth wrote:\n>> Dear Kristen and Laurent,\n>> \n>> A possible (likely) explanation for the error is that your design matrix \n>> ",
+      "thread_id": "thread-d83025c5843d",
+      "thread_depth": 2,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-85030750f010",
+      "message_id": "<AANLkTi=JHY__YU0hZqZ1gubbfUY8BVuG77mCY7hzg8Zn@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-06T14:46:39Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+        "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+        "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Michael,\n\nSorry I couldn't provide more details yesterday. When I saw your post\nI was logged out from the server and already on my way out of the\noffice.\n\nThis is my experience with stack(). Please see below.\n\nThank you,\n\nIvan\n\n\n### load relevant libraries\nlibrary(Biostrings)\nlibrary(BSgenome.Mmusculus.UCSC.mm9)\n\n### define a subset of chromosomes\nsomeChromosomes <- c('chr1',  'chr2',  'chr3',  'chr4',  'chr5',\n                     'chr6',  'chr7',  'chr8',  'chr9', 'chr10',\n                    'chr11', 'chr12', 'chr13', 'chr14', 'chr15',\n                    'chr16', 'chr17', 'chr18', 'chr19',\n                     'chrX')\n\n### generate a series of ranges at the end of the chromosomes\nLargeListOfSmallRangedData <- lapply(someChromosomes,\n\nfunction(x){RangedData(ranges=IRanges(start=seq(length(Mmusculus[[x]])-500+1,\n\n              length(Mmusculus[[x]]),\n\n              100),\n\n    width=100),\n                                                            space=x,\n\ndistance=seq(500-100,0,-100))})\n\n### Peak at the first 2 elements of the list above\nLargeListOfSmallRangedData[c(1,2)]\n\n### Try to consolidate using stack(). Here is the error message\nbigRangedData <- stack(LargeListOfSmallRangedData, indName='space')\n\nError in rep.int(names(x), lapply(x, length)) :\n  unimplemented type 'NULL' in 'rep2'\n\n### machine and OS information\nsessionInfo()\n\nR version 2.13.0 Under development (unstable) (2010-12-02 r53747)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] BSgenome.Mmusculus.UCSC.mm9_1.3.17 BSgenome_1.19.2\n[3] GenomicRanges_1.3.7                Biostrings_2.19.2\n[5] IRanges_1.9.17\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.11.7\n\n\n\n\n\n\n\nOn Wed, Jan 5, 2011 at 5:11 PM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n> That's the correct basic usage, but how about an error message or a little\n> more context?\n>\n> On Wed, Jan 5, 2011 at 2:08 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>>\n>> I tried to use it to the best of my understanding:\n>>\n>> stack(LargeListOfSmallRangedData, indName='space')\n>>\n>> I think that the failure is due to misuse from my part rather than a bug.\n>>\n>> Ivan\n>>\n>>\n>>\n>>\n>> On Wed, Jan 5, 2011 at 4:51 PM, Michael Lawrence\n>> <lawrence.michael at gene.com> wrote:\n>> > Well it would be good to see what you tried. I think there are some\n>> > critical\n>> > bug fixes to stack in devel, but not release, so I would try with devel.\n>> >\n>> > Michael\n>> >\n>> > On Wed, Jan 5, 2011 at 1:13 PM, Ivan Gregoretti <ivangreg at gmail.com>\n>> > wrote:\n>> >>\n>> >> Hi Michael,\n>> >>\n>> >> Actually, I tried consolidating the list with stack() but I failed.\n>> >> Perhaps there is no need to change anything but only show how the\n>> >> consolidation is done with stack().\n>> >>\n>> >> Would you mind showing it for the record?\n>> >>\n>> >> Thank you,\n>> >>\n>> >> Ivan\n>> >>\n>> >>\n>> >>\n>> >>\n>> >> On Wed, Jan 5, 2011 at 4:05 PM, Michael Lawrence\n>> >> <lawrence.michael at gene.com> wrote:\n>> >> >\n>> >> >\n>> >> > On Wed, Jan 5, 2011 at 12:45 PM, Ivan Gregoretti <ivangreg at gmail.com>\n>> >> > wrote:\n>> >> >>\n>> >> >> It works. Thanks, Martin.\n>> >> >>\n>> >> >> It would be nice to have a pointer to this functionality in the\n>> >> >> documentation. For instance, when I do ?RangedData, I can see a\n>> >> >> RangedData constructor and coercion options. However,\n>> >> >> ?RangedDataList\n>> >> >> reports its constructor but no coercion.\n>> >> >>\n>> >> >\n>> >> > It's not a coercion in the strict sense. The rbind method is\n>> >> > documented\n>> >> > for\n>> >> > RangedData. Also, RangedDataList has a stack method for rbind'ing\n>> >> > them\n>> >> > and\n>> >> > adding a factor column indicating the source of each record. The\n>> >> > \"unlist\"\n>> >> > method on RangedDataList is a bit strange: it does a do.call(c, list)\n>> >> > instead of do.call(rbind, list). I'm thinking about changing that.\n>> >> >\n>> >> > Michael\n>> >> >\n>> >> >>\n>> >> >> Again, thank you.\n>> >> >>\n>> >> >> Ivan\n>> >> >>\n>> >> >>\n>> >> >>\n>> >> >>\n>> >> >> On Wed, Jan 5, 2011 at 3:23 PM, Martin Morgan <mtmorgan at fhcrc.org>\n>> >> >> wrote:\n>> >> >> > On 01/05/2011 12:12 PM, Ivan Gregoretti wrote:\n>> >> >> >> Hello BioC listers,\n>> >> >> >>\n>> >> >> >> Is there a function that will take a list of RangedData instances\n>> >> >> >> and\n>> >> >> >> consolidate them into a large RangedData instance?\n>> >> >> >\n>> >> >> > do.call(rbind, LargeListOfSmallRangedData)\n>> >> >> >\n>> >> >> > ?\n>> >> >> > Martin\n>> >> >> >>\n>> >> >> >> I'm looking for this:\n>> >> >> >>\n>> >> >> >> bigRangedData <- someFunction( LargeListOfSmallRangedData )\n>> >> >> >>\n>> >> >> >> Thank you,\n>> >> >> >>\n>> >> >> >> Ivan\n>> >> >> >>\n>> >> >> >> _______________________________________________\n>> >> >> >> Bioc-sig-sequencing mailing list\n>> >> >> >> Bioc-sig-sequencing at r-project.org\n>> >> >> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >> >> >\n>> >> >> >\n>> >> >> > --\n>> >> >> > Computational Biology\n>> >> >> > Fred Hutchinson Cancer Research Center\n>> >> >> > 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>> >> >> >\n>> >> >> > Location: M1-B861\n>> >> >> > Telephone: 206 667-2793\n>> >> >> >\n>> >> >>\n>> >> >> _______________________________________________\n>> >> >> Bioc-sig-sequencing mailing list\n>> >> >> Bioc-sig-sequencing at r-project.org\n>> >> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >> >\n>> >> >\n>> >\n>> >\n>\n>",
+      "body_snippet": "Hi Michael,\n\nSorry I couldn't provide more details yesterday. When I saw your post\nI was logged out from the server and already on my way out of the\noffice.\n\nThis is my experience with stack(). Please",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 8,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-ac52ff365c03",
+      "message_id": "<AANLkTimVzjxmTEm9jph8ZSC=scOk=nBoi0tn1aK1Xbvw@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-01-06T15:08:59Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTi=JHY__YU0hZqZ1gubbfUY8BVuG77mCY7hzg8Zn@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+        "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+        "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>",
+        "<AANLkTi=JHY__YU0hZqZ1gubbfUY8BVuG77mCY7hzg8Zn@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110106/1b14e5cb/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110106/1b14e5cb/attachment.pl>",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 9,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-9d99590ad227",
+      "message_id": "<AANLkTinvnWc-WLCojtUgt6iXyBt+JF9_7=z2UBrDKz5C@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-06T16:21:42Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTimVzjxmTEm9jph8ZSC=scOk=nBoi0tn1aK1Xbvw@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+        "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+        "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>",
+        "<AANLkTi=JHY__YU0hZqZ1gubbfUY8BVuG77mCY7hzg8Zn@mail.gmail.com>",
+        "<AANLkTimVzjxmTEm9jph8ZSC=scOk=nBoi0tn1aK1Xbvw@mail.gmail.com>"
+      ],
+      "body_plain": "I assumed that RangedDataList was the same as \"list of RangedData\".\n\nat the moment I can't coerce one into the other:\n\nas(LargeListOfSmallRangedData,'RangedDataList')\nError in as(LargeListOfSmallRangedData, \"RangedDataList\") :\n  no method or default for coercing \"list\" to \"RangedDataList\"\n\nso, I will have to stick to do.call().\n\nThank you,\n\nIvan\n\n\n\n\nOn Thu, Jan 6, 2011 at 10:08 AM, Michael Lawrence\n<lawrence.michael at gene.com> wrote:\n>\n>\n> On Thu, Jan 6, 2011 at 6:46 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>>\n>> Hi Michael,\n>>\n>> Sorry I couldn't provide more details yesterday. When I saw your post\n>> I was logged out from the server and already on my way out of the\n>> office.\n>>\n>> This is my experience with stack(). Please see below.\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>\n>> ### load relevant libraries\n>> library(Biostrings)\n>> library(BSgenome.Mmusculus.UCSC.mm9)\n>>\n>> ### define a subset of chromosomes\n>> someChromosomes <- c('chr1', ?'chr2', ?'chr3', ?'chr4', ?'chr5',\n>> ? ? ? ? ? ? ? ? ? ? 'chr6', ?'chr7', ?'chr8', ?'chr9', 'chr10',\n>> ? ? ? ? ? ? ? ? ? ?'chr11', 'chr12', 'chr13', 'chr14', 'chr15',\n>> ? ? ? ? ? ? ? ? ? ?'chr16', 'chr17', 'chr18', 'chr19',\n>> ? ? ? ? ? ? ? ? ? ? 'chrX')\n>>\n>> ### generate a series of ranges at the end of the chromosomes\n>> LargeListOfSmallRangedData <- lapply(someChromosomes,\n>>\n>>\n>> function(x){RangedData(ranges=IRanges(start=seq(length(Mmusculus[[x]])-500+1,\n>>\n>> ? ? ? ? ? ? ?length(Mmusculus[[x]]),\n>>\n>> ? ? ? ? ? ? ?100),\n>>\n>> ? ?width=100),\n>> ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ? ?space=x,\n>>\n>> distance=seq(500-100,0,-100))})\n>>\n>> ### Peak at the first 2 elements of the list above\n>> LargeListOfSmallRangedData[c(1,2)]\n>>\n>\n> This needs to be a RangedDataList not a list of RangedData. And better use\n> the latest IRanges devel, otherwise I think it's broken.\n>\n>>\n>> ### Try to consolidate using stack(). Here is the error message\n>> bigRangedData <- stack(LargeListOfSmallRangedData, indName='space')\n>>\n>> Error in rep.int(names(x), lapply(x, length)) :\n>> ?unimplemented type 'NULL' in 'rep2'\n>>\n>> ### machine and OS information\n>> sessionInfo()\n>>\n>> R version 2.13.0 Under development (unstable) (2010-12-02 r53747)\n>> Platform: x86_64-unknown-linux-gnu (64-bit)\n>>\n>> locale:\n>> ?[1] LC_CTYPE=en_US.UTF-8 ? ? ? LC_NUMERIC=C\n>> ?[3] LC_TIME=en_US.UTF-8 ? ? ? ?LC_COLLATE=en_US.UTF-8\n>> ?[5] LC_MONETARY=C ? ? ? ? ? ? ?LC_MESSAGES=en_US.UTF-8\n>> ?[7] LC_PAPER=en_US.UTF-8 ? ? ? LC_NAME=C\n>> ?[9] LC_ADDRESS=C ? ? ? ? ? ? ? LC_TELEPHONE=C\n>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>\n>> attached base packages:\n>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>>\n>> other attached packages:\n>> [1] BSgenome.Mmusculus.UCSC.mm9_1.3.17 BSgenome_1.19.2\n>> [3] GenomicRanges_1.3.7 ? ? ? ? ? ? ? ?Biostrings_2.19.2\n>> [5] IRanges_1.9.17\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.11.7\n>>\n>>\n>>\n>>\n>>\n>>\n>>\n>> On Wed, Jan 5, 2011 at 5:11 PM, Michael Lawrence\n>> <lawrence.michael at gene.com> wrote:\n>> > That's the correct basic usage, but how about an error message or a\n>> > little\n>> > more context?\n>> >\n>> > On Wed, Jan 5, 2011 at 2:08 PM, Ivan Gregoretti <ivangreg at gmail.com>\n>> > wrote:\n>> >>\n>> >> I tried to use it to the best of my understanding:\n>> >>\n>> >> stack(LargeListOfSmallRangedData, indName='space')\n>> >>\n>> >> I think that the failure is due to misuse from my part rather than a\n>> >> bug.\n>> >>\n>> >> Ivan\n>> >>\n>> >>\n>> >>\n>> >>\n>> >> On Wed, Jan 5, 2011 at 4:51 PM, Michael Lawrence\n>> >> <lawrence.michael at gene.com> wrote:\n>> >> > Well it would be good to see what you tried. I think there are some\n>> >> > critical\n>> >> > bug fixes to stack in devel, but not release, so I would try with\n>> >> > devel.\n>> >> >\n>> >> > Michael\n>> >> >\n>> >> > On Wed, Jan 5, 2011 at 1:13 PM, Ivan Gregoretti <ivangreg at gmail.com>\n>> >> > wrote:\n>> >> >>\n>> >> >> Hi Michael,\n>> >> >>\n>> >> >> Actually, I tried consolidating the list with stack() but I failed.\n>> >> >> Perhaps there is no need to change anything but only show how the\n>> >> >> consolidation is done with stack().\n>> >> >>\n>> >> >> Would you mind showing it for the record?\n>> >> >>\n>> >> >> Thank you,\n>> >> >>\n>> >> >> Ivan\n>> >> >>\n>> >> >>\n>> >> >>\n>> >> >>\n>> >> >> On Wed, Jan 5, 2011 at 4:05 PM, Michael Lawrence\n>> >> >> <lawrence.michael at gene.com> wrote:\n>> >> >> >\n>> >> >> >\n>> >> >> > On Wed, Jan 5, 2011 at 12:45 PM, Ivan Gregoretti\n>> >> >> > <ivangreg at gmail.com>\n>> >> >> > wrote:\n>> >> >> >>\n>> >> >> >> It works. Thanks, Martin.\n>> >> >> >>\n>> >> >> >> It would be nice to have a pointer to this functionality in the\n>> >> >> >> documentation. For instance, when I do ?RangedData, I can see a\n>> >> >> >> RangedData constructor and coercion options. However,\n>> >> >> >> ?RangedDataList\n>> >> >> >> reports its constructor but no coercion.\n>> >> >> >>\n>> >> >> >\n>> >> >> > It's not a coercion in the strict sense. The rbind method is\n>> >> >> > documented\n>> >> >> > for\n>> >> >> > RangedData. Also, RangedDataList has a stack method for rbind'ing\n>> >> >> > them\n>> >> >> > and\n>> >> >> > adding a factor column indicating the source of each record. The\n>> >> >> > \"unlist\"\n>> >> >> > method on RangedDataList is a bit strange: it does a do.call(c,\n>> >> >> > list)\n>> >> >> > instead of do.call(rbind, list). I'm thinking about changing that.\n>> >> >> >\n>> >> >> > Michael\n>> >> >> >\n>> >> >> >>\n>> >> >> >> Again, thank you.\n>> >> >> >>\n>> >> >> >> Ivan\n>> >> >> >>\n>> >> >> >>\n>> >> >> >>\n>> >> >> >>\n>> >> >> >> On Wed, Jan 5, 2011 at 3:23 PM, Martin Morgan\n>> >> >> >> <mtmorgan at fhcrc.org>\n>> >> >> >> wrote:\n>> >> >> >> > On 01/05/2011 12:12 PM, Ivan Gregoretti wrote:\n>> >> >> >> >> Hello BioC listers,\n>> >> >> >> >>\n>> >> >> >> >> Is there a function that will take a list of RangedData\n>> >> >> >> >> instances\n>> >> >> >> >> and\n>> >> >> >> >> consolidate them into a large RangedData instance?\n>> >> >> >> >\n>> >> >> >> > do.call(rbind, LargeListOfSmallRangedData)\n>> >> >> >> >\n>> >> >> >> > ?\n>> >> >> >> > Martin\n>> >> >> >> >>\n>> >> >> >> >> I'm looking for this:\n>> >> >> >> >>\n>> >> >> >> >> bigRangedData <- someFunction( LargeListOfSmallRangedData )\n>> >> >> >> >>\n>> >> >> >> >> Thank you,\n>> >> >> >> >>\n>> >> >> >> >> Ivan\n>> >> >> >> >>\n>> >> >> >> >> _______________________________________________\n>> >> >> >> >> Bioc-sig-sequencing mailing list\n>> >> >> >> >> Bioc-sig-sequencing at r-project.org\n>> >> >> >> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >> >> >> >\n>> >> >> >> >\n>> >> >> >> > --\n>> >> >> >> > Computational Biology\n>> >> >> >> > Fred Hutchinson Cancer Research Center\n>> >> >> >> > 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>> >> >> >> >\n>> >> >> >> > Location: M1-B861\n>> >> >> >> > Telephone: 206 667-2793\n>> >> >> >> >\n>> >> >> >>\n>> >> >> >> _______________________________________________\n>> >> >> >> Bioc-sig-sequencing mailing list\n>> >> >> >> Bioc-sig-sequencing at r-project.org\n>> >> >> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >> >> >\n>> >> >> >\n>> >> >\n>> >> >\n>> >\n>> >\n>\n>",
+      "body_snippet": "I assumed that RangedDataList was the same as \"list of RangedData\".\n\nat the moment I can't coerce one into the other:\n\nas(LargeListOfSmallRangedData,'RangedDataList')\nError in as(LargeListOfSmallRange",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 10,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-9f707cc2789d",
+      "message_id": "<AANLkTimXyJAa3jvs-GbwcJHWUm04pHveGgtoBk_UJfT8@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2011-01-06T16:47:03Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTinvnWc-WLCojtUgt6iXyBt+JF9_7=z2UBrDKz5C@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+        "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+        "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>",
+        "<AANLkTi=JHY__YU0hZqZ1gubbfUY8BVuG77mCY7hzg8Zn@mail.gmail.com>",
+        "<AANLkTimVzjxmTEm9jph8ZSC=scOk=nBoi0tn1aK1Xbvw@mail.gmail.com>",
+        "<AANLkTinvnWc-WLCojtUgt6iXyBt+JF9_7=z2UBrDKz5C@mail.gmail.com>"
+      ],
+      "body_plain": "Hi,\n\nOn Thu, Jan 6, 2011 at 11:21 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> I assumed that RangedDataList was the same as \"list of RangedData\".\n>\n> at the moment I can't coerce one into the other:\n>\n> as(LargeListOfSmallRangedData,'RangedDataList')\n> Error in as(LargeListOfSmallRangedData, \"RangedDataList\") :\n> ?no method or default for coercing \"list\" to \"RangedDataList\"\n\nTry:\n\nR> rdl <- RangedDataList(LargeListOfSmallRangedData)\n\n-steve\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Thu, Jan 6, 2011 at 11:21 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> I assumed that RangedDataList was the same as \"list of RangedData\".\n>\n> at the moment I can't coerce one into the",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 11,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-a48c040797fc",
+      "message_id": "<AANLkTimFhQAcE12UsHJMQCeA6T4CBAUUpB=txOcnHN0Z@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-07T14:40:50Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTimXyJAa3jvs-GbwcJHWUm04pHveGgtoBk_UJfT8@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+        "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+        "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>",
+        "<AANLkTi=JHY__YU0hZqZ1gubbfUY8BVuG77mCY7hzg8Zn@mail.gmail.com>",
+        "<AANLkTimVzjxmTEm9jph8ZSC=scOk=nBoi0tn1aK1Xbvw@mail.gmail.com>",
+        "<AANLkTinvnWc-WLCojtUgt6iXyBt+JF9_7=z2UBrDKz5C@mail.gmail.com>",
+        "<AANLkTimXyJAa3jvs-GbwcJHWUm04pHveGgtoBk_UJfT8@mail.gmail.com>"
+      ],
+      "body_plain": "Hello Steve,\n\nI tried your suggestion but I get:\n\nstack(RangedDataList(LargeListOfSmallRangedData), indName='space')\nError in `[[<-`(`*tmp*`, indName, value = c(1L, 1L, 1L, 1L, 1L, 2L, 2L,  :\n  cannot replace \"space\" information\n\nI have the latest R dev and BioC dev packages. So, I will settle for\ndo.call. Thank you for the suggestion.\n\nIvan\n\n\n\n\n\nOn Thu, Jan 6, 2011 at 11:47 AM, Steve Lianoglou\n<mailinglist.honeypot at gmail.com> wrote:\n> Hi,\n>\n> On Thu, Jan 6, 2011 at 11:21 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>> I assumed that RangedDataList was the same as \"list of RangedData\".\n>>\n>> at the moment I can't coerce one into the other:\n>>\n>> as(LargeListOfSmallRangedData,'RangedDataList')\n>> Error in as(LargeListOfSmallRangedData, \"RangedDataList\") :\n>> ?no method or default for coercing \"list\" to \"RangedDataList\"\n>\n> Try:\n>\n> R> rdl <- RangedDataList(LargeListOfSmallRangedData)\n>\n> -steve\n>\n> --\n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n> ?| Memorial Sloan-Kettering Cancer Center\n> ?| Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>",
+      "body_snippet": "Hello Steve,\n\nI tried your suggestion but I get:\n\nstack(RangedDataList(LargeListOfSmallRangedData), indName='space')\nError in `[[<-`(`*tmp*`, indName, value = c(1L, 1L, 1L, 1L, 1L, 2L, 2L,  :\n  cannot",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 12,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-c5ead34145d7",
+      "message_id": "<AANLkTi=HXONKVfTLD1psAOGGyJ3eu+z91v=r7VKFQMvf@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-01-07T18:44:44Z",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "subject_clean": "[Bioc-sig-seq] Consolidating RangedData",
+      "in_reply_to": "<AANLkTimFhQAcE12UsHJMQCeA6T4CBAUUpB=txOcnHN0Z@mail.gmail.com>",
+      "references": [
+        "<AANLkTimvXFGcWGTHQqSaVPGxT6ihf+95TpBFoeDw9XcC@mail.gmail.com>",
+        "<4D24D35D.2010408@fhcrc.org>",
+        "<AANLkTik4BgfRGt_d4qk3=kW5PoJj7sbvasxvAzO-H1Du@mail.gmail.com>",
+        "<AANLkTikM2qirLfhT3e1O+pFdm31Rggc4+gQQ_4fs+6ZQ@mail.gmail.com>",
+        "<AANLkTik_GynkFHrf+8v6qvkPLN37ydDoCARROYXA=WRg@mail.gmail.com>",
+        "<AANLkTimKOiS=SprwqM-x2166eT93YXwMQ+bmckvqqwhE@mail.gmail.com>",
+        "<AANLkTikpkL2pr7i_MLOQhC=buDZMJ5NQpmtQJdBS29eT@mail.gmail.com>",
+        "<AANLkTim4OfvTsHV46u7T7JQg+g6Ts0Vj=K5QR7HnjGCu@mail.gmail.com>",
+        "<AANLkTi=JHY__YU0hZqZ1gubbfUY8BVuG77mCY7hzg8Zn@mail.gmail.com>",
+        "<AANLkTimVzjxmTEm9jph8ZSC=scOk=nBoi0tn1aK1Xbvw@mail.gmail.com>",
+        "<AANLkTinvnWc-WLCojtUgt6iXyBt+JF9_7=z2UBrDKz5C@mail.gmail.com>",
+        "<AANLkTimXyJAa3jvs-GbwcJHWUm04pHveGgtoBk_UJfT8@mail.gmail.com>",
+        "<AANLkTimFhQAcE12UsHJMQCeA6T4CBAUUpB=txOcnHN0Z@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110107/ef33eb19/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110107/ef33eb19/attachment.pl>",
+      "thread_id": "thread-6904b0b668c1",
+      "thread_depth": 13,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-454d31b9b740",
+      "message_id": "<B4E038096093394CBFEBF30AE6F593CF087460EF89@USETCMSXMB02.NAFTA.SYNGENTA.ORG>",
+      "from_name": "kristen.dang at syngenta.com",
+      "from_email_hash": "d3f68eac7a1942429b9ea19ba51db1c72f210c86c986caebb4dc2b0da160b880",
+      "date": "2011-01-07T19:49:57Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<Pine.WNT.4.64.1101061802570.5908@PC602.wehi.edu.au>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>",
+        "<Pine.WNT.4.64.1101061106130.5736@PC602.wehi.edu.au>",
+        "<4D256591.6060908@cbs.dtu.dk>",
+        "<Pine.WNT.4.64.1101061802570.5908@PC602.wehi.edu.au>"
+      ],
+      "body_plain": "Dear Gordon,\nFor me, it was not the case, and my design matrix is full rank (using edgeR v 2.0.3):\n\n> design = model.matrix(~factor_a+factor_b, data = targets)\n> library(limma)\n> is.fullrank(design)\n[1] TRUE\n\nBest,\nKristen\n\n\n\nmessage may contain confidential information. If you are not the designated recipient, please notify the sender immediately, and delete the original and any copies. Any use of the message by you is prohibited.",
+      "body_snippet": "Dear Gordon,\nFor me, it was not the case, and my design matrix is full rank (using edgeR v 2.0.3):\n\n> design = model.matrix(~factor_a+factor_b, data = targets)\n> library(limma)\n> is.fullrank(design)\n[",
+      "thread_id": "thread-d83025c5843d",
+      "thread_depth": 3,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-6b37ea1d05dc",
+      "message_id": "<Pine.WNT.4.64.1101101001490.5648@PC602.wehi.edu.au>",
+      "from_name": "Gordon K Smyth",
+      "from_email_hash": "a978abba6e869c142fda92319a9ab9659112ab762e437af84e6581fe4481f132",
+      "date": "2011-01-09T23:02:33Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": "<B4E038096093394CBFEBF30AE6F593CF087460EF89@USETCMSXMB02.NAFTA.SYNGENTA.ORG>",
+      "references": [
+        "<mailman.9.1293706803.1811.bioc-sig-sequencing@r-project.org>",
+        "<Pine.WNT.4.64.1101031428360.3956@PC602.wehi.edu.au>",
+        "<4D21B940.2080405@cbs.dtu.dk>",
+        "<Pine.WNT.4.64.1101061106130.5736@PC602.wehi.edu.au>",
+        "<4D256591.6060908@cbs.dtu.dk>",
+        "<Pine.WNT.4.64.1101061802570.5908@PC602.wehi.edu.au>",
+        "<B4E038096093394CBFEBF30AE6F593CF087460EF89@USETCMSXMB02.NAFTA.SYNGENTA.ORG>"
+      ],
+      "body_plain": "Dear Kristen,\n\nCan you send me an example data set?  Otherwise I can't reproduce the \nerror you see.\n\nBest wishes\nGordon\n\nOn Fri, 7 Jan 2011, kristen.dang at syngenta.com wrote:\n\n> Dear Gordon,\n> For me, it was not the case, and my design matrix is full rank (using edgeR v 2.0.3):\n>\n>> design = model.matrix(~factor_a+factor_b, data = targets)\n>> library(limma)\n>> is.fullrank(design)\n> [1] TRUE\n>\n> Best,\n> Kristen\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:4}}",
+      "body_snippet": "Dear Kristen,\n\nCan you send me an example data set?  Otherwise I can't reproduce the \nerror you see.\n\nBest wishes\nGordon\n\nOn Fri, 7 Jan 2011, kristen.dang at syngenta.com wrote:\n\n> Dear Gordon,\n> For ",
+      "thread_id": "thread-d83025c5843d",
+      "thread_depth": 4,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-fd3a4401306d",
+      "message_id": "<AANLkTik9-Emv7ubjQQL=Y=6qSbcMEr=YWRXW3K4m_Gin@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-11T21:25:45Z",
+      "subject": "[Bioc-sig-seq] Using library(cosmo) for motif detection",
+      "subject_clean": "[Bioc-sig-seq] Using library(cosmo) for motif detection",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello fellow bioconductorians\n\nOne common question that arises after a successful ChIP-seq peak\ndetection is \"What is the binding motif\"?\n\nThe package cosmo was created to answer that question. The\ndocumentation shows a very nice example to get you started when you\nknow what your binding site should look like.\n\n\nThis is my question to cosmo experts\n\n--How do you start when you have no a priori knowledge, not even the\nlength of the motif?\n\nI expect to go through several iterations but the question still\nstands: all I know is that this mysterious transcription factor binds\nto DNA rather than Martian rocks.\n\nThank you,\n\nIvan\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878",
+      "body_snippet": "Hello fellow bioconductorians\n\nOne common question that arises after a successful ChIP-seq peak\ndetection is \"What is the binding motif\"?\n\nThe package cosmo was created to answer that question. The\ndo",
+      "thread_id": "thread-fd3a4401306d",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-47abfee1b3a2",
+      "message_id": "<4D2D946F.4050409@crg.es>",
+      "from_name": "Giancarlo Castellano",
+      "from_email_hash": "6dab3911c497c94f51ea0fa0defff89537033718759363d90c40fdedf9fff8f6",
+      "date": "2011-01-12T11:45:51Z",
+      "subject": "[Bioc-sig-seq]  Dinucleotide Frequencies analysis",
+      "subject_clean": "[Bioc-sig-seq]  Dinucleotide Frequencies analysis",
+      "in_reply_to": "<AANLkTik9-Emv7ubjQQL=Y=6qSbcMEr=YWRXW3K4m_Gin@mail.gmail.com>",
+      "references": [
+        "<AANLkTik9-Emv7ubjQQL=Y=6qSbcMEr=YWRXW3K4m_Gin@mail.gmail.com>"
+      ],
+      "body_plain": "Hi everybody,\n\ndoes anybody know if there is a package able to perform a Dinucleotide \nFrequencies analysis from a set of seuqences in fasta format?\n\nMany thanks,\nGiancarlo\n\n-- \nDr. Giancarlo Castellano\nCenter for Genomic Regulation, CRG\nCarrer Dr. Aiguader 88\nE 08003 Barcelona\nSpain\nTel + 34 93 316 1115",
+      "body_snippet": "Hi everybody,\n\ndoes anybody know if there is a package able to perform a Dinucleotide \nFrequencies analysis from a set of seuqences in fasta format?\n\nMany thanks,\nGiancarlo\n\n-- \nDr. Giancarlo Castella",
+      "thread_id": "thread-fd3a4401306d",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-2c0929aceebd",
+      "message_id": "<4D2D9711.8000003@fmi.ch>",
+      "from_name": "Hans-Rudolf Hotz",
+      "from_email_hash": "5cd1389fdfb6045a86e33d9d18807b97470646c672b39b8287852500e71da16f",
+      "date": "2011-01-12T11:57:05Z",
+      "subject": "[Bioc-sig-seq] Dinucleotide Frequencies analysis",
+      "subject_clean": "[Bioc-sig-seq] Dinucleotide Frequencies analysis",
+      "in_reply_to": "<4D2D946F.4050409@crg.es>",
+      "references": [
+        "<AANLkTik9-Emv7ubjQQL=Y=6qSbcMEr=YWRXW3K4m_Gin@mail.gmail.com>",
+        "<4D2D946F.4050409@crg.es>"
+      ],
+      "body_plain": "On 01/12/2011 12:45 PM, Giancarlo Castellano wrote:\n> Hi everybody,\n>\n> does anybody know if there is a package able to perform a Dinucleotide\n> Frequencies analysis from a set of seuqences in fasta format?\n>\n\n\nhave a look at dinucleotideFrequency() in the 'Biostrings' package\n\n\nRegards, Hans\n\n\n> Many thanks,\n> Giancarlo\n>",
+      "body_snippet": "On 01/12/2011 12:45 PM, Giancarlo Castellano wrote:\n> Hi everybody,\n>\n> does anybody know if there is a package able to perform a Dinucleotide\n> Frequencies analysis from a set of seuqences in fasta f",
+      "thread_id": "thread-fd3a4401306d",
+      "thread_depth": 2,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-bc9602ad74c4",
+      "message_id": "<4D31A380.2070000@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2011-01-15T13:39:12Z",
+      "subject": "[Bioc-sig-seq] Bioc course: Advanced R Programming, 17-18 Feb, Seattle",
+      "subject_clean": "[Bioc-sig-seq] Bioc course: Advanced R Programming, 17-18 Feb, Seattle",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Bioconductors,\n\nWe'll be offering a course 'Advanced R Programming' on 17-18 February,\nin Seattle. This unique workshop provides advanced users with resources\nfor producing effective, reusable software packages in R / Bioconductor.\nParticipants are expected to be familiar with programming language\nconcepts, a good understanding of R, and familiarity with Bioconductor.\nTopics include efficient R programming, R's object-oriented systems,\ninterfacing with common resources, integrating compiled code, and\norganizing software into robust, reusable packages.\n\nMore information and registration is available at\n\nhttps://secure.bioconductor.org/SeattleFeb11/\n\nSee you in Seattle!\n\nMartin\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "Bioconductors,\n\nWe'll be offering a course 'Advanced R Programming' on 17-18 February,\nin Seattle. This unique workshop provides advanced users with resources\nfor producing effective, reusable softwar",
+      "thread_id": "thread-bc9602ad74c4",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-d16085df40d7",
+      "message_id": "<256039E3-8233-458A-8A81-42D5862A53F9@med.cornell.edu>",
+      "from_name": "Joseph Scandura",
+      "from_email_hash": "5450f63e7d65c58d48cd3f68239031ca48e5040cff76be05ad119dcaa8cb9029",
+      "date": "2011-01-18T00:05:53Z",
+      "subject": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "subject_clean": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I recently updated BioC to 2.12.1 and now find a new issue when assigning strand to a GRanges object. \n\nThe problem must be something straightforward but I have not been able to track it down. \n\n################### Example: \n> z=GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"), ranges = IRanges(start=c(1,300,600), width=50), strand=c(\"+\", \"-\", \"*\"))\n> strand(z)\n\t'factor' Rle of length 3 with 3 runs\n\t  Lengths: 1 1 1\n\t  Values : + - *\n\tLevels(3): + - *\n> strand(z) = \"*\"  #this used to assign a strand of \"*\" to all elements in z\nError in x[[name, exact = FALSE]] : \n  missing '[[' method for Sequence class GRanges\n\n> traceback()\n10: stop(\"missing '[[' method for Sequence class \", class(x))\n9: x[[name, exact = FALSE]]\n8: x[[name, exact = FALSE]]\n7: object$call\n6: object$call\n5: update.default(x, strand = value)\n4: update(x, strand = value)\n3: update(x, strand = value)\n2: `strand<-`(`*tmp*`, value = \"*\")\n1: `strand<-`(`*tmp*`, value = \"*\")\n\n>sessionInfo()\nR version 2.12.1 (2010-12-16)\nPlatform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats   utils   methods base   \n\nother attached packages:\n[1] GenomicRanges_1.2.3 IRanges_1.8.8       Biobase_2.10.0     \n\nloaded via a namespace (and not attached):\n [1] annotate_1.28.0                     AnnotationDbi_1.12.0                biomaRt_2.6.0                      \n [4] Biostrings_2.18.2                   BSgenome_1.18.2                     BSgenome.Ecoli.NCBI.20080805_1.3.16\n [7] ChIPpeakAnno_1.6.0                  DBI_0.2-5                           DESeq_1.2.1                        \n[10] gdata_2.8.1                         genefilter_1.32.0                   geneplotter_1.28.0                 \n[13] GO.db_2.4.5                         gplots_2.8.0                        graphics_2.12.1                    \n[16] grDevices_2.12.1                    grid_2.12.1                         gtools_2.6.2                       \n[19] limma_3.6.9                         MASS_7.3-9                          multtest_2.6.0                     \n[22] org.Hs.eg.db_2.4.6                  RColorBrewer_1.0-2                  RCurl_1.5-0                        \n[25] RMySQL_0.7-5                        RSQLite_0.9-4                       splines_2.12.1                     \n[28] survival_2.36-2                     tools_2.12.1                        XML_3.2-0                          \n[31] xtable_1.5-6       \n###################\nJoe",
+      "body_snippet": "I recently updated BioC to 2.12.1 and now find a new issue when assigning strand to a GRanges object. \n\nThe problem must be something straightforward but I have not been able to track it down. \n\n#####",
+      "thread_id": "thread-d16085df40d7",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-e9eb5f4918f8",
+      "message_id": "<4D35FEE1.7050604@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2011-01-18T20:58:09Z",
+      "subject": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "subject_clean": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "in_reply_to": "<256039E3-8233-458A-8A81-42D5862A53F9@med.cornell.edu>",
+      "references": [
+        "<256039E3-8233-458A-8A81-42D5862A53F9@med.cornell.edu>"
+      ],
+      "body_plain": "On 01/17/2011 04:05 PM, Joseph Scandura wrote:\n> I recently updated BioC to 2.12.1 and now find a new issue when assigning strand to a GRanges object. \n> \n> The problem must be something straightforward but I have not been able to track it down. \n> \n> ################### Example: \n>> z=GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"), ranges = IRanges(start=c(1,300,600), width=50), strand=c(\"+\", \"-\", \"*\"))\n>> strand(z)\n> \t'factor' Rle of length 3 with 3 runs\n> \t  Lengths: 1 1 1\n> \t  Values : + - *\n> \tLevels(3): + - *\n>> strand(z) = \"*\"  #this used to assign a strand of \"*\" to all elements in z\n> Error in x[[name, exact = FALSE]] : \n>   missing '[[' method for Sequence class GRanges\n\nHi Joe -- I don't see this in a new R session; I think what happens is\nthat the wrong 'update' is being called, e.g., stats::update rather than\nGRanges::update. Not really sure what to suggest, other than debugging\nby figuring out which of the loaded packages is causing problems. This\ncould be tedious.\n\nOther possibilities are to start R with the --vanilla argument (so that\nno .RData files are loaded on start-up) and to explicitly\n\n  library(GenomicRanges)\n\nat the start of your session.\n\nHere's what I see...\n\n> library(GenomicRanges)\nLoading required package: IRanges\n\nAttaching package: 'IRanges'\n\nThe following object(s) are masked from 'package:base':\n\n    cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,\n    pmin.int, rbind, rep.int, table\n\n> z=GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"), ranges =\n+ IRanges(start=c(1,300,600), width=50), strand=c(\"+\", \"-\", \"*\"))\n> strand(z)\n'factor' Rle of length 3 with 3 runs\n  Lengths: 1 1 1\n  Values : + - *\nLevels(3): + - *\n> strand(z) = \"*\"\n> sessionInfo()\nR version 2.12.0 Patched (2010-11-21 r53647)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] GenomicRanges_1.2.3 IRanges_1.8.8\n\nMartin\n\n> \n>> traceback()\n> 10: stop(\"missing '[[' method for Sequence class \", class(x))\n> 9: x[[name, exact = FALSE]]\n> 8: x[[name, exact = FALSE]]\n> 7: object$call\n> 6: object$call\n> 5: update.default(x, strand = value)\n> 4: update(x, strand = value)\n> 3: update(x, strand = value)\n> 2: `strand<-`(`*tmp*`, value = \"*\")\n> 1: `strand<-`(`*tmp*`, value = \"*\")\n> \n>> sessionInfo()\n> R version 2.12.1 (2010-12-16)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] stats   utils   methods base   \n> \n> other attached packages:\n> [1] GenomicRanges_1.2.3 IRanges_1.8.8       Biobase_2.10.0     \n> \n> loaded via a namespace (and not attached):\n>  [1] annotate_1.28.0                     AnnotationDbi_1.12.0                biomaRt_2.6.0                      \n>  [4] Biostrings_2.18.2                   BSgenome_1.18.2                     BSgenome.Ecoli.NCBI.20080805_1.3.16\n>  [7] ChIPpeakAnno_1.6.0                  DBI_0.2-5                           DESeq_1.2.1                        \n> [10] gdata_2.8.1                         genefilter_1.32.0                   geneplotter_1.28.0                 \n> [13] GO.db_2.4.5                         gplots_2.8.0                        graphics_2.12.1                    \n> [16] grDevices_2.12.1                    grid_2.12.1                         gtools_2.6.2                       \n> [19] limma_3.6.9                         MASS_7.3-9                          multtest_2.6.0                     \n> [22] org.Hs.eg.db_2.4.6                  RColorBrewer_1.0-2                  RCurl_1.5-0                        \n> [25] RMySQL_0.7-5                        RSQLite_0.9-4                       splines_2.12.1                     \n> [28] survival_2.36-2                     tools_2.12.1                        XML_3.2-0                          \n> [31] xtable_1.5-6       \n> ###################\n> Joe\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 01/17/2011 04:05 PM, Joseph Scandura wrote:\n> I recently updated BioC to 2.12.1 and now find a new issue when assigning strand to a GRanges object. \n> \n> The problem must be something straightforwa",
+      "thread_id": "thread-d16085df40d7",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-7eb4b9b39eb4",
+      "message_id": "<4D35FEFA.30605@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2011-01-18T20:58:34Z",
+      "subject": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "subject_clean": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "in_reply_to": "<256039E3-8233-458A-8A81-42D5862A53F9@med.cornell.edu>",
+      "references": [
+        "<256039E3-8233-458A-8A81-42D5862A53F9@med.cornell.edu>"
+      ],
+      "body_plain": "Hi Joseph,\n\nI cannot reproduce this (but I'm still using R-2.12.0):\n\n > library(GenomicRanges)\n > z <- GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"),\n+              ranges=IRanges(start=c(1,300,600), width=50),\n+              strand=c(\"+\", \"-\", \"*\"))\n > strand(z)\n'factor' Rle of length 3 with 3 runs\n   Lengths: 1 1 1\n   Values : + - *\nLevels(3): + - *\n > strand(z) <- \"*\"\n >\n > z\nGRanges with 3 ranges and 0 elementMetadata values\n     seqnames     ranges strand |\n        <Rle>  <IRanges>  <Rle> |\n[1]     chr1 [  1,  50]      * |\n[2]     chr2 [300, 349]      * |\n[3]     chr3 [600, 649]      * |\n\nseqlengths\n  chr1 chr2 chr3\n    NA   NA   NA\n > sessionInfo()\nR version 2.12.0 (2010-10-15)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n  [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C\n  [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8\n  [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8\n  [7] LC_PAPER=en_US.utf8       LC_NAME=C\n  [9] LC_ADDRESS=C              LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] GenomicRanges_1.2.3 IRanges_1.8.8\n\nWhat's puzzling me is all those packages loaded via a namespace\nthat you get. Could it be that something went wrong with your update\nfrom R-2.12.0 to R-2.12.1? I would suggest you reinstall IRanges and\nGenomicRanges from scratch see if that solves the problem (and if\nit does, then I would suggest you reinstall all your packages from\nscratch).\n\nCheers,\nH.\n\nOn 01/17/2011 04:05 PM, Joseph Scandura wrote:\n> I recently updated BioC to 2.12.1 and now find a new issue when assigning strand to a GRanges object.\n>\n> The problem must be something straightforward but I have not been able to track it down.\n>\n> ################### Example:\n>> z=GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"), ranges = IRanges(start=c(1,300,600), width=50), strand=c(\"+\", \"-\", \"*\"))\n>> strand(z)\n> \t'factor' Rle of length 3 with 3 runs\n> \t  Lengths: 1 1 1\n> \t  Values : + - *\n> \tLevels(3): + - *\n>> strand(z) = \"*\"  #this used to assign a strand of \"*\" to all elements in z\n> Error in x[[name, exact = FALSE]] :\n>    missing '[[' method for Sequence class GRanges\n>\n>> traceback()\n> 10: stop(\"missing '[[' method for Sequence class \", class(x))\n> 9: x[[name, exact = FALSE]]\n> 8: x[[name, exact = FALSE]]\n> 7: object$call\n> 6: object$call\n> 5: update.default(x, strand = value)\n> 4: update(x, strand = value)\n> 3: update(x, strand = value)\n> 2: `strand<-`(`*tmp*`, value = \"*\")\n> 1: `strand<-`(`*tmp*`, value = \"*\")\n>\n>> sessionInfo()\n> R version 2.12.1 (2010-12-16)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats   utils   methods base\n>\n> other attached packages:\n> [1] GenomicRanges_1.2.3 IRanges_1.8.8       Biobase_2.10.0\n>\n> loaded via a namespace (and not attached):\n>   [1] annotate_1.28.0                     AnnotationDbi_1.12.0                biomaRt_2.6.0\n>   [4] Biostrings_2.18.2                   BSgenome_1.18.2                     BSgenome.Ecoli.NCBI.20080805_1.3.16\n>   [7] ChIPpeakAnno_1.6.0                  DBI_0.2-5                           DESeq_1.2.1\n> [10] gdata_2.8.1                         genefilter_1.32.0                   geneplotter_1.28.0\n> [13] GO.db_2.4.5                         gplots_2.8.0                        graphics_2.12.1\n> [16] grDevices_2.12.1                    grid_2.12.1                         gtools_2.6.2\n> [19] limma_3.6.9                         MASS_7.3-9                          multtest_2.6.0\n> [22] org.Hs.eg.db_2.4.6                  RColorBrewer_1.0-2                  RCurl_1.5-0\n> [25] RMySQL_0.7-5                        RSQLite_0.9-4                       splines_2.12.1\n> [28] survival_2.36-2                     tools_2.12.1                        XML_3.2-0\n> [31] xtable_1.5-6\n> ###################\n> Joe\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Joseph,\n\nI cannot reproduce this (but I'm still using R-2.12.0):\n\n > library(GenomicRanges)\n > z <- GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"),\n+              ranges=IRanges(start=c(1,300,600), w",
+      "thread_id": "thread-d16085df40d7",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-cc412102aca0",
+      "message_id": "<4069DDB5-C361-4016-A58B-0D5562D49DDE@med.cornell.edu>",
+      "from_name": "Joseph Scandura",
+      "from_email_hash": "5450f63e7d65c58d48cd3f68239031ca48e5040cff76be05ad119dcaa8cb9029",
+      "date": "2011-01-18T22:33:49Z",
+      "subject": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "subject_clean": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "in_reply_to": "<4D35FEE1.7050604@fhcrc.org>",
+      "references": [
+        "<256039E3-8233-458A-8A81-42D5862A53F9@med.cornell.edu>",
+        "<4D35FEE1.7050604@fhcrc.org>"
+      ],
+      "body_plain": "Thanks Martin/Herv?: \n\nI started with a fresh R instance and the problem went away.  I reloaded my old workspace and everything works there as well so I'm not sure what was causing the trouble but now that it is gone, I'm much less interested in figuring it out. Thanks for your help. \n\nJoe\n\nOn Jan 18, 2011, at 3:58 PM, Martin Morgan wrote:\n\n> On 01/17/2011 04:05 PM, Joseph Scandura wrote:\n>> I recently updated BioC to 2.12.1 and now find a new issue when assigning strand to a GRanges object. \n>> \n>> The problem must be something straightforward but I have not been able to track it down. \n>> \n>> ################### Example: \n>>> z=GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"), ranges = IRanges(start=c(1,300,600), width=50), strand=c(\"+\", \"-\", \"*\"))\n>>> strand(z)\n>> \t'factor' Rle of length 3 with 3 runs\n>> \t  Lengths: 1 1 1\n>> \t  Values : + - *\n>> \tLevels(3): + - *\n>>> strand(z) = \"*\"  #this used to assign a strand of \"*\" to all elements in z\n>> Error in x[[name, exact = FALSE]] : \n>>  missing '[[' method for Sequence class GRanges\n> \n> Hi Joe -- I don't see this in a new R session; I think what happens is\n> that the wrong 'update' is being called, e.g., stats::update rather than\n> GRanges::update. Not really sure what to suggest, other than debugging\n> by figuring out which of the loaded packages is causing problems. This\n> could be tedious.\n> \n> Other possibilities are to start R with the --vanilla argument (so that\n> no .RData files are loaded on start-up) and to explicitly\n> \n>  library(GenomicRanges)\n> \n> at the start of your session.\n> \n> Here's what I see...\n> \n>> library(GenomicRanges)\n> Loading required package: IRanges\n> \n> Attaching package: 'IRanges'\n> \n> The following object(s) are masked from 'package:base':\n> \n>    cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,\n>    pmin.int, rbind, rep.int, table\n> \n>> z=GRanges(seqnames=paste(\"chr\",seq(3), sep=\"\"), ranges =\n> + IRanges(start=c(1,300,600), width=50), strand=c(\"+\", \"-\", \"*\"))\n>> strand(z)\n> 'factor' Rle of length 3 with 3 runs\n>  Lengths: 1 1 1\n>  Values : + - *\n> Levels(3): + - *\n>> strand(z) = \"*\"\n>> sessionInfo()\n> R version 2.12.0 Patched (2010-11-21 r53647)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n> \n> locale:\n> [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n> [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n> [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n> [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n> [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] GenomicRanges_1.2.3 IRanges_1.8.8\n> \n> Martin\n> \n>> \n>>> traceback()\n>> 10: stop(\"missing '[[' method for Sequence class \", class(x))\n>> 9: x[[name, exact = FALSE]]\n>> 8: x[[name, exact = FALSE]]\n>> 7: object$call\n>> 6: object$call\n>> 5: update.default(x, strand = value)\n>> 4: update(x, strand = value)\n>> 3: update(x, strand = value)\n>> 2: `strand<-`(`*tmp*`, value = \"*\")\n>> 1: `strand<-`(`*tmp*`, value = \"*\")\n>> \n>>> sessionInfo()\n>> R version 2.12.1 (2010-12-16)\n>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>> \n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>> \n>> attached base packages:\n>> [1] stats   utils   methods base   \n>> \n>> other attached packages:\n>> [1] GenomicRanges_1.2.3 IRanges_1.8.8       Biobase_2.10.0     \n>> \n>> loaded via a namespace (and not attached):\n>> [1] annotate_1.28.0                     AnnotationDbi_1.12.0                biomaRt_2.6.0                      \n>> [4] Biostrings_2.18.2                   BSgenome_1.18.2                     BSgenome.Ecoli.NCBI.20080805_1.3.16\n>> [7] ChIPpeakAnno_1.6.0                  DBI_0.2-5                           DESeq_1.2.1                        \n>> [10] gdata_2.8.1                         genefilter_1.32.0                   geneplotter_1.28.0                 \n>> [13] GO.db_2.4.5                         gplots_2.8.0                        graphics_2.12.1                    \n>> [16] grDevices_2.12.1                    grid_2.12.1                         gtools_2.6.2                       \n>> [19] limma_3.6.9                         MASS_7.3-9                          multtest_2.6.0                     \n>> [22] org.Hs.eg.db_2.4.6                  RColorBrewer_1.0-2                  RCurl_1.5-0                        \n>> [25] RMySQL_0.7-5                        RSQLite_0.9-4                       splines_2.12.1                     \n>> [28] survival_2.36-2                     tools_2.12.1                        XML_3.2-0                          \n>> [31] xtable_1.5-6       \n>> ###################\n>> Joe\n>> \n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> \n> -- \n> Computational Biology\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n> \n> Location: M1-B861\n> Telephone: 206 667-2793",
+      "body_snippet": "Thanks Martin/Herv?: \n\nI started with a fresh R instance and the problem went away.  I reloaded my old workspace and everything works there as well so I'm not sure what was causing the trouble but now",
+      "thread_id": "thread-d16085df40d7",
+      "thread_depth": 2,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-ec584ed35a94",
+      "message_id": "<AANLkTimBU++bso2=bz_QYGU1-T+A9S4wEWXxwtCUWdw=@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-21T15:19:15Z",
+      "subject": "[Bioc-sig-seq] passing sequences on the fly to cosmo()",
+      "subject_clean": "[Bioc-sig-seq] passing sequences on the fly to cosmo()",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello everybody,\n\nThe package cosmo is used for detection of motifs.\n\nIn it's simplest form, you can run it successfully with only three commands:\n\nlibrary(cosmo)\nseqFile <- system.file(\"Exfiles/seq.fasta\", package = \"cosmo\")\nresults <- cosmo(seqs = seqFile, minW = 7, maxW = 8, models = c(\"OOPS\", \"TCM\"))\n\n\nNote:\nIn this case, seqs takes a connection to a fasta file.\n\n\nMy question:\nCan anybody give me a hand to figure out how to pass sequences to seqs\nwithout using a file?\n\n\nThe documentation (?cosmo) says:\nseqs: This argument specifies the sequences to be analyzed.  If seqs\n== \"browse\", a browser appears that allows the user to select a file\nthat contains the sequences in FASTA format. If seqs is another\ncharacter string, it is assumed to give the path to a FASTA file\ncontaining the sequences of interest.  Lastly, seqs may be a list with\neach element representing a sequence in the form of a single string\nsuch as \"ACGTAGCTAG\" (\"seq\" entry) and a description (\"desc\" entry).\n\n\nThe package's author:\nI contacted him but he does not work in this anymore. Dead end.\n\n\nThank you,\n\nIvan\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878",
+      "body_snippet": "Hello everybody,\n\nThe package cosmo is used for detection of motifs.\n\nIn it's simplest form, you can run it successfully with only three commands:\n\nlibrary(cosmo)\nseqFile <- system.file(\"Exfiles/seq.f",
+      "thread_id": "thread-ec584ed35a94",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-932c904176f4",
+      "message_id": "<7BB7EFF0-A78E-47B4-9768-4AAF981B3655@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2011-01-21T16:30:24Z",
+      "subject": "[Bioc-sig-seq] passing sequences on the fly to cosmo()",
+      "subject_clean": "[Bioc-sig-seq] passing sequences on the fly to cosmo()",
+      "in_reply_to": "<AANLkTimBU++bso2=bz_QYGU1-T+A9S4wEWXxwtCUWdw=@mail.gmail.com>",
+      "references": [
+        "<AANLkTimBU++bso2=bz_QYGU1-T+A9S4wEWXxwtCUWdw=@mail.gmail.com>"
+      ],
+      "body_plain": "The source shows that cosmo() uses this function to handle the 'seqs'  \nargument.\nI haven't tried it.\n\n > cosmo:::getSequences\nfunction (seqs)\n{\n     if (is.character(seqs)) {\n         if (seqs == \"browse\") {\n             seqs <- fileBrowser(textToShow = \"Sequence File (in  \nFASTA format)\")\n         }\n         if (!file.exists(seqs))\n             stop(paste(\"Sequence file\", seqs, \"not found.\"))\n         seqs <- readFASTA(seqs)\n     }\n     if (class(seqs) != \"list\")\n         stop(\"seqs must be browse, the path to a sequence file, or a  \nlist of sequences\")\n     seqList <- list()\n     descList <- list()\n     for (i in 1:length(seqs)) {\n         seqList[[i]] <- seqs[[i]]$seq\n         descList[[i]] <- seqs[[i]]$desc\n     }\n     seqMat <- seqList2seqMat(seqList)\n     list(seqMat = seqMat, seqList = seqList, descList = descList)\n}\n<environment: namespace:cosmo>\n\nOn Jan 21, 2011, at 10:19 AM, Ivan Gregoretti wrote:\n\n> Hello everybody,\n>\n> The package cosmo is used for detection of motifs.\n>\n> In it's simplest form, you can run it successfully with only three  \n> commands:\n>\n> library(cosmo)\n> seqFile <- system.file(\"Exfiles/seq.fasta\", package = \"cosmo\")\n> results <- cosmo(seqs = seqFile, minW = 7, maxW = 8, models = c \n> (\"OOPS\", \"TCM\"))\n>\n>\n> Note:\n> In this case, seqs takes a connection to a fasta file.\n>\n>\n> My question:\n> Can anybody give me a hand to figure out how to pass sequences to seqs\n> without using a file?\n>\n>\n> The documentation (?cosmo) says:\n> seqs: This argument specifies the sequences to be analyzed.  If seqs\n> == \"browse\", a browser appears that allows the user to select a file\n> that contains the sequences in FASTA format. If seqs is another\n> character string, it is assumed to give the path to a FASTA file\n> containing the sequences of interest.  Lastly, seqs may be a list with\n> each element representing a sequence in the form of a single string\n> such as \"ACGTAGCTAG\" (\"seq\" entry) and a description (\"desc\" entry).\n>\n>\n> The package's author:\n> I contacted him but he does not work in this anymore. Dead end.\n>\n>\n> Thank you,\n>\n> Ivan\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1016 and 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "The source shows that cosmo() uses this function to handle the 'seqs'  \nargument.\nI haven't tried it.\n\n > cosmo:::getSequences\nfunction (seqs)\n{\n     if (is.character(seqs)) {\n         if (seqs == \"br",
+      "thread_id": "thread-ec584ed35a94",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-0d726d6ae60c",
+      "message_id": "<918D24B5-76E3-44E2-80E0-5BDC28D913B9@bio.uib.no>",
+      "from_name": "Boris Lenhard",
+      "from_email_hash": "d1e8e2d785482d004eab708f66dee09be71fef5c6643d378c8cfd1e0fa30c3d7",
+      "date": "2011-01-22T03:42:00Z",
+      "subject": "[Bioc-sig-seq] liftOver problem (missing ranges method for Chain ?)",
+      "subject_clean": "[Bioc-sig-seq] liftOver problem (missing ranges method for Chain ?)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi, I am trying to do a simple thing with liftOver:\n\n> ucsc.con <-  browserSession(\"UCSC\")\n> genome(ucsc.con) <- \"hg19\"\n> query <-   ucscTableQuery(ucsc.con, \"cpgIslandExt\")\n> cpg.hg19.gr<- track(query, asRangedData=F)\n> hg19ToMm9.chain <- import.chain(file.path(SOURCE.DATA.ROOT.DIR,\n+                                             \"hg19ToMm9.over.chain\"))\n> cpg.mm9FromHg19.gr <- liftOver(cpg.hg19.gr, hg19ToMm9.chain)\nError in findOverlaps(ranges, ranges(chain)) : \n  error in evaluating the argument 'query' in selecting a method for function 'findOverlaps'\n\n\n> traceback()\n8: findOverlaps(ranges, ranges(chain))\n7: function (ranges, chain) \n   {\n       ol <- findOverlaps(ranges, ranges(chain))\n       shits <- subjectHits(ol)\n       ranges <- ranges(ol, ranges, ranges(chain))\n       starts <- ifelse(reversed(chain)[shits], start(reflect(ranges, \n           ranges(chain)[shits])), start(ranges))\n       ranges <- IRanges(starts, width = width(ranges))\n       offsets <- offset(chain)[shits]\n       spaces <- space(chain)[shits]\n       GRanges(spaces, IRanges(start(ranges) - offsets, end(ranges) - \n           offsets))\n   }(dots[[1L]][[1L]], dots[[2L]][[1L]])\n6: .Call(\"do_mapply\", FUN, dots, MoreArgs, environment(), PACKAGE = \"base\")\n5: mapply(liftOverSpace, x, chain)\n4: do.call(c, mapply(liftOverSpace, x, chain))\n3: .local(x, chain, ...)\n2: liftOver(cpg.hg19.gr, hg19ToMm9.chain)\n1: liftOver(cpg.hg19.gr, hg19ToMm9.chain)\n\n\nThen I tried simple\n> ranges(hg19ToMm9.chain)\nError in function (classes, fdef, mtable)  : \n  unable to find an inherited method for function \"ranges\", for signature \"Chain\"\n\nand indeed, there does not seem to be a \"ranges\" method for Chain, not even in the development version of the rtracklayer package. Since the documentation for liftOver says\n\n-----\n       x: The intervals to lift-over, usually a ?GRanges?.\n\n   chain: A ?Chain? object, usually imported with ?import.chain?.\n-----\n\nand both objects that I am passing to it seem fine, is there anything I am missing?\n\nThanks,\n\nBoris\n\n\n\n\n\n> sessionInfo()\nR version 2.12.1 (2010-12-16)\nPlatform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nlocale:\n[1] en_GB.UTF-8/en_GB.UTF-8/C/C/en_GB.UTF-8/en_GB.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] beanplot_1.1          GenomicFeatures_1.2.3 GenomicRanges_1.2.3   IRanges_1.8.8         rtracklayer_1.10.6   \n[6] RCurl_1.4-3           bitops_1.0-4.1       \n\nloaded via a namespace (and not attached):\n[1] Biobase_2.10.0    biomaRt_2.6.0     Biostrings_2.18.2 BSgenome_1.18.2   DBI_0.2-5         RSQLite_0.9-4     tools_2.12.1     \n[8] XML_3.2-0",
+      "body_snippet": "Hi, I am trying to do a simple thing with liftOver:\n\n> ucsc.con <-  browserSession(\"UCSC\")\n> genome(ucsc.con) <- \"hg19\"\n> query <-   ucscTableQuery(ucsc.con, \"cpgIslandExt\")\n> cpg.hg19.gr<- track(quer",
+      "thread_id": "thread-0d726d6ae60c",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-4afecd0cc228",
+      "message_id": "<AANLkTinNuaqzrN-_EKXgOYLc7m_WDX2mwRy+S24eMqu7@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-01-24T17:25:00Z",
+      "subject": "[Bioc-sig-seq] liftOver problem (missing ranges method for Chain ?)",
+      "subject_clean": "[Bioc-sig-seq] liftOver problem (missing ranges method for Chain ?)",
+      "in_reply_to": "<918D24B5-76E3-44E2-80E0-5BDC28D913B9@bio.uib.no>",
+      "references": [
+        "<918D24B5-76E3-44E2-80E0-5BDC28D913B9@bio.uib.no>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110124/fa741246/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110124/fa741246/attachment.pl>",
+      "thread_id": "thread-0d726d6ae60c",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-0ed45f8673d2",
+      "message_id": "<95AB7D46-B491-4A8E-9D13-E9D92A0DD339@wehi.edu.au>",
+      "from_name": "Luke Zappia",
+      "from_email_hash": "859c4734209290e1921211ef47b38b7c285d7b640d5a23055af648685ed31de2",
+      "date": "2011-01-25T00:41:12Z",
+      "subject": "[Bioc-sig-seq] Issue RSQLite",
+      "subject_clean": "[Bioc-sig-seq] Issue RSQLite",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Having problems accessing a TranscriptDb object. Consistently getting the following error:\n\nError in sqliteFetch(rs, n = -1, ...) : \n  RSQLite driver: (RS_SQLite_fetch: failed first step: disk I/O error)\n\nAre there any suggested solutions?\n\nsessionInfo()\nR version 2.12.1 (2010-12-16)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    \n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   \n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       \n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] GenomicFeatures_1.2.3 GenomicRanges_1.2.3   IRanges_1.8.8        \n\nloaded via a namespace (and not attached):\n [1] Biobase_2.10.0     biomaRt_2.6.0      Biostrings_2.18.2  BSgenome_1.18.2   \n [5] DBI_0.2-5          RCurl_1.5-0        RSQLite_0.9-4      rtracklayer_1.10.6\n [9] tools_2.12.1       XML_3.2-0    \n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:6}}",
+      "body_snippet": "Having problems accessing a TranscriptDb object. Consistently getting the following error:\n\nError in sqliteFetch(rs, n = -1, ...) : \n  RSQLite driver: (RS_SQLite_fetch: failed first step: disk I/O err",
+      "thread_id": "thread-0ed45f8673d2",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-5b3bbe5d8fe4",
+      "message_id": "<AANLkTi=uPXMeX1fQ54L3h17Bx0hPcEaxfNFUkVaKOja5@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2011-01-25T02:32:07Z",
+      "subject": "[Bioc-sig-seq] Issue RSQLite",
+      "subject_clean": "[Bioc-sig-seq] Issue RSQLite",
+      "in_reply_to": "<95AB7D46-B491-4A8E-9D13-E9D92A0DD339@wehi.edu.au>",
+      "references": [
+        "<95AB7D46-B491-4A8E-9D13-E9D92A0DD339@wehi.edu.au>"
+      ],
+      "body_plain": "Hi,\n\nOn Mon, Jan 24, 2011 at 7:41 PM, Luke Zappia <zappia at wehi.edu.au> wrote:\n> Having problems accessing a TranscriptDb object. Consistently getting the following error:\n>\n> Error in sqliteFetch(rs, n = -1, ...) :\n> ?RSQLite driver: (RS_SQLite_fetch: failed first step: disk I/O error)\n>\n> Are there any suggested solutions?\n>\n\nHmm ... can you read the database with \"sqlite3\" from the command line\n(outside of R, I mean)?\n\n-steve\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Mon, Jan 24, 2011 at 7:41 PM, Luke Zappia <zappia at wehi.edu.au> wrote:\n> Having problems accessing a TranscriptDb object. Consistently getting the following error:\n>\n> Error in sqliteFetch(r",
+      "thread_id": "thread-0ed45f8673d2",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-28f35f81187a",
+      "message_id": "<AANLkTimxGunRJHi6-1ZbpgDpKAS99=Fs43uhyQM5zewO@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2011-01-25T03:15:14Z",
+      "subject": "[Bioc-sig-seq] Issue RSQLite",
+      "subject_clean": "[Bioc-sig-seq] Issue RSQLite",
+      "in_reply_to": "<CEA93170-2B9F-47D3-B3F2-CFF8F1A10B6F@wehi.edu.au>",
+      "references": [
+        "<95AB7D46-B491-4A8E-9D13-E9D92A0DD339@wehi.edu.au>",
+        "<AANLkTi=uPXMeX1fQ54L3h17Bx0hPcEaxfNFUkVaKOja5@mail.gmail.com>",
+        "<CEA93170-2B9F-47D3-B3F2-CFF8F1A10B6F@wehi.edu.au>"
+      ],
+      "body_plain": "Hi Luke,\n\nPlease don't forget to \"reply to all\" when sending correspondence\nback/forth to the bioconductor lists so that everyone else can benefit\nfrom the discussion, now:\n\nOn Mon, Jan 24, 2011 at 10:06 PM, Luke Zappia <zappia at wehi.edu.au> wrote:\n> Yes, that seems to be working fine so it doesn't look like there is anything wrong with the database itself\n\nThat's a good sign.\n\nSo ... you didn't show us the code you are running that produces the\nerror you're getting, ie:\n\n>> On Mon, Jan 24, 2011 at 7:41 PM, Luke Zappia <zappia at wehi.edu.au> wrote:\n>>> Having problems accessing a TranscriptDb object. Consistently getting the following error:\n>>>\n>>> Error in sqliteFetch(rs, n = -1, ...) :\n>>> ?RSQLite driver: (RS_SQLite_fetch: failed first step: disk I/O error)\n\nCould you show us the line(s) you are running before that which leads\nto this error?\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi Luke,\n\nPlease don't forget to \"reply to all\" when sending correspondence\nback/forth to the bioconductor lists so that everyone else can benefit\nfrom the discussion, now:\n\nOn Mon, Jan 24, 2011 at 10",
+      "thread_id": "thread-28f35f81187a",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-a4c6982d1d8f",
+      "message_id": "<AANLkTimR5Db_gTG09ZLDKMLHmTB3=toVq0r3TBFUFby4@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-25T15:36:14Z",
+      "subject": "[Bioc-sig-seq] finding matches to a motif",
+      "subject_clean": "[Bioc-sig-seq] finding matches to a motif",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello everybody,\n\nIntroduction:\nI have a Position Weigh Matrix that characterises the binding DNA\nsequence of a novel transcription factor.\n\nGoal:\nI want to find the genomic positions that are good matches for my PWM.\n\nQuestion:\nWhat are my options among the Bioconductor packages?\n\nThank you,\n\nIvan\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878",
+      "body_snippet": "Hello everybody,\n\nIntroduction:\nI have a Position Weigh Matrix that characterises the binding DNA\nsequence of a novel transcription factor.\n\nGoal:\nI want to find the genomic positions that are good ma",
+      "thread_id": "thread-a4c6982d1d8f",
+      "thread_depth": 0,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-3f883c9908eb",
+      "message_id": "<AANLkTikZ_QCpB-gAwYR_5sm292oE1zsLxw-pb2zKsj=u@mail.gmail.com>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "b2b45a5f3ad330d8561a4711d1f95ff6a445243a303a83a7a709685fab3e068c",
+      "date": "2011-01-25T15:52:11Z",
+      "subject": "[Bioc-sig-seq] finding matches to a motif",
+      "subject_clean": "[Bioc-sig-seq] finding matches to a motif",
+      "in_reply_to": "<AANLkTimR5Db_gTG09ZLDKMLHmTB3=toVq0r3TBFUFby4@mail.gmail.com>",
+      "references": [
+        "<AANLkTimR5Db_gTG09ZLDKMLHmTB3=toVq0r3TBFUFby4@mail.gmail.com>"
+      ],
+      "body_plain": "I would start with\n  Biostrings::matchPWM\nThe function name sounds promising :)\n\nKasper\n\nOn Tue, Jan 25, 2011 at 10:36 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> Hello everybody,\n>\n> Introduction:\n> I have a Position Weigh Matrix that characterises the binding DNA\n> sequence of a novel transcription factor.\n>\n> Goal:\n> I want to find the genomic positions that are good matches for my PWM.\n>\n> Question:\n> What are my options among the Bioconductor packages?\n>\n> Thank you,\n>\n> Ivan\n>\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1016 and 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "I would start with\n  Biostrings::matchPWM\nThe function name sounds promising :)\n\nKasper\n\nOn Tue, Jan 25, 2011 at 10:36 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> Hello everybody,\n>\n> Introdu",
+      "thread_id": "thread-a4c6982d1d8f",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-82e4c4f56b7c",
+      "message_id": "<AANLkTi=g=1bfJPteLC8HpKx0ugRdNck9NVkXB9C5ZMiy@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-25T22:25:11Z",
+      "subject": "[Bioc-sig-seq] finding matches to a motif",
+      "subject_clean": "[Bioc-sig-seq] finding matches to a motif",
+      "in_reply_to": "<AANLkTikZ_QCpB-gAwYR_5sm292oE1zsLxw-pb2zKsj=u@mail.gmail.com>",
+      "references": [
+        "<AANLkTimR5Db_gTG09ZLDKMLHmTB3=toVq0r3TBFUFby4@mail.gmail.com>",
+        "<AANLkTikZ_QCpB-gAwYR_5sm292oE1zsLxw-pb2zKsj=u@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Kasper,\n\nmatchPWM is great and really fast.\n\nI will have to think how to estimate the FDR as this motif search\nreports many hits.\n\nThank you,\n\nIvan\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878\n\n\nOn Tue, Jan 25, 2011 at 10:52 AM, Kasper Daniel Hansen\n<kasperdanielhansen at gmail.com> wrote:\n>\n> I would start with\n> ?Biostrings::matchPWM\n> The function name sounds promising :)\n>\n> Kasper\n>\n> On Tue, Jan 25, 2011 at 10:36 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> > Hello everybody,\n> >\n> > Introduction:\n> > I have a Position Weigh Matrix that characterises the binding DNA\n> > sequence of a novel transcription factor.\n> >\n> > Goal:\n> > I want to find the genomic positions that are good matches for my PWM.\n> >\n> > Question:\n> > What are my options among the Bioconductor packages?\n> >\n> > Thank you,\n> >\n> > Ivan\n> >\n> >\n> > Ivan Gregoretti, PhD\n> > National Institute of Diabetes and Digestive and Kidney Diseases\n> > National Institutes of Health\n> > 5 Memorial Dr, Building 5, Room 205.\n> > Bethesda, MD 20892. USA.\n> > Phone: 1-301-496-1016 and 1-301-496-1592\n> > Fax: 1-301-496-9878\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >",
+      "body_snippet": "Hi Kasper,\n\nmatchPWM is great and really fast.\n\nI will have to think how to estimate the FDR as this motif search\nreports many hits.\n\nThank you,\n\nIvan\n\n\nIvan Gregoretti, PhD\nNational Institute of Diab",
+      "thread_id": "thread-a4c6982d1d8f",
+      "thread_depth": 2,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-5606801f3e94",
+      "message_id": "<1296086141.5277.157.camel@bioinform01-ubuntu>",
+      "from_name": "Paul Leo",
+      "from_email_hash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+      "date": "2011-01-26T23:55:41Z",
+      "subject": "[Bioc-sig-seq] finding matches to a motif",
+      "subject_clean": "[Bioc-sig-seq] finding matches to a motif",
+      "in_reply_to": "<AANLkTimR5Db_gTG09ZLDKMLHmTB3=toVq0r3TBFUFby4@mail.gmail.com>",
+      "references": [
+        "<AANLkTimR5Db_gTG09ZLDKMLHmTB3=toVq0r3TBFUFby4@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110127/76e32d07/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110127/76e32d07/attachment.pl>",
+      "thread_id": "thread-a4c6982d1d8f",
+      "thread_depth": 1,
+      "month": "2011-01"
+    },
+    {
+      "id": "msg-d44e25d9bcfc",
+      "message_id": "<AANLkTimT-h09APEF2G3nxAd7DZ5Xk_ctUyN_zU=oBuyf@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-01-27T00:46:39Z",
+      "subject": "[Bioc-sig-seq] finding matches to a motif",
+      "subject_clean": "[Bioc-sig-seq] finding matches to a motif",
+      "in_reply_to": "<1296086141.5277.157.camel@bioinform01-ubuntu>",
+      "references": [
+        "<AANLkTimR5Db_gTG09ZLDKMLHmTB3=toVq0r3TBFUFby4@mail.gmail.com>",
+        "<1296086141.5277.157.camel@bioinform01-ubuntu>"
+      ],
+      "body_plain": "Hello Paul,\n\nFirst, thank you for sharing your code.\n\nRight now, I am using a work flow of my own creation that is\nphilosophically identical to your solution.\n\nHowever, I still have a question:\n\nHow did you handle true and false positives? For instance, by lowering\nmin.score you can get matchPWM to report thousands of matches. There\nis a point at which the naked eye can tell that some matches are false\npositives.\n\nHave you or anybody designed a statistically defensible strategy to\ncall reliable genomic targets starting from a PWM?\n\nBy defensible I mean publishable.\n\nThank you,\n\nIvan\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878\n\n\nOn Wed, Jan 26, 2011 at 6:55 PM, Paul Leo <p.leo at uq.edu.au> wrote:\n>\n> Hi Ivan,\n> Here is just a straight cut and paste for something I did some time back if gets the location and the counts of alignments with a PWM? that pass a certain score for a set of regions . If you have a lot of regions using XstringViews will speed things up. This is only rough code ...\n>\n> here \"the.chrom\" \"start\" and \"end\" are large vectors containing the regions that you wnat to search:\n> the.chrom=c(\"chr1\",\"chr1\",\"chr3\"...)\n> starts=c(1000,2000,2000...)\n> end=c(2000,3000,4000....)\n>\n> library(\"BSgenome.Mmusculus.UCSC.mm9\")\n> Mmusculus\n> all.genomic<-getSeq(Mmusculus, the.chrom, starts, ends)\n> length(all.genomic)\n>\n>\n> system.time(x<- XStringViews(all.genomic, \"DNAString\"))\n>\n> ## $transMat$order0\n> ##??????????? A???????? C???????? G???????? T\n> ## -- 0.2547153 0.2453616 0.2451361 0.2547870\n>\n>\n> x.labels<-paste(the.chrom,starts,ends,sep=\":\")\n> names(x)<-x.labels\n>\n>\n>\n> #################################\n> ?????? ## ## ---------------------------------------------------------------------\n> ?????? ## ## C. SEARCHING THE MINUS STRAND OF A CHROMOSOME\n> ?????? ## ## ---------------------------------------------------------------------\n> ?????? ## ## Applying reverseComplement() to the pattern before calling\n> ?????? ## ## matchPattern() is the recommended way of searching hits on the\n> ?????? ## ## minus strand of a chromosome.\n>\n>\n>\n> mime.ev<-c( 0.129955,? 0.433398,? 0.207277,? 0.229370,\n> 0.196881,? 0.480832,? 0.009747,? 0.312541,\n> 0.978558,? 0.020143,? 0.000650,? 0.000650,\n> 0.988304,? 0.000650,? 0.011046 , 0.000000,\n> 0.000000,? 1.000000,? 0.000000,? 0.000000,\n> 0.181936,? 0.071475,? 0.175439,? 0.571150,\n> 0.000000,? 0.004548,? 0.990903,? 0.004548,\n> 0.232619,? 0.421702,? 0.045484,? 0.300195,\n> 0.250162,? 0.576998,? 0.016244,? 0.156595,\n> 0.452242,? 0.178687,? 0.133853,? 0.235218,\n> 0.198181,? 0.338532,? 0.190383,? 0.272904)? ### this was the one used\n>\n> a.pwm<-mime.ev\n>\n>\n>\n> min.score=\"85.0%\" #85 % for mime 87.5 for crank\n> all.matches<-matchPWM(a.pwm,x,min.score=min.score) # needs a stringView to vectorize\n> the.cov<-coverage(all.matches)\n> counts<-aggregate(the.cov,start=start(x),end=end(x),FUN=sum)/dim(a.pwm)[2]\n> sum(counts!=0)\n>\n> all.matches.comp<-matchPWM(reverseComplement(a.pwm),x,min.score=min.score)? #verified using seqlogo as ok\n> the.cov.comp<-coverage(all.matches.comp)\n> counts.comp<-aggregate(the.cov.comp,start=start(x),end=end(x),FUN=sum)/dim(a.pwm)[2]\n> sum(counts.comp!=0)\n>\n> ############################################### Check frequency at a position\n> ###############################################\n>\n> counts.t<-counts+counts.comp\n> ###################### forward posns #################\n> loc.f=rep(NA,times=dim(all.data80)[1])\n> loc.hit<-start(all.matches)\n> region.start<-start(x)\n> hits<-grep(TRUE,counts>0) # places where a hits is found\n> k<-1\n> no.hits<-counts[counts>0]\n> for(i in 1:length(hits)){\n> ? loc.f[hits[i]]<-toString((loc.hit[k:(k+no.hits[i]-1)]-region.start[hits[i]])+1)\n> ? k<-k+no.hits[i]\n> }\n> ######################################################\n>\n> ###################### revearse posns #################\n> loc.c=rep(NA,times=dim(all.data80)[1])\n> loc.hit<-start(all.matches.comp)\n> region.start<-start(x)\n> hits<-grep(TRUE,counts.comp>0) # places where a hits is found\n> k<-1\n> no.hits<-counts.comp[counts.comp>0]\n> for(i in 1:length(hits)){\n> ? loc.c[hits[i]]<-toString((loc.hit[k:(k+no.hits[i]-1)]-region.start[hits[i]])+1)\n> ? k<-k+no.hits[i]\n> }\n> ######################################################\n>\n> ######combine loc.f and loc.c all w.r.t forward strand posn see doc after ?reverseComplement\n> has.c<-!is.na(loc.c)\n> has.f<-!is.na(loc.f)\n> loc.all<-loc.c\n> loc.all[has.c & has.f]<-paste(loc.all[has.c & has.f],loc.f[has.c & has.f],sep=\", \") # both present\n> loc.all[!has.c & has.f]<-loc.f[!has.c & has.f] # new in loc.f\n>\n> ## cbind(loc.c,loc.f,loc.all)[1:50,] # a check\n>\n>\n> you can replace some of the for loops above with a vmatch ...\n>\n>\n>\n>\n>\n>\n> -----Original Message-----\n> From: Ivan Gregoretti <ivangreg at gmail.com>\n> To: bioc-sig-sequencing at r-project.org\n> Subject: [Bioc-sig-seq] finding matches to a motif\n> Date: Tue, 25 Jan 2011 10:36:14 -0500\n>\n> Hello everybody,\n>\n> Introduction:\n> I have a Position Weigh Matrix that characterises the binding DNA\n> sequence of a novel transcription factor.\n>\n> Goal:\n> I want to find the genomic positions that are good matches for my PWM.\n>\n> Question:\n> What are my options among the Bioconductor packages?\n>\n> Thank you,\n>\n> Ivan\n>\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1016 and 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hello Paul,\n\nFirst, thank you for sharing your code.\n\nRight now, I am using a work flow of my own creation that is\nphilosophically identical to your solution.\n\nHowever, I still have a question:\n\nHow d",
+      "thread_id": "thread-a4c6982d1d8f",
+      "thread_depth": 2,
+      "month": "2011-01"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-9d07a0c2f6da",
+      "subject": "[Bioc-sig-seq] 2011",
+      "message_count": 1,
+      "participants": [
+        "Bogdan Tanasa"
+      ],
+      "started": "2011-01-01T19:09:37Z",
+      "last_reply": "2011-01-01T19:09:37Z",
+      "root_message_id": "msg-9d07a0c2f6da"
+    },
+    {
+      "id": "thread-3bd002231981",
+      "subject": "[Bioc-sig-seq]  error msg from edgeR estimateCRDisp",
+      "message_count": 2,
+      "participants": [
+        "Gordon K Smyth",
+        "Laurent Gautier"
+      ],
+      "started": "2011-01-03T03:36:52Z",
+      "last_reply": "2011-01-03T11:56:41Z",
+      "root_message_id": "msg-3bd002231981"
+    },
+    {
+      "id": "thread-1d0c8b850112",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "message_count": 3,
+      "participants": [
+        "Laurent Gautier",
+        "Wong, Chao-Jen",
+        "kristen.dang at syngenta.com"
+      ],
+      "started": "2011-01-03T17:45:51Z",
+      "last_reply": "2011-01-03T19:13:08Z",
+      "root_message_id": "msg-1d0c8b850112"
+    },
+    {
+      "id": "thread-9e87a993b1b2",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "message_count": 1,
+      "participants": [
+        "Gordon K Smyth"
+      ],
+      "started": "2011-01-03T22:54:58Z",
+      "last_reply": "2011-01-03T22:54:58Z",
+      "root_message_id": "msg-9e87a993b1b2"
+    },
+    {
+      "id": "thread-6904b0b668c1",
+      "subject": "[Bioc-sig-seq] Consolidating RangedData",
+      "message_count": 14,
+      "participants": [
+        "Ivan Gregoretti",
+        "Martin Morgan",
+        "Michael Lawrence",
+        "Steve Lianoglou"
+      ],
+      "started": "2011-01-05T20:12:58Z",
+      "last_reply": "2011-01-07T18:44:44Z",
+      "root_message_id": "msg-6904b0b668c1"
+    },
+    {
+      "id": "thread-d83025c5843d",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "message_count": 5,
+      "participants": [
+        "Gordon K Smyth",
+        "Laurent Gautier",
+        "kristen.dang at syngenta.com"
+      ],
+      "started": "2011-01-06T00:08:22Z",
+      "last_reply": "2011-01-09T23:02:33Z",
+      "root_message_id": "msg-d83025c5843d"
+    },
+    {
+      "id": "thread-fd3a4401306d",
+      "subject": "[Bioc-sig-seq] Using library(cosmo) for motif detection",
+      "message_count": 3,
+      "participants": [
+        "Giancarlo Castellano",
+        "Hans-Rudolf Hotz",
+        "Ivan Gregoretti"
+      ],
+      "started": "2011-01-11T21:25:45Z",
+      "last_reply": "2011-01-12T11:57:05Z",
+      "root_message_id": "msg-fd3a4401306d"
+    },
+    {
+      "id": "thread-bc9602ad74c4",
+      "subject": "[Bioc-sig-seq] Bioc course: Advanced R Programming, 17-18 Feb, Seattle",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2011-01-15T13:39:12Z",
+      "last_reply": "2011-01-15T13:39:12Z",
+      "root_message_id": "msg-bc9602ad74c4"
+    },
+    {
+      "id": "thread-d16085df40d7",
+      "subject": "[Bioc-sig-seq] strand problem in GenomicRanges",
+      "message_count": 4,
+      "participants": [
+        "Hervé Pagès",
+        "Joseph Scandura",
+        "Martin Morgan"
+      ],
+      "started": "2011-01-18T00:05:53Z",
+      "last_reply": "2011-01-18T22:33:49Z",
+      "root_message_id": "msg-d16085df40d7"
+    },
+    {
+      "id": "thread-ec584ed35a94",
+      "subject": "[Bioc-sig-seq] passing sequences on the fly to cosmo()",
+      "message_count": 2,
+      "participants": [
+        "Harris A. Jaffee",
+        "Ivan Gregoretti"
+      ],
+      "started": "2011-01-21T15:19:15Z",
+      "last_reply": "2011-01-21T16:30:24Z",
+      "root_message_id": "msg-ec584ed35a94"
+    },
+    {
+      "id": "thread-0d726d6ae60c",
+      "subject": "[Bioc-sig-seq] liftOver problem (missing ranges method for Chain ?)",
+      "message_count": 2,
+      "participants": [
+        "Boris Lenhard",
+        "Michael Lawrence"
+      ],
+      "started": "2011-01-22T03:42:00Z",
+      "last_reply": "2011-01-24T17:25:00Z",
+      "root_message_id": "msg-0d726d6ae60c"
+    },
+    {
+      "id": "thread-0ed45f8673d2",
+      "subject": "[Bioc-sig-seq] Issue RSQLite",
+      "message_count": 2,
+      "participants": [
+        "Luke Zappia",
+        "Steve Lianoglou"
+      ],
+      "started": "2011-01-25T00:41:12Z",
+      "last_reply": "2011-01-25T02:32:07Z",
+      "root_message_id": "msg-0ed45f8673d2"
+    },
+    {
+      "id": "thread-28f35f81187a",
+      "subject": "[Bioc-sig-seq] Issue RSQLite",
+      "message_count": 1,
+      "participants": [
+        "Steve Lianoglou"
+      ],
+      "started": "2011-01-25T03:15:14Z",
+      "last_reply": "2011-01-25T03:15:14Z",
+      "root_message_id": "msg-28f35f81187a"
+    },
+    {
+      "id": "thread-a4c6982d1d8f",
+      "subject": "[Bioc-sig-seq] finding matches to a motif",
+      "message_count": 5,
+      "participants": [
+        "Ivan Gregoretti",
+        "Kasper Daniel Hansen",
+        "Paul Leo"
+      ],
+      "started": "2011-01-25T15:36:14Z",
+      "last_reply": "2011-01-27T00:46:39Z",
+      "root_message_id": "msg-a4c6982d1d8f"
+    }
+  ]
+}

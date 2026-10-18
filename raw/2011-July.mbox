@@ -1,0 +1,4692 @@
+From dmccarthy at wehi.EDU.AU  Fri Jul  1 01:46:28 2011
+From: dmccarthy at wehi.EDU.AU (Davis McCarthy)
+Date: Fri, 1 Jul 2011 09:46:28 +1000
+Subject: [Bioc-sig-seq] Adjusted p values in edgeR
+In-Reply-To: <1376015272.132935.1309462458645.JavaMail.root@zimbra1.fhcrc.org>
+References: <1376015272.132935.1309462458645.JavaMail.root@zimbra1.fhcrc.org>
+Message-ID: <94DDC6F1-1075-4624-A9ED-A86ED37DFCFB@wehi.edu.au>
+
+Sara
+
+In edgeR if you call 
+top <- topTags(d, n=Inf)
+then you will get FDR (or whatever adjustment method you like, see argument adjust.method for topTags()) for each gene. 
+
+In general, if you have a vector of p-values then you can use the p.adjust() function to get adjusted p-values---FDR is one of several options. This is precisely the function used by edgeR to compute adjusted p-values to control FDR. See ?p.adjust.
+
+Cheers
+Davis
+
+
+On Jul 1, 2011, at 5:34 AM, Garg, Kavita wrote:
+
+> 
+> The output of topTags has that information
+> top = topTags(d, n = 500)
+> top$table has a adj.P.Val column
+> 
+> ----- Original Message -----
+> From: "Sara Hanson" <sarahanson5 at gmail.com>
+> To: bioc-sig-sequencing at r-project.org
+> Sent: Thursday, June 30, 2011 12:22:44 PM
+> Subject: [Bioc-sig-seq] Adjusted p values in edgeR
+> 
+> I am analyzing differential expression with next gen sequencing data. I have
+> successfully gotten an output from the program containing the p-values
+> calculated for each gene, but I am not sure how to output the p-values
+> adjusted using the FDR method. From the edgeR manual, I can get a summary of
+> the number of genes that are significantly differentially expressed based on
+> adjusted p-values, but I do not know how to output the actual list of
+> adjusted p-values for my dataset. Can anyone help me with this?
+> 
+> I apologize if this question is naive, but I am a novice with R. Thanks in
+> advance!
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+------------------------------------------------------------------------
+Davis J McCarthy
+Research Technician
+Bioinformatics Division
+Walter and Eliza Hall Institute of Medical Research
+1G Royal Parade, Parkville, Vic 3052, Australia
+dmccarthy at wehi.edu.au
+http://www.wehi.edu.au
+
+
+
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:6}}
+
+
+From bruno.zeitouni at curie.fr  Mon Jul  4 15:48:42 2011
+From: bruno.zeitouni at curie.fr (Bruno Zeitouni)
+Date: Mon, 4 Jul 2011 15:48:42 +0200
+Subject: [Bioc-sig-seq] R package for DGE analysis between multiple RNA-Seq
+	samples
+Message-ID: <4E11C4BA.4060905@curie.fr>
+
+Dear all,
+
+Have you already known about a RNA-seq R Package for the differential
+expression analysis between multiple samples (ANOVA-like) ?
+Tools such as edgeR or DESeq seems to be limited to the analysis between
+two conditions only.
+
+thanks
+
+Bruno
+
+-- 
+
+Bruno Zeitouni, PhD
+Institut Curie - U900 INSERM - Mines ParisTech
+Equipe Bioinformatique
+B?timent de Biologie du D?veloppement
+26 rue d'ULM
+75248 Paris Cedex 05 - FRANCE
+
+T?l  : +33 1 56 24 69 31
+Mail : bruno.zeitouni at curie.fr
+
+
+From kak28 at cam.ac.uk  Mon Jul  4 16:58:06 2011
+From: kak28 at cam.ac.uk (Krys Kelly)
+Date: Mon, 4 Jul 2011 15:58:06 +0100
+Subject: [Bioc-sig-seq] R package for DGE analysis between multiple
+	RNA-Seq	samples
+In-Reply-To: <4E11C4BA.4060905@curie.fr>
+References: <4E11C4BA.4060905@curie.fr>
+Message-ID: <00e201cc3a5a$c81bbb30$58533190$@ac.uk>
+
+You could take a look at baySeq.
+
+Krys
+
+***********************
+Dr Krystyna A Kelly
+Bioinformatics Group Leader
+Department of Plant Sciences
+University of Cambridge
+Downing Street
+Cambridge CB2 3EA
+Tel: 01223 748969
+***********************
+
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org
+[mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Bruno
+Zeitouni
+Sent: 04 July 2011 14:49
+To: bioc-sig-sequencing at r-project.org
+Subject: [Bioc-sig-seq] R package for DGE analysis between multiple RNA-Seq
+samples
+
+Dear all,
+
+Have you already known about a RNA-seq R Package for the differential
+expression analysis between multiple samples (ANOVA-like) ?
+Tools such as edgeR or DESeq seems to be limited to the analysis between
+two conditions only.
+
+thanks
+
+Bruno
+
+-- 
+
+Bruno Zeitouni, PhD
+Institut Curie - U900 INSERM - Mines ParisTech
+Equipe Bioinformatique
+B?timent de Biologie du D?veloppement
+26 rue d'ULM
+75248 Paris Cedex 05 - FRANCE
+
+T?l  : +33 1 56 24 69 31
+Mail : bruno.zeitouni at curie.fr
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From smyth at wehi.EDU.AU  Thu Jul  7 01:13:26 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Thu, 7 Jul 2011 09:13:26 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] R package for DGE analysis between multiple RNA-Seq
+	samples
+In-Reply-To: <mailman.7.1309860004.31980.bioc-sig-sequencing@r-project.org>
+References: <mailman.7.1309860004.31980.bioc-sig-sequencing@r-project.org>
+Message-ID: <Pine.WNT.4.64.1107070910280.3188@PC765.wehi.edu.au>
+
+Dear Bruno,
+
+As Davis replied to you on the Bioconductor mailing list, the glm 
+functions in edgeR perform differential expression analysis of arbitrarily 
+complicated RNA-Seq experiments.  There is a case study in the edgeR 
+User's guide.
+
+Best wishes
+Gordon
+
+---------------------------------------------
+Professor Gordon K Smyth,
+Bioinformatics Division,
+Walter and Eliza Hall Institute of Medical Research,
+1G Royal Parade, Parkville, Vic 3052, Australia.
+Tel: (03) 9345 2326, Fax (03) 9347 0852,
+smyth at wehi.edu.au
+http://www.wehi.edu.au
+http://www.statsci.org/smyth
+
+
+> Date: Mon, 4 Jul 2011 15:48:42 +0200
+> From: Bruno Zeitouni <bruno.zeitouni at curie.fr>
+> To: <bioc-sig-sequencing at r-project.org>
+> Subject: [Bioc-sig-seq] R package for DGE analysis between multiple
+> 	RNA-Seq	samples
+>
+> Dear all,
+>
+> Have you already known about a RNA-seq R Package for the differential
+> expression analysis between multiple samples (ANOVA-like) ?
+> Tools such as edgeR or DESeq seems to be limited to the analysis between
+> two conditions only.
+>
+> thanks
+>
+> Bruno
+>
+> -- 
+>
+> Bruno Zeitouni, PhD
+> Institut Curie - U900 INSERM - Mines ParisTech
+> Equipe Bioinformatique
+> B?timent de Biologie du D?veloppement
+> 26 rue d'ULM
+> 75248 Paris Cedex 05 - FRANCE
+>
+> T?l  : +33 1 56 24 69 31
+> Mail : bruno.zeitouni at curie.fr
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From 20907099 at zju.edu.cn  Sun Jul 10 04:24:47 2011
+From: 20907099 at zju.edu.cn (20907099)
+Date: Sun, 10 Jul 2011 10:24:47 +0800
+Subject: [Bioc-sig-seq] Welcome to the "Bioc-sig-sequencing" mailing
+	list (Digest mode)
+Message-ID: <YTNWRLXXKWZBZSRNVKVFMATCFHCZ.20907099@zju.edu.cn>
+
+Hello everyone,
+
+Now I have got peakArd1(RangedData) with 1120 rows and peakArd2 with 4665 rows and peak1_with_peak2_overlaps 944 row..
+
+Question 1:Now how can I  get peak1_without_overlaps?
+
+OQuestion 2:when I want to >write.table(peakArd1,"peakArd1")
+error:as.data.frame.default(x[[i]], optional = TRUE) : 
+  cannot coerce class 'structure("RangedData", package = "IRanges")' into a data.frame
+what can I do with this problem?
+
+ I really need your help.Thank you!
+
+
+> head(peak1_with_overlaps)
+RangedData with 6 rows and 1 value column across 23 spaces
+        space             ranges |      strand
+     <factor>          <IRanges> | <character>
+0002     chr1 [2389275, 2389694] |           1
+0003     chr1 [3408545, 3408894] |           1
+0004     chr1 [3928820, 3929099] |           1
+0005     chr1 [4509890, 4510239] |           1
+0006     chr1 [4961425, 4961704] |           1
+0007     chr1 [5829985, 5830369] |           1
+
+> head(peakArd1)
+RangedData with 6 rows and 15 value columns across 23 spaces
+     space             ranges |      rank   strand peaklenth       FDR
+  <factor>          <IRanges> | <integer> <factor> <integer> <numeric>
+1     chr1 [1819580, 1819929] |      1032        +       350  0.063628
+2     chr1 [2389275, 2389694] |       319        +       420  0.003003
+3     chr1 [3408545, 3408894] |      1070        +       350  0.073905
+4     chr1 [3928820, 3929099] |       627        +       280  0.015823
+5     chr1 [4509890, 4510239] |      1043        +       350  0.067733
+6     chr1 [4961425, 4961704] |       979        +       280  0.050556
+
+
+
+From schmidbe at in.tum.de  Wed Jul 13 14:25:40 2011
+From: schmidbe at in.tum.de (Markus Schmidberger)
+Date: Wed, 13 Jul 2011 14:25:40 +0200
+Subject: [Bioc-sig-seq] Running R and Bioconductor on a Computer Cluster in
+ the Cloud - cloudnumbers.com
+Message-ID: <1310559940.3067.36.camel@schmidb-TravelMate8572TG>
+
+Dear sequence data analysts and experts,
+
+cloudnumbers.com provides researchers and companies with the resources
+to perform high performance calculations in the cloud. As
+cloudnumbers.com's community manager I may invite you to register and
+test R on a computer cluster in the cloud for free:
+http://my.cloudnumbers.com/register
+
+Our aim is to change the way of research collaboration is done today by
+bringing together scientists and businesses from all over the world on a
+single platform. cloudnumbers.com is a Berlin (Germany) based
+international high-tech startup striving for enabling everyone to
+benefit from the High Performance Computing related advantages of the
+cloud. We provide easy access to applications running on any kind of
+computer hardware: from single core high memory machines up to 1000
+cores computer clusters.
+
+Our platform provides several advantages:
+
+* Turn fixed into variable costs and pay only for the capacity you need.
+Watch our latest saving costs with cloudnumbers.com video:
+http://www.youtube.com/watch?v=ln_BSVigUhg&feature=player_embedded
+
+* Enter the cloud using an intuitive and user friendly platform. Watch
+our latest cloudnumbers.com in a nutshell video:
+http://www.youtube.com/watch?v=0ZNEpR_ElV0&feature=player_embedded
+
+* Be released from ongoing technological obsolescence and continuous
+maintenance costs (e.g. linking to libraries or system dependencies)
+
+* Accelerated your R, C, C++, Fortran, Python, ... calculations through
+parallel processing and great computing capacity - more than 1000 cores
+are available and GPUs are coming soon.
+
+* Share your results worldwide (coming soon).
+
+* Get high speed access to public databases (please let us know, if your
+favorite database is missing!).
+
+* We have developed a security architecture that meets high requirements
+of data security and privacy. Read our security white paper:
+http://d1372nki7bx5yg.cloudfront.net/wp-content/uploads/2011/06/cloudnumberscom-security.whitepaper.pdf
+
+
+This is only a selection of our top features. To get more information
+check out our web-page (http://www.cloudnumbers.com/) or follow our blog
+about cloud computing, HPC and HPC applications (with R):
+http://cloudnumbers.com/blog
+
+Register and test for free now at cloudnumbers.com:
+http://my.cloudnumbers.com/register
+
+We are looking forward to get your feedback and consumer insights. Take
+the chance and have an impact to the development of a new cloud
+computing calculation platform.
+
+Best
+Markus
+
+
+-- 
+Dr. rer. nat. Markus Schmidberger 
+Senior Community Manager 
+
+Cloudnumbers.com GmbH
+Chausseestra?e 6
+10119 Berlin 
+
+www.cloudnumbers.com 
+E-Mail: markus.schmidberger at cloudnumbers.com 
+
+
+************************* 
+Amtsgericht M?nchen, HRB 191138 
+Gesch?ftsf?hrer: Erik Muttersbach, Markus Fensterer, Moritz v. 
+Petersdorff-Campen
+
+
+From ivangreg at gmail.com  Wed Jul 13 22:36:59 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Wed, 13 Jul 2011 16:36:59 -0400
+Subject: [Bioc-sig-seq] Loading large BAM files
+Message-ID: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+
+Hi everybody,
+
+As I wait for my large BAM to be read in by scanBAM, I can't help but to wonder:
+
+Has anybody tried combining scanBam with multicore to load the
+chromosomes in parallel?
+
+That would require
+
+1) to merge the chunks at the end and
+
+2) the original BAM to be indexed.
+
+Does anybody have any experience to share?
+
+Thank you,
+
+Ivan
+
+
+From kasperdanielhansen at gmail.com  Wed Jul 13 22:45:09 2011
+From: kasperdanielhansen at gmail.com (Kasper Daniel Hansen)
+Date: Wed, 13 Jul 2011 16:45:09 -0400
+Subject: [Bioc-sig-seq] Loading large BAM files
+In-Reply-To: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+References: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+Message-ID: <CAC2h7ut--Pi2dfYina89s1QXzJYTSg2BVU6HOoq9a9f3uOo51g@mail.gmail.com>
+
+On Wed, Jul 13, 2011 at 4:36 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+> Hi everybody,
+>
+> As I wait for my large BAM to be read in by scanBAM, I can't help but to wonder:
+>
+> Has anybody tried combining scanBam with multicore to load the
+> chromosomes in parallel?
+>
+> That would require
+>
+> 1) to merge the chunks at the end and
+>
+> 2) the original BAM to be indexed.
+>
+> Does anybody have any experience to share?
+
+Multicore will help if your task is cpu limited (and you can chunk
+it).  However, your specific task is probably I/O limited, in which
+case it is not clear that it would help to have more cores; in fact it
+might be detrimental depending on your filesystem and hardware.
+
+Kasper
+
+
+From ivangreg at gmail.com  Wed Jul 13 22:51:20 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Wed, 13 Jul 2011 16:51:20 -0400
+Subject: [Bioc-sig-seq] Loading large BAM files
+In-Reply-To: <CAC2h7ut--Pi2dfYina89s1QXzJYTSg2BVU6HOoq9a9f3uOo51g@mail.gmail.com>
+References: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+	<CAC2h7ut--Pi2dfYina89s1QXzJYTSg2BVU6HOoq9a9f3uOo51g@mail.gmail.com>
+Message-ID: <CAOaPOXWo_W7_ahLjxDEotz483LX1gAfp+kwvY1-QkZqaeeqLwg@mail.gmail.com>
+
+Hi Kasper,
+
+I was monitoring the processes of the computer while scanBam was
+running and the process is clearly CPU limited.
+
+That's why I brought up the point.
+
+Ivan
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1016 and 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+
+On Wed, Jul 13, 2011 at 4:45 PM, Kasper Daniel Hansen
+<kasperdanielhansen at gmail.com> wrote:
+> On Wed, Jul 13, 2011 at 4:36 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+>> Hi everybody,
+>>
+>> As I wait for my large BAM to be read in by scanBAM, I can't help but to wonder:
+>>
+>> Has anybody tried combining scanBam with multicore to load the
+>> chromosomes in parallel?
+>>
+>> That would require
+>>
+>> 1) to merge the chunks at the end and
+>>
+>> 2) the original BAM to be indexed.
+>>
+>> Does anybody have any experience to share?
+>
+> Multicore will help if your task is cpu limited (and you can chunk
+> it). ?However, your specific task is probably I/O limited, in which
+> case it is not clear that it would help to have more cores; in fact it
+> might be detrimental depending on your filesystem and hardware.
+>
+> Kasper
+>
+
+
+From mtmorgan at fhcrc.org  Wed Jul 13 22:57:45 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 13 Jul 2011 13:57:45 -0700
+Subject: [Bioc-sig-seq] Loading large BAM files
+In-Reply-To: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+References: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+Message-ID: <4E1E06C9.1020602@fhcrc.org>
+
+On 07/13/2011 01:36 PM, Ivan Gregoretti wrote:
+> Hi everybody,
+>
+> As I wait for my large BAM to be read in by scanBAM, I can't help but to wonder:
+>
+> Has anybody tried combining scanBam with multicore to load the
+> chromosomes in parallel?
+>
+> That would require
+>
+> 1) to merge the chunks at the end and
+>
+> 2) the original BAM to be indexed.
+>
+> Does anybody have any experience to share?
+
+Was wondering how large and long we're talking about?
+
+Use of ScanBamParam(what=...) can help.
+
+For some tasks I'd think of a coarser granularity, e.g., in the context 
+of multiple bam files so that the data reduction (to a vector of 
+10,000's of counts) occurs on each core.
+
+   counter = function(fl, genes) {
+       aln = readGappedAlignments(fl)
+       strand(aln) = "*"
+       hits = countOverlaps(aln, genes)
+       countOverlaps(genes, aln[hits==1])
+   }
+   simplify2array(mclapply(bamFiles, counter, genes))
+
+One issue I understand people have is that mclapply uses 'serialize()' 
+to convert the return value of each function to a raw vector. raw 
+vectors have the same total length limit as any other vector (2^31 -1 
+elements) and this places a limit on the size of chunk returned by each 
+core. Also I believe that exceeding the limit can silently corrupt the 
+data (i.e., a bug). This is second-hand information.
+
+Martin
+
+>
+> Thank you,
+>
+> Ivan
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From mtmorgan at fhcrc.org  Wed Jul 13 23:04:17 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 13 Jul 2011 14:04:17 -0700
+Subject: [Bioc-sig-seq] Loading large BAM files
+In-Reply-To: <4E1E06C9.1020602@fhcrc.org>
+References: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+	<4E1E06C9.1020602@fhcrc.org>
+Message-ID: <4E1E0851.4090706@fhcrc.org>
+
+On 07/13/2011 01:57 PM, Martin Morgan wrote:
+> On 07/13/2011 01:36 PM, Ivan Gregoretti wrote:
+>> Hi everybody,
+>>
+>> As I wait for my large BAM to be read in by scanBAM, I can't help but
+>> to wonder:
+>>
+>> Has anybody tried combining scanBam with multicore to load the
+>> chromosomes in parallel?
+>>
+>> That would require
+>>
+>> 1) to merge the chunks at the end and
+>>
+>> 2) the original BAM to be indexed.
+>>
+>> Does anybody have any experience to share?
+>
+> Was wondering how large and long we're talking about?
+>
+> Use of ScanBamParam(what=...) can help.
+>
+> For some tasks I'd think of a coarser granularity, e.g., in the context
+> of multiple bam files so that the data reduction (to a vector of
+> 10,000's of counts) occurs on each core.
+>
+> counter = function(fl, genes) {
+> aln = readGappedAlignments(fl)
+> strand(aln) = "*"
+> hits = countOverlaps(aln, genes)
+> countOverlaps(genes, aln[hits==1])
+> }
+> simplify2array(mclapply(bamFiles, counter, genes))
+>
+> One issue I understand people have is that mclapply uses 'serialize()'
+> to convert the return value of each function to a raw vector. raw
+> vectors have the same total length limit as any other vector (2^31 -1
+> elements) and this places a limit on the size of chunk returned by each
+> core. Also I believe that exceeding the limit can silently corrupt the
+> data (i.e., a bug). This is second-hand information.
+
+Should also have mentioned that casting a GRanges object to RangesList 
+provides the appropriate list to iterate over chromosomes, and that 
+ScanBamParam will accept a which of class RangesList.
+
+Martin
+
+>
+> Martin
+>
+>>
+>> Thank you,
+>>
+>> Ivan
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From ivangreg at gmail.com  Wed Jul 13 23:25:51 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Wed, 13 Jul 2011 17:25:51 -0400
+Subject: [Bioc-sig-seq] Loading large BAM files
+In-Reply-To: <4E1E0851.4090706@fhcrc.org>
+References: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+	<4E1E06C9.1020602@fhcrc.org> <4E1E0851.4090706@fhcrc.org>
+Message-ID: <CAOaPOXVg8use4He6XhNWCtbB3RLvwQ1MtzqVsmW4Y0CRi-RqNg@mail.gmail.com>
+
+Hi Martin,
+
+I will have to play a little bit both with the counter function and
+with simplify2array. It's not evident for me what they are intended to
+do.
+
+I can answer your question about BAM size. Our samples are all from
+Illumina HiSeq now. So, we are talking about no less than 100 million
+good quality tags per lane.
+
+In different occasions I have run into the problem of the 2^31 -1
+limit and I am always thinking about ways to process large amounts of
+information by chunks and in parallel. With time, sequencers will only
+output more tags so we will will run into this problems only more
+often.
+
+The suggestion of using ScanBamParam is good, thank you, but at this
+early stage of sample analysis I need to load the whole BAM. Some
+sample quality assessments are in order.
+
+Thank you,
+
+Ivan
+
+
+
+
+On Wed, Jul 13, 2011 at 5:04 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+> On 07/13/2011 01:57 PM, Martin Morgan wrote:
+>>
+>> On 07/13/2011 01:36 PM, Ivan Gregoretti wrote:
+>>>
+>>> Hi everybody,
+>>>
+>>> As I wait for my large BAM to be read in by scanBAM, I can't help but
+>>> to wonder:
+>>>
+>>> Has anybody tried combining scanBam with multicore to load the
+>>> chromosomes in parallel?
+>>>
+>>> That would require
+>>>
+>>> 1) to merge the chunks at the end and
+>>>
+>>> 2) the original BAM to be indexed.
+>>>
+>>> Does anybody have any experience to share?
+>>
+>> Was wondering how large and long we're talking about?
+>>
+>> Use of ScanBamParam(what=...) can help.
+>>
+>> For some tasks I'd think of a coarser granularity, e.g., in the context
+>> of multiple bam files so that the data reduction (to a vector of
+>> 10,000's of counts) occurs on each core.
+>>
+>> counter = function(fl, genes) {
+>> aln = readGappedAlignments(fl)
+>> strand(aln) = "*"
+>> hits = countOverlaps(aln, genes)
+>> countOverlaps(genes, aln[hits==1])
+>> }
+>> simplify2array(mclapply(bamFiles, counter, genes))
+>>
+>> One issue I understand people have is that mclapply uses 'serialize()'
+>> to convert the return value of each function to a raw vector. raw
+>> vectors have the same total length limit as any other vector (2^31 -1
+>> elements) and this places a limit on the size of chunk returned by each
+>> core. Also I believe that exceeding the limit can silently corrupt the
+>> data (i.e., a bug). This is second-hand information.
+>
+> Should also have mentioned that casting a GRanges object to RangesList
+> provides the appropriate list to iterate over chromosomes, and that
+> ScanBamParam will accept a which of class RangesList.
+>
+> Martin
+>
+>>
+>> Martin
+>>
+>>>
+>>> Thank you,
+>>>
+>>> Ivan
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>
+>
+> --
+> Computational Biology
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>
+> Location: M1-B861
+> Telephone: 206 667-2793
+>
+
+
+From ivangreg at gmail.com  Thu Jul 14 17:47:29 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 14 Jul 2011 11:47:29 -0400
+Subject: [Bioc-sig-seq] Loading large BAM files
+In-Reply-To: <CAOaPOXVg8use4He6XhNWCtbB3RLvwQ1MtzqVsmW4Y0CRi-RqNg@mail.gmail.com>
+References: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+	<4E1E06C9.1020602@fhcrc.org> <4E1E0851.4090706@fhcrc.org>
+	<CAOaPOXVg8use4He6XhNWCtbB3RLvwQ1MtzqVsmW4Y0CRi-RqNg@mail.gmail.com>
+Message-ID: <CAOaPOXWi7E03LxBnNmSUF1tz9=Vfn5+qqZErTOyqxt6=JB+UZw@mail.gmail.com>
+
+Hello Martin,
+
+I am currently reading in data with scanBam and making use of the
+ScanBamParam function.
+
+My bam data looks like this:
+
+> names(bam1)
+[1] "chr1:1-197195432" "chr2:1-181748087" "chr3:1-159599783"
+
+> class(bam1)
+[1] "list"
+
+> class(bam1$"chr1:1-197195432")
+[1] "list"
+
+> class(bam1$"chr1:1-197195432"$qname)
+[1] "character"
+
+How do we consolidate all three lists (chr1, chr2, chr3) into a single list?
+
+I read the Rsamtools documentation but the examples do not quite apply
+to this case.
+
+Thank you,
+
+Ivan
+
+
+
+
+
+On Wed, Jul 13, 2011 at 5:25 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+> Hi Martin,
+>
+> I will have to play a little bit both with the counter function and
+> with simplify2array. It's not evident for me what they are intended to
+> do.
+>
+> I can answer your question about BAM size. Our samples are all from
+> Illumina HiSeq now. So, we are talking about no less than 100 million
+> good quality tags per lane.
+>
+> In different occasions I have run into the problem of the 2^31 -1
+> limit and I am always thinking about ways to process large amounts of
+> information by chunks and in parallel. With time, sequencers will only
+> output more tags so we will will run into this problems only more
+> often.
+>
+> The suggestion of using ScanBamParam is good, thank you, but at this
+> early stage of sample analysis I need to load the whole BAM. Some
+> sample quality assessments are in order.
+>
+> Thank you,
+>
+> Ivan
+>
+>
+>
+>
+> On Wed, Jul 13, 2011 at 5:04 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+>> On 07/13/2011 01:57 PM, Martin Morgan wrote:
+>>>
+>>> On 07/13/2011 01:36 PM, Ivan Gregoretti wrote:
+>>>>
+>>>> Hi everybody,
+>>>>
+>>>> As I wait for my large BAM to be read in by scanBAM, I can't help but
+>>>> to wonder:
+>>>>
+>>>> Has anybody tried combining scanBam with multicore to load the
+>>>> chromosomes in parallel?
+>>>>
+>>>> That would require
+>>>>
+>>>> 1) to merge the chunks at the end and
+>>>>
+>>>> 2) the original BAM to be indexed.
+>>>>
+>>>> Does anybody have any experience to share?
+>>>
+>>> Was wondering how large and long we're talking about?
+>>>
+>>> Use of ScanBamParam(what=...) can help.
+>>>
+>>> For some tasks I'd think of a coarser granularity, e.g., in the context
+>>> of multiple bam files so that the data reduction (to a vector of
+>>> 10,000's of counts) occurs on each core.
+>>>
+>>> counter = function(fl, genes) {
+>>> aln = readGappedAlignments(fl)
+>>> strand(aln) = "*"
+>>> hits = countOverlaps(aln, genes)
+>>> countOverlaps(genes, aln[hits==1])
+>>> }
+>>> simplify2array(mclapply(bamFiles, counter, genes))
+>>>
+>>> One issue I understand people have is that mclapply uses 'serialize()'
+>>> to convert the return value of each function to a raw vector. raw
+>>> vectors have the same total length limit as any other vector (2^31 -1
+>>> elements) and this places a limit on the size of chunk returned by each
+>>> core. Also I believe that exceeding the limit can silently corrupt the
+>>> data (i.e., a bug). This is second-hand information.
+>>
+>> Should also have mentioned that casting a GRanges object to RangesList
+>> provides the appropriate list to iterate over chromosomes, and that
+>> ScanBamParam will accept a which of class RangesList.
+>>
+>> Martin
+>>
+>>>
+>>> Martin
+>>>
+>>>>
+>>>> Thank you,
+>>>>
+>>>> Ivan
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>>
+>>
+>>
+>> --
+>> Computational Biology
+>> Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>>
+>> Location: M1-B861
+>> Telephone: 206 667-2793
+>>
+>
+
+
+From jasonlu68 at gmail.com  Thu Jul 14 18:05:10 2011
+From: jasonlu68 at gmail.com (Jason Lu)
+Date: Thu, 14 Jul 2011 12:05:10 -0400
+Subject: [Bioc-sig-seq] using GenomicFeatures
+Message-ID: <CAG8zXOjBm+t+Npyxn-9E8WjVLopNz0_fZyXLyPG9mmSZoN-U9g@mail.gmail.com>
+
+Hi list,
+
+I tried to get refseq coordinates here. It has been working well but I
+encountered the following error message today.
+
+library(GenomicFeatures)
+txdb <- makeTranscriptDbFromUCSC(genome = "hg19", tablename = "refGene")
+Error in tableNames(ucscTableQuery(session, track = track)) :
+  error in evaluating the argument 'object' in selecting a method for
+function 'tableNames': Error in GRangesForGenome(range,
+seqlengths(session)) :
+  Chromosome(s) 249250621, 106433, 547496, 243199373, 198022430,
+191154276, 590426, 189789, 191469, 180915260, 171115067, 4622290,
+4795371, 4610396, 4683263, 4833398, 4611984, 4928567, 159138663,
+182896, 146364022, 38914, 37175, 141213431, 90085, 169874, 187035,
+36148, 135534747, 135006516, 40103, 133851895, 115169878, 107349540,
+102531392, 90354753, 81195210, 1680828, 37498, 81310, 174588, 41001,
+78077248, 4262, 59128983, 92689, 159169, 63025520, 48129895, 27682,
+51304566, 155270560, 59373566, 166566, 186858, 164239, 137718, 172545,
+172294, 172149, 161147, 179198, 161802, 155397, 186861, 180455,
+179693, 211173, 15008, 128374, 129120, 19913, 43691, 27386, 40652,
+45941, 40531, 34474, 41934, 45867, 39939, 33824, 41933, 42152, 43523,
+43341, 39929, 36651, 38154, 36422, 39786, 38502, 16571are invalid for:
+hg19
+
+
+> sessionInfo()
+R version 2.14.0 Under development (unstable) (2011-04-26 r55655)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base
+
+other attached packages:
+[1] Rsamtools_1.5.38       Biostrings_2.21.6      GenomicFeatures_1.5.14
+[4] GenomicRanges_1.5.17   IRanges_1.11.11
+
+loaded via a namespace (and not attached):
+ [1] BSgenome_1.21.3    Biobase_2.13.7     DBI_0.2-5          RCurl_1.6-6
+ [5] RSQLite_0.9-4      XML_3.4-0          biomaRt_2.9.2      rtracklayer_1.13.7
+ [9] tools_2.14.0       zlibbioc_0.1.7
+
+Thanks for any suggestions.
+
+Jason
+
+
+From sruddy17 at gmail.com  Thu Jul 14 21:54:49 2011
+From: sruddy17 at gmail.com (Sean Ruddy)
+Date: Thu, 14 Jul 2011 12:54:49 -0700
+Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted counts
+	to a DESeq dataset
+Message-ID: <CAFp5Rb8HFG7tpp-fUW-Gt8_02HMqo8+txR-MVmyNY7S8PPpGEA@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110714/54abd9a1/attachment.pl>
+
+From ivangreg at gmail.com  Thu Jul 14 22:11:36 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 14 Jul 2011 16:11:36 -0400
+Subject: [Bioc-sig-seq] scanBam segfault
+Message-ID: <CAOaPOXVj9ZoKQr0k6RypPOL2GwmFcsOjQxV9CmhQKB6RLox83A@mail.gmail.com>
+
+Hello everybody,
+
+scanBam() is reporting segfaults. I tried in two different machines,
+with identical error reports.
+
+Actually, I have four BAM files from which I am only reading in the
+oligo sequences, nothing else. Two of them load fine but the other two
+produce the error.
+
+Loading fine: BAMs with 70887462 and 58162986 records
+Loading with segfault: BAMs with 101611824 and 114530023
+
+So, smaller are fine, bigger just crash.
+
+Do you guys run into the same problem?
+
+Thank you,
+
+Ivan
+
+*****************************************************************
+
+> filebam  <- "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466.bam"
+> filebai  <- "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466"
+> param    <- ScanBamParam(what = c("seq"))
+> myheader <- scanBamHeader(file=filebam)
+> c466Ba <- scanBam(file=filebam, index=filebai, param=param)
+
+ *** caught segfault ***
+address 0x7fb9a9773030, cause 'memory not mapped'
+
+Traceback:
+ 1: .Call(func, .extptr(file), space, flag, simpleCigar, ...)
+ 2: doTryCatch(return(expr), name, parentenv, handler)
+ 3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+ 4: tryCatchList(expr, classes, parentenv, handlers)
+ 5: tryCatch({    .Call(func, .extptr(file), space, flag, simpleCigar,
+...)}, error = function(err) {    stop(conditionMessage(err), "\n
+file: ", path(file), "\n  index: ",         index(file))})
+ 6: .io_bam(.scan_bamfile, file, param = param, path(file),
+index(file),     "rb", reverseComplement, tmpl)
+ 7: scanBam(bam, param = param)
+ 8: scanBam(bam, param = param)
+ 9: eval(expr, envir, enclos)
+10: eval(call, sys.frame(sys.parent()))
+11: callGeneric(bam, ..., param = param)
+12: scanBam(file = filebam, index = filebai, param = param)
+13: scanBam(file = filebam, index = filebai, param = param)
+
+Possible actions:
+1: abort (with core dump, if enabled)
+2: normal R exit
+3: exit R without saving workspace
+4: exit R saving workspace
+
+***********************************************************************
+> sessionInfo()
+R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8
+ [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8
+ [7] LC_PAPER=en_US.utf8       LC_NAME=C
+ [9] LC_ADDRESS=C              LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] ShortRead_1.11.26    latticeExtra_0.6-18  RColorBrewer_1.0-5
+[4] lattice_0.19-30      Rsamtools_1.5.38     Biostrings_2.21.6
+[7] GenomicRanges_1.5.16 IRanges_1.11.11
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.13.7 grid_2.14.0    hwriter_1.3    zlibbioc_0.1.7
+
+
+From mtmorgan at fhcrc.org  Fri Jul 15 07:18:04 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Thu, 14 Jul 2011 22:18:04 -0700
+Subject: [Bioc-sig-seq] Loading large BAM files
+In-Reply-To: <CAOaPOXWi7E03LxBnNmSUF1tz9=Vfn5+qqZErTOyqxt6=JB+UZw@mail.gmail.com>
+References: <CAOaPOXXo4+n0iJfR=wz_QyWaop4hPfAarOTCJLzi4S=hiWsE+w@mail.gmail.com>
+	<4E1E06C9.1020602@fhcrc.org> <4E1E0851.4090706@fhcrc.org>
+	<CAOaPOXVg8use4He6XhNWCtbB3RLvwQ1MtzqVsmW4Y0CRi-RqNg@mail.gmail.com>
+	<CAOaPOXWi7E03LxBnNmSUF1tz9=Vfn5+qqZErTOyqxt6=JB+UZw@mail.gmail.com>
+Message-ID: <4E1FCD8C.9080703@fhcrc.org>
+
+On 07/14/2011 08:47 AM, Ivan Gregoretti wrote:
+> Hello Martin,
+>
+> I am currently reading in data with scanBam and making use of the
+> ScanBamParam function.
+>
+> My bam data looks like this:
+>
+>> names(bam1)
+> [1] "chr1:1-197195432" "chr2:1-181748087" "chr3:1-159599783"
+>
+>> class(bam1)
+> [1] "list"
+>
+>> class(bam1$"chr1:1-197195432")
+> [1] "list"
+>
+>> class(bam1$"chr1:1-197195432"$qname)
+> [1] "character"
+>
+> How do we consolidate all three lists (chr1, chr2, chr3) into a single list?
+>
+> I read the Rsamtools documentation but the examples do not quite apply
+> to this case.
+
+These are lists-of-lists, and the somewhat opaque way of getting 
+elements out is along the lines of
+
+   unlist(lapply(bam1, "[[", "qname"))
+
+This paradigm seems not to work for XStringSet, for which
+
+   do.call(c, unname(lapply(bam1, "[[", "seq")))
+
+Martin
+
+
+>
+> Thank you,
+>
+> Ivan
+>
+>
+>
+>
+>
+> On Wed, Jul 13, 2011 at 5:25 PM, Ivan Gregoretti<ivangreg at gmail.com>  wrote:
+>> Hi Martin,
+>>
+>> I will have to play a little bit both with the counter function and
+>> with simplify2array. It's not evident for me what they are intended to
+>> do.
+>>
+>> I can answer your question about BAM size. Our samples are all from
+>> Illumina HiSeq now. So, we are talking about no less than 100 million
+>> good quality tags per lane.
+>>
+>> In different occasions I have run into the problem of the 2^31 -1
+>> limit and I am always thinking about ways to process large amounts of
+>> information by chunks and in parallel. With time, sequencers will only
+>> output more tags so we will will run into this problems only more
+>> often.
+>>
+>> The suggestion of using ScanBamParam is good, thank you, but at this
+>> early stage of sample analysis I need to load the whole BAM. Some
+>> sample quality assessments are in order.
+>>
+>> Thank you,
+>>
+>> Ivan
+>>
+>>
+>>
+>>
+>> On Wed, Jul 13, 2011 at 5:04 PM, Martin Morgan<mtmorgan at fhcrc.org>  wrote:
+>>> On 07/13/2011 01:57 PM, Martin Morgan wrote:
+>>>>
+>>>> On 07/13/2011 01:36 PM, Ivan Gregoretti wrote:
+>>>>>
+>>>>> Hi everybody,
+>>>>>
+>>>>> As I wait for my large BAM to be read in by scanBAM, I can't help but
+>>>>> to wonder:
+>>>>>
+>>>>> Has anybody tried combining scanBam with multicore to load the
+>>>>> chromosomes in parallel?
+>>>>>
+>>>>> That would require
+>>>>>
+>>>>> 1) to merge the chunks at the end and
+>>>>>
+>>>>> 2) the original BAM to be indexed.
+>>>>>
+>>>>> Does anybody have any experience to share?
+>>>>
+>>>> Was wondering how large and long we're talking about?
+>>>>
+>>>> Use of ScanBamParam(what=...) can help.
+>>>>
+>>>> For some tasks I'd think of a coarser granularity, e.g., in the context
+>>>> of multiple bam files so that the data reduction (to a vector of
+>>>> 10,000's of counts) occurs on each core.
+>>>>
+>>>> counter = function(fl, genes) {
+>>>> aln = readGappedAlignments(fl)
+>>>> strand(aln) = "*"
+>>>> hits = countOverlaps(aln, genes)
+>>>> countOverlaps(genes, aln[hits==1])
+>>>> }
+>>>> simplify2array(mclapply(bamFiles, counter, genes))
+>>>>
+>>>> One issue I understand people have is that mclapply uses 'serialize()'
+>>>> to convert the return value of each function to a raw vector. raw
+>>>> vectors have the same total length limit as any other vector (2^31 -1
+>>>> elements) and this places a limit on the size of chunk returned by each
+>>>> core. Also I believe that exceeding the limit can silently corrupt the
+>>>> data (i.e., a bug). This is second-hand information.
+>>>
+>>> Should also have mentioned that casting a GRanges object to RangesList
+>>> provides the appropriate list to iterate over chromosomes, and that
+>>> ScanBamParam will accept a which of class RangesList.
+>>>
+>>> Martin
+>>>
+>>>>
+>>>> Martin
+>>>>
+>>>>>
+>>>>> Thank you,
+>>>>>
+>>>>> Ivan
+>>>>>
+>>>>> _______________________________________________
+>>>>> Bioc-sig-sequencing mailing list
+>>>>> Bioc-sig-sequencing at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>>
+>>>>
+>>>
+>>>
+>>> --
+>>> Computational Biology
+>>> Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: M1-B861
+>>> Telephone: 206 667-2793
+>>>
+>>
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From lawrence.michael at gene.com  Fri Jul 15 07:39:35 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Thu, 14 Jul 2011 22:39:35 -0700
+Subject: [Bioc-sig-seq] using GenomicFeatures
+In-Reply-To: <CAG8zXOjBm+t+Npyxn-9E8WjVLopNz0_fZyXLyPG9mmSZoN-U9g@mail.gmail.com>
+References: <CAG8zXOjBm+t+Npyxn-9E8WjVLopNz0_fZyXLyPG9mmSZoN-U9g@mail.gmail.com>
+Message-ID: <CAOQ5NyfdBwj81zpCAQQf2tRfQfVBLPU7n6NPw+bZff8N0ZWDcg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110714/6f755b7b/attachment.pl>
+
+From smyth at wehi.EDU.AU  Fri Jul 15 09:02:13 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Fri, 15 Jul 2011 17:02:13 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted counts
+ to a DESeq dataset
+In-Reply-To: <mailman.393.1310708393.4468.bioc-sig-sequencing@r-project.org>
+References: <mailman.393.1310708393.4468.bioc-sig-sequencing@r-project.org>
+Message-ID: <Pine.WNT.4.64.1107151656030.3804@PC765.wehi.edu.au>
+
+Hi Sean,
+
+I'm curious to know why not use edgeR, since edgeR does what you want and 
+DESeq doesn't?
+
+I might be wrong, but the manual analysis that you describe doesn't sound 
+right.
+
+Best wishes
+Gordon
+
+> Date: Thu, 14 Jul 2011 12:54:49 -0700
+> From: Sean Ruddy <sruddy17 at gmail.com>
+> To: bioc-sig-sequencing at r-project.org
+> Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted
+> 	counts	to a DESeq dataset
+>
+> Hi,
+>
+> I have a RNA-Seq count data set that requires separate offset values for
+> each tag and sample. DESeq does not appear to take a matrix of offset values
+> (unlike edgeR) in any of its functions so I've carried out the analysis
+> manually, ie. calculating a size factor for each tag of each sample,
+> adjusting the counts, then proceeding to calculate means and variances of
+> the adjusted counts, and finally fitting a curve for each condition to the
+> mean-var plot using locfit().
+>
+> Essentially, I'd like to put these variance functions (or at least all the
+> predicted variances) and adjusted counts inside a DESeq object so that I can
+> take advantage of the other functions DESeq offers, tests, plots, etc...
+>
+> Thanks for the help!
+>
+> Sean
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From mtmorgan at fhcrc.org  Fri Jul 15 11:40:14 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Fri, 15 Jul 2011 02:40:14 -0700
+Subject: [Bioc-sig-seq] scanBam segfault
+In-Reply-To: <CAOaPOXVj9ZoKQr0k6RypPOL2GwmFcsOjQxV9CmhQKB6RLox83A@mail.gmail.com>
+References: <CAOaPOXVj9ZoKQr0k6RypPOL2GwmFcsOjQxV9CmhQKB6RLox83A@mail.gmail.com>
+Message-ID: <4E200AFE.5060306@fhcrc.org>
+
+On 07/14/2011 01:11 PM, Ivan Gregoretti wrote:
+> Hello everybody,
+>
+> scanBam() is reporting segfaults. I tried in two different machines,
+> with identical error reports.
+>
+> Actually, I have four BAM files from which I am only reading in the
+> oligo sequences, nothing else. Two of them load fine but the other two
+> produce the error.
+>
+> Loading fine: BAMs with 70887462 and 58162986 records
+> Loading with segfault: BAMs with 101611824 and 114530023
+>
+> So, smaller are fine, bigger just crash.
+>
+> Do you guys run into the same problem?
+
+I don't have immediate access to HiSeq bam files; are there any publicly 
+available?
+
+Also, it would help to have a C-level backtrace, maybe by doing
+
+   R -d gdb -f test.R
+
+where test.R contains a basic script to reproduce the crash. You'll end 
+up at the gdb prompt. Type 'r' to run
+
+   gdb> r
+
+and then when the segfault occurs
+
+   gdb> bt
+
+to generate the back trace (maybe several screens). If you could forward 
+that to me, on or off list, that would be a better starting point.
+
+Martin
+>
+> Thank you,
+>
+> Ivan
+>
+> *****************************************************************
+>
+>> filebam<- "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466.bam"
+>> filebai<- "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466"
+>> param<- ScanBamParam(what = c("seq"))
+>> myheader<- scanBamHeader(file=filebam)
+>> c466Ba<- scanBam(file=filebam, index=filebai, param=param)
+>
+>   *** caught segfault ***
+> address 0x7fb9a9773030, cause 'memory not mapped'
+>
+> Traceback:
+>   1: .Call(func, .extptr(file), space, flag, simpleCigar, ...)
+>   2: doTryCatch(return(expr), name, parentenv, handler)
+>   3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+>   4: tryCatchList(expr, classes, parentenv, handlers)
+>   5: tryCatch({    .Call(func, .extptr(file), space, flag, simpleCigar,
+> ...)}, error = function(err) {    stop(conditionMessage(err), "\n
+> file: ", path(file), "\n  index: ",         index(file))})
+>   6: .io_bam(.scan_bamfile, file, param = param, path(file),
+> index(file),     "rb", reverseComplement, tmpl)
+>   7: scanBam(bam, param = param)
+>   8: scanBam(bam, param = param)
+>   9: eval(expr, envir, enclos)
+> 10: eval(call, sys.frame(sys.parent()))
+> 11: callGeneric(bam, ..., param = param)
+> 12: scanBam(file = filebam, index = filebai, param = param)
+> 13: scanBam(file = filebam, index = filebai, param = param)
+>
+> Possible actions:
+> 1: abort (with core dump, if enabled)
+> 2: normal R exit
+> 3: exit R without saving workspace
+> 4: exit R saving workspace
+>
+> ***********************************************************************
+>> sessionInfo()
+> R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> locale:
+>   [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C
+>   [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8
+>   [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8
+>   [7] LC_PAPER=en_US.utf8       LC_NAME=C
+>   [9] LC_ADDRESS=C              LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] ShortRead_1.11.26    latticeExtra_0.6-18  RColorBrewer_1.0-5
+> [4] lattice_0.19-30      Rsamtools_1.5.38     Biostrings_2.21.6
+> [7] GenomicRanges_1.5.16 IRanges_1.11.11
+>
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.13.7 grid_2.14.0    hwriter_1.3    zlibbioc_0.1.7
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From sruddy17 at gmail.com  Fri Jul 15 18:19:50 2011
+From: sruddy17 at gmail.com (Sean Ruddy)
+Date: Fri, 15 Jul 2011 09:19:50 -0700
+Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted
+	counts to a DESeq dataset
+In-Reply-To: <Pine.WNT.4.64.1107151656030.3804@PC765.wehi.edu.au>
+References: <mailman.393.1310708393.4468.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107151656030.3804@PC765.wehi.edu.au>
+Message-ID: <CAFp5Rb-PLEkO53xYqmALF86rBm6CKpGSe6YYmDgW=vufSTwAYg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110715/fad48f99/attachment.pl>
+
+From smyth at wehi.EDU.AU  Sat Jul 16 04:26:52 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Sat, 16 Jul 2011 12:26:52 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] "pooled" dispersion estimation in edgeR
+In-Reply-To: <CAFp5Rb-PLEkO53xYqmALF86rBm6CKpGSe6YYmDgW=vufSTwAYg@mail.gmail.com>
+References: <mailman.393.1310708393.4468.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107151656030.3804@PC765.wehi.edu.au>
+	<CAFp5Rb-PLEkO53xYqmALF86rBm6CKpGSe6YYmDgW=vufSTwAYg@mail.gmail.com>
+Message-ID: <Pine.WNT.4.64.1107161207230.2460@PC765.wehi.edu.au>
+
+Hi Sean,
+
+On Fri, 15 Jul 2011, Sean Ruddy wrote:
+
+> Hi Gordon,
+>
+> Thanks for the response. One of my data sets has 8 conditions and no 
+> replicates and so I wanted to emulate DESeq's way of pooling the samples 
+> and also use an offset matrix. I was hoping to avoid doing it manually 
+> so that I don't mess it up. I could do this all in edgeR and pool the 
+> samples but I'm not sure how well this would work under edgeR vs. DESeq.
+
+edgeR has a very flexible interface, so there was no need to explicitly 
+introduce a "pooled" method.  Instead, this sort of thing can be handled 
+by the usual functions in the usual way.  Suppose you have a data object 
+y, which includes an offset matrix:
+
+    y$offset <- your matrix
+
+Then you can estimate the "pooled" dispersion simply by:
+
+    y <- estimateGLMCommonDisp(y)
+
+The fact that you don't supply a design matrix means that the samples are 
+automatically treated as one group, i.e., pooled.  You can estimate a 
+trended or tagwise dispersions in the same way.  Then
+
+    fit <- glmFit(y,design)  etc
+
+will do any analysis you want using dispersions estimated when the samples 
+were pooled.
+
+I and the other edgeR authors are anxious to get feedback, so write again 
+if this doesn't turn out to be clear.
+
+> I am curious though what sounds off to you in my previous email. I don't 
+> feel entirely comfortable doing this manually but hopefully it's just 
+> because I left out some details. I was trying to follow the DESeq method 
+> and the only difference I saw was in the size factor calculations which 
+> I changed for my own needs by using the offset values for each tag and 
+> sample.
+
+Even if you could estimate the variances yourself, I don't see any manual 
+way that you could perform valid statistical tests, while correctly 
+accounting for the offsets.  The whole negative binomial methodology 
+requires genuine counts rather than adjusted counts.  So handling the 
+offsets needs to be built-in.
+
+Best wishes
+Gordon
+
+> I appreciate the help!
+>
+> Best,
+> Sean
+>
+> On Fri, Jul 15, 2011 at 12:02 AM, Gordon K Smyth <smyth at wehi.edu.au> wrote:
+>
+>> Hi Sean,
+>>
+>> I'm curious to know why not use edgeR, since edgeR does what you want and
+>> DESeq doesn't?
+>>
+>> I might be wrong, but the manual analysis that you describe doesn't sound
+>> right.
+>>
+>> Best wishes
+>> Gordon
+>>
+>>  Date: Thu, 14 Jul 2011 12:54:49 -0700
+>>> From: Sean Ruddy <sruddy17 at gmail.com>
+>>> To: bioc-sig-sequencing at r-project.**org<bioc-sig-sequencing at r-project.org>
+>>> Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted
+>>>        counts  to a DESeq dataset
+>>>
+>>> Hi,
+>>>
+>>> I have a RNA-Seq count data set that requires separate offset values 
+>>> for each tag and sample. DESeq does not appear to take a matrix of 
+>>> offset values (unlike edgeR) in any of its functions so I've carried 
+>>> out the analysis manually, ie. calculating a size factor for each tag 
+>>> of each sample, adjusting the counts, then proceeding to calculate 
+>>> means and variances of the adjusted counts, and finally fitting a 
+>>> curve for each condition to the mean-var plot using locfit().
+>>>
+>>> Essentially, I'd like to put these variance functions (or at least all 
+>>> the predicted variances) and adjusted counts inside a DESeq object so 
+>>> that I can take advantage of the other functions DESeq offers, tests, 
+>>> plots, etc...
+>>>
+>>> Thanks for the help!
+>>>
+>>> Sean
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From anders at embl.de  Sat Jul 16 13:00:12 2011
+From: anders at embl.de (Simon Anders)
+Date: Sat, 16 Jul 2011 13:00:12 +0200
+Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted
+ counts	to a DESeq dataset
+In-Reply-To: <CAFp5Rb8HFG7tpp-fUW-Gt8_02HMqo8+txR-MVmyNY7S8PPpGEA@mail.gmail.com>
+References: <CAFp5Rb8HFG7tpp-fUW-Gt8_02HMqo8+txR-MVmyNY7S8PPpGEA@mail.gmail.com>
+Message-ID: <4E216F3C.2050403@embl.de>
+
+[repost, as my original post of yesterday somehow got dropped by the 
+mailing list manager]
+
+Hi Sean
+
+On 2011-07-14 21:54, Sean Ruddy wrote:
+> I have a RNA-Seq count data set that requires separate offset values for
+> each tag and sample. DESeq does not appear to take a matrix of offset values
+> (unlike edgeR) in any of its functions so I've carried out the analysis
+> manually, ie. calculating a size factor for each tag of each sample,
+> adjusting the counts, then proceeding to calculate means and variances of
+> the adjusted counts, and finally fitting a curve for each condition to the
+> mean-var plot using locfit().
+>
+> Essentially, I'd like to put these variance functions (or at least all the
+> predicted variances) and adjusted counts inside a DESeq object so that I can
+> take advantage of the other functions DESeq offers, tests, plots, etc...
+
+We refactored thing a bit in the devel version, and it is now easier to 
+inject your own variance estimates.
+
+If you now run 'estimateDispersions', it adds columns 'disp_<cond>' 
+(where <cond> is the name a condition, or "pooled" or "blind", depending 
+on the "method" argument) to the feature data slot. If you want to use 
+your own dispersion estimation scheme, you can just put values there, 
+and the testing functions will use them.
+
+However, I understand that you are actually happy with the estimation, 
+you just want to pass gene-specific size factors, presumably to correct 
+for GC biases. Our planned next step in our refactoring effort was to 
+offer a slot, where you would pass a matrix of values, of the same 
+dimensions as the count table, wich will be multiplied by the size 
+factors each time they are used. From your post, I learned that the 
+edgeR authors were again faster then we ;-) and have already added such 
+a feature. As demand for this will increase (e.g. to interface to the 
+new 'cqn' package that Hansen, Irizarry and Wu announced in their recent 
+preprint), we should better add it, too, I guess.
+
+Until then, have a look at the source code of DESeq: You will notice 
+that we separated well the interface functions that deal with the 
+CountDataSet objects, and the calculation functions that just work on 
+matrices. So, if you want to use a functionality that should be there 
+but is hard to use due to the format of the CountDataSet object, you can 
+typically call the core function directly. For example, the function 
+'estimateAndFitDispersionsFromBaseMeansAndVariances' takes a list of 
+mean and dispersion and returns a mean-dispersion fit.
+
+   Simon
+
+
+From mtmorgan at fhcrc.org  Sat Jul 16 15:20:33 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Sat, 16 Jul 2011 06:20:33 -0700
+Subject: [Bioc-sig-seq] scanBam segfault
+In-Reply-To: <4E200AFE.5060306@fhcrc.org>
+References: <CAOaPOXVj9ZoKQr0k6RypPOL2GwmFcsOjQxV9CmhQKB6RLox83A@mail.gmail.com>
+	<4E200AFE.5060306@fhcrc.org>
+Message-ID: <4E219021.3040004@fhcrc.org>
+
+On 07/15/2011 02:40 AM, Martin Morgan wrote:
+> On 07/14/2011 01:11 PM, Ivan Gregoretti wrote:
+>> Hello everybody,
+>>
+>> scanBam() is reporting segfaults. I tried in two different machines,
+>> with identical error reports.
+
+The segfault is fixed in Rsamtools 1.5.39; the bug was introduced in 
+1.5.35. Thanks for the report.
+
+Martin
+
+>>
+>> Actually, I have four BAM files from which I am only reading in the
+>> oligo sequences, nothing else. Two of them load fine but the other two
+>> produce the error.
+>>
+>> Loading fine: BAMs with 70887462 and 58162986 records
+>> Loading with segfault: BAMs with 101611824 and 114530023
+>>
+>> So, smaller are fine, bigger just crash.
+>>
+>> Do you guys run into the same problem?
+>
+> I don't have immediate access to HiSeq bam files; are there any publicly
+> available?
+>
+> Also, it would help to have a C-level backtrace, maybe by doing
+>
+> R -d gdb -f test.R
+>
+> where test.R contains a basic script to reproduce the crash. You'll end
+> up at the gdb prompt. Type 'r' to run
+>
+> gdb> r
+>
+> and then when the segfault occurs
+>
+> gdb> bt
+>
+> to generate the back trace (maybe several screens). If you could forward
+> that to me, on or off list, that would be a better starting point.
+>
+> Martin
+>>
+>> Thank you,
+>>
+>> Ivan
+>>
+>> *****************************************************************
+>>
+>>> filebam<-
+>>> "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466.bam"
+>>> filebai<- "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466"
+>>> param<- ScanBamParam(what = c("seq"))
+>>> myheader<- scanBamHeader(file=filebam)
+>>> c466Ba<- scanBam(file=filebam, index=filebai, param=param)
+>>
+>> *** caught segfault ***
+>> address 0x7fb9a9773030, cause 'memory not mapped'
+>>
+>> Traceback:
+>> 1: .Call(func, .extptr(file), space, flag, simpleCigar, ...)
+>> 2: doTryCatch(return(expr), name, parentenv, handler)
+>> 3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+>> 4: tryCatchList(expr, classes, parentenv, handlers)
+>> 5: tryCatch({ .Call(func, .extptr(file), space, flag, simpleCigar,
+>> ...)}, error = function(err) { stop(conditionMessage(err), "\n
+>> file: ", path(file), "\n index: ", index(file))})
+>> 6: .io_bam(.scan_bamfile, file, param = param, path(file),
+>> index(file), "rb", reverseComplement, tmpl)
+>> 7: scanBam(bam, param = param)
+>> 8: scanBam(bam, param = param)
+>> 9: eval(expr, envir, enclos)
+>> 10: eval(call, sys.frame(sys.parent()))
+>> 11: callGeneric(bam, ..., param = param)
+>> 12: scanBam(file = filebam, index = filebai, param = param)
+>> 13: scanBam(file = filebam, index = filebai, param = param)
+>>
+>> Possible actions:
+>> 1: abort (with core dump, if enabled)
+>> 2: normal R exit
+>> 3: exit R without saving workspace
+>> 4: exit R saving workspace
+>>
+>> ***********************************************************************
+>>> sessionInfo()
+>> R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>
+>> locale:
+>> [1] LC_CTYPE=en_US.utf8 LC_NUMERIC=C
+>> [3] LC_TIME=en_US.utf8 LC_COLLATE=en_US.utf8
+>> [5] LC_MONETARY=C LC_MESSAGES=en_US.utf8
+>> [7] LC_PAPER=en_US.utf8 LC_NAME=C
+>> [9] LC_ADDRESS=C LC_TELEPHONE=C
+>> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+>>
+>> attached base packages:
+>> [1] stats graphics grDevices utils datasets methods base
+>>
+>> other attached packages:
+>> [1] ShortRead_1.11.26 latticeExtra_0.6-18 RColorBrewer_1.0-5
+>> [4] lattice_0.19-30 Rsamtools_1.5.38 Biostrings_2.21.6
+>> [7] GenomicRanges_1.5.16 IRanges_1.11.11
+>>
+>> loaded via a namespace (and not attached):
+>> [1] Biobase_2.13.7 grid_2.14.0 hwriter_1.3 zlibbioc_0.1.7
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From ivangreg at gmail.com  Sat Jul 16 15:44:06 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Sat, 16 Jul 2011 09:44:06 -0400
+Subject: [Bioc-sig-seq] scanBam segfault
+In-Reply-To: <4E219021.3040004@fhcrc.org>
+References: <CAOaPOXVj9ZoKQr0k6RypPOL2GwmFcsOjQxV9CmhQKB6RLox83A@mail.gmail.com>
+	<4E200AFE.5060306@fhcrc.org> <4E219021.3040004@fhcrc.org>
+Message-ID: <CAOaPOXVDGZW0rHoJa_JU2VRqyQp0=X=W3uq_jTaD6S7rWvK4UA@mail.gmail.com>
+
+Thank you.
+
+Ivan
+
+
+On Sat, Jul 16, 2011 at 9:20 AM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+> On 07/15/2011 02:40 AM, Martin Morgan wrote:
+>>
+>> On 07/14/2011 01:11 PM, Ivan Gregoretti wrote:
+>>>
+>>> Hello everybody,
+>>>
+>>> scanBam() is reporting segfaults. I tried in two different machines,
+>>> with identical error reports.
+>
+> The segfault is fixed in Rsamtools 1.5.39; the bug was introduced in 1.5.35.
+> Thanks for the report.
+>
+> Martin
+>
+>>>
+>>> Actually, I have four BAM files from which I am only reading in the
+>>> oligo sequences, nothing else. Two of them load fine but the other two
+>>> produce the error.
+>>>
+>>> Loading fine: BAMs with 70887462 and 58162986 records
+>>> Loading with segfault: BAMs with 101611824 and 114530023
+>>>
+>>> So, smaller are fine, bigger just crash.
+>>>
+>>> Do you guys run into the same problem?
+>>
+>> I don't have immediate access to HiSeq bam files; are there any publicly
+>> available?
+>>
+>> Also, it would help to have a C-level backtrace, maybe by doing
+>>
+>> R -d gdb -f test.R
+>>
+>> where test.R contains a basic script to reproduce the crash. You'll end
+>> up at the gdb prompt. Type 'r' to run
+>>
+>> gdb> r
+>>
+>> and then when the segfault occurs
+>>
+>> gdb> bt
+>>
+>> to generate the back trace (maybe several screens). If you could forward
+>> that to me, on or off list, that would be a better starting point.
+>>
+>> Martin
+>>>
+>>> Thank you,
+>>>
+>>> Ivan
+>>>
+>>> *****************************************************************
+>>>
+>>>> filebam<-
+>>>> "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466.bam"
+>>>> filebai<- "/home/igregore/my/data3/runs/110705/Project_81BRRABXX/c466"
+>>>> param<- ScanBamParam(what = c("seq"))
+>>>> myheader<- scanBamHeader(file=filebam)
+>>>> c466Ba<- scanBam(file=filebam, index=filebai, param=param)
+>>>
+>>> *** caught segfault ***
+>>> address 0x7fb9a9773030, cause 'memory not mapped'
+>>>
+>>> Traceback:
+>>> 1: .Call(func, .extptr(file), space, flag, simpleCigar, ...)
+>>> 2: doTryCatch(return(expr), name, parentenv, handler)
+>>> 3: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+>>> 4: tryCatchList(expr, classes, parentenv, handlers)
+>>> 5: tryCatch({ .Call(func, .extptr(file), space, flag, simpleCigar,
+>>> ...)}, error = function(err) { stop(conditionMessage(err), "\n
+>>> file: ", path(file), "\n index: ", index(file))})
+>>> 6: .io_bam(.scan_bamfile, file, param = param, path(file),
+>>> index(file), "rb", reverseComplement, tmpl)
+>>> 7: scanBam(bam, param = param)
+>>> 8: scanBam(bam, param = param)
+>>> 9: eval(expr, envir, enclos)
+>>> 10: eval(call, sys.frame(sys.parent()))
+>>> 11: callGeneric(bam, ..., param = param)
+>>> 12: scanBam(file = filebam, index = filebai, param = param)
+>>> 13: scanBam(file = filebam, index = filebai, param = param)
+>>>
+>>> Possible actions:
+>>> 1: abort (with core dump, if enabled)
+>>> 2: normal R exit
+>>> 3: exit R without saving workspace
+>>> 4: exit R saving workspace
+>>>
+>>> ***********************************************************************
+>>>>
+>>>> sessionInfo()
+>>>
+>>> R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+>>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>>
+>>> locale:
+>>> [1] LC_CTYPE=en_US.utf8 LC_NUMERIC=C
+>>> [3] LC_TIME=en_US.utf8 LC_COLLATE=en_US.utf8
+>>> [5] LC_MONETARY=C LC_MESSAGES=en_US.utf8
+>>> [7] LC_PAPER=en_US.utf8 LC_NAME=C
+>>> [9] LC_ADDRESS=C LC_TELEPHONE=C
+>>> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+>>>
+>>> attached base packages:
+>>> [1] stats graphics grDevices utils datasets methods base
+>>>
+>>> other attached packages:
+>>> [1] ShortRead_1.11.26 latticeExtra_0.6-18 RColorBrewer_1.0-5
+>>> [4] lattice_0.19-30 Rsamtools_1.5.38 Biostrings_2.21.6
+>>> [7] GenomicRanges_1.5.16 IRanges_1.11.11
+>>>
+>>> loaded via a namespace (and not attached):
+>>> [1] Biobase_2.13.7 grid_2.14.0 hwriter_1.3 zlibbioc_0.1.7
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>
+>
+> --
+> Computational Biology
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>
+> Location: M1-B861
+> Telephone: 206 667-2793
+>
+
+
+From anders at embl.de  Fri Jul 15 08:41:29 2011
+From: anders at embl.de (Simon Anders)
+Date: Fri, 15 Jul 2011 08:41:29 +0200
+Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted
+ counts	to a DESeq dataset
+In-Reply-To: <CAFp5Rb8HFG7tpp-fUW-Gt8_02HMqo8+txR-MVmyNY7S8PPpGEA@mail.gmail.com>
+References: <CAFp5Rb8HFG7tpp-fUW-Gt8_02HMqo8+txR-MVmyNY7S8PPpGEA@mail.gmail.com>
+Message-ID: <4E1FE119.4000106@embl.de>
+
+Hi Sean
+
+On 2011-07-14 21:54, Sean Ruddy wrote:
+> I have a RNA-Seq count data set that requires separate offset values for
+> each tag and sample. DESeq does not appear to take a matrix of offset values
+> (unlike edgeR) in any of its functions so I've carried out the analysis
+> manually, ie. calculating a size factor for each tag of each sample,
+> adjusting the counts, then proceeding to calculate means and variances of
+> the adjusted counts, and finally fitting a curve for each condition to the
+> mean-var plot using locfit().
+>
+> Essentially, I'd like to put these variance functions (or at least all the
+> predicted variances) and adjusted counts inside a DESeq object so that I can
+> take advantage of the other functions DESeq offers, tests, plots, etc...
+
+We refactored thing a bit in the devel version, and it is now easier to 
+inject your own variance estimates.
+
+If you now run 'estimateDispersions', it adds columns 'disp_<cond>' 
+(where <cond> is the name a condition, or "pooled" or "blind", depending 
+on the "method" argument) to the feature data slot. If you want to use 
+your own dispersion estimation scheme, you can just put values there, 
+and the testing functions will use them.
+
+However, I understand that you are actually happy with the estimation, 
+you just want to pass gene-specific size factors, presumably to correct 
+for GC biases. Our planned next step in our refactoring effort was to 
+offer a slot, where you would pass a matrix of values, of the same 
+dimensions as the count table, wich will be multiplied by the size 
+factors each time they are used. From your post, I learned that the 
+edgeR authors were again faster then we ;-) and have already added such 
+a feature. As demand for this will increase (e.g. to interface to the 
+new 'cqn' package that Hansen, Irizarry and Wu announced in their recent 
+preprint), we should better add it, too, I guess.
+
+Until then, have a look at the source code of DESeq: You will notice 
+that we separated well the interface functions that deal with the 
+CountDataSet objects, and the calculation functions that just work on 
+matrices. So, if you want to use a functionality that should be there 
+but is hard to use due to the format of the CountDataSet object, you can 
+typically call the core function directly. For example, the function 
+'estimateAndFitDispersionsFromBaseMeansAndVariances' takes a list of 
+mean and dispersion and returns a mean-dispersion fit.
+
+   Simon
+
+
+From sruddy17 at gmail.com  Tue Jul 19 06:41:30 2011
+From: sruddy17 at gmail.com (Sean Ruddy)
+Date: Mon, 18 Jul 2011 21:41:30 -0700
+Subject: [Bioc-sig-seq] "pooled" dispersion estimation in edgeR
+In-Reply-To: <Pine.WNT.4.64.1107161207230.2460@PC765.wehi.edu.au>
+References: <mailman.393.1310708393.4468.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107151656030.3804@PC765.wehi.edu.au>
+	<CAFp5Rb-PLEkO53xYqmALF86rBm6CKpGSe6YYmDgW=vufSTwAYg@mail.gmail.com>
+	<Pine.WNT.4.64.1107161207230.2460@PC765.wehi.edu.au>
+Message-ID: <CAFp5Rb8wpNqvTefZt5-eoaGFrRQstTuMu2iMbaaO8NXbE+Fiug@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110718/f057bbbe/attachment.pl>
+
+From smyth at wehi.EDU.AU  Tue Jul 19 06:54:27 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Tue, 19 Jul 2011 14:54:27 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] "pooled" dispersion estimation in edgeR
+In-Reply-To: <CAFp5Rb8wpNqvTefZt5-eoaGFrRQstTuMu2iMbaaO8NXbE+Fiug@mail.gmail.com>
+References: <mailman.393.1310708393.4468.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107151656030.3804@PC765.wehi.edu.au>
+	<CAFp5Rb-PLEkO53xYqmALF86rBm6CKpGSe6YYmDgW=vufSTwAYg@mail.gmail.com>
+	<Pine.WNT.4.64.1107161207230.2460@PC765.wehi.edu.au>
+	<CAFp5Rb8wpNqvTefZt5-eoaGFrRQstTuMu2iMbaaO8NXbE+Fiug@mail.gmail.com>
+Message-ID: <Pine.WNT.4.64.1107191450170.3984@PC765.wehi.edu.au>
+
+Hi Sean,
+
+Sorry, the code I gave works as is with the devel version edgeR.  With the 
+official release version you have to set:
+
+   design <- matrix(1,ncol(y),1)
+
+to get the same effect.
+
+Best wishes
+Gordon
+
+---------------------------------------------
+Professor Gordon K Smyth,
+Bioinformatics Division,
+Walter and Eliza Hall Institute of Medical Research,
+1G Royal Parade, Parkville, Vic 3052, Australia.
+smyth at wehi.edu.au
+http://www.wehi.edu.au
+http://www.statsci.org/smyth
+
+On Mon, 18 Jul 2011, Sean Ruddy wrote:
+
+> Hi Gordon,
+>
+> I wasn't able to get your suggestion to work. estimateGLMCommonDisp() seems
+> to want explicit values for the design. If I leave the design argument empty
+> I get the error,
+>
+> Error in as.matrix(design) :
+>  argument "design" is missing, with no default
+>
+> I have release 2.8 installed. My code is
+>
+> y <- DGEList( countMat )
+> y$offset <- log( totals )
+> y <- estimateGLMCommonDisp( y , offset = y$offset )
+>
+> Sorry if I'm missing something obvious.
+>
+> Thanks,
+> Sean
+>
+>
+> On Fri, Jul 15, 2011 at 7:26 PM, Gordon K Smyth <smyth at wehi.edu.au> wrote:
+>
+>> Hi Sean,
+>>
+>> On Fri, 15 Jul 2011, Sean Ruddy wrote:
+>>
+>>  Hi Gordon,
+>>>
+>>> Thanks for the response. One of my data sets has 8 conditions and no
+>>> replicates and so I wanted to emulate DESeq's way of pooling the samples and
+>>> also use an offset matrix. I was hoping to avoid doing it manually so that I
+>>> don't mess it up. I could do this all in edgeR and pool the samples but I'm
+>>> not sure how well this would work under edgeR vs. DESeq.
+>>>
+>>
+>> edgeR has a very flexible interface, so there was no need to explicitly
+>> introduce a "pooled" method.  Instead, this sort of thing can be handled by
+>> the usual functions in the usual way.  Suppose you have a data object y,
+>> which includes an offset matrix:
+>>
+>>   y$offset <- your matrix
+>>
+>> Then you can estimate the "pooled" dispersion simply by:
+>>
+>>   y <- estimateGLMCommonDisp(y)
+>>
+>> The fact that you don't supply a design matrix means that the samples are
+>> automatically treated as one group, i.e., pooled.  You can estimate a
+>> trended or tagwise dispersions in the same way.  Then
+>>
+>>   fit <- glmFit(y,design)  etc
+>>
+>> will do any analysis you want using dispersions estimated when the samples
+>> were pooled.
+>>
+>> I and the other edgeR authors are anxious to get feedback, so write again
+>> if this doesn't turn out to be clear.
+>>
+>>  I am curious though what sounds off to you in my previous email. I don't
+>>> feel entirely comfortable doing this manually but hopefully it's just
+>>> because I left out some details. I was trying to follow the DESeq method and
+>>> the only difference I saw was in the size factor calculations which I
+>>> changed for my own needs by using the offset values for each tag and sample.
+>>>
+>>
+>> Even if you could estimate the variances yourself, I don't see any manual
+>> way that you could perform valid statistical tests, while correctly
+>> accounting for the offsets.  The whole negative binomial methodology
+>> requires genuine counts rather than adjusted counts.  So handling the
+>> offsets needs to be built-in.
+>>
+>> Best wishes
+>> Gordon
+>>
+>>  I appreciate the help!
+>>>
+>>> Best,
+>>> Sean
+>>>
+>>> On Fri, Jul 15, 2011 at 12:02 AM, Gordon K Smyth <smyth at wehi.edu.au>
+>>> wrote:
+>>>
+>>>  Hi Sean,
+>>>>
+>>>> I'm curious to know why not use edgeR, since edgeR does what you want and
+>>>> DESeq doesn't?
+>>>>
+>>>> I might be wrong, but the manual analysis that you describe doesn't sound
+>>>> right.
+>>>>
+>>>> Best wishes
+>>>> Gordon
+>>>>
+>>>>  Date: Thu, 14 Jul 2011 12:54:49 -0700
+>>>>
+>>>>> From: Sean Ruddy <sruddy17 at gmail.com>
+>>>>> To: bioc-sig-sequencing at r-project.****org<bioc-sig-sequencing at r-**
+>>>>> project.org <bioc-sig-sequencing at r-project.org>>
+>>>>> Subject: [Bioc-sig-seq] Supplying own variance functions and adjusted
+>>>>>       counts  to a DESeq dataset
+>>>>>
+>>>>> Hi,
+>>>>>
+>>>>> I have a RNA-Seq count data set that requires separate offset values for
+>>>>> each tag and sample. DESeq does not appear to take a matrix of offset values
+>>>>> (unlike edgeR) in any of its functions so I've carried out the analysis
+>>>>> manually, ie. calculating a size factor for each tag of each sample,
+>>>>> adjusting the counts, then proceeding to calculate means and variances of
+>>>>> the adjusted counts, and finally fitting a curve for each condition to the
+>>>>> mean-var plot using locfit().
+>>>>>
+>>>>> Essentially, I'd like to put these variance functions (or at least all
+>>>>> the predicted variances) and adjusted counts inside a DESeq object so that I
+>>>>> can take advantage of the other functions DESeq offers, tests, plots, etc...
+>>>>>
+>>>>> Thanks for the help!
+>>>>>
+>>>>> Sean
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From sruddy17 at gmail.com  Tue Jul 19 07:01:09 2011
+From: sruddy17 at gmail.com (Sean Ruddy)
+Date: Mon, 18 Jul 2011 22:01:09 -0700
+Subject: [Bioc-sig-seq] "pooled" dispersion estimation in edgeR
+In-Reply-To: <Pine.WNT.4.64.1107191450170.3984@PC765.wehi.edu.au>
+References: <mailman.393.1310708393.4468.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107151656030.3804@PC765.wehi.edu.au>
+	<CAFp5Rb-PLEkO53xYqmALF86rBm6CKpGSe6YYmDgW=vufSTwAYg@mail.gmail.com>
+	<Pine.WNT.4.64.1107161207230.2460@PC765.wehi.edu.au>
+	<CAFp5Rb8wpNqvTefZt5-eoaGFrRQstTuMu2iMbaaO8NXbE+Fiug@mail.gmail.com>
+	<Pine.WNT.4.64.1107191450170.3984@PC765.wehi.edu.au>
+Message-ID: <CAFp5Rb-7r=66yxXD3KsBT4fCgpToahsHzPEOpy=T7SY1sLNEKg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110718/b48ce1bc/attachment.pl>
+
+From KQu at genomichealth.com  Thu Jul 21 03:07:59 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Thu, 21 Jul 2011 01:07:59 +0000
+Subject: [Bioc-sig-seq] reduce in ShortRead
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62DD0C@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110721/9d5346fa/attachment.pl>
+
+From kasperdanielhansen at gmail.com  Thu Jul 21 03:16:52 2011
+From: kasperdanielhansen at gmail.com (Kasper Daniel Hansen)
+Date: Wed, 20 Jul 2011 21:16:52 -0400
+Subject: [Bioc-sig-seq] reduce in ShortRead
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62DD0C@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62DD0C@SRV321.genomichealth.com>
+Message-ID: <CAC2h7uvGvjvo37_ZfmPMSW__4FiL1Tsq+DM0bqzqkRJ9_Pk0gQ@mail.gmail.com>
+
+L means integer (it is not obvious)
+
+1 in R gets interpreted as a double, while 1L is an integer.  For many
+use cases it doesn't matter, but on the other hand many people have
+started to use L to indicate that they are specifically using integer
+values.
+
+If you have a variable, what you can do is
+  as.integer(GAP)
+
+Kasper
+
+On Wed, Jul 20, 2011 at 9:07 PM, Kunbin Qu <KQu at genomichealth.com> wrote:
+> Hi,
+>
+> In the "reduce" function from ShortRead, the "min.gapwidth" normal ends with an "L". If I have a variable, say named, GAP. How do I append the "L" after the variable GAP? Or is the "L" important at all? The result I got from with/without seems quite different. Thanks.
+>
+> -Kunbin
+>
+>
+>
+> ______________________________________________________________________
+> The contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.
+> ? ? ? ?[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From sruddy17 at gmail.com  Thu Jul 21 03:17:42 2011
+From: sruddy17 at gmail.com (Sean Ruddy)
+Date: Wed, 20 Jul 2011 18:17:42 -0700
+Subject: [Bioc-sig-seq] edgeR Warning Messages from maximizeInterpolant
+	called from estimateGLMTagwiseDisp
+Message-ID: <CAFp5Rb9x2k9jXGnXnZJeDEjve3p=_xVVnUvzekzwbbT4nSAdig@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110720/3d4358eb/attachment.pl>
+
+From D.Strbenac at garvan.org.au  Thu Jul 21 05:00:14 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Thu, 21 Jul 2011 13:00:14 +1000 (EST)
+Subject: [Bioc-sig-seq] psetdiff on GRangesLists Error
+Message-ID: <20110721130014.BMG65638@gimr.garvan.unsw.edu.au>
+
+Hello,
+
+I'm encountering some strange behaviour. If I do psetdiff with 2 GRangesLists that I have, it gives an error, but if I split the GRangesLists into 2 parts I can't get the error to happen. Any ideas ?
+
+>     length(gene.juncts)
+[1] 36693
+>     length(gene.exons)
+[1] 36693
+>     intronics <- psetdiff(gene.juncts, gene.exons)
+
+Error in gaps(union(gaps(x, end = seqlengths), y, ignore.strand = ignore.strand),  : 
+  error in evaluating the argument 'x' in selecting a method for function 'gaps': Error in sort.list(runValue(x), na.last = na.last, decreasing = decreasing,  : 
+  too large a range of values in 'x'
+>     intronics <- psetdiff(gene.juncts[1:20000], gene.exons[1:20000])
+>     intronics <- psetdiff(gene.juncts[20001:length(gene.juncts)], gene.exons[20001:length(gene.exons)])
+>
+
+To help with troubleshooting, the two GRangesLists are available for download.
+http://129.94.136.7/file_dump/dario/testPsetDiff.RData (3.7 MB)
+
+> sessionInfo()
+R version 2.13.0 (2011-04-13)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] GenomicFeatures_1.4.1 GenomicRanges_1.4.6   IRanges_1.10.4       
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.11.10     biomaRt_2.7.2       Biostrings_2.19.18 
+[4] BSgenome_1.19.6     DBI_0.2-5           RCurl_1.6-1        
+[7] RSQLite_0.9-4       rtracklayer_1.11.12 XML_3.4-0
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From smyth at wehi.EDU.AU  Fri Jul 22 01:29:42 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Fri, 22 Jul 2011 09:29:42 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] edgeR Warning Messages from maximizeInterpolant
+ called from estimateGLMTagwiseDisp
+In-Reply-To: <mailman.9.1311242403.2625.bioc-sig-sequencing@r-project.org>
+References: <mailman.9.1311242403.2625.bioc-sig-sequencing@r-project.org>
+Message-ID: <Pine.WNT.4.64.1107220914280.3680@PC765.wehi.edu.au>
+
+Dear Sean,
+
+The fact that you get a warning message does not mean that the function 
+hasn't worked satisfactorily.  It is mainly to alert you to an unusual 
+situation.  The warnings affect only 15 tags out of thousands, so are 
+unlikely to have any influence on your results.
+
+The main issue is that there is no biological dispersion in your data. 
+My guess is that you have computed offsets in such as way that they soak 
+up all the biological variation in your data, and there is no 
+Poisson-overdispersion left to estimate.  Your data could even now be 
+underdispersed relative to Poisson, once the offsets are accounted for. 
+This suggests to me that your offsets are over-fitted in some sense, and 
+that statistical analysis using these offsets might not be meaningful.
+
+Have you tried a more standard analysis of your data, using the built-in 
+normalization procedures in edgeR?
+
+Best wishes
+Gordon
+
+> Date: Wed, 20 Jul 2011 18:17:42 -0700
+> From: Sean Ruddy <sruddy17 at gmail.com>
+> To: bioc-sig-sequencing at r-project.org
+> Subject: [Bioc-sig-seq] edgeR Warning Messages from
+> 	maximizeInterpolant	called from estimateGLMTagwiseDisp
+>
+> Hi,
+>
+> I'm trying to get tagwise estimates from estimateGLMTagwiseDsip with the
+> argument "method = 'common' " and 15 warning messages each of which are one
+> of 2 flavors:
+>
+> 9: In maximizeInterpolant(spline.pts, apl.smooth[j, ]) : Divergence
+> 10: In maximizeInterpolant(spline.pts, apl.smooth[j, ]) : max iterations
+> exceeded
+>
+> After looking at the functions "dispCoxReidInterpolateTagwise" and
+> "maximizeInterpolant", I believe that each of these warnings correspond to a
+> specific tag; correct me if I'm wrong. I'd like to find out which tags are
+> creating this warning so I can get an idea of what type of data is causing
+> this. I've tried debug() but that information isn't passed to the functions.
+> In particular, the part of the "dispCoxReid..." function below
+>
+> for (j in 1:ntags) d[j] <- maximizeInterpolant(spline.pts, apl.smooth[j, ])
+>
+> I tried changing the functions internally to pass that information and
+> output it but it doesn't seem to work. The changes don't have any effect. Is
+> there an feasible way of figuring out the tags that cause the warnings? I'm
+> out of ideas...
+>
+> Also, the common dispersion estimate is very low -- 1e-08 neighborhood --
+> which I'm guessing is one main reason why maximizeInterpolant is having
+> trouble. On that note, I have no idea why the common dispersion value is so
+> low. I do not have technical replicates and the replicates I do have are
+> hardly biological. I would expect to get a higher dispersion estimate, but
+> it's somewhat difficult to tell since I also have an offset value for each
+> tag and sample and thousands of tags.
+>
+> Any help is appreciated!
+>
+> Thanks!
+> Sean
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From KQu at genomichealth.com  Fri Jul 22 02:04:48 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Fri, 22 Jul 2011 00:04:48 +0000
+Subject: [Bioc-sig-seq] extract gene symbol error
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62DE9C@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/64d1db84/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Fri Jul 22 05:08:07 2011
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Thu, 21 Jul 2011 23:08:07 -0400
+Subject: [Bioc-sig-seq] extract gene symbol error
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62DE9C@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62DE9C@SRV321.genomichealth.com>
+Message-ID: <CAHA9McOEn2yUzX5yUGeu4zYoL4YMYkqYUyHgo-ke42OWsH3BKg@mail.gmail.com>
+
+Hi,
+
+Two things:
+
+(1) You should update to the latest version of R (and, therefore,
+bioconductor). The current version of R is 2.13.1, which goes with
+Bioconductor 2.8 -- R 2.11.x is getting long in the tooth by now :-)
+
+The second point is inline:
+
+On Thu, Jul 21, 2011 at 8:04 PM, Kunbin Qu <KQu at genomichealth.com> wrote:
+> Hi, I ran into error when try to build a table of gene ID and its corresponding name. It complained about an gene ID which could not be located from the gene symbol table. I have used update.packages to update "GenomicFeatures" and "org.Hs.eg.db" today. Could anybody help? Thanks.
+>
+> -Kunbin
+>
+>
+> library(ShortRead)
+> library(GenomicFeatures)
+> library(org.Hs.eg.db)
+>
+> ?map <- org.Hs.egSYMBOL
+> hg19KG <- makeTranscriptDbFromUCSC(genome = "hg19", tablename = "knownGene")
+> Download the knownGene table ... annEx<-exonsBy(hg19KG, "gene") ...OK
+> Download the knownToLocusLink table ... OK
+> Extract the 'transcripts' data frame ... OK
+> Extract the 'splicings' data frame ... OK
+> Download and preprocess the 'chrominfo' data frame ... OK
+> Prepare the 'metadata' data frame ... OK
+> Make the TranscriptDb object ... OK
+> annEx<-exonsBy(hg19KG, "gene")
+> GRList<-names(annEx)
+
+Instead of this:
+
+> geneN<-toTable(map[GRList])
+
+To something like this:
+
+R> mget(GRList, map, ifnotfount=NA)
+
+So that you don't get an error when there is a value in GRList, that's
+doesn't match in `map`, like you do here:
+
+> Error in .checkKeys(value, Lkeys(x), x at ifnotfound) :
+> ? ? ? ? ? ? ? ?value for "100130426" not found
+> Error in toTable(map[GRList]) :
+> ? ? ? ?error in evaluating the argument 'x' in selecting a method for function 'toTable'
+
+Hope that helps,
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+?| Memorial Sloan-Kettering Cancer Center
+?| Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From KQu at genomichealth.com  Fri Jul 22 08:11:48 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Fri, 22 Jul 2011 06:11:48 +0000
+Subject: [Bioc-sig-seq] minoverlap error in countOverlaps
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62DEE1@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/1348277f/attachment.pl>
+
+From sruddy17 at gmail.com  Fri Jul 22 15:31:17 2011
+From: sruddy17 at gmail.com (Sean Ruddy)
+Date: Fri, 22 Jul 2011 06:31:17 -0700
+Subject: [Bioc-sig-seq] edgeR Warning Messages from maximizeInterpolant
+	called from estimateGLMTagwiseDisp
+In-Reply-To: <Pine.WNT.4.64.1107220914280.3680@PC765.wehi.edu.au>
+References: <mailman.9.1311242403.2625.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107220914280.3680@PC765.wehi.edu.au>
+Message-ID: <CAFp5Rb8td3hxipGmrSFVd+w=tfuGnN+E4ahHJ6TNp4uO8_tZxQ@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/fa087fc9/attachment.pl>
+
+From kasperdanielhansen at gmail.com  Fri Jul 22 15:39:46 2011
+From: kasperdanielhansen at gmail.com (Kasper Daniel Hansen)
+Date: Fri, 22 Jul 2011 09:39:46 -0400
+Subject: [Bioc-sig-seq] edgeR Warning Messages from maximizeInterpolant
+ called from estimateGLMTagwiseDisp
+In-Reply-To: <CAFp5Rb8td3hxipGmrSFVd+w=tfuGnN+E4ahHJ6TNp4uO8_tZxQ@mail.gmail.com>
+References: <mailman.9.1311242403.2625.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107220914280.3680@PC765.wehi.edu.au>
+	<CAFp5Rb8td3hxipGmrSFVd+w=tfuGnN+E4ahHJ6TNp4uO8_tZxQ@mail.gmail.com>
+Message-ID: <CAC2h7uuXf8BVScw+4BAc=NOocKjRSUnthS-f=Wn4=sYCsGQaJQ@mail.gmail.com>
+
+On Fri, Jul 22, 2011 at 9:31 AM, Sean Ruddy <sruddy17 at gmail.com> wrote:
+> Hi Gordon,
+>
+> Thanks for the reply. That's good to know I shouldn't be worried about the
+> results, but then again I'm not really sure, as you say, if I should even go
+> down this road. Using the standard edgeR normalization would also be
+> meaningless in my case unfortunately. I have two data sets of counts each
+> belonging to different organisms. One data set runs smoothly and the other
+> has all these problems yet the experiments done on both were exactly the
+> same. Kind of puzzling and unfortunate but I will investigate more into what
+> you're saying about the offsets and see if I can't adjust my
+> strategy. Thanks for the insights!
+
+While I agree with Gordon that having warnings in a few genes are
+hardly problematic, it would perhaps make sense to make it easy for
+the user to identify exactly which genes (rows) have warnings
+associated with them,  Having been bitten by convergence problems in
+the past, I believe it is always prudent to check the data. Just a
+suggestion, and I apoligize if this is already (easily) possible.
+
+Kasper
+
+
+From f.lescai at ucl.ac.uk  Wed Jul 20 13:28:07 2011
+From: f.lescai at ucl.ac.uk (Francesco Lescai)
+Date: Wed, 20 Jul 2011 12:28:07 +0100
+Subject: [Bioc-sig-seq] scanBam memory issue
+Message-ID: <4E26BBC7.3090608@ucl.ac.uk>
+
+Hi there,
+I know this issue has been already touched, perhaps several times, but 
+the solutions I found in the list (i.e. param=ScanBamParam(which=<...>) 
+doesn't seem to work. 
+(https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2010-December/001755.html)
+
+I have bam files from Human Exomes, about 45 millions reads.
+I imported RefSeq exons as genomic ranges using the import function of 
+rtracklayer from the bed file.
+
+This is my command and the error I get
+ > load("refseq.exon.fixed.RData")
+ > UCLG_20_1<-scanBam("UCLG_20_1.fq.novo.rmdup.bam_sorted.bam", 
+param=ScanBamParam(which=refseq.exon.fixed))
+Error: cannot allocate vector of size 156 Kb
+Execution halted
+
+My R version is
+R version 2.11.1 (2010-05-31)
+running on linux machines within a cluster environment.
+
+Any idea? being it in a cluster it becomes a bit difficult to tweak 
+memory settings..
+
+cheers,
+Francesco
+
+
+From jane.merlevede at gmail.com  Fri Jul 22 16:40:05 2011
+From: jane.merlevede at gmail.com (Jane Merlevede)
+Date: Fri, 22 Jul 2011 16:40:05 +0200
+Subject: [Bioc-sig-seq] using DEXSeq for RNA-seq data from Linux
+Message-ID: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/6e01c185/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Fri Jul 22 19:23:24 2011
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Fri, 22 Jul 2011 13:23:24 -0400
+Subject: [Bioc-sig-seq] minoverlap error in countOverlaps
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62DEE1@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62DEE1@SRV321.genomichealth.com>
+Message-ID: <CAHA9McNr8KN-gyqWSG0BkiyV30VOFJxzDQSoYSDTeMgFH1qRJQ@mail.gmail.com>
+
+Hi Kunbin,
+
+On Fri, Jul 22, 2011 at 2:11 AM, Kunbin Qu <KQu at genomichealth.com> wrote:
+> Hi,
+>
+> I am trying to use "minoverlap" in the "countOverlaps" function to tune the counts between entrez genes (annEx) and my reads (a Granges object: grNons). But somehow it ran into a warning message, which unfortunately did not give me why that parameter was not used. When "minoverlap" was not used, it worked fine. Thanks.
+
+I suspect this might be due to an outdate version of GenomicRanges?
+
+Can you show us your sessionInfo? Did you upgrade to the latest
+R/Bioconductor version as was previously suggested?
+
+In the latest version of GenomicRanges (only available with the latest
+version of bioconductor (which is only available with the latest
+version of R)), you'll find that countOverlaps can take a custom
+minoverlap parameter in the scenario you are using it in.
+
+HTH,
+-steve
+
+>
+> -Kunbin
+>
+>
+> grExNons<-countOverlaps(query=annEx, subject=grNons)
+> head(grExNons)
+> [1] 133 1 28 58 637 ? 0
+> grExNons<-countOverlaps(query=annEx, subject=grNons, minoverlap = 5L)
+> Warning message:
+> In countOverlaps(query = annEx, subject = grNons, minoverlap = 5L) :
+> ? ? ? ? 'minoverlap' argument is ignored
+>
+> hg19KG <- makeTranscriptDbFromUCSC(genome = "hg19", tablename = "knownGene")
+> annEx<-exonsBy(hg19KG, "gene")
+> annEx
+> GRangesList of length 20545
+> $1
+> GRanges with 15 ranges and 2 elementMetadata values
+> ? ? ? ?seqnames ? ? ? ? ? ? ? ranges strand | ? exon_id ? exon_name
+> ? ? ? ? ? ? ? ?<Rle> ? ? ? ? ? ?<IRanges> ?<Rle> | <integer> <character>
+> ? ? ? ?[1] ? ?chr19 [58858174, 58858395] ? ? ?- | ? ?253677 ? ? ? ? ?NA
+> ? ? ? ?[2] ? ?chr19 [58858719, 58859006] ? ? ?- | ? ?253678 ? ? ? ? ?NA
+> ?[3] ? ?chr19 [58859832, 58860494] ? ? ?- | ? ?253688 ? ? ? ? ?NA
+> ? ? ? ?.....
+>
+>>grNons
+> GRanges with 27421835 ranges and 0 elementMetadata values
+> ? ? ? ? ? seqnames ? ? ? ? ? ? ? ? ranges strand ? |
+> ? ? ? ? ? ? ?<Rle> ? ? ? ? ? ? ?<IRanges> ?<Rle> ? |
+> ? ? ? [1] ? ?chr11 [ 48034060, ?48034095] ? ? ?* ? |
+> ? ? ? [2] ? ?chr13 [103319962, 103319997] ? ? ?* ? |
+> ? ? ? [3] ? ? chr2 [198350561, 198350596] ? ? ?* ? |
+> ? ? ? [4] ? ?chr12 [ 41850809, ?41850844] ? ? ?* ? |
+> ? ? ? [5] ? ?chr16 [ 89974865, ?89974900] ? ? ?* ? |
+> ? ? ? [6] ? ? chr1 [172113839, 172113874] ? ? ?* ? |
+> ? ? ? [7] ? ?chr12 [111080272, 111080307] ? ? ?* ? |
+> ? ? ? [8] ? ? chr2 [179445437, 179445472] ? ? ?* ? |
+> ? ? ? [9] ? ?chr10 [119817069, 119817104] ? ? ?* ? |
+> ? ? ? ... ? ? ?... ? ? ? ? ? ? ? ? ? ?... ? ?... ...
+> [27421827] ? ?chr17 [ 43334904, ?43334939] ? ? ?* ? |
+> [27421828] ? ? chr6 [163903657, 163903692] ? ? ?* ? |
+> [27421829] ? ?chr18 [ 74737099, ?74737134] ? ? ?* ? |
+> [27421830] ? ?chr13 [ 78311617, ?78311652] ? ? ?* ? |
+> [27421831] ? ? chr4 [170541832, 170541867] ? ? ?* ? |
+> [27421832] ? ?chr13 [ 32601946, ?32601981] ? ? ?* ? |
+> [27421833] ? ? chr3 [ 38420019, ?38420054] ? ? ?* ? |
+> [27421834] ? ? chr8 [ 74561716, ?74561751] ? ? ?* ? |
+> [27421835] ? ? chr3 [ 39319812, ?39319847] ? ? ?* ? |
+>
+> seqlengths
+> ?chr1 chr10 chr11 chr12 chr13 chr14 ... ?chr6 ?chr7 ?chr8 ?chr9 ?chrX ?chrY
+> ? ?NA ? ?NA ? ?NA ? ?NA ? ?NA ? ?NA ... ? ?NA ? ?NA ? ?NA ? ?NA ? ?NA ? ?NA
+>> summary(width(grNons))
+> ? Min. 1st Qu. ?Median ? ?Mean 3rd Qu. ? ?Max.
+> ?18.00 ? 36.00 ? 36.00 ? 35.85 ? 36.00 ? 36.00
+>>
+>
+>
+> ______________________________________________________________________
+> The contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.
+> ? ? ? ?[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+?| Memorial Sloan-Kettering Cancer Center
+?| Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From mailinglist.honeypot at gmail.com  Fri Jul 22 19:25:20 2011
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Fri, 22 Jul 2011 13:25:20 -0400
+Subject: [Bioc-sig-seq] scanBam memory issue
+In-Reply-To: <4E26BBC7.3090608@ucl.ac.uk>
+References: <4E26BBC7.3090608@ucl.ac.uk>
+Message-ID: <CAHA9McNjTZ5Q0askRfD0xbvphig6sirQZF72zV37hKW1Nc3sNQ@mail.gmail.com>
+
+Hi,
+
+On Wed, Jul 20, 2011 at 7:28 AM, Francesco Lescai <f.lescai at ucl.ac.uk> wrote:
+> Hi there,
+> I know this issue has been already touched, perhaps several times, but the
+> solutions I found in the list (i.e. param=ScanBamParam(which=<...>) doesn't
+> seem to work.
+> (https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2010-December/001755.html)
+>
+> I have bam files from Human Exomes, about 45 millions reads.
+> I imported RefSeq exons as genomic ranges using the import function of
+> rtracklayer from the bed file.
+>
+> This is my command and the error I get
+>> load("refseq.exon.fixed.RData")
+>> UCLG_20_1<-scanBam("UCLG_20_1.fq.novo.rmdup.bam_sorted.bam",
+>> param=ScanBamParam(which=refseq.exon.fixed))
+> Error: cannot allocate vector of size 156 Kb
+> Execution halted
+>
+> My R version is
+> R version 2.11.1 (2010-05-31)
+> running on linux machines within a cluster environment.
+>
+> Any idea? being it in a cluster it becomes a bit difficult to tweak memory
+> settings..
+
+It looks like your machines don't have enough memory to load in all
+the reads at once -- perhaps you can load in the reads on a chromosome
+by chromosome basis.
+
+If your machines are running linux -- I'm pretty sure there is no need
+to tweak any memory settings, you just need to have enough physical
+memory is all.
+
+Also -- see if you can't get your sysadmins (or whoever) to upgrade to
+latest version of R ;-)
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+?| Memorial Sloan-Kettering Cancer Center
+?| Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From sruddy17 at gmail.com  Fri Jul 22 20:35:58 2011
+From: sruddy17 at gmail.com (Sean Ruddy)
+Date: Fri, 22 Jul 2011 11:35:58 -0700
+Subject: [Bioc-sig-seq] edgeR Warning Messages from maximizeInterpolant
+ called from estimateGLMTagwiseDisp
+In-Reply-To: <CAC2h7uuXf8BVScw+4BAc=NOocKjRSUnthS-f=Wn4=sYCsGQaJQ@mail.gmail.com>
+References: <mailman.9.1311242403.2625.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107220914280.3680@PC765.wehi.edu.au>
+	<CAFp5Rb8td3hxipGmrSFVd+w=tfuGnN+E4ahHJ6TNp4uO8_tZxQ@mail.gmail.com>
+	<CAC2h7uuXf8BVScw+4BAc=NOocKjRSUnthS-f=Wn4=sYCsGQaJQ@mail.gmail.com>
+Message-ID: <CAFp5Rb96p6yKKV6c0hQeJcisSo5xQ8YPrbunx_+2w_CfgycNAg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/9a449a36/attachment.pl>
+
+From mtmorgan at fhcrc.org  Fri Jul 22 21:59:07 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Fri, 22 Jul 2011 12:59:07 -0700
+Subject: [Bioc-sig-seq] scanBam memory issue
+In-Reply-To: <CAHA9McNjTZ5Q0askRfD0xbvphig6sirQZF72zV37hKW1Nc3sNQ@mail.gmail.com>
+References: <4E26BBC7.3090608@ucl.ac.uk>
+	<CAHA9McNjTZ5Q0askRfD0xbvphig6sirQZF72zV37hKW1Nc3sNQ@mail.gmail.com>
+Message-ID: <4E29D68B.3030903@fhcrc.org>
+
+On 07/22/2011 10:25 AM, Steve Lianoglou wrote:
+> Hi,
+>
+> On Wed, Jul 20, 2011 at 7:28 AM, Francesco Lescai<f.lescai at ucl.ac.uk>  wrote:
+>> Hi there,
+>> I know this issue has been already touched, perhaps several times, but the
+>> solutions I found in the list (i.e. param=ScanBamParam(which=<...>) doesn't
+>> seem to work.
+>> (https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2010-December/001755.html)
+>>
+>> I have bam files from Human Exomes, about 45 millions reads.
+>> I imported RefSeq exons as genomic ranges using the import function of
+>> rtracklayer from the bed file.
+>>
+>> This is my command and the error I get
+>>> load("refseq.exon.fixed.RData")
+>>> UCLG_20_1<-scanBam("UCLG_20_1.fq.novo.rmdup.bam_sorted.bam",
+>>> param=ScanBamParam(which=refseq.exon.fixed))
+
+The big stuff in these files is the nucleotide sequence and quality 
+scores, and for many analyses these are not necessary. Use the 'what' 
+argument (see ?ScanBamParam, and scanBamWhat()) or readGappedAlignments 
+to get just the data you're interested in.
+
+Martin
+
+>> Error: cannot allocate vector of size 156 Kb
+>> Execution halted
+>>
+>> My R version is
+>> R version 2.11.1 (2010-05-31)
+>> running on linux machines within a cluster environment.
+>>
+>> Any idea? being it in a cluster it becomes a bit difficult to tweak memory
+>> settings..
+>
+> It looks like your machines don't have enough memory to load in all
+> the reads at once -- perhaps you can load in the reads on a chromosome
+> by chromosome basis.
+>
+> If your machines are running linux -- I'm pretty sure there is no need
+> to tweak any memory settings, you just need to have enough physical
+> memory is all.
+>
+> Also -- see if you can't get your sysadmins (or whoever) to upgrade to
+> latest version of R ;-)
+>
+> -steve
+>
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From KQu at genomichealth.com  Fri Jul 22 23:36:19 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Fri, 22 Jul 2011 21:36:19 +0000
+Subject: [Bioc-sig-seq] count the coverage base by base
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/a1688d50/attachment.pl>
+
+From lawrence.michael at gene.com  Sat Jul 23 00:14:31 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Fri, 22 Jul 2011 15:14:31 -0700
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+Message-ID: <CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/a6b995f4/attachment.pl>
+
+From KQu at genomichealth.com  Sat Jul 23 00:24:07 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Fri, 22 Jul 2011 22:24:07 +0000
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+	<CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/a1ffb0df/attachment.pl>
+
+From lawrence.michael at gene.com  Sat Jul 23 00:32:15 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Fri, 22 Jul 2011 15:32:15 -0700
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+	<CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+Message-ID: <CAOQ5Nyd3+yoQ+Rz6uQ+8aLqr19j6mTrA=mc_y4X1UCJO1c3c4Q@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/6957918a/attachment.pl>
+
+From KQu at genomichealth.com  Sat Jul 23 01:03:23 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Fri, 22 Jul 2011 23:03:23 +0000
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <CAOQ5Nyd3+yoQ+Rz6uQ+8aLqr19j6mTrA=mc_y4X1UCJO1c3c4Q@mail.gmail.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+	<CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+	<CAOQ5Nyd3+yoQ+Rz6uQ+8aLqr19j6mTrA=mc_y4X1UCJO1c3c4Q@mail.gmail.com>
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62E0F4@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/0dcd0be8/attachment.pl>
+
+From lawrence.michael at gene.com  Sat Jul 23 01:12:48 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Fri, 22 Jul 2011 16:12:48 -0700
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62E0F4@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+	<CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+	<CAOQ5Nyd3+yoQ+Rz6uQ+8aLqr19j6mTrA=mc_y4X1UCJO1c3c4Q@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0F4@SRV321.genomichealth.com>
+Message-ID: <CAOQ5NyfhX807HXZL=h=Zp4O03AEfxMLbegNoCs6sRO3ab_6HaQ@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/dea0b5ab/attachment.pl>
+
+From KQu at genomichealth.com  Sat Jul 23 01:16:02 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Fri, 22 Jul 2011 23:16:02 +0000
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <CAOQ5NyfhX807HXZL=h=Zp4O03AEfxMLbegNoCs6sRO3ab_6HaQ@mail.gmail.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+	<CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+	<CAOQ5Nyd3+yoQ+Rz6uQ+8aLqr19j6mTrA=mc_y4X1UCJO1c3c4Q@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0F4@SRV321.genomichealth.com>
+	<CAOQ5NyfhX807HXZL=h=Zp4O03AEfxMLbegNoCs6sRO3ab_6HaQ@mail.gmail.com>
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62E119@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110722/735a41fa/attachment.pl>
+
+From smyth at wehi.EDU.AU  Sat Jul 23 06:07:24 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Sat, 23 Jul 2011 14:07:24 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] edgeR Warning Messages from maximizeInterpolant
+ called from estimateGLMTagwiseDisp
+In-Reply-To: <CAFp5Rb96p6yKKV6c0hQeJcisSo5xQ8YPrbunx_+2w_CfgycNAg@mail.gmail.com>
+References: <mailman.9.1311242403.2625.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107220914280.3680@PC765.wehi.edu.au>
+	<CAFp5Rb8td3hxipGmrSFVd+w=tfuGnN+E4ahHJ6TNp4uO8_tZxQ@mail.gmail.com>
+	<CAC2h7uuXf8BVScw+4BAc=NOocKjRSUnthS-f=Wn4=sYCsGQaJQ@mail.gmail.com>
+	<CAFp5Rb96p6yKKV6c0hQeJcisSo5xQ8YPrbunx_+2w_CfgycNAg@mail.gmail.com>
+Message-ID: <Pine.WNT.4.64.1107231328110.5964@PC765.wehi.edu.au>
+
+Hi Sean,
+
+No, we do not provide a means for users to pass arguments to 
+maximizeInterpolant() and, I have no plans to permit this.  My feeling is 
+that the iteration should provide a reasonable value within ten 
+iterations, or else there is something wrong and continuing the iteration 
+will not improve the situation.  For example the requested accuracy of 8 
+significant figures might not be obtainable in machine precision, in which 
+case the final iteration is as good as can be achieved.  Your data appears 
+to be underdispersed, so the estimation of tagwise dispersions is in a 
+sense degenerate.  Since all the dispersions will be more or less 1e-8, it 
+doesn't seem very relevant whether each value iteration has converged to 8 
+significant places.  This numerical accuracy might not be obtainable in 
+computer precision for such small dispersions.
+
+Best wishes
+Gordon
+
+---------------------------------------------
+Professor Gordon K Smyth,
+Bioinformatics Division,
+Walter and Eliza Hall Institute of Medical Research,
+1G Royal Parade, Parkville, Vic 3052, Australia.
+Tel: (03) 9345 2326, Fax (03) 9347 0852,
+smyth at wehi.edu.au
+http://www.wehi.edu.au
+http://www.statsci.org/smyth
+
+On Fri, 22 Jul 2011, Sean Ruddy wrote:
+
+> Hi Gordon,
+>
+> In addition to Kasper's email, is it possible to pass arguments to
+> maximizeInterpolant, for example to increase the max iterations? It appears
+> you can send additional arguments to dispCoxReidInerpolateTagwise but not to
+> maximizeInterpolant.
+>
+> Thanks,
+> Sean
+>
+>
+> On Fri, Jul 22, 2011 at 6:39 AM, Kasper Daniel Hansen <
+> kasperdanielhansen at gmail.com> wrote:
+>
+>> On Fri, Jul 22, 2011 at 9:31 AM, Sean Ruddy <sruddy17 at gmail.com> wrote:
+>>> Hi Gordon,
+>>>
+>>> Thanks for the reply. That's good to know I shouldn't be worried about 
+>>> the results, but then again I'm not really sure, as you say, if I 
+>>> should even go down this road. Using the standard edgeR normalization 
+>>> would also be meaningless in my case unfortunately. I have two data 
+>>> sets of counts each belonging to different organisms. One data set 
+>>> runs smoothly and the other has all these problems yet the experiments 
+>>> done on both were exactly the same. Kind of puzzling and unfortunate 
+>>> but I will investigate more into what you're saying about the offsets 
+>>> and see if I can't adjust my strategy. Thanks for the insights!
+>>
+>> While I agree with Gordon that having warnings in a few genes are
+>> hardly problematic, it would perhaps make sense to make it easy for
+>> the user to identify exactly which genes (rows) have warnings
+>> associated with them,  Having been bitten by convergence problems in
+>> the past, I believe it is always prudent to check the data. Just a
+>> suggestion, and I apoligize if this is already (easily) possible.
+>>
+>> Kasper
+>>
+>
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From smyth at wehi.EDU.AU  Sat Jul 23 06:13:11 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Sat, 23 Jul 2011 14:13:11 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] edgeR Warning Messages from maximizeInterpolant
+ called from estimateGLMTagwiseDisp
+In-Reply-To: <CAC2h7uuXf8BVScw+4BAc=NOocKjRSUnthS-f=Wn4=sYCsGQaJQ@mail.gmail.com>
+References: <mailman.9.1311242403.2625.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1107220914280.3680@PC765.wehi.edu.au>
+	<CAFp5Rb8td3hxipGmrSFVd+w=tfuGnN+E4ahHJ6TNp4uO8_tZxQ@mail.gmail.com>
+	<CAC2h7uuXf8BVScw+4BAc=NOocKjRSUnthS-f=Wn4=sYCsGQaJQ@mail.gmail.com>
+Message-ID: <Pine.WNT.4.64.1107231410490.5964@PC765.wehi.edu.au>
+
+Kasper,
+
+I hear you.  It's not so easy to achieve (because the function issuing the 
+warning doesn't know which gene it is working on), but we'll have a think 
+about it.
+
+Best
+Gordon
+
+On Fri, 22 Jul 2011, Kasper Daniel Hansen wrote:
+
+> On Fri, Jul 22, 2011 at 9:31 AM, Sean Ruddy <sruddy17 at gmail.com> wrote:
+>> Hi Gordon,
+>>
+>> Thanks for the reply. That's good to know I shouldn't be worried about 
+>> the results, but then again I'm not really sure, as you say, if I 
+>> should even go down this road. Using the standard edgeR normalization 
+>> would also be meaningless in my case unfortunately. I have two data 
+>> sets of counts each belonging to different organisms. One data set runs 
+>> smoothly and the other has all these problems yet the experiments done 
+>> on both were exactly the same. Kind of puzzling and unfortunate but I 
+>> will investigate more into what you're saying about the offsets and see 
+>> if I can't adjust my strategy. Thanks for the insights!
+>
+> While I agree with Gordon that having warnings in a few genes are hardly 
+> problematic, it would perhaps make sense to make it easy for the user to 
+> identify exactly which genes (rows) have warnings associated with them, 
+> Having been bitten by convergence problems in the past, I believe it is 
+> always prudent to check the data. Just a suggestion, and I apoligize if 
+> this is already (easily) possible.
+>
+> Kasper
+>
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From KQu at genomichealth.com  Sat Jul 23 07:13:38 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Sat, 23 Jul 2011 05:13:38 +0000
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <CAOQ5NyfhX807HXZL=h=Zp4O03AEfxMLbegNoCs6sRO3ab_6HaQ@mail.gmail.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+	<CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+	<CAOQ5Nyd3+yoQ+Rz6uQ+8aLqr19j6mTrA=mc_y4X1UCJO1c3c4Q@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0F4@SRV321.genomichealth.com>
+	<CAOQ5NyfhX807HXZL=h=Zp4O03AEfxMLbegNoCs6sRO3ab_6HaQ@mail.gmail.com>
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62E163@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110723/5544f200/attachment.pl>
+
+From lawrence.michael at gene.com  Sat Jul 23 14:56:12 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Sat, 23 Jul 2011 05:56:12 -0700
+Subject: [Bioc-sig-seq] count the coverage base by base
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62E163@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62E045@SRV321.genomichealth.com>
+	<CAOQ5NycPvLGyGuxYRnKeOqLMK2r90DMCzACuQWoV0kdLrByPKw@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0AA@SRV321.genomichealth.com>
+	<CAOQ5Nyd3+yoQ+Rz6uQ+8aLqr19j6mTrA=mc_y4X1UCJO1c3c4Q@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E0F4@SRV321.genomichealth.com>
+	<CAOQ5NyfhX807HXZL=h=Zp4O03AEfxMLbegNoCs6sRO3ab_6HaQ@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F3C62E163@SRV321.genomichealth.com>
+Message-ID: <CAOQ5NyevDqbPr5v39z9wiMRFkepu4+6jtMTPgBiZ=+0s1HVC0A@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110723/b9f2c69c/attachment.pl>
+
+From sdavis2 at mail.nih.gov  Sun Jul 24 00:03:38 2011
+From: sdavis2 at mail.nih.gov (Sean Davis)
+Date: Sat, 23 Jul 2011 22:03:38 +0000
+Subject: [Bioc-sig-seq] using DEXSeq for RNA-seq data from Linux
+In-Reply-To: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>
+References: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>
+Message-ID: <CANeAVBkmzVE_9_5-KM_07NTZTy20BZRsTkD7yRDR0Y1JPPsDhg@mail.gmail.com>
+
+On Fri, Jul 22, 2011 at 2:40 PM, Jane Merlevede
+<jane.merlevede at gmail.com> wrote:
+> Hello,
+>
+> I have used DESeq for gene differential expression analysis and I would like
+> to use DEXSeq now for exon differential expression analysis.
+> The point is that the library DEXSeq seems to be available only in R version
+> 2.14.0 (unstable). I am working on Linux (CentOS), with R version 2.13.0. I
+> have not found this R version 2.14.0 for Linux... Finally, I cannot use
+> DEXSeq.
+> I would like to know if DEXSeq will be soon available in R version 2.13.0.
+> Or is the only solution to work with Windows?
+
+DEXSeq is only available for R version 2.14 (the development version
+right now) for all platforms including Windows.
+
+Sean
+
+
+From mtmorgan at fhcrc.org  Sun Jul 24 02:09:20 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Sat, 23 Jul 2011 17:09:20 -0700
+Subject: [Bioc-sig-seq] using DEXSeq for RNA-seq data from Linux
+In-Reply-To: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>
+References: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>
+Message-ID: <4E2B62B0.20605@fhcrc.org>
+
+On 07/22/2011 07:40 AM, Jane Merlevede wrote:
+> Hello,
+>
+> I have used DESeq for gene differential expression analysis and I would like
+> to use DEXSeq now for exon differential expression analysis.
+> The point is that the library DEXSeq seems to be available only in R version
+> 2.14.0 (unstable). I am working on Linux (CentOS), with R version 2.13.0. I
+> have not found this R version 2.14.0 for Linux... Finally, I cannot use
+> DEXSeq.
+> I would like to know if DEXSeq will be soon available in R version 2.13.0.
+> Or is the only solution to work with Windows?
+
+As Sean mentions, this requires R-devel. It is not that difficult to 
+build R from source on Linux, see sections 1 and 2 of
+
+   http://cran.fhcrc.org/doc/manuals/R-admin.html
+
+The source code is available here
+
+   http://cran.fhcrc.org/sources.html
+
+you are looking for R-devel.tar.gz
+
+Martin
+
+>
+> Thank you for your help,
+> Jane Merlev?de
+>
+> 	[[alternative HTML version deleted]]
+>
+>
+>
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From tanasa at gmail.com  Mon Jul 25 01:06:40 2011
+From: tanasa at gmail.com (Bogdan Tanasa)
+Date: Sun, 24 Jul 2011 16:06:40 -0700
+Subject: [Bioc-sig-seq] differential binding
+Message-ID: <CA+JEM000q0XFc5rQVStOwrjoTwk2BJGCBtSBmE1hf+81Hv-WvA@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110724/70103744/attachment.pl>
+
+From mrobinson at wehi.EDU.AU  Mon Jul 25 05:50:36 2011
+From: mrobinson at wehi.EDU.AU (Mark Robinson)
+Date: Mon, 25 Jul 2011 13:50:36 +1000 (EST)
+Subject: [Bioc-sig-seq] differential binding
+Message-ID: <86d4d8ad38004c90aaefbdb5180f10c7.squirrel@homebase.wehi.edu.au>
+
+Hi Bogdan,
+
+Short answer is yes, you can use edgeR or DESeq in a differential binding
+context, as long as you can represent your regions as a table of counts;
+we and several others do exactly this.  As with RNA-seq, there are various
+ways to arrive at a table of counts.  For example:
+https://stat.ethz.ch/pipermail/bioconductor/2011-July/040409.html
+
+Regards,
+Mark
+
+
+> Dear all,
+>
+> please could you advise me on the following : could someone use the
+tools
+> that are developped for assesing differential expression in RNA-seq,
+(edgeR, DESeq), in a Chip-Seq context, namely measuring differential binding
+> of a protein across multiple genome regions ? thanks a lot,
+>
+> Bogdan
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+
+
+
+
+
+
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From mtmorgan at fhcrc.org  Mon Jul 25 14:13:16 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 25 Jul 2011 05:13:16 -0700
+Subject: [Bioc-sig-seq] using DEXSeq for RNA-seq data from Linux
+In-Reply-To: <CADE5-OTh+TQ7-p=HyTo-J_oMum9+Oz=3Dn0zdRvHd=ejawuoCw@mail.gmail.com>
+References: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>	<4E2B62B0.20605@fhcrc.org>
+	<CADE5-OTh+TQ7-p=HyTo-J_oMum9+Oz=3Dn0zdRvHd=ejawuoCw@mail.gmail.com>
+Message-ID: <4E2D5DDC.7020806@fhcrc.org>
+
+On 07/25/2011 02:28 AM, Jane Merlevede wrote:
+> Hello,
+>
+> As you advise me, I installed R version 2.14 but I can't use the DEXSeq
+> library: package "?DEXSeq? is not available (for R Under
+> development)"... Do you know why?
+
+It's a Bioconductor package, installed the Bioconductor way,
+
+   http://bioconductor.org/install/
+
+that is,
+
+   source("http://bioconductor.org/biocLite.R")
+   biocLite("DEXSeq")
+   library(DEXSeq)
+
+Glad the installation went ok, and I think DEXSeq will install correctly 
+for you.
+
+Usually the 'devel' branch of R is quite stable, but actually just at 
+the moment there is some instability and you might experience problems 
+when trying to install or load some package combinations. One error 
+message is
+
+Error in function (classes, fdef, mtable)  :
+   unable to find an inherited method for function "[", for signature 
+"signature"
+Error: loading failed
+
+and unfortunately the only really accessible solution, if you encounter 
+this at a crucial stage of your analysis, is to wait a few days and 
+update your R.
+
+Martin
+
+> Thanks,
+> Jane
+>
+>
+>  >R.2.14
+>
+> R Under development (unstable) (2011-07-24 r56492)
+> Copyright (C) 2011 The R Foundation for Statistical Computing
+> ISBN 3-900051-07-0
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> R est un logiciel libre livr? sans AUCUNE GARANTIE.
+> Vous pouvez le redistribuer sous certaines conditions.
+> Tapez 'license()' ou 'licence()' pour plus de d?tails.
+>
+> R est un projet collaboratif avec de nombreux contributeurs.
+> Tapez 'contributors()' pour plus d'information et
+> 'citation()' pour la fa?on de le citer dans les publications.
+>
+> Tapez 'demo()' pour des d?monstrations, 'help()' pour l'aide
+> en ligne ou 'help.start()' pour obtenir l'aide au format HTML.
+> Tapez 'q()' pour quitter R.
+>
+>  > install.packages("DEXSeq")
+> --- SVP s?lectionner un miroir CRAN pour cette session ---
+> CRAN mirror
+>
+>   1: Argentina (La Plata)      2: Argentina (Mendoza)
+>   3: Australia (Canberra)      4: Australia (Melbourne)
+>   5: Austria                   6: Belgium
+>   7: Brazil (PR)               8: Brazil (RJ)
+>   9: Brazil (SP 1)            10: Brazil (SP 2)
+> 11: Canada (BC)              12: Canada (NS)
+> 13: Canada (ON)              14: Canada (QC 1)
+> 15: Canada (QC 2)            16: Chile
+> 17: China (Beijing 1)        18: China (Beijing 2)
+> 19: China (Hefei)            20: China (Hong Kong)
+> 21: China (Xiamen)           22: Colombia (Bogota)
+> 23: Colombia (Cali)          24: Denmark
+> 25: France (Toulouse)        26: France (Lyon 1)
+> 27: France (Lyon 2)          28: Germany (Berlin)
+> 29: Germany (Goettingen)     30: Germany (Muenchen)
+> 31: Germany (Wiesbaden)      32: Greece
+> 33: Indonesia                34: Iran
+> 35: Ireland                  36: Italy (Milano)
+> 37: Italy (Padua)            38: Italy (Palermo)
+> 39: Japan (Hyogo)            40: Japan (Tsukuba)
+> 41: Korea                    42: Mexico (Mexico City)
+> 43: Mexico (Texcoco)         44: Netherlands (Amsterdam)
+> 45: Netherlands (Utrecht)    46: New Zealand
+> 47: Norway                   48: Philippines
+> 49: Poland (Gdansk)          50: Poland (Oswiecim)
+> 51: Poland (Wroclaw)         52: Russia
+> 53: Singapore                54: Slovakia 1
+> 55: Slovakia 2               56: South Africa
+> 57: Spain (Madrid)           58: Sweden
+> 59: Switzerland              60: Taiwan (Taichung)
+> 61: Taiwan (Taipei 1)        62: Taiwan (Taipei 2)
+> 63: Thailand                 64: UK (Bristol)
+> 65: UK (London)              66: UK (St Andrews)
+> 67: USA (AZ)                 68: USA (CA 1)
+> 69: USA (CA 2)               70: USA (IA)
+> 71: USA (MA)                 72: USA (MI)
+> 73: USA (MO)                 74: USA (OH)
+> 75: USA (OR)                 76: USA (PA 1)
+> 77: USA (PA 2)               78: USA (TX 1)
+> 79: USA (TX 2)               80: USA (WA 1)
+> 81: USA (WA 2)
+>
+> S?lection : 26
+> Message d'avis :
+> In getDependencies(pkgs, dependencies, available, lib) :
+>    package ?DEXSeq? is not available (for R Under development)
+>  >
+>
+>
+>
+> 2011/7/24 Martin Morgan <mtmorgan at fhcrc.org <mailto:mtmorgan at fhcrc.org>>
+>
+>     On 07/22/2011 07:40 AM, Jane Merlevede wrote:
+>
+>         Hello,
+>
+>         I have used DESeq for gene differential expression analysis and
+>         I would like
+>         to use DEXSeq now for exon differential expression analysis.
+>         The point is that the library DEXSeq seems to be available only
+>         in R version
+>         2.14.0 (unstable). I am working on Linux (CentOS), with R
+>         version 2.13.0. I
+>         have not found this R version 2.14.0 for Linux... Finally, I
+>         cannot use
+>         DEXSeq.
+>         I would like to know if DEXSeq will be soon available in R
+>         version 2.13.0.
+>         Or is the only solution to work with Windows?
+>
+>
+>     As Sean mentions, this requires R-devel. It is not that difficult to
+>     build R from source on Linux, see sections 1 and 2 of
+>
+>     http://cran.fhcrc.org/doc/__manuals/R-admin.html
+>     <http://cran.fhcrc.org/doc/manuals/R-admin.html>
+>
+>     The source code is available here
+>
+>     http://cran.fhcrc.org/sources.__html
+>     <http://cran.fhcrc.org/sources.html>
+>
+>     you are looking for R-devel.tar.gz
+>
+>     Martin
+>
+>
+>         Thank you for your help,
+>         Jane Merlev?de
+>
+>                 [[alternative HTML version deleted]]
+>
+>
+>
+>
+>         _________________________________________________
+>         Bioc-sig-sequencing mailing list
+>         Bioc-sig-sequencing at r-project.__org
+>         <mailto:Bioc-sig-sequencing at r-project.org>
+>         https://stat.ethz.ch/mailman/__listinfo/bioc-sig-sequencing
+>         <https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing>
+>
+>
+>
+>     --
+>     Computational Biology
+>     Fred Hutchinson Cancer Research Center
+>     1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>
+>     Location: M1-B861
+>     Telephone: 206 667-2793
+>
+>
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From mtmorgan at fhcrc.org  Mon Jul 25 14:50:01 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 25 Jul 2011 05:50:01 -0700
+Subject: [Bioc-sig-seq] using DEXSeq for RNA-seq data from Linux
+In-Reply-To: <10984_1311596048_4E2D5E10_10984_11778_1_4E2D5DDC.7020806@fhcrc.org>
+References: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>	<4E2B62B0.20605@fhcrc.org>	<CADE5-OTh+TQ7-p=HyTo-J_oMum9+Oz=3Dn0zdRvHd=ejawuoCw@mail.gmail.com>
+	<10984_1311596048_4E2D5E10_10984_11778_1_4E2D5DDC.7020806@fhcrc.org>
+Message-ID: <4E2D6679.6060207@fhcrc.org>
+
+On 07/25/2011 05:13 AM, Martin Morgan wrote:
+> On 07/25/2011 02:28 AM, Jane Merlevede wrote:
+>> Hello,
+>>
+>> As you advise me, I installed R version 2.14 but I can't use the DEXSeq
+>> library: package "?DEXSeq? is not available (for R Under
+>> development)"... Do you know why?
+>
+> It's a Bioconductor package, installed the Bioconductor way,
+>
+> http://bioconductor.org/install/
+>
+> that is,
+>
+> source("http://bioconductor.org/biocLite.R")
+> biocLite("DEXSeq")
+> library(DEXSeq)
+>
+> Glad the installation went ok, and I think DEXSeq will install correctly
+> for you.
+>
+> Usually the 'devel' branch of R is quite stable, but actually just at
+> the moment there is some instability and you might experience problems
+> when trying to install or load some package combinations. One error
+> message is
+>
+> Error in function (classes, fdef, mtable) :
+> unable to find an inherited method for function "[", for signature
+> "signature"
+> Error: loading failed
+>
+> and unfortunately the only really accessible solution, if you encounter
+> this at a crucial stage of your analysis, is to wait a few days and
+> update your R.
+
+Actually, a solution is to build R from a snapshot several days ago, 
+before 2011-07-21 from
+
+ftp://ftp.stat.math.ethz.ch/Software/R
+
+Martin
+
+>
+> Martin
+>
+>> Thanks,
+>> Jane
+>>
+>>
+>> >R.2.14
+>>
+>> R Under development (unstable) (2011-07-24 r56492)
+>> Copyright (C) 2011 The R Foundation for Statistical Computing
+>> ISBN 3-900051-07-0
+>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>
+>> R est un logiciel libre livr? sans AUCUNE GARANTIE.
+>> Vous pouvez le redistribuer sous certaines conditions.
+>> Tapez 'license()' ou 'licence()' pour plus de d?tails.
+>>
+>> R est un projet collaboratif avec de nombreux contributeurs.
+>> Tapez 'contributors()' pour plus d'information et
+>> 'citation()' pour la fa?on de le citer dans les publications.
+>>
+>> Tapez 'demo()' pour des d?monstrations, 'help()' pour l'aide
+>> en ligne ou 'help.start()' pour obtenir l'aide au format HTML.
+>> Tapez 'q()' pour quitter R.
+>>
+>> > install.packages("DEXSeq")
+>> --- SVP s?lectionner un miroir CRAN pour cette session ---
+>> CRAN mirror
+>>
+>> 1: Argentina (La Plata) 2: Argentina (Mendoza)
+>> 3: Australia (Canberra) 4: Australia (Melbourne)
+>> 5: Austria 6: Belgium
+>> 7: Brazil (PR) 8: Brazil (RJ)
+>> 9: Brazil (SP 1) 10: Brazil (SP 2)
+>> 11: Canada (BC) 12: Canada (NS)
+>> 13: Canada (ON) 14: Canada (QC 1)
+>> 15: Canada (QC 2) 16: Chile
+>> 17: China (Beijing 1) 18: China (Beijing 2)
+>> 19: China (Hefei) 20: China (Hong Kong)
+>> 21: China (Xiamen) 22: Colombia (Bogota)
+>> 23: Colombia (Cali) 24: Denmark
+>> 25: France (Toulouse) 26: France (Lyon 1)
+>> 27: France (Lyon 2) 28: Germany (Berlin)
+>> 29: Germany (Goettingen) 30: Germany (Muenchen)
+>> 31: Germany (Wiesbaden) 32: Greece
+>> 33: Indonesia 34: Iran
+>> 35: Ireland 36: Italy (Milano)
+>> 37: Italy (Padua) 38: Italy (Palermo)
+>> 39: Japan (Hyogo) 40: Japan (Tsukuba)
+>> 41: Korea 42: Mexico (Mexico City)
+>> 43: Mexico (Texcoco) 44: Netherlands (Amsterdam)
+>> 45: Netherlands (Utrecht) 46: New Zealand
+>> 47: Norway 48: Philippines
+>> 49: Poland (Gdansk) 50: Poland (Oswiecim)
+>> 51: Poland (Wroclaw) 52: Russia
+>> 53: Singapore 54: Slovakia 1
+>> 55: Slovakia 2 56: South Africa
+>> 57: Spain (Madrid) 58: Sweden
+>> 59: Switzerland 60: Taiwan (Taichung)
+>> 61: Taiwan (Taipei 1) 62: Taiwan (Taipei 2)
+>> 63: Thailand 64: UK (Bristol)
+>> 65: UK (London) 66: UK (St Andrews)
+>> 67: USA (AZ) 68: USA (CA 1)
+>> 69: USA (CA 2) 70: USA (IA)
+>> 71: USA (MA) 72: USA (MI)
+>> 73: USA (MO) 74: USA (OH)
+>> 75: USA (OR) 76: USA (PA 1)
+>> 77: USA (PA 2) 78: USA (TX 1)
+>> 79: USA (TX 2) 80: USA (WA 1)
+>> 81: USA (WA 2)
+>>
+>> S?lection : 26
+>> Message d'avis :
+>> In getDependencies(pkgs, dependencies, available, lib) :
+>> package ?DEXSeq? is not available (for R Under development)
+>> >
+>>
+>>
+>>
+>> 2011/7/24 Martin Morgan <mtmorgan at fhcrc.org <mailto:mtmorgan at fhcrc.org>>
+>>
+>> On 07/22/2011 07:40 AM, Jane Merlevede wrote:
+>>
+>> Hello,
+>>
+>> I have used DESeq for gene differential expression analysis and
+>> I would like
+>> to use DEXSeq now for exon differential expression analysis.
+>> The point is that the library DEXSeq seems to be available only
+>> in R version
+>> 2.14.0 (unstable). I am working on Linux (CentOS), with R
+>> version 2.13.0. I
+>> have not found this R version 2.14.0 for Linux... Finally, I
+>> cannot use
+>> DEXSeq.
+>> I would like to know if DEXSeq will be soon available in R
+>> version 2.13.0.
+>> Or is the only solution to work with Windows?
+>>
+>>
+>> As Sean mentions, this requires R-devel. It is not that difficult to
+>> build R from source on Linux, see sections 1 and 2 of
+>>
+>> http://cran.fhcrc.org/doc/__manuals/R-admin.html
+>> <http://cran.fhcrc.org/doc/manuals/R-admin.html>
+>>
+>> The source code is available here
+>>
+>> http://cran.fhcrc.org/sources.__html
+>> <http://cran.fhcrc.org/sources.html>
+>>
+>> you are looking for R-devel.tar.gz
+>>
+>> Martin
+>>
+>>
+>> Thank you for your help,
+>> Jane Merlev?de
+>>
+>> [[alternative HTML version deleted]]
+>>
+>>
+>>
+>>
+>> _________________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.__org
+>> <mailto:Bioc-sig-sequencing at r-project.org>
+>> https://stat.ethz.ch/mailman/__listinfo/bioc-sig-sequencing
+>> <https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing>
+>>
+>>
+>>
+>> --
+>> Computational Biology
+>> Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>>
+>> Location: M1-B861
+>> Telephone: 206 667-2793
+>>
+>>
+>
+>
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From jane.merlevede at gmail.com  Mon Jul 25 11:28:33 2011
+From: jane.merlevede at gmail.com (Jane Merlevede)
+Date: Mon, 25 Jul 2011 11:28:33 +0200
+Subject: [Bioc-sig-seq] using DEXSeq for RNA-seq data from Linux
+In-Reply-To: <4E2B62B0.20605@fhcrc.org>
+References: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>
+	<4E2B62B0.20605@fhcrc.org>
+Message-ID: <CADE5-OTh+TQ7-p=HyTo-J_oMum9+Oz=3Dn0zdRvHd=ejawuoCw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110725/298281c1/attachment.pl>
+
+From jane.merlevede at gmail.com  Mon Jul 25 15:28:50 2011
+From: jane.merlevede at gmail.com (Jane Merlevede)
+Date: Mon, 25 Jul 2011 15:28:50 +0200
+Subject: [Bioc-sig-seq] using DEXSeq for RNA-seq data from Linux
+In-Reply-To: <4E2D6679.6060207@fhcrc.org>
+References: <CADE5-OSxS5E-DWrX-kT3gCdwVcRUOuUyWNTEOOqV=WaD9xe=Pg@mail.gmail.com>
+	<4E2B62B0.20605@fhcrc.org>
+	<CADE5-OTh+TQ7-p=HyTo-J_oMum9+Oz=3Dn0zdRvHd=ejawuoCw@mail.gmail.com>
+	<10984_1311596048_4E2D5E10_10984_11778_1_4E2D5DDC.7020806@fhcrc.org>
+	<4E2D6679.6060207@fhcrc.org>
+Message-ID: <CADE5-OQoWeht9ed6zqK1+U-0C_BsOZZpYzSub=jnV=kkLA2hbw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110725/59268964/attachment.pl>
+
+From ivangreg at gmail.com  Tue Jul 26 06:41:30 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Tue, 26 Jul 2011 00:41:30 -0400
+Subject: [Bioc-sig-seq] rtracklayer compilation error (make: ***
+	[chain_io.o] Error 1)
+Message-ID: <CAOaPOXUsGM0H9AXmGKb_yBc+X1fWm-sfQJjPORmcqJsA8pkEcQ@mail.gmail.com>
+
+Can somebody give me a hint as to what is failing in my attempt to
+compile rtracklayer?
+
+The error message is uninformative: make: *** [chain_io.o] Error 1
+
+Thank you,
+
+Ivan
+
+**********************************************************************
+> source("http://bioconductor.org/biocLite.R")
+BioC_mirror = http://bioconductor.org
+Change using chooseBioCmirror().
+> biocLite("rtracklayer")
+Using R version 2.14.0 (R-devel), biocinstall version 2.9.3.
+Installing Bioconductor version 2.9 packages:
+[1] "rtracklayer"
+Please wait...
+
+trying URL 'http://bioconductor.org/packages/2.9/bioc/src/contrib/rtracklayer_1.13.7.tar.gz'
+Content type 'application/x-gzip' length 1538270 bytes (1.5 Mb)
+opened URL
+==================================================
+downloaded 1.5 Mb
+
+* installing *source* package 'rtracklayer' ...
+checking for gcc... gcc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables...
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether gcc accepts -g... yes
+checking for gcc option to accept ISO C89... none needed
+checking for gzeof in -lz... yes
+checking how to run the C preprocessor... gcc -E
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking zlib.h usability... yes
+checking zlib.h presence... yes
+checking for zlib.h... yes
+checking arpa/inet.h usability... yes
+checking arpa/inet.h presence... yes
+checking for arpa/inet.h... yes
+checking fcntl.h usability... yes
+checking fcntl.h presence... yes
+checking for fcntl.h... yes
+checking netdb.h usability... yes
+checking netdb.h presence... yes
+checking for netdb.h... yes
+checking netinet/in.h usability... yes
+checking netinet/in.h presence... yes
+checking for netinet/in.h... yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking for strings.h... (cached) yes
+checking sys/file.h usability... yes
+checking sys/file.h presence... yes
+checking for sys/file.h... yes
+checking sys/socket.h usability... yes
+checking sys/socket.h presence... yes
+checking for sys/socket.h... yes
+checking sys/time.h usability... yes
+checking sys/time.h presence... yes
+checking for sys/time.h... yes
+checking termios.h usability... yes
+checking termios.h presence... yes
+checking for termios.h... yes
+checking for unistd.h... (cached) yes
+checking for stdbool.h that conforms to C99... yes
+checking for _Bool... yes
+checking for inline... inline
+checking for off_t... yes
+checking for pid_t... yes
+checking for size_t... yes
+checking for ssize_t... yes
+checking for uid_t in sys/types.h... yes
+checking vfork.h usability... no
+checking vfork.h presence... no
+checking for vfork.h... no
+checking for fork... yes
+checking for vfork... yes
+checking for working fork... yes
+checking for working vfork... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible malloc... yes
+checking whether time.h and sys/time.h may both be included... yes
+checking for sys/time.h... (cached) yes
+checking for unistd.h... (cached) yes
+checking for alarm... yes
+checking for working mktime... yes
+checking for stdlib.h... (cached) yes
+checking for GNU libc compatible realloc... yes
+checking for working strtod... yes
+checking for bzero... yes
+checking for dup2... yes
+checking for getcwd... yes
+checking for gethostbyname... yes
+checking for gettimeofday... yes
+checking for memmove... yes
+checking for memset... yes
+checking for mkdir... yes
+checking for regcomp... yes
+checking for select... yes
+checking for socket... yes
+checking for sqrt... no
+checking for strcasecmp... yes
+checking for strchr... yes
+checking for strcspn... yes
+checking for strdup... yes
+checking for strerror... yes
+checking for strrchr... yes
+checking for strspn... yes
+checking for strstr... yes
+checking for uname... yes
+configure: creating ./config.status
+config.status: creating src/Makevars
+** libs
+gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+-I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+IRanges_stubs.c -o IRanges_stubs.o
+gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+-I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+R_init_rtracklayer.c -o R_init_rtracklayer.o
+gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+-I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+bigWig.c -o bigWig.o
+gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+-I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+chain_io.c -o chain_io.o
+chain_io.c: In function 'read_chain_file':
+chain_io.c:77:50: error: 'IntAE' has no member named 'nelt'
+chain_io.c:82:47: error: 'CharAE' has no member named 'nelt'
+chain_io.c:96:60: error: 'IntAE' has no member named 'nelt'
+chain_io.c:98:52: error: 'IntAE' has no member named 'nelt'
+chain_io.c:112:54: error: 'IntAE' has no member named 'nelt'
+make: *** [chain_io.o] Error 1
+ERROR: compilation failed for package 'rtracklayer'
+* removing '/usr/local/lib64/R/library/rtracklayer'
+
+The downloaded packages are in
+	'/tmp/RtmpvVYzlB/downloaded_packages'
+Updating HTML index of packages in '.Library'
+Making packages.html  ... done
+Warning message:
+In install.packages(pkgs = pkgs, repos = repos, ...) :
+  installation of package 'rtracklayer' had non-zero exit status
+> sessionInfo()
+R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_US       LC_NUMERIC=C         LC_TIME=C
+ [4] LC_COLLATE=C         LC_MONETARY=C        LC_MESSAGES=en_US
+ [7] LC_PAPER=en_US       LC_NAME=C            LC_ADDRESS=C
+[10] LC_TELEPHONE=C       LC_MEASUREMENT=en_US LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+loaded via a namespace (and not attached):
+[1] tools_2.14.0
+
+
+From hpages at fhcrc.org  Tue Jul 26 10:12:11 2011
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Tue, 26 Jul 2011 01:12:11 -0700
+Subject: [Bioc-sig-seq] rtracklayer compilation error (make:
+ ***	[chain_io.o] Error 1)
+In-Reply-To: <CAOaPOXUsGM0H9AXmGKb_yBc+X1fWm-sfQJjPORmcqJsA8pkEcQ@mail.gmail.com>
+References: <CAOaPOXUsGM0H9AXmGKb_yBc+X1fWm-sfQJjPORmcqJsA8pkEcQ@mail.gmail.com>
+Message-ID: <4E2E76DB.3060700@fhcrc.org>
+
+Hi Ivan,
+
+On 11-07-25 09:41 PM, Ivan Gregoretti wrote:
+> Can somebody give me a hint as to what is failing in my attempt to
+> compile rtracklayer?
+
+A recent change in IRanges breaks rtracklayer <  1.13.10. This problem
+is fixed in rtracklayer 1.13.10 but an error in the vignette prevents
+the package from propagating. You should be able to install the package
+from svn if you need it now.
+
+>
+> The error message is uninformative: make: *** [chain_io.o] Error 1
+
+The informative messages are on the previous lines:
+
+   chain_io.c: In function 'read_chain_file':
+   chain_io.c:77:50: error: 'IntAE' has no member named 'nelt'
+   chain_io.c:82:47: error: 'CharAE' has no member named 'nelt'
+   chain_io.c:96:60: error: 'IntAE' has no member named 'nelt'
+   chain_io.c:98:52: error: 'IntAE' has no member named 'nelt'
+   chain_io.c:112:54: error: 'IntAE' has no member named 'nelt'
+   make: *** [chain_io.o] Error 1
+
+Cheers,
+H.
+
+>
+> Thank you,
+>
+> Ivan
+>
+> **********************************************************************
+>> source("http://bioconductor.org/biocLite.R")
+> BioC_mirror = http://bioconductor.org
+> Change using chooseBioCmirror().
+>> biocLite("rtracklayer")
+> Using R version 2.14.0 (R-devel), biocinstall version 2.9.3.
+> Installing Bioconductor version 2.9 packages:
+> [1] "rtracklayer"
+> Please wait...
+>
+> trying URL 'http://bioconductor.org/packages/2.9/bioc/src/contrib/rtracklayer_1.13.7.tar.gz'
+> Content type 'application/x-gzip' length 1538270 bytes (1.5 Mb)
+> opened URL
+> ==================================================
+> downloaded 1.5 Mb
+>
+> * installing *source* package 'rtracklayer' ...
+> checking for gcc... gcc
+> checking whether the C compiler works... yes
+> checking for C compiler default output file name... a.out
+> checking for suffix of executables...
+> checking whether we are cross compiling... no
+> checking for suffix of object files... o
+> checking whether we are using the GNU C compiler... yes
+> checking whether gcc accepts -g... yes
+> checking for gcc option to accept ISO C89... none needed
+> checking for gzeof in -lz... yes
+> checking how to run the C preprocessor... gcc -E
+> checking for grep that handles long lines and -e... /bin/grep
+> checking for egrep... /bin/grep -E
+> checking for ANSI C header files... yes
+> checking for sys/types.h... yes
+> checking for sys/stat.h... yes
+> checking for stdlib.h... yes
+> checking for string.h... yes
+> checking for memory.h... yes
+> checking for strings.h... yes
+> checking for inttypes.h... yes
+> checking for stdint.h... yes
+> checking for unistd.h... yes
+> checking zlib.h usability... yes
+> checking zlib.h presence... yes
+> checking for zlib.h... yes
+> checking arpa/inet.h usability... yes
+> checking arpa/inet.h presence... yes
+> checking for arpa/inet.h... yes
+> checking fcntl.h usability... yes
+> checking fcntl.h presence... yes
+> checking for fcntl.h... yes
+> checking netdb.h usability... yes
+> checking netdb.h presence... yes
+> checking for netdb.h... yes
+> checking netinet/in.h usability... yes
+> checking netinet/in.h presence... yes
+> checking for netinet/in.h... yes
+> checking for stdlib.h... (cached) yes
+> checking for string.h... (cached) yes
+> checking for strings.h... (cached) yes
+> checking sys/file.h usability... yes
+> checking sys/file.h presence... yes
+> checking for sys/file.h... yes
+> checking sys/socket.h usability... yes
+> checking sys/socket.h presence... yes
+> checking for sys/socket.h... yes
+> checking sys/time.h usability... yes
+> checking sys/time.h presence... yes
+> checking for sys/time.h... yes
+> checking termios.h usability... yes
+> checking termios.h presence... yes
+> checking for termios.h... yes
+> checking for unistd.h... (cached) yes
+> checking for stdbool.h that conforms to C99... yes
+> checking for _Bool... yes
+> checking for inline... inline
+> checking for off_t... yes
+> checking for pid_t... yes
+> checking for size_t... yes
+> checking for ssize_t... yes
+> checking for uid_t in sys/types.h... yes
+> checking vfork.h usability... no
+> checking vfork.h presence... no
+> checking for vfork.h... no
+> checking for fork... yes
+> checking for vfork... yes
+> checking for working fork... yes
+> checking for working vfork... (cached) yes
+> checking for stdlib.h... (cached) yes
+> checking for GNU libc compatible malloc... yes
+> checking whether time.h and sys/time.h may both be included... yes
+> checking for sys/time.h... (cached) yes
+> checking for unistd.h... (cached) yes
+> checking for alarm... yes
+> checking for working mktime... yes
+> checking for stdlib.h... (cached) yes
+> checking for GNU libc compatible realloc... yes
+> checking for working strtod... yes
+> checking for bzero... yes
+> checking for dup2... yes
+> checking for getcwd... yes
+> checking for gethostbyname... yes
+> checking for gettimeofday... yes
+> checking for memmove... yes
+> checking for memset... yes
+> checking for mkdir... yes
+> checking for regcomp... yes
+> checking for select... yes
+> checking for socket... yes
+> checking for sqrt... no
+> checking for strcasecmp... yes
+> checking for strchr... yes
+> checking for strcspn... yes
+> checking for strdup... yes
+> checking for strerror... yes
+> checking for strrchr... yes
+> checking for strspn... yes
+> checking for strstr... yes
+> checking for uname... yes
+> configure: creating ./config.status
+> config.status: creating src/Makevars
+> ** libs
+> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+> IRanges_stubs.c -o IRanges_stubs.o
+> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+> R_init_rtracklayer.c -o R_init_rtracklayer.o
+> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+> bigWig.c -o bigWig.o
+> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+> chain_io.c -o chain_io.o
+> chain_io.c: In function 'read_chain_file':
+> chain_io.c:77:50: error: 'IntAE' has no member named 'nelt'
+> chain_io.c:82:47: error: 'CharAE' has no member named 'nelt'
+> chain_io.c:96:60: error: 'IntAE' has no member named 'nelt'
+> chain_io.c:98:52: error: 'IntAE' has no member named 'nelt'
+> chain_io.c:112:54: error: 'IntAE' has no member named 'nelt'
+> make: *** [chain_io.o] Error 1
+> ERROR: compilation failed for package 'rtracklayer'
+> * removing '/usr/local/lib64/R/library/rtracklayer'
+>
+> The downloaded packages are in
+> 	'/tmp/RtmpvVYzlB/downloaded_packages'
+> Updating HTML index of packages in '.Library'
+> Making packages.html  ... done
+> Warning message:
+> In install.packages(pkgs = pkgs, repos = repos, ...) :
+>    installation of package 'rtracklayer' had non-zero exit status
+>> sessionInfo()
+> R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> locale:
+>   [1] LC_CTYPE=en_US       LC_NUMERIC=C         LC_TIME=C
+>   [4] LC_COLLATE=C         LC_MONETARY=C        LC_MESSAGES=en_US
+>   [7] LC_PAPER=en_US       LC_NAME=C            LC_ADDRESS=C
+> [10] LC_TELEPHONE=C       LC_MEASUREMENT=en_US LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> loaded via a namespace (and not attached):
+> [1] tools_2.14.0
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M1-B514
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From ivangreg at gmail.com  Tue Jul 26 16:14:48 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Tue, 26 Jul 2011 10:14:48 -0400
+Subject: [Bioc-sig-seq] rtracklayer compilation error (make: ***
+ [chain_io.o] Error 1)
+In-Reply-To: <4E2E76DB.3060700@fhcrc.org>
+References: <CAOaPOXUsGM0H9AXmGKb_yBc+X1fWm-sfQJjPORmcqJsA8pkEcQ@mail.gmail.com>
+	<4E2E76DB.3060700@fhcrc.org>
+Message-ID: <CAOaPOXXMK_4o6r+kc0yxjmevGOBEm7pvm3fFHtvkDido40MRpA@mail.gmail.com>
+
+Great. The subversion compiles without problems.
+
+For those who usually don't install from SVN, this is how it's done:
+
+1)
+Become root
+
+2)
+cd to the R-devel directory
+
+3)
+Knowing that the user and password for this SVN are readonly and readonly, do:
+svn co https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/rtracklayer
+
+4)
+R CMD INSTALL rtracklayer
+
+
+Thank you Herv?.
+
+Ivan
+
+
+
+
+2011/7/26 Herv? Pag?s <hpages at fhcrc.org>:
+> Hi Ivan,
+>
+> On 11-07-25 09:41 PM, Ivan Gregoretti wrote:
+>>
+>> Can somebody give me a hint as to what is failing in my attempt to
+>> compile rtracklayer?
+>
+> A recent change in IRanges breaks rtracklayer < ?1.13.10. This problem
+> is fixed in rtracklayer 1.13.10 but an error in the vignette prevents
+> the package from propagating. You should be able to install the package
+> from svn if you need it now.
+>
+>>
+>> The error message is uninformative: make: *** [chain_io.o] Error 1
+>
+> The informative messages are on the previous lines:
+>
+> ?chain_io.c: In function 'read_chain_file':
+> ?chain_io.c:77:50: error: 'IntAE' has no member named 'nelt'
+> ?chain_io.c:82:47: error: 'CharAE' has no member named 'nelt'
+> ?chain_io.c:96:60: error: 'IntAE' has no member named 'nelt'
+> ?chain_io.c:98:52: error: 'IntAE' has no member named 'nelt'
+> ?chain_io.c:112:54: error: 'IntAE' has no member named 'nelt'
+> ?make: *** [chain_io.o] Error 1
+>
+> Cheers,
+> H.
+>
+>>
+>> Thank you,
+>>
+>> Ivan
+>>
+>> **********************************************************************
+>>>
+>>> source("http://bioconductor.org/biocLite.R")
+>>
+>> BioC_mirror = http://bioconductor.org
+>> Change using chooseBioCmirror().
+>>>
+>>> biocLite("rtracklayer")
+>>
+>> Using R version 2.14.0 (R-devel), biocinstall version 2.9.3.
+>> Installing Bioconductor version 2.9 packages:
+>> [1] "rtracklayer"
+>> Please wait...
+>>
+>> trying URL
+>> 'http://bioconductor.org/packages/2.9/bioc/src/contrib/rtracklayer_1.13.7.tar.gz'
+>> Content type 'application/x-gzip' length 1538270 bytes (1.5 Mb)
+>> opened URL
+>> ==================================================
+>> downloaded 1.5 Mb
+>>
+>> * installing *source* package 'rtracklayer' ...
+>> checking for gcc... gcc
+>> checking whether the C compiler works... yes
+>> checking for C compiler default output file name... a.out
+>> checking for suffix of executables...
+>> checking whether we are cross compiling... no
+>> checking for suffix of object files... o
+>> checking whether we are using the GNU C compiler... yes
+>> checking whether gcc accepts -g... yes
+>> checking for gcc option to accept ISO C89... none needed
+>> checking for gzeof in -lz... yes
+>> checking how to run the C preprocessor... gcc -E
+>> checking for grep that handles long lines and -e... /bin/grep
+>> checking for egrep... /bin/grep -E
+>> checking for ANSI C header files... yes
+>> checking for sys/types.h... yes
+>> checking for sys/stat.h... yes
+>> checking for stdlib.h... yes
+>> checking for string.h... yes
+>> checking for memory.h... yes
+>> checking for strings.h... yes
+>> checking for inttypes.h... yes
+>> checking for stdint.h... yes
+>> checking for unistd.h... yes
+>> checking zlib.h usability... yes
+>> checking zlib.h presence... yes
+>> checking for zlib.h... yes
+>> checking arpa/inet.h usability... yes
+>> checking arpa/inet.h presence... yes
+>> checking for arpa/inet.h... yes
+>> checking fcntl.h usability... yes
+>> checking fcntl.h presence... yes
+>> checking for fcntl.h... yes
+>> checking netdb.h usability... yes
+>> checking netdb.h presence... yes
+>> checking for netdb.h... yes
+>> checking netinet/in.h usability... yes
+>> checking netinet/in.h presence... yes
+>> checking for netinet/in.h... yes
+>> checking for stdlib.h... (cached) yes
+>> checking for string.h... (cached) yes
+>> checking for strings.h... (cached) yes
+>> checking sys/file.h usability... yes
+>> checking sys/file.h presence... yes
+>> checking for sys/file.h... yes
+>> checking sys/socket.h usability... yes
+>> checking sys/socket.h presence... yes
+>> checking for sys/socket.h... yes
+>> checking sys/time.h usability... yes
+>> checking sys/time.h presence... yes
+>> checking for sys/time.h... yes
+>> checking termios.h usability... yes
+>> checking termios.h presence... yes
+>> checking for termios.h... yes
+>> checking for unistd.h... (cached) yes
+>> checking for stdbool.h that conforms to C99... yes
+>> checking for _Bool... yes
+>> checking for inline... inline
+>> checking for off_t... yes
+>> checking for pid_t... yes
+>> checking for size_t... yes
+>> checking for ssize_t... yes
+>> checking for uid_t in sys/types.h... yes
+>> checking vfork.h usability... no
+>> checking vfork.h presence... no
+>> checking for vfork.h... no
+>> checking for fork... yes
+>> checking for vfork... yes
+>> checking for working fork... yes
+>> checking for working vfork... (cached) yes
+>> checking for stdlib.h... (cached) yes
+>> checking for GNU libc compatible malloc... yes
+>> checking whether time.h and sys/time.h may both be included... yes
+>> checking for sys/time.h... (cached) yes
+>> checking for unistd.h... (cached) yes
+>> checking for alarm... yes
+>> checking for working mktime... yes
+>> checking for stdlib.h... (cached) yes
+>> checking for GNU libc compatible realloc... yes
+>> checking for working strtod... yes
+>> checking for bzero... yes
+>> checking for dup2... yes
+>> checking for getcwd... yes
+>> checking for gethostbyname... yes
+>> checking for gettimeofday... yes
+>> checking for memmove... yes
+>> checking for memset... yes
+>> checking for mkdir... yes
+>> checking for regcomp... yes
+>> checking for select... yes
+>> checking for socket... yes
+>> checking for sqrt... no
+>> checking for strcasecmp... yes
+>> checking for strchr... yes
+>> checking for strcspn... yes
+>> checking for strdup... yes
+>> checking for strerror... yes
+>> checking for strrchr... yes
+>> checking for strspn... yes
+>> checking for strstr... yes
+>> checking for uname... yes
+>> configure: creating ./config.status
+>> config.status: creating src/Makevars
+>> ** libs
+>> gcc -std=gnu99 -I/usr/local/lib64/R/include ?-I/usr/local/include
+>> -I"/usr/local/lib64/R/library/IRanges/include" ? -fpic ?-g -O2 -c
+>> IRanges_stubs.c -o IRanges_stubs.o
+>> gcc -std=gnu99 -I/usr/local/lib64/R/include ?-I/usr/local/include
+>> -I"/usr/local/lib64/R/library/IRanges/include" ? -fpic ?-g -O2 -c
+>> R_init_rtracklayer.c -o R_init_rtracklayer.o
+>> gcc -std=gnu99 -I/usr/local/lib64/R/include ?-I/usr/local/include
+>> -I"/usr/local/lib64/R/library/IRanges/include" ? -fpic ?-g -O2 -c
+>> bigWig.c -o bigWig.o
+>> gcc -std=gnu99 -I/usr/local/lib64/R/include ?-I/usr/local/include
+>> -I"/usr/local/lib64/R/library/IRanges/include" ? -fpic ?-g -O2 -c
+>> chain_io.c -o chain_io.o
+>> chain_io.c: In function 'read_chain_file':
+>> chain_io.c:77:50: error: 'IntAE' has no member named 'nelt'
+>> chain_io.c:82:47: error: 'CharAE' has no member named 'nelt'
+>> chain_io.c:96:60: error: 'IntAE' has no member named 'nelt'
+>> chain_io.c:98:52: error: 'IntAE' has no member named 'nelt'
+>> chain_io.c:112:54: error: 'IntAE' has no member named 'nelt'
+>> make: *** [chain_io.o] Error 1
+>> ERROR: compilation failed for package 'rtracklayer'
+>> * removing '/usr/local/lib64/R/library/rtracklayer'
+>>
+>> The downloaded packages are in
+>> ? ? ? ?'/tmp/RtmpvVYzlB/downloaded_packages'
+>> Updating HTML index of packages in '.Library'
+>> Making packages.html ?... done
+>> Warning message:
+>> In install.packages(pkgs = pkgs, repos = repos, ...) :
+>> ? installation of package 'rtracklayer' had non-zero exit status
+>>>
+>>> sessionInfo()
+>>
+>> R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>
+>> locale:
+>> ?[1] LC_CTYPE=en_US ? ? ? LC_NUMERIC=C ? ? ? ? LC_TIME=C
+>> ?[4] LC_COLLATE=C ? ? ? ? LC_MONETARY=C ? ? ? ?LC_MESSAGES=en_US
+>> ?[7] LC_PAPER=en_US ? ? ? LC_NAME=C ? ? ? ? ? ?LC_ADDRESS=C
+>> [10] LC_TELEPHONE=C ? ? ? LC_MEASUREMENT=en_US LC_IDENTIFICATION=C
+>>
+>> attached base packages:
+>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+>>
+>> loaded via a namespace (and not attached):
+>> [1] tools_2.14.0
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+> --
+> Herv? Pag?s
+>
+> Program in Computational Biology
+> Division of Public Health Sciences
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N, M1-B514
+> P.O. Box 19024
+> Seattle, WA 98109-1024
+>
+> E-mail: hpages at fhcrc.org
+> Phone: ?(206) 667-5791
+> Fax: ? ?(206) 667-1319
+>
+
+
+From mtmorgan at fhcrc.org  Tue Jul 26 17:35:11 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 26 Jul 2011 08:35:11 -0700
+Subject: [Bioc-sig-seq] rtracklayer compilation error (make: ***
+ [chain_io.o] Error 1)
+In-Reply-To: <CAOaPOXXMK_4o6r+kc0yxjmevGOBEm7pvm3fFHtvkDido40MRpA@mail.gmail.com>
+References: <CAOaPOXUsGM0H9AXmGKb_yBc+X1fWm-sfQJjPORmcqJsA8pkEcQ@mail.gmail.com>	<4E2E76DB.3060700@fhcrc.org>
+	<CAOaPOXXMK_4o6r+kc0yxjmevGOBEm7pvm3fFHtvkDido40MRpA@mail.gmail.com>
+Message-ID: <4E2EDEAF.8060600@fhcrc.org>
+
+On 07/26/2011 07:14 AM, Ivan Gregoretti wrote:
+> Great. The subversion compiles without problems.
+>
+> For those who usually don't install from SVN, this is how it's done:
+>
+> 1)
+> Become root
+
+Not usually necessary. Just cd to some location on your file system, svn 
+co ... and then R CMD INSTALL rtracklayer. You might sudo R CMD INSTALL 
+rtracklayer if you were updating a system-wide installation (but then 
+you probably wouldn't want to be installing from svn).
+
+>
+> 2)
+> cd to the R-devel directory
+>
+> 3)
+> Knowing that the user and password for this SVN are readonly and readonly, do:
+> svn co https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/rtracklayer
+>
+> 4)
+> R CMD INSTALL rtracklayer
+>
+>
+> Thank you Herv?.
+>
+> Ivan
+>
+>
+>
+>
+> 2011/7/26 Herv? Pag?s<hpages at fhcrc.org>:
+>> Hi Ivan,
+>>
+>> On 11-07-25 09:41 PM, Ivan Gregoretti wrote:
+>>>
+>>> Can somebody give me a hint as to what is failing in my attempt to
+>>> compile rtracklayer?
+>>
+>> A recent change in IRanges breaks rtracklayer<    1.13.10. This problem
+>> is fixed in rtracklayer 1.13.10 but an error in the vignette prevents
+>> the package from propagating. You should be able to install the package
+>> from svn if you need it now.
+>>
+>>>
+>>> The error message is uninformative: make: *** [chain_io.o] Error 1
+>>
+>> The informative messages are on the previous lines:
+>>
+>>   chain_io.c: In function 'read_chain_file':
+>>   chain_io.c:77:50: error: 'IntAE' has no member named 'nelt'
+>>   chain_io.c:82:47: error: 'CharAE' has no member named 'nelt'
+>>   chain_io.c:96:60: error: 'IntAE' has no member named 'nelt'
+>>   chain_io.c:98:52: error: 'IntAE' has no member named 'nelt'
+>>   chain_io.c:112:54: error: 'IntAE' has no member named 'nelt'
+>>   make: *** [chain_io.o] Error 1
+>>
+>> Cheers,
+>> H.
+>>
+>>>
+>>> Thank you,
+>>>
+>>> Ivan
+>>>
+>>> **********************************************************************
+>>>>
+>>>> source("http://bioconductor.org/biocLite.R")
+>>>
+>>> BioC_mirror = http://bioconductor.org
+>>> Change using chooseBioCmirror().
+>>>>
+>>>> biocLite("rtracklayer")
+>>>
+>>> Using R version 2.14.0 (R-devel), biocinstall version 2.9.3.
+>>> Installing Bioconductor version 2.9 packages:
+>>> [1] "rtracklayer"
+>>> Please wait...
+>>>
+>>> trying URL
+>>> 'http://bioconductor.org/packages/2.9/bioc/src/contrib/rtracklayer_1.13.7.tar.gz'
+>>> Content type 'application/x-gzip' length 1538270 bytes (1.5 Mb)
+>>> opened URL
+>>> ==================================================
+>>> downloaded 1.5 Mb
+>>>
+>>> * installing *source* package 'rtracklayer' ...
+>>> checking for gcc... gcc
+>>> checking whether the C compiler works... yes
+>>> checking for C compiler default output file name... a.out
+>>> checking for suffix of executables...
+>>> checking whether we are cross compiling... no
+>>> checking for suffix of object files... o
+>>> checking whether we are using the GNU C compiler... yes
+>>> checking whether gcc accepts -g... yes
+>>> checking for gcc option to accept ISO C89... none needed
+>>> checking for gzeof in -lz... yes
+>>> checking how to run the C preprocessor... gcc -E
+>>> checking for grep that handles long lines and -e... /bin/grep
+>>> checking for egrep... /bin/grep -E
+>>> checking for ANSI C header files... yes
+>>> checking for sys/types.h... yes
+>>> checking for sys/stat.h... yes
+>>> checking for stdlib.h... yes
+>>> checking for string.h... yes
+>>> checking for memory.h... yes
+>>> checking for strings.h... yes
+>>> checking for inttypes.h... yes
+>>> checking for stdint.h... yes
+>>> checking for unistd.h... yes
+>>> checking zlib.h usability... yes
+>>> checking zlib.h presence... yes
+>>> checking for zlib.h... yes
+>>> checking arpa/inet.h usability... yes
+>>> checking arpa/inet.h presence... yes
+>>> checking for arpa/inet.h... yes
+>>> checking fcntl.h usability... yes
+>>> checking fcntl.h presence... yes
+>>> checking for fcntl.h... yes
+>>> checking netdb.h usability... yes
+>>> checking netdb.h presence... yes
+>>> checking for netdb.h... yes
+>>> checking netinet/in.h usability... yes
+>>> checking netinet/in.h presence... yes
+>>> checking for netinet/in.h... yes
+>>> checking for stdlib.h... (cached) yes
+>>> checking for string.h... (cached) yes
+>>> checking for strings.h... (cached) yes
+>>> checking sys/file.h usability... yes
+>>> checking sys/file.h presence... yes
+>>> checking for sys/file.h... yes
+>>> checking sys/socket.h usability... yes
+>>> checking sys/socket.h presence... yes
+>>> checking for sys/socket.h... yes
+>>> checking sys/time.h usability... yes
+>>> checking sys/time.h presence... yes
+>>> checking for sys/time.h... yes
+>>> checking termios.h usability... yes
+>>> checking termios.h presence... yes
+>>> checking for termios.h... yes
+>>> checking for unistd.h... (cached) yes
+>>> checking for stdbool.h that conforms to C99... yes
+>>> checking for _Bool... yes
+>>> checking for inline... inline
+>>> checking for off_t... yes
+>>> checking for pid_t... yes
+>>> checking for size_t... yes
+>>> checking for ssize_t... yes
+>>> checking for uid_t in sys/types.h... yes
+>>> checking vfork.h usability... no
+>>> checking vfork.h presence... no
+>>> checking for vfork.h... no
+>>> checking for fork... yes
+>>> checking for vfork... yes
+>>> checking for working fork... yes
+>>> checking for working vfork... (cached) yes
+>>> checking for stdlib.h... (cached) yes
+>>> checking for GNU libc compatible malloc... yes
+>>> checking whether time.h and sys/time.h may both be included... yes
+>>> checking for sys/time.h... (cached) yes
+>>> checking for unistd.h... (cached) yes
+>>> checking for alarm... yes
+>>> checking for working mktime... yes
+>>> checking for stdlib.h... (cached) yes
+>>> checking for GNU libc compatible realloc... yes
+>>> checking for working strtod... yes
+>>> checking for bzero... yes
+>>> checking for dup2... yes
+>>> checking for getcwd... yes
+>>> checking for gethostbyname... yes
+>>> checking for gettimeofday... yes
+>>> checking for memmove... yes
+>>> checking for memset... yes
+>>> checking for mkdir... yes
+>>> checking for regcomp... yes
+>>> checking for select... yes
+>>> checking for socket... yes
+>>> checking for sqrt... no
+>>> checking for strcasecmp... yes
+>>> checking for strchr... yes
+>>> checking for strcspn... yes
+>>> checking for strdup... yes
+>>> checking for strerror... yes
+>>> checking for strrchr... yes
+>>> checking for strspn... yes
+>>> checking for strstr... yes
+>>> checking for uname... yes
+>>> configure: creating ./config.status
+>>> config.status: creating src/Makevars
+>>> ** libs
+>>> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+>>> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+>>> IRanges_stubs.c -o IRanges_stubs.o
+>>> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+>>> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+>>> R_init_rtracklayer.c -o R_init_rtracklayer.o
+>>> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+>>> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+>>> bigWig.c -o bigWig.o
+>>> gcc -std=gnu99 -I/usr/local/lib64/R/include  -I/usr/local/include
+>>> -I"/usr/local/lib64/R/library/IRanges/include"   -fpic  -g -O2 -c
+>>> chain_io.c -o chain_io.o
+>>> chain_io.c: In function 'read_chain_file':
+>>> chain_io.c:77:50: error: 'IntAE' has no member named 'nelt'
+>>> chain_io.c:82:47: error: 'CharAE' has no member named 'nelt'
+>>> chain_io.c:96:60: error: 'IntAE' has no member named 'nelt'
+>>> chain_io.c:98:52: error: 'IntAE' has no member named 'nelt'
+>>> chain_io.c:112:54: error: 'IntAE' has no member named 'nelt'
+>>> make: *** [chain_io.o] Error 1
+>>> ERROR: compilation failed for package 'rtracklayer'
+>>> * removing '/usr/local/lib64/R/library/rtracklayer'
+>>>
+>>> The downloaded packages are in
+>>>         '/tmp/RtmpvVYzlB/downloaded_packages'
+>>> Updating HTML index of packages in '.Library'
+>>> Making packages.html  ... done
+>>> Warning message:
+>>> In install.packages(pkgs = pkgs, repos = repos, ...) :
+>>>    installation of package 'rtracklayer' had non-zero exit status
+>>>>
+>>>> sessionInfo()
+>>>
+>>> R version 2.14.0 Under development (unstable) (2011-04-14 r55450)
+>>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>>
+>>> locale:
+>>>   [1] LC_CTYPE=en_US       LC_NUMERIC=C         LC_TIME=C
+>>>   [4] LC_COLLATE=C         LC_MONETARY=C        LC_MESSAGES=en_US
+>>>   [7] LC_PAPER=en_US       LC_NAME=C            LC_ADDRESS=C
+>>> [10] LC_TELEPHONE=C       LC_MEASUREMENT=en_US LC_IDENTIFICATION=C
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>
+>>> loaded via a namespace (and not attached):
+>>> [1] tools_2.14.0
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> --
+>> Herv? Pag?s
+>>
+>> Program in Computational Biology
+>> Division of Public Health Sciences
+>> Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N, M1-B514
+>> P.O. Box 19024
+>> Seattle, WA 98109-1024
+>>
+>> E-mail: hpages at fhcrc.org
+>> Phone:  (206) 667-5791
+>> Fax:    (206) 667-1319
+>>
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From kasperdanielhansen at gmail.com  Tue Jul 26 18:53:16 2011
+From: kasperdanielhansen at gmail.com (Kasper Daniel Hansen)
+Date: Tue, 26 Jul 2011 12:53:16 -0400
+Subject: [Bioc-sig-seq] rtracklayer compilation error (make: ***
+ [chain_io.o] Error 1)
+In-Reply-To: <4E2EDEAF.8060600@fhcrc.org>
+References: <CAOaPOXUsGM0H9AXmGKb_yBc+X1fWm-sfQJjPORmcqJsA8pkEcQ@mail.gmail.com>
+	<4E2E76DB.3060700@fhcrc.org>
+	<CAOaPOXXMK_4o6r+kc0yxjmevGOBEm7pvm3fFHtvkDido40MRpA@mail.gmail.com>
+	<4E2EDEAF.8060600@fhcrc.org>
+Message-ID: <CAC2h7utvst-yCWVGDt4opyUamdKHF2Oah=jScFTsx3vbhpKhpQ@mail.gmail.com>
+
+On Tue, Jul 26, 2011 at 11:35 AM, Martin Morgan <mtmorgan at fhcrc.org> wrote:
+> On 07/26/2011 07:14 AM, Ivan Gregoretti wrote:
+>>
+>> Great. The subversion compiles without problems.
+>>
+>> For those who usually don't install from SVN, this is how it's done:
+>>
+>> 1)
+>> Become root
+>
+> Not usually necessary. Just cd to some location on your file system, svn co
+> ... and then R CMD INSTALL rtracklayer. You might sudo R CMD INSTALL
+> rtracklayer if you were updating a system-wide installation (but then you
+> probably wouldn't want to be installing from svn).
+
+To be even more precise, you are supposed to do
+  R CMD build rtracklayer
+  R CMD INSTALL rtracklayer_$VERSION.tar.gz
+
+Kasper
+
+
+From hpages at fhcrc.org  Tue Jul 26 19:27:10 2011
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Tue, 26 Jul 2011 10:27:10 -0700
+Subject: [Bioc-sig-seq] rtracklayer compilation error (make: ***
+ [chain_io.o] Error 1)
+In-Reply-To: <CAC2h7utvst-yCWVGDt4opyUamdKHF2Oah=jScFTsx3vbhpKhpQ@mail.gmail.com>
+References: <CAOaPOXUsGM0H9AXmGKb_yBc+X1fWm-sfQJjPORmcqJsA8pkEcQ@mail.gmail.com>	<4E2E76DB.3060700@fhcrc.org>	<CAOaPOXXMK_4o6r+kc0yxjmevGOBEm7pvm3fFHtvkDido40MRpA@mail.gmail.com>	<4E2EDEAF.8060600@fhcrc.org>
+	<CAC2h7utvst-yCWVGDt4opyUamdKHF2Oah=jScFTsx3vbhpKhpQ@mail.gmail.com>
+Message-ID: <4E2EF8EE.2010905@fhcrc.org>
+
+On 11-07-26 09:53 AM, Kasper Daniel Hansen wrote:
+> On Tue, Jul 26, 2011 at 11:35 AM, Martin Morgan<mtmorgan at fhcrc.org>  wrote:
+>> On 07/26/2011 07:14 AM, Ivan Gregoretti wrote:
+>>>
+>>> Great. The subversion compiles without problems.
+>>>
+>>> For those who usually don't install from SVN, this is how it's done:
+>>>
+>>> 1)
+>>> Become root
+>>
+>> Not usually necessary. Just cd to some location on your file system, svn co
+>> ... and then R CMD INSTALL rtracklayer. You might sudo R CMD INSTALL
+>> rtracklayer if you were updating a system-wide installation (but then you
+>> probably wouldn't want to be installing from svn).
+>
+> To be even more precise, you are supposed to do
+>    R CMD build rtracklayer
+
+Or, in this particular case, since the vignette won't build:
+
+     R CMD build --no-vignettes rtracklayer
+
+Cheers,
+H.
+
+>    R CMD INSTALL rtracklayer_$VERSION.tar.gz
+>
+> Kasper
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M1-B514
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From tanasa at gmail.com  Tue Jul 26 22:16:58 2011
+From: tanasa at gmail.com (Bogdan Tanasa)
+Date: Tue, 26 Jul 2011 13:16:58 -0700
+Subject: [Bioc-sig-seq] DESeq
+Message-ID: <CA+JEM01QievnEPRA6f04kth+8G6yxFPm0C+j3HPkctotx8p1sA@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110726/4ba6e244/attachment.pl>
+
+From delhomme at embl.de  Tue Jul 26 22:38:18 2011
+From: delhomme at embl.de (Nicolas Delhomme)
+Date: Tue, 26 Jul 2011 22:38:18 +0200
+Subject: [Bioc-sig-seq] DESeq
+In-Reply-To: <CA+JEM01QievnEPRA6f04kth+8G6yxFPm0C+j3HPkctotx8p1sA@mail.gmail.com>
+References: <CA+JEM01QievnEPRA6f04kth+8G6yxFPm0C+j3HPkctotx8p1sA@mail.gmail.com>
+Message-ID: <06FB3D68-198E-42A7-872F-E28810192A79@embl.de>
+
+Hi Bogdan,,
+
+As specified in the vignette, you should use raw tag counts and never RPKM. DESeq will perform the library size adjustment.
+
+Cheers,
+
+Nico
+
+---------------------------------------------------------------
+Nicolas Delhomme
+
+High Throughput Functional Genomics Center
+
+European Molecular Biology Laboratory
+
+Tel: +49 6221 387 8310
+Email: nicolas.delhomme at embl.de
+Meyerhofstrasse 1 - Postfach 10.2209
+69102 Heidelberg, Germany
+---------------------------------------------------------------
+
+
+
+
+On 26 Jul 2011, at 22:16, Bogdan Tanasa wrote:
+
+> Dear all,
+> 
+> regarding DESeq package: would it be more appropriate to use raw tag counts
+> or RPKM values ? thanks,
+> 
+> bogdan
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From jane.merlevede at gmail.com  Thu Jul 28 16:23:41 2011
+From: jane.merlevede at gmail.com (Jane Merlevede)
+Date: Thu, 28 Jul 2011 16:23:41 +0200
+Subject: [Bioc-sig-seq] problem when using DEXSeq on genes with 1 exon only
+Message-ID: <CADE5-ORCSOApaQYO-0Vq9wVDDLediA50wGkS7VdH7nMOOrSEnA@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110728/cdc43a48/attachment.pl>
+
+From jane.merlevede at gmail.com  Fri Jul 29 11:39:12 2011
+From: jane.merlevede at gmail.com (Jane Merlevede)
+Date: Fri, 29 Jul 2011 11:39:12 +0200
+Subject: [Bioc-sig-seq] using DEXSeq for up and down regulated exons
+Message-ID: <CADE5-OQbFrb_qHsoW+cPY=uR+oQs+KD79pqRwt6oSCmwWxy0AA@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110729/aca93007/attachment.pl>
+

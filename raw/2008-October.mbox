@@ -1,0 +1,1107 @@
+From wraff at titus.u-strasbg.fr  Thu Oct 23 19:24:48 2008
+From: wraff at titus.u-strasbg.fr (Wolfgang Raffelsberger)
+Date: Thu, 23 Oct 2008 19:24:48 +0200
+Subject: [Bioc-sig-seq] SNP counting (Biostrings ?) question
+Message-ID: <4900B360.3040906@titus.u-strasbg.fr>
+
+Dear list,
+
+I would like to count the occurrence of (mostly single) nucleotide 
+polymorphisms from nucleotide sequences.
+I got across the Biostrings package and pairwiseAlignment() that allows 
+me to get closer to what I want but
+1) I noticed that the score produced from pairwiseAlignment() is quite 
+different to other implementations of the Needlaman-Wunsch alogorithm 
+(eg in EMBOSS)
+2) the score is not directly the information I 'm looking for since it's 
+a mixture of the gaps & mismatches (and I don't see if/how one could 
+modify that).
+
+However, I would primarily be interested in finding where a given 
+nucleotide differs from the query (from a pairwise alignment) to some 
+statistics on them, ie at which position I get which other element 
+instead. Note, that my sample-sequences may start or end slightly 
+later/earlier.
+Any suggestions ?
+
+Sample code might look like (of course, my real sequences are longer ...):
+
+ref <- DNAString("ACTTCACCAGCTCCCTGGC")
+samp <- 
+DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG"))   
+# the 3rd one has no mutations, it's simply shorter ...
+  pairwiseAlignment(ref, samp[[1]], substitutionMatrix = mat, gapOpening 
+= -5, gapExtension = -2)
+alignScores <- numeric()
+ for(i in 1:3) alignScores[i] <- pairwiseAlignment(ref, samp[[i]], 
+substitutionMatrix = mat, gapOpening = -5, gapExtension = -2, scoreOnly=T)
+alignScores     # the 3rd sequence without mismatches gets worst score
+
+ 
+(Based on a previous post on BioC) I just subscribed to 
+bioc-sig-sequencing at r-project.org, but I don't know if I don't mange to 
+search the previous mail archives (on http://search.gmane.org/) since I 
+keep getting (general) Bioconductor messages.
+
+Thank's in advance,
+Wolfgang
+ 
+
+By the way, if that matters, I'm (still) running R-2.7.2
+ > sessionInfo()
+R version 2.7.2 (2008-08-25)
+i386-pc-mingw32
+
+locale:
+LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  tcltk     utils     
+methods   base    
+
+other attached packages:
+[1] Biostrings_2.8.18 svSocket_0.9-5    svIO_0.9-5        
+R2HTML_1.59       svMisc_0.9-5      svIDE_0.9-5     
+
+loaded via a namespace (and not attached):
+[1] tools_2.7.2
+
+ 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Wolfgang Raffelsberger, PhD
+Laboratoire de BioInformatique et G?nomique Int?gratives
+CNRS UMR7104, IGBMC 
+1 rue Laurent Fries,  67404 Illkirch  Strasbourg,  France
+Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+wolfgang.raffelsberger (at) igbmc.fr
+
+
+From hpages at fhcrc.org  Fri Oct 24 21:24:09 2008
+From: hpages at fhcrc.org (Herve Pages)
+Date: Fri, 24 Oct 2008 12:24:09 -0700
+Subject: [Bioc-sig-seq] SNP counting (Biostrings ?) question
+In-Reply-To: <4900B360.3040906@titus.u-strasbg.fr>
+References: <4900B360.3040906@titus.u-strasbg.fr>
+Message-ID: <490220D9.1070005@fhcrc.org>
+
+Hi Wolfgang,
+
+If I understand correctly you want to compare a collection of "sample"
+sequences against a "reference" sequence.
+
+There are many ways to "compare" 2 sequences and to get a score from this
+comparison: Do you want to allow indels or just substitutions (aka replacements)?
+Do you want the alignment to be global or local? Do you want the score to be
+determined by a custom substitution matrix or just to reflect the "edit
+distance" between the 2 sequences (i.e. the minimum number of replacements
++ insertions + deletions required to transform sequence 1 into sequence 2).
+
+If you are trying to get the edit distance between the sample sequences
+and the reference sequence then you might want to look at this post:
+
+  https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2008-July/000067.html
+
+Note that the 'type' argument is omitted in this post so pairwiseAlignment()
+is used to perform "global" alignments, that is, the score that is returned
+indicates the min nb of edit operations needed to transform the *complete*
+sequences in 'pattern' (your "sample" sequences) into the *complete* 'subject'
+(your "reference" sequence).
+One nice property of "global" alignment is that it is a symetric operation on
+the 2 sequences to align. You can take advantage of this by inverting the roles
+of the "sample" and the "reference" sequences so 'samp' can be the pattern
+and 'ref' the subject. Then you can benefit from the fact that
+pairwiseAlignment() is vectorized on the pattern.
+
+But then you say that you would primarily be interested in finding where
+a given nucleotide differs from the query. This suggests that you are in fact
+looking for a much simpler form of alignment where only mismatches (i.e.
+replacements) are allowed but no indels. Also you say that your
+sample-sequences may start or end slightly later/earlier.
+This means that you can use the matchPattern() function for your problem.
+
+  > m2 <- matchPattern(samp[[2]], ref, max.mismatch=3)
+  > m2
+    Views on a 19-letter DNAString subject
+  subject: ACTTCACCAGCTCCCTGGC
+  views:
+      start end width
+  [1]     1  18    18 [ACTTCACCAGCTCCCTGG]
+
+Then use the mismatch() function to get the position(s) of the mismatche(s):
+
+  > mismatch(samp[[2]], m2)[[1]]
+  [1]  6 13
+
+Cheers,
+H.
+
+
+Wolfgang Raffelsberger wrote:
+> Dear list,
+> 
+> I would like to count the occurrence of (mostly single) nucleotide
+> polymorphisms from nucleotide sequences.
+> I got across the Biostrings package and pairwiseAlignment() that allows
+> me to get closer to what I want but
+> 1) I noticed that the score produced from pairwiseAlignment() is quite
+> different to other implementations of the Needlaman-Wunsch alogorithm
+> (eg in EMBOSS)
+> 2) the score is not directly the information I 'm looking for since it's
+> a mixture of the gaps & mismatches (and I don't see if/how one could
+> modify that).
+> 
+> However, I would primarily be interested in finding where a given
+> nucleotide differs from the query (from a pairwise alignment) to some
+> statistics on them, ie at which position I get which other element
+> instead. Note, that my sample-sequences may start or end slightly
+> later/earlier.
+> Any suggestions ?
+> 
+> Sample code might look like (of course, my real sequences are longer ...):
+> 
+> ref <- DNAString("ACTTCACCAGCTCCCTGGC")
+> samp <-
+> DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG"))  
+> # the 3rd one has no mutations, it's simply shorter ...
+>  pairwiseAlignment(ref, samp[[1]], substitutionMatrix = mat, gapOpening
+> = -5, gapExtension = -2)
+> alignScores <- numeric()
+> for(i in 1:3) alignScores[i] <- pairwiseAlignment(ref, samp[[i]],
+> substitutionMatrix = mat, gapOpening = -5, gapExtension = -2, scoreOnly=T)
+> alignScores     # the 3rd sequence without mismatches gets worst score
+> 
+> 
+> (Based on a previous post on BioC) I just subscribed to
+> bioc-sig-sequencing at r-project.org, but I don't know if I don't mange to
+> search the previous mail archives (on http://search.gmane.org/) since I
+> keep getting (general) Bioconductor messages.
+> 
+> Thank's in advance,
+> Wolfgang
+> 
+> 
+> By the way, if that matters, I'm (still) running R-2.7.2
+>> sessionInfo()
+> R version 2.7.2 (2008-08-25)
+> i386-pc-mingw32
+> 
+> locale:
+> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252
+> 
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices datasets  tcltk     utils    
+> methods   base   
+> other attached packages:
+> [1] Biostrings_2.8.18 svSocket_0.9-5    svIO_0.9-5       
+> R2HTML_1.59       svMisc_0.9-5      svIDE_0.9-5    
+> loaded via a namespace (and not attached):
+> [1] tools_2.7.2
+> 
+> 
+> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+> Wolfgang Raffelsberger, PhD
+> Laboratoire de BioInformatique et G?nomique Int?gratives
+> CNRS UMR7104, IGBMC 1 rue Laurent Fries,  67404 Illkirch  Strasbourg, 
+> France
+> Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+> wolfgang.raffelsberger (at) igbmc.fr
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From wraff at titus.u-strasbg.fr  Thu Oct 30 16:33:09 2008
+From: wraff at titus.u-strasbg.fr (Wolfgang Raffelsberger)
+Date: Thu, 30 Oct 2008 16:33:09 +0100
+Subject: [Bioc-sig-seq] SNP counting (Biostrings ?) question
+In-Reply-To: <490220D9.1070005@fhcrc.org>
+References: <4900B360.3040906@titus.u-strasbg.fr> <490220D9.1070005@fhcrc.org>
+Message-ID: <4909D3B5.8020603@titus.u-strasbg.fr>
+
+Hi Herve,
+
+thank you for your helpful answer.
+Initially I was wondering if there are already some functions/packages
+directly for my tasks available, as Bioconducter and CRAN are very
+strong resources.
+
+Since your Biostrings package provides all the basic functionalities,
+I've built a few (additional) functions (on top of Biostrings) doing the
+job.
+To be more precise, yes, I'm interested in detecting all alterations
+(mutations+ insertions + deletions). However, within the project's
+biological context mutations are the prime focus. Right now I'm rather
+in an exploratory/pilot phase for the nucleotide-alteration/SNP
+counting, so I'll probably improve & expand some of my quickly written code.
+
+For the sequence alignments I prefer global, since I'd rather want the
+'best' match possible (ie the default setting with pairwiseAlignment()
+).  Concerning the choice of (custom) substitution matrices I'm not very
+decided.  Right now I'm using very generic ones (like in the Biostrings
+vignette). Recently I've learned that there are several 'versions' of
+the Needleman-Wunsch algorithm (ie various improvements to the original
+one), so I'm not any more surprised of seeing different scores from
+different implementations...
+Anyway, once it's clear which sample/target (ie sequencer output) should
+be compared with which reference sequence (ie the consenus genomic
+sequence of the very region to be tested) I don't use the score any more
+and luckily my test-data contain few completely unexpected 'alien'
+sequences.  For this initial step now I use matchPattern() - thank's for
+your hint- where I primarily need to test if sequences have to be read
+as inverse/complement.
+Again, after a bit more digging I found the corresponding functions and
+I'm quite happy with the performance !
+
+At the core of SNP/alterations counting I dissect the pairwise alignment
+and record what kind of changes have happened (at this level I noted
+some changes to the new BioC 2.3 implementation ...see also code below).
+Here I use (so far) strsplit() to make two vectors with individual
+nucleotides (and gaps) to extract the positions&changes from each of the
+lines of the pairwise alignment (see code below). I guess there may be
+other more elegant/faster ways to do this...
+As I'm primarily interested in 'simple mutations', so far I took a
+shortcut consisting in simply looking at the first of inserted
+nucleotide in cases of insertions (some additional lines not part of the
+code below). Maybe later I'll get back to expand this ... After all I
+end up with a simple matrix where each row corresponds to a position of
+the reference sequence and the columns contain counts of the
+events/alterations observed (where at least I'm able to tell if any
+insertions have happened at all) where I can run classical statistical
+tests.
+
+Cheers,
+Wolfgang
+
+# here the way I 'parse' pairwise alignments :
+
+library(Biostrings)
+mat <- matrix(-3, nrow = 5, ncol = 5)
+diag(mat) <- 1
+mat[,5] <- 0; mat[5,] <- 0
+rownames(mat) <- colnames(mat) <- DNA_ALPHABET[c(1:4,15)]
+
+ref <- DNAString("ACTTCACCAGCTCCCTGGC")                # the consensus
+reference sequence
+samp <-
+DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG")) 
+
+# the 3rd one has no mutations, it's simply shorter ...
+# here (simplified) I already know that my sequence is oriented correctly
+alignRes <- matrix(nr=nchar(ref),nc=length(samp))
+for(i in 1:length(samp)) {
+   x <- pairwiseAlignment(as.character(ref), samp[[i]],
+substitutionMatrix= mat, gapOpening= -5, gapExtension= -2,scoreOnly=F,
+type="global")
+   cutsamp <- unlist(strsplit(as.character(x at subject),""))
+   cutref <- unlist(strsplit(as.character(x at pattern),""))
+   if(nchar(ref) != length(cutref)) {
+     origRefNt <- unlist(strsplit(as.character(ref),""))
+     offS <- 1
+     while(origRefNt[1+offS] != cutref[1]) offS <- offS+1
+   }
+   out <- rep("Z",nchar(ref))                                    # use
+"Z" for (default) constant
+   if( !identical(cutsamp,cutref)) {
+     mutPos <- !(cutref== cutsamp)
+     out[mutPos+offS] <- cutsamp[mutPos+offS]
+     if(sum(cutref=="-")>0) out <- out[-which(cutref=="-")]    # remove
+gaps in reference
+     # gaps could/can be retained at this stage only to a limited degree
+by additional subsitutions
+   }
+  alignRes[,i] <- out
+}
+
+> sessionInfo()
+R version 2.8.0 (2008-10-20)
+i386-pc-mingw32
+
+locale:
+LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] Biostrings_2.10.0 IRanges_1.0.1
+
+loaded via a namespace (and not attached):
+[1] grid_2.8.0         lattice_0.17-15    Matrix_0.999375-16
+
+
+
+Herve Pages a ?crit :
+> Hi Wolfgang,
+>
+> If I understand correctly you want to compare a collection of "sample"
+> sequences against a "reference" sequence.
+>
+> There are many ways to "compare" 2 sequences and to get a score from this
+> comparison: Do you want to allow indels or just substitutions (aka replacements)?
+> Do you want the alignment to be global or local? Do you want the score to be
+> determined by a custom substitution matrix or just to reflect the "edit
+> distance" between the 2 sequences (i.e. the minimum number of replacements
+> + insertions + deletions required to transform sequence 1 into sequence 2).
+>
+> If you are trying to get the edit distance between the sample sequences
+> and the reference sequence then you might want to look at this post:
+>
+>   https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2008-July/000067.html
+>
+> Note that the 'type' argument is omitted in this post so pairwiseAlignment()
+> is used to perform "global" alignments, that is, the score that is returned
+> indicates the min nb of edit operations needed to transform the *complete*
+> sequences in 'pattern' (your "sample" sequences) into the *complete* 'subject'
+> (your "reference" sequence).
+> One nice property of "global" alignment is that it is a symetric operation on
+> the 2 sequences to align. You can take advantage of this by inverting the roles
+> of the "sample" and the "reference" sequences so 'samp' can be the pattern
+> and 'ref' the subject. Then you can benefit from the fact that
+> pairwiseAlignment() is vectorized on the pattern.
+>
+> But then you say that you would primarily be interested in finding where
+> a given nucleotide differs from the query. This suggests that you are in fact
+> looking for a much simpler form of alignment where only mismatches (i.e.
+> replacements) are allowed but no indels. Also you say that your
+> sample-sequences may start or end slightly later/earlier.
+> This means that you can use the matchPattern() function for your problem.
+>
+>   > m2 <- matchPattern(samp[[2]], ref, max.mismatch=3)
+>   > m2
+>     Views on a 19-letter DNAString subject
+>   subject: ACTTCACCAGCTCCCTGGC
+>   views:
+>       start end width
+>   [1]     1  18    18 [ACTTCACCAGCTCCCTGG]
+>
+> Then use the mismatch() function to get the position(s) of the mismatche(s):
+>
+>   > mismatch(samp[[2]], m2)[[1]]
+>   [1]  6 13
+>
+> Cheers,
+> H.
+>
+>
+> Wolfgang Raffelsberger wrote:
+>   
+>> Dear list,
+>>
+>> I would like to count the occurrence of (mostly single) nucleotide
+>> polymorphisms from nucleotide sequences.
+>> I got across the Biostrings package and pairwiseAlignment() that allows
+>> me to get closer to what I want but
+>> 1) I noticed that the score produced from pairwiseAlignment() is quite
+>> different to other implementations of the Needlaman-Wunsch alogorithm
+>> (eg in EMBOSS)
+>> 2) the score is not directly the information I 'm looking for since it's
+>> a mixture of the gaps & mismatches (and I don't see if/how one could
+>> modify that).
+>>
+>> However, I would primarily be interested in finding where a given
+>> nucleotide differs from the query (from a pairwise alignment) to some
+>> statistics on them, ie at which position I get which other element
+>> instead. Note, that my sample-sequences may start or end slightly
+>> later/earlier.
+>> Any suggestions ?
+>>
+>> Sample code might look like (of course, my real sequences are longer ...):
+>>
+>> ref <- DNAString("ACTTCACCAGCTCCCTGGC")
+>> samp <-
+>> DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG"))  
+>> # the 3rd one has no mutations, it's simply shorter ...
+>>  pairwiseAlignment(ref, samp[[1]], substitutionMatrix = mat, gapOpening
+>> = -5, gapExtension = -2)
+>> alignScores <- numeric()
+>> for(i in 1:3) alignScores[i] <- pairwiseAlignment(ref, samp[[i]],
+>> substitutionMatrix = mat, gapOpening = -5, gapExtension = -2, scoreOnly=T)
+>> alignScores     # the 3rd sequence without mismatches gets worst score
+>>
+>>
+>> (Based on a previous post on BioC) I just subscribed to
+>> bioc-sig-sequencing at r-project.org, but I don't know if I don't mange to
+>> search the previous mail archives (on http://search.gmane.org/) since I
+>> keep getting (general) Bioconductor messages.
+>>
+>> Thank's in advance,
+>> Wolfgang
+>>
+>>
+>> By the way, if that matters, I'm (still) running R-2.7.2
+>>     
+>>> sessionInfo()
+>>>       
+>> R version 2.7.2 (2008-08-25)
+>> i386-pc-mingw32
+>>
+>> locale:
+>> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252
+>>
+>>
+>> attached base packages:
+>> [1] stats     graphics  grDevices datasets  tcltk     utils    
+>> methods   base   
+>> other attached packages:
+>> [1] Biostrings_2.8.18 svSocket_0.9-5    svIO_0.9-5       
+>> R2HTML_1.59       svMisc_0.9-5      svIDE_0.9-5    
+>> loaded via a namespace (and not attached):
+>> [1] tools_2.7.2
+>>     
+
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Wolfgang Raffelsberger, PhD
+Laboratoire de BioInformatique et G?nomique Int?gratives
+CNRS UMR7104, IGBMC
+1 rue Laurent Fries,  67404 Illkirch  Strasbourg,  France
+Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+wolfgang.raffelsberger at igbmc.fr
+
+
+From paboyoun at fhcrc.org  Fri Oct 31 18:31:24 2008
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Fri, 31 Oct 2008 10:31:24 -0700
+Subject: [Bioc-sig-seq] SNP counting (Biostrings ?) question
+In-Reply-To: <4909D3B5.8020603@titus.u-strasbg.fr>
+References: <4900B360.3040906@titus.u-strasbg.fr> <490220D9.1070005@fhcrc.org>
+	<4909D3B5.8020603@titus.u-strasbg.fr>
+Message-ID: <490B40EC.3060100@fhcrc.org>
+
+Wolfgang,
+I'm glad to hear you are finding the Biostrings package to be useful. 
+The pairwiseAlignment function has some helper functions that would be 
+useful to a SNP analysis. In particular, you may want to take a look at 
+the mismatchTable, mismatchSummary, summary, and consensusMatrix 
+functions to see if they provide the summaries you are looking for. I 
+also recommend you leverage the vectorized capabilities of the 
+pairwiseAlignment function since it will be easier to maintain your 
+code, provide faster execution time, and make it easier to summarize 
+your results. I have modified your code slightly to show you what you 
+can get "out of the box" from the Biostrings package without writing too 
+much code:
+
+
+library(Biostrings)
+# the substitution matrix
+mat <- matrix(-3, nrow = 5, ncol = 5)
+diag(mat) <- 1
+mat[,5] <- 0; mat[5,] <- 0
+rownames(mat) <- colnames(mat) <- DNA_ALPHABET[c(1:4,15)]
+
+# the consensus reference sequence
+ref <- DNAString("ACTTCACCAGCTCCCTGGC")
+# the sample sequences; the 3rd one has no mutations, it's simply 
+shorter ...
+samp <-
+  
+DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG"))
+
+# vectorized alignments using the ref as the "subject"
+alignments <-
+  pairwiseAlignment(samp, ref, substitutionMatrix=mat,
+    gapOpening= -5, gapExtension= -2, scoreOnly=FALSE,
+    type="global")
+
+# summaries useful for SNP analysis
+summary(alignments)
+mismatchSummary(alignments)
+mismatchTable(alignments)
+consensusMatrix(alignments, baseOnly = TRUE)
+
+
+
+Patrick
+
+
+Wolfgang Raffelsberger wrote:
+> Hi Herve,
+>
+> thank you for your helpful answer.
+> Initially I was wondering if there are already some functions/packages
+> directly for my tasks available, as Bioconducter and CRAN are very
+> strong resources.
+>
+> Since your Biostrings package provides all the basic functionalities,
+> I've built a few (additional) functions (on top of Biostrings) doing the
+> job.
+> To be more precise, yes, I'm interested in detecting all alterations
+> (mutations+ insertions + deletions). However, within the project's
+> biological context mutations are the prime focus. Right now I'm rather
+> in an exploratory/pilot phase for the nucleotide-alteration/SNP
+> counting, so I'll probably improve & expand some of my quickly written 
+> code.
+>
+> For the sequence alignments I prefer global, since I'd rather want the
+> 'best' match possible (ie the default setting with pairwiseAlignment()
+> ).  Concerning the choice of (custom) substitution matrices I'm not very
+> decided.  Right now I'm using very generic ones (like in the Biostrings
+> vignette). Recently I've learned that there are several 'versions' of
+> the Needleman-Wunsch algorithm (ie various improvements to the original
+> one), so I'm not any more surprised of seeing different scores from
+> different implementations...
+> Anyway, once it's clear which sample/target (ie sequencer output) should
+> be compared with which reference sequence (ie the consenus genomic
+> sequence of the very region to be tested) I don't use the score any more
+> and luckily my test-data contain few completely unexpected 'alien'
+> sequences.  For this initial step now I use matchPattern() - thank's for
+> your hint- where I primarily need to test if sequences have to be read
+> as inverse/complement.
+> Again, after a bit more digging I found the corresponding functions and
+> I'm quite happy with the performance !
+>
+> At the core of SNP/alterations counting I dissect the pairwise alignment
+> and record what kind of changes have happened (at this level I noted
+> some changes to the new BioC 2.3 implementation ...see also code below).
+> Here I use (so far) strsplit() to make two vectors with individual
+> nucleotides (and gaps) to extract the positions&changes from each of the
+> lines of the pairwise alignment (see code below). I guess there may be
+> other more elegant/faster ways to do this...
+> As I'm primarily interested in 'simple mutations', so far I took a
+> shortcut consisting in simply looking at the first of inserted
+> nucleotide in cases of insertions (some additional lines not part of the
+> code below). Maybe later I'll get back to expand this ... After all I
+> end up with a simple matrix where each row corresponds to a position of
+> the reference sequence and the columns contain counts of the
+> events/alterations observed (where at least I'm able to tell if any
+> insertions have happened at all) where I can run classical statistical
+> tests.
+>
+> Cheers,
+> Wolfgang
+>
+> # here the way I 'parse' pairwise alignments :
+>
+> library(Biostrings)
+> mat <- matrix(-3, nrow = 5, ncol = 5)
+> diag(mat) <- 1
+> mat[,5] <- 0; mat[5,] <- 0
+> rownames(mat) <- colnames(mat) <- DNA_ALPHABET[c(1:4,15)]
+>
+> ref <- DNAString("ACTTCACCAGCTCCCTGGC")                # the consensus
+> reference sequence
+> samp <-
+> DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG")) 
+>
+> # the 3rd one has no mutations, it's simply shorter ...
+> # here (simplified) I already know that my sequence is oriented correctly
+> alignRes <- matrix(nr=nchar(ref),nc=length(samp))
+> for(i in 1:length(samp)) {
+>   x <- pairwiseAlignment(as.character(ref), samp[[i]],
+> substitutionMatrix= mat, gapOpening= -5, gapExtension= -2,scoreOnly=F,
+> type="global")
+>   cutsamp <- unlist(strsplit(as.character(x at subject),""))
+>   cutref <- unlist(strsplit(as.character(x at pattern),""))
+>   if(nchar(ref) != length(cutref)) {
+>     origRefNt <- unlist(strsplit(as.character(ref),""))
+>     offS <- 1
+>     while(origRefNt[1+offS] != cutref[1]) offS <- offS+1
+>   }
+>   out <- rep("Z",nchar(ref))                                    # use
+> "Z" for (default) constant
+>   if( !identical(cutsamp,cutref)) {
+>     mutPos <- !(cutref== cutsamp)
+>     out[mutPos+offS] <- cutsamp[mutPos+offS]
+>     if(sum(cutref=="-")>0) out <- out[-which(cutref=="-")]    # remove
+> gaps in reference
+>     # gaps could/can be retained at this stage only to a limited degree
+> by additional subsitutions
+>   }
+>  alignRes[,i] <- out
+> }
+>
+>> sessionInfo()
+> R version 2.8.0 (2008-10-20)
+> i386-pc-mingw32
+>
+> locale:
+> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 
+>
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] Biostrings_2.10.0 IRanges_1.0.1
+>
+> loaded via a namespace (and not attached):
+> [1] grid_2.8.0         lattice_0.17-15    Matrix_0.999375-16
+>
+>
+>
+> Herve Pages a ?crit :
+>> Hi Wolfgang,
+>>
+>> If I understand correctly you want to compare a collection of "sample"
+>> sequences against a "reference" sequence.
+>>
+>> There are many ways to "compare" 2 sequences and to get a score from 
+>> this
+>> comparison: Do you want to allow indels or just substitutions (aka 
+>> replacements)?
+>> Do you want the alignment to be global or local? Do you want the 
+>> score to be
+>> determined by a custom substitution matrix or just to reflect the "edit
+>> distance" between the 2 sequences (i.e. the minimum number of 
+>> replacements
+>> + insertions + deletions required to transform sequence 1 into 
+>> sequence 2).
+>>
+>> If you are trying to get the edit distance between the sample sequences
+>> and the reference sequence then you might want to look at this post:
+>>
+>>   
+>> https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2008-July/000067.html
+>>
+>> Note that the 'type' argument is omitted in this post so 
+>> pairwiseAlignment()
+>> is used to perform "global" alignments, that is, the score that is 
+>> returned
+>> indicates the min nb of edit operations needed to transform the 
+>> *complete*
+>> sequences in 'pattern' (your "sample" sequences) into the *complete* 
+>> 'subject'
+>> (your "reference" sequence).
+>> One nice property of "global" alignment is that it is a symetric 
+>> operation on
+>> the 2 sequences to align. You can take advantage of this by inverting 
+>> the roles
+>> of the "sample" and the "reference" sequences so 'samp' can be the 
+>> pattern
+>> and 'ref' the subject. Then you can benefit from the fact that
+>> pairwiseAlignment() is vectorized on the pattern.
+>>
+>> But then you say that you would primarily be interested in finding where
+>> a given nucleotide differs from the query. This suggests that you are 
+>> in fact
+>> looking for a much simpler form of alignment where only mismatches (i.e.
+>> replacements) are allowed but no indels. Also you say that your
+>> sample-sequences may start or end slightly later/earlier.
+>> This means that you can use the matchPattern() function for your 
+>> problem.
+>>
+>>   > m2 <- matchPattern(samp[[2]], ref, max.mismatch=3)
+>>   > m2
+>>     Views on a 19-letter DNAString subject
+>>   subject: ACTTCACCAGCTCCCTGGC
+>>   views:
+>>       start end width
+>>   [1]     1  18    18 [ACTTCACCAGCTCCCTGG]
+>>
+>> Then use the mismatch() function to get the position(s) of the 
+>> mismatche(s):
+>>
+>>   > mismatch(samp[[2]], m2)[[1]]
+>>   [1]  6 13
+>>
+>> Cheers,
+>> H.
+>>
+>>
+>> Wolfgang Raffelsberger wrote:
+>>  
+>>> Dear list,
+>>>
+>>> I would like to count the occurrence of (mostly single) nucleotide
+>>> polymorphisms from nucleotide sequences.
+>>> I got across the Biostrings package and pairwiseAlignment() that allows
+>>> me to get closer to what I want but
+>>> 1) I noticed that the score produced from pairwiseAlignment() is quite
+>>> different to other implementations of the Needlaman-Wunsch alogorithm
+>>> (eg in EMBOSS)
+>>> 2) the score is not directly the information I 'm looking for since 
+>>> it's
+>>> a mixture of the gaps & mismatches (and I don't see if/how one could
+>>> modify that).
+>>>
+>>> However, I would primarily be interested in finding where a given
+>>> nucleotide differs from the query (from a pairwise alignment) to some
+>>> statistics on them, ie at which position I get which other element
+>>> instead. Note, that my sample-sequences may start or end slightly
+>>> later/earlier.
+>>> Any suggestions ?
+>>>
+>>> Sample code might look like (of course, my real sequences are longer 
+>>> ...):
+>>>
+>>> ref <- DNAString("ACTTCACCAGCTCCCTGGC")
+>>> samp <-
+>>> DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG"))  
+>>> # the 3rd one has no mutations, it's simply shorter ...
+>>>  pairwiseAlignment(ref, samp[[1]], substitutionMatrix = mat, gapOpening
+>>> = -5, gapExtension = -2)
+>>> alignScores <- numeric()
+>>> for(i in 1:3) alignScores[i] <- pairwiseAlignment(ref, samp[[i]],
+>>> substitutionMatrix = mat, gapOpening = -5, gapExtension = -2, 
+>>> scoreOnly=T)
+>>> alignScores     # the 3rd sequence without mismatches gets worst score
+>>>
+>>>
+>>> (Based on a previous post on BioC) I just subscribed to
+>>> bioc-sig-sequencing at r-project.org, but I don't know if I don't mange to
+>>> search the previous mail archives (on http://search.gmane.org/) since I
+>>> keep getting (general) Bioconductor messages.
+>>>
+>>> Thank's in advance,
+>>> Wolfgang
+>>>
+>>>
+>>> By the way, if that matters, I'm (still) running R-2.7.2
+>>>    
+>>>> sessionInfo()
+>>>>       
+>>> R version 2.7.2 (2008-08-25)
+>>> i386-pc-mingw32
+>>>
+>>> locale:
+>>> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 
+>>>
+>>>
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices datasets  tcltk     utils    
+>>> methods   base   other attached packages:
+>>> [1] Biostrings_2.8.18 svSocket_0.9-5    svIO_0.9-5       
+>>> R2HTML_1.59       svMisc_0.9-5      svIDE_0.9-5    loaded via a 
+>>> namespace (and not attached):
+>>> [1] tools_2.7.2
+>>>     
+>
+> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+> Wolfgang Raffelsberger, PhD
+> Laboratoire de BioInformatique et G?nomique Int?gratives
+> CNRS UMR7104, IGBMC
+> 1 rue Laurent Fries,  67404 Illkirch  Strasbourg,  France
+> Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+> wolfgang.raffelsberger at igbmc.fr
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From paboyoun at fhcrc.org  Fri Oct 31 21:44:12 2008
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Fri, 31 Oct 2008 13:44:12 -0700
+Subject: [Bioc-sig-seq] SNP counting (Biostrings ?) question
+In-Reply-To: <4909D3B5.8020603@titus.u-strasbg.fr>
+References: <4900B360.3040906@titus.u-strasbg.fr> <490220D9.1070005@fhcrc.org>
+	<4909D3B5.8020603@titus.u-strasbg.fr>
+Message-ID: <490B6E1C.10603@fhcrc.org>
+
+Wolfgang,
+I'm glad to hear you are finding the Biostrings package to be useful. 
+The pairwiseAlignment function has some helper functions that would be 
+useful to a SNP analysis. In particular, you may want to take a look at 
+the mismatchTable, mismatchSummary, summary, and consensusMatrix 
+functions to see if they provide the summaries you are looking for. I 
+also recommend you leverage the vectorized capabilities of the 
+pairwiseAlignment function since it will be easier to maintain your 
+code, provide faster execution time, and make it easier to summarize 
+your results. I have modified your code slightly to show you what you 
+can get "out of the box" from the Biostrings package without writing too 
+much code:
+
+
+library(Biostrings)
+# the substitution matrix
+mat <- matrix(-3, nrow = 5, ncol = 5)
+diag(mat) <- 1
+mat[,5] <- 0; mat[5,] <- 0
+rownames(mat) <- colnames(mat) <- DNA_ALPHABET[c(1:4,15)]
+
+# the consensus reference sequence
+ref <- DNAString("ACTTCACCAGCTCCCTGGC")
+# the sample sequences; the 3rd one has no mutations, it's simply 
+shorter ...
+samp <-
+ 
+DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG"))
+
+# vectorized alignments using the ref as the "subject"
+alignments <-
+ pairwiseAlignment(samp, ref, substitutionMatrix=mat,
+   gapOpening= -5, gapExtension= -2, scoreOnly=FALSE,
+   type="global")
+
+# summaries useful for SNP analysis
+summary(alignments)
+mismatchSummary(alignments)
+mismatchTable(alignments)
+consensusMatrix(alignments, baseOnly = TRUE)
+
+
+
+Patrick
+
+
+Wolfgang Raffelsberger wrote:
+> Hi Herve,
+>
+> thank you for your helpful answer.
+> Initially I was wondering if there are already some functions/packages
+> directly for my tasks available, as Bioconducter and CRAN are very
+> strong resources.
+>
+> Since your Biostrings package provides all the basic functionalities,
+> I've built a few (additional) functions (on top of Biostrings) doing the
+> job.
+> To be more precise, yes, I'm interested in detecting all alterations
+> (mutations+ insertions + deletions). However, within the project's
+> biological context mutations are the prime focus. Right now I'm rather
+> in an exploratory/pilot phase for the nucleotide-alteration/SNP
+> counting, so I'll probably improve & expand some of my quickly written 
+> code.
+>
+> For the sequence alignments I prefer global, since I'd rather want the
+> 'best' match possible (ie the default setting with pairwiseAlignment()
+> ).  Concerning the choice of (custom) substitution matrices I'm not very
+> decided.  Right now I'm using very generic ones (like in the Biostrings
+> vignette). Recently I've learned that there are several 'versions' of
+> the Needleman-Wunsch algorithm (ie various improvements to the original
+> one), so I'm not any more surprised of seeing different scores from
+> different implementations...
+> Anyway, once it's clear which sample/target (ie sequencer output) should
+> be compared with which reference sequence (ie the consenus genomic
+> sequence of the very region to be tested) I don't use the score any more
+> and luckily my test-data contain few completely unexpected 'alien'
+> sequences.  For this initial step now I use matchPattern() - thank's for
+> your hint- where I primarily need to test if sequences have to be read
+> as inverse/complement.
+> Again, after a bit more digging I found the corresponding functions and
+> I'm quite happy with the performance !
+>
+> At the core of SNP/alterations counting I dissect the pairwise alignment
+> and record what kind of changes have happened (at this level I noted
+> some changes to the new BioC 2.3 implementation ...see also code below).
+> Here I use (so far) strsplit() to make two vectors with individual
+> nucleotides (and gaps) to extract the positions&changes from each of the
+> lines of the pairwise alignment (see code below). I guess there may be
+> other more elegant/faster ways to do this...
+> As I'm primarily interested in 'simple mutations', so far I took a
+> shortcut consisting in simply looking at the first of inserted
+> nucleotide in cases of insertions (some additional lines not part of the
+> code below). Maybe later I'll get back to expand this ... After all I
+> end up with a simple matrix where each row corresponds to a position of
+> the reference sequence and the columns contain counts of the
+> events/alterations observed (where at least I'm able to tell if any
+> insertions have happened at all) where I can run classical statistical
+> tests.
+>
+> Cheers,
+> Wolfgang
+>
+> # here the way I 'parse' pairwise alignments :
+>
+> library(Biostrings)
+> mat <- matrix(-3, nrow = 5, ncol = 5)
+> diag(mat) <- 1
+> mat[,5] <- 0; mat[5,] <- 0
+> rownames(mat) <- colnames(mat) <- DNA_ALPHABET[c(1:4,15)]
+>
+> ref <- DNAString("ACTTCACCAGCTCCCTGGC")                # the consensus
+> reference sequence
+> samp <-
+> DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG")) 
+>
+> # the 3rd one has no mutations, it's simply shorter ...
+> # here (simplified) I already know that my sequence is oriented correctly
+> alignRes <- matrix(nr=nchar(ref),nc=length(samp))
+> for(i in 1:length(samp)) {
+>   x <- pairwiseAlignment(as.character(ref), samp[[i]],
+> substitutionMatrix= mat, gapOpening= -5, gapExtension= -2,scoreOnly=F,
+> type="global")
+>   cutsamp <- unlist(strsplit(as.character(x at subject),""))
+>   cutref <- unlist(strsplit(as.character(x at pattern),""))
+>   if(nchar(ref) != length(cutref)) {
+>     origRefNt <- unlist(strsplit(as.character(ref),""))
+>     offS <- 1
+>     while(origRefNt[1+offS] != cutref[1]) offS <- offS+1
+>   }
+>   out <- rep("Z",nchar(ref))                                    # use
+> "Z" for (default) constant
+>   if( !identical(cutsamp,cutref)) {
+>     mutPos <- !(cutref== cutsamp)
+>     out[mutPos+offS] <- cutsamp[mutPos+offS]
+>     if(sum(cutref=="-")>0) out <- out[-which(cutref=="-")]    # remove
+> gaps in reference
+>     # gaps could/can be retained at this stage only to a limited degree
+> by additional subsitutions
+>   }
+>  alignRes[,i] <- out
+> }
+>
+>> sessionInfo()
+> R version 2.8.0 (2008-10-20)
+> i386-pc-mingw32
+>
+> locale:
+> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 
+>
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] Biostrings_2.10.0 IRanges_1.0.1
+>
+> loaded via a namespace (and not attached):
+> [1] grid_2.8.0         lattice_0.17-15    Matrix_0.999375-16
+>
+>
+>
+> Herve Pages a ?crit :
+>> Hi Wolfgang,
+>>
+>> If I understand correctly you want to compare a collection of "sample"
+>> sequences against a "reference" sequence.
+>>
+>> There are many ways to "compare" 2 sequences and to get a score from 
+>> this
+>> comparison: Do you want to allow indels or just substitutions (aka 
+>> replacements)?
+>> Do you want the alignment to be global or local? Do you want the 
+>> score to be
+>> determined by a custom substitution matrix or just to reflect the "edit
+>> distance" between the 2 sequences (i.e. the minimum number of 
+>> replacements
+>> + insertions + deletions required to transform sequence 1 into 
+>> sequence 2).
+>>
+>> If you are trying to get the edit distance between the sample sequences
+>> and the reference sequence then you might want to look at this post:
+>>
+>>   
+>> https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2008-July/000067.html
+>>
+>> Note that the 'type' argument is omitted in this post so 
+>> pairwiseAlignment()
+>> is used to perform "global" alignments, that is, the score that is 
+>> returned
+>> indicates the min nb of edit operations needed to transform the 
+>> *complete*
+>> sequences in 'pattern' (your "sample" sequences) into the *complete* 
+>> 'subject'
+>> (your "reference" sequence).
+>> One nice property of "global" alignment is that it is a symetric 
+>> operation on
+>> the 2 sequences to align. You can take advantage of this by inverting 
+>> the roles
+>> of the "sample" and the "reference" sequences so 'samp' can be the 
+>> pattern
+>> and 'ref' the subject. Then you can benefit from the fact that
+>> pairwiseAlignment() is vectorized on the pattern.
+>>
+>> But then you say that you would primarily be interested in finding where
+>> a given nucleotide differs from the query. This suggests that you are 
+>> in fact
+>> looking for a much simpler form of alignment where only mismatches (i.e.
+>> replacements) are allowed but no indels. Also you say that your
+>> sample-sequences may start or end slightly later/earlier.
+>> This means that you can use the matchPattern() function for your 
+>> problem.
+>>
+>>   > m2 <- matchPattern(samp[[2]], ref, max.mismatch=3)
+>>   > m2
+>>     Views on a 19-letter DNAString subject
+>>   subject: ACTTCACCAGCTCCCTGGC
+>>   views:
+>>       start end width
+>>   [1]     1  18    18 [ACTTCACCAGCTCCCTGG]
+>>
+>> Then use the mismatch() function to get the position(s) of the 
+>> mismatche(s):
+>>
+>>   > mismatch(samp[[2]], m2)[[1]]
+>>   [1]  6 13
+>>
+>> Cheers,
+>> H.
+>>
+>>
+>> Wolfgang Raffelsberger wrote:
+>>  
+>>> Dear list,
+>>>
+>>> I would like to count the occurrence of (mostly single) nucleotide
+>>> polymorphisms from nucleotide sequences.
+>>> I got across the Biostrings package and pairwiseAlignment() that allows
+>>> me to get closer to what I want but
+>>> 1) I noticed that the score produced from pairwiseAlignment() is quite
+>>> different to other implementations of the Needlaman-Wunsch alogorithm
+>>> (eg in EMBOSS)
+>>> 2) the score is not directly the information I 'm looking for since 
+>>> it's
+>>> a mixture of the gaps & mismatches (and I don't see if/how one could
+>>> modify that).
+>>>
+>>> However, I would primarily be interested in finding where a given
+>>> nucleotide differs from the query (from a pairwise alignment) to some
+>>> statistics on them, ie at which position I get which other element
+>>> instead. Note, that my sample-sequences may start or end slightly
+>>> later/earlier.
+>>> Any suggestions ?
+>>>
+>>> Sample code might look like (of course, my real sequences are longer 
+>>> ...):
+>>>
+>>> ref <- DNAString("ACTTCACCAGCTCCCTGGC")
+>>> samp <-
+>>> DNAStringSet(c("CTTCTCCAGCTCCCTGG","ACTTCTCCAGCTACCTGG","TTCACCAGCTCCCTG"))  
+>>> # the 3rd one has no mutations, it's simply shorter ...
+>>>  pairwiseAlignment(ref, samp[[1]], substitutionMatrix = mat, gapOpening
+>>> = -5, gapExtension = -2)
+>>> alignScores <- numeric()
+>>> for(i in 1:3) alignScores[i] <- pairwiseAlignment(ref, samp[[i]],
+>>> substitutionMatrix = mat, gapOpening = -5, gapExtension = -2, 
+>>> scoreOnly=T)
+>>> alignScores     # the 3rd sequence without mismatches gets worst score
+>>>
+>>>
+>>> (Based on a previous post on BioC) I just subscribed to
+>>> bioc-sig-sequencing at r-project.org, but I don't know if I don't mange to
+>>> search the previous mail archives (on http://search.gmane.org/) since I
+>>> keep getting (general) Bioconductor messages.
+>>>
+>>> Thank's in advance,
+>>> Wolfgang
+>>>
+>>>
+>>> By the way, if that matters, I'm (still) running R-2.7.2
+>>>    
+>>>> sessionInfo()
+>>>>       
+>>> R version 2.7.2 (2008-08-25)
+>>> i386-pc-mingw32
+>>>
+>>> locale:
+>>> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 
+>>>
+>>>
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices datasets  tcltk     utils    
+>>> methods   base   other attached packages:
+>>> [1] Biostrings_2.8.18 svSocket_0.9-5    svIO_0.9-5       
+>>> R2HTML_1.59       svMisc_0.9-5      svIDE_0.9-5    loaded via a 
+>>> namespace (and not attached):
+>>> [1] tools_2.7.2
+>>>     
+>
+> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+> Wolfgang Raffelsberger, PhD
+> Laboratoire de BioInformatique et G?nomique Int?gratives
+> CNRS UMR7104, IGBMC
+> 1 rue Laurent Fries,  67404 Illkirch  Strasbourg,  France
+> Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+> wolfgang.raffelsberger at igbmc.fr
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+

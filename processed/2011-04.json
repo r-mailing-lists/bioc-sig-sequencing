@@ -1,0 +1,493 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2011-04",
+  "messages": [
+    {
+      "id": "msg-7bfa4b8b7cbc",
+      "message_id": "<09A3F26A-31AA-4B11-9F1A-7287B9DB9C40@wehi.edu.au>",
+      "from_name": "Davis McCarthy",
+      "from_email_hash": "c4b599b3480a780ce4f3bda7cc366f4db6be1d54fc38d19d79d6ebe1deea8adb",
+      "date": "2011-03-31T22:43:41Z",
+      "subject": "[Bioc-sig-seq] A question of edgeR DGEList() - no norm.factors generated",
+      "subject_clean": "[Bioc-sig-seq] A question of edgeR DGEList() - no norm.factors generated",
+      "in_reply_to": "<AANLkTikSqOph99CS9d8o6V_wUu++JdTHdnJtt7KYkGoh@mail.gmail.com>",
+      "references": [
+        "<AANLkTikSqOph99CS9d8o6V_wUu++JdTHdnJtt7KYkGoh@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Kyunghee\n\n>From the output that you have provided I can't diagnose what is going on here. I don't know what versions of R and edgeR you are using, and you have not provided information about the error that you are getting from calcNormFactors() (output missing below, no traceback() ). Please check the posting guide here: http://www.bioconductor.org/help/mailing-list/posting-guide/\n\nI would suggest updating to the latest versions of R and edgeR and trying again. If the problem persists then please provide some more information about the error.\n\nCheers\nDavis\n\n\n\nOn Mar 30, 2011, at 2:02 PM, Kyunghee Park wrote:\n\n> Hi!\n> \n> I have a problem using edgeR packages, especially DGEList() function.\n> Though there's no error messege when I run DGEList(), I don't have\n> \"norm.factors\" in cds$samples.\n> And I can't run calcNormFactors(), either. (It was same that I added\n> norm.factors<-1 in cds$samples dataset manually and then run\n> calcNormFactors().)\n> If you guys help to fix it, it'll be very helpful.\n> \n> Thank you in advance.\n> Kyunghee Park\n> \n> ===\n>> conds\n> [1] \"other\"  \"other\"  \"other\"  \"breast\" \"breast\" \"other\"  \"other\"  \"breast\"\n> [9] \"breast\"\n>> \n> cds<-DGEList(counts=mirna.count.matrix,group=conds,lib.size=NULL,genes=NULL,remove.zeros=FALSE)\n> Calculating library sizes from column totals.\n>> cds\n> An object of class \"DGEList\"\n> $samples\n>           group lib.size\n> SRR029124  other   970218\n> SRR029125  other  1500254\n> SRR029126  other  1280521\n> SRR029127 breast   947041\n> SRR029128 breast   737793\n> SRR029129  other  1531409\n> SRR029130  other   908642\n> SRR029131 breast  1679689\n> SRR029132 breast  1143424\n> \n> $counts\n>             SRR029124 SRR029125 SRR029126 SRR029127 SRR029128 SRR029129\n> hsa-let-7a-1     38631     30886      4725         4     30986      1677\n> hsa-let-7c        1220      3154      8196      2504      5944       121\n> hsa-let-7d         680       286     43931         0       643         2\n> hsa-let-7f-1     38631      1026     46053       439     30986         0\n> hsa-let-7f-2        29      1344        12      2336      1753      2079\n>             SRR029130 SRR029131 SRR029132\n> hsa-let-7a-1      1055      1106         2\n> hsa-let-7c          36         4         2\n> hsa-let-7d         236         2      9865\n> hsa-let-7f-1         2         6         1\n> hsa-let-7f-2       396       745         7\n> 548 more rows ...\n> \n> $allZeros\n> hsa-let-7a-1   hsa-let-7c   hsa-let-7d hsa-let-7f-1 hsa-let-7f-2\n>       FALSE        FALSE        FALSE        FALSE        FALSE\n> 548 more elements ...\n>> cds<-calcNormFactors(cds)\n> ?\n> ===\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n------------------------------------------------------------------------\nDavis J McCarthy\nResearch Technician\nBioinformatics Division\nWalter and Eliza Hall Institute of Medical Research\n1G Royal Parade, Parkville, Vic 3052, Australia\ndmccarthy at wehi.edu.au\nhttp://www.wehi.edu.au\n\n\n\n\n______________________________________________________________________\nThe information in this email is confidential and intend...{{dropped:6}}",
+      "body_snippet": "Hi Kyunghee\n\n>From the output that you have provided I can't diagnose what is going on here. I don't know what versions of R and edgeR you are using, and you have not provided information about the er",
+      "thread_id": "thread-7bfa4b8b7cbc",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-be46131886e9",
+      "message_id": "<BANLkTikWXTxPPE23dPdccT9kxifdSA_MDw@mail.gmail.com>",
+      "from_name": "Lakshmanan Iyer",
+      "from_email_hash": "c1b9f1431beed3398f114cc373d41158503fc837d5f4a10f17ccfdc83e46efcc",
+      "date": "2011-04-10T15:13:39Z",
+      "subject": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "subject_clean": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110410/755b496d/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110410/755b496d/attachment.pl>",
+      "thread_id": "thread-be46131886e9",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-035236636e00",
+      "message_id": "<4DA307E2.903@fhcrc.org>",
+      "from_name": "Valerie Obenchain",
+      "from_email_hash": "f784561cdb4831aeef4d618463a68b9ec87603cf79698a926c21adff7554b0f4",
+      "date": "2011-04-11T13:53:38Z",
+      "subject": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "subject_clean": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "in_reply_to": "<BANLkTikWXTxPPE23dPdccT9kxifdSA_MDw@mail.gmail.com>",
+      "references": [
+        "<BANLkTikWXTxPPE23dPdccT9kxifdSA_MDw@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Lax,\n\nOn 04/10/11 08:13, Lakshmanan Iyer wrote:\n> Hello,\n> I created a GRangesList of 3'UTRs and GappedAlignments of a BAM file using\n> the following code:\n> _____________________\n> library(GenomicRanges);\n>   library(Rsamtools);\n>   library(leeBamViews)\n> library (\"GenomicFeatures\")\n> txdb<- makeTranscriptDbFromUCSC(genome=\"mm9\", tablename=\"knownGene\")\n> #\n> # It remembers the transcript ids. so can be used later\n> p3UTRs<- threeUTRsByTranscript(txdb, use.names=TRUE)\n> # read the bam alignment\n> aligns<- readGappedAlignments (\"Dend_accepted_hits_sorted.bam\")\n>\n> --------------------------------------\n> However, when I try to get the countOverlaps, I get the following error:\n>    \n>> c<- countOverlaps (p3UTRs, aligns)\n>>      \n> Error in queryHits(findOverlaps(query, subject, maxgap = maxgap, type =\n> type)) :\n>    error in evaluating the argument 'x' in selecting a method for function\n> 'queryHits'\n>\n> I suspect that this happens as the sequence names, \"chrUn_random chrX_random\n> chrY_random\" etc which are present in the GRangeslist, p3UTRs are not\n> present in the GappedAlignement objects.\n>\n> My questions is:\n> 1. Can I make countOverlaps to choose only those intervals in which there\n> are entries in both the objects?\n>    \nNo.  The general approach is to clean the subject and query before \ncalling countOverlaps.\n>   2. How do I subjset GRangeList (p3UTRs) to include entries from specific\n> list of chromosomes of interest only?\n>    \nTo retain specific chromosomes, you can subset with seqnames then reset \nthe seqlevels.\n\nIn R-2.13/BioC 2.8, using the grl object from the GRangesList man page :\n\n > grl\nGRangesList of length 3\n$gr1\nGRanges with 1 range and 2 elementMetadata values\n     seqnames    ranges strand |     score        GC\n<Rle> <IRanges> <Rle> | <integer> <numeric>\n[1]     chr2    [3, 6]      + |         5      0.45\n\n$gr2\nGRanges with 2 ranges and 2 elementMetadata values\n     seqnames    ranges strand |     score        GC\n<Rle> <IRanges> <Rle> | <integer> <numeric>\n[1]     chr1  [ 7,  9]      + |         3       0.3\n[2]     chr1  [13, 15]      - |         4       0.5\n\n$gr3\nGRanges with 2 ranges and 2 elementMetadata values\n     seqnames    ranges strand |     score        GC\n<Rle> <IRanges> <Rle> | <integer> <numeric>\n[1]     chr1    [1, 3]      - |         6       0.4\n[2]     chr2    [4, 9]      - |         2       0.1\n\n\nseqlengths\n  chr2 chr1\n    NA   NA\n\n     grlsub <- grl[seqnames(grl) == \"chr1\", ]\n     seqlevels(grlsub) <- seqlevels(grlsub)[seqlevels(grlsub) == \"chr1\"]\n\nYou can remove the empty list elements with,\n\n     grlsub <- grlsub[elementLengths(grlsub) >0]\n\n\n > grlsub\nGRangesList of length 2\n$gr2\nGRanges with 2 ranges and 2 elementMetadata values\n     seqnames    ranges strand |     score        GC\n<Rle> <IRanges> <Rle> | <integer> <numeric>\n[1]     chr1  [ 7,  9]      + |         3       0.3\n[2]     chr1  [13, 15]      - |         4       0.5\n\n$gr3\nGRanges with 1 range and 2 elementMetadata values\n     seqnames    ranges strand |     score        GC\n<Rle> <IRanges> <Rle> | <integer> <numeric>\n[1]     chr1    [1, 3]      - |         6       0.4\n\n\nseqlengths\n  chr1\n    NA\n\n\nValerie\n\n\n > sessionInfo()\nR version 2.13.0 beta (2011-03-30 r55199)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] GenomicRanges_1.3.37 IRanges_1.9.29\n\nloaded via a namespace (and not attached):\n[1] tools_2.13.0\n\n\n\n\n> -best\n> -Lax\n>    \n>> sessionInfo()\n>>      \n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] GenomicFeatures_1.2.1 leeBamViews_0.99.11   BSgenome_1.18.2\n> [4] Biobase_2.10.0        Rsamtools_1.2.0       Biostrings_2.18.0\n> [7] GenomicRanges_1.2.3   IRanges_1.8.2\n>\n> loaded via a namespace (and not attached):\n> [1] biomaRt_2.6.0      DBI_0.2-5          RCurl_1.4-3\n> RSQLite_0.9-2\n> [5] rtracklayer_1.10.5 tools_2.12.0       XML_3.2-0\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hi Lax,\n\nOn 04/10/11 08:13, Lakshmanan Iyer wrote:\n> Hello,\n> I created a GRangesList of 3'UTRs and GappedAlignments of a BAM file using\n> the following code:\n> _____________________\n> library(Genomic",
+      "thread_id": "thread-be46131886e9",
+      "thread_depth": 1,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-fb6396a3e451",
+      "message_id": "<4DA32160.8070800@fhcrc.org>",
+      "from_name": "Valerie Obenchain",
+      "from_email_hash": "f784561cdb4831aeef4d618463a68b9ec87603cf79698a926c21adff7554b0f4",
+      "date": "2011-04-11T15:42:24Z",
+      "subject": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "subject_clean": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "in_reply_to": "<4DA307E2.903@fhcrc.org>",
+      "references": [
+        "<BANLkTikWXTxPPE23dPdccT9kxifdSA_MDw@mail.gmail.com>",
+        "<4DA307E2.903@fhcrc.org>"
+      ],
+      "body_plain": "Hi Lax,\n\nPlease reply to the list when answering/asking questions. The \nconversation might be helpful to someone else in the future.\n\nThe seqlevels function is not available in  R-2.12/BioC 2.7 but is with \nR-2.13/BioC 2.8.  Version R-2.13/BioC 2.8 are being released this week \nso you might want to update.\n\nTake care,\nValerie\n\n\n\nHi Valerie\nThanks. Subsetting works fine. The only thing I found is that there is \nNO function named \"seqlevels\",\n\nI could get to the levels using the command at the individual list entries:\nlevels (seqnames (p3UTRsSub)[[1]])\n\nThis solves my problems, now I can iterative over the chromosomes and \nfind overlapping counts.\n-thanks\n-Lax\n\n\nOn 04/11/2011 06:53 AM, Valerie Obenchain wrote:\n> Hi Lax,\n>\n> On 04/10/11 08:13, Lakshmanan Iyer wrote:\n>> Hello,\n>> I created a GRangesList of 3'UTRs and GappedAlignments of a BAM file \n>> using\n>> the following code:\n>> _____________________\n>> library(GenomicRanges);\n>>   library(Rsamtools);\n>>   library(leeBamViews)\n>> library (\"GenomicFeatures\")\n>> txdb<- makeTranscriptDbFromUCSC(genome=\"mm9\", tablename=\"knownGene\")\n>> #\n>> # It remembers the transcript ids. so can be used later\n>> p3UTRs<- threeUTRsByTranscript(txdb, use.names=TRUE)\n>> # read the bam alignment\n>> aligns<- readGappedAlignments (\"Dend_accepted_hits_sorted.bam\")\n>>\n>> --------------------------------------\n>> However, when I try to get the countOverlaps, I get the following error:\n>>> c<- countOverlaps (p3UTRs, aligns)\n>> Error in queryHits(findOverlaps(query, subject, maxgap = maxgap, type =\n>> type)) :\n>>    error in evaluating the argument 'x' in selecting a method for \n>> function\n>> 'queryHits'\n>>\n>> I suspect that this happens as the sequence names, \"chrUn_random \n>> chrX_random\n>> chrY_random\" etc which are present in the GRangeslist, p3UTRs are not\n>> present in the GappedAlignement objects.\n>>\n>> My questions is:\n>> 1. Can I make countOverlaps to choose only those intervals in which \n>> there\n>> are entries in both the objects?\n> No.  The general approach is to clean the subject and query before \n> calling countOverlaps.\n>>   2. How do I subjset GRangeList (p3UTRs) to include entries from \n>> specific\n>> list of chromosomes of interest only?\n> To retain specific chromosomes, you can subset with seqnames then \n> reset the seqlevels.\n>\n> In R-2.13/BioC 2.8, using the grl object from the GRangesList man page :\n>\n> > grl\n> GRangesList of length 3\n> $gr1\n> GRanges with 1 range and 2 elementMetadata values\n>     seqnames    ranges strand |     score        GC\n> <Rle> <IRanges> <Rle> | <integer> <numeric>\n> [1]     chr2    [3, 6]      + |         5      0.45\n>\n> $gr2\n> GRanges with 2 ranges and 2 elementMetadata values\n>     seqnames    ranges strand |     score        GC\n> <Rle> <IRanges> <Rle> | <integer> <numeric>\n> [1]     chr1  [ 7,  9]      + |         3       0.3\n> [2]     chr1  [13, 15]      - |         4       0.5\n>\n> $gr3\n> GRanges with 2 ranges and 2 elementMetadata values\n>     seqnames    ranges strand |     score        GC\n> <Rle> <IRanges> <Rle> | <integer> <numeric>\n> [1]     chr1    [1, 3]      - |         6       0.4\n> [2]     chr2    [4, 9]      - |         2       0.1\n>\n>\n> seqlengths\n>  chr2 chr1\n>    NA   NA\n>\n>     grlsub <- grl[seqnames(grl) == \"chr1\", ]\n>     seqlevels(grlsub) <- seqlevels(grlsub)[seqlevels(grlsub) == \"chr1\"]\n>\n> You can remove the empty list elements with,\n>\n>     grlsub <- grlsub[elementLengths(grlsub) >0]\n>\n>\n> > grlsub\n> GRangesList of length 2\n> $gr2\n> GRanges with 2 ranges and 2 elementMetadata values\n>     seqnames    ranges strand |     score        GC\n> <Rle> <IRanges> <Rle> | <integer> <numeric>\n> [1]     chr1  [ 7,  9]      + |         3       0.3\n> [2]     chr1  [13, 15]      - |         4       0.5\n>\n> $gr3\n> GRanges with 1 range and 2 elementMetadata values\n>     seqnames    ranges strand |     score        GC\n> <Rle> <IRanges> <Rle> | <integer> <numeric>\n> [1]     chr1    [1, 3]      - |         6       0.4\n>\n>\n> seqlengths\n>  chr1\n>    NA\n>\n>\n> Valerie\n>\n>\n> > sessionInfo()\n> R version 2.13.0 beta (2011-03-30 r55199)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] GenomicRanges_1.3.37 IRanges_1.9.29\n>\n> loaded via a namespace (and not attached):\n> [1] tools_2.13.0\n>\n>\n>\n>\n>> -best\n>> -Lax\n>>> sessionInfo()\n>> R version 2.12.0 (2010-10-15)\n>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>>\n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] GenomicFeatures_1.2.1 leeBamViews_0.99.11   BSgenome_1.18.2\n>> [4] Biobase_2.10.0        Rsamtools_1.2.0       Biostrings_2.18.0\n>> [7] GenomicRanges_1.2.3   IRanges_1.8.2\n>>\n>> loaded via a namespace (and not attached):\n>> [1] biomaRt_2.6.0      DBI_0.2-5          RCurl_1.4-3\n>> RSQLite_0.9-2\n>> [5] rtracklayer_1.10.5 tools_2.12.0       XML_3.2-0\n>>\n>>     [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Lax,\n\nPlease reply to the list when answering/asking questions. The \nconversation might be helpful to someone else in the future.\n\nThe seqlevels function is not available in  R-2.12/BioC 2.7 but is",
+      "thread_id": "thread-be46131886e9",
+      "thread_depth": 2,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-611b2869c21b",
+      "message_id": "<BANLkTi=8DQ2tGZaPx6Cw3ohBCH=gOyBSWg@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-04-11T16:31:03Z",
+      "subject": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "subject_clean": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "in_reply_to": "<4DA307E2.903@fhcrc.org>",
+      "references": [
+        "<BANLkTikWXTxPPE23dPdccT9kxifdSA_MDw@mail.gmail.com>",
+        "<4DA307E2.903@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110411/537fbf70/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110411/537fbf70/attachment.pl>",
+      "thread_id": "thread-be46131886e9",
+      "thread_depth": 2,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-5e71319fd243",
+      "message_id": "<4DA359A7.8040801@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2011-04-11T19:42:31Z",
+      "subject": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "subject_clean": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "in_reply_to": "<BANLkTi=8DQ2tGZaPx6Cw3ohBCH=gOyBSWg@mail.gmail.com>",
+      "references": [
+        "<BANLkTikWXTxPPE23dPdccT9kxifdSA_MDw@mail.gmail.com>",
+        "<4DA307E2.903@fhcrc.org>",
+        "<BANLkTi=8DQ2tGZaPx6Cw3ohBCH=gOyBSWg@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Michael,\n\nOn 11-04-11 09:31 AM, Michael Lawrence wrote:\n> I've noticed some functions just issuing a warning when the SeqInfo objects\n> have a different set of chromosomes. In the OP's code, this is issuing an\n> error. Has this changed in devel? Is everything now a warning? I would\n> recommend consistency here, and a warning seems best, stating the\n> assumptions that were made.\n\nThe way this is handled has been completely revisited in BioC 2.8.\n\nNow checking whether 2 objects with sequence information (like GRanges,\nGRangesList, GappedAlignments, BSgenome) are compatible or not is the\nresponsibility of the \"merge\" method for Seqinfo objects (you can use\nthe seqinfo() getter to extract the Seqinfo slot from a GRanges,\nGRangesList, GappedAlignments or BSgenome object).\n\nHere first I show how merging 2 Seqinfo objects works (the end user\nnever does this directly but this is what happens behind the scene\nwhen s/he tries to compare or combine 2 objects that have a Seqinfo\nslot):\n\n   library(GenomicRanges)\n\n   x <- Seqinfo(seqnames=c(\"chr1\", \"chr2\", \"chr3\", \"chrM\"),\n                seqlengths=c(100, 200, NA, 15),\n                isCircular=c(NA, FALSE, FALSE, TRUE))\n\n   y <- Seqinfo(seqnames=c(\"chr3\", \"chr4\", \"chrM\"),\n                seqlengths=c(300, NA, 15))\n\nThen:\n\n   > x\n   Seqinfo of length 4\n   seqnames seqlengths isCircular\n   chr1            100         NA\n   chr2            200      FALSE\n   chr3             NA      FALSE\n   chrM             15       TRUE\n\n   > y\n   Seqinfo of length 3\n   seqnames seqlengths isCircular\n   chr3            300         NA\n   chr4             NA         NA\n   chrM             15         NA\n\n   > merge(x, y)\n   Seqinfo of length 5\n   seqnames seqlengths isCircular\n   chr1            100         NA\n   chr2            200      FALSE\n   chr3            300      FALSE\n   chrM             15       TRUE\n   chr4             NA         NA\n   Warning message:\n   In .Seqinfo.mergexy(x, y) :\n     Each of the 2 combined objects has sequence levels not in the other:\n     - in 'x': chr1, chr2\n     - in 'y': chr4\n     Make sure to always combine/compare objects based on the same reference\n     genome (use suppressWarnings() to suppress this warning).\n\nNow if I modify 'y' in a way that *contradicts* what 'x' says about\ncircularity of chr3 and chrM:\n\n   > isCircular(y)[c(\"chr3\", \"chrM\")] <- c(TRUE, FALSE)\n   > y\n   Seqinfo of length 3\n   seqnames seqlengths isCircular\n   chr3            300       TRUE\n   chr4             NA         NA\n   chrM             15      FALSE\n\nThen I get an error:\n\n   > merge(x, y)\n   Error in mergeNamedAtomicVectors(isCircular(x), isCircular(y), what = \nc(\"sequence\",  :\n     sequences chr3, chrM have incompatible circularity flags:\n     - in 'x': FALSE, TRUE\n     - in 'y': TRUE, FALSE\n   In addition: Warning message:\n   In .Seqinfo.mergexy(x, y) :\n     Each of the 2 combined objects has sequence levels not in the other:\n     - in 'x': chr1, chr2\n     - in 'y': chr4\n     Make sure to always combine/compare objects based on the same reference\n     genome (use suppressWarnings() to suppress this warning).\n\nThis is because merge() has no way to reconcile the information stored\nin 'x' and 'y'.\n\nNow from an end user perspective, findOverlaps(), countOverlaps(), c(),\nunion(), intersect(), punion(), pintersect(), etc... on 2 GRanges\nobjects behave consistently with the above (they just try to merge\nseqinfo(gr1) and seqinfo(gr2) before they do anything else):\n\n   gr1 <- GRanges(Rle(factor(levels=seqlevels(x))))\n   seqinfo(gr1) <- x\n   gr2 <- GRanges(Rle(factor(levels=seqlevels(y))))\n   seqinfo(gr2) <- y\n\nThen:\n\n   > gr1\n   GRanges with 0 ranges and 0 elementMetadata values\n        seqnames ranges strand |\n\n   seqlengths\n    chr1 chr2 chr3 chrM\n     100  200   NA   15\n\n   > gr2\n   GRanges with 0 ranges and 0 elementMetadata values\n         seqnames ranges strand |\n\n   seqlengths\n    chr3 chr4 chrM\n     300   NA   15\n\n   > countOverlaps(gr1, gr2)\n   Warning message:\n   In .Seqinfo.mergexy(x, y) :\n     Each of the 2 combined objects has sequence levels not in the other:\n     - in 'x': chr1, chr2\n     - in 'y': chr4\n     Make sure to always combine/compare objects based on the same reference\n     genome (use suppressWarnings() to suppress this warning).\n   Error in queryHits(findOverlaps(query, subject, maxgap = maxgap, \nminoverlap = minoverlap,  :\n     error in evaluating the argument 'x' in selecting a method for \nfunction 'queryHits': Error in mergeNamedAtomicVectors(isCircular(x), \nisCircular(y), what = c(\"sequence\",  :\n     sequences chr3, chrM have incompatible circularity flags:\n     - in 'x': FALSE, TRUE\n     - in 'y': TRUE, FALSE\n\nHope this clarifies.\n\nH.\n\n > sessionInfo()\nR version 2.13.0 RC (2011-04-05 r55310)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n  [1] LC_CTYPE=en_CA.UTF-8       LC_NUMERIC=C\n  [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8\n  [5] LC_MONETARY=C              LC_MESSAGES=en_CA.UTF-8\n  [7] LC_PAPER=en_CA.UTF-8       LC_NAME=C\n  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] GenomicRanges_1.3.38 IRanges_1.9.31\n\n\n>\n> Thanks,\n> Michael\n>\n> On Mon, Apr 11, 2011 at 6:53 AM, Valerie Obenchain<vobencha at fhcrc.org>wrote:\n>\n>> Hi Lax,\n>>\n>>\n>> On 04/10/11 08:13, Lakshmanan Iyer wrote:\n>>\n>>> Hello,\n>>> I created a GRangesList of 3'UTRs and GappedAlignments of a BAM file using\n>>> the following code:\n>>> _____________________\n>>> library(GenomicRanges);\n>>>   library(Rsamtools);\n>>>   library(leeBamViews)\n>>> library (\"GenomicFeatures\")\n>>> txdb<- makeTranscriptDbFromUCSC(genome=\"mm9\", tablename=\"knownGene\")\n>>> #\n>>> # It remembers the transcript ids. so can be used later\n>>> p3UTRs<- threeUTRsByTranscript(txdb, use.names=TRUE)\n>>> # read the bam alignment\n>>> aligns<- readGappedAlignments (\"Dend_accepted_hits_sorted.bam\")\n>>>\n>>> --------------------------------------\n>>> However, when I try to get the countOverlaps, I get the following error:\n>>>\n>>>\n>>>> c<- countOverlaps (p3UTRs, aligns)\n>>>>\n>>>>\n>>> Error in queryHits(findOverlaps(query, subject, maxgap = maxgap, type =\n>>> type)) :\n>>>    error in evaluating the argument 'x' in selecting a method for function\n>>> 'queryHits'\n>>>\n>>> I suspect that this happens as the sequence names, \"chrUn_random\n>>> chrX_random\n>>> chrY_random\" etc which are present in the GRangeslist, p3UTRs are not\n>>> present in the GappedAlignement objects.\n>>>\n>>> My questions is:\n>>> 1. Can I make countOverlaps to choose only those intervals in which there\n>>> are entries in both the objects?\n>>>\n>>>\n>> No.  The general approach is to clean the subject and query before calling\n>> countOverlaps.\n>>\n>>    2. How do I subjset GRangeList (p3UTRs) to include entries from specific\n>>> list of chromosomes of interest only?\n>>>\n>>>\n>> To retain specific chromosomes, you can subset with seqnames then reset the\n>> seqlevels.\n>>\n>> In R-2.13/BioC 2.8, using the grl object from the GRangesList man page :\n>>\n>>> grl\n>> GRangesList of length 3\n>> $gr1\n>> GRanges with 1 range and 2 elementMetadata values\n>>     seqnames    ranges strand |     score        GC\n>> <Rle>  <IRanges>  <Rle>  |<integer>  <numeric>\n>> [1]     chr2    [3, 6]      + |         5      0.45\n>>\n>> $gr2\n>> GRanges with 2 ranges and 2 elementMetadata values\n>>     seqnames    ranges strand |     score        GC\n>> <Rle>  <IRanges>  <Rle>  |<integer>  <numeric>\n>> [1]     chr1  [ 7,  9]      + |         3       0.3\n>> [2]     chr1  [13, 15]      - |         4       0.5\n>>\n>> $gr3\n>> GRanges with 2 ranges and 2 elementMetadata values\n>>     seqnames    ranges strand |     score        GC\n>> <Rle>  <IRanges>  <Rle>  |<integer>  <numeric>\n>> [1]     chr1    [1, 3]      - |         6       0.4\n>> [2]     chr2    [4, 9]      - |         2       0.1\n>>\n>>\n>> seqlengths\n>>   chr2 chr1\n>>    NA   NA\n>>\n>>     grlsub<- grl[seqnames(grl) == \"chr1\", ]\n>>     seqlevels(grlsub)<- seqlevels(grlsub)[seqlevels(grlsub) == \"chr1\"]\n>>\n>> You can remove the empty list elements with,\n>>\n>>     grlsub<- grlsub[elementLengths(grlsub)>0]\n>>\n>>\n>>> grlsub\n>> GRangesList of length 2\n>> $gr2\n>> GRanges with 2 ranges and 2 elementMetadata values\n>>     seqnames    ranges strand |     score        GC\n>> <Rle>  <IRanges>  <Rle>  |<integer>  <numeric>\n>> [1]     chr1  [ 7,  9]      + |         3       0.3\n>> [2]     chr1  [13, 15]      - |         4       0.5\n>>\n>> $gr3\n>> GRanges with 1 range and 2 elementMetadata values\n>>     seqnames    ranges strand |     score        GC\n>> <Rle>  <IRanges>  <Rle>  |<integer>  <numeric>\n>> [1]     chr1    [1, 3]      - |         6       0.4\n>>\n>>\n>> seqlengths\n>>   chr1\n>>    NA\n>>\n>>\n>> Valerie\n>>\n>>\n>>> sessionInfo()\n>> R version 2.13.0 beta (2011-03-30 r55199)\n>> Platform: x86_64-unknown-linux-gnu (64-bit)\n>>\n>> locale:\n>>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>>   [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>>   [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>>   [9] LC_ADDRESS=C               LC_TELEPHONE=C\n>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>>\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] GenomicRanges_1.3.37 IRanges_1.9.29\n>>\n>>\n>> loaded via a namespace (and not attached):\n>> [1] tools_2.13.0\n>>\n>>\n>>\n>>\n>>\n>>   -best\n>>> -Lax\n>>>\n>>>\n>>>> sessionInfo()\n>>>>\n>>>>\n>>> R version 2.12.0 (2010-10-15)\n>>> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>>>\n>>> locale:\n>>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>>>\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>\n>>> other attached packages:\n>>> [1] GenomicFeatures_1.2.1 leeBamViews_0.99.11   BSgenome_1.18.2\n>>> [4] Biobase_2.10.0        Rsamtools_1.2.0       Biostrings_2.18.0\n>>> [7] GenomicRanges_1.2.3   IRanges_1.8.2\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] biomaRt_2.6.0      DBI_0.2-5          RCurl_1.4-3\n>>> RSQLite_0.9-2\n>>> [5] rtracklayer_1.10.5 tools_2.12.0       XML_3.2-0\n>>>\n>>>         [[alternative HTML version deleted]]\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Michael,\n\nOn 11-04-11 09:31 AM, Michael Lawrence wrote:\n> I've noticed some functions just issuing a warning when the SeqInfo objects\n> have a different set of chromosomes. In the OP's code, this i",
+      "thread_id": "thread-be46131886e9",
+      "thread_depth": 3,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-22cf2957060d",
+      "message_id": "<E634B43F-A435-4014-885D-A887C58945D8@embl.de>",
+      "from_name": "Nicolas Delhomme",
+      "from_email_hash": "e1bcfb33fa39c0fa362850148b5fab2fc3bcba8158505ec7e26a57a5446bd20b",
+      "date": "2011-04-12T16:19:10Z",
+      "subject": "[Bioc-sig-seq] Howto \"inject\" indels?",
+      "subject_clean": "[Bioc-sig-seq] Howto \"inject\" indels?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\nI find the injectSNPs function from the BSgenome very interesting and started to dream of a function to do the same for \"small\" indels. Any pointers?\n\nCheers,\n\nNico\n\n\n---------------------------------------------------------------\nNicolas Delhomme\n\nHigh Throughput Functional Genomics Center\n\nEuropean Molecular Biology Laboratory\n\nTel: +49 6221 387 8310\nEmail: nicolas.delhomme at embl.de\nMeyerhofstrasse 1 - Postfach 10.2209\n69102 Heidelberg, Germany",
+      "body_snippet": "Hi all,\n\nI find the injectSNPs function from the BSgenome very interesting and started to dream of a function to do the same for \"small\" indels. Any pointers?\n\nCheers,\n\nNico\n\n\n------------------------",
+      "thread_id": "thread-22cf2957060d",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-4b30457e5703",
+      "message_id": "<BANLkTi=tq26ozh87TaTT-kSNXup3vv1XiQ@mail.gmail.com>",
+      "from_name": "Lakshmanan Iyer",
+      "from_email_hash": "c1b9f1431beed3398f114cc373d41158503fc837d5f4a10f17ccfdc83e46efcc",
+      "date": "2011-04-14T14:19:17Z",
+      "subject": "[Bioc-sig-seq] Extracting data from SimpleRleViewsList",
+      "subject_clean": "[Bioc-sig-seq] Extracting data from SimpleRleViewsList",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110414/18bfc69e/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110414/18bfc69e/attachment.pl>",
+      "thread_id": "thread-4b30457e5703",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-4bd5ac22438c",
+      "message_id": "<BANLkTi=2HJPcEMM-cA-N1CRiLAUvtapbLg@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-04-14T14:41:59Z",
+      "subject": "[Bioc-sig-seq] Extracting data from SimpleRleViewsList",
+      "subject_clean": "[Bioc-sig-seq] Extracting data from SimpleRleViewsList",
+      "in_reply_to": "<BANLkTi=tq26ozh87TaTT-kSNXup3vv1XiQ@mail.gmail.com>",
+      "references": [
+        "<BANLkTi=tq26ozh87TaTT-kSNXup3vv1XiQ@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110414/01d2f582/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110414/01d2f582/attachment.pl>",
+      "thread_id": "thread-4b30457e5703",
+      "thread_depth": 1,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-ec8613e5fd70",
+      "message_id": "<98C97424-749C-4612-B44D-A133C0770082@gmail.com>",
+      "from_name": "Lax",
+      "from_email_hash": "c1b9f1431beed3398f114cc373d41158503fc837d5f4a10f17ccfdc83e46efcc",
+      "date": "2011-04-14T15:02:48Z",
+      "subject": "[Bioc-sig-seq] Extracting data from SimpleRleViewsList",
+      "subject_clean": "[Bioc-sig-seq] Extracting data from SimpleRleViewsList",
+      "in_reply_to": "<BANLkTi=2HJPcEMM-cA-N1CRiLAUvtapbLg@mail.gmail.com>",
+      "references": [
+        "<BANLkTi=tq26ozh87TaTT-kSNXup3vv1XiQ@mail.gmail.com>",
+        "<BANLkTi=2HJPcEMM-cA-N1CRiLAUvtapbLg@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110414/de9933cb/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110414/de9933cb/attachment.pl>",
+      "thread_id": "thread-4b30457e5703",
+      "thread_depth": 2,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-88b12064266b",
+      "message_id": "<BANLkTi=6F1-AXTFfdZpVJH_MhCrdQKtusQ@mail.gmail.com>",
+      "from_name": "Dan Tenenbaum",
+      "from_email_hash": "588191179e1473316acba74fd9f9fb7b6024bc1e0dcdc5cb81f8f2c35fa8200c",
+      "date": "2011-04-14T21:33:51Z",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "subject_clean": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Bioconductors:\n\nWe are pleased to announce Bioconductor 2.8, consisting of 466\nsoftware packages and more than 500 up-to-date annotation packages.\nThere are 48 new software packages, and many updates and improvements\nto existing packages. Two software packages that were in the previous\nversion have been removed. Bioconductor 2.8 is compatible with\nR 2.13.0, and is supported on Linux, 32- and 64-bit Windows, and Mac\nOS.  Visit\n\nhttp://bioconductor.org\n\nfor details and downloads.\n\nContents\n========\n\n* Getting Started with Bioconductor 2.8\n* New Software Packages\n* Using Bioconductor in the cloud\n\nGetting Started with Bioconductor 2.8\n=====================================\n\nTo install Bioconductor 2.8:\n\n1. Install R 2.13.0.  Bioconductor 2.8 has been designed expressly for\nthis version of R.\n\n2. Follow the instructions here:\n\nhttp://bioconductor.org/install/\n\nPlease visit http://bioconductor.org for details and downloads.\n\nNew Software Packages\n=====================\n\nThere are 48 new packages in this release of Bioconductor.\n\na4\n\n Automated Affymetrix Array Analysis Umbrella Package\n\na4Base\n\n Automated Affymetrix Array Analysis Base Package\n\na4Classif\n\n Automated Affymetrix Array Analysis Classification Package\n\na4Core\n\n Automated Affymetrix Array Analysis Core Package\n\na4Preproc\n\n Automated Affymetrix Array Analysis Preprocessing Package\n\na4Reporting\n\n Automated Affymetrix Array Analysis Reporting Package\n\nAnnotationFuncs\n\n Annotation translation functions\n\nanota\n\n ANalysis Of Translational Activity\n\nchopsticks\n\n The snp.matrix and X.snp.matrix classes\n\nClonality\n\n Clonality testing\n\nclst\n\n Classification by local similarity threshold\n\nclstutils\n\n Tools for performing taxonomic assignment\n\nclusterProfiler\n\n statistical analysis and visulization of\n functional profiles for genes and gene clusters\n\ncn.farms\n\n Factor Analysis for copy number estimation\n\nENVISIONQuery\n\n Retrieval from the ENVISION bioinformatics data portal into R\n\nExiMiR\n\n R functions for the normalization of Exiqon miRNA array data\n\nflowPhyto\n\n Methods for Continuous Flow Cytometry\n\nflowPlots\n\n analysis plots and data class for gated flow cytometry data\n\ngaia\n\n An R package for genomic analysis of significant\n chromosomal aberrations\n\ngenefu\n\n Relevant Functions for Gene Expression Analysis,\n Especially in Breast Cancer\n\ngenoset\n\n Provides classes similar to ExpressionSet for copy number analysis\n\nGSVA\n\n Gene Set Variation Analysis\n\nibh\n\n Interaction Based Homogeneity for Evaluating Gene Lists\n\ninveRsion\n\n Inversions in genotype data\n\nIPPD\n\n Isotopic peak pattern deconvolution for Protein Mass\n Spectrometry by template matching\n\njoda\n\n JODA algorithm for quantifying gene deregulation using knowledge\n\nlol\n\n Lots Of Lasso\n\nmcaGUI\n\n Microbial Community Analysis GUI\n\nmgsa\n\n Model-based gene set analysis\n\nMLP\n\n Mean Log P Analysis\n\nmosaics\n\n MOdel-based one and two Sample Analysis and Inference for ChIP-Seq\n\nMSnbase\n\n Base Functions and Classes for MS-based Proteomics\n\nNCIgraph\n\n Pathways from the NCI Pathways Database\n\nphenoDist\n\n Phenotypic distance measures\n\nphenoTest\n\n Tools to test correlation between gene expression and phenotype\n\nprocoil\n\n Prediction of Oligomerization of Coiled Coil Proteins\n\npvac\n\n PCA-based gene filtering for Affymetrix arrays\n\nqrqc\n\n Quick Read Quality Control\n\nRNAinteract\n\n Estimate Pairwise Interactions from multidimensional features\n\nRsubread\n\n a super fast, sensitive and accurate read aligner for mapping\n next-generation sequencing reads\n\nseqbias\n\n Estimation of per-position bias in high-throughput sequencing data\n\nsnm\n\n Supervised Normalization of Microarrays\n\nsnpStats\n\n SnpMatrix and XSnpMatrix classes and methods\n\nsurvcomp\n\n Performance Assessment and Comparison for Survival Analysis\n\nTDARACNE\n\n Network reverse engineering from time course data\n\nTEQC\n\n Quality control for target capture experiments\n\nTurboNorm\n\n A fast scatterplot smoother suitable for microarray normalization\n\nVega\n\n An R package for copy number data segmentation\n\n\nUsing Bioconductor in the cloud\n===============================\n\nThis release features the Bioconductor Amazon Machine\nImage (AMI), which allows easy access to R and Bioconductor\nwithin the Elastic Compute Cloud (EC2). It's easy to run\nparallelizable tasks on MPI clusters, run R from within\nyour web browser using RStudio Server, and more. No\ninstallation required. Information available at:\n\nhttp://bioconductor.org/help/bioconductor-cloud-ami/",
+      "body_snippet": "Bioconductors:\n\nWe are pleased to announce Bioconductor 2.8, consisting of 466\nsoftware packages and more than 500 up-to-date annotation packages.\nThere are 48 new software packages, and many updates ",
+      "thread_id": "thread-88b12064266b",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-e2ac57b6f55d",
+      "message_id": "<BANLkTi=JRS6N0mDT92Y2230gNBOrKFvtbw@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-04-15T15:10:02Z",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "subject_clean": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "in_reply_to": "<BANLkTi=6F1-AXTFfdZpVJH_MhCrdQKtusQ@mail.gmail.com>",
+      "references": [
+        "<BANLkTi=6F1-AXTFfdZpVJH_MhCrdQKtusQ@mail.gmail.com>"
+      ],
+      "body_plain": "Hello Dan,\n\nUpdating Bioconductor devel packages as instructed in\n\nhttp://bioconductor.org/install/\n\nusually leads to stalled downloads when it retrieves large packages.\nThe BSgenome packages are notorious for this.\n\nCan you or anybody recommend a solution that does not involve manually\ndownloading the tar balls one by one? (Perhaps the is a mirror for\ndevel.)\n\nThank you,\n\nIvan\n\n\n\nOn Thu, Apr 14, 2011 at 5:33 PM, Dan Tenenbaum <dtenenba at fhcrc.org> wrote:\n> Bioconductors:\n>\n> We are pleased to announce Bioconductor 2.8, consisting of 466\n> software packages and more than 500 up-to-date annotation packages.\n> There are 48 new software packages, and many updates and improvements\n> to existing packages. Two software packages that were in the previous\n> version have been removed. Bioconductor 2.8 is compatible with\n> R 2.13.0, and is supported on Linux, 32- and 64-bit Windows, and Mac\n> OS. ?Visit\n>\n> http://bioconductor.org\n>\n> for details and downloads.\n>\n> Contents\n> ========\n>\n> * Getting Started with Bioconductor 2.8\n> * New Software Packages\n> * Using Bioconductor in the cloud\n>\n> Getting Started with Bioconductor 2.8\n> =====================================\n>\n> To install Bioconductor 2.8:\n>\n> 1. Install R 2.13.0. ?Bioconductor 2.8 has been designed expressly for\n> this version of R.\n>\n> 2. Follow the instructions here:\n>\n> http://bioconductor.org/install/\n>\n> Please visit http://bioconductor.org for details and downloads.\n>\n> New Software Packages\n> =====================\n>\n> There are 48 new packages in this release of Bioconductor.\n>\n> a4\n>\n> ?Automated Affymetrix Array Analysis Umbrella Package\n>\n> a4Base\n>\n> ?Automated Affymetrix Array Analysis Base Package\n>\n> a4Classif\n>\n> ?Automated Affymetrix Array Analysis Classification Package\n>\n> a4Core\n>\n> ?Automated Affymetrix Array Analysis Core Package\n>\n> a4Preproc\n>\n> ?Automated Affymetrix Array Analysis Preprocessing Package\n>\n> a4Reporting\n>\n> ?Automated Affymetrix Array Analysis Reporting Package\n>\n> AnnotationFuncs\n>\n> ?Annotation translation functions\n>\n> anota\n>\n> ?ANalysis Of Translational Activity\n>\n> chopsticks\n>\n> ?The snp.matrix and X.snp.matrix classes\n>\n> Clonality\n>\n> ?Clonality testing\n>\n> clst\n>\n> ?Classification by local similarity threshold\n>\n> clstutils\n>\n> ?Tools for performing taxonomic assignment\n>\n> clusterProfiler\n>\n> ?statistical analysis and visulization of\n> ?functional profiles for genes and gene clusters\n>\n> cn.farms\n>\n> ?Factor Analysis for copy number estimation\n>\n> ENVISIONQuery\n>\n> ?Retrieval from the ENVISION bioinformatics data portal into R\n>\n> ExiMiR\n>\n> ?R functions for the normalization of Exiqon miRNA array data\n>\n> flowPhyto\n>\n> ?Methods for Continuous Flow Cytometry\n>\n> flowPlots\n>\n> ?analysis plots and data class for gated flow cytometry data\n>\n> gaia\n>\n> ?An R package for genomic analysis of significant\n> ?chromosomal aberrations\n>\n> genefu\n>\n> ?Relevant Functions for Gene Expression Analysis,\n> ?Especially in Breast Cancer\n>\n> genoset\n>\n> ?Provides classes similar to ExpressionSet for copy number analysis\n>\n> GSVA\n>\n> ?Gene Set Variation Analysis\n>\n> ibh\n>\n> ?Interaction Based Homogeneity for Evaluating Gene Lists\n>\n> inveRsion\n>\n> ?Inversions in genotype data\n>\n> IPPD\n>\n> ?Isotopic peak pattern deconvolution for Protein Mass\n> ?Spectrometry by template matching\n>\n> joda\n>\n> ?JODA algorithm for quantifying gene deregulation using knowledge\n>\n> lol\n>\n> ?Lots Of Lasso\n>\n> mcaGUI\n>\n> ?Microbial Community Analysis GUI\n>\n> mgsa\n>\n> ?Model-based gene set analysis\n>\n> MLP\n>\n> ?Mean Log P Analysis\n>\n> mosaics\n>\n> ?MOdel-based one and two Sample Analysis and Inference for ChIP-Seq\n>\n> MSnbase\n>\n> ?Base Functions and Classes for MS-based Proteomics\n>\n> NCIgraph\n>\n> ?Pathways from the NCI Pathways Database\n>\n> phenoDist\n>\n> ?Phenotypic distance measures\n>\n> phenoTest\n>\n> ?Tools to test correlation between gene expression and phenotype\n>\n> procoil\n>\n> ?Prediction of Oligomerization of Coiled Coil Proteins\n>\n> pvac\n>\n> ?PCA-based gene filtering for Affymetrix arrays\n>\n> qrqc\n>\n> ?Quick Read Quality Control\n>\n> RNAinteract\n>\n> ?Estimate Pairwise Interactions from multidimensional features\n>\n> Rsubread\n>\n> ?a super fast, sensitive and accurate read aligner for mapping\n> ?next-generation sequencing reads\n>\n> seqbias\n>\n> ?Estimation of per-position bias in high-throughput sequencing data\n>\n> snm\n>\n> ?Supervised Normalization of Microarrays\n>\n> snpStats\n>\n> ?SnpMatrix and XSnpMatrix classes and methods\n>\n> survcomp\n>\n> ?Performance Assessment and Comparison for Survival Analysis\n>\n> TDARACNE\n>\n> ?Network reverse engineering from time course data\n>\n> TEQC\n>\n> ?Quality control for target capture experiments\n>\n> TurboNorm\n>\n> ?A fast scatterplot smoother suitable for microarray normalization\n>\n> Vega\n>\n> ?An R package for copy number data segmentation\n>\n>\n> Using Bioconductor in the cloud\n> ===============================\n>\n> This release features the Bioconductor Amazon Machine\n> Image (AMI), which allows easy access to R and Bioconductor\n> within the Elastic Compute Cloud (EC2). It's easy to run\n> parallelizable tasks on MPI clusters, run R from within\n> your web browser using RStudio Server, and more. No\n> installation required. Information available at:\n>\n> http://bioconductor.org/help/bioconductor-cloud-ami/\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Hello Dan,\n\nUpdating Bioconductor devel packages as instructed in\n\nhttp://bioconductor.org/install/\n\nusually leads to stalled downloads when it retrieves large packages.\nThe BSgenome packages are noto",
+      "thread_id": "thread-88b12064266b",
+      "thread_depth": 1,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-9dfb5895b73b",
+      "message_id": "<BANLkTi=ze4=TzAMDkwhjOt--ettAxNAaWw@mail.gmail.com>",
+      "from_name": "Dan Tenenbaum",
+      "from_email_hash": "588191179e1473316acba74fd9f9fb7b6024bc1e0dcdc5cb81f8f2c35fa8200c",
+      "date": "2011-04-15T15:34:07Z",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "subject_clean": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "in_reply_to": "<BANLkTi=JRS6N0mDT92Y2230gNBOrKFvtbw@mail.gmail.com>",
+      "references": [
+        "<BANLkTi=6F1-AXTFfdZpVJH_MhCrdQKtusQ@mail.gmail.com>",
+        "<BANLkTi=JRS6N0mDT92Y2230gNBOrKFvtbw@mail.gmail.com>"
+      ],
+      "body_plain": "On Fri, Apr 15, 2011 at 8:10 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> Hello Dan,\n>\n> Updating Bioconductor devel packages as instructed in\n>\n> http://bioconductor.org/install/\n>\n> usually leads to stalled downloads when it retrieves large packages.\n> The BSgenome packages are notorious for this.\n>\n> Can you or anybody recommend a solution that does not involve manually\n> downloading the tar balls one by one? (Perhaps the is a mirror for\n> devel.)\n\nHi Ivan,\n\nThere are mirrors for release and devel here:\n\nhttp://bioconductor.org/about/mirrors/\n\nDan\n\n\n>\n> Thank you,\n>\n> Ivan\n>\n>\n>\n> On Thu, Apr 14, 2011 at 5:33 PM, Dan Tenenbaum <dtenenba at fhcrc.org> wrote:\n>> Bioconductors:\n>>\n>> We are pleased to announce Bioconductor 2.8, consisting of 466\n>> software packages and more than 500 up-to-date annotation packages.\n>> There are 48 new software packages, and many updates and improvements\n>> to existing packages. Two software packages that were in the previous\n>> version have been removed. Bioconductor 2.8 is compatible with\n>> R 2.13.0, and is supported on Linux, 32- and 64-bit Windows, and Mac\n>> OS. ?Visit\n>>\n>> http://bioconductor.org\n>>\n>> for details and downloads.\n>>\n>> Contents\n>> ========\n>>\n>> * Getting Started with Bioconductor 2.8\n>> * New Software Packages\n>> * Using Bioconductor in the cloud\n>>\n>> Getting Started with Bioconductor 2.8\n>> =====================================\n>>\n>> To install Bioconductor 2.8:\n>>\n>> 1. Install R 2.13.0. ?Bioconductor 2.8 has been designed expressly for\n>> this version of R.\n>>\n>> 2. Follow the instructions here:\n>>\n>> http://bioconductor.org/install/\n>>\n>> Please visit http://bioconductor.org for details and downloads.\n>>\n>> New Software Packages\n>> =====================\n>>\n>> There are 48 new packages in this release of Bioconductor.\n>>\n>> a4\n>>\n>> ?Automated Affymetrix Array Analysis Umbrella Package\n>>\n>> a4Base\n>>\n>> ?Automated Affymetrix Array Analysis Base Package\n>>\n>> a4Classif\n>>\n>> ?Automated Affymetrix Array Analysis Classification Package\n>>\n>> a4Core\n>>\n>> ?Automated Affymetrix Array Analysis Core Package\n>>\n>> a4Preproc\n>>\n>> ?Automated Affymetrix Array Analysis Preprocessing Package\n>>\n>> a4Reporting\n>>\n>> ?Automated Affymetrix Array Analysis Reporting Package\n>>\n>> AnnotationFuncs\n>>\n>> ?Annotation translation functions\n>>\n>> anota\n>>\n>> ?ANalysis Of Translational Activity\n>>\n>> chopsticks\n>>\n>> ?The snp.matrix and X.snp.matrix classes\n>>\n>> Clonality\n>>\n>> ?Clonality testing\n>>\n>> clst\n>>\n>> ?Classification by local similarity threshold\n>>\n>> clstutils\n>>\n>> ?Tools for performing taxonomic assignment\n>>\n>> clusterProfiler\n>>\n>> ?statistical analysis and visulization of\n>> ?functional profiles for genes and gene clusters\n>>\n>> cn.farms\n>>\n>> ?Factor Analysis for copy number estimation\n>>\n>> ENVISIONQuery\n>>\n>> ?Retrieval from the ENVISION bioinformatics data portal into R\n>>\n>> ExiMiR\n>>\n>> ?R functions for the normalization of Exiqon miRNA array data\n>>\n>> flowPhyto\n>>\n>> ?Methods for Continuous Flow Cytometry\n>>\n>> flowPlots\n>>\n>> ?analysis plots and data class for gated flow cytometry data\n>>\n>> gaia\n>>\n>> ?An R package for genomic analysis of significant\n>> ?chromosomal aberrations\n>>\n>> genefu\n>>\n>> ?Relevant Functions for Gene Expression Analysis,\n>> ?Especially in Breast Cancer\n>>\n>> genoset\n>>\n>> ?Provides classes similar to ExpressionSet for copy number analysis\n>>\n>> GSVA\n>>\n>> ?Gene Set Variation Analysis\n>>\n>> ibh\n>>\n>> ?Interaction Based Homogeneity for Evaluating Gene Lists\n>>\n>> inveRsion\n>>\n>> ?Inversions in genotype data\n>>\n>> IPPD\n>>\n>> ?Isotopic peak pattern deconvolution for Protein Mass\n>> ?Spectrometry by template matching\n>>\n>> joda\n>>\n>> ?JODA algorithm for quantifying gene deregulation using knowledge\n>>\n>> lol\n>>\n>> ?Lots Of Lasso\n>>\n>> mcaGUI\n>>\n>> ?Microbial Community Analysis GUI\n>>\n>> mgsa\n>>\n>> ?Model-based gene set analysis\n>>\n>> MLP\n>>\n>> ?Mean Log P Analysis\n>>\n>> mosaics\n>>\n>> ?MOdel-based one and two Sample Analysis and Inference for ChIP-Seq\n>>\n>> MSnbase\n>>\n>> ?Base Functions and Classes for MS-based Proteomics\n>>\n>> NCIgraph\n>>\n>> ?Pathways from the NCI Pathways Database\n>>\n>> phenoDist\n>>\n>> ?Phenotypic distance measures\n>>\n>> phenoTest\n>>\n>> ?Tools to test correlation between gene expression and phenotype\n>>\n>> procoil\n>>\n>> ?Prediction of Oligomerization of Coiled Coil Proteins\n>>\n>> pvac\n>>\n>> ?PCA-based gene filtering for Affymetrix arrays\n>>\n>> qrqc\n>>\n>> ?Quick Read Quality Control\n>>\n>> RNAinteract\n>>\n>> ?Estimate Pairwise Interactions from multidimensional features\n>>\n>> Rsubread\n>>\n>> ?a super fast, sensitive and accurate read aligner for mapping\n>> ?next-generation sequencing reads\n>>\n>> seqbias\n>>\n>> ?Estimation of per-position bias in high-throughput sequencing data\n>>\n>> snm\n>>\n>> ?Supervised Normalization of Microarrays\n>>\n>> snpStats\n>>\n>> ?SnpMatrix and XSnpMatrix classes and methods\n>>\n>> survcomp\n>>\n>> ?Performance Assessment and Comparison for Survival Analysis\n>>\n>> TDARACNE\n>>\n>> ?Network reverse engineering from time course data\n>>\n>> TEQC\n>>\n>> ?Quality control for target capture experiments\n>>\n>> TurboNorm\n>>\n>> ?A fast scatterplot smoother suitable for microarray normalization\n>>\n>> Vega\n>>\n>> ?An R package for copy number data segmentation\n>>\n>>\n>> Using Bioconductor in the cloud\n>> ===============================\n>>\n>> This release features the Bioconductor Amazon Machine\n>> Image (AMI), which allows easy access to R and Bioconductor\n>> within the Elastic Compute Cloud (EC2). It's easy to run\n>> parallelizable tasks on MPI clusters, run R from within\n>> your web browser using RStudio Server, and more. No\n>> installation required. Information available at:\n>>\n>> http://bioconductor.org/help/bioconductor-cloud-ami/\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>",
+      "body_snippet": "On Fri, Apr 15, 2011 at 8:10 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n> Hello Dan,\n>\n> Updating Bioconductor devel packages as instructed in\n>\n> http://bioconductor.org/install/\n>\n> usually ",
+      "thread_id": "thread-88b12064266b",
+      "thread_depth": 2,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-6b3a90e44032",
+      "message_id": "<BANLkTi=TAsdZnTjFTNm4oOfnU9bkkFXh6A@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-04-15T15:41:36Z",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "subject_clean": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "in_reply_to": "<BANLkTi=ze4=TzAMDkwhjOt--ettAxNAaWw@mail.gmail.com>",
+      "references": [
+        "<BANLkTi=6F1-AXTFfdZpVJH_MhCrdQKtusQ@mail.gmail.com>",
+        "<BANLkTi=JRS6N0mDT92Y2230gNBOrKFvtbw@mail.gmail.com>",
+        "<BANLkTi=ze4=TzAMDkwhjOt--ettAxNAaWw@mail.gmail.com>"
+      ],
+      "body_plain": "Great.\n\nWould you mind showing how you can update the packages using any of\nthose mirrors?\n\nThank you,\n\nIvan\n\n\n\nOn Fri, Apr 15, 2011 at 11:34 AM, Dan Tenenbaum <dtenenba at fhcrc.org> wrote:\n> On Fri, Apr 15, 2011 at 8:10 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>> Hello Dan,\n>>\n>> Updating Bioconductor devel packages as instructed in\n>>\n>> http://bioconductor.org/install/\n>>\n>> usually leads to stalled downloads when it retrieves large packages.\n>> The BSgenome packages are notorious for this.\n>>\n>> Can you or anybody recommend a solution that does not involve manually\n>> downloading the tar balls one by one? (Perhaps the is a mirror for\n>> devel.)\n>\n> Hi Ivan,\n>\n> There are mirrors for release and devel here:\n>\n> http://bioconductor.org/about/mirrors/\n>\n> Dan\n>\n>\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>\n>>\n>> On Thu, Apr 14, 2011 at 5:33 PM, Dan Tenenbaum <dtenenba at fhcrc.org> wrote:\n>>> Bioconductors:\n>>>\n>>> We are pleased to announce Bioconductor 2.8, consisting of 466\n>>> software packages and more than 500 up-to-date annotation packages.\n>>> There are 48 new software packages, and many updates and improvements\n>>> to existing packages. Two software packages that were in the previous\n>>> version have been removed. Bioconductor 2.8 is compatible with\n>>> R 2.13.0, and is supported on Linux, 32- and 64-bit Windows, and Mac\n>>> OS. ?Visit\n>>>\n>>> http://bioconductor.org\n>>>\n>>> for details and downloads.\n>>>\n>>> Contents\n>>> ========\n>>>\n>>> * Getting Started with Bioconductor 2.8\n>>> * New Software Packages\n>>> * Using Bioconductor in the cloud\n>>>\n>>> Getting Started with Bioconductor 2.8\n>>> =====================================\n>>>\n>>> To install Bioconductor 2.8:\n>>>\n>>> 1. Install R 2.13.0. ?Bioconductor 2.8 has been designed expressly for\n>>> this version of R.\n>>>\n>>> 2. Follow the instructions here:\n>>>\n>>> http://bioconductor.org/install/\n>>>\n>>> Please visit http://bioconductor.org for details and downloads.\n>>>\n>>> New Software Packages\n>>> =====================\n>>>\n>>> There are 48 new packages in this release of Bioconductor.\n>>>\n>>> a4\n>>>\n>>> ?Automated Affymetrix Array Analysis Umbrella Package\n>>>\n>>> a4Base\n>>>\n>>> ?Automated Affymetrix Array Analysis Base Package\n>>>\n>>> a4Classif\n>>>\n>>> ?Automated Affymetrix Array Analysis Classification Package\n>>>\n>>> a4Core\n>>>\n>>> ?Automated Affymetrix Array Analysis Core Package\n>>>\n>>> a4Preproc\n>>>\n>>> ?Automated Affymetrix Array Analysis Preprocessing Package\n>>>\n>>> a4Reporting\n>>>\n>>> ?Automated Affymetrix Array Analysis Reporting Package\n>>>\n>>> AnnotationFuncs\n>>>\n>>> ?Annotation translation functions\n>>>\n>>> anota\n>>>\n>>> ?ANalysis Of Translational Activity\n>>>\n>>> chopsticks\n>>>\n>>> ?The snp.matrix and X.snp.matrix classes\n>>>\n>>> Clonality\n>>>\n>>> ?Clonality testing\n>>>\n>>> clst\n>>>\n>>> ?Classification by local similarity threshold\n>>>\n>>> clstutils\n>>>\n>>> ?Tools for performing taxonomic assignment\n>>>\n>>> clusterProfiler\n>>>\n>>> ?statistical analysis and visulization of\n>>> ?functional profiles for genes and gene clusters\n>>>\n>>> cn.farms\n>>>\n>>> ?Factor Analysis for copy number estimation\n>>>\n>>> ENVISIONQuery\n>>>\n>>> ?Retrieval from the ENVISION bioinformatics data portal into R\n>>>\n>>> ExiMiR\n>>>\n>>> ?R functions for the normalization of Exiqon miRNA array data\n>>>\n>>> flowPhyto\n>>>\n>>> ?Methods for Continuous Flow Cytometry\n>>>\n>>> flowPlots\n>>>\n>>> ?analysis plots and data class for gated flow cytometry data\n>>>\n>>> gaia\n>>>\n>>> ?An R package for genomic analysis of significant\n>>> ?chromosomal aberrations\n>>>\n>>> genefu\n>>>\n>>> ?Relevant Functions for Gene Expression Analysis,\n>>> ?Especially in Breast Cancer\n>>>\n>>> genoset\n>>>\n>>> ?Provides classes similar to ExpressionSet for copy number analysis\n>>>\n>>> GSVA\n>>>\n>>> ?Gene Set Variation Analysis\n>>>\n>>> ibh\n>>>\n>>> ?Interaction Based Homogeneity for Evaluating Gene Lists\n>>>\n>>> inveRsion\n>>>\n>>> ?Inversions in genotype data\n>>>\n>>> IPPD\n>>>\n>>> ?Isotopic peak pattern deconvolution for Protein Mass\n>>> ?Spectrometry by template matching\n>>>\n>>> joda\n>>>\n>>> ?JODA algorithm for quantifying gene deregulation using knowledge\n>>>\n>>> lol\n>>>\n>>> ?Lots Of Lasso\n>>>\n>>> mcaGUI\n>>>\n>>> ?Microbial Community Analysis GUI\n>>>\n>>> mgsa\n>>>\n>>> ?Model-based gene set analysis\n>>>\n>>> MLP\n>>>\n>>> ?Mean Log P Analysis\n>>>\n>>> mosaics\n>>>\n>>> ?MOdel-based one and two Sample Analysis and Inference for ChIP-Seq\n>>>\n>>> MSnbase\n>>>\n>>> ?Base Functions and Classes for MS-based Proteomics\n>>>\n>>> NCIgraph\n>>>\n>>> ?Pathways from the NCI Pathways Database\n>>>\n>>> phenoDist\n>>>\n>>> ?Phenotypic distance measures\n>>>\n>>> phenoTest\n>>>\n>>> ?Tools to test correlation between gene expression and phenotype\n>>>\n>>> procoil\n>>>\n>>> ?Prediction of Oligomerization of Coiled Coil Proteins\n>>>\n>>> pvac\n>>>\n>>> ?PCA-based gene filtering for Affymetrix arrays\n>>>\n>>> qrqc\n>>>\n>>> ?Quick Read Quality Control\n>>>\n>>> RNAinteract\n>>>\n>>> ?Estimate Pairwise Interactions from multidimensional features\n>>>\n>>> Rsubread\n>>>\n>>> ?a super fast, sensitive and accurate read aligner for mapping\n>>> ?next-generation sequencing reads\n>>>\n>>> seqbias\n>>>\n>>> ?Estimation of per-position bias in high-throughput sequencing data\n>>>\n>>> snm\n>>>\n>>> ?Supervised Normalization of Microarrays\n>>>\n>>> snpStats\n>>>\n>>> ?SnpMatrix and XSnpMatrix classes and methods\n>>>\n>>> survcomp\n>>>\n>>> ?Performance Assessment and Comparison for Survival Analysis\n>>>\n>>> TDARACNE\n>>>\n>>> ?Network reverse engineering from time course data\n>>>\n>>> TEQC\n>>>\n>>> ?Quality control for target capture experiments\n>>>\n>>> TurboNorm\n>>>\n>>> ?A fast scatterplot smoother suitable for microarray normalization\n>>>\n>>> Vega\n>>>\n>>> ?An R package for copy number data segmentation\n>>>\n>>>\n>>> Using Bioconductor in the cloud\n>>> ===============================\n>>>\n>>> This release features the Bioconductor Amazon Machine\n>>> Image (AMI), which allows easy access to R and Bioconductor\n>>> within the Elastic Compute Cloud (EC2). It's easy to run\n>>> parallelizable tasks on MPI clusters, run R from within\n>>> your web browser using RStudio Server, and more. No\n>>> installation required. Information available at:\n>>>\n>>> http://bioconductor.org/help/bioconductor-cloud-ami/\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>\n>",
+      "body_snippet": "Great.\n\nWould you mind showing how you can update the packages using any of\nthose mirrors?\n\nThank you,\n\nIvan\n\n\n\nOn Fri, Apr 15, 2011 at 11:34 AM, Dan Tenenbaum <dtenenba at fhcrc.org> wrote:\n> On Fri,",
+      "thread_id": "thread-88b12064266b",
+      "thread_depth": 3,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-88b467dcf5a3",
+      "message_id": "<BANLkTikKez2-gfAyG=7Bt=40qc9xMf0bQw@mail.gmail.com>",
+      "from_name": "João Moura",
+      "from_email_hash": "c6ddadb0670d25ab399f0ff00f951d37d925a7b8e0e136258a5adddfc32c9285",
+      "date": "2011-04-15T16:18:28Z",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "subject_clean": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "in_reply_to": "<BANLkTi=TAsdZnTjFTNm4oOfnU9bkkFXh6A@mail.gmail.com>",
+      "references": [
+        "<BANLkTi=6F1-AXTFfdZpVJH_MhCrdQKtusQ@mail.gmail.com>",
+        "<BANLkTi=JRS6N0mDT92Y2230gNBOrKFvtbw@mail.gmail.com>",
+        "<BANLkTi=ze4=TzAMDkwhjOt--ettAxNAaWw@mail.gmail.com>",
+        "<BANLkTi=TAsdZnTjFTNm4oOfnU9bkkFXh6A@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110415/c1fc970b/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110415/c1fc970b/attachment.pl>",
+      "thread_id": "thread-88b12064266b",
+      "thread_depth": 4,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-ba3755ae3a47",
+      "message_id": "<BANLkTi=pgQZW+4x9Y8ecDFb0fUcyUSHE9w@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2011-04-15T17:02:40Z",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "subject_clean": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "in_reply_to": "<BANLkTikKez2-gfAyG=7Bt=40qc9xMf0bQw@mail.gmail.com>",
+      "references": [
+        "<BANLkTi=6F1-AXTFfdZpVJH_MhCrdQKtusQ@mail.gmail.com>",
+        "<BANLkTi=JRS6N0mDT92Y2230gNBOrKFvtbw@mail.gmail.com>",
+        "<BANLkTi=ze4=TzAMDkwhjOt--ettAxNAaWw@mail.gmail.com>",
+        "<BANLkTi=TAsdZnTjFTNm4oOfnU9bkkFXh6A@mail.gmail.com>",
+        "<BANLkTikKez2-gfAyG=7Bt=40qc9xMf0bQw@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Jo?o,\n\nYour suggestion works as advertised. Just to keep it handy on the\nrecord, this is an example\n\n\nsource(\"http://bioconductor.org/biocLite.R\")\n\nchooseBioCmirror(\"http://watson.nci.nih.gov/bioc_mirror\")\n\nbiocLite(\"BSgenome.Hsapiens.UCSC.hg19\")\n\n\nThank you,\n\nIvan\n\n\n\n\nOn Fri, Apr 15, 2011 at 12:18 PM, Jo?o Moura <palerma at gmail.com> wrote:\n> Hi Ivan,\n> Just look at the output of the source()\n>> source(\"http://bioconductor.org/biocLite.R\")\n> BioC_mirror = http://bioconductor.org\n> Change using chooseBioCmirror().\n> Cheers\n> On Fri, Apr 15, 2011 at 5:41 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>>\n>> Great.\n>>\n>> Would you mind showing how you can update the packages using any of\n>> those mirrors?\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>\n>>\n>> On Fri, Apr 15, 2011 at 11:34 AM, Dan Tenenbaum <dtenenba at fhcrc.org>\n>> wrote:\n>> > On Fri, Apr 15, 2011 at 8:10 AM, Ivan Gregoretti <ivangreg at gmail.com>\n>> > wrote:\n>> >> Hello Dan,\n>> >>\n>> >> Updating Bioconductor devel packages as instructed in\n>> >>\n>> >> http://bioconductor.org/install/\n>> >>\n>> >> usually leads to stalled downloads when it retrieves large packages.\n>> >> The BSgenome packages are notorious for this.\n>> >>\n>> >> Can you or anybody recommend a solution that does not involve manually\n>> >> downloading the tar balls one by one? (Perhaps the is a mirror for\n>> >> devel.)\n>> >\n>> > Hi Ivan,\n>> >\n>> > There are mirrors for release and devel here:\n>> >\n>> > http://bioconductor.org/about/mirrors/\n>> >\n>> > Dan\n>> >\n>> >\n>> >>\n>> >> Thank you,\n>> >>\n>> >> Ivan\n>> >>\n>> >>\n>> >>\n>> >> On Thu, Apr 14, 2011 at 5:33 PM, Dan Tenenbaum <dtenenba at fhcrc.org>\n>> >> wrote:\n>> >>> Bioconductors:\n>> >>>\n>> >>> We are pleased to announce Bioconductor 2.8, consisting of 466\n>> >>> software packages and more than 500 up-to-date annotation packages.\n>> >>> There are 48 new software packages, and many updates and improvements\n>> >>> to existing packages. Two software packages that were in the previous\n>> >>> version have been removed. Bioconductor 2.8 is compatible with\n>> >>> R 2.13.0, and is supported on Linux, 32- and 64-bit Windows, and Mac\n>> >>> OS. ?Visit\n>> >>>\n>> >>> http://bioconductor.org\n>> >>>\n>> >>> for details and downloads.\n>> >>>\n>> >>> Contents\n>> >>> ========\n>> >>>\n>> >>> * Getting Started with Bioconductor 2.8\n>> >>> * New Software Packages\n>> >>> * Using Bioconductor in the cloud\n>> >>>\n>> >>> Getting Started with Bioconductor 2.8\n>> >>> =====================================\n>> >>>\n>> >>> To install Bioconductor 2.8:\n>> >>>\n>> >>> 1. Install R 2.13.0. ?Bioconductor 2.8 has been designed expressly for\n>> >>> this version of R.\n>> >>>\n>> >>> 2. Follow the instructions here:\n>> >>>\n>> >>> http://bioconductor.org/install/\n>> >>>\n>> >>> Please visit http://bioconductor.org for details and downloads.\n>> >>>\n>> >>> New Software Packages\n>> >>> =====================\n>> >>>\n>> >>> There are 48 new packages in this release of Bioconductor.\n>> >>>\n>> >>> a4\n>> >>>\n>> >>> ?Automated Affymetrix Array Analysis Umbrella Package\n>> >>>\n>> >>> a4Base\n>> >>>\n>> >>> ?Automated Affymetrix Array Analysis Base Package\n>> >>>\n>> >>> a4Classif\n>> >>>\n>> >>> ?Automated Affymetrix Array Analysis Classification Package\n>> >>>\n>> >>> a4Core\n>> >>>\n>> >>> ?Automated Affymetrix Array Analysis Core Package\n>> >>>\n>> >>> a4Preproc\n>> >>>\n>> >>> ?Automated Affymetrix Array Analysis Preprocessing Package\n>> >>>\n>> >>> a4Reporting\n>> >>>\n>> >>> ?Automated Affymetrix Array Analysis Reporting Package\n>> >>>\n>> >>> AnnotationFuncs\n>> >>>\n>> >>> ?Annotation translation functions\n>> >>>\n>> >>> anota\n>> >>>\n>> >>> ?ANalysis Of Translational Activity\n>> >>>\n>> >>> chopsticks\n>> >>>\n>> >>> ?The snp.matrix and X.snp.matrix classes\n>> >>>\n>> >>> Clonality\n>> >>>\n>> >>> ?Clonality testing\n>> >>>\n>> >>> clst\n>> >>>\n>> >>> ?Classification by local similarity threshold\n>> >>>\n>> >>> clstutils\n>> >>>\n>> >>> ?Tools for performing taxonomic assignment\n>> >>>\n>> >>> clusterProfiler\n>> >>>\n>> >>> ?statistical analysis and visulization of\n>> >>> ?functional profiles for genes and gene clusters\n>> >>>\n>> >>> cn.farms\n>> >>>\n>> >>> ?Factor Analysis for copy number estimation\n>> >>>\n>> >>> ENVISIONQuery\n>> >>>\n>> >>> ?Retrieval from the ENVISION bioinformatics data portal into R\n>> >>>\n>> >>> ExiMiR\n>> >>>\n>> >>> ?R functions for the normalization of Exiqon miRNA array data\n>> >>>\n>> >>> flowPhyto\n>> >>>\n>> >>> ?Methods for Continuous Flow Cytometry\n>> >>>\n>> >>> flowPlots\n>> >>>\n>> >>> ?analysis plots and data class for gated flow cytometry data\n>> >>>\n>> >>> gaia\n>> >>>\n>> >>> ?An R package for genomic analysis of significant\n>> >>> ?chromosomal aberrations\n>> >>>\n>> >>> genefu\n>> >>>\n>> >>> ?Relevant Functions for Gene Expression Analysis,\n>> >>> ?Especially in Breast Cancer\n>> >>>\n>> >>> genoset\n>> >>>\n>> >>> ?Provides classes similar to ExpressionSet for copy number analysis\n>> >>>\n>> >>> GSVA\n>> >>>\n>> >>> ?Gene Set Variation Analysis\n>> >>>\n>> >>> ibh\n>> >>>\n>> >>> ?Interaction Based Homogeneity for Evaluating Gene Lists\n>> >>>\n>> >>> inveRsion\n>> >>>\n>> >>> ?Inversions in genotype data\n>> >>>\n>> >>> IPPD\n>> >>>\n>> >>> ?Isotopic peak pattern deconvolution for Protein Mass\n>> >>> ?Spectrometry by template matching\n>> >>>\n>> >>> joda\n>> >>>\n>> >>> ?JODA algorithm for quantifying gene deregulation using knowledge\n>> >>>\n>> >>> lol\n>> >>>\n>> >>> ?Lots Of Lasso\n>> >>>\n>> >>> mcaGUI\n>> >>>\n>> >>> ?Microbial Community Analysis GUI\n>> >>>\n>> >>> mgsa\n>> >>>\n>> >>> ?Model-based gene set analysis\n>> >>>\n>> >>> MLP\n>> >>>\n>> >>> ?Mean Log P Analysis\n>> >>>\n>> >>> mosaics\n>> >>>\n>> >>> ?MOdel-based one and two Sample Analysis and Inference for ChIP-Seq\n>> >>>\n>> >>> MSnbase\n>> >>>\n>> >>> ?Base Functions and Classes for MS-based Proteomics\n>> >>>\n>> >>> NCIgraph\n>> >>>\n>> >>> ?Pathways from the NCI Pathways Database\n>> >>>\n>> >>> phenoDist\n>> >>>\n>> >>> ?Phenotypic distance measures\n>> >>>\n>> >>> phenoTest\n>> >>>\n>> >>> ?Tools to test correlation between gene expression and phenotype\n>> >>>\n>> >>> procoil\n>> >>>\n>> >>> ?Prediction of Oligomerization of Coiled Coil Proteins\n>> >>>\n>> >>> pvac\n>> >>>\n>> >>> ?PCA-based gene filtering for Affymetrix arrays\n>> >>>\n>> >>> qrqc\n>> >>>\n>> >>> ?Quick Read Quality Control\n>> >>>\n>> >>> RNAinteract\n>> >>>\n>> >>> ?Estimate Pairwise Interactions from multidimensional features\n>> >>>\n>> >>> Rsubread\n>> >>>\n>> >>> ?a super fast, sensitive and accurate read aligner for mapping\n>> >>> ?next-generation sequencing reads\n>> >>>\n>> >>> seqbias\n>> >>>\n>> >>> ?Estimation of per-position bias in high-throughput sequencing data\n>> >>>\n>> >>> snm\n>> >>>\n>> >>> ?Supervised Normalization of Microarrays\n>> >>>\n>> >>> snpStats\n>> >>>\n>> >>> ?SnpMatrix and XSnpMatrix classes and methods\n>> >>>\n>> >>> survcomp\n>> >>>\n>> >>> ?Performance Assessment and Comparison for Survival Analysis\n>> >>>\n>> >>> TDARACNE\n>> >>>\n>> >>> ?Network reverse engineering from time course data\n>> >>>\n>> >>> TEQC\n>> >>>\n>> >>> ?Quality control for target capture experiments\n>> >>>\n>> >>> TurboNorm\n>> >>>\n>> >>> ?A fast scatterplot smoother suitable for microarray normalization\n>> >>>\n>> >>> Vega\n>> >>>\n>> >>> ?An R package for copy number data segmentation\n>> >>>\n>> >>>\n>> >>> Using Bioconductor in the cloud\n>> >>> ===============================\n>> >>>\n>> >>> This release features the Bioconductor Amazon Machine\n>> >>> Image (AMI), which allows easy access to R and Bioconductor\n>> >>> within the Elastic Compute Cloud (EC2). It's easy to run\n>> >>> parallelizable tasks on MPI clusters, run R from within\n>> >>> your web browser using RStudio Server, and more. No\n>> >>> installation required. Information available at:\n>> >>>\n>> >>> http://bioconductor.org/help/bioconductor-cloud-ami/\n>> >>>\n>> >>> _______________________________________________\n>> >>> Bioc-sig-sequencing mailing list\n>> >>> Bioc-sig-sequencing at r-project.org\n>> >>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>> >>>\n>> >>\n>> >\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n>\n> --\n> Jo?o Moura\n>",
+      "body_snippet": "Hi Jo?o,\n\nYour suggestion works as advertised. Just to keep it handy on the\nrecord, this is an example\n\n\nsource(\"http://bioconductor.org/biocLite.R\")\n\nchooseBioCmirror(\"http://watson.nci.nih.gov/bioc_",
+      "thread_id": "thread-88b12064266b",
+      "thread_depth": 5,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-9c0e0f205874",
+      "message_id": "<BANLkTikO+O0qhjQsWpJO=B=0F-h99Cs_iQ@mail.gmail.com>",
+      "from_name": "Jason Lu",
+      "from_email_hash": "ac8b20aef82cdde6bfdfd4e28dae434610791670138e62d0ae0a590fe4e9806d",
+      "date": "2011-04-18T19:49:40Z",
+      "subject": "[Bioc-sig-seq] Spike-in control dataset from RNA-Seq?",
+      "subject_clean": "[Bioc-sig-seq] Spike-in control dataset from RNA-Seq?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi list,\n\nThis is not directly related to Bioconductor. Given that the RNA-Seq\nbeing around for a while, does anyone know a control dataset of\nRNA-Seq, similar to the golden-spike (or platinum-spike) from the\naffymetrix platform? I have searched around and wasn't able to find\none.\n\nThanks,\n\nJason",
+      "body_snippet": "Hi list,\n\nThis is not directly related to Bioconductor. Given that the RNA-Seq\nbeing around for a while, does anyone know a control dataset of\nRNA-Seq, similar to the golden-spike (or platinum-spike) ",
+      "thread_id": "thread-9c0e0f205874",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-6f1f254b9d11",
+      "message_id": "<9DF64CD3-46FC-4BF5-8A68-6638703C4788@fhcrc.org>",
+      "from_name": "Janet Young",
+      "from_email_hash": "b612d92af90a9818f7841b6384ae12053ce37bd9c09676cc60daa4ddbe797921",
+      "date": "2011-04-20T00:59:44Z",
+      "subject": "[Bioc-sig-seq] srapply / as.list / multicore weird interaction",
+      "subject_clean": "[Bioc-sig-seq] srapply / as.list / multicore weird interaction",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI'm learning how to use srapply - it looks like it'll be really useful for me.     \n\nI think I might have found a bug, or at least behavior that's a bit odd.  I've written an srapply function on a DNAStringSet.  My goal is to put a wrapper on pairwiseAlign to align a bunch of shortReads to several subject sequences of interest and return a list of all the scores. After a struggle I've got it working but I needed to work around what might be a bug(?)\n\nI've got a toy example too (see below). This example (and my real function) work fine when multicore is not loaded (I know, the whole point of srapply is to use multicore, right, but I was trying to track down the problem). However, it doesn't work after I load multicore, because as.list now seems to struggle on the DNAStringSet.  It's a problem whether I load ShortRead or multicore first.   If I force as.list on my DNAStringSet object, it works - but should I have to do that?\n\nI think I've included all you need to know below (that was on my Mac, but I get the same thing on 64-bit linux). Does this make any sense to you?\n\nthanks,\n\nJanet\n\n\n\n\nR version 2.13.0 (2011-04-13)\nCopyright (C) 2011 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\nPlatform: i386-apple-darwin9.8.0/i386 (32-bit)\n\nR is free software and comes with ABSOLUTELY NO WARRANTY.\nYou are welcome to redistribute it under certain conditions.\nType 'license()' or 'licence()' for distribution details.\n\n  Natural language support but running in an English locale\n\nR is a collaborative project with many contributors.\nType 'contributors()' for more information and\n'citation()' on how to cite R or R packages in publications.\n\nType 'demo()' for some demos, 'help()' for on-line help, or\n'help.start()' for an HTML browser interface to help.\nType 'q()' to quit R.\n\n[R.app GUI 1.40 (5751) i386-apple-darwin9.8.0]\n\n> library(ShortRead)\nLoading required package: IRanges\n\nAttaching package: 'IRanges'\n\nThe following object(s) are masked from 'package:base':\n\n    cbind, eval, intersect, Map, mapply, order, paste, pmax, pmax.int, pmin,\n    pmin.int, rbind, rep.int, setdiff, table, union\n\nLoading required package: GenomicRanges\nLoading required package: Biostrings\nLoading required package: lattice\nLoading required package: Rsamtools\n> \n> testseqs <- DNAStringSet(c(\"CTCGACCAGTAT\", \"TTGAGGCTGT\"))\n> names(testseqs) <- c(\"seq1\",\"seq2\")\n> \n> \n> testfunction2 <- function (myseqs) {\n+     srapply(myseqs, function(x, ... ) { class(x) } )\n+ }\n> testfunction2(testseqs)\n$seq1\n[1] \"DNAString\"\nattr(,\"package\")\n[1] \"Biostrings\"\n\n$seq2\n[1] \"DNAString\"\nattr(,\"package\")\n[1] \"Biostrings\"\n\n> \n> \n> \n> library(multicore)\n\nAttaching package: 'multicore'\n\nThe following object(s) are masked from 'package:lattice':\n\n    parallel\n\n> \n> testfunction2 <- function (myseqs) {\n+     srapply(myseqs, function(x, ... ) { class(x) } )\n+ }\n> testfunction2(testseqs)\n$seq1\n[1] \"Error in as.list.default(X) : \\n  no method for coercing this S4 class to a vector\\n\"\n\n$seq2\n[1] \"Error in as.list.default(X) : \\n  no method for coercing this S4 class to a vector\\n\"\n\n> \n> \n> testfunction3 <- function (myseqs) {\n+     srapply(as.list(myseqs), function(x, ... ) { class(x) } )\n+ }\n> testfunction3(testseqs)\n$seq1\n[1] \"DNAString\"\nattr(,\"package\")\n[1] \"Biostrings\"\n\n$seq2\n[1] \"DNAString\"\nattr(,\"package\")\n[1] \"Biostrings\"\n\n> \n> sessionInfo()\nR version 2.13.0 (2011-04-13)\nPlatform: i386-apple-darwin9.8.0/i386 (32-bit)\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] multicore_0.1-5     ShortRead_1.10.0    Rsamtools_1.4.0     lattice_0.19-23    \n[5] Biostrings_2.20.0   GenomicRanges_1.4.0 IRanges_1.10.0     \n\nloaded via a namespace (and not attached):\n[1] Biobase_2.12.0 grid_2.13.0    hwriter_1.3",
+      "body_snippet": "Hi,\n\nI'm learning how to use srapply - it looks like it'll be really useful for me.     \n\nI think I might have found a bug, or at least behavior that's a bit odd.  I've written an srapply function on ",
+      "thread_id": "thread-6f1f254b9d11",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-997f5edfe2f3",
+      "message_id": "<4DAE5190.7010702@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2011-04-20T03:22:56Z",
+      "subject": "[Bioc-sig-seq] srapply / as.list / multicore weird interaction",
+      "subject_clean": "[Bioc-sig-seq] srapply / as.list / multicore weird interaction",
+      "in_reply_to": "<9DF64CD3-46FC-4BF5-8A68-6638703C4788@fhcrc.org>",
+      "references": [
+        "<9DF64CD3-46FC-4BF5-8A68-6638703C4788@fhcrc.org>"
+      ],
+      "body_plain": "On 04/19/2011 05:59 PM, Janet Young wrote:\n> Hi,\n>\n> I'm learning how to use srapply - it looks like it'll be really\n> useful for me.\n>\n> I think I might have found a bug, or at least behavior that's a bit\n> odd.  I've written an srapply function on a DNAStringSet.  My goal is\n> to put a wrapper on pairwiseAlign to align a bunch of shortReads to\n> several subject sequences of interest and return a list of all the\n> scores. After a struggle I've got it working but I needed to work\n> around what might be a bug(?)\n>\n> I've got a toy example too (see below). This example (and my real\n> function) work fine when multicore is not loaded (I know, the whole\n> point of srapply is to use multicore, right, but I was trying to\n> track down the problem). However, it doesn't work after I load\n> multicore, because as.list now seems to struggle on the DNAStringSet.\n> It's a problem whether I load ShortRead or multicore first.   If I\n> force as.list on my DNAStringSet object, it works - but should I have\n> to do that?\n>\n> I think I've included all you need to know below (that was on my Mac,\n> but I get the same thing on 64-bit linux). Does this make any sense\n> to you?\n>\n> thanks,\n>\n> Janet\n>\n>\n>\n>\n> R version 2.13.0 (2011-04-13) Copyright (C) 2011 The R Foundation for\n> Statistical Computing ISBN 3-900051-07-0 Platform:\n> i386-apple-darwin9.8.0/i386 (32-bit)\n>\n> R is free software and comes with ABSOLUTELY NO WARRANTY. You are\n> welcome to redistribute it under certain conditions. Type 'license()'\n> or 'licence()' for distribution details.\n>\n> Natural language support but running in an English locale\n>\n> R is a collaborative project with many contributors. Type\n> 'contributors()' for more information and 'citation()' on how to cite\n> R or R packages in publications.\n>\n> Type 'demo()' for some demos, 'help()' for on-line help, or\n> 'help.start()' for an HTML browser interface to help. Type 'q()' to\n> quit R.\n>\n> [R.app GUI 1.40 (5751) i386-apple-darwin9.8.0]\n>\n>> library(ShortRead)\n> Loading required package: IRanges\n>\n> Attaching package: 'IRanges'\n>\n> The following object(s) are masked from 'package:base':\n>\n> cbind, eval, intersect, Map, mapply, order, paste, pmax, pmax.int,\n> pmin, pmin.int, rbind, rep.int, setdiff, table, union\n>\n> Loading required package: GenomicRanges Loading required package:\n> Biostrings Loading required package: lattice Loading required\n> package: Rsamtools\n>>\n>> testseqs<- DNAStringSet(c(\"CTCGACCAGTAT\", \"TTGAGGCTGT\"))\n>> names(testseqs)<- c(\"seq1\",\"seq2\")\n>>\n>>\n>> testfunction2<- function (myseqs) {\n> +     srapply(myseqs, function(x, ... ) { class(x) } ) + }\n>> testfunction2(testseqs)\n> $seq1 [1] \"DNAString\" attr(,\"package\") [1] \"Biostrings\"\n>\n> $seq2 [1] \"DNAString\" attr(,\"package\") [1] \"Biostrings\"\n>\n>>\n>>\n>>\n>> library(multicore)\n>\n> Attaching package: 'multicore'\n>\n> The following object(s) are masked from 'package:lattice':\n>\n> parallel\n>\n>>\n>> testfunction2<- function (myseqs) {\n> +     srapply(myseqs, function(x, ... ) { class(x) } ) + }\n>> testfunction2(testseqs)\n> $seq1 [1] \"Error in as.list.default(X) : \\n  no method for coercing\n> this S4 class to a vector\\n\"\n>\n> $seq2 [1] \"Error in as.list.default(X) : \\n  no method for coercing\n> this S4 class to a vector\\n\"\n\n\nHi Janet --\n\nactually,\n\n   mclapply(testseqs, identity)\n\nand\n\n   base::lapply(testseqs, identity)\n\ncause problems too (identity is a convenient do-nothing function; your \ntestfunction2 etc wrappers aren't strictly necessary to reproduce the \nproblem).\n\nThe definition of lapply is\n\n > base::lapply\nfunction (X, FUN, ...)\n{\n     FUN <- match.fun(FUN)\n     if (!is.vector(X) || is.object(X))\n         X <- as.list(X)\n     .Internal(lapply(X, FUN))\n}\n\nwhere we see as.list and guess, correctly, that\n\n > base::as.list(testseqs)\nError in as.list.default(testseqs) :\n   no method for coercing this S4 class to a vector\n\nI think the solution is, in IRanges, to define an S3 method as.list.List \n(DNAStringSet inherits from List) and to export S3method(as.list, List). \nWe'll see what the IRanges say about this...\n\nMartin\n\n\n>>\n>>\n>> testfunction3<- function (myseqs) {\n> +     srapply(as.list(myseqs), function(x, ... ) { class(x) } ) + }\n>> testfunction3(testseqs)\n> $seq1 [1] \"DNAString\" attr(,\"package\") [1] \"Biostrings\"\n>\n> $seq2 [1] \"DNAString\" attr(,\"package\") [1] \"Biostrings\"\n>\n>>\n>> sessionInfo()\n> R version 2.13.0 (2011-04-13) Platform: i386-apple-darwin9.8.0/i386\n> (32-bit)\n>\n> locale: [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages: [1] stats     graphics  grDevices utils\n> datasets  methods   base\n>\n> other attached packages: [1] multicore_0.1-5     ShortRead_1.10.0\n> Rsamtools_1.4.0     lattice_0.19-23 [5] Biostrings_2.20.0\n> GenomicRanges_1.4.0 IRanges_1.10.0\n>\n> loaded via a namespace (and not attached): [1] Biobase_2.12.0\n> grid_2.13.0    hwriter_1.3\n>\n> _______________________________________________ Bioc-sig-sequencing\n> mailing list Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 04/19/2011 05:59 PM, Janet Young wrote:\n> Hi,\n>\n> I'm learning how to use srapply - it looks like it'll be really\n> useful for me.\n>\n> I think I might have found a bug, or at least behavior that's ",
+      "thread_id": "thread-6f1f254b9d11",
+      "thread_depth": 1,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-af474164abc6",
+      "message_id": "<20110429152337.GA328@Thomas-Girkes-MacBook-Pro.local>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2011-04-29T15:23:37Z",
+      "subject": "[Bioc-sig-seq] R/Bioc workshops at UC Riverside",
+      "subject_clean": "[Bioc-sig-seq] R/Bioc workshops at UC Riverside",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear List Members,\n\nI have posted a new series of introductory level workshops on R, data\nvisualization, microarray analysis, next generation sequence data,\nclustering, programming and small molecule analysis in R.             \n\nMore information on these tutorials can be found on this page:\nhttp://facility.bioinformatics.ucr.edu/home/workshops                   \n\nMembers of this list are welcome to sign in for any of these events. \n\nThomas Girke    \n\n--\nThomas Girke\nInstitute for Integrative Genome Biology \n1207F Genomics Building\nUniversity of California\nRiverside, CA 92521\n\nE-mail: thomas.girke at ucr.edu\nWebsite: http://facility.bioinformatics.ucr.edu\nPh: 951-905-5232",
+      "body_snippet": "Dear List Members,\n\nI have posted a new series of introductory level workshops on R, data\nvisualization, microarray analysis, next generation sequence data,\nclustering, programming and small molecule ",
+      "thread_id": "thread-af474164abc6",
+      "thread_depth": 0,
+      "month": "2011-04"
+    },
+    {
+      "id": "msg-b74363746725",
+      "message_id": "<4DBB5813.9010303@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2011-04-30T00:30:11Z",
+      "subject": "[Bioc-sig-seq] BioC 2011 -- Where Software and Biology Connect, Seattle, WA July 28-29",
+      "subject_clean": "[Bioc-sig-seq] BioC 2011 -- Where Software and Biology Connect, Seattle, WA July 28-29",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Bioconductors --\n\nThe schedule for BioC 2011, our annual conference, is starting to take \nshape!\n\nThe main conference features morning talks, afternoon practicals, and \nsocial opportunities. There's a schedule and tentative list of excellent \nspeakers at\n\n   https://secure.bioconductor.org/BioC2011/\n\nWe're very interested in receiving proposals for afternoon practicals \n(due May 31; https://secure.bioconductor.org/BioC2011/lab_submit.php).\n\nWe also have a 'developer day' scheduled before the main conference, on \nJuly 27. Developer day is directed toward package developers; this year \nwe're especially eager to hear 'flashlight presentations' from \nparticipants highlighting the research and software developments they \nare involved with.\n\nLooking forward to seeing you at BioC 2011!\n\nMartin\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "Bioconductors --\n\nThe schedule for BioC 2011, our annual conference, is starting to take \nshape!\n\nThe main conference features morning talks, afternoon practicals, and \nsocial opportunities. There's a",
+      "thread_id": "thread-b74363746725",
+      "thread_depth": 0,
+      "month": "2011-04"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-7bfa4b8b7cbc",
+      "subject": "[Bioc-sig-seq] A question of edgeR DGEList() - no norm.factors generated",
+      "message_count": 1,
+      "participants": [
+        "Davis McCarthy"
+      ],
+      "started": "2011-03-31T22:43:41Z",
+      "last_reply": "2011-03-31T22:43:41Z",
+      "root_message_id": "msg-7bfa4b8b7cbc"
+    },
+    {
+      "id": "thread-be46131886e9",
+      "subject": "[Bioc-sig-seq] countOverlaps throws error on GRangesList and GappedAlignments",
+      "message_count": 5,
+      "participants": [
+        "Hervé Pagès",
+        "Lakshmanan Iyer",
+        "Michael Lawrence",
+        "Valerie Obenchain"
+      ],
+      "started": "2011-04-10T15:13:39Z",
+      "last_reply": "2011-04-11T19:42:31Z",
+      "root_message_id": "msg-be46131886e9"
+    },
+    {
+      "id": "thread-22cf2957060d",
+      "subject": "[Bioc-sig-seq] Howto \"inject\" indels?",
+      "message_count": 1,
+      "participants": [
+        "Nicolas Delhomme"
+      ],
+      "started": "2011-04-12T16:19:10Z",
+      "last_reply": "2011-04-12T16:19:10Z",
+      "root_message_id": "msg-22cf2957060d"
+    },
+    {
+      "id": "thread-4b30457e5703",
+      "subject": "[Bioc-sig-seq] Extracting data from SimpleRleViewsList",
+      "message_count": 3,
+      "participants": [
+        "Lakshmanan Iyer",
+        "Lax",
+        "Michael Lawrence"
+      ],
+      "started": "2011-04-14T14:19:17Z",
+      "last_reply": "2011-04-14T15:02:48Z",
+      "root_message_id": "msg-4b30457e5703"
+    },
+    {
+      "id": "thread-88b12064266b",
+      "subject": "[Bioc-sig-seq] Bioconductor 2.8 is released",
+      "message_count": 6,
+      "participants": [
+        "Dan Tenenbaum",
+        "Ivan Gregoretti",
+        "João Moura"
+      ],
+      "started": "2011-04-14T21:33:51Z",
+      "last_reply": "2011-04-15T17:02:40Z",
+      "root_message_id": "msg-88b12064266b"
+    },
+    {
+      "id": "thread-9c0e0f205874",
+      "subject": "[Bioc-sig-seq] Spike-in control dataset from RNA-Seq?",
+      "message_count": 1,
+      "participants": [
+        "Jason Lu"
+      ],
+      "started": "2011-04-18T19:49:40Z",
+      "last_reply": "2011-04-18T19:49:40Z",
+      "root_message_id": "msg-9c0e0f205874"
+    },
+    {
+      "id": "thread-6f1f254b9d11",
+      "subject": "[Bioc-sig-seq] srapply / as.list / multicore weird interaction",
+      "message_count": 2,
+      "participants": [
+        "Janet Young",
+        "Martin Morgan"
+      ],
+      "started": "2011-04-20T00:59:44Z",
+      "last_reply": "2011-04-20T03:22:56Z",
+      "root_message_id": "msg-6f1f254b9d11"
+    },
+    {
+      "id": "thread-af474164abc6",
+      "subject": "[Bioc-sig-seq] R/Bioc workshops at UC Riverside",
+      "message_count": 1,
+      "participants": [
+        "Thomas Girke"
+      ],
+      "started": "2011-04-29T15:23:37Z",
+      "last_reply": "2011-04-29T15:23:37Z",
+      "root_message_id": "msg-af474164abc6"
+    },
+    {
+      "id": "thread-b74363746725",
+      "subject": "[Bioc-sig-seq] BioC 2011 -- Where Software and Biology Connect, Seattle, WA July 28-29",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2011-04-30T00:30:11Z",
+      "last_reply": "2011-04-30T00:30:11Z",
+      "root_message_id": "msg-b74363746725"
+    }
+  ]
+}

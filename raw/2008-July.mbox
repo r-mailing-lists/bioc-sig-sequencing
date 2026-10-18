@@ -1,0 +1,1003 @@
+From kak28 at cam.ac.uk  Thu Jul 17 15:47:27 2008
+From: kak28 at cam.ac.uk (Krys Kelly)
+Date: Thu, 17 Jul 2008 14:47:27 +0100
+Subject: [Bioc-sig-seq] Adapter removal
+Message-ID: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+
+I have inherited a pipeline for Solexa sequence data using Perl, Bioperl,
+SSAHA and mySQL.  As an R/Bioconducter user I am interested in ShortRead and
+BiostringsCinterfaceDemo.
+
+However, in the short term I need to use the current pipeline.  The imaging
+is done by the Sequencing Facility and we get fastq files with the 3'
+adapter still attached. The adapter removal is currently done by a Perl
+script which just keeps sequences which match any number of letters in
+[ACGT] followed by the first 8 letters of the adapter.  This seems pretty
+crude (e.g. only using 8 letters, not allowing for mismatches, not allowing
+for the diminishing quality along the length of the read).
+
+Google has not revealed any algorithms or code for this part of the
+pipeline.  Does anyone know what algorithms are being used or, even better,
+could anyone point me in the direction of some code?
+
+Thanks
+
+Krys
+
+
+Dr Krystyna A Kelly
+Senior Research Associate
+David Baulcombe Group
+
+Department of Plant Sciences
+University of Cambridge
+Downing Street
+Cambridge CB2 3EA
+United Kingdom
+
+Tel: +44 (0)1223 333 915
+Fax: +44 (0)1223 333953
+
+
+From sdavis2 at mail.nih.gov  Thu Jul 17 16:35:20 2008
+From: sdavis2 at mail.nih.gov (Sean Davis)
+Date: Thu, 17 Jul 2008 10:35:20 -0400
+Subject: [Bioc-sig-seq] Adapter removal
+In-Reply-To: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+References: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+Message-ID: <264855a00807170735r1f76f807g77237f81dac63bc3@mail.gmail.com>
+
+On Thu, Jul 17, 2008 at 9:47 AM, Krys Kelly <kak28 at cam.ac.uk> wrote:
+> I have inherited a pipeline for Solexa sequence data using Perl, Bioperl,
+> SSAHA and mySQL.  As an R/Bioconducter user I am interested in ShortRead and
+> BiostringsCinterfaceDemo.
+>
+> However, in the short term I need to use the current pipeline.  The imaging
+> is done by the Sequencing Facility and we get fastq files with the 3'
+> adapter still attached. The adapter removal is currently done by a Perl
+> script which just keeps sequences which match any number of letters in
+> [ACGT] followed by the first 8 letters of the adapter.  This seems pretty
+> crude (e.g. only using 8 letters, not allowing for mismatches, not allowing
+> for the diminishing quality along the length of the read).
+>
+> Google has not revealed any algorithms or code for this part of the
+> pipeline.  Does anyone know what algorithms are being used or, even better,
+> could anyone point me in the direction of some code?
+
+I believe that MAQ will do this for you.  You can then use the
+ShortRead package to read the MAQ output (VERY, VERY fast).
+
+Sean
+
+
+From hj at jhu.edu  Thu Jul 17 16:59:37 2008
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Thu, 17 Jul 2008 10:59:37 -0400
+Subject: [Bioc-sig-seq] Adapter removal
+In-Reply-To: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+References: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+Message-ID: <A4862065-16AF-4CD5-A858-CCDBAE38AF88@jhu.edu>
+
+On Jul 17, 2008, at 9:47 AM, Krys Kelly wrote:
+> I have inherited a pipeline for Solexa sequence data ...  This  
+> seems pretty
+> crude
+
+> could anyone point me in the direction of some code?
+
+
+[ This may now be silly, but I will send it anyway. ]
+
+On (quasi) UNIX, you can use something like the script below, which  
+elides the
+largest initial portion of our 3' adapter and then the largest  
+terminal portion
+of our 5' adapter, minimal length 3 in both cases, from a data file  
+where the
+read (possibly containing ".") was the 5th field.
+
+To allow 1 error, (using awk, for example) you can blow each pattern  
+in there
+up into a regular expression as in this sed edit command (the \'s  
+don't belong
+but were necessary for some reason):
+
+'s,.CGTATGCCGTCTTCTGCTTG$\|T.GTATGCCGTCTTCTGCTTG$\| 
+TC.TATGCCGTCTTCTGCTTG$\|TCG.ATGCCGTCTTCTGCTTG$\|TCGT.TGCCGTCTTCTGCTTG$ 
+\|TCGTA.GCCGTCTTCTGCTTG$\|TCGTAT.CCGTCTTCTGCTTG$\| 
+TCGTATG.CGTCTTCTGCTTG$\|TCGTATGC.GTCTTCTGCTTG$\|TCGTATGCC.TCTTCTGCTTG$ 
+\|TCGTATGCCG.CTTCTGCTTG$\|TCGTATGCCGT.TTCTGCTTG$\| 
+TCGTATGCCGTC.TCTGCTTG$\|TCGTATGCCGTCT.CTGCTTG$\|TCGTATGCCGTCTT.TGCTTG$ 
+\|TCGTATGCCGTCTTC.GCTTG$\|TCGTATGCCGTCTTCT.CTTG$\| 
+TCGTATGCCGTCTTCTG.TTG$\|TCGTATGCCGTCTTCTGC.TG$\|TCGTATGCCGTCTTCTGCT.G$ 
+\|TCGTATGCCGTCTTCTGCTT.$,>,'
+
+In our data, the whole 3' adapter may occur at the 5' end, making the  
+read
+worthless, or in the interior!
+
+All of this probably translates into R, but this was quicker for me.   
+-Harris
+
+--------------
+#!/bin/sh
+
+DIR=Processed
+
+fgrep -v . |
+awk '{print $5}' |
+sed \
+-e 's,TCGTATGCCGTCTTCTGCTTG$,>,' \
+-e 's,TCGTATGCCGTCTTCTGCTT$,>,' \
+-e 's,TCGTATGCCGTCTTCTGCT$,>,' \
+-e 's,TCGTATGCCGTCTTCTGC$,>,' \
+-e 's,TCGTATGCCGTCTTCTG$,>,' \
+-e 's,TCGTATGCCGTCTTCT$,>,' \
+-e 's,TCGTATGCCGTCTTC$,>,' \
+-e 's,TCGTATGCCGTCTT$,>,' \
+-e 's,TCGTATGCCGTCT$,>,' \
+-e 's,TCGTATGCCGTC$,>,' \
+-e 's,TCGTATGCCGT$,>,' \
+-e 's,TCGTATGCCG$,>,' \
+-e 's,TCGTATGCC$,>,' \
+-e 's,TCGTATGC$,>,' \
+-e 's,TCGTATG$,>,' \
+-e 's,TCGTAT$,>,' \
+-e 's,TCGTA$,>,' \
+-e 's,TCGT$,>,' \
+-e 's,TCG$,>,' \
+-e 's,^GTTCAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^TTCAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^TCAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^CAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^AGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^GAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^AGTTCTACAGTCCGACGATC,<,' \
+-e 's,^GTTCTACAGTCCGACGATC,<,' \
+-e 's,^TTCTACAGTCCGACGATC,<,' \
+-e 's,^TCTACAGTCCGACGATC,<,' \
+-e 's,^CTACAGTCCGACGATC,<,' \
+-e 's,^TACAGTCCGACGATC,<,' \
+-e 's,^ACAGTCCGACGATC,<,' \
+-e 's,^CAGTCCGACGATC,<,' \
+-e 's,^AGTCCGACGATC,<,' \
+-e 's,^GTCCGACGATC,<,' \
+-e 's,^TCCGACGATC,<,' \
+-e 's,^CCGACGATC,<,' \
+-e 's,^CGACGATC,<,' \
+-e 's,^GACGATC,<,' \
+-e 's,^ACGATC,<,' \
+-e 's,^CGATC,<,' \
+-e 's,^GATC,<,' \
+-e 's,^ATC,<,' | tr -d '<>' |
+         awk 'length>15' | sort | uniq -c |
+         awk '{print >DIR "/" length($2)}' DIR=$DIR
+
+
+From kak28 at cam.ac.uk  Thu Jul 17 17:18:08 2008
+From: kak28 at cam.ac.uk (Krys Kelly)
+Date: Thu, 17 Jul 2008 16:18:08 +0100
+Subject: [Bioc-sig-seq] Adapter removal
+In-Reply-To: <A4862065-16AF-4CD5-A858-CCDBAE38AF88@jhu.edu>
+References: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+	<A4862065-16AF-4CD5-A858-CCDBAE38AF88@jhu.edu>
+Message-ID: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAHw/ebmqf5FCpeVuF+ku0qUBAAAAAA==@cam.ac.uk>
+
+Hi Harris
+
+Thanks for this.  I started doing something like this in Perl.  
+
+Regards
+
+Krys
+
+
+-----Original Message-----
+From: Harris A. Jaffee [mailto:hj at jhu.edu] 
+Sent: 17 July 2008 16:00
+To: Krys Kelly
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Adapter removal
+
+On Jul 17, 2008, at 9:47 AM, Krys Kelly wrote:
+> I have inherited a pipeline for Solexa sequence data ...  This  
+> seems pretty
+> crude
+
+> could anyone point me in the direction of some code?
+
+
+[ This may now be silly, but I will send it anyway. ]
+
+On (quasi) UNIX, you can use something like the script below, which  
+elides the
+largest initial portion of our 3' adapter and then the largest  
+terminal portion
+of our 5' adapter, minimal length 3 in both cases, from a data file  
+where the
+read (possibly containing ".") was the 5th field.
+
+To allow 1 error, (using awk, for example) you can blow each pattern  
+in there
+up into a regular expression as in this sed edit command (the \'s  
+don't belong
+but were necessary for some reason):
+
+'s,.CGTATGCCGTCTTCTGCTTG$\|T.GTATGCCGTCTTCTGCTTG$\| 
+TC.TATGCCGTCTTCTGCTTG$\|TCG.ATGCCGTCTTCTGCTTG$\|TCGT.TGCCGTCTTCTGCTTG$ 
+\|TCGTA.GCCGTCTTCTGCTTG$\|TCGTAT.CCGTCTTCTGCTTG$\| 
+TCGTATG.CGTCTTCTGCTTG$\|TCGTATGC.GTCTTCTGCTTG$\|TCGTATGCC.TCTTCTGCTTG$ 
+\|TCGTATGCCG.CTTCTGCTTG$\|TCGTATGCCGT.TTCTGCTTG$\| 
+TCGTATGCCGTC.TCTGCTTG$\|TCGTATGCCGTCT.CTGCTTG$\|TCGTATGCCGTCTT.TGCTTG$ 
+\|TCGTATGCCGTCTTC.GCTTG$\|TCGTATGCCGTCTTCT.CTTG$\| 
+TCGTATGCCGTCTTCTG.TTG$\|TCGTATGCCGTCTTCTGC.TG$\|TCGTATGCCGTCTTCTGCT.G$ 
+\|TCGTATGCCGTCTTCTGCTT.$,>,'
+
+In our data, the whole 3' adapter may occur at the 5' end, making the  
+read
+worthless, or in the interior!
+
+All of this probably translates into R, but this was quicker for me.   
+-Harris
+
+--------------
+#!/bin/sh
+
+DIR=Processed
+
+fgrep -v . |
+awk '{print $5}' |
+sed \
+-e 's,TCGTATGCCGTCTTCTGCTTG$,>,' \
+-e 's,TCGTATGCCGTCTTCTGCTT$,>,' \
+-e 's,TCGTATGCCGTCTTCTGCT$,>,' \
+-e 's,TCGTATGCCGTCTTCTGC$,>,' \
+-e 's,TCGTATGCCGTCTTCTG$,>,' \
+-e 's,TCGTATGCCGTCTTCT$,>,' \
+-e 's,TCGTATGCCGTCTTC$,>,' \
+-e 's,TCGTATGCCGTCTT$,>,' \
+-e 's,TCGTATGCCGTCT$,>,' \
+-e 's,TCGTATGCCGTC$,>,' \
+-e 's,TCGTATGCCGT$,>,' \
+-e 's,TCGTATGCCG$,>,' \
+-e 's,TCGTATGCC$,>,' \
+-e 's,TCGTATGC$,>,' \
+-e 's,TCGTATG$,>,' \
+-e 's,TCGTAT$,>,' \
+-e 's,TCGTA$,>,' \
+-e 's,TCGT$,>,' \
+-e 's,TCG$,>,' \
+-e 's,^GTTCAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^TTCAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^TCAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^CAGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^AGAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^GAGTTCTACAGTCCGACGATC,<,' \
+-e 's,^AGTTCTACAGTCCGACGATC,<,' \
+-e 's,^GTTCTACAGTCCGACGATC,<,' \
+-e 's,^TTCTACAGTCCGACGATC,<,' \
+-e 's,^TCTACAGTCCGACGATC,<,' \
+-e 's,^CTACAGTCCGACGATC,<,' \
+-e 's,^TACAGTCCGACGATC,<,' \
+-e 's,^ACAGTCCGACGATC,<,' \
+-e 's,^CAGTCCGACGATC,<,' \
+-e 's,^AGTCCGACGATC,<,' \
+-e 's,^GTCCGACGATC,<,' \
+-e 's,^TCCGACGATC,<,' \
+-e 's,^CCGACGATC,<,' \
+-e 's,^CGACGATC,<,' \
+-e 's,^GACGATC,<,' \
+-e 's,^ACGATC,<,' \
+-e 's,^CGATC,<,' \
+-e 's,^GATC,<,' \
+-e 's,^ATC,<,' | tr -d '<>' |
+         awk 'length>15' | sort | uniq -c |
+         awk '{print >DIR "/" length($2)}' DIR=$DIR
+
+
+From cei at sanger.ac.uk  Thu Jul 17 18:08:59 2008
+From: cei at sanger.ac.uk (Cei Abreu-Goodger)
+Date: Thu, 17 Jul 2008 17:08:59 +0100 (BST)
+Subject: [Bioc-sig-seq] Adapter removal
+In-Reply-To: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAHw/ebmqf5FCpeVuF+ku0qUBAAAAAA==@cam.ac.uk>
+References: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+	<A4862065-16AF-4CD5-A858-CCDBAE38AF88@jhu.edu>
+	<!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAHw/ebmqf5FCpeVuF+ku0qUBAAAAAA==@cam.ac.uk>
+Message-ID: <Pine.LNX.4.64.0807171707520.23445@cbi4g.internal.sanger.ac.uk>
+
+
+I also do something like that in perl...
+
+Regarding MAQ, back when I tried it it could _not_ deal with linker 
+sequences in any useful way... not for small RNA runs at least. It might 
+have improved though... and it is _really_ fast.
+
+Cheers,
+
+Cei
+
+On Thu, 17 Jul 2008, Krys Kelly wrote:
+
+> Hi Harris
+>
+> Thanks for this.  I started doing something like this in Perl.
+>
+> Regards
+>
+> Krys
+>
+>
+> -----Original Message-----
+> From: Harris A. Jaffee [mailto:hj at jhu.edu]
+> Sent: 17 July 2008 16:00
+> To: Krys Kelly
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] Adapter removal
+>
+> On Jul 17, 2008, at 9:47 AM, Krys Kelly wrote:
+>> I have inherited a pipeline for Solexa sequence data ...  This
+>> seems pretty
+>> crude
+>
+>> could anyone point me in the direction of some code?
+>
+>
+> [ This may now be silly, but I will send it anyway. ]
+>
+> On (quasi) UNIX, you can use something like the script below, which
+> elides the
+> largest initial portion of our 3' adapter and then the largest
+> terminal portion
+> of our 5' adapter, minimal length 3 in both cases, from a data file
+> where the
+> read (possibly containing ".") was the 5th field.
+>
+> To allow 1 error, (using awk, for example) you can blow each pattern
+> in there
+> up into a regular expression as in this sed edit command (the \'s
+> don't belong
+> but were necessary for some reason):
+>
+> 's,.CGTATGCCGTCTTCTGCTTG$\|T.GTATGCCGTCTTCTGCTTG$\|
+> TC.TATGCCGTCTTCTGCTTG$\|TCG.ATGCCGTCTTCTGCTTG$\|TCGT.TGCCGTCTTCTGCTTG$
+> \|TCGTA.GCCGTCTTCTGCTTG$\|TCGTAT.CCGTCTTCTGCTTG$\|
+> TCGTATG.CGTCTTCTGCTTG$\|TCGTATGC.GTCTTCTGCTTG$\|TCGTATGCC.TCTTCTGCTTG$
+> \|TCGTATGCCG.CTTCTGCTTG$\|TCGTATGCCGT.TTCTGCTTG$\|
+> TCGTATGCCGTC.TCTGCTTG$\|TCGTATGCCGTCT.CTGCTTG$\|TCGTATGCCGTCTT.TGCTTG$
+> \|TCGTATGCCGTCTTC.GCTTG$\|TCGTATGCCGTCTTCT.CTTG$\|
+> TCGTATGCCGTCTTCTG.TTG$\|TCGTATGCCGTCTTCTGC.TG$\|TCGTATGCCGTCTTCTGCT.G$
+> \|TCGTATGCCGTCTTCTGCTT.$,>,'
+>
+> In our data, the whole 3' adapter may occur at the 5' end, making the
+> read
+> worthless, or in the interior!
+>
+> All of this probably translates into R, but this was quicker for me.
+> -Harris
+>
+> --------------
+> #!/bin/sh
+>
+> DIR=Processed
+>
+> fgrep -v . |
+> awk '{print $5}' |
+> sed \
+> -e 's,TCGTATGCCGTCTTCTGCTTG$,>,' \
+> -e 's,TCGTATGCCGTCTTCTGCTT$,>,' \
+> -e 's,TCGTATGCCGTCTTCTGCT$,>,' \
+> -e 's,TCGTATGCCGTCTTCTGC$,>,' \
+> -e 's,TCGTATGCCGTCTTCTG$,>,' \
+> -e 's,TCGTATGCCGTCTTCT$,>,' \
+> -e 's,TCGTATGCCGTCTTC$,>,' \
+> -e 's,TCGTATGCCGTCTT$,>,' \
+> -e 's,TCGTATGCCGTCT$,>,' \
+> -e 's,TCGTATGCCGTC$,>,' \
+> -e 's,TCGTATGCCGT$,>,' \
+> -e 's,TCGTATGCCG$,>,' \
+> -e 's,TCGTATGCC$,>,' \
+> -e 's,TCGTATGC$,>,' \
+> -e 's,TCGTATG$,>,' \
+> -e 's,TCGTAT$,>,' \
+> -e 's,TCGTA$,>,' \
+> -e 's,TCGT$,>,' \
+> -e 's,TCG$,>,' \
+> -e 's,^GTTCAGAGTTCTACAGTCCGACGATC,<,' \
+> -e 's,^TTCAGAGTTCTACAGTCCGACGATC,<,' \
+> -e 's,^TCAGAGTTCTACAGTCCGACGATC,<,' \
+> -e 's,^CAGAGTTCTACAGTCCGACGATC,<,' \
+> -e 's,^AGAGTTCTACAGTCCGACGATC,<,' \
+> -e 's,^GAGTTCTACAGTCCGACGATC,<,' \
+> -e 's,^AGTTCTACAGTCCGACGATC,<,' \
+> -e 's,^GTTCTACAGTCCGACGATC,<,' \
+> -e 's,^TTCTACAGTCCGACGATC,<,' \
+> -e 's,^TCTACAGTCCGACGATC,<,' \
+> -e 's,^CTACAGTCCGACGATC,<,' \
+> -e 's,^TACAGTCCGACGATC,<,' \
+> -e 's,^ACAGTCCGACGATC,<,' \
+> -e 's,^CAGTCCGACGATC,<,' \
+> -e 's,^AGTCCGACGATC,<,' \
+> -e 's,^GTCCGACGATC,<,' \
+> -e 's,^TCCGACGATC,<,' \
+> -e 's,^CCGACGATC,<,' \
+> -e 's,^CGACGATC,<,' \
+> -e 's,^GACGATC,<,' \
+> -e 's,^ACGATC,<,' \
+> -e 's,^CGATC,<,' \
+> -e 's,^GATC,<,' \
+> -e 's,^ATC,<,' | tr -d '<>' |
+>         awk 'length>15' | sort | uniq -c |
+>         awk '{print >DIR "/" length($2)}' DIR=$DIR
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+-- 
+ The Wellcome Trust Sanger Institute is operated by Genome Research 
+ Limited, a charity registered in England with number 1021457 and a 
+ company registered in England with number 2742969, whose registered 
+ office is 215 Euston Road, London, NW1 2BE.
+
+
+From mtmorgan at fhcrc.org  Thu Jul 17 18:35:12 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Thu, 17 Jul 2008 09:35:12 -0700
+Subject: [Bioc-sig-seq] Adapter removal
+In-Reply-To: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+	(Krys Kelly's message of "Thu, 17 Jul 2008 14:47:27 +0100")
+References: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+Message-ID: <6phwsjkmptr.fsf@lamprey.fhcrc.org>
+
+"Krys Kelly" <kak28 at cam.ac.uk> writes:
+
+> I have inherited a pipeline for Solexa sequence data using Perl, Bioperl,
+> SSAHA and mySQL.  As an R/Bioconducter user I am interested in ShortRead and
+> BiostringsCinterfaceDemo.
+>
+> However, in the short term I need to use the current pipeline.  The imaging
+> is done by the Sequencing Facility and we get fastq files with the 3'
+> adapter still attached. The adapter removal is currently done by a Perl
+> script which just keeps sequences which match any number of letters in
+> [ACGT] followed by the first 8 letters of the adapter.  This seems pretty
+> crude (e.g. only using 8 letters, not allowing for mismatches, not allowing
+> for the diminishing quality along the length of the read).
+
+In the very latest Biostrings, and thanks to Herve's skills, you can
+
+> library(ShortRead)
+> sp <- SolexaPath("/path/to/solexa/expt")
+> pat <- "s_1_0001_seq.txt" # or any regexp to read multiple files
+> seq <- readFastq(analysisPath(sp), patreadXStringColumns(baseCallPath(sp), pat,
++                           list(NULL, NULL, NULL, NULL, "DNAString"))[[1]]
+> seq <- clean(seq) # no reads with uncalled bases
+
+(or readFastq on analysisPath(sp), "s_1_sequence.txt", for instance,
+but these are 'filtered' and it's not really clear that that is the
+right place for a careful analysis to start), and then
+
+> tables(seq)$top[1:5]
+GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAAA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGAT 
+                                 186                                  126 
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAT 
+                                  71                                   51 
+GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAA 
+                                  16 
+to remind me what the primer sequence looks like (!) and
+
+> pd <- PDict(seq, max.mismatch=3)
+> subj <- DNAString("GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAAA")
+> cnts <- countPDict(pd, subj, max.mismatch=3)
+
+cnts now contains the number of times each read in seq matched the
+primer with up to 3 mismatches (could be more, within reason), of
+which there are
+
+> sum(cnts!=0)
+[1] 565
+
+seq[cnts==0] gets me the non-primer sequences (though apparently this
+is not entirely satisfactory, see the second entry!)
+
+> tables(seq[cnts==0])$top[1:5]
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA GATCGGAAGAGCTCGGTATGCCGTCTTCTGCTTAGA 
+                                  71                                   12 
+GGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAG GTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGG 
+                                   5                                    5 
+CACCTTTTTCAGTTTTCCTCGCCATATTTCACGTCC 
+                                   4 
+
+sessionInfo() tells me
+
+other attached packages:
+[1] ShortRead_0.1.32  lattice_0.17-10   Biostrings_2.9.42 Biobase_2.1.7    
+
+> Google has not revealed any algorithms or code for this part of the
+> pipeline.  Does anyone know what algorithms are being used or, even better,
+> could anyone point me in the direction of some code?
+
+I guess you're asking in general. In terms of ELAND, I'm not really
+sure what it does about primers; I think it actually keeps them in,
+relying on failure to align to weed them out. With contaminants (which
+can be specified in a separate file) ELAND aligns the reads to the
+contaminants and discards matches. The code is 'Solexa Open Source' or
+some such, and should be available from your friendly Solexa rep; the
+contaminant stuff is in Gerald/GERALD.pl of the version of the code I
+have access to.
+
+There are some obvious additional problems, e.g., those poly-A
+reads. Tools in Biostrings (e.g., alphabetFrequency) can be used in
+these cases, too.
+
+All of this seems pretty ad hoc, which is not really what you were
+looking for, I suspect.
+
+Martin
+
+> Thanks
+>
+> Krys
+>
+>
+> Dr Krystyna A Kelly
+> Senior Research Associate
+> David Baulcombe Group
+>
+> Department of Plant Sciences
+> University of Cambridge
+> Downing Street
+> Cambridge CB2 3EA
+> United Kingdom
+>
+> Tel: +44 (0)1223 333 915
+> Fax: +44 (0)1223 333953
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+
+From paboyoun at fhcrc.org  Thu Jul 17 21:38:57 2008
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Thu, 17 Jul 2008 12:38:57 -0700
+Subject: [Bioc-sig-seq] Adapter removal
+In-Reply-To: <20080717163551.3868EEF16@jade.fhcrc.org>
+References: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>
+	<20080717163551.3868EEF16@jade.fhcrc.org>
+Message-ID: <487F9FD1.4050009@fhcrc.org>
+
+Krys,
+Building up on Martin's suggestion, I also recommend you take a look at 
+the new pairwiseAlignment function in the development version of 
+Biostrings. Since it uses an O(N^2) dynamic programming algorithm it 
+isn't necessarily suited for genome wide analysis, but it is perfectly 
+suited for aligning short strings and filtered out short reads by 
+adapter strings. The pairwiseAlignment function can fit global, local, 
+and ends-free (overlap) alignments with or without quality-based 
+substitution penalties and with or without indels.
+
+Below is a sample script run that uses pairwiseAlignment to filter out 
+short reads based on the adapter. This script looks at four different 
+prefix cutoff levels (8, 16, 24, 36) that you could use to filter your 
+data and presents the results you would get when you use the equivalent 
+to a perfect match to the first 8 characters as your cutoff.
+
+
+Patrick
+
+
+ > library(ShortRead)
+ > sp <- SolexaPath("/path/to/solexa/expt")
+ > pat <- "s_1_sequence.txt"
+ > shortReads <- readFastq(analysisPath(sp), pattern = pat)
+ > cleanedShortReads <- clean(shortReads) # no reads with uncalled bases
+ > cleanedShortReads
+class: ShortReadQ
+length: 3506447 reads; width: 35 cycles
+ > adapter <- DNAString("GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAAA")
+ > system.time({
++   adapterScores <-
++     pairwiseAlignment(pattern = sread(cleanedShortReads), subject = 
+adapter,
++                       patternQuality = 
+quality(quality(cleanedShortReads)),
++                       subjectQuality = 99L,
++                       qualityType = "Solexa",
++                       type = "overlap",
++                       scoreOnly = TRUE)
++ })
+   user  system elapsed
+ 92.834   2.040  94.873
+ > firstNChar <- c(8, 16, 24, 32)
+ > cutoffScores <- c(0, 0, 0, 0)
+ > names(cutoffScores) <- firstNChar
+ > for (i in seq_len(length(cutoffScores))) {
++ print(system.time({
++   cutoffScores[i] <-
++     max(pairwiseAlignment(pattern = sread(cleanedShortReads),
++                           subject = substring(adapter, 1, firstNChar[i]),
++                           patternQuality = 
+quality(quality(cleanedShortReads)),
++                           subjectQuality = 99L,
++                           qualityType = "Solexa",
++                           type = "overlap",
++                           scoreOnly = TRUE))
++ }))
++ }
+   user  system elapsed
+ 16.901   0.480  17.381
+   user  system elapsed
+ 36.886   0.804  37.687
+   user  system elapsed
+ 58.692   1.412  60.117
+   user  system elapsed
+ 75.805   1.812  77.617
+ > cutoffScores
+       8       16       24       32
+15.96356 31.92712 47.89068 63.82726
+ > quantile(adapterScores, seq(0.9, 1, 0.005))
+      90%     90.5%       91%     91.5%       92%     92.5%       
+93%     93.5%
+ 9.909755 11.882821 13.878695 17.341880 21.739067 35.019755 50.056933 
+55.612625
+      94%     94.5%       95%     95.5%       96%     96.5%       
+97%     97.5%
+57.737140 58.951218 59.979969 60.780243 61.931897 62.586998 63.861232 
+65.047516
+      98%     98.5%       99%     99.5%      100%
+66.623512 68.858673 69.453423 69.661290 69.773109
+ > t(do.call("rbind", lapply(cutoffScores, function(x) 
+table(adapterScores > x))))
+            8      16      24      32
+FALSE 3206960 3240999 3257733 3400456
+TRUE   299487  265448  248714  105991
+ > tables(cleanedShortReads[adapterScores >= cutoffScores["8"]], n = 
+10)[["top"]]
+GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGA
+                              63558                               62264
+GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTTGA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGA
+                              17832                               15939
+GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTATA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTTAA
+                              11554                                7391
+GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAAA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGTA
+                               6452                                6343
+GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTTTA GATCGGAAGAGCTCGTATGACGTCTTCTGCTTAGA
+                               5724                                3878
+ > sessionInfo()
+R version 2.8.0 Under development (unstable) (2008-07-07 r46041)
+x86_64-unknown-linux-gnu
+
+locale:
+LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+
+attached base packages:
+[1] tools     stats     graphics  grDevices utils     datasets  methods 
+[8] base    
+
+other attached packages:
+[1] ShortRead_0.1.32  lattice_0.17-10   Biostrings_2.9.42 Biobase_2.1.7   
+
+loaded via a namespace (and not attached):
+[1] grid_2.8.0
+
+
+
+
+Martin Morgan wrote:
+> "Krys Kelly" <kak28 at cam.ac.uk> writes:
+>
+>   
+>> I have inherited a pipeline for Solexa sequence data using Perl, Bioperl,
+>> SSAHA and mySQL.  As an R/Bioconducter user I am interested in ShortRead and
+>> BiostringsCinterfaceDemo.
+>>
+>> However, in the short term I need to use the current pipeline.  The imaging
+>> is done by the Sequencing Facility and we get fastq files with the 3'
+>> adapter still attached. The adapter removal is currently done by a Perl
+>> script which just keeps sequences which match any number of letters in
+>> [ACGT] followed by the first 8 letters of the adapter.  This seems pretty
+>> crude (e.g. only using 8 letters, not allowing for mismatches, not allowing
+>> for the diminishing quality along the length of the read).
+>>     
+>
+> In the very latest Biostrings, and thanks to Herve's skills, you can
+>
+>   
+>> library(ShortRead)
+>> sp <- SolexaPath("/path/to/solexa/expt")
+>> pat <- "s_1_0001_seq.txt" # or any regexp to read multiple files
+>> seq <- readFastq(analysisPath(sp), patreadXStringColumns(baseCallPath(sp), pat,
+>>     
+> +                           list(NULL, NULL, NULL, NULL, "DNAString"))[[1]]
+>   
+>> seq <- clean(seq) # no reads with uncalled bases
+>>     
+>
+> (or readFastq on analysisPath(sp), "s_1_sequence.txt", for instance,
+> but these are 'filtered' and it's not really clear that that is the
+> right place for a careful analysis to start), and then
+>
+>   
+>> tables(seq)$top[1:5]
+>>     
+> GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAAA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGAT 
+>                                  186                                  126 
+> AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAT 
+>                                   71                                   51 
+> GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGGAA 
+>                                   16 
+> to remind me what the primer sequence looks like (!) and
+>
+>   
+>> pd <- PDict(seq, max.mismatch=3)
+>> subj <- DNAString("GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAAA")
+>> cnts <- countPDict(pd, subj, max.mismatch=3)
+>>     
+>
+> cnts now contains the number of times each read in seq matched the
+> primer with up to 3 mismatches (could be more, within reason), of
+> which there are
+>
+>   
+>> sum(cnts!=0)
+>>     
+> [1] 565
+>
+> seq[cnts==0] gets me the non-primer sequences (though apparently this
+> is not entirely satisfactory, see the second entry!)
+>
+>   
+>> tables(seq[cnts==0])$top[1:5]
+>>     
+> AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA GATCGGAAGAGCTCGGTATGCCGTCTTCTGCTTAGA 
+>                                   71                                   12 
+> GGTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAG GTTAGGGTTAGGGTTAGGGTTAGGGTTAGGGTTAGG 
+>                                    5                                    5 
+> CACCTTTTTCAGTTTTCCTCGCCATATTTCACGTCC 
+>                                    4 
+>
+> sessionInfo() tells me
+>
+> other attached packages:
+> [1] ShortRead_0.1.32  lattice_0.17-10   Biostrings_2.9.42 Biobase_2.1.7    
+>
+>   
+>> Google has not revealed any algorithms or code for this part of the
+>> pipeline.  Does anyone know what algorithms are being used or, even better,
+>> could anyone point me in the direction of some code?
+>>     
+>
+> I guess you're asking in general. In terms of ELAND, I'm not really
+> sure what it does about primers; I think it actually keeps them in,
+> relying on failure to align to weed them out. With contaminants (which
+> can be specified in a separate file) ELAND aligns the reads to the
+> contaminants and discards matches. The code is 'Solexa Open Source' or
+> some such, and should be available from your friendly Solexa rep; the
+> contaminant stuff is in Gerald/GERALD.pl of the version of the code I
+> have access to.
+>
+> There are some obvious additional problems, e.g., those poly-A
+> reads. Tools in Biostrings (e.g., alphabetFrequency) can be used in
+> these cases, too.
+>
+> All of this seems pretty ad hoc, which is not really what you were
+> looking for, I suspect.
+>
+> Martin
+>
+>   
+>> Thanks
+>>
+>> Krys
+>>
+>>
+>> Dr Krystyna A Kelly
+>> Senior Research Associate
+>> David Baulcombe Group
+>>
+>> Department of Plant Sciences
+>> University of Cambridge
+>> Downing Street
+>> Cambridge CB2 3EA
+>> United Kingdom
+>>
+>> Tel: +44 (0)1223 333 915
+>> Fax: +44 (0)1223 333953
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>     
+>
+>
+
+
+From hpages at fhcrc.org  Fri Jul 18 06:16:04 2008
+From: hpages at fhcrc.org (Herve Pages)
+Date: Thu, 17 Jul 2008 21:16:04 -0700
+Subject: [Bioc-sig-seq] Adapter removal
+In-Reply-To: <20080717194014.4D5811A78F@jade.fhcrc.org>
+References: <!&!AAAAAAAAAAAYAAAAAAAAAAPHPy2GOv1IgjYl7ptVqKLCgAAAEAAAAKp+u1E8ZihJpvJT/Xeisp4BAAAAAA==@cam.ac.uk>	<20080717163551.3868EEF16@jade.fhcrc.org>
+	<20080717194014.4D5811A78F@jade.fhcrc.org>
+Message-ID: <48801904.50000@fhcrc.org>
+
+Hi Krys,
+
+And to add up on Patrick's comments, I'd like to mention a particular
+way of using the new pairwiseAlignment() function in order to find
+the "edit distance" (i.e. the min nb of subs/ins/dels required for
+transforming one string into another) between the linker and the set
+of reads.
+
+Let's say the reads are in 'dict1':
+
+ > dict1
+   A DNAStringSet instance of length 3506447
+           width seq
+       [1]    35 CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+       [2]    35 ATTGGAGAATTATAGTAGTAGATATTAATGATTGT
+       [3]    35 TCAGGTTGATCCACTCCACTACGGCTGCTTTTCTT
+       [4]    35 ATTACAAAATTACTTTACCAAGATTCTCGAAGATG
+       [5]    35 ATTTACTTTTTCCTTTCCAATATTGAAGTCTTGAA
+       [6]    35 ATATTTGATGTAAAATAAGTAACAAAGAAACTCAC
+       [7]    35 GATCAACATAAAGATGAACTTTCACAAATTAATGC
+       [8]    35 GTATTCTATACAATTGAGTGTATCATCATCTCTAA
+       [9]    35 TGTTTTTCTGACATTTTCATACATTTTGTTGATGG
+       ...   ... ...
+[3506439]    35 CTGCTTCAAATGTTGTGACATTCACTTATCTGTCT
+[3506440]    35 CACACAAGATATGGAAGATAATAGTCTCTCTAGGC
+[3506441]    35 CCGTGATTTTCAGTTTTCTCGCCATATTCACGTTC
+[3506442]    35 CAAAGAGTACAATGCCAAGCATTTCAAGCAGCACT
+[3506443]    35 CACGTGCCGCCTCGATGGTCGCATTAAGTGCGAGC
+[3506444]    35 CCACCTGTGTGACATCACAGAGGAGGCAGCAGGTG
+[3506445]    35 ACAAAATAAGATAGTATATAAGTAGAAAATTCACA
+[3506446]    35 GTGGGTTGGCATGGTCAAACTTAACTGGAAATTTC
+[3506447]    35 AATATCCCATTGAAAGGAAAATATATACATATAAT
+
+And your linker is:
+
+   linker <- DNAString("GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTG")
+
+By using this special substitution matrix:
+
+   > mat <- matrix(-1L, nrow = 4, ncol = 4)
+   > diag(mat) <- 0L
+   > rownames(mat) <- colnames(mat) <- DNA_ALPHABET[1:4]
+   > mat
+      A  C  G  T
+   A  0 -1 -1 -1
+   C -1  0 -1 -1
+   G -1 -1  0 -1
+   T -1 -1 -1  0
+
+and a gap opening score of 0 and a gap extension score of -1, then
+the scores returned by
+
+   scores <- pairwiseAlignment(dict1, linker, substitutionMatrix=mat,
+                               gapOpening=0, gapExtension=-1, scoreOnly=TRUE)
+
+are the opposites of the edit distances between the reads and the
+linker.
+
+As Patrick mentioned, the above call is very fast because the strings
+to align are very short on both side of the comparison (will take
+between 1 and 2 minutes on a modern PC).
+
+Then by looking at the right end of the "edit distance" histogram:
+
+   > table(scores)
+   scores
+      -31    -30    -29    -28    -27    -26    -25    -24    -23    -22    -21
+       17  80458   6632   2924   4924  10647  33937  93756 219541 412330 594273
+      -20    -19    -18    -17    -16    -15    -14    -13    -12    -11    -10
+   648006 535821 340020 166160  63729  19741   4840   1092    343    165    228
+       -9     -8     -7     -6     -5     -4     -3     -2
+      291    502    868   1802   3554  14293  65037 180516
+
+we can see that there are a lot of reads that are very close to the
+linker: 259846 of them are at a distance <= 4. To "see" those reads:
+
+ > dict1[which(scores >= -4)]
+   A DNAStringSet instance of length 259846
+          width seq
+      [1]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTTGA
+      [2]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGA
+      [3]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAA
+      [4]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAAA
+      [5]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGA
+      [6]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAA
+      [7]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGA
+      [8]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGA
+      [9]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTAGA
+      ...   ... ...
+[259838]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTCAA
+[259839]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGATTAAA
+[259840]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAA
+[259841]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAA
+[259842]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTGAA
+[259843]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTTAA
+[259844]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTTCTTGAA
+[259845]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTCTA
+[259846]    35 GATCGGAAGAGCTCGTATGCCGTATTCTGCTTAGA
+
+This method finds reads that differ from the linker by
+a small number of insertions and/or deletions, in addition
+to the substitutions:
+
+ > dict1[which(scores == -4)]
+   A DNAStringSet instance of length 14293
+         width seq
+     [1]    35 GATCGGAAGAGCTCGTATGCGTCTTCTGCTTAGAT
+     [2]    35 GATCGGAAGAGCTCGTATGCCGTTTCTGCTTAGAT
+     [3]    35 GATCGGAAGAGCTCGTATGCGTCTTCTGCTTAGAT
+     [4]    35 GATCGGAAGAGCTCGGTATGCCGTTTTCTGTTTCG
+     [5]    35 GATCGGAAGAGCTCGTATGCCGTTTTCTGCTTATA
+     [6]    35 GATCGGAAGAGCTCGTATGCCGCCTTCTGCTTCAC
+     [7]    35 GATCGGAAGAGCTCGTATGCCCTCTTCTGCCTCGA
+     [8]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTTCTTTAA
+     [9]    35 GATCGGAAGAGCTCGTATGCCGACTTCTGCTTCAA
+     ...   ... ...
+[14285]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGTTTCTA
+[14286]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTCCTTTAA
+[14287]    35 GATCGGAAGAGCTCGTATGCCGTCTTATGCTTTAA
+[14288]    35 GATCGGAAGCGCTCGTATGCCGTCTTCTGCTTCAC
+[14289]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTTCTTTAA
+[14290]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTTCTTTTA
+[14291]    35 GATCGGAAGAGCTCGTATGCGTCTTCTGCTTAGAT
+[14292]    35 GATCGGAAGAGCTCGTATGCCCTCTTCTGCTTTAA
+[14293]    35 GATCGGAAGAGCTCGTATGCCGTCTTCTGATTAAA
+
+To remove them from 'dict1':
+
+   cleandict1 <- dict1[-which(scores >= -4)]
+
+Hope this helps.
+
+H.
+
+
+From zhangziping at hotmail.com  Tue Jul 29 18:25:53 2008
+From: zhangziping at hotmail.com (Ziping Zhang)
+Date: Tue, 29 Jul 2008 11:25:53 -0500
+Subject: [Bioc-sig-seq] 454 data normalization
+Message-ID: <BAY129-DS37B11C3C40F666065AEABB6820@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080729/74fb4733/attachment.pl>
+
+From sdavis2 at mail.nih.gov  Tue Jul 29 18:55:48 2008
+From: sdavis2 at mail.nih.gov (Sean Davis)
+Date: Tue, 29 Jul 2008 12:55:48 -0400
+Subject: [Bioc-sig-seq] 454 data normalization
+In-Reply-To: <BAY129-DS37B11C3C40F666065AEABB6820@phx.gbl>
+References: <BAY129-DS37B11C3C40F666065AEABB6820@phx.gbl>
+Message-ID: <264855a00807290955j4aef820fi431b153375d25ea9@mail.gmail.com>
+
+On Tue, Jul 29, 2008 at 12:25 PM, Ziping Zhang <zhangziping at hotmail.com> wrote:
+> Dear All,
+>
+> We are now using 454 to do comparative analysis of the transcriptomes of treated and control samples (fish). Anyone have any advices for data normalization will be welcome.  We appreciate any comments from you.
+>
+
+The July 2008 Nature Methods has some articles that utilize next-gen
+sequencing for transcriptome profiling.  You might look at those for
+ideas.
+
+Sean
+
+

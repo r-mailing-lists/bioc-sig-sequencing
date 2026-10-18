@@ -1,0 +1,1271 @@
+From Nicolas.Servant at curie.fr  Wed Feb  4 15:49:10 2009
+From: Nicolas.Servant at curie.fr (nicolas servant)
+Date: Wed, 04 Feb 2009 15:49:10 +0100
+Subject: [Bioc-sig-seq] SOLID data
+Message-ID: <4989AAE6.7060302@curie.fr>
+
+Dear List,
+
+Does anybody have ever try to analyse some SOLID data using Biostrings 
+and ShortRead ?? or anything else !
+The ShortRead package was developped to manipulate short reads from 
+Solexa, 454, Helicos or SOLiD (cf vignette), but in practice, it seems 
+to be more complicated ... the input are different from Solexa of 
+course, and we have to deal with the color code ...
+Does anybody have some experience with this data ? especially for the 
+adaptor removal ?
+
+Thanks,
+Nicolas
+
+-- 
+Nicolas Servant
+Equipe Bioinformatique
+Institut Curie
+26, rue d'Ulm - 75248 Paris Cedex 05 - FRANCE
+
+Email: Nicolas.Servant at curie.fr
+Tel: 01 56 24 69 85
+http://bioinfo.curie.fr/
+
+
+From mtmorgan at fhcrc.org  Thu Feb  5 01:39:20 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 04 Feb 2009 16:39:20 -0800
+Subject: [Bioc-sig-seq] SOLID data
+In-Reply-To: <4989AAE6.7060302@curie.fr> (nicolas servant's message of "Wed,
+	04 Feb 2009 15:49:10 +0100")
+References: <4989AAE6.7060302@curie.fr>
+Message-ID: <6phzlh167k7.fsf@gopher4.fhcrc.org>
+
+Hi Nicolas --
+
+nicolas servant <Nicolas.Servant at curie.fr> writes:
+
+> Dear List,
+>
+> Does anybody have ever try to analyse some SOLID data using Biostrings
+> and ShortRead ?? or anything else !
+> The ShortRead package was developped to manipulate short reads from
+> Solexa, 454, Helicos or SOLiD (cf vignette), but in practice, it seems
+
+A not necessarily helpful answer; maybe others will reply, but... I
+removed SOLiD from explicit mention in the ShortRead vignette, because
+as you say the color space model complicates things (the vignette was
+written early in the life of ShortRead, when plans ran ahead of
+reality). ShortRead I/O and other Bioconductor tools might still be
+helpful at some point in a SOLiD work flow, once reads are represented
+as traditional nucleotide sequences (which I guess they must be at
+some point?).
+
+Martin
+
+> to be more complicated ... the input are different from Solexa of
+> course, and we have to deal with the color code ...
+> Does anybody have some experience with this data ? especially for the
+> adaptor removal ?
+>
+> Thanks,
+> Nicolas
+>
+> -- 
+> Nicolas Servant
+> Equipe Bioinformatique
+> Institut Curie
+> 26, rue d'Ulm - 75248 Paris Cedex 05 - FRANCE
+>
+> Email: Nicolas.Servant at curie.fr
+> Tel: 01 56 24 69 85
+> http://bioinfo.curie.fr/
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+
+From daniel at biotech.kth.se  Thu Feb  5 08:33:09 2009
+From: daniel at biotech.kth.se (Daniel Klevebring)
+Date: Thu, 5 Feb 2009 08:33:09 +0100
+Subject: [Bioc-sig-seq] SOLID data
+In-Reply-To: <6phzlh167k7.fsf@gopher4.fhcrc.org>
+References: <4989AAE6.7060302@curie.fr> <6phzlh167k7.fsf@gopher4.fhcrc.org>
+Message-ID: <FFDEC234-6537-4F84-A364-80F5FA023F9D@biotech.kth.se>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090205/5be4be4e/attachment.pl>
+
+From Nicolas.Servant at curie.fr  Thu Feb  5 12:12:23 2009
+From: Nicolas.Servant at curie.fr (nicolas servant)
+Date: Thu, 05 Feb 2009 12:12:23 +0100
+Subject: [Bioc-sig-seq] SOLID data
+In-Reply-To: <FFDEC234-6537-4F84-A364-80F5FA023F9D@biotech.kth.se>
+References: <4989AAE6.7060302@curie.fr> <6phzlh167k7.fsf@gopher4.fhcrc.org>
+	<FFDEC234-6537-4F84-A364-80F5FA023F9D@biotech.kth.se>
+Message-ID: <498AC997.1030306@curie.fr>
+
+Hi all,
+
+As Daniel said, changing color space in a base space could be a solution 
+for some applications.
+But we have to be careful with this trick, especially for the mapping.
+For exemple, in the color space, 2 adjacent mismatches correspond to 
+only one base mismatche. That's why we have to take into account the 
+color space proprieties.
+
+Best,
+
+Nicolas
+
+Daniel Klevebring a ?crit :
+> Hi all, 
+>
+> In the SOLiD system, read are mapped a color-space encoded version of 
+> the reference sequence in question, after which start and end 
+> coordinates are reported. Base-space sequence can then (if needed) be 
+> extracted from the reference sequence using the given coordinates. 
+>
+> There is a "double encoding"-system, where the colors (0, 1, 2, 3) are 
+> changed to letters (A, C, G, T) to trick certain software to work with 
+> SOLiD data. This does not correspond to the actual base-space 
+> sequence, it's only a representation of the color-space sequence. I 
+> guess it would be possible to use this trick to make BioStrings and 
+> ShortRead work with SOLiD data. 
+>
+> However, one very important feature of the SOLiD system, is that the 
+> reverse complement sequence corresponds to the reverse color-space 
+> sequence (there is no "complement" in color-space). This means that 
+> the algorithm for returning the rev-comp sequence when prior to 
+> matching on the (-)-strand need to be re-written to report the reverse 
+> sequence instead of the rev-comp.
+>
+> Did all this make sense...? Basically, I think it would be possible to 
+> make it work if the colors are "double-encoded" and the internal 
+> function that rev-comps a sequence is modified to report the reverse.
+>
+> Best
+> Daniel Klevebring
+>
+>
+> On 5 feb 2009, at 01.39, Martin Morgan wrote:
+>
+>> , once reads are represented
+>> as traditional nucleotide sequences (which I guess they must be at
+>> some point?).
+>
+> --
+>
+> Contact information:
+>
+> Daniel Klevebring
+> M. Sc. Eng., Ph.D. Student
+> Dept of Gene Technology
+> Royal Institute of Technology, KTH
+> SE-106 91 Stockholm, Sweden
+>
+> Visiting address: Roslagstullsbacken 21, B3
+> Delivery address: Roslagsv?gen 30B, 104 06, Stockholm
+> Invoice address: KTH Fakturaserice, Ref DAKL KTHBIO, Box 24075, 
+> SE-10450 Stockholm
+> E-mail: daniel at biotech.kth.se <mailto:daniel at biotech.kth.se>
+> E-mail: daniel at arrayadvice.se <mailto:daniel at arrayadvice.se>
+> Phone: +46 8 5537 8337 (Office)
+> Phone: +46 704 71 65 91 (Mobile)
+> Web: http://www.biotech.kth.se/genetech/index.html
+> Web: http://www.arrayadvice.se/
+> Fax: +46 8 5537 8481
+> MSN messenger: klevebring at msn.com <mailto:klevebring at msn.com>
+>
+
+
+-- 
+Nicolas Servant
+Equipe Bioinformatique
+Institut Curie
+26, rue d'Ulm - 75248 Paris Cedex 05 - FRANCE
+
+Email: Nicolas.Servant at curie.fr
+Tel: 01 56 24 69 85
+http://bioinfo.curie.fr/
+
+
+From raffaele.calogero at gmail.com  Thu Feb  5 14:49:54 2009
+From: raffaele.calogero at gmail.com (rcaloger)
+Date: Thu, 05 Feb 2009 14:49:54 +0100
+Subject: [Bioc-sig-seq] SOLID data
+In-Reply-To: <mailman.7.1233831603.15990.bioc-sig-sequencing@r-project.org>
+References: <mailman.7.1233831603.15990.bioc-sig-sequencing@r-project.org>
+Message-ID: <498AEE82.4040009@unito.it>
+
+Hi,
+
+I am working with SOLID data essentially to make quantification of 
+non-coding trasncriptome.
+Due to the peculiar characteristics of SOLID data I decided to use a 
+software born for SOLID data mapping: SOCS, Ondov et al. Bioinformatics 
+2008 (http://bioinformatics.oxfordjournals.org/cgi/content/short/btn512v1).
+My idea is to use SOCS outputs as stating material to be handled in 
+Bioconductor/R. Therefore, I am writing a package that runs SOCS and 
+uses its outputs to make quantitative analyses.
+Unfortuantely it is not mature enough to be submitted to Bioconductor.
+Raffaele
+
+> Message: 1
+> Date: Wed, 04 Feb 2009 15:49:10 +0100
+> From: nicolas servant <Nicolas.Servant at curie.fr>
+> Subject: [Bioc-sig-seq] SOLID data
+> To: bioc-sig-sequencing at r-project.org
+> Message-ID: <4989AAE6.7060302 at curie.fr>
+> Content-Type: text/plain; charset=ISO-8859-1; format=flowed
+>
+> Dear List,
+>
+> Does anybody have ever try to analyse some SOLID data using Biostrings 
+> and ShortRead ?? or anything else !
+> The ShortRead package was developped to manipulate short reads from 
+> Solexa, 454, Helicos or SOLiD (cf vignette), but in practice, it seems 
+> to be more complicated ... the input are different from Solexa of 
+> course, and we have to deal with the color code ...
+> Does anybody have some experience with this data ? especially for the 
+> adaptor removal ?
+>
+> Thanks,
+> Nicolas
+>
+>
+
+
+From tanasa at gmail.com  Tue Feb 10 04:39:35 2009
+From: tanasa at gmail.com (Bogdan Tanasa)
+Date: Mon, 9 Feb 2009 19:39:35 -0800
+Subject: [Bioc-sig-seq] adaptors
+Message-ID: <47d9979f0902091939l5b14d1f2u2551491bf74e323c@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/3f161cb7/attachment.pl>
+
+From seandavi at gmail.com  Tue Feb 10 04:45:02 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Mon, 9 Feb 2009 22:45:02 -0500
+Subject: [Bioc-sig-seq] adaptors
+In-Reply-To: <47d9979f0902091939l5b14d1f2u2551491bf74e323c@mail.gmail.com>
+References: <47d9979f0902091939l5b14d1f2u2551491bf74e323c@mail.gmail.com>
+Message-ID: <264855a00902091945p531722caqad5ef70ae8c11080@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/e1b85d7c/attachment.pl>
+
+From maximilian.kauer at ccri.at  Wed Feb 18 16:18:54 2009
+From: maximilian.kauer at ccri.at (Kauer Max)
+Date: Wed, 18 Feb 2009 16:18:54 +0100
+Subject: [Bioc-sig-seq] library chipseq
+Message-ID: <221653276BAE004893843AF85FDCB2050110337E@anakin.stanna.at>
+
+Hi
+In the material on the Bioconductor homepage from the recent microarray and sequencing workshop in Seattle I saw that in the ChIP-seq Case Study a package called "chipseq" was used.
+
+However, I cannot find it anywhere for download
+Does anybody know where I could get it?
+
+Thanks,
+Max
+
+
+--------------------------------------
+Maximilian Kauer
+CHILDREN'S CANCER RESEARCH INSTITUTE
+St. Anna Kinderkrebsforschung e.V.
+Zimmermannplatz 10, 1090 Wien, Austria
+
+
+From l.gatto at dnavision.be  Wed Feb 18 17:54:10 2009
+From: l.gatto at dnavision.be (Laurent Gatto)
+Date: Wed, 18 Feb 2009 17:54:10 +0100
+Subject: [Bioc-sig-seq] library chipseq
+In-Reply-To: <221653276BAE004893843AF85FDCB2050110337E@anakin.stanna.at>
+References: <221653276BAE004893843AF85FDCB2050110337E@anakin.stanna.at>
+Message-ID: <200902181754.10690.l.gatto@dnavision.be>
+
+Hi Max,
+
+The 'chipseq'  package is available in the svn repository.
+
+Laurent
+
+
+On Wednesday 18 February 2009 16:18:54 Kauer Max wrote:
+> Hi
+> In the material on the Bioconductor homepage from the recent microarray and
+> sequencing workshop in Seattle I saw that in the ChIP-seq Case Study a
+> package called "chipseq" was used.
+>
+> However, I cannot find it anywhere for download
+> Does anybody know where I could get it?
+>
+> Thanks,
+> Max
+>
+>
+> --------------------------------------
+> Maximilian Kauer
+> CHILDREN'S CANCER RESEARCH INSTITUTE
+> St. Anna Kinderkrebsforschung e.V.
+> Zimmermannplatz 10, 1090 Wien, Austria
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From paboyoun at fhcrc.org  Wed Feb 18 18:49:51 2009
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Wed, 18 Feb 2009 09:49:51 -0800
+Subject: [Bioc-sig-seq] library chipseq
+In-Reply-To: <200902181754.10690.l.gatto@dnavision.be>
+References: <221653276BAE004893843AF85FDCB2050110337E@anakin.stanna.at>
+	<200902181754.10690.l.gatto@dnavision.be>
+Message-ID: <499C4A3F.2000304@fhcrc.org>
+
+Laurent is correct. You can find the chipseq package at
+
+https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/chipseq
+
+Note that this package is currently considered to be experimental and 
+function interfaces and behavior are subject to change beyond what would 
+normally be excepted for a released BioC package.
+
+
+Patrick
+
+
+Laurent Gatto wrote:
+> Hi Max,
+>
+> The 'chipseq'  package is available in the svn repository.
+>
+> Laurent
+>
+>
+> On Wednesday 18 February 2009 16:18:54 Kauer Max wrote:
+>   
+>> Hi
+>> In the material on the Bioconductor homepage from the recent microarray and
+>> sequencing workshop in Seattle I saw that in the ChIP-seq Case Study a
+>> package called "chipseq" was used.
+>>
+>> However, I cannot find it anywhere for download
+>> Does anybody know where I could get it?
+>>
+>> Thanks,
+>> Max
+>>
+>>
+>> --------------------------------------
+>> Maximilian Kauer
+>> CHILDREN'S CANCER RESEARCH INSTITUTE
+>> St. Anna Kinderkrebsforschung e.V.
+>> Zimmermannplatz 10, 1090 Wien, Austria
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>     
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From wraff at titus.u-strasbg.fr  Wed Feb 18 19:29:31 2009
+From: wraff at titus.u-strasbg.fr (Wolfgang Raffelsberger)
+Date: Wed, 18 Feb 2009 19:29:31 +0100
+Subject: [Bioc-sig-seq] comparing Affy SNP arrays with deep sequencing ?
+Message-ID: <499C538B.8000202@titus.u-strasbg.fr>
+
+Dear List,
+
+here I have a more general question :
+Has anyone compared (directly?) Affy 500kSNP arrays with deep sequencing 
+(here I'm rather thinking of Solexa/Illumina) ?
+How much sequencing coverage should allow a 'decent' SNP calling ? 
+(Maybe I need to add that heterozygous SNPs should be detected, too)
+At which level (of coverage) would you expect to get equivalent or 
+better results as Affy SNP arrays ? (Of course I know that a few 
+(specific) SNPs may be lost due to the random distribution of the reads...)
+
+Or a variant of the question, if one sequenced a given zone of high 
+interest (possibly with multiplexing) what would be current advice in 
+terms of size of the zone (and number of multiplexed patients) to get 
+suffient coverage to detect heterozygous SNPs.
+
+Thank's in advance,
+Wolfgang
+
+ 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Wolfgang Raffelsberger, PhD
+Laboratoire de BioInformatique et G?nomique Int?gratives
+CNRS UMR7104, IGBMC 
+1 rue Laurent Fries,  67404 Illkirch  Strasbourg,  France
+Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+wolfgang.raffelsberger (at) igbmc.fr
+
+
+From dan.bolser at gmail.com  Wed Feb 18 21:02:16 2009
+From: dan.bolser at gmail.com (Dan Bolser)
+Date: Wed, 18 Feb 2009 20:02:16 +0000
+Subject: [Bioc-sig-seq] comparing Affy SNP arrays with deep sequencing ?
+In-Reply-To: <499C538B.8000202@titus.u-strasbg.fr>
+References: <499C538B.8000202@titus.u-strasbg.fr>
+Message-ID: <2c8757af0902181202p740f81b4lb626c878821f1d92@mail.gmail.com>
+
+2009/2/18 Wolfgang Raffelsberger <wraff at titus.u-strasbg.fr>:
+> Dear List,
+>
+> here I have a more general question :
+> Has anyone compared (directly?) Affy 500kSNP arrays with deep sequencing
+> (here I'm rather thinking of Solexa/Illumina) ?
+> How much sequencing coverage should allow a 'decent' SNP calling ? (Maybe I
+> need to add that heterozygous SNPs should be detected, too)
+> At which level (of coverage) would you expect to get equivalent or better
+> results as Affy SNP arrays ? (Of course I know that a few (specific) SNPs
+> may be lost due to the random distribution of the reads...)
+>
+> Or a variant of the question, if one sequenced a given zone of high interest
+> (possibly with multiplexing) what would be current advice in terms of size
+> of the zone (and number of multiplexed patients) to get suffient coverage to
+> detect heterozygous SNPs.
+
+Richard Durbin did some calculations to look at this question, namely,
+how much depth do you need over a SNP to call it with 99.9%
+accuracy... how much coverage do you need to get that much coverage on
+you SNP with 99.9% accuracy... Sadly I don't have the figures to hand,
+but perhaps you can email him this question and post the answer back
+to the list?
+
+Dan.
+
+
+> Thank's in advance,
+> Wolfgang
+>
+>
+> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+> Wolfgang Raffelsberger, PhD
+> Laboratoire de BioInformatique et G?nomique Int?gratives
+> CNRS UMR7104, IGBMC 1 rue Laurent Fries,  67404 Illkirch  Strasbourg,
+>  France
+> Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+> wolfgang.raffelsberger (at) igbmc.fr
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From seandavi at gmail.com  Wed Feb 18 21:12:30 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Wed, 18 Feb 2009 15:12:30 -0500
+Subject: [Bioc-sig-seq] comparing Affy SNP arrays with deep sequencing ?
+In-Reply-To: <499C538B.8000202@titus.u-strasbg.fr>
+References: <499C538B.8000202@titus.u-strasbg.fr>
+Message-ID: <264855a00902181212v3bf0880dw6b6cf4879ef044eb@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090218/2cfa65e8/attachment.pl>
+
+From dan.bolser at gmail.com  Thu Feb 19 00:28:00 2009
+From: dan.bolser at gmail.com (Dan Bolser)
+Date: Thu, 19 Feb 2009 00:28:00 +0100
+Subject: [Bioc-sig-seq] comparing Affy SNP arrays with deep sequencing ?
+In-Reply-To: <6749F582-3BC3-4107-9FB4-22E4E27E096A@kth.se>
+References: <499C538B.8000202@titus.u-strasbg.fr>
+	<2c8757af0902181202p740f81b4lb626c878821f1d92@mail.gmail.com>
+	<6749F582-3BC3-4107-9FB4-22E4E27E096A@kth.se>
+Message-ID: <2c8757af0902181528q7d99c607w6ffad0142365351f@mail.gmail.com>
+
+2009/2/18 Johan Lindberg <johlin at kth.se>:
+> Figure 5 in the paper  "Accurate whole human genome sequencing using
+> reversible terminator chemistry" that Durbin is author of should answer your
+> question.
+> best regards,
+
+Thanks for the reference.
+
+
+> // Johan
+>
+> On 18 feb 2009, at 21.02, Dan Bolser wrote:
+>
+> 2009/2/18 Wolfgang Raffelsberger <wraff at titus.u-strasbg.fr>:
+>
+> Dear List,
+>
+> here I have a more general question :
+>
+> Has anyone compared (directly?) Affy 500kSNP arrays with deep sequencing
+>
+> (here I'm rather thinking of Solexa/Illumina) ?
+>
+> How much sequencing coverage should allow a 'decent' SNP calling ? (Maybe I
+>
+> need to add that heterozygous SNPs should be detected, too)
+>
+> At which level (of coverage) would you expect to get equivalent or better
+>
+> results as Affy SNP arrays ? (Of course I know that a few (specific) SNPs
+>
+> may be lost due to the random distribution of the reads...)
+>
+> Or a variant of the question, if one sequenced a given zone of high interest
+>
+> (possibly with multiplexing) what would be current advice in terms of size
+>
+> of the zone (and number of multiplexed patients) to get suffient coverage to
+>
+> detect heterozygous SNPs.
+>
+> Richard Durbin did some calculations to look at this question, namely,
+> how much depth do you need over a SNP to call it with 99.9%
+> accuracy... how much coverage do you need to get that much coverage on
+> you SNP with 99.9% accuracy... Sadly I don't have the figures to hand,
+> but perhaps you can email him this question and post the answer back
+> to the list?
+>
+> Dan.
+>
+>
+> Thank's in advance,
+>
+> Wolfgang
+>
+>
+> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+>
+> Wolfgang Raffelsberger, PhD
+>
+> Laboratoire de BioInformatique et G?nomique Int?gratives
+>
+> CNRS UMR7104, IGBMC 1 rue Laurent Fries,  67404 Illkirch  Strasbourg,
+>
+> France
+>
+> Tel (+33) 388 65 3300         Fax (+33) 388 65 3276
+>
+> wolfgang.raffelsberger (at) igbmc.fr
+>
+> _______________________________________________
+>
+> Bioc-sig-sequencing mailing list
+>
+> Bioc-sig-sequencing at r-project.org
+>
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+
+
+From maximilian.kauer at ccri.at  Fri Feb 20 13:21:48 2009
+From: maximilian.kauer at ccri.at (Kauer Max)
+Date: Fri, 20 Feb 2009 13:21:48 +0100
+Subject: [Bioc-sig-seq] library chipseq
+References: <221653276BAE004893843AF85FDCB2050110337E@anakin.stanna.at><200902181754.10690.l.gatto@dnavision.be>
+	<499C4A3F.2000304@fhcrc.org>
+Message-ID: <221653276BAE004893843AF85FDCB20501103381@anakin.stanna.at>
+
+Thanks!
+I wonder if I could also find somewhere the alignedLocs.rda data that was used in the workshop?
+Max
+
+
+
+-----Urspr?ngliche Nachricht-----
+Von: bioc-sig-sequencing-bounces at r-project.org im Auftrag von Patrick Aboyoun
+Gesendet: Mi 18.02.2009 18:49
+An: l.gatto at dnavision.be
+Cc: bioc-sig-sequencing at r-project.org
+Betreff: Re: [Bioc-sig-seq] library chipseq
+ 
+Laurent is correct. You can find the chipseq package at
+
+https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/chipseq
+
+Note that this package is currently considered to be experimental and 
+function interfaces and behavior are subject to change beyond what would 
+normally be excepted for a released BioC package.
+
+
+Patrick
+
+
+Laurent Gatto wrote:
+> Hi Max,
+>
+> The 'chipseq'  package is available in the svn repository.
+>
+> Laurent
+>
+>
+> On Wednesday 18 February 2009 16:18:54 Kauer Max wrote:
+>   
+>> Hi
+>> In the material on the Bioconductor homepage from the recent microarray and
+>> sequencing workshop in Seattle I saw that in the ChIP-seq Case Study a
+>> package called "chipseq" was used.
+>>
+>> However, I cannot find it anywhere for download
+>> Does anybody know where I could get it?
+>>
+>> Thanks,
+>> Max
+>>
+>>
+>> --------------------------------------
+>> Maximilian Kauer
+>> CHILDREN'S CANCER RESEARCH INSTITUTE
+>> St. Anna Kinderkrebsforschung e.V.
+>> Zimmermannplatz 10, 1090 Wien, Austria
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>     
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From paboyoun at fhcrc.org  Fri Feb 20 15:53:04 2009
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Fri, 20 Feb 2009 06:53:04 -0800
+Subject: [Bioc-sig-seq] library chipseq
+In-Reply-To: <221653276BAE004893843AF85FDCB20501103381@anakin.stanna.at>
+References: <221653276BAE004893843AF85FDCB2050110337E@anakin.stanna.at><200902181754.10690.l.gatto@dnavision.be>
+	<499C4A3F.2000304@fhcrc.org>
+	<221653276BAE004893843AF85FDCB20501103381@anakin.stanna.at>
+Message-ID: <20090220065304.o6ijxq1cis80w0g0@webmail.fhcrc.org>
+
+Max,
+That data set isn't available yet for widespread distribution. We are  
+anticipating releasing a data experiment package along with the  
+chipseq package, but wont be for some time yet.
+
+
+Patrick
+
+
+Quoting Kauer Max <maximilian.kauer at ccri.at>:
+
+> Thanks!
+> I wonder if I could also find somewhere the alignedLocs.rda data   
+> that was used in the workshop?
+> Max
+>
+>
+>
+> -----Urspr?ngliche Nachricht-----
+> Von: bioc-sig-sequencing-bounces at r-project.org im Auftrag von Patrick Aboyoun
+> Gesendet: Mi 18.02.2009 18:49
+> An: l.gatto at dnavision.be
+> Cc: bioc-sig-sequencing at r-project.org
+> Betreff: Re: [Bioc-sig-seq] library chipseq
+>
+> Laurent is correct. You can find the chipseq package at
+>
+> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/chipseq
+>
+> Note that this package is currently considered to be experimental and
+> function interfaces and behavior are subject to change beyond what would
+> normally be excepted for a released BioC package.
+>
+>
+> Patrick
+>
+>
+> Laurent Gatto wrote:
+>> Hi Max,
+>>
+>> The 'chipseq'  package is available in the svn repository.
+>>
+>> Laurent
+>>
+>>
+>> On Wednesday 18 February 2009 16:18:54 Kauer Max wrote:
+>>
+>>> Hi
+>>> In the material on the Bioconductor homepage from the recent microarray and
+>>> sequencing workshop in Seattle I saw that in the ChIP-seq Case Study a
+>>> package called "chipseq" was used.
+>>>
+>>> However, I cannot find it anywhere for download
+>>> Does anybody know where I could get it?
+>>>
+>>> Thanks,
+>>> Max
+>>>
+>>>
+>>> --------------------------------------
+>>> Maximilian Kauer
+>>> CHILDREN'S CANCER RESEARCH INSTITUTE
+>>> St. Anna Kinderkrebsforschung e.V.
+>>> Zimmermannplatz 10, 1090 Wien, Austria
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+
+
+From cei at ebi.ac.uk  Mon Feb 23 01:23:07 2009
+From: cei at ebi.ac.uk (Cei Abreu-Goodger)
+Date: Mon, 23 Feb 2009 00:23:07 +0000
+Subject: [Bioc-sig-seq] Low-complexity read filtering/trimming
+Message-ID: <49A1EC6B.8090404@ebi.ac.uk>
+
+Hi all,
+
+I've been playing around with some Solexa small-RNA reads using 
+ShortRead and Biostrings. I've used the 'trimLRPatterns' function to 
+remove adapter sequence, and I've been trying to remove low-complexity 
+sequences with 'srFilter'. I would first really like to congratulate all 
+the people involved for the great work. There are two situations in 
+which I would be grateful for some suggestions, though:
+
+1) I have many "low-complexity" reads. Some are simply polyA, polyC, 
+etc. But some others are runs of "ATATAT" or "CACACACA", etc. Previously 
+I would have used "dust" on the command line to filter out this kind of 
+read in a fasta file. Any ideas on how to achieve similar functionality 
+in the ShortRead world?
+
+2) For some reads I may have a "N-rich" patch inside the read, for example:
+AATAAAGTGCTTACAGTGNNNNTNNATNCAATACCG
+
+I would ideally like to trim of everything starting at the "N-rich" 
+part. I was trying to implement something with 'vmatchPattern', but if I 
+allow for mismatches (for a more flexible search) I will also get hits 
+starting before the run of Ns.
+
+Many thanks,
+
+Cei
+
+
+
+sessionInfo()
+
+R version 2.9.0 Under development (unstable) (2009-02-13 r47919)
+i386-apple-darwin9.6.0
+
+locale:
+C
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base
+
+other attached packages:
+[1] ShortRead_1.1.39   lattice_0.17-20    BSgenome_1.11.9 
+Biostrings_2.11.28
+[5] IRanges_1.1.38     Biobase_2.3.10
+
+loaded via a namespace (and not attached):
+[1] Matrix_0.999375-20 grid_2.9.0
+
+
+-- 
+ The Wellcome Trust Sanger Institute is operated by Genome Research 
+ Limited, a charity registered in England with number 1021457 and a 
+ company registered in England with number 2742969, whose registered 
+ office is 215 Euston Road, London, NW1 2BE.
+
+
+From hpages at fhcrc.org  Mon Feb 23 21:59:46 2009
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Mon, 23 Feb 2009 12:59:46 -0800
+Subject: [Bioc-sig-seq] Low-complexity read filtering/trimming
+In-Reply-To: <49A1EC6B.8090404@ebi.ac.uk>
+References: <49A1EC6B.8090404@ebi.ac.uk>
+Message-ID: <49A30E42.8010805@fhcrc.org>
+
+Hi Cei,
+
+Here is a suggestion for question 1).
+
+DUST seems to have been designed to mask regions in long DNA sequences.
+They count tri-nucleotide frequencies in a 64-nucleotide sliding windows
+so, strictly speaking, the algo doesn't work anymore with short reads.
+In addition your problem seems simpler to me, because, if I understand
+correctly, you don't want to mask regions within the reads, but just
+want to keep or drop the entire read based on its "complexity".
+The notion of "complexity" as defined by DUST could be reused though, by
+applying trinucleotideFrequency() to the DNAStringSet object containing
+the reads, replacing all coefficients in the resulting matrix by its
+square, applying rowSums() to it, and finally using the resulting score
+to filter the reads (high score meaning low complexity):
+
+   library(ShortRead)
+   rfq <- readFastq("some_path", pattern="s_1_sequence.txt")
+   dict0 <- sread(rfq)
+
+   tnf <- trinucleotideFrequency(dict0)
+   scores <- rowSums(tnf * tnf)
+
+   table(scores)  # choose a cut-off value
+   clean_dict <- dict0[scores < cut_off]
+
+There is one technical problem though: the top-level loop in
+trinucleotideFrequency() is still written in R so that won't work
+for millions of reads. The temporary workaround is to implement
+a vcountPDict-based version of trinucleotideFrequency():
+
+   trinucleotideFrequency2 <- function(x)
+   {
+     all_triplets <- DNAStringSet(mkAllStrings(c("A", "C", "G", "T"), 3))
+     pd <- PDict(all_triplets)
+     t(vcountPDict(pd, x))
+   }
+
+trinucleotideFrequency2() will take about 20 seconds on a
+4-million 35-mers DNAStringSet object.
+
+I calculated the scores for a set of 4.47 millions unaligned
+35-mers from a single lane of a real Solexa experiment and got:
+
+   > summary(scores)
+      Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+     22.00   49.00   55.00   66.95   63.00 1089.00
+
+   > dict0[scores >= 200]
+     A DNAStringSet instance of length 63331
+           width seq
+       [1]    35 AAAAAACCAAAACCAAACAAATAAAAACCCCAAAT
+       [2]    35 GATAGATAGATAGATAGATAGATAGGGTAGATAGG
+       [3]    35 GTGTGTGTGTGTGTGTGTGTATGTGTGTGTGCGTT
+       [4]    35 GGTAGGTAGGTAGGTCAGGTAGGTAGGTAGGTAGG
+       [5]    35 TGGTTGGTGTGTGTGTGTGTGTGTGTGTGTGTGTG
+       [6]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+       [7]    35 GTGTGTCTGTGTGTCTGTGTGTCTGTGTGTGTCTG
+       [8]    35 GTATGTGTGCTTTGTGTGTGTGGTGTGTGTGTGGT
+       [9]    35 GAGAGTGTGTGTGTGAGAGAGAGTGTGTGTGTGAG
+       ...   ... ...
+   [63323]    35 AAAAAAAAAAAAAAAAAAAAACGAAGAAAAAAAAG
+   [63324]    35 AAAAAAAAAAAAAAAAAAAAAAAAAGAAAAGAACA
+   [63325]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+   [63326]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+   [63327]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+   [63328]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+   [63329]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+   [63330]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+   [63331]    35 AAAAAAAGAAAAAAAAAAAAAAAAGAGAAAAAAAA
+
+Note that 1089 is the score obtained by the poly-As, poly-Cs,
+etc... (1089 = 33^2, this is the highest possible score for a
+35-mer).
+
+H.
+
+
+Cei Abreu-Goodger wrote:
+> Hi all,
+> 
+> I've been playing around with some Solexa small-RNA reads using 
+> ShortRead and Biostrings. I've used the 'trimLRPatterns' function to 
+> remove adapter sequence, and I've been trying to remove low-complexity 
+> sequences with 'srFilter'. I would first really like to congratulate all 
+> the people involved for the great work. There are two situations in 
+> which I would be grateful for some suggestions, though:
+> 
+> 1) I have many "low-complexity" reads. Some are simply polyA, polyC, 
+> etc. But some others are runs of "ATATAT" or "CACACACA", etc. Previously 
+> I would have used "dust" on the command line to filter out this kind of 
+> read in a fasta file. Any ideas on how to achieve similar functionality 
+> in the ShortRead world?
+> 
+> 2) For some reads I may have a "N-rich" patch inside the read, for example:
+> AATAAAGTGCTTACAGTGNNNNTNNATNCAATACCG
+> 
+> I would ideally like to trim of everything starting at the "N-rich" 
+> part. I was trying to implement something with 'vmatchPattern', but if I 
+> allow for mismatches (for a more flexible search) I will also get hits 
+> starting before the run of Ns.
+> 
+> Many thanks,
+> 
+> Cei
+> 
+> 
+> 
+> sessionInfo()
+> 
+> R version 2.9.0 Under development (unstable) (2009-02-13 r47919)
+> i386-apple-darwin9.6.0
+> 
+> locale:
+> C
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices datasets  utils     methods   base
+> 
+> other attached packages:
+> [1] ShortRead_1.1.39   lattice_0.17-20    BSgenome_1.11.9 
+> Biostrings_2.11.28
+> [5] IRanges_1.1.38     Biobase_2.3.10
+> 
+> loaded via a namespace (and not attached):
+> [1] Matrix_0.999375-20 grid_2.9.0
+> 
+> 
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M2-B876
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From hpages at fhcrc.org  Mon Feb 23 22:24:40 2009
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Mon, 23 Feb 2009 13:24:40 -0800
+Subject: [Bioc-sig-seq] Low-complexity read filtering/trimming
+In-Reply-To: <49A30E42.8010805@fhcrc.org>
+References: <49A1EC6B.8090404@ebi.ac.uk> <49A30E42.8010805@fhcrc.org>
+Message-ID: <49A31418.1080003@fhcrc.org>
+
+A small correction to my previous algorithm used for computing the
+scores. In my previous email I suggested this:
+
+   tnf <- trinucleotideFrequency2(dict0)
+   scores <- rowSums(tnf * tnf)
+
+but I think it would be more accurate and closer to the DUST
+approach to start penalizing a read when it contains triplets
+with frequency >= 2 i.e. the first time a triplet occurs in a
+read should not count. This leads to the following code:
+
+   tnf2 <- tnf - 1L
+   tnf2[tnf2 < 0] <- 0L
+   scores <- rowSums(tnf2 * tnf2)
+
+   > summary(scores)
+      Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+      0.00    8.00   12.00   24.59   19.00 1024.00
+
+Now whatever the length of the reads is, they have a chance
+to obtain a score of 0, which happens when all triplets in
+the read are distinct. This new score is more meaningful IMO.
+
+H.
+
+
+Herv? Pag?s wrote:
+> Hi Cei,
+> 
+> Here is a suggestion for question 1).
+> 
+> DUST seems to have been designed to mask regions in long DNA sequences.
+> They count tri-nucleotide frequencies in a 64-nucleotide sliding windows
+> so, strictly speaking, the algo doesn't work anymore with short reads.
+> In addition your problem seems simpler to me, because, if I understand
+> correctly, you don't want to mask regions within the reads, but just
+> want to keep or drop the entire read based on its "complexity".
+> The notion of "complexity" as defined by DUST could be reused though, by
+> applying trinucleotideFrequency() to the DNAStringSet object containing
+> the reads, replacing all coefficients in the resulting matrix by its
+> square, applying rowSums() to it, and finally using the resulting score
+> to filter the reads (high score meaning low complexity):
+> 
+>   library(ShortRead)
+>   rfq <- readFastq("some_path", pattern="s_1_sequence.txt")
+>   dict0 <- sread(rfq)
+> 
+>   tnf <- trinucleotideFrequency(dict0)
+>   scores <- rowSums(tnf * tnf)
+> 
+>   table(scores)  # choose a cut-off value
+>   clean_dict <- dict0[scores < cut_off]
+> 
+> There is one technical problem though: the top-level loop in
+> trinucleotideFrequency() is still written in R so that won't work
+> for millions of reads. The temporary workaround is to implement
+> a vcountPDict-based version of trinucleotideFrequency():
+> 
+>   trinucleotideFrequency2 <- function(x)
+>   {
+>     all_triplets <- DNAStringSet(mkAllStrings(c("A", "C", "G", "T"), 3))
+>     pd <- PDict(all_triplets)
+>     t(vcountPDict(pd, x))
+>   }
+> 
+> trinucleotideFrequency2() will take about 20 seconds on a
+> 4-million 35-mers DNAStringSet object.
+> 
+> I calculated the scores for a set of 4.47 millions unaligned
+> 35-mers from a single lane of a real Solexa experiment and got:
+> 
+>   > summary(scores)
+>      Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+>     22.00   49.00   55.00   66.95   63.00 1089.00
+> 
+>   > dict0[scores >= 200]
+>     A DNAStringSet instance of length 63331
+>           width seq
+>       [1]    35 AAAAAACCAAAACCAAACAAATAAAAACCCCAAAT
+>       [2]    35 GATAGATAGATAGATAGATAGATAGGGTAGATAGG
+>       [3]    35 GTGTGTGTGTGTGTGTGTGTATGTGTGTGTGCGTT
+>       [4]    35 GGTAGGTAGGTAGGTCAGGTAGGTAGGTAGGTAGG
+>       [5]    35 TGGTTGGTGTGTGTGTGTGTGTGTGTGTGTGTGTG
+>       [6]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+>       [7]    35 GTGTGTCTGTGTGTCTGTGTGTCTGTGTGTGTCTG
+>       [8]    35 GTATGTGTGCTTTGTGTGTGTGGTGTGTGTGTGGT
+>       [9]    35 GAGAGTGTGTGTGTGAGAGAGAGTGTGTGTGTGAG
+>       ...   ... ...
+>   [63323]    35 AAAAAAAAAAAAAAAAAAAAACGAAGAAAAAAAAG
+>   [63324]    35 AAAAAAAAAAAAAAAAAAAAAAAAAGAAAAGAACA
+>   [63325]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+>   [63326]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+>   [63327]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+>   [63328]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+>   [63329]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+>   [63330]    35 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+>   [63331]    35 AAAAAAAGAAAAAAAAAAAAAAAAGAGAAAAAAAA
+> 
+> Note that 1089 is the score obtained by the poly-As, poly-Cs,
+> etc... (1089 = 33^2, this is the highest possible score for a
+> 35-mer).
+> 
+> H.
+> 
+> 
+> Cei Abreu-Goodger wrote:
+>> Hi all,
+>>
+>> I've been playing around with some Solexa small-RNA reads using 
+>> ShortRead and Biostrings. I've used the 'trimLRPatterns' function to 
+>> remove adapter sequence, and I've been trying to remove low-complexity 
+>> sequences with 'srFilter'. I would first really like to congratulate 
+>> all the people involved for the great work. There are two situations 
+>> in which I would be grateful for some suggestions, though:
+>>
+>> 1) I have many "low-complexity" reads. Some are simply polyA, polyC, 
+>> etc. But some others are runs of "ATATAT" or "CACACACA", etc. 
+>> Previously I would have used "dust" on the command line to filter out 
+>> this kind of read in a fasta file. Any ideas on how to achieve similar 
+>> functionality in the ShortRead world?
+>>
+>> 2) For some reads I may have a "N-rich" patch inside the read, for 
+>> example:
+>> AATAAAGTGCTTACAGTGNNNNTNNATNCAATACCG
+>>
+>> I would ideally like to trim of everything starting at the "N-rich" 
+>> part. I was trying to implement something with 'vmatchPattern', but if 
+>> I allow for mismatches (for a more flexible search) I will also get 
+>> hits starting before the run of Ns.
+>>
+>> Many thanks,
+>>
+>> Cei
+>>
+>>
+>>
+>> sessionInfo()
+>>
+>> R version 2.9.0 Under development (unstable) (2009-02-13 r47919)
+>> i386-apple-darwin9.6.0
+>>
+>> locale:
+>> C
+>>
+>> attached base packages:
+>> [1] stats     graphics  grDevices datasets  utils     methods   base
+>>
+>> other attached packages:
+>> [1] ShortRead_1.1.39   lattice_0.17-20    BSgenome_1.11.9 
+>> Biostrings_2.11.28
+>> [5] IRanges_1.1.38     Biobase_2.3.10
+>>
+>> loaded via a namespace (and not attached):
+>> [1] Matrix_0.999375-20 grid_2.9.0
+>>
+>>
+> 
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M2-B876
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From huber at ebi.ac.uk  Wed Feb 25 16:17:49 2009
+From: huber at ebi.ac.uk (Wolfgang Huber)
+Date: Wed, 25 Feb 2009 15:17:49 +0000
+Subject: [Bioc-sig-seq] Bioinformatics virtual issue on NGS
+Message-ID: <49A5611D.6020900@ebi.ac.uk>
+
+http://www.oxfordjournals.org/our_journals/bioinformatics/nextgenerationsequencing.html
+
+
+From dan.bolser at gmail.com  Wed Feb 25 17:10:28 2009
+From: dan.bolser at gmail.com (Dan Bolser)
+Date: Wed, 25 Feb 2009 16:10:28 +0000
+Subject: [Bioc-sig-seq] Bioinformatics virtual issue on NGS
+In-Reply-To: <49A5611D.6020900@ebi.ac.uk>
+References: <49A5611D.6020900@ebi.ac.uk>
+Message-ID: <2c8757af0902250810o6074a45dx19e5a6ea8b489b80@mail.gmail.com>
+
+"This will be a living resource that we will continually update to
+include the very latest papers in this area to help researchers keep
+abreast of the latest developments. "
+
+Amazing!
+
+
+2009/2/25 Wolfgang Huber <huber at ebi.ac.uk>:
+> http://www.oxfordjournals.org/our_journals/bioinformatics/nextgenerationsequencing.html
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From huber at ebi.ac.uk  Wed Feb 25 17:13:34 2009
+From: huber at ebi.ac.uk (Wolfgang Huber)
+Date: Wed, 25 Feb 2009 16:13:34 +0000
+Subject: [Bioc-sig-seq] Bioinformatics virtual issue on NGS
+In-Reply-To: <2c8757af0902250810o6074a45dx19e5a6ea8b489b80@mail.gmail.com>
+References: <49A5611D.6020900@ebi.ac.uk>
+	<2c8757af0902250810o6074a45dx19e5a6ea8b489b80@mail.gmail.com>
+Message-ID: <49A56E2E.7040909@ebi.ac.uk>
+
+
+And who said there was no progress in artificial life research?
+
+25/02/2009 16:10 Dan Bolser scripsit
+> "This will be a living resource that we will continually update to
+> include the very latest papers in this area to help researchers keep
+> abreast of the latest developments. "
+> 
+> Amazing!
+> 
+> 
+> 2009/2/25 Wolfgang Huber <huber at ebi.ac.uk>:
+>> http://www.oxfordjournals.org/our_journals/bioinformatics/nextgenerationsequencing.html
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+
+
+From burak_kutlu at yahoo.com  Fri Feb 27 19:26:25 2009
+From: burak_kutlu at yahoo.com (burak kutlu)
+Date: Fri, 27 Feb 2009 10:26:25 -0800 (PST)
+Subject: [Bioc-sig-seq] matchPDict error
+Message-ID: <317457.88828.qm@web90308.mail.mud.yahoo.com>
+
+Hi
+I am trying to use matchPDict() and here's the error I get: This happens with my objects as well, but I am showing the vignette example below. 
+thanks in advance
+-burak
+
+# I've made ce2dict0 was corectly created
+> ce2dict0cw15 <- DNAStringSet(ce2dict0, end=15)
+> runAnalysis2(ce2dict0cw15, outfile="ce2dict0cw15_ana2.txt")
+
+Target: strand + of ce2 chromosomes chrI, chrII, chrIII, chrIV, chrV, chrX, chrM
+>>> Finding all hits in strand + of chromosome chrI ...
+Error in initialize(value, ...) :
+  invalid names for slots of class "ByName_MIndex": length
+
+
+> sessionInfo()
+R version 2.8.1 (2008-12-22)
+x86_64-unknown-linux-gnu
+
+locale:
+LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+
+attached base packages:
+[1] grDevices datasets  splines   graphics  stats     utils     tools
+[8] methods   base
+
+other attached packages:
+ [1] BSgenome.Celegans.UCSC.ce2_1.3.11 BSgenome_1.10.3
+ [3] Biostrings_2.10.16                IRanges_1.0.12
+ [5] simpleaffy_2.18.0                 gcrma_2.14.1
+ [7] matchprobes_1.14.1                genefilter_1.22.0
+ [9] survival_2.34-1                   affy_1.20.0
+[11] Biobase_2.2.1
+
+loaded via a namespace (and not attached):
+[1] affyio_1.10.1        annotate_1.20.1      AnnotationDbi_1.4.2
+[4] DBI_0.2-4            grid_2.8.1           lattice_0.17-17
+[7] Matrix_0.999375-17   preprocessCore_1.4.0 RSQLite_0.7-1
+
+

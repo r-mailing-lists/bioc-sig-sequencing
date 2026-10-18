@@ -1,0 +1,320 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2008-02",
+  "messages": [
+    {
+      "id": "msg-19ead09766fd",
+      "message_id": "<61B482B74D6EE443B90356E080476E3402732E80@exc2.cruciform.wibr.ucl.ac.uk>",
+      "from_name": "Stephen Henderson",
+      "from_email_hash": "846d881430ade316243531d192b758e414c7445b84afe371156a3adf78167110",
+      "date": "2008-02-29T09:41:06Z",
+      "subject": "[Bioc-sig-seq] (no subject)",
+      "subject_clean": "[Bioc-sig-seq] (no subject)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/372f05d0/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/372f05d0/attachment.pl",
+      "thread_id": "thread-19ead09766fd",
+      "thread_depth": 0,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-b393f3d37f66",
+      "message_id": "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>",
+      "from_name": "Davis, Wade",
+      "from_email_hash": "a3b0b35d03bfbaa9404154b306e2857d241c559c7918e6d84a06007a5854bb6f",
+      "date": "2008-02-29T12:59:22Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "First, let me say I am glad this list was formed.\n \nSecond, let's get some discussion going. I am primarily interested in 454, and followed by Solexa. What else are people interested in? \n \nWade",
+      "body_snippet": "First, let me say I am glad this list was formed.\n \nSecond, let's get some discussion going. I am primarily interested in 454, and followed by Solexa. What else are people interested in? \n \nWade",
+      "thread_id": "thread-b393f3d37f66",
+      "thread_depth": 0,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-1ac959a487cf",
+      "message_id": "<A5BDDBBB-FD5E-43C4-BB44-E5B5442FF2D9@rci.rutgers.edu>",
+      "from_name": "Loyal Goff",
+      "from_email_hash": "3925788d1c0da0b0ac64931da780d1ceff43cdf3096779ef6b3a04b372bbb566",
+      "date": "2008-02-29T13:10:02Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/0e82bf98/attachment.pl",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/0e82bf98/attachment.pl",
+      "thread_id": "thread-1ac959a487cf",
+      "thread_depth": 0,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-d5f1e3467c2b",
+      "message_id": "<Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>",
+      "from_name": "Cei Abreu-Goodger",
+      "from_email_hash": "e43fc5b8bd684f632fc02a95d92053e32a5794e7fcc87a3f501e3ad7aa1f786b",
+      "date": "2008-02-29T13:11:22Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>",
+      "references": [
+        "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>"
+      ],
+      "body_plain": "Mainly Solexa here...\n\nCei\n\nOn Fri, 29 Feb 2008, Davis, Wade wrote:\n\n> First, let me say I am glad this list was formed.\n>\n> Second, let's get some discussion going. I am primarily interested in 454, and followed by Solexa. What else are people interested in?\n>\n> Wade\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\n-- \n The Wellcome Trust Sanger Institute is operated by Genome Research \n Limited, a charity registered in England with number 1021457 and a \n company registered in England with number 2742969, whose registered \n office is 215 Euston Road, London, NW1 2BE.",
+      "body_snippet": "Mainly Solexa here...\n\nCei\n\nOn Fri, 29 Feb 2008, Davis, Wade wrote:\n\n> First, let me say I am glad this list was formed.\n>\n> Second, let's get some discussion going. I am primarily interested in 454, ",
+      "thread_id": "thread-b393f3d37f66",
+      "thread_depth": 1,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-bee0bb8b36c7",
+      "message_id": "<20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>",
+      "from_name": "J.delasHeras at ed.ac.uk",
+      "from_email_hash": "cf81846eb9cca43de8a98f3784adbbe2dafe5d3f842c9ab0f2b672ada9798285",
+      "date": "2008-02-29T15:27:38Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": "<Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>",
+      "references": [
+        "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>",
+        "<Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>"
+      ],
+      "body_plain": "Quoting Cei Abreu-Goodger <cei at sanger.ac.uk>:\n\n>\n> Mainly Solexa here...\n>\n> Cei\n\nSame here, as we recently got a Solexa machine.\n\nJose\n\n-- \nDr. Jose I. de las Heras                      Email: J.delasHeras at ed.ac.uk\nThe Wellcome Trust Centre for Cell Biology    Phone: +44 (0)131 6513374\nInstitute for Cell & Molecular Biology        Fax:   +44 (0)131 6507360\nSwann Building, Mayfield Road\nUniversity of Edinburgh\nEdinburgh EH9 3JR\nUK\n\n-- \nThe University of Edinburgh is a charitable body, registered in\nScotland, with registration number SC005336.",
+      "body_snippet": "Quoting Cei Abreu-Goodger <cei at sanger.ac.uk>:\n\n>\n> Mainly Solexa here...\n>\n> Cei\n\nSame here, as we recently got a Solexa machine.\n\nJose\n\n-- \nDr. Jose I. de las Heras                      Email: J.d",
+      "thread_id": "thread-b393f3d37f66",
+      "thread_depth": 2,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-f62d11abd92b",
+      "message_id": "<2567192B2ABE5B4DAC6A686CC8E67DD357A904@BCMEVS8.ad.bcm.edu>",
+      "from_name": "Belmont, John W",
+      "from_email_hash": "81160a2aa53d731a5ab94e081b3f9738df68a6b2db462e760be987f656f26a24",
+      "date": "2008-02-29T15:42:49Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": "<20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>",
+      "references": [
+        "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>",
+        "<Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>",
+        "<20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>"
+      ],
+      "body_plain": "454 and SOLiD here\n\nJohn Belmont\nBaylor College of Medicine\n\n\n-----Original Message-----\nFrom: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of J.delasHeras at ed.ac.uk\nSent: Friday, February 29, 2008 9:28 AM\nTo: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] What technologies are people using?\n\nQuoting Cei Abreu-Goodger <cei at sanger.ac.uk>:\n\n>\n> Mainly Solexa here...\n>\n> Cei\n\nSame here, as we recently got a Solexa machine.\n\nJose\n\n-- \nDr. Jose I. de las Heras                      Email: J.delasHeras at ed.ac.uk\nThe Wellcome Trust Centre for Cell Biology    Phone: +44 (0)131 6513374\nInstitute for Cell & Molecular Biology        Fax:   +44 (0)131 6507360\nSwann Building, Mayfield Road\nUniversity of Edinburgh\nEdinburgh EH9 3JR\nUK\n\n-- \nThe University of Edinburgh is a charitable body, registered in\nScotland, with registration number SC005336.\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "454 and SOLiD here\n\nJohn Belmont\nBaylor College of Medicine\n\n\n-----Original Message-----\nFrom: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounces at r-project.org] On Beh",
+      "thread_id": "thread-b393f3d37f66",
+      "thread_depth": 3,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-117f85a1cd69",
+      "message_id": "<f12e1fee2755.47c7be97@lbl.gov>",
+      "from_name": "Steffen Durinck",
+      "from_email_hash": "889aa060caeccfbcb9475bbcffbc825694a8c6a56c269afb5c62d6c151fd2de3",
+      "date": "2008-02-29T16:13:11Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": "<2567192B2ABE5B4DAC6A686CC8E67DD357A904@BCMEVS8.ad.bcm.edu>",
+      "references": [
+        "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>",
+        "<Pine.LNX.4.64.0802291310560.17905@cbi4g.internal.sanger.ac.uk>",
+        "<20080229152738.ttha6898aoww0sw8@www.staffmail.ed.ac.uk>",
+        "<2567192B2ABE5B4DAC6A686CC8E67DD357A904@BCMEVS8.ad.bcm.edu>"
+      ],
+      "body_plain": "Great to have this list set up.\n\nWe're currently using Solexa and are mainly interested in applying it for mRNA-Seq.\n\nCheers,\nSteffen\n\n-------------------------------------------------------------------------------\nSteffen Durinck, PhD\n\nDivision of Biostatistics, University of California, Berkeley &\nLife Sciences Department, Lawrence Berkeley National Laboratory\n1 cyclotron Rd, Berkeley\nCA, 94720, USA\nTel: +1-510-486-5123\n-------------------------------------------------------------------------------\n\n\n----- Original Message -----\nFrom: \"Belmont, John W\" <jbelmont at bcm.tmc.edu>\nDate: Friday, February 29, 2008 7:48 am\nSubject: Re: [Bioc-sig-seq] What technologies are people using?\nTo: J.delasHeras at ed.ac.uk, bioc-sig-sequencing at r-project.org\n\n> 454 and SOLiD here\n> \n> John Belmont\n> Baylor College of Medicine\n> \n> \n> -----Original Message-----\n> From: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-\n> sequencing-bounces at r-project.org] On Behalf Of J.delasHeras at ed.ac.uk\n> Sent: Friday, February 29, 2008 9:28 AM\n> To: bioc-sig-sequencing at r-project.org\n> Subject: Re: [Bioc-sig-seq] What technologies are people using?\n> \n> Quoting Cei Abreu-Goodger <cei at sanger.ac.uk>:\n> \n> >\n> > Mainly Solexa here...\n> >\n> > Cei\n> \n> Same here, as we recently got a Solexa machine.\n> \n> Jose\n> \n> -- \n> Dr. Jose I. de las Heras                      Email: \n> J.delasHeras at ed.ac.ukThe Wellcome Trust Centre for Cell Biology    \n> Phone: +44 (0)131 6513374\n> Institute for Cell & Molecular Biology        Fax:   +44 (0)131 \n> 6507360Swann Building, Mayfield Road\n> University of Edinburgh\n> Edinburgh EH9 3JR\n> UK\n> \n> -- \n> The University of Edinburgh is a charitable body, registered in\n> Scotland, with registration number SC005336.\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Great to have this list set up.\n\nWe're currently using Solexa and are mainly interested in applying it for mRNA-Seq.\n\nCheers,\nSteffen\n\n-----------------------------------------------------------------",
+      "thread_id": "thread-b393f3d37f66",
+      "thread_depth": 4,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-58d74393f328",
+      "message_id": "<47C83474.3000304@gwm.sc.edu>",
+      "from_name": "Joe Jones",
+      "from_email_hash": "5d5b1db27be15d0637235bea057fb82046b154523607c0fc7218acbf9aac8216",
+      "date": "2008-02-29T16:36:04Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "454 FLX here.\n-Joe\n\n-- \nEnvironmental Genomics Core Facility\nDirector\n921 Assembly Street, Room 413\nUniversity of South Carolina\nColumbia SC 29208\n(t) 803-777-4338\n(l) 831-777-3999\n(e) engencore at gwm.sc.edu \n(w) http://www.sph.sc.edu/engencore/",
+      "body_snippet": "454 FLX here.\n-Joe\n\n-- \nEnvironmental Genomics Core Facility\nDirector\n921 Assembly Street, Room 413\nUniversity of South Carolina\nColumbia SC 29208\n(t) 803-777-4338\n(l) 831-777-3999\n(e) engencore at gw",
+      "thread_id": "thread-58d74393f328",
+      "thread_depth": 0,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-80b52b1b0b47",
+      "message_id": "<6phd4qfu1m8.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-02-29T17:13:51Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu> (Wade Davis's message of \"Fri, 29 Feb 2008 06:59:22 -0600\")",
+      "references": [
+        "<09E4AABB118D2C47AEDFC6210BF1DEA901CEE65D@UM-XMAIL02.um.umsystem.edu>"
+      ],
+      "body_plain": "Great to see the response to the list!\n\nWe're seeing mostly Solexa here, for SNP discovery, ChIP-seq type\napplications.\n\nThere's a wiki page\n\nhttp://wiki.fhcrc.org/bioc/Solexa_and_454\n\n(the url is misleading -- any technology is appropriate) that we can\ndevelop as a handy reference (anyone should be able to create an\naccount and edit; watch for overwriting other people's changes over\nthe first couple of days as we all enthusiastically try to get our\nthought there).\n\nIt would be really helpful to get the three-bullet-point version of\nwhat the data looks like and how its used, as I've tried to sketch for\nsolexa.\n\nMartin\n\n\"Davis, Wade\" <davisjwa at health.missouri.edu> writes:\n\n> First, let me say I am glad this list was formed.\n>  \n> Second, let's get some discussion going. I am primarily interested in 454, and followed by Solexa. What else are people interested in? \n>  \n> Wade\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Great to see the response to the list!\n\nWe're seeing mostly Solexa here, for SNP discovery, ChIP-seq type\napplications.\n\nThere's a wiki page\n\nhttp://wiki.fhcrc.org/bioc/Solexa_and_454\n\n(the url is mis",
+      "thread_id": "thread-b393f3d37f66",
+      "thread_depth": 1,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-ccd3b8d568a4",
+      "message_id": "<6ph8x13u163.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-02-29T17:23:32Z",
+      "subject": "[Bioc-sig-seq] (no subject) Changed: Overall directions",
+      "subject_clean": "[Bioc-sig-seq] (no subject) Changed: Overall directions",
+      "in_reply_to": "<61B482B74D6EE443B90356E080476E3402732E80@exc2.cruciform.wibr.ucl.ac.uk> (Stephen Henderson's message of \"Fri, 29 Feb 2008 09:41:06 -0000\")",
+      "references": [
+        "<61B482B74D6EE443B90356E080476E3402732E80@exc2.cruciform.wibr.ucl.ac.uk>"
+      ],
+      "body_plain": "\"Stephen Henderson\" <s.henderson at ucl.ac.uk> writes:\n\n> OK\n>\n> Perhaps I can be first by asking what tasks you plan to cover? And how\n> do you plan to implement them in R (given the memory restrictions)? Do\n> you plan a nice front end for lots of C-code?\n\nHi Stephen --\n\nIt'll depend of course on who in the community steps up. Probably\npackages will start as a standard R interface that gets the job done,\nwith pretty gui's later. Probably an early step (though perhaps not\nthe very first) will be settling on a common set of S4-style classes\nto represent experiments and data, in the manner of an ExpressionSet.\n\n>From our end, our first pass is to assume that computer resources are\nnot really an issue -- a 2 or 4 GB 32-bit operating system is not what\nwe're targeting.\n\nAlso in terms of preliminary experience, it seems like some operations\ncan be done effectively at the R level (data input and QA assessment)\nbut that some important steps (e.g., alignments) require clever data\nstructures and algorithms that get implemented in C. It's also\npossible for some questions to exploit the structure of the data,\ne.g., analyzing Solexa data in manageable chunks corresponding to\nindividual tiles.\n\nMartin\n\n> Stephen Henderson\n>\n> Cancer Institute, Paul O'Gorman Building\n>\n> Gower Street, University College London\n>\n> United Kingdom, WC1E 6BT\n>\n> +44 (0)207 679 6827\n>\n>  \n>\n>\n> **********************************************************************\n> This email and any files transmitted with it are confide...{{dropped:11}}\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "\"Stephen Henderson\" <s.henderson at ucl.ac.uk> writes:\n\n> OK\n>\n> Perhaps I can be first by asking what tasks you plan to cover? And how\n> do you plan to implement them in R (given the memory restricti",
+      "thread_id": "thread-19ead09766fd",
+      "thread_depth": 1,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-f7e63e0c95ef",
+      "message_id": "<61B482B74D6EE443B90356E080476E3402732E88@exc2.cruciform.wibr.ucl.ac.uk>",
+      "from_name": "Stephen Henderson",
+      "from_email_hash": "846d881430ade316243531d192b758e414c7445b84afe371156a3adf78167110",
+      "date": "2008-02-29T17:40:08Z",
+      "subject": "[Bioc-sig-seq] (no subject) Changed: Overall directions",
+      "subject_clean": "[Bioc-sig-seq] (no subject) Changed: Overall directions",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I see. We are just in the process of buying a Solexa and people will be\nusing it for MeDIP-seq (methylation), and ChIP-seq (Trans Factors).\n\n\nStephen Henderson\nCancer Institute, Paul O'Gorman Building\nHuntley Street, University College London\nUnited Kingdom, WC1E 6BT\n+44 (0)207 679 6827\n \n-----Original Message-----\nFrom: Martin Morgan [mailto:mtmorgan at fhcrc.org] \nSent: 29 February 2008 17:24\nTo: Stephen Henderson\nCc: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] (no subject) Changed: Overall directions\n\n\"Stephen Henderson\" <s.henderson at ucl.ac.uk> writes:\n\n> OK\n>\n> Perhaps I can be first by asking what tasks you plan to cover? And how\n> do you plan to implement them in R (given the memory restrictions)? Do\n> you plan a nice front end for lots of C-code?\n\nHi Stephen --\n\nIt'll depend of course on who in the community steps up. Probably\npackages will start as a standard R interface that gets the job done,\nwith pretty gui's later. Probably an early step (though perhaps not\nthe very first) will be settling on a common set of S4-style classes\nto represent experiments and data, in the manner of an ExpressionSet.\n\n>From our end, our first pass is to assume that computer resources are\nnot really an issue -- a 2 or 4 GB 32-bit operating system is not what\nwe're targeting.\n\nAlso in terms of preliminary experience, it seems like some operations\ncan be done effectively at the R level (data input and QA assessment)\nbut that some important steps (e.g., alignments) require clever data\nstructures and algorithms that get implemented in C. It's also\npossible for some questions to exploit the structure of the data,\ne.g., analyzing Solexa data in manageable chunks corresponding to\nindividual tiles.\n\nMartin\n\n> Stephen Henderson\n>\n> Cancer Institute, Paul O'Gorman Building\n>\n> Gower Street, University College London\n>\n> United Kingdom, WC1E 6BT\n>\n> +44 (0)207 679 6827\n>\n>  \n>\n>\n> **********************************************************************\n> This email and any files transmitted with it are\nconfide...{{dropped:11}}\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793\n\n**********************************************************************\nThis email and any files transmitted with it are confide...{{dropped:7}}",
+      "body_snippet": "I see. We are just in the process of buying a Solexa and people will be\nusing it for MeDIP-seq (methylation), and ChIP-seq (Trans Factors).\n\n\nStephen Henderson\nCancer Institute, Paul O'Gorman Building",
+      "thread_id": "thread-f7e63e0c95ef",
+      "thread_depth": 0,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-d5d61170eee0",
+      "message_id": "<001c01c87b02$b9346970$e5987ca5@lurie.northwestern.edu>",
+      "from_name": "Simon Lin",
+      "from_email_hash": "43abf90d34e0ae636bc66f9a59e0514c1d8f7824bb39448cdc3b49679cd03a37",
+      "date": "2008-02-29T18:41:40Z",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
+      "in_reply_to": null,
+      "references": [
+        "<mailman.1391.1204305840.4536.bioc-sig-sequencing@r-project.org>"
+      ],
+      "body_plain": "We have 454 already; will get SOLiD (ABI) soon.\n\nWe have collected 454 data for ChIP-seq. Initial analysis suggest that 454 \nworks well for the long reads, but the coverage is not enough.\n\nSimon Lin\nNorthwestern University\n\n\n> Date: Fri, 29 Feb 2008 08:10:02 -0500\n> From: Loyal Goff <lgoff at rci.rutgers.edu>\n> Subject: Re: [Bioc-sig-seq] What technologies are people using?\n> To: Bioc-sig-sequencing at r-project.org\n> Message-ID: <A5BDDBBB-FD5E-43C4-BB44-E5B5442FF2D9 at rci.rutgers.edu>\n> Content-Type: text/plain\n>\n> Our group has just received our SOLiD (ABI) instrument, so we have a\n> vested interest in this platform as well.  And I would like to agree\n> with Wade, I am very happy to see this list and I look forward to\n> contributing/testing.\n>\n> Loyal Goff\n>\n>\n> Rutgers Stem Cell Research Center\n> Rutgers: The State University of New Jersey\n> lgoff at rci.rutgers.edu",
+      "body_snippet": "We have 454 already; will get SOLiD (ABI) soon.\n\nWe have collected 454 data for ChIP-seq. Initial analysis suggest that 454 \nworks well for the long reads, but the coverage is not enough.\n\nSimon Lin\nN",
+      "thread_id": "thread-d5d61170eee0",
+      "thread_depth": 0,
+      "month": "2008-02"
+    },
+    {
+      "id": "msg-10742a2072f2",
+      "message_id": "<d606310d0802291305j47fb47aehcbc05c5a0727199b@mail.gmail.com>",
+      "from_name": "Dan Swan",
+      "from_email_hash": "fb512585006362bcd5220cb6656dd1c2a5f5a8bcf11caee583356412459e0892",
+      "date": "2008-02-29T21:05:33Z",
+      "subject": "[Bioc-sig-seq] Another 454 user",
+      "subject_clean": "[Bioc-sig-seq] Another 454 user",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Just to add some weight to the 454 crowd, we are seeing an increasing\namount of data generated internally and externally by researchers here\non this platform but have yet to see any Solexa/SOLiD data\n\n*turns off digest mode to thread things properly in future*\n\nDan\n\n-- \nBioinformatics Support Unit  || http://bsu.ncl.ac.uk/\nInstitute for Cell and Molecular Biosciences,\nFaculty of Medical Sciences, Framlington Place,\nNewcastle University, Newcastle, NE2 4HH\nTel: +44 (0)191 222 7253 (Leech offices: Rooms M.2046/M.2046A - Mon/Wed)\nTel: +44 (0)191 246 4833 (Devonshire offices: Rooms G.25/G.26 - Thu/Fri)",
+      "body_snippet": "Just to add some weight to the 454 crowd, we are seeing an increasing\namount of data generated internally and externally by researchers here\non this platform but have yet to see any Solexa/SOLiD data\n",
+      "thread_id": "thread-10742a2072f2",
+      "thread_depth": 0,
+      "month": "2008-02"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-19ead09766fd",
+      "subject": "[Bioc-sig-seq] (no subject)",
+      "message_count": 2,
+      "participants": [
+        "Martin Morgan",
+        "Stephen Henderson"
+      ],
+      "started": "2008-02-29T09:41:06Z",
+      "last_reply": "2008-02-29T17:23:32Z",
+      "root_message_id": "msg-19ead09766fd"
+    },
+    {
+      "id": "thread-b393f3d37f66",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "message_count": 6,
+      "participants": [
+        "Belmont, John W",
+        "Cei Abreu-Goodger",
+        "Davis, Wade",
+        "J.delasHeras at ed.ac.uk",
+        "Martin Morgan",
+        "Steffen Durinck"
+      ],
+      "started": "2008-02-29T12:59:22Z",
+      "last_reply": "2008-02-29T17:13:51Z",
+      "root_message_id": "msg-b393f3d37f66"
+    },
+    {
+      "id": "thread-1ac959a487cf",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "message_count": 1,
+      "participants": [
+        "Loyal Goff"
+      ],
+      "started": "2008-02-29T13:10:02Z",
+      "last_reply": "2008-02-29T13:10:02Z",
+      "root_message_id": "msg-1ac959a487cf"
+    },
+    {
+      "id": "thread-58d74393f328",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "message_count": 1,
+      "participants": [
+        "Joe Jones"
+      ],
+      "started": "2008-02-29T16:36:04Z",
+      "last_reply": "2008-02-29T16:36:04Z",
+      "root_message_id": "msg-58d74393f328"
+    },
+    {
+      "id": "thread-f7e63e0c95ef",
+      "subject": "[Bioc-sig-seq] (no subject) Changed: Overall directions",
+      "message_count": 1,
+      "participants": [
+        "Stephen Henderson"
+      ],
+      "started": "2008-02-29T17:40:08Z",
+      "last_reply": "2008-02-29T17:40:08Z",
+      "root_message_id": "msg-f7e63e0c95ef"
+    },
+    {
+      "id": "thread-d5d61170eee0",
+      "subject": "[Bioc-sig-seq] What technologies are people using?",
+      "message_count": 1,
+      "participants": [
+        "Simon Lin"
+      ],
+      "started": "2008-02-29T18:41:40Z",
+      "last_reply": "2008-02-29T18:41:40Z",
+      "root_message_id": "msg-d5d61170eee0"
+    },
+    {
+      "id": "thread-10742a2072f2",
+      "subject": "[Bioc-sig-seq] Another 454 user",
+      "message_count": 1,
+      "participants": [
+        "Dan Swan"
+      ],
+      "started": "2008-02-29T21:05:33Z",
+      "last_reply": "2008-02-29T21:05:33Z",
+      "root_message_id": "msg-10742a2072f2"
+    }
+  ]
+}

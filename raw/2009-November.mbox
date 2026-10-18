@@ -1,0 +1,2602 @@
+From mflawren at fhcrc.org  Sun Nov  1 00:14:07 2009
+From: mflawren at fhcrc.org (Michael Lawrence)
+Date: Sat, 31 Oct 2009 16:14:07 -0700
+Subject: [Bioc-sig-seq] GenomicFeatures package
+In-Reply-To: <6phskcz2rk3.fsf@gopher4.fhcrc.org>
+References: <5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>
+	<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>
+	<6phbpjr9ucx.fsf@gopher4.fhcrc.org>
+	<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>
+	<6phskcz2rk3.fsf@gopher4.fhcrc.org>
+Message-ID: <509e0620910311614x4b483efcge70479d50862e3fd@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091031/06e58df6/attachment.pl>
+
+From sfalcon at fhcrc.org  Mon Nov  2 06:47:08 2009
+From: sfalcon at fhcrc.org (Seth Falcon)
+Date: Sun, 01 Nov 2009 21:47:08 -0800
+Subject: [Bioc-sig-seq] GenomicFeatures package
+In-Reply-To: <509e0620910311614x4b483efcge70479d50862e3fd@mail.gmail.com>
+References: <5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>	<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>	<6phbpjr9ucx.fsf@gopher4.fhcrc.org>	<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>	<6phskcz2rk3.fsf@gopher4.fhcrc.org>
+	<509e0620910311614x4b483efcge70479d50862e3fd@mail.gmail.com>
+Message-ID: <4AEE725C.5030905@fhcrc.org>
+
+On 10/31/09 4:14 PM, Michael Lawrence wrote:
+> On Sat, Oct 31, 2009 at 2:15 PM, Martin Morgan<mtmorgan at fhcrc.org>  wrote:
+>
+>> Hi Steve --
+>>
+>> Steve Lianoglou<mailinglist.honeypot at gmail.com>  writes:
+>>
+>>> Hi,
+>>>
+>>> On Oct 28, 2009, at 3:44 PM, Martin Morgan wrote:
+>>> <snip>
+>>>>>>
+>>>>> It could be useful, but you'll need to get it into the shape
+>>>>> expected by the
+>>>>> GenomicFeatures functions. With specific regard to transcripts(),
+>>>>> it will
+>>>>> need a 'chrom' column with the chromosome names, 'name' column for
+>>>>> the gene
+>>>>> name, and 'txStart' and 'txEnd' for the start and end of the
+>>>>> transcripts,
+>>>>> using UCSC coordinate conventions.
+>>>>>
+>>>>> I'm now thinking that it would be more convenient for the user if
+>>>>> there was
+>>>>> a transcripts method on a RangesList object, which could provide the
+>>>>> necessary information. This could be extracted from the RangedData,
+>>>>> which
+>>>>> rtracklayer can create from your GFF file, with one caveat: if the
+>>>>> GFF file
+>>>>> contains a mixture of features (genes, exons, etc) and relies on the
+>>>>> hierarchical features of GFF, it will take more work to get things
+>>>>> into the
+>>>>> right shape.
+>>>>>
+>>>>> The question then is where would this new functionality belong? The
+>>>>> future
+>>>>> of the GenomicFeatures package was a bit uncertain, the last time I
+>>>>> checked.
+>>>>
+>>>> The intention is that GenomicFeatures will mature to contain these
+>>>> sorts of data structures and functions, so that it's easy to create or
+>>>> retrieve transcript or exon information.
+>>> </snip>
+>>
+>>> I've actually been working on a package of my own that does a lot of
+>>> this stuff, since I've been working lately with rna-seq data.
+>>>
+>>> It takes an input file similar to what you get from the ucsc table
+>>> browser with gene, tx/cds -start/-end, exon, etc. columns and whips up
+>>> an annotation package for the genome/annotation source you are using
+>>> (info is stored in an SQLite database). You can then query the
+>>> database for genes of interest by name, chromosome, or bounded (start/
+>>> end) chromosome position for further downstream use.
+>>>
+>>> Usually results are returned to the user as lists of gene objects,
+>>> which the user would have to whip into a data.frame format if that's
+>>> what's desired.
+>>>
+>>> I'll post some code below to show you what I mean, and see if you all
+>>> think it's helpful. I'm not sure that it's ready for public
+>>> consumption, but I guess I just wanted to mention that it was my
+>>> intention to develop this a bit further in the near future. If it's
+>>> useful for other people, all the better.
+>>
+>> Just wanted to acknowledge this email. I like how straight-forward
+>> your interface is, and the use of appropriate classes. RTree and the
+>> custom compile is a little problematic;
+>
+>
+> I'm wondering if the custom compile is really necessary? Is it not possible
+> for rsqlite to provide that feature by default?
+
+As far as I know, recent versions of RSQLite have the RTree support 
+enabled.  The following, taken from the RTree documentations 
+(http://www.sqlite.org/rtree.html), seems to work (RSQLite_0.7-3 DBI_0.2-4):
+
+
+library("RSQLite")
+sql = "
+CREATE VIRTUAL TABLE demo_index USING rtree(
+    id,              -- Integer primary key
+    minX, maxX,      -- Minimum and maximum X coordinate
+    minY, maxY       -- Minimum and maximum Y coordinate
+)
+"
+
+db <- dbConnect(SQLite())
+dbGetQuery(db, sql)
+
+ins1 <- "
+INSERT INTO demo_index VALUES(
+     1,                   -- Primary key
+     -80.7749, -80.7747,  -- Longitude range
+     30.3776, 30.3778     -- Latitude range
+)
+"
+
+ins2 <- "
+INSERT INTO demo_index VALUES(
+     2,
+     -81.0, -79.6,
+     35.0, 36.2
+)
+"
+
+dbGetQuery(db, ins1)
+dbGetQuery(db, ins2)
+
+sqlq <- "SELECT id FROM demo_index WHERE minX>=-81.08 AND maxX<=-80.58 
+AND minY>=30.00  AND maxY<=35.44"
+
+dbGetQuery(db, sqlq)
+
+
+In any case, it would be great to continue the conversation.
+
++ seth
+
+
+From Joern.Toedling at curie.fr  Mon Nov  2 12:14:41 2009
+From: Joern.Toedling at curie.fr (Joern Toedling)
+Date: Mon, 2 Nov 2009 12:14:41 +0100
+Subject: [Bioc-sig-seq] readAligned and BAM format
+Message-ID: <20091102110908.M34578@curie.fr>
+
+Hi everyone,
+
+has anybody by chance already written a parser for importing alignments in
+BAM/SAM format into objects of class AlignedRead? This format seems to be
+gaining more and more support, yet it is still absent from the options in
+function readAligned. If one of you already has written such a parsing
+function and would not mind sharing it, please let me know.
+
+Best regards,
+Joern
+
+---
+Joern Toedling
+Institut Curie -- U900
+26 rue d'Ulm, 75005 Paris, FRANCE
+Tel. +33 (0)156246926
+
+
+From mtmorgan at fhcrc.org  Mon Nov  2 14:34:29 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 02 Nov 2009 05:34:29 -0800
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <20091102110908.M34578@curie.fr>
+References: <20091102110908.M34578@curie.fr>
+Message-ID: <4AEEDFE5.2010304@fhcrc.org>
+
+Joern Toedling wrote:
+> Hi everyone,
+> 
+> has anybody by chance already written a parser for importing alignments in
+> BAM/SAM format into objects of class AlignedRead? This format seems to be
+> gaining more and more support, yet it is still absent from the options in
+> function readAligned. If one of you already has written such a parsing
+> function and would not mind sharing it, please let me know.
+
+Hi Joern -- there is a package in the Bioc svn repository that does
+this; it is not yet in the devel branch, there are some limitations in
+terms of AlignedRead (e.g., AlignedRead currently supports only ungapped
+alignments, whereas BAM allows gapped). I'll forward additional info
+off-list.
+
+Martin
+> 
+> Best regards,
+> Joern
+> 
+> ---
+> Joern Toedling
+> Institut Curie -- U900
+> 26 rue d'Ulm, 75005 Paris, FRANCE
+> Tel. +33 (0)156246926
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From wuwei at embl.de  Mon Nov  2 14:47:57 2009
+From: wuwei at embl.de (Wu Wei)
+Date: Mon, 2 Nov 2009 14:47:57 +0100
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <4AEEDFE5.2010304@fhcrc.org>
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+Message-ID: <747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+
+Hi Martin,
+
+I am also looking for that. Would you please also forward that  
+additional info to me.
+
+Thanks,
+Wave
+
+On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+
+> Joern Toedling wrote:
+>> Hi everyone,
+>>
+>> has anybody by chance already written a parser for importing  
+>> alignments in
+>> BAM/SAM format into objects of class AlignedRead? This format seems  
+>> to be
+>> gaining more and more support, yet it is still absent from the  
+>> options in
+>> function readAligned. If one of you already has written such a  
+>> parsing
+>> function and would not mind sharing it, please let me know.
+>
+> Hi Joern -- there is a package in the Bioc svn repository that does
+> this; it is not yet in the devel branch, there are some limitations in
+> terms of AlignedRead (e.g., AlignedRead currently supports only  
+> ungapped
+> alignments, whereas BAM allows gapped). I'll forward additional info
+> off-list.
+>
+> Martin
+>>
+>> Best regards,
+>> Joern
+>>
+>> ---
+>> Joern Toedling
+>> Institut Curie -- U900
+>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>> Tel. +33 (0)156246926
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+> -- 
+> Martin Morgan
+> Computational Biology / Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N.
+> PO Box 19024 Seattle, WA 98109
+>
+> Location: Arnold Building M1 B861
+> Phone: (206) 667-2793
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+
+Wu Wei
+Postdoctoral Fellow
+Steinmetz Group, EMBL Heidelberg
+Tex: +49 6221 387-8310 (8114)
+Fax: +49 6221 387-8518
+Email: wuwei at embl.de
+
+
+From mtmorgan at fhcrc.org  Mon Nov  2 14:58:29 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 02 Nov 2009 05:58:29 -0800
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+Message-ID: <4AEEE585.2060801@fhcrc.org>
+
+Hi Wave --
+
+svn co https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+
+R CMD INSTALL --clean Rsamtools
+
+see the script in Rsamtools/inst/script/readAligned_prototype.R
+
+e.g.,
+
+  source(system.file("script", "readAligned_prototype.R",
+                     package="Rsamtools"))
+  .readAligned_bam(<...>) # args like the other readAligned
+
+see ?scanBam for additional ideas.
+
+Martin
+
+Wu Wei wrote:
+> Hi Martin,
+> 
+> I am also looking for that. Would you please also forward that
+> additional info to me.
+> 
+> Thanks,
+> Wave
+> 
+> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+> 
+>> Joern Toedling wrote:
+>>> Hi everyone,
+>>>
+>>> has anybody by chance already written a parser for importing
+>>> alignments in
+>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>> to be
+>>> gaining more and more support, yet it is still absent from the
+>>> options in
+>>> function readAligned. If one of you already has written such a parsing
+>>> function and would not mind sharing it, please let me know.
+>>
+>> Hi Joern -- there is a package in the Bioc svn repository that does
+>> this; it is not yet in the devel branch, there are some limitations in
+>> terms of AlignedRead (e.g., AlignedRead currently supports only ungapped
+>> alignments, whereas BAM allows gapped). I'll forward additional info
+>> off-list.
+>>
+>> Martin
+>>>
+>>> Best regards,
+>>> Joern
+>>>
+>>> ---
+>>> Joern Toedling
+>>> Institut Curie -- U900
+>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>> Tel. +33 (0)156246926
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> -- 
+>> Martin Morgan
+>> Computational Biology / Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N.
+>> PO Box 19024 Seattle, WA 98109
+>>
+>> Location: Arnold Building M1 B861
+>> Phone: (206) 667-2793
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+> 
+> Wu Wei
+> Postdoctoral Fellow
+> Steinmetz Group, EMBL Heidelberg
+> Tex: +49 6221 387-8310 (8114)
+> Fax: +49 6221 387-8518
+> Email: wuwei at embl.de
+> 
+> 
+> 
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From mailinglist.honeypot at gmail.com  Mon Nov  2 17:34:45 2009
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Mon, 2 Nov 2009 11:34:45 -0500
+Subject: [Bioc-sig-seq] GenomicFeatures package
+In-Reply-To: <4AEE725C.5030905@fhcrc.org>
+References: <5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>	<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>	<6phbpjr9ucx.fsf@gopher4.fhcrc.org>	<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>	<6phskcz2rk3.fsf@gopher4.fhcrc.org>
+	<509e0620910311614x4b483efcge70479d50862e3fd@mail.gmail.com>
+	<4AEE725C.5030905@fhcrc.org>
+Message-ID: <CACD2A1C-73D1-4B94-AAD6-AB2ED01D20B4@gmail.com>
+
+Hi Seth,
+
+On Nov 2, 2009, at 12:47 AM, Seth Falcon wrote:
+
+> On 10/31/09 4:14 PM, Michael Lawrence wrote:
+>> On Sat, Oct 31, 2009 at 2:15 PM, Martin Morgan<mtmorgan at fhcrc.org>   
+>> wrote:
+<snip>
+>> I'm wondering if the custom compile is really necessary? Is it not  
+>> possible
+>> for rsqlite to provide that feature by default?
+>
+> As far as I know, recent versions of RSQLite have the RTree support  
+> enabled.  The following, taken from the RTree documentations (http://www.sqlite.org/rtree.html 
+> ), seems to work (RSQLite_0.7-3 DBI_0.2-4):
+<snipped working example>
+
+Wow .. I didn't even check to see if it compiles like that be default,  
+that's great.
+
+I assumed that since it *doesn't* compile by default in the sqlite  
+distro, I expected it to not do so in the RSQLite install since "- 
+DSQLITE_ENABLE_RTREE=1" wasn't added to the src/Makevars.in  
+PKG_CPPFLAGS entry, which is currently:
+
+PKG_CPPFLAGS=@PKG_CPPFLAGS@ -DTHREADSAFE=0
+
+But searching the package source again, I see that it is defined  
+somewhere deep in the configure file. I'm not sure what codepath has  
+to be "active" to land in the particular `if` block that that sets - 
+DSQLITE_ENABLE_RTREE=1 (my shell scripting mojo is quite weak).
+
+Just to be sure, would it be better/safer to assume (by those of us  
+who might want to rely on this feature) that it's always compiled this  
+way if this flag is also set in the src/Makevars.in/PKG_CPPFLAGS line  
+as well?
+
+Lastly, can I humbly appeal to include a more recent version of the  
+sqlite src in the RSQLite package for the future?
+
+It looks like the version included is 3.6.4, and we're up to 3.6.19  
+with a plethora of bug fixes and performance enhancements happening  
+between the two versions.
+
+Thanks,
+-steve
+
+--
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+   |  Memorial Sloan-Kettering Cancer Center
+   |  Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From sfalcon at fhcrc.org  Mon Nov  2 17:52:55 2009
+From: sfalcon at fhcrc.org (Seth Falcon)
+Date: Mon, 02 Nov 2009 08:52:55 -0800
+Subject: [Bioc-sig-seq] GenomicFeatures package
+In-Reply-To: <CACD2A1C-73D1-4B94-AAD6-AB2ED01D20B4@gmail.com>
+References: <5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>	<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>	<6phbpjr9ucx.fsf@gopher4.fhcrc.org>	<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>	<6phskcz2rk3.fsf@gopher4.fhcrc.org>
+	<509e0620910311614x4b483efcge70479d50862e3fd@mail.gmail.com>
+	<4AEE725C.5030905@fhcrc.org>
+	<CACD2A1C-73D1-4B94-AAD6-AB2ED01D20B4@gmail.com>
+Message-ID: <4AEF0E67.8000409@fhcrc.org>
+
+Hi Steve,
+
+On 11/2/09 8:34 AM, Steve Lianoglou wrote:
+> <snipped working example>
+>
+> Wow .. I didn't even check to see if it compiles like that be default,
+> that's great.
+>
+> I assumed that since it *doesn't* compile by default in the sqlite
+> distro, I expected it to not do so in the RSQLite install since
+> "-DSQLITE_ENABLE_RTREE=1" wasn't added to the src/Makevars.in
+> PKG_CPPFLAGS entry, which is currently:
+>
+> PKG_CPPFLAGS=@PKG_CPPFLAGS@ -DTHREADSAFE=0
+>
+> But searching the package source again, I see that it is defined
+> somewhere deep in the configure file. I'm not sure what codepath has to
+> be "active" to land in the particular `if` block that that sets
+> -DSQLITE_ENABLE_RTREE=1 (my shell scripting mojo is quite weak).
+
+Enabled RTREE is now the default for RSQLite and there is no plan to 
+change that.  I will see if there is a more transparent way to enable 
+it, certainly having the SQLite flags be visible in Makevars.in would be 
+an improvement.
+
+The configure setup for RSQLite is more complicated than I would like 
+because it supports building the included SQLite sources (default) but 
+also linking to an external system SQLite.
+
+> Just to be sure, would it be better/safer to assume (by those of us who
+> might want to rely on this feature) that it's always compiled this way
+> if this flag is also set in the src/Makevars.in/PKG_CPPFLAGS line as well?
+
+You can rely on the feature without modifying the sources.  I will see 
+if I can improve the transparency of the SQLite config, but there is no 
+plan to remove features (certainly not without good reason and much 
+discussion).
+
+> Lastly, can I humbly appeal to include a more recent version of the
+> sqlite src in the RSQLite package for the future?
+>
+> It looks like the version included is 3.6.4, and we're up to 3.6.19 with
+> a plethora of bug fixes and performance enhancements happening between
+> the two versions.
+
+Yes, thanks for the reminder.  A new version of RSQLite is in the works 
+and will include the latest SQLite.
+
++ seth
+
+
+From mailinglist.honeypot at gmail.com  Mon Nov  2 18:09:26 2009
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Mon, 2 Nov 2009 12:09:26 -0500
+Subject: [Bioc-sig-seq] GenomicFeatures package
+In-Reply-To: <4AEF0E67.8000409@fhcrc.org>
+References: <5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>	<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>	<6phbpjr9ucx.fsf@gopher4.fhcrc.org>	<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>	<6phskcz2rk3.fsf@gopher4.fhcrc.org>
+	<509e0620910311614x4b483efcge70479d50862e3fd@mail.gmail.com>
+	<4AEE725C.5030905@fhcrc.org>
+	<CACD2A1C-73D1-4B94-AAD6-AB2ED01D20B4@gmail.com>
+	<4AEF0E67.8000409@fhcrc.org>
+Message-ID: <97E10BCF-0BFC-4BA6-992E-F72016EFB9FE@gmail.com>
+
+
+On Nov 2, 2009, at 11:52 AM, Seth Falcon wrote:
+> Enabled RTREE is now the default for RSQLite and there is no plan to  
+> change that.  I will see if there is a more transparent way to  
+> enable it, certainly having the SQLite flags be visible in  
+> Makevars.in would be an improvement.
+
+Awesome.
+
+> The configure setup for RSQLite is more complicated than I would  
+> like because it supports building the included SQLite sources  
+> (default) but also linking to an external system SQLite.
+
+Yeah, I noticed you can link to an external sqlite when I was foraging  
+through the RSQLite package source, that's very clever.
+
+>> Just to be sure, would it be better/safer to assume (by those of us  
+>> who
+>> might want to rely on this feature) that it's always compiled this  
+>> way
+>> if this flag is also set in the src/Makevars.in/PKG_CPPFLAGS line  
+>> as well?
+>
+> You can rely on the feature without modifying the sources.  I will  
+> see if I can improve the transparency of the SQLite config, but  
+> there is no plan to remove features (certainly not without good  
+> reason and much discussion).
+
+Awesome.
+
+While a more "transparent" configure would be nice, I could understand  
+punting on trying to work on that, since I could imagine it being  
+quite a burden with little "end-user" appreciation.
+
+>> Lastly, can I humbly appeal to include a more recent version of the
+>> sqlite src in the RSQLite package for the future?
+>>
+>> It looks like the version included is 3.6.4, and we're up to 3.6.19  
+>> with
+>> a plethora of bug fixes and performance enhancements happening  
+>> between
+>> the two versions.
+>
+> Yes, thanks for the reminder.  A new version of RSQLite is in the  
+> works and will include the latest SQLite.
+
+Awesome.
+
+Thanks again,
+-steve
+
+--
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+   |  Memorial Sloan-Kettering Cancer Center
+   |  Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From laurent at cbs.dtu.dk  Mon Nov  2 12:31:10 2009
+From: laurent at cbs.dtu.dk (Laurent Gautier)
+Date: Mon, 02 Nov 2009 12:31:10 +0100
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <20091102110908.M34578@curie.fr>
+References: <20091102110908.M34578@curie.fr>
+Message-ID: <4AEEC2FE.8080500@cbs.dtu.dk>
+
+
+A quick way to have it would be C-level wrappers to the SAMtools library 
+( http://samtools.sourceforge.net/ ).
+
+
+L.
+
+
+Joern Toedling wrote:
+> Hi everyone,
+> 
+> has anybody by chance already written a parser for importing alignments in
+> BAM/SAM format into objects of class AlignedRead? This format seems to be
+> gaining more and more support, yet it is still absent from the options in
+> function readAligned. If one of you already has written such a parsing
+> function and would not mind sharing it, please let me know.
+> 
+> Best regards,
+> Joern
+> 
+> ---
+> Joern Toedling
+> Institut Curie -- U900
+> 26 rue d'Ulm, 75005 Paris, FRANCE
+> Tel. +33 (0)156246926
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From mtmorgan at fhcrc.org  Mon Nov  2 22:15:22 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 02 Nov 2009 13:15:22 -0800
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <4AEEC2FE.8080500@cbs.dtu.dk>
+References: <20091102110908.M34578@curie.fr> <4AEEC2FE.8080500@cbs.dtu.dk>
+Message-ID: <4AEF4BEA.5030500@fhcrc.org>
+
+Laurent Gautier wrote:
+> 
+> A quick way to have it would be C-level wrappers to the SAMtools library
+> ( http://samtools.sourceforge.net/ ).
+> 
+
+This is what Rsamtools does. Martin
+
+> 
+> L.
+> 
+> 
+> Joern Toedling wrote:
+>> Hi everyone,
+>>
+>> has anybody by chance already written a parser for importing
+>> alignments in
+>> BAM/SAM format into objects of class AlignedRead? This format seems to be
+>> gaining more and more support, yet it is still absent from the options in
+>> function readAligned. If one of you already has written such a parsing
+>> function and would not mind sharing it, please let me know.
+>>
+>> Best regards,
+>> Joern
+>>
+>> ---
+>> Joern Toedling
+>> Institut Curie -- U900
+>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>> Tel. +33 (0)156246926
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From mtmorgan at fhcrc.org  Sat Nov  7 16:22:51 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Sat, 07 Nov 2009 07:22:51 -0800
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <72FFB8F180219E4B8F95DCDD0513424C9F848D916A@MAIL03.ug.kth.se>
+References: <20091102110908.M34578@curie.fr>
+	<4AEEDFE5.2010304@fhcrc.org>	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>,
+	<4AEEE585.2060801@fhcrc.org>
+	<72FFB8F180219E4B8F95DCDD0513424C9F848D916A@MAIL03.ug.kth.se>
+Message-ID: <4AF590CB.1080307@fhcrc.org>
+
+Hi Daniel --
+
+Remember that Rsamtools is not even in the devel repository; it is a
+moving target. The error below requires an update, perhaps from svn, of
+Rsamtools dependencies, specifically IRanges.
+
+Use the development version of R with these packages.
+
+Martin
+
+Daniel Klevebring wrote:
+> Hi all, 
+> 
+> Rsamtools looks very interesting. I tried installing it as described below but I get
+> 
+> gcc -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include  -I/sw/include -I/usr/local/include -I"/Library/Frameworks/R.framework/Resources/library/Biostrings/include" -I"/Library/Frameworks/R.framework/Resources/library/IRanges/include"  -D_USE_KNETFILE -Dinline="" -D_FILE_OFFSET_BITS=64 -fPIC  -g -O2 -c cigar.c -o cigar.o
+> cigar.c: In function ?cigar_to_list_of_IRanges?:
+> cigar.c:257: error: ?RangeAEAE? undeclared (first use in this function)
+> cigar.c:257: error: (Each undeclared identifier is reported only once
+> cigar.c:257: error: for each function it appears in.)
+> cigar.c:257: error: expected ?;? before ?range_aeae?
+> cigar.c:262: error: ?range_aeae? undeclared (first use in this function)
+> cigar.c:262: warning: implicit declaration of function ?new_RangeAEAE?
+> cigar.c:279: warning: implicit declaration of function ?RangeAEAE_asLIST?
+> cigar.c:279: warning: assignment makes pointer from integer without a cast
+> make: *** [cigar.o] Error 1
+> ERROR: compilation failed for package ?Rsamtools?
+> * Removing ?/Library/Frameworks/R.framework/Resources/library/Rsamtools?
+> 
+> I'm on Mac OS X 10.6.1 with R 2.9.2 and Rsamtools 0.1.16. Any ideas on this? 
+> 
+> Thanks
+> Daniel Klevebring
+> 
+> ________________________________________
+> From: bioc-sig-sequencing-bounces at r-project.org [bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin Morgan [mtmorgan at fhcrc.org]
+> Sent: 02 November 2009 14:58
+> To: Wu Wei
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+> 
+> Hi Wave --
+> 
+> svn co https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+> 
+> R CMD INSTALL --clean Rsamtools
+> 
+> see the script in Rsamtools/inst/script/readAligned_prototype.R
+> 
+> e.g.,
+> 
+>   source(system.file("script", "readAligned_prototype.R",
+>                      package="Rsamtools"))
+>   .readAligned_bam(<...>) # args like the other readAligned
+> 
+> see ?scanBam for additional ideas.
+> 
+> Martin
+> 
+> Wu Wei wrote:
+>> Hi Martin,
+>>
+>> I am also looking for that. Would you please also forward that
+>> additional info to me.
+>>
+>> Thanks,
+>> Wave
+>>
+>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>
+>>> Joern Toedling wrote:
+>>>> Hi everyone,
+>>>>
+>>>> has anybody by chance already written a parser for importing
+>>>> alignments in
+>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>> to be
+>>>> gaining more and more support, yet it is still absent from the
+>>>> options in
+>>>> function readAligned. If one of you already has written such a parsing
+>>>> function and would not mind sharing it, please let me know.
+>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>> this; it is not yet in the devel branch, there are some limitations in
+>>> terms of AlignedRead (e.g., AlignedRead currently supports only ungapped
+>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>> off-list.
+>>>
+>>> Martin
+>>>> Best regards,
+>>>> Joern
+>>>>
+>>>> ---
+>>>> Joern Toedling
+>>>> Institut Curie -- U900
+>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>> Tel. +33 (0)156246926
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>> --
+>>> Martin Morgan
+>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N.
+>>> PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: Arnold Building M1 B861
+>>> Phone: (206) 667-2793
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> Wu Wei
+>> Postdoctoral Fellow
+>> Steinmetz Group, EMBL Heidelberg
+>> Tex: +49 6221 387-8310 (8114)
+>> Fax: +49 6221 387-8518
+>> Email: wuwei at embl.de
+>>
+>>
+>>
+>>
+> 
+> 
+> --
+> Martin Morgan
+> Computational Biology / Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N.
+> PO Box 19024 Seattle, WA 98109
+> 
+> Location: Arnold Building M1 B861
+> Phone: (206) 667-2793
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From dakl at kth.se  Sat Nov  7 10:16:10 2009
+From: dakl at kth.se (Daniel Klevebring)
+Date: Sat, 7 Nov 2009 10:16:10 +0100
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <4AEEE585.2060801@fhcrc.org>
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>,
+	<4AEEE585.2060801@fhcrc.org>
+Message-ID: <72FFB8F180219E4B8F95DCDD0513424C9F848D916A@MAIL03.ug.kth.se>
+
+Hi all, 
+
+Rsamtools looks very interesting. I tried installing it as described below but I get
+
+gcc -std=gnu99 -I/Library/Frameworks/R.framework/Resources/include  -I/sw/include -I/usr/local/include -I"/Library/Frameworks/R.framework/Resources/library/Biostrings/include" -I"/Library/Frameworks/R.framework/Resources/library/IRanges/include"  -D_USE_KNETFILE -Dinline="" -D_FILE_OFFSET_BITS=64 -fPIC  -g -O2 -c cigar.c -o cigar.o
+cigar.c: In function ?cigar_to_list_of_IRanges?:
+cigar.c:257: error: ?RangeAEAE? undeclared (first use in this function)
+cigar.c:257: error: (Each undeclared identifier is reported only once
+cigar.c:257: error: for each function it appears in.)
+cigar.c:257: error: expected ?;? before ?range_aeae?
+cigar.c:262: error: ?range_aeae? undeclared (first use in this function)
+cigar.c:262: warning: implicit declaration of function ?new_RangeAEAE?
+cigar.c:279: warning: implicit declaration of function ?RangeAEAE_asLIST?
+cigar.c:279: warning: assignment makes pointer from integer without a cast
+make: *** [cigar.o] Error 1
+ERROR: compilation failed for package ?Rsamtools?
+* Removing ?/Library/Frameworks/R.framework/Resources/library/Rsamtools?
+
+I'm on Mac OS X 10.6.1 with R 2.9.2 and Rsamtools 0.1.16. Any ideas on this? 
+
+Thanks
+Daniel Klevebring
+
+________________________________________
+From: bioc-sig-sequencing-bounces at r-project.org [bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin Morgan [mtmorgan at fhcrc.org]
+Sent: 02 November 2009 14:58
+To: Wu Wei
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+
+Hi Wave --
+
+svn co https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+
+R CMD INSTALL --clean Rsamtools
+
+see the script in Rsamtools/inst/script/readAligned_prototype.R
+
+e.g.,
+
+  source(system.file("script", "readAligned_prototype.R",
+                     package="Rsamtools"))
+  .readAligned_bam(<...>) # args like the other readAligned
+
+see ?scanBam for additional ideas.
+
+Martin
+
+Wu Wei wrote:
+> Hi Martin,
+>
+> I am also looking for that. Would you please also forward that
+> additional info to me.
+>
+> Thanks,
+> Wave
+>
+> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>
+>> Joern Toedling wrote:
+>>> Hi everyone,
+>>>
+>>> has anybody by chance already written a parser for importing
+>>> alignments in
+>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>> to be
+>>> gaining more and more support, yet it is still absent from the
+>>> options in
+>>> function readAligned. If one of you already has written such a parsing
+>>> function and would not mind sharing it, please let me know.
+>>
+>> Hi Joern -- there is a package in the Bioc svn repository that does
+>> this; it is not yet in the devel branch, there are some limitations in
+>> terms of AlignedRead (e.g., AlignedRead currently supports only ungapped
+>> alignments, whereas BAM allows gapped). I'll forward additional info
+>> off-list.
+>>
+>> Martin
+>>>
+>>> Best regards,
+>>> Joern
+>>>
+>>> ---
+>>> Joern Toedling
+>>> Institut Curie -- U900
+>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>> Tel. +33 (0)156246926
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> --
+>> Martin Morgan
+>> Computational Biology / Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N.
+>> PO Box 19024 Seattle, WA 98109
+>>
+>> Location: Arnold Building M1 B861
+>> Phone: (206) 667-2793
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+>
+> Wu Wei
+> Postdoctoral Fellow
+> Steinmetz Group, EMBL Heidelberg
+> Tex: +49 6221 387-8310 (8114)
+> Fax: +49 6221 387-8518
+> Email: wuwei at embl.de
+>
+>
+>
+>
+
+
+--
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From david.rossell at irbbarcelona.org  Tue Nov 10 17:54:16 2009
+From: david.rossell at irbbarcelona.org (David Rossell)
+Date: Tue, 10 Nov 2009 17:54:16 +0100
+Subject: [Bioc-sig-seq] Creating IRangesList from a list of IRanges
+Message-ID: <a1ba17ba0911100854vd4f8f72t93cfeca40fb394a5@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091110/cb5cbf84/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Tue Nov 10 18:53:39 2009
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Tue, 10 Nov 2009 12:53:39 -0500
+Subject: [Bioc-sig-seq] Creating IRangesList from a list of IRanges
+In-Reply-To: <a1ba17ba0911100854vd4f8f72t93cfeca40fb394a5@mail.gmail.com>
+References: <a1ba17ba0911100854vd4f8f72t93cfeca40fb394a5@mail.gmail.com>
+Message-ID: <06ED9EAD-4B56-400D-BB33-6D63E910DA14@gmail.com>
+
+Hi,
+
+On Nov 10, 2009, at 11:54 AM, David Rossell wrote:
+
+> Hi, I'm frequently faced with the need to convert a regular list of  
+> IRanges
+> objects to an IRangesList object. However, there doesn't seem to be an
+> as(x,"IRangesList") coercer when x is a list.
+>
+> I know I can use the constructor IRanges(x[[1]],x[[2]],x[[3]]) but  
+> this is
+> not very convenient when x is a long list. I searched around but I  
+> couldn't
+> find anything about this topic. Am I missing something obvious? Help  
+> anyone?
+
+What version of IRanges are you using? I have v.1.5.4 installed right  
+now and this works for me:
+
+R> il <- list(IRanges(start=c(1, 5, 30), end=c(20, 30, 50)),
+              IRanges(start=c(100, 200, 300), end=c(110, 210, 310)))
+
+R> IRangesList(il)
+CompressedIRangesList of length 2
+[[1]]
+IRanges of length 3
+     start end width
+[1]     1  20    20
+[2]     5  30    26
+[3]    30  50    21
+
+[[2]]
+IRanges of length 3
+     start end width
+[1]   100 110    11
+[2]   200 210    11
+[3]   300 310    11
+
+Isn't that what you're after?
+
+-steve
+
+--
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+   |  Memorial Sloan-Kettering Cancer Center
+   |  Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From david.rossell at irbbarcelona.org  Wed Nov 11 15:21:11 2009
+From: david.rossell at irbbarcelona.org (David Rossell)
+Date: Wed, 11 Nov 2009 15:21:11 +0100
+Subject: [Bioc-sig-seq] Creating IRangesList from a list of IRanges
+In-Reply-To: <06ED9EAD-4B56-400D-BB33-6D63E910DA14@gmail.com>
+References: <a1ba17ba0911100854vd4f8f72t93cfeca40fb394a5@mail.gmail.com>
+	<06ED9EAD-4B56-400D-BB33-6D63E910DA14@gmail.com>
+Message-ID: <a1ba17ba0911110621t18f43112s979e70d33bb0f967@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091111/a379fed5/attachment.pl>
+
+From mmuratet at hudsonalpha.org  Thu Nov 12 23:48:32 2009
+From: mmuratet at hudsonalpha.org (Michael Muratet)
+Date: Thu, 12 Nov 2009 16:48:32 -0600
+Subject: [Bioc-sig-seq] Rolexa run-time error in batch mode
+Message-ID: <C6E9D7D2-8E64-4D5F-90DF-5FFFA8D2C55C@hudsonalpha.org>
+
+Greetings
+
+I have a version of Rolexa I have modified to operate with versions  
+1.3+ of the Illumina pipeline (i.e., *.cif files). I'm running this  
+with the development version of R and a version of ShortRead that I  
+also modified to work with versions 1.3+ of the Illumina pipeline. I  
+am trying to run the batch version of Rolexa thusly:
+
+library(fork)
+library(Rolexa)
+
+lane=1
+
+rolenv.1 = SetModel()
+sp.1 <- SolexaPath("/data/illumina_ga/090829_HWI-EAS295_42RYTAAXX")
+
+ForkBatch(run=rolenv.1, sp.1, outpath="./", prefix="rs.1", nthreads=2,  
+nfiles=2, lane=lane, tiles=1:2)
+
+which grinds along for awhile and then I get a "subscript out of  
+bounds" error in a method with which I am unfamiliar. See traceback:
+
+ > traceback()
+18: stop("subscript out of bounds")
+17: .nextMethod(x = x, i = i, ...)
+16: .Call("R_nextMethodCall", call, callEnv, PACKAGE = "methods")
+15: callNextMethod()
+14: x at ranges[i]
+13: x at ranges[i]
+12: seqInit at sread[colonies]
+11: seqInit at sread[colonies]
+10: .local(run, ...)
+9: SeqScore(run = run, int = int, seqInit = seq, colonies = 1:dim(int) 
+[1],
+        cycles = 1:ncycles)
+8: SeqScore(run = run, int = int, seqInit = seq, colonies = 1:dim(int) 
+[1],
+        cycles = 1:ncycles)
+7: .local(run, ...)
+6: OneBatch(run, path, lane, tiles[fn + 1:nfiles], outpath, prefix)
+5: OneBatch(run, path, lane, tiles[fn + 1:nfiles], outpath, prefix)
+4: ForkBatch(run = rolenv.1, sp.1, outpath = "./", prefix = "rs.1",
+        nthreads = 2, nfiles = 2, lane = lane, tiles = 1:2)
+3: eval.with.vis(expr, envir, enclos)
+2: eval.with.vis(ei, envir)
+1: source("batch_analysis.R")
+
+I haven't been able to locate the method where the error occurs. Maybe  
+it's in R itself somewhere. Can anyone point me in the right direction?
+
+Session info is below if anyone would like to speculate about the  
+source of the problem.
+
+Thanks
+
+Mike
+
+ > sessionInfo()
+R version 2.10.0 Under development (unstable) (2009-09-09 r49643)
+x86_64-unknown-linux-gnu
+
+locale:
+  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] Rolexa_1.0.5      ShortRead_1.5.0   lattice_0.17-25    
+BSgenome_1.15.0
+[5] Biostrings_2.15.0 IRanges_1.5.0     mclust_3.3.2      fork_1.2.2
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0 grid_2.10.0   hwriter_1.1
+
+
+Michael Muratet, Ph.D.
+Senior Scientist
+HudsonAlpha Institute for Biotechnology
+mmuratet at hudsonalpha.org
+(256) 327-0473 (p)
+(256) 327-0966 (f)
+
+Room 4005
+601 Genome Way
+Huntsville, Alabama 35806
+
+
+From sfalcon at fhcrc.org  Fri Nov 13 00:19:48 2009
+From: sfalcon at fhcrc.org (Seth Falcon)
+Date: Thu, 12 Nov 2009 15:19:48 -0800
+Subject: [Bioc-sig-seq] Rolexa run-time error in batch mode
+In-Reply-To: <C6E9D7D2-8E64-4D5F-90DF-5FFFA8D2C55C@hudsonalpha.org>
+References: <C6E9D7D2-8E64-4D5F-90DF-5FFFA8D2C55C@hudsonalpha.org>
+Message-ID: <4AFC9814.8050908@fhcrc.org>
+
+Hi Michael,
+
+Sorry I don't have more, but a few hints are below...
+
+On 11/12/09 2:48 PM, Michael Muratet wrote:
+> which grinds along for awhile and then I get a "subscript out of bounds"
+> error in a method with which I am unfamiliar. See traceback:
+>
+>  > traceback()
+> 18: stop("subscript out of bounds")
+> 17: .nextMethod(x = x, i = i, ...)
+> 16: .Call("R_nextMethodCall", call, callEnv, PACKAGE = "methods")
+> 15: callNextMethod()
+> 14: x at ranges[i]
+> 13: x at ranges[i]
+> 12: seqInit at sread[colonies]
+> 11: seqInit at sread[colonies]
+> 10: .local(run, ...)
+> 9: SeqScore(run = run, int = int, seqInit = seq, colonies = 1:dim(int)[1],
+> cycles = 1:ncycles)
+> 8: SeqScore(run = run, int = int, seqInit = seq, colonies = 1:dim(int)[1],
+> cycles = 1:ncycles)
+> 7: .local(run, ...)
+> 6: OneBatch(run, path, lane, tiles[fn + 1:nfiles], outpath, prefix)
+> 5: OneBatch(run, path, lane, tiles[fn + 1:nfiles], outpath, prefix)
+> 4: ForkBatch(run = rolenv.1, sp.1, outpath = "./", prefix = "rs.1",
+> nthreads = 2, nfiles = 2, lane = lane, tiles = 1:2)
+> 3: eval.with.vis(expr, envir, enclos)
+> 2: eval.with.vis(ei, envir)
+> 1: source("batch_analysis.R")
+>
+> I haven't been able to locate the method where the error occurs. Maybe
+> it's in R itself somewhere. Can anyone point me in the right direction?
+
+Frames 11, 12 are from the Rolexa package, I believe.  Line 213 of 
+Rolexa/R/Model.R has:
+
+                       siseq = seqInit at sread[colonies]
+
+Then frames 13, 14 jump to either IRanges or Biostrings code (or both).
+
+Have you been able to run a perhaps smaller example without the fork 
+package?
+
+I'm not familiar with fork, but assuming that it is forking the R 
+process, one might be suspicious of using fork with packages that use 
+external pointers such as Biostrings.  Since R is not multi-threaded, 
+package code is not setup for concurrent access... Or this might have 
+nothing to do with the issue you are seeing :-P
+
++ seth
+
+-- 
+Seth Falcon
+Program in Computational Biology | Fred Hutchinson Cancer Research Center
+
+
+From mmuratet at hudsonalpha.org  Fri Nov 13 15:46:20 2009
+From: mmuratet at hudsonalpha.org (Michael Muratet)
+Date: Fri, 13 Nov 2009 08:46:20 -0600
+Subject: [Bioc-sig-seq] Rolexa run-time error in batch mode
+In-Reply-To: <4AFC9814.8050908@fhcrc.org>
+References: <C6E9D7D2-8E64-4D5F-90DF-5FFFA8D2C55C@hudsonalpha.org>
+	<4AFC9814.8050908@fhcrc.org>
+Message-ID: <93B91FE3-7A4F-498D-A5B6-259E61B9C6D5@hudsonalpha.org>
+
+
+On Nov 12, 2009, at 5:19 PM, Seth Falcon wrote:
+
+> Hi Michael,
+>
+> Sorry I don't have more, but a few hints are below...
+>
+> On 11/12/09 2:48 PM, Michael Muratet wrote:
+>> which grinds along for awhile and then I get a "subscript out of  
+>> bounds"
+>> error in a method with which I am unfamiliar. See traceback:
+>>
+>> > traceback()
+>> 18: stop("subscript out of bounds")
+>> 17: .nextMethod(x = x, i = i, ...)
+>> 16: .Call("R_nextMethodCall", call, callEnv, PACKAGE = "methods")
+>> 15: callNextMethod()
+>> 14: x at ranges[i]
+>> 13: x at ranges[i]
+>> 12: seqInit at sread[colonies]
+>> 11: seqInit at sread[colonies]
+>> 10: .local(run, ...)
+>> 9: SeqScore(run = run, int = int, seqInit = seq, colonies =  
+>> 1:dim(int)[1],
+>> cycles = 1:ncycles)
+>> 8: SeqScore(run = run, int = int, seqInit = seq, colonies =  
+>> 1:dim(int)[1],
+>> cycles = 1:ncycles)
+>> 7: .local(run, ...)
+>> 6: OneBatch(run, path, lane, tiles[fn + 1:nfiles], outpath, prefix)
+>> 5: OneBatch(run, path, lane, tiles[fn + 1:nfiles], outpath, prefix)
+>> 4: ForkBatch(run = rolenv.1, sp.1, outpath = "./", prefix = "rs.1",
+>> nthreads = 2, nfiles = 2, lane = lane, tiles = 1:2)
+>> 3: eval.with.vis(expr, envir, enclos)
+>> 2: eval.with.vis(ei, envir)
+>> 1: source("batch_analysis.R")
+>>
+>> I haven't been able to locate the method where the error occurs.  
+>> Maybe
+>> it's in R itself somewhere. Can anyone point me in the right  
+>> direction?
+>
+> Frames 11, 12 are from the Rolexa package, I believe.  Line 213 of  
+> Rolexa/R/Model.R has:
+>
+>                      siseq = seqInit at sread[colonies]
+>
+> Then frames 13, 14 jump to either IRanges or Biostrings code (or  
+> both).
+>
+> Have you been able to run a perhaps smaller example without the fork  
+> package?
+Seth
+
+Yes, I am able to execute the process manually. I will take a look at  
+it again this morning and if I can figure it out I will write a script  
+to do it manually and serially.
+
+Thanks
+
+Mike
+>
+> I'm not familiar with fork, but assuming that it is forking the R  
+> process, one might be suspicious of using fork with packages that  
+> use external pointers such as Biostrings.  Since R is not multi- 
+> threaded, package code is not setup for concurrent access... Or this  
+> might have nothing to do with the issue you are seeing :-P
+>
+> + seth
+>
+> -- 
+> Seth Falcon
+> Program in Computational Biology | Fred Hutchinson Cancer Research  
+> Center
+
+Michael Muratet, Ph.D.
+Senior Scientist
+HudsonAlpha Institute for Biotechnology
+mmuratet at hudsonalpha.org
+(256) 327-0473 (p)
+(256) 327-0966 (f)
+
+Room 4005
+601 Genome Way
+Huntsville, Alabama 35806
+
+
+From D.Strbenac at garvan.org.au  Wed Nov 18 06:32:20 2009
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Wed, 18 Nov 2009 16:32:20 +1100 (EST)
+Subject: [Bioc-sig-seq] rtracklayer and all_mrna track
+Message-ID: <20091118163220.BCL49802@gimr.garvan.unsw.edu.au>
+
+Hello,
+
+Does anyone have suggestions as to why this never finishes running ?
+
+session <- browserSession("UCSC")
+ ...            ...
+q2 <- ucscTableQuery(session, "all_mrna", GenomicRanges(genome = "hg18"))
+mrna <- getTable(q2)
+
+The sessionInfo() is
+R version 2.10.0 (2009-10-26) 
+x86_64-pc-linux-gnu 
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] rtracklayer_1.6.0 RCurl_1.3-0       bitops_1.0-4.1   
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0     Biostrings_2.14.5 BSgenome_1.14.1   IRanges_1.4.6    
+[5] tools_2.10.0      XML_2.6-0
+
+Thanks,
+       Dario.
+
+
+From thomas.girke at ucr.edu  Sun Nov 22 00:08:45 2009
+From: thomas.girke at ucr.edu (Thomas Girke)
+Date: Sat, 21 Nov 2009 15:08:45 -0800
+Subject: [Bioc-sig-seq] behavior of XStringSet after c() step
+Message-ID: <20091121230844.GA23474@biocluster.ucr.edu>
+
+Dear List,
+
+Is there an explanation for the behavior change of XStringSet
+objects that have gone through an append() or c() step and those
+that didn't? I am not observing this problem in the previous 
+R/BioC release.
+
+Below is a simple example to reproduce this error.
+
+Thanks in advance for your help.
+
+Thomas
+
+## Example
+> library(Biostrings)
+> dset1 <- DNAStringSet(c("GCATATTAC", "AATCGATCC", "GCATATTAC"))
+> dset2 <- DNAStringSet(c("CCGCATATTAC", "AAAATCGATCC", "GCATATAATAC"))
+> dset3 <- c(dset1, dset2) # using append() doesn't fix the problem
+
+> reverseComplement(dset3)
+Error in .local(x, ...) : IRanges internal error: length(x) != 1
+
+> DNAStringSet(dset3, start=1, end=4)
+Error in super(x) : Biostrings internal error: length(x at pool) != 1
+
+## The problem goes away by doing the following
+> dset3fix <- DNAStringSet(unlist(strsplit(toString(dset3), ", ")))
+
+> reverseComplement(dset3fix)
+  A DNAStringSet instance of length 6
+    width seq
+[1]     9 GTAATATGC
+[2]     9 GGATCGATT
+[3]     9 GTAATATGC
+[4]    11 GTAATATGCGG
+[5]    11 GGATCGATTTT
+[6]    11 GTATTATATGC
+
+
+> DNAStringSet(dset3fix, start=1, end=4)
+  A DNAStringSet instance of length 6
+    width seq
+[1]     4 GCAT
+[2]     4 AATC
+[3]     4 GCAT
+[4]     4 CCGC
+[5]     4 AAAA
+[6]     4 GCAT
+
+
+> sessionInfo()
+R version 2.10.0 (2009-10-26)
+x86_64-unknown-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8     LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] Biostrings_2.14.1 IRanges_1.4.3
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0
+
+
+From mflawren at fhcrc.org  Sun Nov 22 15:38:27 2009
+From: mflawren at fhcrc.org (Michael Lawrence)
+Date: Sun, 22 Nov 2009 06:38:27 -0800
+Subject: [Bioc-sig-seq] rtracklayer and all_mrna track
+In-Reply-To: <20091118163220.BCL49802@gimr.garvan.unsw.edu.au>
+References: <20091118163220.BCL49802@gimr.garvan.unsw.edu.au>
+Message-ID: <509e0620911220638n4eca8aa1o8924579a101173c7@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091122/04a38a7c/attachment.pl>
+
+From hpages at fhcrc.org  Tue Nov 24 02:10:44 2009
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Mon, 23 Nov 2009 17:10:44 -0800
+Subject: [Bioc-sig-seq] behavior of XStringSet after c() step
+In-Reply-To: <20091121230844.GA23474@biocluster.ucr.edu>
+References: <20091121230844.GA23474@biocluster.ucr.edu>
+Message-ID: <4B0B3294.7040407@fhcrc.org>
+
+Hi Thomas,
+
+The internals of the XStringSet container have changed in BioC 2.5
+in order to support bigger objects (i.e. objects that can have more
+than 2^31 letters in them, now this limit is 2^31 letters per element
+and the maximum nb of elements is 2^31, very much like for
+standard character vectors) and also to support more efficient
+combining thru c() or append() (this is now achieved with no copying
+of the sequence data). The fact that reverseComplement(), reverse(), 
+complement() and chartr() are currently broken on XStringSet objects
+that have gone thru combining is because of this change in the 
+internals. Most methods that operate on XStringSet objects were adapted
+except those 4 methods because of lack of time. I'm working on this
+right now and will post again here when it's fixed. Thanks for the
+reminder and sorry for the inconvenience.
+
+Cheers,
+H.
+
+
+Thomas Girke wrote:
+> Dear List,
+> 
+> Is there an explanation for the behavior change of XStringSet
+> objects that have gone through an append() or c() step and those
+> that didn't? I am not observing this problem in the previous 
+> R/BioC release.
+> 
+> Below is a simple example to reproduce this error.
+> 
+> Thanks in advance for your help.
+> 
+> Thomas
+> 
+> ## Example
+>> library(Biostrings)
+>> dset1 <- DNAStringSet(c("GCATATTAC", "AATCGATCC", "GCATATTAC"))
+>> dset2 <- DNAStringSet(c("CCGCATATTAC", "AAAATCGATCC", "GCATATAATAC"))
+>> dset3 <- c(dset1, dset2) # using append() doesn't fix the problem
+> 
+>> reverseComplement(dset3)
+> Error in .local(x, ...) : IRanges internal error: length(x) != 1
+> 
+>> DNAStringSet(dset3, start=1, end=4)
+> Error in super(x) : Biostrings internal error: length(x at pool) != 1
+> 
+> ## The problem goes away by doing the following
+>> dset3fix <- DNAStringSet(unlist(strsplit(toString(dset3), ", ")))
+> 
+>> reverseComplement(dset3fix)
+>   A DNAStringSet instance of length 6
+>     width seq
+> [1]     9 GTAATATGC
+> [2]     9 GGATCGATT
+> [3]     9 GTAATATGC
+> [4]    11 GTAATATGCGG
+> [5]    11 GGATCGATTTT
+> [6]    11 GTATTATATGC
+> 
+> 
+>> DNAStringSet(dset3fix, start=1, end=4)
+>   A DNAStringSet instance of length 6
+>     width seq
+> [1]     4 GCAT
+> [2]     4 AATC
+> [3]     4 GCAT
+> [4]     4 CCGC
+> [5]     4 AAAA
+> [6]     4 GCAT
+> 
+> 
+>> sessionInfo()
+> R version 2.10.0 (2009-10-26)
+> x86_64-unknown-linux-gnu
+> 
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8     LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C             LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> other attached packages:
+> [1] Biostrings_2.14.1 IRanges_1.4.3
+> 
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.6.0
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M2-B876
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From thomas.girke at ucr.edu  Tue Nov 24 02:36:59 2009
+From: thomas.girke at ucr.edu (Thomas Girke)
+Date: Mon, 23 Nov 2009 17:36:59 -0800
+Subject: [Bioc-sig-seq] behavior of XStringSet after c() step
+In-Reply-To: <4B0B3294.7040407@fhcrc.org>
+References: <20091121230844.GA23474@biocluster.ucr.edu>
+	<4B0B3294.7040407@fhcrc.org>
+Message-ID: <20091124013659.GA4957@biocluster.ucr.edu>
+
+Hi Herv?,
+
+Thanks for the clarification. Right now this is just a slight inconvenience,
+whereas the support for larger object sizes is a very welcome major 
+improvement.
+
+Thanks for doing this.
+
+Thomas
+
+
+On Mon, Nov 23, 2009 at 05:10:44PM -0800, Herv? Pag?s wrote:
+> Hi Thomas,
+> 
+> The internals of the XStringSet container have changed in BioC 2.5
+> in order to support bigger objects (i.e. objects that can have more
+> than 2^31 letters in them, now this limit is 2^31 letters per element
+> and the maximum nb of elements is 2^31, very much like for
+> standard character vectors) and also to support more efficient
+> combining thru c() or append() (this is now achieved with no copying
+> of the sequence data). The fact that reverseComplement(), reverse(), 
+> complement() and chartr() are currently broken on XStringSet objects
+> that have gone thru combining is because of this change in the 
+> internals. Most methods that operate on XStringSet objects were adapted
+> except those 4 methods because of lack of time. I'm working on this
+> right now and will post again here when it's fixed. Thanks for the
+> reminder and sorry for the inconvenience.
+> 
+> Cheers,
+> H.
+> 
+> 
+> Thomas Girke wrote:
+> >Dear List,
+> >
+> >Is there an explanation for the behavior change of XStringSet
+> >objects that have gone through an append() or c() step and those
+> >that didn't? I am not observing this problem in the previous 
+> >R/BioC release.
+> >
+> >Below is a simple example to reproduce this error.
+> >
+> >Thanks in advance for your help.
+> >
+> >Thomas
+> >
+> >## Example
+> >>library(Biostrings)
+> >>dset1 <- DNAStringSet(c("GCATATTAC", "AATCGATCC", "GCATATTAC"))
+> >>dset2 <- DNAStringSet(c("CCGCATATTAC", "AAAATCGATCC", "GCATATAATAC"))
+> >>dset3 <- c(dset1, dset2) # using append() doesn't fix the problem
+> >
+> >>reverseComplement(dset3)
+> >Error in .local(x, ...) : IRanges internal error: length(x) != 1
+> >
+> >>DNAStringSet(dset3, start=1, end=4)
+> >Error in super(x) : Biostrings internal error: length(x at pool) != 1
+> >
+> >## The problem goes away by doing the following
+> >>dset3fix <- DNAStringSet(unlist(strsplit(toString(dset3), ", ")))
+> >
+> >>reverseComplement(dset3fix)
+> >  A DNAStringSet instance of length 6
+> >    width seq
+> >[1]     9 GTAATATGC
+> >[2]     9 GGATCGATT
+> >[3]     9 GTAATATGC
+> >[4]    11 GTAATATGCGG
+> >[5]    11 GGATCGATTTT
+> >[6]    11 GTATTATATGC
+> >
+> >
+> >>DNAStringSet(dset3fix, start=1, end=4)
+> >  A DNAStringSet instance of length 6
+> >    width seq
+> >[1]     4 GCAT
+> >[2]     4 AATC
+> >[3]     4 GCAT
+> >[4]     4 CCGC
+> >[5]     4 AAAA
+> >[6]     4 GCAT
+> >
+> >
+> >>sessionInfo()
+> >R version 2.10.0 (2009-10-26)
+> >x86_64-unknown-linux-gnu
+> >
+> >locale:
+> > [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               
+> > LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8     LC_MONETARY=C       
+> > LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C
+> > [9] LC_ADDRESS=C               LC_TELEPHONE=C             
+> > LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+> >
+> >attached base packages:
+> >[1] stats     graphics  grDevices utils     datasets  methods   base
+> >
+> >other attached packages:
+> >[1] Biostrings_2.14.1 IRanges_1.4.3
+> >
+> >loaded via a namespace (and not attached):
+> >[1] Biobase_2.6.0
+> >
+> >_______________________________________________
+> >Bioc-sig-sequencing mailing list
+> >Bioc-sig-sequencing at r-project.org
+> >https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> -- 
+> Herv? Pag?s
+> 
+> Program in Computational Biology
+> Division of Public Health Sciences
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N, M2-B876
+> P.O. Box 19024
+> Seattle, WA 98109-1024
+> 
+> E-mail: hpages at fhcrc.org
+> Phone:  (206) 667-5791
+> Fax:    (206) 667-1319
+>
+
+
+From hpages at fhcrc.org  Wed Nov 25 08:13:50 2009
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Tue, 24 Nov 2009 23:13:50 -0800
+Subject: [Bioc-sig-seq] behavior of XStringSet after c() step
+In-Reply-To: <20091124013659.GA4957@biocluster.ucr.edu>
+References: <20091121230844.GA23474@biocluster.ucr.edu>
+	<4B0B3294.7040407@fhcrc.org>
+	<20091124013659.GA4957@biocluster.ucr.edu>
+Message-ID: <4B0CD92E.8090804@fhcrc.org>
+
+Hi Thomas,
+
+This is fixed in release (Biostrings 2.14.8 / IRanges 1.4.8) and
+devel (Biostrings 2.15.9 / IRanges 1.5.10).
+In addition to the methods you reported below, I found a few more
+methods that were still not supporting XStringSet objects with
+a pool of length > 1 (compact() + the coercion methods from an
+XStringSet subtype (B/DNA/RNA/AA) to another subtype).
+
+The new versions of Biostrings / IRanges should become available
+thru biocLite() in the next 24 hours.
+
+Cheers,
+H.
+
+
+Thomas Girke wrote:
+> Hi Herv?,
+> 
+> Thanks for the clarification. Right now this is just a slight inconvenience,
+> whereas the support for larger object sizes is a very welcome major 
+> improvement.
+> 
+> Thanks for doing this.
+> 
+> Thomas
+> 
+> 
+> On Mon, Nov 23, 2009 at 05:10:44PM -0800, Herv? Pag?s wrote:
+>> Hi Thomas,
+>>
+>> The internals of the XStringSet container have changed in BioC 2.5
+>> in order to support bigger objects (i.e. objects that can have more
+>> than 2^31 letters in them, now this limit is 2^31 letters per element
+>> and the maximum nb of elements is 2^31, very much like for
+>> standard character vectors) and also to support more efficient
+>> combining thru c() or append() (this is now achieved with no copying
+>> of the sequence data). The fact that reverseComplement(), reverse(), 
+>> complement() and chartr() are currently broken on XStringSet objects
+>> that have gone thru combining is because of this change in the 
+>> internals. Most methods that operate on XStringSet objects were adapted
+>> except those 4 methods because of lack of time. I'm working on this
+>> right now and will post again here when it's fixed. Thanks for the
+>> reminder and sorry for the inconvenience.
+>>
+>> Cheers,
+>> H.
+>>
+>>
+>> Thomas Girke wrote:
+>>> Dear List,
+>>>
+>>> Is there an explanation for the behavior change of XStringSet
+>>> objects that have gone through an append() or c() step and those
+>>> that didn't? I am not observing this problem in the previous 
+>>> R/BioC release.
+>>>
+>>> Below is a simple example to reproduce this error.
+>>>
+>>> Thanks in advance for your help.
+>>>
+>>> Thomas
+>>>
+>>> ## Example
+>>>> library(Biostrings)
+>>>> dset1 <- DNAStringSet(c("GCATATTAC", "AATCGATCC", "GCATATTAC"))
+>>>> dset2 <- DNAStringSet(c("CCGCATATTAC", "AAAATCGATCC", "GCATATAATAC"))
+>>>> dset3 <- c(dset1, dset2) # using append() doesn't fix the problem
+>>>> reverseComplement(dset3)
+>>> Error in .local(x, ...) : IRanges internal error: length(x) != 1
+>>>
+>>>> DNAStringSet(dset3, start=1, end=4)
+>>> Error in super(x) : Biostrings internal error: length(x at pool) != 1
+>>>
+>>> ## The problem goes away by doing the following
+>>>> dset3fix <- DNAStringSet(unlist(strsplit(toString(dset3), ", ")))
+>>>> reverseComplement(dset3fix)
+>>>  A DNAStringSet instance of length 6
+>>>    width seq
+>>> [1]     9 GTAATATGC
+>>> [2]     9 GGATCGATT
+>>> [3]     9 GTAATATGC
+>>> [4]    11 GTAATATGCGG
+>>> [5]    11 GGATCGATTTT
+>>> [6]    11 GTATTATATGC
+>>>
+>>>
+>>>> DNAStringSet(dset3fix, start=1, end=4)
+>>>  A DNAStringSet instance of length 6
+>>>    width seq
+>>> [1]     4 GCAT
+>>> [2]     4 AATC
+>>> [3]     4 GCAT
+>>> [4]     4 CCGC
+>>> [5]     4 AAAA
+>>> [6]     4 GCAT
+>>>
+>>>
+>>>> sessionInfo()
+>>> R version 2.10.0 (2009-10-26)
+>>> x86_64-unknown-linux-gnu
+>>>
+>>> locale:
+>>> [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               
+>>> LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8     LC_MONETARY=C       
+>>> LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C
+>>> [9] LC_ADDRESS=C               LC_TELEPHONE=C             
+>>> LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>
+>>> other attached packages:
+>>> [1] Biostrings_2.14.1 IRanges_1.4.3
+>>>
+>>> loaded via a namespace (and not attached):
+>>> [1] Biobase_2.6.0
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>> -- 
+>> Herv? Pag?s
+>>
+>> Program in Computational Biology
+>> Division of Public Health Sciences
+>> Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N, M2-B876
+>> P.O. Box 19024
+>> Seattle, WA 98109-1024
+>>
+>> E-mail: hpages at fhcrc.org
+>> Phone:  (206) 667-5791
+>> Fax:    (206) 667-1319
+>>
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M2-B876
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From thomas.girke at ucr.edu  Wed Nov 25 18:34:24 2009
+From: thomas.girke at ucr.edu (Thomas Girke)
+Date: Wed, 25 Nov 2009 09:34:24 -0800
+Subject: [Bioc-sig-seq] behavior of XStringSet after c() step
+In-Reply-To: <4B0CD92E.8090804@fhcrc.org>
+References: <20091121230844.GA23474@biocluster.ucr.edu>
+	<4B0B3294.7040407@fhcrc.org>
+	<20091124013659.GA4957@biocluster.ucr.edu>
+	<4B0CD92E.8090804@fhcrc.org>
+Message-ID: <20091125173424.GA4945@biocluster.ucr.edu>
+
+Hi Herv?,
+
+Thanks a lot for fixing this so quickly. 
+
+Thomas
+
+On Tue, Nov 24, 2009 at 11:13:50PM -0800, Herv? Pag?s wrote:
+> Hi Thomas,
+> 
+> This is fixed in release (Biostrings 2.14.8 / IRanges 1.4.8) and
+> devel (Biostrings 2.15.9 / IRanges 1.5.10).
+> In addition to the methods you reported below, I found a few more
+> methods that were still not supporting XStringSet objects with
+> a pool of length > 1 (compact() + the coercion methods from an
+> XStringSet subtype (B/DNA/RNA/AA) to another subtype).
+> 
+> The new versions of Biostrings / IRanges should become available
+> thru biocLite() in the next 24 hours.
+> 
+> Cheers,
+> H.
+> 
+> 
+> Thomas Girke wrote:
+> >Hi Herv?,
+> >
+> >Thanks for the clarification. Right now this is just a slight 
+> >inconvenience,
+> >whereas the support for larger object sizes is a very welcome major 
+> >improvement.
+> >
+> >Thanks for doing this.
+> >
+> >Thomas
+> >
+> >
+> >On Mon, Nov 23, 2009 at 05:10:44PM -0800, Herv? Pag?s wrote:
+> >>Hi Thomas,
+> >>
+> >>The internals of the XStringSet container have changed in BioC 2.5
+> >>in order to support bigger objects (i.e. objects that can have more
+> >>than 2^31 letters in them, now this limit is 2^31 letters per element
+> >>and the maximum nb of elements is 2^31, very much like for
+> >>standard character vectors) and also to support more efficient
+> >>combining thru c() or append() (this is now achieved with no copying
+> >>of the sequence data). The fact that reverseComplement(), reverse(), 
+> >>complement() and chartr() are currently broken on XStringSet objects
+> >>that have gone thru combining is because of this change in the 
+> >>internals. Most methods that operate on XStringSet objects were adapted
+> >>except those 4 methods because of lack of time. I'm working on this
+> >>right now and will post again here when it's fixed. Thanks for the
+> >>reminder and sorry for the inconvenience.
+> >>
+> >>Cheers,
+> >>H.
+> >>
+> >>
+> >>Thomas Girke wrote:
+> >>>Dear List,
+> >>>
+> >>>Is there an explanation for the behavior change of XStringSet
+> >>>objects that have gone through an append() or c() step and those
+> >>>that didn't? I am not observing this problem in the previous 
+> >>>R/BioC release.
+> >>>
+> >>>Below is a simple example to reproduce this error.
+> >>>
+> >>>Thanks in advance for your help.
+> >>>
+> >>>Thomas
+> >>>
+> >>>## Example
+> >>>>library(Biostrings)
+> >>>>dset1 <- DNAStringSet(c("GCATATTAC", "AATCGATCC", "GCATATTAC"))
+> >>>>dset2 <- DNAStringSet(c("CCGCATATTAC", "AAAATCGATCC", "GCATATAATAC"))
+> >>>>dset3 <- c(dset1, dset2) # using append() doesn't fix the problem
+> >>>>reverseComplement(dset3)
+> >>>Error in .local(x, ...) : IRanges internal error: length(x) != 1
+> >>>
+> >>>>DNAStringSet(dset3, start=1, end=4)
+> >>>Error in super(x) : Biostrings internal error: length(x at pool) != 1
+> >>>
+> >>>## The problem goes away by doing the following
+> >>>>dset3fix <- DNAStringSet(unlist(strsplit(toString(dset3), ", ")))
+> >>>>reverseComplement(dset3fix)
+> >>> A DNAStringSet instance of length 6
+> >>>   width seq
+> >>>[1]     9 GTAATATGC
+> >>>[2]     9 GGATCGATT
+> >>>[3]     9 GTAATATGC
+> >>>[4]    11 GTAATATGCGG
+> >>>[5]    11 GGATCGATTTT
+> >>>[6]    11 GTATTATATGC
+> >>>
+> >>>
+> >>>>DNAStringSet(dset3fix, start=1, end=4)
+> >>> A DNAStringSet instance of length 6
+> >>>   width seq
+> >>>[1]     4 GCAT
+> >>>[2]     4 AATC
+> >>>[3]     4 GCAT
+> >>>[4]     4 CCGC
+> >>>[5]     4 AAAA
+> >>>[6]     4 GCAT
+> >>>
+> >>>
+> >>>>sessionInfo()
+> >>>R version 2.10.0 (2009-10-26)
+> >>>x86_64-unknown-linux-gnu
+> >>>
+> >>>locale:
+> >>>[1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C               
+> >>>LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8     LC_MONETARY=C      
+> >>>LC_MESSAGES=en_US.UTF-8    LC_PAPER=en_US.UTF-8       LC_NAME=C
+> >>>[9] LC_ADDRESS=C               LC_TELEPHONE=C             
+> >>>LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+> >>>
+> >>>attached base packages:
+> >>>[1] stats     graphics  grDevices utils     datasets  methods   base
+> >>>
+> >>>other attached packages:
+> >>>[1] Biostrings_2.14.1 IRanges_1.4.3
+> >>>
+> >>>loaded via a namespace (and not attached):
+> >>>[1] Biobase_2.6.0
+> >>>
+> >>>_______________________________________________
+> >>>Bioc-sig-sequencing mailing list
+> >>>Bioc-sig-sequencing at r-project.org
+> >>>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> >>-- 
+> >>Herv? Pag?s
+> >>
+> >>Program in Computational Biology
+> >>Division of Public Health Sciences
+> >>Fred Hutchinson Cancer Research Center
+> >>1100 Fairview Ave. N, M2-B876
+> >>P.O. Box 19024
+> >>Seattle, WA 98109-1024
+> >>
+> >>E-mail: hpages at fhcrc.org
+> >>Phone:  (206) 667-5791
+> >>Fax:    (206) 667-1319
+> >>
+> 
+> -- 
+> Herv? Pag?s
+> 
+> Program in Computational Biology
+> Division of Public Health Sciences
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N, M2-B876
+> P.O. Box 19024
+> Seattle, WA 98109-1024
+> 
+> E-mail: hpages at fhcrc.org
+> Phone:  (206) 667-5791
+> Fax:    (206) 667-1319
+>
+
+
+From p.leo at uq.edu.au  Thu Nov 26 00:13:18 2009
+From: p.leo at uq.edu.au (Paul Leo)
+Date: Thu, 26 Nov 2009 09:13:18 +1000
+Subject: [Bioc-sig-seq] Job add: Postdoctoral Bioinformatician ,
+	Statistical Geneticist
+Message-ID: <1259190798.7709.5.camel@BIOINFORM01-ubuntu>
+
+Where:
+DIAMANTINA INSTITUTE for Cancer, Immunology and Metabolic Medicine.
+Brisbane , Australia.
+
+See details at:
+
+http://www.seek.com.au/users/apply/index.ascx?Sequence=67&PageNumber=1&jobid=16386257
+
+
+From lcollado at lcg.unam.mx  Thu Nov 26 23:38:57 2009
+From: lcollado at lcg.unam.mx (Leonardo Collado Torres)
+Date: Thu, 26 Nov 2009 16:38:57 -0600
+Subject: [Bioc-sig-seq] Confused on fastq to numeric conversion
+	(SolexaPipeline 1.3+)
+Message-ID: <4B0F0381.6070005@lcg.unam.mx>
+
+Dear list,
+
+I'm puzzled over something very simple. I've got some fresh Illumina 
+data and I want to make a plot of the median (10% quantile, etc) 
+qualities (Y axis) per cycle (X axis).
+
+On the code below, I'm simply reading a test file in fastq format, 
+printing the quality, checking that nothing weird went when reading the 
+file (could be :P), and changing the ASCII qualities to numeric values. 
+The symbol "D" gets changed to 35; the lowest value on the 1st sequence.
+
+ >library(ShortRead)
+ >reads <- readFastq(dirPath = ".", pattern = "test.txt")
+
+ > reads[1]
+class: ShortReadQ
+length: 1 reads; width: 50 cycles
+ > sread(reads[1])
+  A DNAStringSet instance of length 1
+    width seq
+[1]    50 ACCGTGCCGAGCACACGGGTGACNCCGCGATAGCCGGGCGGTGTATAGGG
+ > quality(reads[1])
+class: FastqQuality
+quality:
+  A BStringSet instance of length 1
+    width seq
+[1]    50 aaa`\aaa_`_`aaaaaa^Xa`[DZ``a``a```a`^`aaaS`\]``\\a
+ > system("head -n 4 test.txt")
+@HWUSI-EAS636_0001:8:1:1:1353#0/1
+ACCGTGCCGAGCACACGGGTGACNCCGCGATAGCCGGGCGGTGTATAGGG
++HWUSI-EAS636_0001:8:1:1:1353#0/1
+aaa`\aaa_`_`aaaaaa^Xa`[DZ``a``a```a`^`aaaS`\]``\\a
+ >
+ > as(quality(reads[1]), "numeric") # Will use "matrix" when using all 
+reads instead of the 1st one
+ [1] 64 64 64 63 59 64 64 64 62 63 62 63 64 64 64 64 64 64 61 55 64 63 
+58 35 57
+[26] 63 63 64 63 63 64 63 63 63 64 63 61 63 64 64 64 50 63 59 60 63 63 
+59 59 64
+ >
+ > summary(as(quality(reads[1]), "numeric"))
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+   35.0    62.0    63.0    61.7    64.0    64.0
+ >
+
+Now, what confuses me is that according to 
+http://en.wikipedia.org/wiki/FASTQ_format SolexaPipeline 1.3+ "can 
+encode a Phred quality score from 0 to 62 using ASCII 64 to 126 
+(although in raw read data Phred scores from 0 to 40 only are 
+expected)". Then, on the ASCII table at wiki 
+(http://en.wikipedia.org/wiki/ASCII) glyph (I called it symbol earlier) 
+"D" corresponds to 68 decimal, which should be a Phred quality score of 
+6 but its 35 in R. Glyph "a" is 97 decimal, which should be 35 but is 64 
+in R.
+
+So, do I substract 29 to all the values I get in R or am I missing 
+something?
+
+Thank you and enjoy Thanksgiving if you celebrate it,
+Leonardo
+
+
+
+ > sessionInfo()
+R version 2.10.0 (2009-10-26)
+x86_64-unknown-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.iso885915       LC_NUMERIC=C                 
+ [3] LC_TIME=en_US.iso885915        LC_COLLATE=en_US.iso885915   
+ [5] LC_MONETARY=C                  LC_MESSAGES=en_US.iso885915  
+ [7] LC_PAPER=en_US.iso885915       LC_NAME=C                    
+ [9] LC_ADDRESS=C                   LC_TELEPHONE=C               
+[11] LC_MEASUREMENT=en_US.iso885915 LC_IDENTIFICATION=C          
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base    
+
+other attached packages:
+[1] ShortRead_1.4.0   lattice_0.17-26   BSgenome_1.14.0   Biostrings_2.14.0
+[5] IRanges_1.4.0   
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0 grid_2.10.0   hwriter_1.1   tools_2.10.0
+ >
+
+-- 
+Leonardo Collado Torres, Bachelor in Genomic Sciences
+Teacher at LCG and member of Dr. Enrique Morett's lab
+UNAM Campus Cuernavaca, Mexico
+
+Homepage: http://www.lcg.unam.mx/~lcollado/
+Phone: [52] (777) 313-28-05
+
+
+From mtmorgan at fhcrc.org  Fri Nov 27 00:13:53 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Thu, 26 Nov 2009 15:13:53 -0800
+Subject: [Bioc-sig-seq] Confused on fastq to numeric
+ conversion	(SolexaPipeline 1.3+)
+In-Reply-To: <4B0F0381.6070005@lcg.unam.mx>
+References: <4B0F0381.6070005@lcg.unam.mx>
+Message-ID: <4B0F0BB1.8080600@fhcrc.org>
+
+Hi Leonardo --
+
+Leonardo Collado Torres wrote:
+> Dear list,
+> 
+> I'm puzzled over something very simple. I've got some fresh Illumina
+> data and I want to make a plot of the median (10% quantile, etc)
+> qualities (Y axis) per cycle (X axis).
+> 
+> On the code below, I'm simply reading a test file in fastq format,
+> printing the quality, checking that nothing weird went when reading the
+> file (could be :P), and changing the ASCII qualities to numeric values.
+> The symbol "D" gets changed to 35; the lowest value on the 1st sequence.
+> 
+>>library(ShortRead)
+>>reads <- readFastq(dirPath = ".", pattern = "test.txt")
+> 
+>> reads[1]
+> class: ShortReadQ
+> length: 1 reads; width: 50 cycles
+>> sread(reads[1])
+>  A DNAStringSet instance of length 1
+>    width seq
+> [1]    50 ACCGTGCCGAGCACACGGGTGACNCCGCGATAGCCGGGCGGTGTATAGGG
+>> quality(reads[1])
+> class: FastqQuality
+> quality:
+>  A BStringSet instance of length 1
+>    width seq
+> [1]    50 aaa`\aaa_`_`aaaaaa^Xa`[DZ``a``a```a`^`aaaS`\]``\\a
+>> system("head -n 4 test.txt")
+> @HWUSI-EAS636_0001:8:1:1:1353#0/1
+> ACCGTGCCGAGCACACGGGTGACNCCGCGATAGCCGGGCGGTGTATAGGG
+> +HWUSI-EAS636_0001:8:1:1:1353#0/1
+> aaa`\aaa_`_`aaaaaa^Xa`[DZ``a``a```a`^`aaaS`\]``\\a
+>>
+>> as(quality(reads[1]), "numeric") # Will use "matrix" when using all
+> reads instead of the 1st one
+> [1] 64 64 64 63 59 64 64 64 62 63 62 63 64 64 64 64 64 64 61 55 64 63 58
+> 35 57
+> [26] 63 63 64 63 63 64 63 63 63 64 63 61 63 64 64 64 50 63 59 60 63 63
+> 59 59 64
+>>
+>> summary(as(quality(reads[1]), "numeric"))
+>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+>   35.0    62.0    63.0    61.7    64.0    64.0
+>>
+> 
+> Now, what confuses me is that according to
+> http://en.wikipedia.org/wiki/FASTQ_format SolexaPipeline 1.3+ "can
+> encode a Phred quality score from 0 to 62 using ASCII 64 to 126
+> (although in raw read data Phred scores from 0 to 40 only are
+> expected)". Then, on the ASCII table at wiki
+> (http://en.wikipedia.org/wiki/ASCII) glyph (I called it symbol earlier)
+> "D" corresponds to 68 decimal, which should be a Phred quality score of
+> 6 but its 35 in R. Glyph "a" is 97 decimal, which should be 35 but is 64
+> in R.
+
+fastq files don't contain enough information to know whether the data
+are encoded with ASCII 64 == 1 (Solexa-style) or ASCII 32 == 1
+('classic'-style). There is an argument qualityType that you can use to
+specify which, so
+
+  readFastq("test.txt", qualityType="SFastqQuality")
+
+for Solexa encoding. Note that to read a single file it is no longer
+necessary to specify both directory and pattern. And finally that
+as(<...>, "matrix") etc convert from the ASCII to integer encoding;
+there is still a transform from integer to p value, if that is desired,
+and that there are several possibilities for that transformation as well.
+
+Martin
+
+> 
+> So, do I substract 29 to all the values I get in R or am I missing
+> something?
+> 
+> Thank you and enjoy Thanksgiving if you celebrate it,
+> Leonardo
+> 
+> 
+> 
+>> sessionInfo()
+> R version 2.10.0 (2009-10-26)
+> x86_64-unknown-linux-gnu
+> 
+> locale:
+> [1] LC_CTYPE=en_US.iso885915       LC_NUMERIC=C                 [3]
+> LC_TIME=en_US.iso885915        LC_COLLATE=en_US.iso885915   [5]
+> LC_MONETARY=C                  LC_MESSAGES=en_US.iso885915  [7]
+> LC_PAPER=en_US.iso885915       LC_NAME=C                    [9]
+> LC_ADDRESS=C                   LC_TELEPHONE=C               [11]
+> LC_MEASUREMENT=en_US.iso885915 LC_IDENTIFICATION=C         
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base   
+> other attached packages:
+> [1] ShortRead_1.4.0   lattice_0.17-26   BSgenome_1.14.0   Biostrings_2.14.0
+> [5] IRanges_1.4.0  
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.6.0 grid_2.10.0   hwriter_1.1   tools_2.10.0
+>>
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From lcollado at lcg.unam.mx  Fri Nov 27 04:26:20 2009
+From: lcollado at lcg.unam.mx (Leonardo Collado Torres)
+Date: Thu, 26 Nov 2009 21:26:20 -0600
+Subject: [Bioc-sig-seq] Confused on fastq to numeric conversion
+ (SolexaPipeline 1.3+)
+In-Reply-To: <4B0F1859.2070008@fhcrc.org>
+References: <4B0F0381.6070005@lcg.unam.mx> <4B0F0BB1.8080600@fhcrc.org>
+	<86E98924-DE2E-404A-BFD4-485CACC9F3B3@jhu.edu>
+	<4B0F1859.2070008@fhcrc.org>
+Message-ID: <4B0F46DC.8060307@lcg.unam.mx>
+
+Hello Martin and Harris,
+
+Thank you for your great, very complete and extremely fast replies!! ^_^
+
+Greetings,
+Leonardo
+
+PD Just CCing so the replies get archived on the mailing list for later 
+newbies like me ;)
+
+Martin Morgan wrote:
+> Harris A. Jaffee wrote:
+>   
+>> Perhaps this is a manifestation of those silent choices:
+>>
+>>     
+>>> as(quality(reads[1])[[1]], "numeric")
+>>>       
+>>  [1] 97 97 97 96 92 97 97 97 95 96 95 96 97 97 97 97 97 97 94 88 97 96
+>> 91 68 90
+>> [26] 96 96 97 96 96 97 96 96 96 97 96 94 96 97 97 97 83 96 92 93 96 96
+>> 92 92 97
+>>     
+>
+> It's not really obvious to me why quality(<...>)[[1]] extracts a
+> BStringSet. But once it does, the BStringSet is convert to numeric as
+> appropriate for a BString, which turns out to be the ASCII encoding.
+>
+>   
+>>> as(quality(reads[1]), "numeric")
+>>>       
+>>  [1] 64 64 64 63 59 64 64 64 62 63 62 63 64 64 64 64 64 64 61 55 64 63
+>> 58 35 57
+>> [26] 63 63 64 63 63 64 63 63 63 64 63 61 63 64 64 64 50 63 59 60 63 63
+>> 59 59 64
+>>     
+>
+> quality(<...>) is a SFastqQuality or FastqQuality object, and is
+> converted to numeric as appropriate for short read qualities.
+>
+>   
+>> I am less than a novice in ShortRead, so I don't feel adequate enough to
+>> post to
+>> the world.  Barely adequate enough to make a private guess.
+>>     
+>
+> You're too modest, Harris.
+>
+> Martin
+>
+>   
+>> On Nov 26, 2009, at 6:13 PM, Martin Morgan wrote:
+>>
+>>     
+>>> Hi Leonardo --
+>>>
+>>> Leonardo Collado Torres wrote:
+>>>       
+>>>> Dear list,
+>>>>
+>>>> I'm puzzled over something very simple. I've got some fresh Illumina
+>>>> data and I want to make a plot of the median (10% quantile, etc)
+>>>> qualities (Y axis) per cycle (X axis).
+>>>>
+>>>> On the code below, I'm simply reading a test file in fastq format,
+>>>> printing the quality, checking that nothing weird went when reading the
+>>>> file (could be :P), and changing the ASCII qualities to numeric values.
+>>>> The symbol "D" gets changed to 35; the lowest value on the 1st sequence.
+>>>>
+>>>>         
+>>>>> library(ShortRead)
+>>>>> reads <- readFastq(dirPath = ".", pattern = "test.txt")
+>>>>>           
+>>>>> reads[1]
+>>>>>           
+>>>> class: ShortReadQ
+>>>> length: 1 reads; width: 50 cycles
+>>>>         
+>>>>> sread(reads[1])
+>>>>>           
+>>>>  A DNAStringSet instance of length 1
+>>>>    width seq
+>>>> [1]    50 ACCGTGCCGAGCACACGGGTGACNCCGCGATAGCCGGGCGGTGTATAGGG
+>>>>         
+>>>>> quality(reads[1])
+>>>>>           
+>>>> class: FastqQuality
+>>>> quality:
+>>>>  A BStringSet instance of length 1
+>>>>    width seq
+>>>> [1]    50 aaa`\aaa_`_`aaaaaa^Xa`[DZ``a``a```a`^`aaaS`\]``\\a
+>>>>         
+>>>>> system("head -n 4 test.txt")
+>>>>>           
+>>>> @HWUSI-EAS636_0001:8:1:1:1353#0/1
+>>>> ACCGTGCCGAGCACACGGGTGACNCCGCGATAGCCGGGCGGTGTATAGGG
+>>>> +HWUSI-EAS636_0001:8:1:1:1353#0/1
+>>>> aaa`\aaa_`_`aaaaaa^Xa`[DZ``a``a```a`^`aaaS`\]``\\a
+>>>>         
+>>>>> as(quality(reads[1]), "numeric") # Will use "matrix" when using all
+>>>>>           
+>>>> reads instead of the 1st one
+>>>> [1] 64 64 64 63 59 64 64 64 62 63 62 63 64 64 64 64 64 64 61 55 64 63 58
+>>>> 35 57
+>>>> [26] 63 63 64 63 63 64 63 63 63 64 63 61 63 64 64 64 50 63 59 60 63 63
+>>>> 59 59 64
+>>>>         
+>>>>> summary(as(quality(reads[1]), "numeric"))
+>>>>>           
+>>>>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+>>>>   35.0    62.0    63.0    61.7    64.0    64.0
+>>>>         
+>>>> Now, what confuses me is that according to
+>>>> http://en.wikipedia.org/wiki/FASTQ_format SolexaPipeline 1.3+ "can
+>>>> encode a Phred quality score from 0 to 62 using ASCII 64 to 126
+>>>> (although in raw read data Phred scores from 0 to 40 only are
+>>>> expected)". Then, on the ASCII table at wiki
+>>>> (http://en.wikipedia.org/wiki/ASCII) glyph (I called it symbol earlier)
+>>>> "D" corresponds to 68 decimal, which should be a Phred quality score of
+>>>> 6 but its 35 in R. Glyph "a" is 97 decimal, which should be 35 but is 64
+>>>> in R.
+>>>>         
+>>> fastq files don't contain enough information to know whether the data
+>>> are encoded with ASCII 64 == 1 (Solexa-style) or ASCII 32 == 1
+>>> ('classic'-style). There is an argument qualityType that you can use to
+>>> specify which, so
+>>>
+>>>   readFastq("test.txt", qualityType="SFastqQuality")
+>>>
+>>> for Solexa encoding. Note that to read a single file it is no longer
+>>> necessary to specify both directory and pattern. And finally that
+>>> as(<...>, "matrix") etc convert from the ASCII to integer encoding;
+>>> there is still a transform from integer to p value, if that is desired,
+>>> and that there are several possibilities for that transformation as well.
+>>>
+>>> Martin
+>>>
+>>>       
+>>>> So, do I substract 29 to all the values I get in R or am I missing
+>>>> something?
+>>>>
+>>>> Thank you and enjoy Thanksgiving if you celebrate it,
+>>>> Leonardo
+>>>>
+>>>>
+>>>>
+>>>>         
+>>>>> sessionInfo()
+>>>>>           
+>>>> R version 2.10.0 (2009-10-26)
+>>>> x86_64-unknown-linux-gnu
+>>>>
+>>>> locale:
+>>>> [1] LC_CTYPE=en_US.iso885915       LC_NUMERIC=C                 [3]
+>>>> LC_TIME=en_US.iso885915        LC_COLLATE=en_US.iso885915   [5]
+>>>> LC_MONETARY=C                  LC_MESSAGES=en_US.iso885915  [7]
+>>>> LC_PAPER=en_US.iso885915       LC_NAME=C                    [9]
+>>>> LC_ADDRESS=C                   LC_TELEPHONE=C               [11]
+>>>> LC_MEASUREMENT=en_US.iso885915 LC_IDENTIFICATION=C
+>>>> attached base packages:
+>>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>> other attached packages:
+>>>> [1] ShortRead_1.4.0   lattice_0.17-26   BSgenome_1.14.0  
+>>>> Biostrings_2.14.0
+>>>> [5] IRanges_1.4.0
+>>>> loaded via a namespace (and not attached):
+>>>> [1] Biobase_2.6.0 grid_2.10.0   hwriter_1.1   tools_2.10.0
+>>>>         
+>>> -- 
+>>> Martin Morgan
+>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N.
+>>> PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: Arnold Building M1 B861
+>>> Phone: (206) 667-2793
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>       
+>
+>
+>   
+
+-- 
+Leonardo Collado Torres, Bachelor in Genomic Sciences
+Teacher at LCG and member of Dr. Enrique Morett's lab
+UNAM Campus Cuernavaca, Mexico
+
+Homepage: http://www.lcg.unam.mx/~lcollado/
+Phone: [52] (777) 313-28-05
+
+
+From ramzi.temanni at gmail.com  Mon Nov 30 15:27:41 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Mon, 30 Nov 2009 15:27:41 +0100
+Subject: [Bioc-sig-seq] extract id from ShortRead
+Message-ID: <68bbfdd40911300627p33b389a2rc8b4dd9903b0e2d4@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091130/c19d09c0/attachment.pl>
+
+From seandavi at gmail.com  Mon Nov 30 15:40:52 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Mon, 30 Nov 2009 09:40:52 -0500
+Subject: [Bioc-sig-seq] extract id from ShortRead
+In-Reply-To: <68bbfdd40911300627p33b389a2rc8b4dd9903b0e2d4@mail.gmail.com>
+References: <68bbfdd40911300627p33b389a2rc8b4dd9903b0e2d4@mail.gmail.com>
+Message-ID: <264855a00911300640v4af16b4fr895230f585121994@mail.gmail.com>
+
+On Mon, Nov 30, 2009 at 9:27 AM, Ramzi TEMANNI <ramzi.temanni at gmail.com> wrote:
+> Hi,
+> I have a sequence loaded from bowtie alignment
+> aln <- readAligned("./S1", pattern="S1_1.hg19.bowtie.align", type="Bowtie")
+> I would like to to extract the id to select specific reads
+> I run id(aln) and I get:
+> id(aln)
+> ?A BStringSet instance of length 4340867
+> ? ? ? ? ?width seq
+> ? ? ?[1] ? ?28 HWI-EA332_8_1_3_659#GGGGNN/1
+> ? ? ?[2] ? ?29 HWI-EA332_8_1_3_1738#CCCCNN/1
+> ? ? ?[3] ? ?29 HWI-EA332_8_1_3_1094#AGGANN/1
+> ? ? ?[4] ? ?28 HWI-EA332_8_1_3_558#TTTCNN/1
+> ? ? ?[5] ? ?29 HWI-EA332_8_1_3_1920#AAAANN/1
+> ? ? ?[6] ? ?28 HWI-EA332_8_1_3_228#GGGGNN/1
+> ? ? ?[7] ? ?29 HWI-EA332_8_1_3_1261#AGGGNN/1
+> ? ? ?[8] ? ?28 HWI-EA332_8_1_3_908#ACTTNN/1
+> ? ? ?[9] ? ?27 HWI-EA332_8_1_3_53#CTGCNN/1
+> ? ? ?... ? ... ...
+> [4340859] ? ?33 HWI-EA332_8_120_1596_499#TTGANA/1
+> [4340860] ? ?34 HWI-EA332_8_120_1599_1161#CCACNT/1
+> [4340861] ? ?33 HWI-EA332_8_120_1601_255#CTCTNA/1
+> [4340862] ? ?33 HWI-EA332_8_120_1601_504#CCATNC/1
+> [4340863] ? ?33 HWI-EA332_8_120_1624_899#CTCTNT/1
+> [4340864] ? ?33 HWI-EA332_8_120_1487_658#ACCCNA/1
+> [4340865] ? ?32 HWI-EA332_8_120_1533_28#CACANG/1
+> [4340866] ? ?33 HWI-EA332_8_120_1564_807#CCCGNG/1
+> [4340867] ? ?34 HWI-EA332_8_120_1474_1350#CCTGNC/1
+>
+> This BStringSet instance has 'width' and 'seq'
+> runing str(id(aln)) i got this
+>
+> Formal class 'BStringSet' [package "Biostrings"] with 5 slots
+> ?..@ pool ? ? ? ? ? :Formal class 'SharedRaw_Pool' [package "IRanges"] with
+> 2 slots
+> ?.. .. ..@ xp_list ? ? ? ? ? ? ? ? ? ?:List of 1
+> ?.. .. .. ..$ :<externalptr>
+> ?.. .. ..@ .link_to_cached_object_list:List of 1
+> ?.. .. .. ..$ :<environment: 0x2af6400>
+> ?..@ ranges ? ? ? ? :Formal class 'GroupedIRanges' [package "IRanges"] with
+> 7 slots
+> ?.. .. ..@ group ? ? ? ? ?: int [1:4340867] 1 1 1 1 1 1 1 1 1 1 ...
+> ?.. .. ..@ start ? ? ? ? ?: int [1:4340867] 1 29 58 87 115 144 172 201 229
+> 256 ...
+> ?.. .. ..@ width ? ? ? ? ?: int [1:4340867] 28 29 29 28 29 28 29 28 27 29
+> ...
+> ?.. .. ..@ NAMES ? ? ? ? ?: NULL
+> ?.. .. ..@ elementMetadata: NULL
+> ?.. .. ..@ elementType ? ?: chr "integer"
+> ?.. .. ..@ metadata ? ? ? : list()
+> ?..@ elementMetadata: NULL
+> ?..@ elementType ? ?: chr "BString"
+> ?..@ metadata ? ? ? : list()
+>
+> But i'm wondering how to extract only the 'seq' from all that and store
+> result in a table ?
+
+as.character(id(aln))
+
+will return a character vector of the names.  You might want to look
+at the help for AlignedRead-class and BStringSet-class for some help
+in understanding these classes and what can be done with them.  It may
+be that you will not need to go to character vector to do what you
+want with the reads.
+
+Sean
+
+

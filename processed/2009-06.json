@@ -1,0 +1,857 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2009-06",
+  "messages": [
+    {
+      "id": "msg-56cf67d5d25a",
+      "message_id": "<1243848729.7068.330.camel@BIOINFORM01-ubuntu>",
+      "from_name": "Paul Leo",
+      "from_email_hash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+      "date": "2009-06-01T09:32:09Z",
+      "subject": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "subject_clean": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "in_reply_to": "<4A1F2A7B.7040609@fhcrc.org>",
+      "references": [
+        "<a394a9180905280941i1890ee9dt8ed4b4eab60b89ba@mail.gmail.com>",
+        "<a394a9180905281500y4fac6aa7p58f5769c30a9a9d3@mail.gmail.com>",
+        "<4A1F2A7B.7040609@fhcrc.org>"
+      ],
+      "body_plain": "Sorry if this is not on topic but I think I can generate *this* spooky\nbug with this simple code, I post in case it helps:\n\nlibrary(BSgenome.Mmusculus.UCSC.mm9)\nall.genomic<-getSeq(Mmusculus, the.chrom, starts, ends)\n\nmyb<-\"YAACKG\"        \nmyb.dna<-DNAString(myb)\nmyb.dna.rev<-reverse(myb.dna)\nmyb.dna.comp<-complement(myb.dna)\nmyb.dna.comp.rev<-reverseComplement(myb.dna)\n\n### peaks is just a set of regions - not large but lots of them \n#> peaks[1:5,1:4]\n #     chr     start       end length\n#7568   14 119073660 119074474    815\n#11980  19  41922512  41923422    911\n#9375   16  70351968  70352514    547\n#158     1  33635080  33636130   1051\n#15576   3 151996276 151997236    961\n\nfor(i in 1:dim(peaks)[1]){\n\ngenomic<-getSeq(Mmusculus,the.chrom[i],start=starts[i],end=ends[i],as.character=FALSE)\nprint(length(genomic)  )\n\nc.1<-countPattern(myb.dna,genomic,max.mismatch=0, fixed=FALSE)\nc.2<-countPattern(myb.dna.comp,genomic,max.mismatch=0, fixed=FALSE) \nc.3<-countPattern(myb.dna.rev,genomic,max.mismatch=0, fixed=FALSE)\nc.4<-countPattern(myb.dna.comp.rev,genomic,max.mismatch=0, fixed=FALSE)\nthe.sum<-(c.1+c.2+c.3+c.4)\nprint(paste(\"counter:\",i,\"sites:\",the.sum,sep=\" \"))\nif( the.sum >\n0){myb.consen.count[i,]<-paste(\"F:\",c.1,\"FC:\",c.2,\"FRev:\",c.3,\"FCRev:\",c.4,sep=\" \")}\n}\n\nThis loop fails randomly ever few hundred iterations with no apparent\nreason all the variables are fine , you can restart at the error point\nand it goes fine for another few hundred then dies again....\n\neg\n\nfirst dies at \ncounter 103, \n.......\n[1] \"counter: 102 sites: 5\"\n[1] 729\nError in assign(\".nextMethod\", nextMethod, envir = callEnv) : \n  formal argument \"envir\" matched by multiple actual arguments\nError in isEmpty(xx) : \n  error in evaluating the argument 'x' in selecting a method for\nfunction 'isEmpty'\nError in countPattern(pattern, toXStringViewsOrXString(subject),\nalgorithm = algorithm,  : \n  error in evaluating the argument 'subject' in selecting a method for\nfunction 'countPattern'\n> genomic\n  729-letter \"MaskedDNAString\" instance (# for masking)\nseq:\nACCAGGCTCCGGACGCCTTCTCCCCAGCGTTTTGCA...ATTGGGTTGGAAACTTTGTAGGAAGGAAAGGAAAAT\nmasks:\n\n#### Genomic is the corect length and is ok..straight away can do:\n\n> c.1<-countPattern(myb.dna,genomic,max.mismatch=0, fixed=FALSE)\n> c.2<-countPattern(myb.dna.comp,genomic,max.mismatch=0, fixed=FALSE)\n#SAME matchPattern(myb.dna,complement(genomic),max.mismatch=0,\nfixed=FALSE)  \n> c.3<-countPattern(myb.dna.rev,genomic,max.mismatch=0, fixed=FALSE)\n> c.4<-countPattern(myb.dna.comp.rev,genomic,max.mismatch=0,\nfixed=FALSE)\n> the.sum<-(c.1+c.2+c.3+c.4)\n> print(paste(\"counter:\",i,\"sites:\",the.sum,sep=\" \"))\n[1] \"counter: 103 sites: 3\"\n> \n### see no problem what bug???\n\n\n###### restart at i=103...it dies again at 604\n\n[1] 737\n[1] \"counter: 604 sites: 3\"\n[1] 834\nError in assign(\".defined\", method at defined, envir = envir) : \n  formal argument \"envir\" matched by multiple actual arguments\n\n\n## I will use Herves last post to get about this.....Can run on the ##\ndevelopment version too if that helps??\n\n> sessionInfo()\nR version 2.9.0 (2009-04-17) \nx86_64-pc-linux-gnu \n\nlocale:\nLC_CTYPE=en_AU.UTF-8;LC_NUMERIC=C;LC_TIME=en_AU.UTF-8;LC_COLLATE=en_AU.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_AU.UTF-8;LC_PAPER=en_AU.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_AU.UTF-8;LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods\nbase     \n\nother attached packages:\n [1] BSgenome.Mmusculus.UCSC.mm9_1.3.11\nBSgenome_1.12.0                   \n [3] Biostrings_2.12.0\nIRanges_1.2.1                     \n [5] KEGG.db_2.2.11\nRSQLite_0.7-1                     \n [7] DBI_0.2-4\nAnnotationDbi_1.6.0               \n [9] Biobase_2.4.0\nbiomaRt_2.0.0                     \n\nloaded via a namespace (and not attached):\n[1] RCurl_0.94-1 tcltk_2.9.0  tools_2.9.0  XML_1.95-3  \n> \n\n\n-  \nDr Paul Leo\nBioinformatician\nDiamantina Institute for Cancer, Immunology and Metabolic Medicine\nUniversity of Queensland\n--------------------------------------------------------------------------------------\nResearch Wing, Bldg 1\nPrincess Alexandria Hospital \nWoolloongabba, QLD, 4102\nTel: +61 7 3240 7740  Mob: 041 303 8691  Fax: +61 7 3240 5946\nEmail: p.leo at uq.edu.au   Web: http://www.di.uq.edu.au\n\n\n-----Original Message-----\nFrom: Herv? Pag?s <hpages at fhcrc.org>\nTo: Ivan Gregoretti <ivangreg at gmail.com>\nCc: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] Extracting DNA sequences from\nBSgenome.Mmusculus.UCSC.mm9_1.3.11\nDate: Thu, 28 May 2009 17:21:15 -0700\n\nIvan,\n\nWith BSgenome 1.12.1 (release) and 1.13.5 (devel) you can now do:\n\n   myseqs <- data.frame(\n     chr=c(\"chrY\", \"chr1\", \"chr2\", \"chr3\", \"chrY\", \"chr3\", \"chr1\", \"chr1\"),\n     start=c(NA, -40, 8510201, 4920301, 30001, 9220500, -2804, -30),\n     end=c(50, NA, 8510220, 4920330, 30011, 9220555, -2801, -11)\n   )\n\n   library(BSgenome.Mmusculus.UCSC.mm9)\n\n   > getSeq(Mmusculus, myseqs$chr, myseqs$start, myseqs$end)\n   [1] \"GATCCAAAACACATTCTCCCTGGTAGCATGGACAAGCAACATTTTGGGAG\"\n   [2] \"TTCTGTAAAGAATTTGGTATTAAACTTAAAACTGGAATTC\"\n   [3] \"ACGACTATAAAAACCTTTAG\"\n   [4] \"CATACAATAATTGTGGGGGAACTTCAAAAC\"\n   [5] \"ATCTTAATCAC\"\n   [6] \"CAGTAGTGGCGTACACCTTTAATCCCAGCACGTGGTAGGCAGAGGCAGATGGATTT\"\n   [7] \"ATGA\"\n   [8] \"AATTTGGTATTAAACTTAAA\"\n\nto extract multiple subsequences from multiple chromosomes at once.\n(Note support for NAs and negative start or end.)\n\nIt takes about 35 sec. to extract 1 million short subsequences so it's\nmuch faster than the sapply() solution I proposed earlier but there is\nstill room for improvement. Also, the extracted sequences are currently\nreturned as a character vector, not a DNAStringSet.\nBut addressing these 2 issues (speed + DNAStringSet) will require that\nwe first put in place an efficient implementation for combining several\nDNAStringSet objects (this is an important piece of the infrastructure).\nSo that will take a few weeks.\n\nHopefully this time you won't get hit by the infamous bug you reported\nearlier (BTW anything new on that front? Were you able to reproduce it?\nThanks).\n\nCheers,\nH.\n\nPS: The latest BSgenome software packages will propagate to the public\nrepos in the next 24 hours.\n\n\nIvan Gregoretti wrote:\n> I didn't notice that I was emailing the individuals rather than the\n> list!!!!!!\n> \n> Briefly, THANKS TO EVERYONE.\n> \n> Second, I managed to call and display all my sequences like this\n> \n> sapply(1:dim(A)[1], function(i) paste(A$chr[i],' ',A$start[i],' ',A$end[i],'\n> tags: ',A$tags[i],' ',getSeq(Mmusculus, as.character(A$chr[i]), A$start[i],\n> A$end[i])))\n> \n> As you see, it's made up of ideas from all three respondents. (Michael's\n> solution actually gave me an idea to solve some other problem not mentioned\n> here. So, nothing gets wasted.)\n> \n> Sorry for the off-list emailing issue.\n> \n> Ivan\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Sorry if this is not on topic but I think I can generate *this* spooky\nbug with this simple code, I post in case it helps:\n\nlibrary(BSgenome.Mmusculus.UCSC.mm9)\nall.genomic<-getSeq(Mmusculus, the.chro",
+      "thread_id": "thread-56cf67d5d25a",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-972d37c07cc3",
+      "message_id": "<4A241AFF.4020307@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2009-06-01T18:16:31Z",
+      "subject": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "subject_clean": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "in_reply_to": "<1243848729.7068.330.camel@BIOINFORM01-ubuntu>",
+      "references": [
+        "<a394a9180905280941i1890ee9dt8ed4b4eab60b89ba@mail.gmail.com>",
+        "<a394a9180905281500y4fac6aa7p58f5769c30a9a9d3@mail.gmail.com>",
+        "<4A1F2A7B.7040609@fhcrc.org>",
+        "<1243848729.7068.330.camel@BIOINFORM01-ubuntu>"
+      ],
+      "body_plain": "Hi Paul,\n\nThanks for the feedback! I just set up a script that does something similar\nto your code and was able to trigger the spooky/infamous bug. The first time\nafter 140 iterations (55 sec.), the second time after 73, etc... Seems like\nI always get it after a few dozens of iterations. This is great because\nthat's going to make troubleshooting this issue a little bit easier!\n\nBTW, if you are interested in speeding up your code (and at the same time, you\nmight get rid of the spooky bug), you can now take advantage of the fact that\ngetSeq() is vectorized (starting with BSgenome >= 1.12.2). Given that there is\nalso a vectorized version of countPattern() (it's the vcountPattern() function),\nthen you don't need the \"for\" loop anymore:\n\n   myb.consen.count <- character(nrow(peaks))\n   all.genomic <- DNAStringSet(getSeq(Mmusculus, peaks$chr,\n                                      peaks$start, peaks$end))\n   c.1 <- vcountPattern(myb.dna, all.genomic, fixed=FALSE)\n   c.2 <- vcountPattern(myb.dna.comp, all.genomic, fixed=FALSE)\n   c.3 <- vcountPattern(myb.dna.rev, all.genomic, fixed=FALSE)\n   c.4 <- vcountPattern(myb.dna.comp.rev, all.genomic, fixed=FALSE)\n   ## Now c.1, c.2, c.3 and c.4 are integer vectors of the same length\n   ## as 'all.genomic'\n   the.sum <- c.1 + c.2 + c.3 + c.4\n   the.consen.count <- paste(\"F:\", c.1, \"FC:\", c.2, \"FRev:\", c.3, \"FCRev:\", c.4)\n   myb.consen.count[the.sum > 0] <- the.consen.count[the.sum > 0]\n\nThis is thousands of times faster than calling getSeq() and countPattern()\ninside a \"for\" loop. Also, it doesn't seem to trigger the spooky/infamous\nbug :-)\n\nThanks again,\nH.\n\n\nPaul Leo wrote:\n> Sorry if this is not on topic but I think I can generate *this* spooky\n> bug with this simple code, I post in case it helps:\n> \n> library(BSgenome.Mmusculus.UCSC.mm9)\n> all.genomic<-getSeq(Mmusculus, the.chrom, starts, ends)\n> \n> myb<-\"YAACKG\"        \n> myb.dna<-DNAString(myb)\n> myb.dna.rev<-reverse(myb.dna)\n> myb.dna.comp<-complement(myb.dna)\n> myb.dna.comp.rev<-reverseComplement(myb.dna)\n> \n> ### peaks is just a set of regions - not large but lots of them \n> #> peaks[1:5,1:4]\n>  #     chr     start       end length\n> #7568   14 119073660 119074474    815\n> #11980  19  41922512  41923422    911\n> #9375   16  70351968  70352514    547\n> #158     1  33635080  33636130   1051\n> #15576   3 151996276 151997236    961\n> \n> for(i in 1:dim(peaks)[1]){\n> \n> genomic<-getSeq(Mmusculus,the.chrom[i],start=starts[i],end=ends[i],as.character=FALSE)\n> print(length(genomic)  )\n> \n> c.1<-countPattern(myb.dna,genomic,max.mismatch=0, fixed=FALSE)\n> c.2<-countPattern(myb.dna.comp,genomic,max.mismatch=0, fixed=FALSE) \n> c.3<-countPattern(myb.dna.rev,genomic,max.mismatch=0, fixed=FALSE)\n> c.4<-countPattern(myb.dna.comp.rev,genomic,max.mismatch=0, fixed=FALSE)\n> the.sum<-(c.1+c.2+c.3+c.4)\n> print(paste(\"counter:\",i,\"sites:\",the.sum,sep=\" \"))\n> if( the.sum >\n> 0){myb.consen.count[i,]<-paste(\"F:\",c.1,\"FC:\",c.2,\"FRev:\",c.3,\"FCRev:\",c.4,sep=\" \")}\n> }\n> \n> This loop fails randomly ever few hundred iterations with no apparent\n> reason all the variables are fine , you can restart at the error point\n> and it goes fine for another few hundred then dies again....\n> \n> eg\n> \n> first dies at \n> counter 103, \n> .......\n> [1] \"counter: 102 sites: 5\"\n> [1] 729\n> Error in assign(\".nextMethod\", nextMethod, envir = callEnv) : \n>   formal argument \"envir\" matched by multiple actual arguments\n> Error in isEmpty(xx) : \n>   error in evaluating the argument 'x' in selecting a method for\n> function 'isEmpty'\n> Error in countPattern(pattern, toXStringViewsOrXString(subject),\n> algorithm = algorithm,  : \n>   error in evaluating the argument 'subject' in selecting a method for\n> function 'countPattern'\n>> genomic\n>   729-letter \"MaskedDNAString\" instance (# for masking)\n> seq:\n> ACCAGGCTCCGGACGCCTTCTCCCCAGCGTTTTGCA...ATTGGGTTGGAAACTTTGTAGGAAGGAAAGGAAAAT\n> masks:\n> \n> #### Genomic is the corect length and is ok..straight away can do:\n> \n>> c.1<-countPattern(myb.dna,genomic,max.mismatch=0, fixed=FALSE)\n>> c.2<-countPattern(myb.dna.comp,genomic,max.mismatch=0, fixed=FALSE)\n> #SAME matchPattern(myb.dna,complement(genomic),max.mismatch=0,\n> fixed=FALSE)  \n>> c.3<-countPattern(myb.dna.rev,genomic,max.mismatch=0, fixed=FALSE)\n>> c.4<-countPattern(myb.dna.comp.rev,genomic,max.mismatch=0,\n> fixed=FALSE)\n>> the.sum<-(c.1+c.2+c.3+c.4)\n>> print(paste(\"counter:\",i,\"sites:\",the.sum,sep=\" \"))\n> [1] \"counter: 103 sites: 3\"\n> ### see no problem what bug???\n> \n> \n> ###### restart at i=103...it dies again at 604\n> \n> [1] 737\n> [1] \"counter: 604 sites: 3\"\n> [1] 834\n> Error in assign(\".defined\", method at defined, envir = envir) : \n>   formal argument \"envir\" matched by multiple actual arguments\n> \n> \n> ## I will use Herves last post to get about this.....Can run on the ##\n> development version too if that helps??\n> \n>> sessionInfo()\n> R version 2.9.0 (2009-04-17) \n> x86_64-pc-linux-gnu \n> \n> locale:\n> LC_CTYPE=en_AU.UTF-8;LC_NUMERIC=C;LC_TIME=en_AU.UTF-8;LC_COLLATE=en_AU.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_AU.UTF-8;LC_PAPER=en_AU.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_AU.UTF-8;LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods\n> base     \n> \n> other attached packages:\n>  [1] BSgenome.Mmusculus.UCSC.mm9_1.3.11\n> BSgenome_1.12.0                   \n>  [3] Biostrings_2.12.0\n> IRanges_1.2.1                     \n>  [5] KEGG.db_2.2.11\n> RSQLite_0.7-1                     \n>  [7] DBI_0.2-4\n> AnnotationDbi_1.6.0               \n>  [9] Biobase_2.4.0\n> biomaRt_2.0.0                     \n> \n> loaded via a namespace (and not attached):\n> [1] RCurl_0.94-1 tcltk_2.9.0  tools_2.9.0  XML_1.95-3  \n> \n> \n> -  \n> Dr Paul Leo\n> Bioinformatician\n> Diamantina Institute for Cancer, Immunology and Metabolic Medicine\n> University of Queensland\n> --------------------------------------------------------------------------------------\n> Research Wing, Bldg 1\n> Princess Alexandria Hospital \n> Woolloongabba, QLD, 4102\n> Tel: +61 7 3240 7740  Mob: 041 303 8691  Fax: +61 7 3240 5946\n> Email: p.leo at uq.edu.au   Web: http://www.di.uq.edu.au\n> \n> \n> -----Original Message-----\n> From: Herv? Pag?s <hpages at fhcrc.org>\n> To: Ivan Gregoretti <ivangreg at gmail.com>\n> Cc: bioc-sig-sequencing at r-project.org\n> Subject: Re: [Bioc-sig-seq] Extracting DNA sequences from\n> BSgenome.Mmusculus.UCSC.mm9_1.3.11\n> Date: Thu, 28 May 2009 17:21:15 -0700\n> \n> Ivan,\n> \n> With BSgenome 1.12.1 (release) and 1.13.5 (devel) you can now do:\n> \n>    myseqs <- data.frame(\n>      chr=c(\"chrY\", \"chr1\", \"chr2\", \"chr3\", \"chrY\", \"chr3\", \"chr1\", \"chr1\"),\n>      start=c(NA, -40, 8510201, 4920301, 30001, 9220500, -2804, -30),\n>      end=c(50, NA, 8510220, 4920330, 30011, 9220555, -2801, -11)\n>    )\n> \n>    library(BSgenome.Mmusculus.UCSC.mm9)\n> \n>    > getSeq(Mmusculus, myseqs$chr, myseqs$start, myseqs$end)\n>    [1] \"GATCCAAAACACATTCTCCCTGGTAGCATGGACAAGCAACATTTTGGGAG\"\n>    [2] \"TTCTGTAAAGAATTTGGTATTAAACTTAAAACTGGAATTC\"\n>    [3] \"ACGACTATAAAAACCTTTAG\"\n>    [4] \"CATACAATAATTGTGGGGGAACTTCAAAAC\"\n>    [5] \"ATCTTAATCAC\"\n>    [6] \"CAGTAGTGGCGTACACCTTTAATCCCAGCACGTGGTAGGCAGAGGCAGATGGATTT\"\n>    [7] \"ATGA\"\n>    [8] \"AATTTGGTATTAAACTTAAA\"\n> \n> to extract multiple subsequences from multiple chromosomes at once.\n> (Note support for NAs and negative start or end.)\n> \n> It takes about 35 sec. to extract 1 million short subsequences so it's\n> much faster than the sapply() solution I proposed earlier but there is\n> still room for improvement. Also, the extracted sequences are currently\n> returned as a character vector, not a DNAStringSet.\n> But addressing these 2 issues (speed + DNAStringSet) will require that\n> we first put in place an efficient implementation for combining several\n> DNAStringSet objects (this is an important piece of the infrastructure).\n> So that will take a few weeks.\n> \n> Hopefully this time you won't get hit by the infamous bug you reported\n> earlier (BTW anything new on that front? Were you able to reproduce it?\n> Thanks).\n> \n> Cheers,\n> H.\n> \n> PS: The latest BSgenome software packages will propagate to the public\n> repos in the next 24 hours.\n> \n> \n> Ivan Gregoretti wrote:\n>> I didn't notice that I was emailing the individuals rather than the\n>> list!!!!!!\n>>\n>> Briefly, THANKS TO EVERYONE.\n>>\n>> Second, I managed to call and display all my sequences like this\n>>\n>> sapply(1:dim(A)[1], function(i) paste(A$chr[i],' ',A$start[i],' ',A$end[i],'\n>> tags: ',A$tags[i],' ',getSeq(Mmusculus, as.character(A$chr[i]), A$start[i],\n>> A$end[i])))\n>>\n>> As you see, it's made up of ideas from all three respondents. (Michael's\n>> solution actually gave me an idea to solve some other problem not mentioned\n>> here. So, nothing gets wasted.)\n>>\n>> Sorry for the off-list emailing issue.\n>>\n>> Ivan\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> \n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Paul,\n\nThanks for the feedback! I just set up a script that does something similar\nto your code and was able to trigger the spooky/infamous bug. The first time\nafter 140 iterations (55 sec.), the s",
+      "thread_id": "thread-56cf67d5d25a",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-bbbb8502fb17",
+      "message_id": "<2E491CCE-7DD1-4969-AEE6-406450DFAE46@stat.berkeley.edu>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "9a03c24fb214ead4f1fb06e73398fa7d78699f400998d0e2afa9e2804a617dbc",
+      "date": "2009-06-01T18:33:22Z",
+      "subject": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "subject_clean": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "in_reply_to": "<4A241AFF.4020307@fhcrc.org>",
+      "references": [
+        "<a394a9180905280941i1890ee9dt8ed4b4eab60b89ba@mail.gmail.com>",
+        "<a394a9180905281500y4fac6aa7p58f5769c30a9a9d3@mail.gmail.com>",
+        "<4A1F2A7B.7040609@fhcrc.org>",
+        "<1243848729.7068.330.camel@BIOINFORM01-ubuntu>",
+        "<4A241AFF.4020307@fhcrc.org>"
+      ],
+      "body_plain": "On Jun 1, 2009, at 11:16 , Herv? Pag?s wrote:\n\n> Hi Paul,\n>\n> Thanks for the feedback! I just set up a script that does something  \n> similar\n> to your code and was able to trigger the spooky/infamous bug. The  \n> first time\n> after 140 iterations (55 sec.), the second time after 73, etc...  \n> Seems like\n> I always get it after a few dozens of iterations. This is great  \n> because\n> that's going to make troubleshooting this issue a little bit easier!\n>\n> BTW, if you are interested in speeding up your code (and at the same  \n> time, you\n> might get rid of the spooky bug), you can now take advantage of the  \n> fact that\n> getSeq() is vectorized (starting with BSgenome >= 1.12.2). Given  \n> that there is\n> also a vectorized version of countPattern() (it's the  \n> vcountPattern() function),\n> then you don't need the \"for\" loop anymore:\n>\n>  myb.consen.count <- character(nrow(peaks))\n>  all.genomic <- DNAStringSet(getSeq(Mmusculus, peaks$chr,\n>                                     peaks$start, peaks$end))\n>  c.1 <- vcountPattern(myb.dna, all.genomic, fixed=FALSE)\n>  c.2 <- vcountPattern(myb.dna.comp, all.genomic, fixed=FALSE)\n>  c.3 <- vcountPattern(myb.dna.rev, all.genomic, fixed=FALSE)\n>  c.4 <- vcountPattern(myb.dna.comp.rev, all.genomic, fixed=FALSE)\n>  ## Now c.1, c.2, c.3 and c.4 are integer vectors of the same length\n>  ## as 'all.genomic'\n>  the.sum <- c.1 + c.2 + c.3 + c.4\n>  the.consen.count <- paste(\"F:\", c.1, \"FC:\", c.2, \"FRev:\", c.3,  \n> \"FCRev:\", c.4)\n>  myb.consen.count[the.sum > 0] <- the.consen.count[the.sum > 0]\n>\n> This is thousands of times faster than calling getSeq() and  \n> countPattern()\n> inside a \"for\" loop. Also, it doesn't seem to trigger the spooky/ \n> infamous\n> bug :-)\n\nIn my experience, the bug seems to come if I do a DNAStringSet on a  \nViews, many times. I had some old code that did it essentially once  \nper gene (always lots of errors) and moved it to once per chromosome  \n(ran without problems).\n\nKasper",
+      "body_snippet": "On Jun 1, 2009, at 11:16 , Herv? Pag?s wrote:\n\n> Hi Paul,\n>\n> Thanks for the feedback! I just set up a script that does something  \n> similar\n> to your code and was able to trigger the spooky/infamous",
+      "thread_id": "thread-56cf67d5d25a",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-0be8437292af",
+      "message_id": "<1243898919.7068.350.camel@BIOINFORM01-ubuntu>",
+      "from_name": "Paul Leo",
+      "from_email_hash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+      "date": "2009-06-01T23:28:39Z",
+      "subject": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "subject_clean": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "in_reply_to": "<4A241AFF.4020307@fhcrc.org>",
+      "references": [
+        "<a394a9180905280941i1890ee9dt8ed4b4eab60b89ba@mail.gmail.com>",
+        "<a394a9180905281500y4fac6aa7p58f5769c30a9a9d3@mail.gmail.com>",
+        "<4A1F2A7B.7040609@fhcrc.org>",
+        "<1243848729.7068.330.camel@BIOINFORM01-ubuntu>",
+        "<4A241AFF.4020307@fhcrc.org>"
+      ],
+      "body_plain": "HI Herve,\nYep thanks I had already got your idea from your previous post and\nindeed it rocks, and I was able to finish the job last hight. FYI the\nerror did not occur with that modification. \n\nAlso I think I have seen the error with this code also: (this I not my\ncode but something I was trying for someone)\n\n\narray.labels<-c(1,2,3,5,6,7,8)\nalignedLocs<-GenomeDataList()\nfor (i in length(array.labels))\n{\n  filename<-paste(\"aln\",array.labels[i],\".RData\",sep=\"\")\n  load(filename)\n  alignedLocs[[i]]<-as(aln,\"GenomeData\")\n}\nsave(alignedLocs, file=\"alignedLocsTRUE.RData\")\n\nNow the aln1-8.RData filtes are just filtered and mapped reads from\nsolexa they range in size from 250-475Mb . If you run the loop the\nGenome List was empty but if I run the loop one \"i\" at a time all is\nfine. Now this happened a week or so ago so I will have to verify again\n(I was running 2.10 then). But in case you are on the hunt it may be\neasier to debug if you can reproduce it...\n\nCheers\nPaul\n\n\n\n-----Original Message-----\nFrom: Herv? Pag?s <hpages at fhcrc.org>\nTo: Paul Leo <p.leo at uq.edu.au>\nCc: Ivan Gregoretti <ivangreg at gmail.com>,\nbioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] Extracting DNA sequences from\nBSgenome.Mmusculus.UCSC.mm9_1.3.11\nDate: Mon, 01 Jun 2009 11:16:31 -0700\n\nHi Paul,\n\nThanks for the feedback! I just set up a script that does something\nsimilar\nto your code and was able to trigger the spooky/infamous bug. The first\ntime\nafter 140 iterations (55 sec.), the second time after 73, etc... Seems\nlike\nI always get it after a few dozens of iterations. This is great because\nthat's going to make troubleshooting this issue a little bit easier!\n\nBTW, if you are interested in speeding up your code (and at the same\ntime, you\nmight get rid of the spooky bug), you can now take advantage of the fact\nthat\ngetSeq() is vectorized (starting with BSgenome >= 1.12.2). Given that\nthere is\nalso a vectorized version of countPattern() (it's the vcountPattern()\nfunction),\nthen you don't need the \"for\" loop anymore:\n\n   myb.consen.count <- character(nrow(peaks))\n   all.genomic <- DNAStringSet(getSeq(Mmusculus, peaks$chr,\n                                      peaks$start, peaks$end))\n   c.1 <- vcountPattern(myb.dna, all.genomic, fixed=FALSE)\n   c.2 <- vcountPattern(myb.dna.comp, all.genomic, fixed=FALSE)\n   c.3 <- vcountPattern(myb.dna.rev, all.genomic, fixed=FALSE)\n   c.4 <- vcountPattern(myb.dna.comp.rev, all.genomic, fixed=FALSE)\n   ## Now c.1, c.2, c.3 and c.4 are integer vectors of the same length\n   ## as 'all.genomic'\n   the.sum <- c.1 + c.2 + c.3 + c.4\n   the.consen.count <- paste(\"F:\", c.1, \"FC:\", c.2, \"FRev:\", c.3,\n\"FCRev:\", c.4)\n   myb.consen.count[the.sum > 0] <- the.consen.count[the.sum > 0]\n\nThis is thousands of times faster than calling getSeq() and\ncountPattern()\ninside a \"for\" loop. Also, it doesn't seem to trigger the\nspooky/infamous\nbug :-)\n\nThanks again,\nH.\n\n\nPaul Leo wrote:\n> Sorry if this is not on topic but I think I can generate *this* spooky\n> bug with this simple code, I post in case it helps:\n> \n> library(BSgenome.Mmusculus.UCSC.mm9)\n> all.genomic<-getSeq(Mmusculus, the.chrom, starts, ends)\n> \n> myb<-\"YAACKG\"        \n> myb.dna<-DNAString(myb)\n> myb.dna.rev<-reverse(myb.dna)\n> myb.dna.comp<-complement(myb.dna)\n> myb.dna.comp.rev<-reverseComplement(myb.dna)\n> \n> ### peaks is just a set of regions - not large but lots of them \n> #> peaks[1:5,1:4]\n>  #     chr     start       end length\n> #7568   14 119073660 119074474    815\n> #11980  19  41922512  41923422    911\n> #9375   16  70351968  70352514    547\n> #158     1  33635080  33636130   1051\n> #15576   3 151996276 151997236    961\n> \n> for(i in 1:dim(peaks)[1]){\n> \n>\ngenomic<-getSeq(Mmusculus,the.chrom[i],start=starts[i],end=ends[i],as.character=FALSE)\n> print(length(genomic)  )\n> \n> c.1<-countPattern(myb.dna,genomic,max.mismatch=0, fixed=FALSE)\n> c.2<-countPattern(myb.dna.comp,genomic,max.mismatch=0, fixed=FALSE) \n> c.3<-countPattern(myb.dna.rev,genomic,max.mismatch=0, fixed=FALSE)\n> c.4<-countPattern(myb.dna.comp.rev,genomic,max.mismatch=0,\nfixed=FALSE)\n> the.sum<-(c.1+c.2+c.3+c.4)\n> print(paste(\"counter:\",i,\"sites:\",the.sum,sep=\" \"))\n> if( the.sum >\n>\n0){myb.consen.count[i,]<-paste(\"F:\",c.1,\"FC:\",c.2,\"FRev:\",c.3,\"FCRev:\",c.4,sep=\" \")}\n> }\n> \n> This loop fails randomly ever few hundred iterations with no apparent\n> reason all the variables are fine , you can restart at the error point\n> and it goes fine for another few hundred then dies again....\n> \n> eg\n> \n> first dies at \n> counter 103, \n> .......\n> [1] \"counter: 102 sites: 5\"\n> [1] 729\n> Error in assign(\".nextMethod\", nextMethod, envir = callEnv) : \n>   formal argument \"envir\" matched by multiple actual arguments\n> Error in isEmpty(xx) : \n>   error in evaluating the argument 'x' in selecting a method for\n> function 'isEmpty'\n> Error in countPattern(pattern, toXStringViewsOrXString(subject),\n> algorithm = algorithm,  : \n>   error in evaluating the argument 'subject' in selecting a method for\n> function 'countPattern'\n>> genomic\n>   729-letter \"MaskedDNAString\" instance (# for masking)\n> seq:\n>\nACCAGGCTCCGGACGCCTTCTCCCCAGCGTTTTGCA...ATTGGGTTGGAAACTTTGTAGGAAGGAAAGGAAAAT\n> masks:\n> \n> #### Genomic is the corect length and is ok..straight away can do:\n> \n>> c.1<-countPattern(myb.dna,genomic,max.mismatch=0, fixed=FALSE)\n>> c.2<-countPattern(myb.dna.comp,genomic,max.mismatch=0, fixed=FALSE)\n> #SAME matchPattern(myb.dna,complement(genomic),max.mismatch=0,\n> fixed=FALSE)  \n>> c.3<-countPattern(myb.dna.rev,genomic,max.mismatch=0, fixed=FALSE)\n>> c.4<-countPattern(myb.dna.comp.rev,genomic,max.mismatch=0,\n> fixed=FALSE)\n>> the.sum<-(c.1+c.2+c.3+c.4)\n>> print(paste(\"counter:\",i,\"sites:\",the.sum,sep=\" \"))\n> [1] \"counter: 103 sites: 3\"\n> ### see no problem what bug???\n> \n> \n> ###### restart at i=103...it dies again at 604\n> \n> [1] 737\n> [1] \"counter: 604 sites: 3\"\n> [1] 834\n> Error in assign(\".defined\", method at defined, envir = envir) : \n>   formal argument \"envir\" matched by multiple actual arguments\n> \n> \n> ## I will use Herves last post to get about this.....Can run on the ##\n> development version too if that helps??\n> \n>> sessionInfo()\n> R version 2.9.0 (2009-04-17) \n> x86_64-pc-linux-gnu \n> \n> locale:\n>\nLC_CTYPE=en_AU.UTF-8;LC_NUMERIC=C;LC_TIME=en_AU.UTF-8;LC_COLLATE=en_AU.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_AU.UTF-8;LC_PAPER=en_AU.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_AU.UTF-8;LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods\n> base     \n> \n> other attached packages:\n>  [1] BSgenome.Mmusculus.UCSC.mm9_1.3.11\n> BSgenome_1.12.0                   \n>  [3] Biostrings_2.12.0\n> IRanges_1.2.1                     \n>  [5] KEGG.db_2.2.11\n> RSQLite_0.7-1                     \n>  [7] DBI_0.2-4\n> AnnotationDbi_1.6.0               \n>  [9] Biobase_2.4.0\n> biomaRt_2.0.0                     \n> \n> loaded via a namespace (and not attached):\n> [1] RCurl_0.94-1 tcltk_2.9.0  tools_2.9.0  XML_1.95-3  \n> \n> \n> -  \n> Dr Paul Leo\n> Bioinformatician\n> Diamantina Institute for Cancer, Immunology and Metabolic Medicine\n> University of Queensland\n>\n--------------------------------------------------------------------------------------\n> Research Wing, Bldg 1\n> Princess Alexandria Hospital \n> Woolloongabba, QLD, 4102\n> Tel: +61 7 3240 7740  Mob: 041 303 8691  Fax: +61 7 3240 5946\n> Email: p.leo at uq.edu.au   Web: http://www.di.uq.edu.au\n> \n> \n> -----Original Message-----\n> From: Herv? Pag?s <hpages at fhcrc.org>\n> To: Ivan Gregoretti <ivangreg at gmail.com>\n> Cc: bioc-sig-sequencing at r-project.org\n> Subject: Re: [Bioc-sig-seq] Extracting DNA sequences from\n> BSgenome.Mmusculus.UCSC.mm9_1.3.11\n> Date: Thu, 28 May 2009 17:21:15 -0700\n> \n> Ivan,\n> \n> With BSgenome 1.12.1 (release) and 1.13.5 (devel) you can now do:\n> \n>    myseqs <- data.frame(\n>      chr=c(\"chrY\", \"chr1\", \"chr2\", \"chr3\", \"chrY\", \"chr3\", \"chr1\",\n\"chr1\"),\n>      start=c(NA, -40, 8510201, 4920301, 30001, 9220500, -2804, -30),\n>      end=c(50, NA, 8510220, 4920330, 30011, 9220555, -2801, -11)\n>    )\n> \n>    library(BSgenome.Mmusculus.UCSC.mm9)\n> \n>    > getSeq(Mmusculus, myseqs$chr, myseqs$start, myseqs$end)\n>    [1] \"GATCCAAAACACATTCTCCCTGGTAGCATGGACAAGCAACATTTTGGGAG\"\n>    [2] \"TTCTGTAAAGAATTTGGTATTAAACTTAAAACTGGAATTC\"\n>    [3] \"ACGACTATAAAAACCTTTAG\"\n>    [4] \"CATACAATAATTGTGGGGGAACTTCAAAAC\"\n>    [5] \"ATCTTAATCAC\"\n>    [6] \"CAGTAGTGGCGTACACCTTTAATCCCAGCACGTGGTAGGCAGAGGCAGATGGATTT\"\n>    [7] \"ATGA\"\n>    [8] \"AATTTGGTATTAAACTTAAA\"\n> \n> to extract multiple subsequences from multiple chromosomes at once.\n> (Note support for NAs and negative start or end.)\n> \n> It takes about 35 sec. to extract 1 million short subsequences so it's\n> much faster than the sapply() solution I proposed earlier but there is\n> still room for improvement. Also, the extracted sequences are\ncurrently\n> returned as a character vector, not a DNAStringSet.\n> But addressing these 2 issues (speed + DNAStringSet) will require that\n> we first put in place an efficient implementation for combining\nseveral\n> DNAStringSet objects (this is an important piece of the\ninfrastructure).\n> So that will take a few weeks.\n> \n> Hopefully this time you won't get hit by the infamous bug you reported\n> earlier (BTW anything new on that front? Were you able to reproduce\nit?\n> Thanks).\n> \n> Cheers,\n> H.\n> \n> PS: The latest BSgenome software packages will propagate to the public\n> repos in the next 24 hours.\n> \n> \n> Ivan Gregoretti wrote:\n>> I didn't notice that I was emailing the individuals rather than the\n>> list!!!!!!\n>>\n>> Briefly, THANKS TO EVERYONE.\n>>\n>> Second, I managed to call and display all my sequences like this\n>>\n>> sapply(1:dim(A)[1], function(i) paste(A$chr[i],' ',A$start[i],' ',A\n$end[i],'\n>> tags: ',A$tags[i],' ',getSeq(Mmusculus, as.character(A$chr[i]), A\n$start[i],\n>> A$end[i])))\n>>\n>> As you see, it's made up of ideas from all three respondents.\n(Michael's\n>> solution actually gave me an idea to solve some other problem not\nmentioned\n>> here. So, nothing gets wasted.)\n>>\n>> Sorry for the off-list emailing issue.\n>>\n>> Ivan\n>>\n>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n>",
+      "body_snippet": "HI Herve,\nYep thanks I had already got your idea from your previous post and\nindeed it rocks, and I was able to finish the job last hight. FYI the\nerror did not occur with that modification. \n\nAlso I ",
+      "thread_id": "thread-56cf67d5d25a",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-584e3da63534",
+      "message_id": "<7375841E-788A-4364-8A15-7B203F2A6028@embl.de>",
+      "from_name": "Nicolas Delhomme",
+      "from_email_hash": "e1bcfb33fa39c0fa362850148b5fab2fc3bcba8158505ec7e26a57a5446bd20b",
+      "date": "2009-06-02T09:56:52Z",
+      "subject": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "subject_clean": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\nAs described in the doc for reverse, complement and reverseComplement,  \nx can be a character vector.\n\nWhen I tried, it turned out that these functions are not implemented  \nfor complement and reverseComplement.\n\nThere are of some use for me, so I just wrote them up:\n\nsetMethod(\"complement\", \"character\",\n     function(x, ...){\n     \t\tif(length(x)==1) x<-DNAString(x)\n\t\telse x<-DNAStringSet(x)\n\t\tcomplement(x)\n     }\n)\n\nsetMethod(\"reverseComplement\", \"character\",\n     function(x, ...){\n     \t\tif(length(x)==1) x<-DNAString(x)\n     \t\telse x<- DNAStringSet(x)\n     \t\treverseComplement(x)\n     }\n)\n\nI just post them in case there would be of use for someone else. I  \nrecognize that it does not save much compared to first converting the  \ncharacter vector into a DNAString or DNAStringSet. At least, for me,  \nit allows to skip some \"input\" evaluation test checking whether I  \nstart with a character vector or a DNAString.\n\nBest,\n\n---------------------------------------------------------------\nNicolas Delhomme\n\nHigh Throughput Functional Genomics Center\n\nEuropean Molecular Biology Laboratory\n\nTel: +49 6221 387 8426\nEmail: nicolas.delhomme at embl.de\nMeyerhofstrasse 1 - Postfach 10.2209\n69102 Heidelberg, Germany",
+      "body_snippet": "Hi all,\n\nAs described in the doc for reverse, complement and reverseComplement,  \nx can be a character vector.\n\nWhen I tried, it turned out that these functions are not implemented  \nfor complement an",
+      "thread_id": "thread-584e3da63534",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-4fa013504612",
+      "message_id": "<4A24FB99.3080905@icr.ac.uk>",
+      "from_name": "Daniel Brewer",
+      "from_email_hash": "1193259434f6a62c85965cacd028661a6b41fefb82d860c360bfc11ca90a291a",
+      "date": "2009-06-02T10:14:49Z",
+      "subject": "[Bioc-sig-seq] viral RNA library",
+      "subject_clean": "[Bioc-sig-seq] viral RNA library",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI have got some Solexa data from cancer tissue mRNA (looking at length\nmRNA only) and I am interesting in looking at whether there is viral RNA\n within the reads.  DOes anyone know whether there is a suitable\nlibrary/database for this?\n\nDan\n\nPS Also posted to SEQAnswers\n\n-- \n**************************************************************\nDaniel Brewer, Ph.D.\n\nInstitute of Cancer Research\nMolecular Carcinogenesis\nEmail: daniel.brewer at icr.ac.uk\n**************************************************************\n\nThe Institute of Cancer Research: Royal Cancer Hospital, a charitable Company Limited by Guarantee, Registered in England under Company No. 534147 with its Registered Office at 123 Old Brompton Road, London SW7 3RP.\n\nThis e-mail message is confidential and for use by the a...{{dropped:2}}",
+      "body_snippet": "Hi,\n\nI have got some Solexa data from cancer tissue mRNA (looking at length\nmRNA only) and I am interesting in looking at whether there is viral RNA\n within the reads.  DOes anyone know whether there ",
+      "thread_id": "thread-4fa013504612",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-b5ff3d388604",
+      "message_id": "<4A25711E.90409@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2009-06-02T18:36:14Z",
+      "subject": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "subject_clean": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "in_reply_to": "<7375841E-788A-4364-8A15-7B203F2A6028@embl.de>",
+      "references": [
+        "<7375841E-788A-4364-8A15-7B203F2A6028@embl.de>"
+      ],
+      "body_plain": "Hi Nicolas,\n\nNicolas Delhomme wrote:\n> Hi all,\n> \n> As described in the doc for reverse, complement and reverseComplement, x \n> can be a character vector.\n> \n> When I tried, it turned out that these functions are not implemented for \n> complement and reverseComplement.\n> \n> There are of some use for me, so I just wrote them up:\n> \n> setMethod(\"complement\", \"character\",\n>     function(x, ...){\n>             if(length(x)==1) x<-DNAString(x)\n>         else x<-DNAStringSet(x)\n>         complement(x)\n>     }\n> )\n> \n> setMethod(\"reverseComplement\", \"character\",\n>     function(x, ...){\n>             if(length(x)==1) x<-DNAString(x)\n>             else x<- DNAStringSet(x)\n>             reverseComplement(x)\n>     }\n> )\n> \n> I just post them in case there would be of use for someone else. I \n> recognize that it does not save much compared to first converting the \n> character vector into a DNAString or DNAStringSet. At least, for me, it \n> allows to skip some \"input\" evaluation test checking whether I start \n> with a character vector or a DNAString.\n\nThanks for the feedback!\n\nThe reason these method were not defined is that when the input is character\nit's not clear whether it should be treated as DNA or RNA input. However\nchoosing to treat it as DNA is probably what the user will want 99% of the\ntime so they could indeed be implemented as in your code above. So if the\ninput contains the \"U\" letter, they will simply fail (without trying to\nbe smart).\n\nNote that there is no method for BString/BStringSet objects for exactly the\nsame reason.\n\nA question subsists though: should these methods return a DNAString/DNAStringSet\nobject or should the result be turned back into an ordinary character vector\nbefore it's returned to the user? The latter would make these methods\n\"endomorphisms\" (i.e. the output has the same type as the input) which is\nmore consistent with what the other methods do but I'm not against making\nan exception when the input is character (not a big deal as long as this is\nclearly documented). Then if the user really want this result to be character\nthen s/he can always apply as.character() to it.\n\nIf there are no objections, I will add these methods to the Biostrings package.\n\nCheers,\nH.\n\n> \n> Best,\n> \n> ---------------------------------------------------------------\n> Nicolas Delhomme\n> \n> High Throughput Functional Genomics Center\n> \n> European Molecular Biology Laboratory\n> \n> Tel: +49 6221 387 8426\n> Email: nicolas.delhomme at embl.de\n> Meyerhofstrasse 1 - Postfach 10.2209\n> 69102 Heidelberg, Germany\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Nicolas,\n\nNicolas Delhomme wrote:\n> Hi all,\n> \n> As described in the doc for reverse, complement and reverseComplement, x \n> can be a character vector.\n> \n> When I tried, it turned out that these f",
+      "thread_id": "thread-584e3da63534",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-bad484d2f456",
+      "message_id": "<d696fcb70906031640w8eb5bdbk853036f71d027a3a@mail.gmail.com>",
+      "from_name": "Rebecca Sun",
+      "from_email_hash": "90a3ef9c943669a0ee475a4e2d7489188dde5a42be7a57db99b277b3dbd4c244",
+      "date": "2009-06-03T23:40:11Z",
+      "subject": "[Bioc-sig-seq] extendReads() error in chipseq package",
+      "subject_clean": "[Bioc-sig-seq] extendReads() error in chipseq package",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/816798d3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/816798d3/attachment.pl>",
+      "thread_id": "thread-bad484d2f456",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-b9d8a2767022",
+      "message_id": "<d696fcb70906031714j428393c2s40349bded3f81a66@mail.gmail.com>",
+      "from_name": "Rebecca Sun",
+      "from_email_hash": "90a3ef9c943669a0ee475a4e2d7489188dde5a42be7a57db99b277b3dbd4c244",
+      "date": "2009-06-04T00:14:04Z",
+      "subject": "[Bioc-sig-seq] extendReads() error in chipseq package",
+      "subject_clean": "[Bioc-sig-seq] extendReads() error in chipseq package",
+      "in_reply_to": "<4A2711E4.1000509@fhcrc.org>",
+      "references": [
+        "<d696fcb70906031640w8eb5bdbk853036f71d027a3a@mail.gmail.com>",
+        "<4A2711E4.1000509@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/a6f025c3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/a6f025c3/attachment.pl>",
+      "thread_id": "thread-bad484d2f456",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-01f435cea432",
+      "message_id": "<4A2711E4.1000509@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-06-04T00:14:28Z",
+      "subject": "[Bioc-sig-seq] extendReads() error in chipseq package",
+      "subject_clean": "[Bioc-sig-seq] extendReads() error in chipseq package",
+      "in_reply_to": "<d696fcb70906031640w8eb5bdbk853036f71d027a3a@mail.gmail.com>",
+      "references": [
+        "<d696fcb70906031640w8eb5bdbk853036f71d027a3a@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Rebecca --\n\nRebecca Sun wrote:\n> Hi all,\n> \n> I am in the process of analyzing  ChIP-seq data by using chipseq package.\n> There was an error happen when I use extendRead() to get the longer fragment\n> for alignedReads object.\n> \n> ###################\n>> library(ShortRead)\n>> library(chipseq)\n>> aln <-readAligned(\".\",\"flowcell.bowtie\",type=\"Bowtie\")\n>> unique <-aln[!srduplicated(aln)]\n>> ext <- extendReads(unique, seqLen = 200)\n> *\n> Error in s1[[ipos]] : recursive indexing failed at level 2*\n> ###################\n\nI don't have a fix for this bug, but...\n\n> *\n> I found extendReads() is works when I used it for one AlignedRead:*\n> \n>> ext <-extendReads(unique[1],seqLen=200)\n>> ext\n> $`gi|29823167|ref|NT_010966.13|Hs18_11123`\n> IRanges instance:\n>      start    end width\n> [1] 307249 307448   200\n> [2] 307089 307288   200\n> \n> *And also, I tried to convert aln to GenomeData, then used extendread(),no\n> error, but the return value is not IRanges object*\n>> unique_genome <-as(unique,\"GenomeData\")\n>> ext1<-extendReads(unique_alngenome,seqLen=200)\n>> ext1\n> A GenomeData instance\n> chromosomes(6): gi|29823167|ref|NT_010966.13|Hs18_11123 ...\n\nThe members of ext1 are IRanges objects, e.g., ext1[[1]] is an IRanges\nobject\n\n> example(readAligned)\n> aln=readAligned(sp, \"s_2_export.txt\", filter=filt)\n> gd <- extendReads(as(aln, \"GenomeData\"), 200)\n> gd\nA GenomeData instance\nchromosomes(5): chr1.fa chr2.fa chr3.fa chr4.fa chr5.fa\n\n> gd[[1]]\nIRanges instance:\n         start       end width\n[1]    3393025   3393224   200\n[2]  171119303 171119502   200\n\n[SNIP]\n\n> gd[[\"chr1.fa\"]]\nIRanges instance:\n         start       end width\n[1]    3393025   3393224   200\n[2]  171119303 171119502   200\n\n[SNIP]\n\nMy sessionInfo() is\n\n> sessionInfo()\nR version 2.10.0 Under development (unstable) (2009-06-02 r48703)\nx86_64-unknown-linux-gnu\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] chipseq_0.1.20     ShortRead_1.3.10   lattice_0.17-25    BSgenome_1.13.6\n[5] Biostrings_2.13.12 IRanges_1.3.21\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.5.2 grid_2.10.0   hwriter_1.1\n\n\nwhat's yours?\n\nMartin\n\n\n> Any suggestion? Thanks.\n> \n> Rebecca\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Rebecca --\n\nRebecca Sun wrote:\n> Hi all,\n> \n> I am in the process of analyzing  ChIP-seq data by using chipseq package.\n> There was an error happen when I use extendRead() to get the longer fragmen",
+      "thread_id": "thread-bad484d2f456",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-8ee9e8831806",
+      "message_id": "<a394a9180906040756r1791df5ap68ddb07b5187412f@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2009-06-04T14:56:52Z",
+      "subject": "[Bioc-sig-seq] Pairwise comparisons of peak sets (for ChIP-seqs or anything else)",
+      "subject_clean": "[Bioc-sig-seq] Pairwise comparisons of peak sets (for ChIP-seqs or anything else)",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello everyone,\n\nHow do I draw a pairwise comparison table?\n\nSimplified example of the problem:\n\n1) lets say I have several sets of ChIP-seq peaks from several\nexperiments: setA, setB, setC, etc. Many sets.\n\n2) I know how many peaks in common are held by each pair of sets. For\ninstance, setA and setB have 300 peaks in common (overlaps). I can\ncreate a square matrix to hold all pairwise values.\n\n3) Now I want to draw something like a square table where both columns\nand rows are labelled setA, setB, setC, etc. In position [setA, setB]\nI would write 300 (and so I would on position [setB, setA]).\n\nIs there any R function created to address this need? Perhaps\nsomething like a general purpose heat map?\n\nAny pointer would be appreciated.\n\nIvan\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1592\nFax: 1-301-496-9878",
+      "body_snippet": "Hello everyone,\n\nHow do I draw a pairwise comparison table?\n\nSimplified example of the problem:\n\n1) lets say I have several sets of ChIP-seq peaks from several\nexperiments: setA, setB, setC, etc. Many",
+      "thread_id": "thread-8ee9e8831806",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-abe34c0b4e37",
+      "message_id": "<20090604160051.GB14372@biocluster.ucr.edu>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2009-06-04T16:00:51Z",
+      "subject": "[Bioc-sig-seq] Pairwise comparisons of peak sets (for ChIP-seqs or anything else)",
+      "subject_clean": "[Bioc-sig-seq] Pairwise comparisons of peak sets (for ChIP-seqs or anything else)",
+      "in_reply_to": "<a394a9180906040756r1791df5ap68ddb07b5187412f@mail.gmail.com>",
+      "references": [
+        "<a394a9180906040756r1791df5ap68ddb07b5187412f@mail.gmail.com>"
+      ],
+      "body_plain": "Ivan,\n\nIf I understand your problem correctly, then you could easily do this with\nthe heatmap or heatmap.2 functions. Below is an example how to generate\nand plot such a squared overlap matrix.\n\n## Some sample data set\nsetlist <- lapply(11:30, function(x) sample(letters, x, replace=TRUE));\nnames(setlist) <- paste(\"S\", seq(along=setlist), sep=\"\") \n\n## Compute an intersect matrix for all pairwise sample comparisons stored in 'setlist'\nolMA <- sapply(names(setlist), function(x) sapply(names(setlist), function(y) sum(setlist[[x]] %in% setlist[[y]])))\nolMA \n\n## Plot squared matrix as heat map\nlibrary(\"gplots\")\nheatmap.2(olMA, trace=\"none\", Colv=\"none\", Rowv=\"none\", dendrogram=\"none\", col=colorpanel(40, \"darkred\", \"orange\", \"yellow\"))\n\nHere are some more examples to related problems:\nhttp://faculty.ucr.edu/~tgirke/Documents/R_BioCond/R_BioCondManual.html#R_graphics_overlapper\n\n\nT. Girke\n\n\n\nOn Thu, Jun 04, 2009 at 10:56:52AM -0400, Ivan Gregoretti wrote:\n> Hello everyone,\n> \n> How do I draw a pairwise comparison table?\n> \n> Simplified example of the problem:\n> \n> 1) lets say I have several sets of ChIP-seq peaks from several\n> experiments: setA, setB, setC, etc. Many sets.\n> \n> 2) I know how many peaks in common are held by each pair of sets. For\n> instance, setA and setB have 300 peaks in common (overlaps). I can\n> create a square matrix to hold all pairwise values.\n> \n> 3) Now I want to draw something like a square table where both columns\n> and rows are labelled setA, setB, setC, etc. In position [setA, setB]\n> I would write 300 (and so I would on position [setB, setA]).\n> \n> Is there any R function created to address this need? Perhaps\n> something like a general purpose heat map?\n> \n> Any pointer would be appreciated.\n> \n> Ivan\n> \n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1592\n> Fax: 1-301-496-9878\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Ivan,\n\nIf I understand your problem correctly, then you could easily do this with\nthe heatmap or heatmap.2 functions. Below is an example how to generate\nand plot such a squared overlap matrix.\n\n## So",
+      "thread_id": "thread-8ee9e8831806",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-3c9f69de92b4",
+      "message_id": "<a394a9180906041224g628daf16wa5194f51f563e44a@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2009-06-04T19:24:12Z",
+      "subject": "[Bioc-sig-seq] Pairwise comparisons of peak sets (for ChIP-seqs or anything else)",
+      "subject_clean": "[Bioc-sig-seq] Pairwise comparisons of peak sets (for ChIP-seqs or anything else)",
+      "in_reply_to": "<20090604160051.GB14372@biocluster.ucr.edu>",
+      "references": [
+        "<a394a9180906040756r1791df5ap68ddb07b5187412f@mail.gmail.com>",
+        "<20090604160051.GB14372@biocluster.ucr.edu>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090604/cd001914/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090604/cd001914/attachment.pl>",
+      "thread_id": "thread-8ee9e8831806",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-86a0cf4d25d4",
+      "message_id": "<a394a9180906081116t24a1e474yef5e798d595de626@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2009-06-08T18:16:26Z",
+      "subject": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
+      "subject_clean": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090608/5c4800a9/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090608/5c4800a9/attachment.pl>",
+      "thread_id": "thread-86a0cf4d25d4",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-946bb4badbc9",
+      "message_id": "<6phiqj5iqet.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-06-09T11:43:06Z",
+      "subject": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
+      "subject_clean": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
+      "in_reply_to": "<a394a9180906081116t24a1e474yef5e798d595de626@mail.gmail.com> (Ivan Gregoretti's message of \"Mon, 8 Jun 2009 14:16:26 -0400\")",
+      "references": [
+        "<a394a9180906081116t24a1e474yef5e798d595de626@mail.gmail.com>"
+      ],
+      "body_plain": "Ivan Gregoretti <ivangreg at gmail.com> writes:\n\n> Hello everybody,\n>\n> Can qa() work on compressed *_export.txt files?\n>\n>\n>\n> The function readAligned() is very smart because it does not care if the\n> export file is plain or compressed. You just do\n>\n> aln <- readAligned(sp, fileNamePattern)\n>\n> and the lane is loaded up.\n>\n> I tried to run qa() on a directory with compressed export files and I got:\n>\n>> sp <- SolexaPath(experimentPath=myExperimentPath,\n> analysisPath=myAnalysisPath)\n>> sp\n> class: SolexaPath\n> experimentPath: /data/igregore/all/runs/090529/\n> dataPath: NA\n> scanPath: NA\n> imageAnalysisPath: NA\n> baseCallPath: NA\n> analysisPath: GERALD_01-06-20...\n>> qa <- qa(sp)\n> Error: Input/Output\n>   no input files found\n>  dirPath: /data/igregore/all/runs/090529/GERALD_01-06-2009_niddk/\n>   pattern: .*_export.txt$\n>\n>\n> I guess that qa()'s inability to read .txt.gz is a feature rather than a\n> bug. If so, would you please consider adding this capability on a future\n> ShortRead release?\n\nHi Ivan -- I think you should be able to specify a pattern\n\n  qa(sp, pattern=\".*_export.txt.gz\")\n\nand failing that provide a dirfull direcotry path\n\n  qa(analysisPath(sp), pattern=\".*_export.txt.gz\")\n\nlet me know if that does not work.\n\nMartin\n\n\n> Thank you,\n>\n> Ivan\n>\n>> sessionInfo()\n> R version 2.9.0 (2009-04-17)\n> x86_64-unknown-linux-gnu\n>\n> locale:\n> LC_CTYPE=en_US;LC_NUMERIC=C;LC_TIME=C;LC_COLLATE=C;LC_MONETARY=C;LC_MESSAGES=en_US;LC_PAPER=en_US;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US;LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] ShortRead_1.2.0   lattice_0.17-22   BSgenome_1.12.0   Biostrings_2.12.1\n> [5] IRanges_1.2.0\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.4.1 grid_2.9.0    hwriter_1.1\n>\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Ivan Gregoretti <ivangreg at gmail.com> writes:\n\n> Hello everybody,\n>\n> Can qa() work on compressed *_export.txt files?\n>\n>\n>\n> The function readAligned() is very smart because it does not care if the",
+      "thread_id": "thread-86a0cf4d25d4",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-3d0418380c9f",
+      "message_id": "<a394a9180906110658i59b463cdo563bddca9948ecc2@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2009-06-11T13:58:23Z",
+      "subject": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
+      "subject_clean": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
+      "in_reply_to": "<6phiqj5iqet.fsf@gopher4.fhcrc.org>",
+      "references": [
+        "<a394a9180906081116t24a1e474yef5e798d595de626@mail.gmail.com>",
+        "<6phiqj5iqet.fsf@gopher4.fhcrc.org>"
+      ],
+      "body_plain": "Hi Martin,\n\nYour suggestion of passing the relevant pattern as argument to qa() like this\n\nqa(sp, pattern=\".*_export.txt.gz\")\n\nsolved the problem.\n\nThank you,\n\nIvan\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1592\nFax: 1-301-496-9878\n\n\n\nOn Tue, Jun 9, 2009 at 7:43 AM, Martin Morgan<mtmorgan at fhcrc.org> wrote:\n> Ivan Gregoretti <ivangreg at gmail.com> writes:\n>\n>> Hello everybody,\n>>\n>> Can qa() work on compressed *_export.txt files?\n>>\n>>\n>>\n>> The function readAligned() is very smart because it does not care if the\n>> export file is plain or compressed. You just do\n>>\n>> aln <- readAligned(sp, fileNamePattern)\n>>\n>> and the lane is loaded up.\n>>\n>> I tried to run qa() on a directory with compressed export files and I got:\n>>\n>>> sp <- SolexaPath(experimentPath=myExperimentPath,\n>> analysisPath=myAnalysisPath)\n>>> sp\n>> class: SolexaPath\n>> experimentPath: /data/igregore/all/runs/090529/\n>> dataPath: NA\n>> scanPath: NA\n>> imageAnalysisPath: NA\n>> baseCallPath: NA\n>> analysisPath: GERALD_01-06-20...\n>>> qa <- qa(sp)\n>> Error: Input/Output\n>> ? no input files found\n>> ?dirPath: /data/igregore/all/runs/090529/GERALD_01-06-2009_niddk/\n>> ? pattern: .*_export.txt$\n>>\n>>\n>> I guess that qa()'s inability to read .txt.gz is a feature rather than a\n>> bug. If so, would you please consider adding this capability on a future\n>> ShortRead release?\n>\n> Hi Ivan -- I think you should be able to specify a pattern\n>\n> ?qa(sp, pattern=\".*_export.txt.gz\")\n>\n> and failing that provide a dirfull direcotry path\n>\n> ?qa(analysisPath(sp), pattern=\".*_export.txt.gz\")\n>\n> let me know if that does not work.\n>\n> Martin\n>\n>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>> sessionInfo()\n>> R version 2.9.0 (2009-04-17)\n>> x86_64-unknown-linux-gnu\n>>\n>> locale:\n>> LC_CTYPE=en_US;LC_NUMERIC=C;LC_TIME=C;LC_COLLATE=C;LC_MONETARY=C;LC_MESSAGES=en_US;LC_PAPER=en_US;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US;LC_IDENTIFICATION=C\n>>\n>> attached base packages:\n>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>>\n>> other attached packages:\n>> [1] ShortRead_1.2.0 ? lattice_0.17-22 ? BSgenome_1.12.0 ? Biostrings_2.12.1\n>> [5] IRanges_1.2.0\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.4.1 grid_2.9.0 ? ?hwriter_1.1\n>>\n>>\n>> Ivan Gregoretti, PhD\n>> National Institute of Diabetes and Digestive and Kidney Diseases\n>> National Institutes of Health\n>> 5 Memorial Dr, Building 5, Room 205.\n>> Bethesda, MD 20892. USA.\n>> Phone: 1-301-496-1592\n>> Fax: 1-301-496-9878\n>>\n>> ? ? ? [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n> --\n> Martin Morgan\n> Computational Biology / Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N.\n> PO Box 19024 Seattle, WA 98109\n>\n> Location: Arnold Building M1 B861\n> Phone: (206) 667-2793\n>",
+      "body_snippet": "Hi Martin,\n\nYour suggestion of passing the relevant pattern as argument to qa() like this\n\nqa(sp, pattern=\".*_export.txt.gz\")\n\nsolved the problem.\n\nThank you,\n\nIvan\n\nIvan Gregoretti, PhD\nNational Inst",
+      "thread_id": "thread-86a0cf4d25d4",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-6b940c430292",
+      "message_id": "<5476BE05-86A6-400F-BD1C-DB383FB6836C@embl.de>",
+      "from_name": "Nicolas Delhomme",
+      "from_email_hash": "e1bcfb33fa39c0fa362850148b5fab2fc3bcba8158505ec7e26a57a5446bd20b",
+      "date": "2009-06-16T09:52:10Z",
+      "subject": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "subject_clean": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "in_reply_to": "<4A25711E.90409@fhcrc.org>",
+      "references": [
+        "<7375841E-788A-4364-8A15-7B203F2A6028@embl.de>",
+        "<4A25711E.90409@fhcrc.org>"
+      ],
+      "body_plain": "Dear Herv?,\n\nSorry for answering so late. Thanks for integrating these methods. I  \nagree that making them endomorphic is probably the best and most  \nintuitive solution.\n\nI've been playing with Biostrings lately on \"de-novo\" assembly data  \nand one important value that one wants to calculate is the so-called  \n\"N50\" value. It is the size of the contig, which addition to the  \ncumulative contig size (ordered by decreasing sizes) makes it bigger  \nthan half the total size of all contigs. Basically it gives an idea of  \nthe contig size distribution within the data (although, one still  \nneeds to know the contig size range). I could not find any function  \ndoing this, so I have written a function to calculate it and I think  \nit could be an interesting addition to the Biostrings package. Here is  \nthe code:\n\nsetGeneric(\"N50\",function(x) standardGeneric(\"N50\"))\nsetMethod(\"N50\",\"XStringSet\",function(x){\n   # the order\n   x.order<-order(width(x),decreasing=TRUE)\n   width(x[x.order])[which(cumsum(width(x[x.order]))>=sum(width(x)/2)) \n[[1]]]\n   })\n\nAn example (using the non endomorphic functions...):\n\nmy.contig<-DNAStringSet(\n\tsapply(\n\t\tsample(c(100:10000),10),\n\t\tfunction(size){\n\t\t\tpaste(sample(c(\"A\",\"C\",\"G\",\"T\"),size,replace=TRUE),collapse=\"\")\n\t})\n)\nN50(my.contig)\n\n\nIf you find it valuable, I could contribute the documentation.\n\nBest wishes,\n\n---------------------------------------------------------------\nNicolas Delhomme\n\nHigh Throughput Functional Genomics Center\n\nEuropean Molecular Biology Laboratory\n\nTel: +49 6221 387 8426\nEmail: nicolas.delhomme at embl.de\nMeyerhofstrasse 1 - Postfach 10.2209\n69102 Heidelberg, Germany\n---------------------------------------------------------------\n\nP.S.\n\n > sessionInfo()\nR version 2.9.0 (2009-04-17)\ni386-apple-darwin8.11.1\n\nlocale:\nen_GB.UTF-8/en_GB.UTF-8/C/C/en_GB.UTF-8/en_GB.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] Biostrings_2.12.0 IRanges_1.2.0     Biobase_2.4.0\n\nloaded via a namespace (and not attached):\n[1] tools_2.9.0\n\n\n\nOn 2 Jun 2009, at 20:36, Herv? Pag?s wrote:\n\n> Hi Nicolas,\n>\n> Nicolas Delhomme wrote:\n>> Hi all,\n>> As described in the doc for reverse, complement and  \n>> reverseComplement, x can be a character vector.\n>> When I tried, it turned out that these functions are not  \n>> implemented for complement and reverseComplement.\n>> There are of some use for me, so I just wrote them up:\n>> setMethod(\"complement\", \"character\",\n>>    function(x, ...){\n>>            if(length(x)==1) x<-DNAString(x)\n>>        else x<-DNAStringSet(x)\n>>        complement(x)\n>>    }\n>> )\n>> setMethod(\"reverseComplement\", \"character\",\n>>    function(x, ...){\n>>            if(length(x)==1) x<-DNAString(x)\n>>            else x<- DNAStringSet(x)\n>>            reverseComplement(x)\n>>    }\n>> )\n>> I just post them in case there would be of use for someone else. I  \n>> recognize that it does not save much compared to first converting  \n>> the character vector into a DNAString or DNAStringSet. At least,  \n>> for me, it allows to skip some \"input\" evaluation test checking  \n>> whether I start with a character vector or a DNAString.\n>\n> Thanks for the feedback!\n>\n> The reason these method were not defined is that when the input is  \n> character\n> it's not clear whether it should be treated as DNA or RNA input.  \n> However\n> choosing to treat it as DNA is probably what the user will want 99%  \n> of the\n> time so they could indeed be implemented as in your code above. So  \n> if the\n> input contains the \"U\" letter, they will simply fail (without trying  \n> to\n> be smart).\n>\n> Note that there is no method for BString/BStringSet objects for  \n> exactly the\n> same reason.\n>\n> A question subsists though: should these methods return a DNAString/ \n> DNAStringSet\n> object or should the result be turned back into an ordinary  \n> character vector\n> before it's returned to the user? The latter would make these methods\n> \"endomorphisms\" (i.e. the output has the same type as the input)  \n> which is\n> more consistent with what the other methods do but I'm not against  \n> making\n> an exception when the input is character (not a big deal as long as  \n> this is\n> clearly documented). Then if the user really want this result to be  \n> character\n> then s/he can always apply as.character() to it.\n>\n> If there are no objections, I will add these methods to the  \n> Biostrings package.\n>\n> Cheers,\n> H.\n>\n>> Best,\n>> ---------------------------------------------------------------\n>> Nicolas Delhomme\n>> High Throughput Functional Genomics Center\n>> European Molecular Biology Laboratory\n>> Tel: +49 6221 387 8426\n>> Email: nicolas.delhomme at embl.de\n>> Meyerhofstrasse 1 - Postfach 10.2209\n>> 69102 Heidelberg, Germany\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n> -- \n> Herv? Pag?s\n>\n> Program in Computational Biology\n> Division of Public Health Sciences\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N, M2-B876\n> P.O. Box 19024\n> Seattle, WA 98109-1024\n>\n> E-mail: hpages at fhcrc.org\n> Phone:  (206) 667-5791\n> Fax:    (206) 667-1319",
+      "body_snippet": "Dear Herv?,\n\nSorry for answering so late. Thanks for integrating these methods. I  \nagree that making them endomorphic is probably the best and most  \nintuitive solution.\n\nI've been playing with Biost",
+      "thread_id": "thread-584e3da63534",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-07378af8cbb5",
+      "message_id": "<4A384254.9090801@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2009-06-17T01:09:40Z",
+      "subject": "[Bioc-sig-seq] [BioC] Error in assign while calling the vmatchPattern function",
+      "subject_clean": "[Bioc-sig-seq] [BioC] Error in assign while calling the vmatchPattern function",
+      "in_reply_to": "<49A59D9A.5060008@fhcrc.org>",
+      "references": [
+        "<996031a10902241457y7d7908edn3471680c1b046463@mail.gmail.com>",
+        "<49A5465F.3020105@uni-muenster.de>",
+        "<49A59D9A.5060008@fhcrc.org>"
+      ],
+      "body_plain": "Hi Biostrings/BSgenome users,\n\nSo the good news is that the infamous/spooky \"formal argument envir matched\nby multiple actual arguments\" error was a bug in R and it has been fixed\nin svn in recent revisions of R release and devel. This means that you\nneed to get and compile R yourself directly from subversion or just wait\nthe bug-fix release R-2.9.1 which should be out in a month or so.\n\nA big thanks to all those who helped on this issue!\n\nH.\n\nHerv? Pag?s wrote:\n> Hi Mattia, Hans-Ulrich,\n> \n> Thanks for reporting this. I'm aware of the problem. It shows up sometimes\n> on the build/check report e.g. today:\n> http://bioconductor.org/checkResults/2.3/bioc-LATEST/BSgenome/wilson2-buildsrc.html \n> \n> Some days it's here, some days no, sometimes on one platform, sometimes on\n> the other. It's a weird issue that is indeed very hard to reproduce as you\n> noticed.\n> I'll keep you posted when I find something.\n> \n> Cheers,\n> H.\n> \n> \n> Hans-Ulrich Klein wrote:\n>> Hi all,\n>>\n>> I encountered a similar (probably related) error today. I wanted to \n>> match a few hundred sequences against the UCSC genome from the package \n>> \"BSgenome.Hsapiens.UCSC.hg18\". I implemented a simple \"for\" loop and \n>> called\n>>\n>>    seq = DNAString(sequences$Sequence[i])\n>>    matchRes = matchPattern(seq, Hsapiens[[chr]])\n>>    SurroundingSequence[i] = as.character(subseq(Hsapiens[[chr]],\n>>         start=start(matchRes)-250, end=end(matchRes)+250))\n>>\n>> within the loop. In run i=187 I get the error message:\n>> Error in assign(\".target\", method at target, envir = envir) :\n>>  formal argument \"envir\" matched by multiple actual arguments\n>> Calls: as.character ... RawPtr.read -> dec_lkup -> loadMethod -> \n>> loadMethod -> assign\n>>\n>> However, it works when I match the 187th sequence manually (without \n>> matching the 186 other sequences before). That makes it hard to debug.\n>>\n>> Best wishes,\n>> Hans-Ulrich\n>>\n>> PS: my session info:\n>>  > sessionInfo()\n>> R version 2.8.1 (2008-12-22)\n>> x86_64-pc-linux-gnu\n>>\n>> locale:\n>> C\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base   \n>> other attached packages:\n>> [1] BSgenome.Hsapiens.UCSC.hg18_1.3.11 \n>> BSgenome_1.10.3                  [3] \n>> Biostrings_2.10.16                 IRanges_1.0.12                  \n>> loaded via a namespace (and not attached):\n>> [1] Matrix_0.999375-21 grid_2.8.1         lattice_0.17-20    tools_2.8.1\n>>\n>>\n>> mattia pelizzola wrote:\n>>> Hi,\n>>>\n>>> I have a recurrent but not reproducible error.. If I run the same\n>>> piece of code twice the error will disappear, but it will likely shop\n>>> up the day after.\n>>> This is the error message:\n>>>\n>>> Error in assign(\".defined\", method at defined, envir = envir) :\n>>>   formal argument \"envir\" matched by multiple actual arguments\n>>> Calls: vmatchPattern ... lapply -> FUN -> loadMethod -> loadMethod -> \n>>> assign\n>>>\n>>> this is the code where the error show up calling the vmatchPattern\n>>> function for one chromosome. The code is actually repeated several\n>>> times for all the chromosomes during the same R session:\n>>>\n>>> chrseq=Hsapiens$chr1\n>>> Gviews = Views(chrseq, starts, ends)    #  where length(starts)> 20000\n>>> Gset = DNAStringSet(Gviews)\n>>> querySeq=DNAString('ATTH')\n>>> a = startIndex(vmatchPattern(querySeq, Gset, fixed=F))\n>>>\n>>>\n>>>\n>>> and finally this is my sessionInfo:\n>>>\n>>> R version 2.8.1 (2008-12-22)\n>>> x86_64-unknown-linux-gnu\n>>>\n>>> locale:\n>>> LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C \n>>>\n>>>\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>\n>>> other attached packages:\n>>> [1] BSgenome.Hsapiens.UCSC.hg18_1.3.11 BSgenome_1.10.3\n>>> [3] Biostrings_2.10.15                 IRanges_1.0.11\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] grid_2.8.1         lattice_0.17-17    Matrix_0.999375-20\n>>>\n>>>\n>>>\n>>> thanks,\n>>>\n>>> mattia\n>>>\n>>>\n>>\n>> _______________________________________________\n>> Bioconductor mailing list\n>> Bioconductor at stat.math.ethz.ch\n>> https://stat.ethz.ch/mailman/listinfo/bioconductor\n>> Search the archives: \n>> http://news.gmane.org/gmane.science.biology.informatics.conductor\n> \n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Biostrings/BSgenome users,\n\nSo the good news is that the infamous/spooky \"formal argument envir matched\nby multiple actual arguments\" error was a bug in R and it has been fixed\nin svn in recent rev",
+      "thread_id": "thread-07378af8cbb5",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-e86d94943a14",
+      "message_id": "<59d7961d0906162227g2450ffc3o35d182d60c8ecb58@mail.gmail.com>",
+      "from_name": "Henrik Bengtsson",
+      "from_email_hash": "9990c0a46f707a7b7a32dc78108db722c1ccf39a8c5733e31eb392daba5a47ca",
+      "date": "2009-06-17T05:27:01Z",
+      "subject": "[Bioc-sig-seq] [BioC] Error in assign while calling the vmatchPattern function",
+      "subject_clean": "[Bioc-sig-seq] [BioC] Error in assign while calling the vmatchPattern function",
+      "in_reply_to": "<4A384254.9090801@fhcrc.org>",
+      "references": [
+        "<996031a10902241457y7d7908edn3471680c1b046463@mail.gmail.com>",
+        "<49A5465F.3020105@uni-muenster.de>",
+        "<49A59D9A.5060008@fhcrc.org>",
+        "<4A384254.9090801@fhcrc.org>"
+      ],
+      "body_plain": "FYI, from the R devel list:\n\nOn Mon, Jun 15, 2009 at 7:38 AM, Peter Dalgaard<P.Dalgaard at biostat.ku.dk> wrote:\n> This is to announce that we plan to release R version 2.9.1 on Friday,\n> June 26, 2009.\n\n/Henrik\n\n2009/6/16 Herv? Pag?s <hpages at fhcrc.org>:\n> Hi Biostrings/BSgenome users,\n>\n> So the good news is that the infamous/spooky \"formal argument envir matched\n> by multiple actual arguments\" error was a bug in R and it has been fixed\n> in svn in recent revisions of R release and devel. This means that you\n> need to get and compile R yourself directly from subversion or just wait\n> the bug-fix release R-2.9.1 which should be out in a month or so.\n>\n> A big thanks to all those who helped on this issue!\n>\n> H.\n>\n> Herv? Pag?s wrote:\n>>\n>> Hi Mattia, Hans-Ulrich,\n>>\n>> Thanks for reporting this. I'm aware of the problem. It shows up sometimes\n>> on the build/check report e.g. today:\n>>\n>> http://bioconductor.org/checkResults/2.3/bioc-LATEST/BSgenome/wilson2-buildsrc.html\n>> Some days it's here, some days no, sometimes on one platform, sometimes on\n>> the other. It's a weird issue that is indeed very hard to reproduce as you\n>> noticed.\n>> I'll keep you posted when I find something.\n>>\n>> Cheers,\n>> H.\n>>\n>>\n>> Hans-Ulrich Klein wrote:\n>>>\n>>> Hi all,\n>>>\n>>> I encountered a similar (probably related) error today. I wanted to match\n>>> a few hundred sequences against the UCSC genome from the package\n>>> \"BSgenome.Hsapiens.UCSC.hg18\". I implemented a simple \"for\" loop and called\n>>>\n>>> ? seq = DNAString(sequences$Sequence[i])\n>>> ? matchRes = matchPattern(seq, Hsapiens[[chr]])\n>>> ? SurroundingSequence[i] = as.character(subseq(Hsapiens[[chr]],\n>>> ? ? ? ?start=start(matchRes)-250, end=end(matchRes)+250))\n>>>\n>>> within the loop. In run i=187 I get the error message:\n>>> Error in assign(\".target\", method at target, envir = envir) :\n>>> ?formal argument \"envir\" matched by multiple actual arguments\n>>> Calls: as.character ... RawPtr.read -> dec_lkup -> loadMethod ->\n>>> loadMethod -> assign\n>>>\n>>> However, it works when I match the 187th sequence manually (without\n>>> matching the 186 other sequences before). That makes it hard to debug.\n>>>\n>>> Best wishes,\n>>> Hans-Ulrich\n>>>\n>>> PS: my session info:\n>>> ?> sessionInfo()\n>>> R version 2.8.1 (2008-12-22)\n>>> x86_64-pc-linux-gnu\n>>>\n>>> locale:\n>>> C\n>>>\n>>> attached base packages:\n>>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>>> other attached packages:\n>>> [1] BSgenome.Hsapiens.UCSC.hg18_1.3.11 BSgenome_1.10.3\n>>> ?[3] Biostrings_2.10.16 ? ? ? ? ? ? ? ? IRanges_1.0.12\n>>> ?loaded via a namespace (and not attached):\n>>> [1] Matrix_0.999375-21 grid_2.8.1 ? ? ? ? lattice_0.17-20 ? ?tools_2.8.1\n>>>\n>>>\n>>> mattia pelizzola wrote:\n>>>>\n>>>> Hi,\n>>>>\n>>>> I have a recurrent but not reproducible error.. If I run the same\n>>>> piece of code twice the error will disappear, but it will likely shop\n>>>> up the day after.\n>>>> This is the error message:\n>>>>\n>>>> Error in assign(\".defined\", method at defined, envir = envir) :\n>>>> ?formal argument \"envir\" matched by multiple actual arguments\n>>>> Calls: vmatchPattern ... lapply -> FUN -> loadMethod -> loadMethod ->\n>>>> assign\n>>>>\n>>>> this is the code where the error show up calling the vmatchPattern\n>>>> function for one chromosome. The code is actually repeated several\n>>>> times for all the chromosomes during the same R session:\n>>>>\n>>>> chrseq=Hsapiens$chr1\n>>>> Gviews = Views(chrseq, starts, ends) ? ?# ?where length(starts)> 20000\n>>>> Gset = DNAStringSet(Gviews)\n>>>> querySeq=DNAString('ATTH')\n>>>> a = startIndex(vmatchPattern(querySeq, Gset, fixed=F))\n>>>>\n>>>>\n>>>>\n>>>> and finally this is my sessionInfo:\n>>>>\n>>>> R version 2.8.1 (2008-12-22)\n>>>> x86_64-unknown-linux-gnu\n>>>>\n>>>> locale:\n>>>>\n>>>> LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C\n>>>>\n>>>> attached base packages:\n>>>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base\n>>>>\n>>>> other attached packages:\n>>>> [1] BSgenome.Hsapiens.UCSC.hg18_1.3.11 BSgenome_1.10.3\n>>>> [3] Biostrings_2.10.15 ? ? ? ? ? ? ? ? IRanges_1.0.11\n>>>>\n>>>> loaded via a namespace (and not attached):\n>>>> [1] grid_2.8.1 ? ? ? ? lattice_0.17-17 ? ?Matrix_0.999375-20\n>>>>\n>>>>\n>>>>\n>>>> thanks,\n>>>>\n>>>> mattia\n>>>>\n>>>>\n>>>\n>>> _______________________________________________\n>>> Bioconductor mailing list\n>>> Bioconductor at stat.math.ethz.ch\n>>> https://stat.ethz.ch/mailman/listinfo/bioconductor\n>>> Search the archives:\n>>> http://news.gmane.org/gmane.science.biology.informatics.conductor\n>>\n>\n> --\n> Herv? Pag?s\n>\n> Program in Computational Biology\n> Division of Public Health Sciences\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N, M2-B876\n> P.O. Box 19024\n> Seattle, WA 98109-1024\n>\n> E-mail: hpages at fhcrc.org\n> Phone: ?(206) 667-5791\n> Fax: ? ?(206) 667-1319\n>\n> _______________________________________________\n> Bioconductor mailing list\n> Bioconductor at stat.math.ethz.ch\n> https://stat.ethz.ch/mailman/listinfo/bioconductor\n> Search the archives:\n> http://news.gmane.org/gmane.science.biology.informatics.conductor\n>",
+      "body_snippet": "FYI, from the R devel list:\n\nOn Mon, Jun 15, 2009 at 7:38 AM, Peter Dalgaard<P.Dalgaard at biostat.ku.dk> wrote:\n> This is to announce that we plan to release R version 2.9.1 on Friday,\n> June 26, 200",
+      "thread_id": "thread-07378af8cbb5",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-3761a4753e1d",
+      "message_id": "<4A3942C0.4090002@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2009-06-17T19:23:44Z",
+      "subject": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "subject_clean": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "in_reply_to": "<5476BE05-86A6-400F-BD1C-DB383FB6836C@embl.de>",
+      "references": [
+        "<7375841E-788A-4364-8A15-7B203F2A6028@embl.de>",
+        "<4A25711E.90409@fhcrc.org>",
+        "<5476BE05-86A6-400F-BD1C-DB383FB6836C@embl.de>"
+      ],
+      "body_plain": "Hi Nicolas,\n\nAdded to Biostrings 2.13.21.\n\nNote that in order to keep it simple I've modified it so the input must\nbe the sizes of the contigs, not the contigs themselves. That way it\nremains independent on how the contigs are stored and there is no need\nto make it a generic:\n\n   N50 <- function(csizes)\n   {\n     sorted_csizes <- sort(csizes)\n     tmp <- cumsum(sorted_csizes)\n     N50 <- sorted_csizes[which(tmp >= max(tmp)/2)[1]]\n     return(N50)\n   }\n\nCan you please send me the documentation (off-list) with the exact definition\nof the N50 value (or a reference to it) and an example?\n\nThanks!\nH.\n\n\nNicolas Delhomme wrote:\n> Dear Herv?,\n> \n> Sorry for answering so late. Thanks for integrating these methods. I \n> agree that making them endomorphic is probably the best and most \n> intuitive solution.\n> \n> I've been playing with Biostrings lately on \"de-novo\" assembly data and \n> one important value that one wants to calculate is the so-called \"N50\" \n> value. It is the size of the contig, which addition to the cumulative \n> contig size (ordered by decreasing sizes) makes it bigger than half the \n> total size of all contigs. Basically it gives an idea of the contig size \n> distribution within the data (although, one still needs to know the \n> contig size range). I could not find any function doing this, so I have \n> written a function to calculate it and I think it could be an \n> interesting addition to the Biostrings package. Here is the code:\n> \n> setGeneric(\"N50\",function(x) standardGeneric(\"N50\"))\n> setMethod(\"N50\",\"XStringSet\",function(x){\n>   # the order\n>   x.order<-order(width(x),decreasing=TRUE)\n>   width(x[x.order])[which(cumsum(width(x[x.order]))>=sum(width(x)/2))[[1]]]\n>   })\n> \n> An example (using the non endomorphic functions...):\n> \n> my.contig<-DNAStringSet(\n>     sapply(\n>         sample(c(100:10000),10),\n>         function(size){\n>             paste(sample(c(\"A\",\"C\",\"G\",\"T\"),size,replace=TRUE),collapse=\"\")\n>     })\n> )\n> N50(my.contig)\n> \n> \n> If you find it valuable, I could contribute the documentation.\n> \n> Best wishes,\n> \n> ---------------------------------------------------------------\n> Nicolas Delhomme\n> \n> High Throughput Functional Genomics Center\n> \n> European Molecular Biology Laboratory\n> \n> Tel: +49 6221 387 8426\n> Email: nicolas.delhomme at embl.de\n> Meyerhofstrasse 1 - Postfach 10.2209\n> 69102 Heidelberg, Germany\n> ---------------------------------------------------------------\n> \n> P.S.\n> \n>  > sessionInfo()\n> R version 2.9.0 (2009-04-17)\n> i386-apple-darwin8.11.1\n> \n> locale:\n> en_GB.UTF-8/en_GB.UTF-8/C/C/en_GB.UTF-8/en_GB.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] Biostrings_2.12.0 IRanges_1.2.0     Biobase_2.4.0\n> \n> loaded via a namespace (and not attached):\n> [1] tools_2.9.0\n> \n> \n> \n> On 2 Jun 2009, at 20:36, Herv? Pag?s wrote:\n> \n>> Hi Nicolas,\n>>\n>> Nicolas Delhomme wrote:\n>>> Hi all,\n>>> As described in the doc for reverse, complement and \n>>> reverseComplement, x can be a character vector.\n>>> When I tried, it turned out that these functions are not implemented \n>>> for complement and reverseComplement.\n>>> There are of some use for me, so I just wrote them up:\n>>> setMethod(\"complement\", \"character\",\n>>>    function(x, ...){\n>>>            if(length(x)==1) x<-DNAString(x)\n>>>        else x<-DNAStringSet(x)\n>>>        complement(x)\n>>>    }\n>>> )\n>>> setMethod(\"reverseComplement\", \"character\",\n>>>    function(x, ...){\n>>>            if(length(x)==1) x<-DNAString(x)\n>>>            else x<- DNAStringSet(x)\n>>>            reverseComplement(x)\n>>>    }\n>>> )\n>>> I just post them in case there would be of use for someone else. I \n>>> recognize that it does not save much compared to first converting the \n>>> character vector into a DNAString or DNAStringSet. At least, for me, \n>>> it allows to skip some \"input\" evaluation test checking whether I \n>>> start with a character vector or a DNAString.\n>>\n>> Thanks for the feedback!\n>>\n>> The reason these method were not defined is that when the input is \n>> character\n>> it's not clear whether it should be treated as DNA or RNA input. However\n>> choosing to treat it as DNA is probably what the user will want 99% of \n>> the\n>> time so they could indeed be implemented as in your code above. So if the\n>> input contains the \"U\" letter, they will simply fail (without trying to\n>> be smart).\n>>\n>> Note that there is no method for BString/BStringSet objects for \n>> exactly the\n>> same reason.\n>>\n>> A question subsists though: should these methods return a \n>> DNAString/DNAStringSet\n>> object or should the result be turned back into an ordinary character \n>> vector\n>> before it's returned to the user? The latter would make these methods\n>> \"endomorphisms\" (i.e. the output has the same type as the input) which is\n>> more consistent with what the other methods do but I'm not against making\n>> an exception when the input is character (not a big deal as long as \n>> this is\n>> clearly documented). Then if the user really want this result to be \n>> character\n>> then s/he can always apply as.character() to it.\n>>\n>> If there are no objections, I will add these methods to the Biostrings \n>> package.\n>>\n>> Cheers,\n>> H.\n>>\n>>> Best,\n>>> ---------------------------------------------------------------\n>>> Nicolas Delhomme\n>>> High Throughput Functional Genomics Center\n>>> European Molecular Biology Laboratory\n>>> Tel: +49 6221 387 8426\n>>> Email: nicolas.delhomme at embl.de\n>>> Meyerhofstrasse 1 - Postfach 10.2209\n>>> 69102 Heidelberg, Germany\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>> -- \n>> Herv? Pag?s\n>>\n>> Program in Computational Biology\n>> Division of Public Health Sciences\n>> Fred Hutchinson Cancer Research Center\n>> 1100 Fairview Ave. N, M2-B876\n>> P.O. Box 19024\n>> Seattle, WA 98109-1024\n>>\n>> E-mail: hpages at fhcrc.org\n>> Phone:  (206) 667-5791\n>> Fax:    (206) 667-1319\n> \n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Nicolas,\n\nAdded to Biostrings 2.13.21.\n\nNote that in order to keep it simple I've modified it so the input must\nbe the sizes of the contigs, not the contigs themselves. That way it\nremains independ",
+      "thread_id": "thread-584e3da63534",
+      "thread_depth": 3,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-997d1c720350",
+      "message_id": "<91063BD4A9EA054D8452E3C4E6F516F1225B1C@EXCHV2.lj.ad.scripps.edu>",
+      "from_name": "Lana Schaffer",
+      "from_email_hash": "6d24a008ccd1e4d99a6930143aef8613b93ac69eeb8c0283e668538eab47b3b3",
+      "date": "2009-06-23T17:34:14Z",
+      "subject": "[Bioc-sig-seq] removing variable length 3' adaptor sequence",
+      "subject_clean": "[Bioc-sig-seq] removing variable length 3' adaptor sequence",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\nWe have Illumina sequencing data for small RNA with\nvariable length adapter sequence on the 3' end of the reads.\nHow do you recommend removing the variable length\nadaptor sequences from the reads?\n\nLana Schaffer\nBiostatistics/Informatics\nThe Scripps Research Institute\nDNA Array Core Facility\nLa Jolla, CA 92037\n(858) 784-2263\n(858) 784-2994\nschaffer at scripps.edu",
+      "body_snippet": "Hi,\nWe have Illumina sequencing data for small RNA with\nvariable length adapter sequence on the 3' end of the reads.\nHow do you recommend removing the variable length\nadaptor sequences from the reads?",
+      "thread_id": "thread-997d1c720350",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-1eda97b15e1b",
+      "message_id": "<4A411333.6010406@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-06-23T17:38:59Z",
+      "subject": "[Bioc-sig-seq] removing variable length 3' adaptor sequence",
+      "subject_clean": "[Bioc-sig-seq] removing variable length 3' adaptor sequence",
+      "in_reply_to": "<91063BD4A9EA054D8452E3C4E6F516F1225B1C@EXCHV2.lj.ad.scripps.edu>",
+      "references": [
+        "<91063BD4A9EA054D8452E3C4E6F516F1225B1C@EXCHV2.lj.ad.scripps.edu>"
+      ],
+      "body_plain": "Lana Schaffer wrote:\n> Hi,\n> We have Illumina sequencing data for small RNA with\n> variable length adapter sequence on the 3' end of the reads.\n> How do you recommend removing the variable length\n> adaptor sequences from the reads?\n\nBiostrings::trimLRPatterns would be a good place to start.\n\nMartin\n\n> \n> Lana Schaffer\n> Biostatistics/Informatics\n> The Scripps Research Institute\n> DNA Array Core Facility\n> La Jolla, CA 92037\n> (858) 784-2263\n> (858) 784-2994\n> schaffer at scripps.edu \n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Lana Schaffer wrote:\n> Hi,\n> We have Illumina sequencing data for small RNA with\n> variable length adapter sequence on the 3' end of the reads.\n> How do you recommend removing the variable length\n> ad",
+      "thread_id": "thread-997d1c720350",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-223a758b6fc6",
+      "message_id": "<1C08489C-8DB9-4BF9-88CF-7E3C493791C2@ebc.uu.se>",
+      "from_name": "Anastasia Gioti",
+      "from_email_hash": "71053c4849c133d0a783d62b51ab352a57bd62116d23cb56f33496b3a4f907aa",
+      "date": "2009-06-24T18:37:33Z",
+      "subject": "[Bioc-sig-seq] Size of Illumina fastaq files to be read in shortReads",
+      "subject_clean": "[Bioc-sig-seq] Size of Illumina fastaq files to be read in shortReads",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear list,\nI just started playing with shortReads package in order to read fastaq  \nfiles from the illumina analyzer, and i have some issues.\nThe most important is the fact that the readFastaq crashes because of  \nmemory I suppose when i try to read files >1GB. Ex:\nfqpattern='s_3_1_sequence.txt'\n > afrN=file.path(analysisPath(sp), fqpattern)\n > afrN\n[1] \"/Users/nat/Data/Illumina/Solexa_disk_modforR/Data/ \nHJSN_FC1_280409_3//Data/C1-C55Firecrest/Bustard1.3.2_06-05-2009_rdixon/ \nGERALD_06-05-2009_rdixon/s_3_1_sequence.txt\"\n > afrNq=readFastq(sp, fqpattern)\nError: cannot allocate vector of size 27.0 Mb\nR(1337,0xa07a2720) malloc: *** mmap(size=28340224) failed (error  \ncode=12)\n*** error: can't allocate region\n*** set a breakpoint in malloc_error_break to debug\nR(1337,0xa07a2720) malloc: *** mmap(size=28340224) failed (error  \ncode=12)\n*** error: can't allocate region\n*** set a breakpoint in malloc_error_break to debug\n\nI only succeeded in reading a file < 1GB, but i suppose that the  \nshortReads class is designed for big files ;-).\nAnother minor issue is the names of the folders in the Illumina output  \ndirectory that I need to designate in exptPath so that  \np=SolexaPath(exptPath) is correctly parsed. I finally managed to find  \nthe logic behind this, but I would like to confirm that the path  \nabsolutely needs to contain this string: Data/C1- \nC(readlength)Firecrest. At least in my hands it would not work with  \nother names (which are currently produced by illumina, for ex IPAR  \ninstead of Firecrest). Is that correct? Maybe this parser is hard  \ncoded for previous versions of Illumina outputs? In that case is there  \nany plan to update it? Although this is not very important\n\nI use R2.8 on a Leopard with 8GB of memory, so I think that my problem  \nwith fastq does not come from my computer...\nAny help /suggestions are welcome!\nThank you,\n\nAnastasia Gioti\nPost-Doc, Evolutionary Biology Department\nUpssala University\nNorbyvagen 18D\nSE-752 36  UPPSALA\nanastasia.gioti at ebc.uu.se\nTel: +46-18-471 6465\nFax: +46-18-471 6310",
+      "body_snippet": "Dear list,\nI just started playing with shortReads package in order to read fastaq  \nfiles from the illumina analyzer, and i have some issues.\nThe most important is the fact that the readFastaq crashes",
+      "thread_id": "thread-223a758b6fc6",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-9894a244afd7",
+      "message_id": "<4A4278D1.2000109@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-06-24T19:04:49Z",
+      "subject": "[Bioc-sig-seq] Size of Illumina fastaq files to be read in\tshortReads",
+      "subject_clean": "[Bioc-sig-seq] Size of Illumina fastaq files to be read in\tshortReads",
+      "in_reply_to": "<1C08489C-8DB9-4BF9-88CF-7E3C493791C2@ebc.uu.se>",
+      "references": [
+        "<1C08489C-8DB9-4BF9-88CF-7E3C493791C2@ebc.uu.se>"
+      ],
+      "body_plain": "Hi Anastasia --\n\nAnastasia Gioti wrote:\n> Dear list,\n> I just started playing with shortReads package in order to read fastaq\n> files from the illumina analyzer, and i have some issues.\n> The most important is the fact that the readFastaq crashes because of\n> memory I suppose when i try to read files >1GB. Ex:\n> fqpattern='s_3_1_sequence.txt'\n\nIt is worth being more careful in specifying the pattern, e.g., as\n'^s_3_1_sequence.txt$', otherwise the pattern also matches\ns_3_1_sequence.txt.gz. Using list.files(dirPath, pattern) is a good way\nto evaluate which files will be parsed.\n\n>> afrN=file.path(analysisPath(sp), fqpattern)\n>> afrN\n> [1]\n> \"/Users/nat/Data/Illumina/Solexa_disk_modforR/Data/HJSN_FC1_280409_3//Data/C1-C55Firecrest/Bustard1.3.2_06-05-2009_rdixon/GERALD_06-05-2009_rdixon/s_3_1_sequence.txt\"\n> \n>> afrNq=readFastq(sp, fqpattern)\n> Error: cannot allocate vector of size 27.0 Mb\n> R(1337,0xa07a2720) malloc: *** mmap(size=28340224) failed (error code=12)\n> *** error: can't allocate region\n> *** set a breakpoint in malloc_error_break to debug\n> R(1337,0xa07a2720) malloc: *** mmap(size=28340224) failed (error code=12)\n> *** error: can't allocate region\n> *** set a breakpoint in malloc_error_break to debug\n> \n> I only succeeded in reading a file < 1GB, but i suppose that the\n> shortReads class is designed for big files ;-).\n\nAll the data ends up in memory, so there are definite limits. readFastq\nhas an argument withIds (see ?readFastq) that, if set to FALSE, will not\nread the identifier strings and making the data more manageable.\n\nThere is some effort under way to make the parsers more space-efficient,\nbut you'll only see this in the development version of the package,\nwhich requires using the development version of R (until the next\nBioconductor release, in the fall). Usually R-devel is fairly stable,\nbut both it and the Bioconductor development packages can go through\nperiods of reduced functionality.\n\n> Another minor issue is the names of the folders in the Illumina output\n> directory that I need to designate in exptPath so that\n> p=SolexaPath(exptPath) is correctly parsed. I finally managed to find\n> the logic behind this, but I would like to confirm that the path\n> absolutely needs to contain this string: Data/C1-C(readlength)Firecrest.\n\nSolexaPath has additional arguments for the different components, so you\ncan provide those directly to over-ride the defaults. Also SolexaPath\nwas meant as a convenient way of navigating the folder hierarchy,  so if\nit's getting in the way then just provide regular directory paths to the\nI/O functions.\n\n> At least in my hands it would not work with other names (which are\n> currently produced by illumina, for ex IPAR instead of Firecrest). Is\n\nShortRead tries to keep up with the major file formats; Parsing\nIpar-specific files was introduced into the development branch in March;\nit is in the released version of ShortRead, available with R-2.9.\n\n> that correct? Maybe this parser is hard coded for previous versions of\n> Illumina outputs? In that case is there any plan to update it? Although\n> this is not very important\n> \n> I use R2.8 on a Leopard with 8GB of memory, so I think that my problem\n> with fastq does not come from my computer...\n> Any help /suggestions are welcome!\n> Thank you,\n> \n> Anastasia Gioti\n> Post-Doc, Evolutionary Biology Department\n> Upssala University\n> Norbyvagen 18D\n> SE-752 36  UPPSALA\n> anastasia.gioti at ebc.uu.se\n> Tel: +46-18-471 6465\n> Fax: +46-18-471 6310\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Anastasia --\n\nAnastasia Gioti wrote:\n> Dear list,\n> I just started playing with shortReads package in order to read fastaq\n> files from the illumina analyzer, and i have some issues.\n> The most imp",
+      "thread_id": "thread-223a758b6fc6",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-74a325e9befe",
+      "message_id": "<9523ADD1-E504-4BF6-ABB5-B447EF430A77@stat.berkeley.edu>",
+      "from_name": "Kasper Daniel Hansen",
+      "from_email_hash": "9a03c24fb214ead4f1fb06e73398fa7d78699f400998d0e2afa9e2804a617dbc",
+      "date": "2009-06-25T06:40:47Z",
+      "subject": "[Bioc-sig-seq] Size of Illumina fastaq files to be read in shortReads",
+      "subject_clean": "[Bioc-sig-seq] Size of Illumina fastaq files to be read in shortReads",
+      "in_reply_to": "<1C08489C-8DB9-4BF9-88CF-7E3C493791C2@ebc.uu.se>",
+      "references": [
+        "<1C08489C-8DB9-4BF9-88CF-7E3C493791C2@ebc.uu.se>"
+      ],
+      "body_plain": "Note that you are probably not using a 64bit version of R, so you  \ncannot utilize all of your 8MB. Check by looking at .Machine \n$sizeof.pointer\n\nAs a minimum upgrade to R-2.9, if you want to use bioconductor for  \nshort reads.\n\nKasper\n\nOn Jun 24, 2009, at 11:37 , Anastasia Gioti wrote:\n\n> Dear list,\n> I just started playing with shortReads package in order to read  \n> fastaq files from the illumina analyzer, and i have some issues.\n> The most important is the fact that the readFastaq crashes because  \n> of memory I suppose when i try to read files >1GB. Ex:\n> fqpattern='s_3_1_sequence.txt'\n> > afrN=file.path(analysisPath(sp), fqpattern)\n> > afrN\n> [1] \"/Users/nat/Data/Illumina/Solexa_disk_modforR/Data/ \n> HJSN_FC1_280409_3//Data/C1-C55Firecrest/ \n> Bustard1.3.2_06-05-2009_rdixon/GERALD_06-05-2009_rdixon/ \n> s_3_1_sequence.txt\"\n> > afrNq=readFastq(sp, fqpattern)\n> Error: cannot allocate vector of size 27.0 Mb\n> R(1337,0xa07a2720) malloc: *** mmap(size=28340224) failed (error  \n> code=12)\n> *** error: can't allocate region\n> *** set a breakpoint in malloc_error_break to debug\n> R(1337,0xa07a2720) malloc: *** mmap(size=28340224) failed (error  \n> code=12)\n> *** error: can't allocate region\n> *** set a breakpoint in malloc_error_break to debug\n>\n> I only succeeded in reading a file < 1GB, but i suppose that the  \n> shortReads class is designed for big files ;-).\n> Another minor issue is the names of the folders in the Illumina  \n> output directory that I need to designate in exptPath so that  \n> p=SolexaPath(exptPath) is correctly parsed. I finally managed to  \n> find the logic behind this, but I would like to confirm that the  \n> path absolutely needs to contain this string: Data/C1- \n> C(readlength)Firecrest. At least in my hands it would not work with  \n> other names (which are currently produced by illumina, for ex IPAR  \n> instead of Firecrest). Is that correct? Maybe this parser is hard  \n> coded for previous versions of Illumina outputs? In that case is  \n> there any plan to update it? Although this is not very important\n>\n> I use R2.8 on a Leopard with 8GB of memory, so I think that my  \n> problem with fastq does not come from my computer...\n> Any help /suggestions are welcome!\n> Thank you,\n>\n> Anastasia Gioti\n> Post-Doc, Evolutionary Biology Department\n> Upssala University\n> Norbyvagen 18D\n> SE-752 36  UPPSALA\n> anastasia.gioti at ebc.uu.se\n> Tel: +46-18-471 6465\n> Fax: +46-18-471 6310\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Note that you are probably not using a 64bit version of R, so you  \ncannot utilize all of your 8MB. Check by looking at .Machine \n$sizeof.pointer\n\nAs a minimum upgrade to R-2.9, if you want to use bio",
+      "thread_id": "thread-223a758b6fc6",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-4aa6ece81280",
+      "message_id": "<4A44A3AB.5070004@ebi.ac.uk>",
+      "from_name": "Simon Anders",
+      "from_email_hash": "cb9ed5459dcad29e255922ad48d9608b23c8cda027eda1f5406b5cfbc347a7f9",
+      "date": "2009-06-26T10:32:11Z",
+      "subject": "[Bioc-sig-seq] Rle vs RangedData",
+      "subject_clean": "[Bioc-sig-seq] Rle vs RangedData",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Michael and Patrick\n\nAs you may have noticed, my HilbertVis package requires the input data \nto be presented as ordinary vector. Obviously, it would be much better \nfor performance to use a run-length-encoded vector (and the stand-alone \nversion of HilbertVis already does that).\n\nSo, I wanted to add the functionality to use either Rle objects or \nRangedData objects as input to the hilbertDisplay function and got \nconfused about the two classes.\n\nRle seems to be simple and lightweight, but I cannot see how I could \nperform fast random access. If I want to access an element of the vector \nwith a given position somewhere in the middle, I suppose I cannot avoid \nhaving to add up all the lengths in order to find the right value. Is \nthere any reason why you store lengths of the constant intervals in the \nRle object rather than their start points? In the latter case one could \nachieve random access in time O(log n) as opposed to O(n). Or are the \nstart points cached somewhere internally?\n\nRangedData does seem to store the data in the start/value scheme that \nseems more advantageous to me. However, it has a rather heavyweight slot \nstructure. Do I understand correctly that the canonical way to get the \nstart and data vectors from a RangedData object 'rd' would be \n'start(rd)' and 'rd$score' (or maybe better 'rd[[1]]')?\n\nAs the most likely input for hilbertDisplay is the output of the \n'coverage' function, which is an Rle object, it seems to make sense to \nchange hilbertDisplay to accept this. However, for performance reasons, \nI then better convert to RangedData.\n\nWould you agree?\n\nCan you shed some lights about what you intended on when to use \"Rle\" \nand when \"RangedData\"?\n\nThanks.\n\n   Simon\n\n\n+---\n| Dr. Simon Anders, Dipl. Phys.\n| European Bioinformatics Institute (EMBL-EBI)\n| Hinxton, Cambridgeshire, UK\n| office phone +44-1223-492680, mobile phone +44-7505-841692\n| preferred (permanent) e-mail: sanders at fs.tum.de",
+      "body_snippet": "Dear Michael and Patrick\n\nAs you may have noticed, my HilbertVis package requires the input data \nto be presented as ordinary vector. Obviously, it would be much better \nfor performance to use a run-l",
+      "thread_id": "thread-4aa6ece81280",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-b61d868134a9",
+      "message_id": "<509e0620906260604w6c5f45d7gb58f6be305616a97@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-06-26T13:04:31Z",
+      "subject": "[Bioc-sig-seq] Rle vs RangedData",
+      "subject_clean": "[Bioc-sig-seq] Rle vs RangedData",
+      "in_reply_to": "<4A44A3AB.5070004@ebi.ac.uk>",
+      "references": [
+        "<4A44A3AB.5070004@ebi.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090626/128089d7/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090626/128089d7/attachment.pl>",
+      "thread_id": "thread-4aa6ece81280",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-b959e50400d4",
+      "message_id": "<4A44C8FA.4060706@ebi.ac.uk>",
+      "from_name": "Simon Anders",
+      "from_email_hash": "cb9ed5459dcad29e255922ad48d9608b23c8cda027eda1f5406b5cfbc347a7f9",
+      "date": "2009-06-26T13:11:22Z",
+      "subject": "[Bioc-sig-seq] Rle vs RangedData",
+      "subject_clean": "[Bioc-sig-seq] Rle vs RangedData",
+      "in_reply_to": "<509e0620906260604w6c5f45d7gb58f6be305616a97@mail.gmail.com>",
+      "references": [
+        "<4A44A3AB.5070004@ebi.ac.uk>",
+        "<509e0620906260604w6c5f45d7gb58f6be305616a97@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Michael\n\nMichael Lawrence wrote:\n> An Rle object, even if it only stores the widths, would be better than \n> RangedData. Just getting the starts out of a RangedData is an O(n) \n> operation, and there is in general a lot of overhead for functionality \n> that is not useful in your case.\n\nThanks.\n\nBut wait a second: Isn't there a slot \"starts\" in a RangedData object?\nSo why would it be O(n) if this information is already there?\n\nMy concern was that getting the starts (or even just getting a value at\na given position) from an Rle object would be O(n) because the Rle\nobject does not contain the starts, only the lengths of the intervals.\n\nSo, what information is now stored where?\n\nCheers\n   Simon",
+      "body_snippet": "Hi Michael\n\nMichael Lawrence wrote:\n> An Rle object, even if it only stores the widths, would be better than \n> RangedData. Just getting the starts out of a RangedData is an O(n) \n> operation, and the",
+      "thread_id": "thread-4aa6ece81280",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-e4ec3dea0e8f",
+      "message_id": "<4A473913.3060700@embl.de>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "d1a63444f5f832df785367f2b3a99cf6f993043c1f7d4ce60ed61efc9547a2b1",
+      "date": "2009-06-28T09:34:11Z",
+      "subject": "[Bioc-sig-seq] Rle vs RangedData",
+      "subject_clean": "[Bioc-sig-seq] Rle vs RangedData",
+      "in_reply_to": "<4A44C8FA.4060706@ebi.ac.uk>",
+      "references": [
+        "<4A44A3AB.5070004@ebi.ac.uk>",
+        "<509e0620906260604w6c5f45d7gb58f6be305616a97@mail.gmail.com>",
+        "<4A44C8FA.4060706@ebi.ac.uk>"
+      ],
+      "body_plain": "Hi Simon\n\njust to be sure - what is n? Number of segments, or length of the \n(expanded) sequence?\n\nAnd rather than looking at the time needed to access a single value at a \ncertain position, shouldn't you be looking at the time needed to access \nthe values on a complete equi-spaced grid from begin to end of the sequence?\n\n\tbw Wolfgang\n\n\nSimon Anders ha scritto:\n> Hi Michael\n> \n> Michael Lawrence wrote:\n>> An Rle object, even if it only stores the widths, would be better than \n>> RangedData. Just getting the starts out of a RangedData is an O(n) \n>> operation, and there is in general a lot of overhead for functionality \n>> that is not useful in your case.\n> \n> Thanks.\n> \n> But wait a second: Isn't there a slot \"starts\" in a RangedData object?\n> So why would it be O(n) if this information is already there?\n> \n> My concern was that getting the starts (or even just getting a value at\n> a given position) from an Rle object would be O(n) because the Rle\n> object does not contain the starts, only the lengths of the intervals.\n> \n> So, what information is now stored where?\n> \n> Cheers\n>   Simon\n\nBest wishes\n      Wolfgang\n\n------------------------------------------------\nWolfgang Huber, EMBL, http://www.ebi.ac.uk/huber",
+      "body_snippet": "Hi Simon\n\njust to be sure - what is n? Number of segments, or length of the \n(expanded) sequence?\n\nAnd rather than looking at the time needed to access a single value at a \ncertain position, shouldn't",
+      "thread_id": "thread-4aa6ece81280",
+      "thread_depth": 3,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-28d00b624f07",
+      "message_id": "<4A4906B8.5030608@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2009-06-29T18:23:52Z",
+      "subject": "[Bioc-sig-seq] Rle vs RangedData",
+      "subject_clean": "[Bioc-sig-seq] Rle vs RangedData",
+      "in_reply_to": "<4A473913.3060700@embl.de>",
+      "references": [
+        "<4A44A3AB.5070004@ebi.ac.uk>",
+        "<509e0620906260604w6c5f45d7gb58f6be305616a97@mail.gmail.com>",
+        "<4A44C8FA.4060706@ebi.ac.uk>",
+        "<4A473913.3060700@embl.de>"
+      ],
+      "body_plain": "Simon,\nCould you provide timings for Rle element extraction because I have been \ntrying to provide speedups for bottlenecks. If the need is to perform \nmultiple element extraction, as Wolfgang suggests, then \"[\" for Rle \nshould be performant since it only calculates the start values once:\n\n## from the internals of \"[\" for Rle\noutput <- runValue(x)[findInterval(i, start(x))]\nif (!drop) output <- Rle(output)\n\n\n\nPatrick\n\n\n\nWolfgang Huber wrote:\n>\n> Hi Simon\n>\n> just to be sure - what is n? Number of segments, or length of the \n> (expanded) sequence?\n>\n> And rather than looking at the time needed to access a single value at \n> a certain position, shouldn't you be looking at the time needed to \n> access the values on a complete equi-spaced grid from begin to end of \n> the sequence?\n>\n>     bw Wolfgang\n>\n>\n> Simon Anders ha scritto:\n>> Hi Michael\n>>\n>> Michael Lawrence wrote:\n>>> An Rle object, even if it only stores the widths, would be better \n>>> than RangedData. Just getting the starts out of a RangedData is an \n>>> O(n) operation, and there is in general a lot of overhead for \n>>> functionality that is not useful in your case.\n>>\n>> Thanks.\n>>\n>> But wait a second: Isn't there a slot \"starts\" in a RangedData object?\n>> So why would it be O(n) if this information is already there?\n>>\n>> My concern was that getting the starts (or even just getting a value at\n>> a given position) from an Rle object would be O(n) because the Rle\n>> object does not contain the starts, only the lengths of the intervals.\n>>\n>> So, what information is now stored where?\n>>\n>> Cheers\n>>   Simon\n>\n> Best wishes\n>      Wolfgang\n>\n> ------------------------------------------------\n> Wolfgang Huber, EMBL, http://www.ebi.ac.uk/huber",
+      "body_snippet": "Simon,\nCould you provide timings for Rle element extraction because I have been \ntrying to provide speedups for bottlenecks. If the need is to perform \nmultiple element extraction, as Wolfgang suggest",
+      "thread_id": "thread-4aa6ece81280",
+      "thread_depth": 4,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-be9f907b46db",
+      "message_id": "<200906301600324531049@gmail.com>",
+      "from_name": "xuxiang086",
+      "from_email_hash": "c614fcb37f5ea2a5f15923c6b76f9598d23ec01d1ccd73928777e7cf2632dedc",
+      "date": "2009-06-30T08:00:35Z",
+      "subject": "[Bioc-sig-seq] Protocol for analyzing digital expression profile data",
+      "subject_clean": "[Bioc-sig-seq] Protocol for analyzing digital expression profile data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4f4363a3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4f4363a3/attachment.pl>",
+      "thread_id": "thread-be9f907b46db",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-dee66b952cb7",
+      "message_id": "<4A4A2FF5.2000001@ebi.ac.uk>",
+      "from_name": "Simon Anders",
+      "from_email_hash": "cb9ed5459dcad29e255922ad48d9608b23c8cda027eda1f5406b5cfbc347a7f9",
+      "date": "2009-06-30T15:32:05Z",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "subject_clean": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi Michael et al.\n\nAssume I have a list of AlignedRead objects, with data from several \nSolexa lanes. I would like to get a coverage vector over all the lanes.\n\nAs 'coverage' takes only one AlignedRead object, I have two possibilities:\n\n(a) Concatenate the AlignedRead objects to a single big one. As far as I \ncan see, 'rbind2' is not implemented for AlignedRead, and 'append' \nseemed very slow to me. It is probably not posible to do this without \nmaking a copy of all the data in memory.\n\n(b) Calculate the coverage for each AlignedRead object separately and \nadd up the GenomeData objects. The `+` operator is not supported for \nGenomeData objects but it is for Rle objects. So I need to loop through \nthe chromosomes.\n\nI've now written this short function for the purpose:\n\nsumUpCoverage <- function( lanes, seqLens )\n{\n    res <- NULL\n    for( i in 1:length(lanes) ) {\n       cvg <- coverage( lanes, width=seqLens )\n       if( is.null( res ) )\n          res <- cvg\n       else {\n          stopifnot( all( names(res) == names(cvg) ) )\n          for( seq in names(res) )\n             res[[seq]] <- res[[seq]] + cvg[[seq]]\n       }\n    }\n    res\n}\n\nThis does not seem very elegant (and it takes 9 minutes, which, however, \nmight be ok for 29 mio reads). Any idea how to do it better? (The use of \n'for' instead of 'sapply' is on purpose: I hope to save memory that way.)\n\nAnd would it make sense to overload the `+` operator for GenomeData \nobjects? If so, could I suggest adding this to BSgenome?\n\nCheers\n   Simon",
+      "body_snippet": "Hi Michael et al.\n\nAssume I have a list of AlignedRead objects, with data from several \nSolexa lanes. I would like to get a coverage vector over all the lanes.\n\nAs 'coverage' takes only one AlignedRea",
+      "thread_id": "thread-dee66b952cb7",
+      "thread_depth": 0,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-3873a0c3f9f4",
+      "message_id": "<4A4A37DE.7050002@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2009-06-30T16:05:50Z",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "subject_clean": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "in_reply_to": "<4A4A2FF5.2000001@ebi.ac.uk>",
+      "references": [
+        "<4A4A2FF5.2000001@ebi.ac.uk>"
+      ],
+      "body_plain": "Simon,\nCould you provide some profiling information to show where the \nbottlenecks are? I am also wondering if I should be building up the \nfunctionality for RleList, which could have `+` and other Math \noperations. We have a lot of classes in the Sequence space and it is not \nclear yet which classes are going to be part of the winning solution.\n\n\n\nPatrick\n\n\n\nSimon Anders wrote:\n> Hi Michael et al.\n>\n> Assume I have a list of AlignedRead objects, with data from several \n> Solexa lanes. I would like to get a coverage vector over all the lanes.\n>\n> As 'coverage' takes only one AlignedRead object, I have two \n> possibilities:\n>\n> (a) Concatenate the AlignedRead objects to a single big one. As far as \n> I can see, 'rbind2' is not implemented for AlignedRead, and 'append' \n> seemed very slow to me. It is probably not posible to do this without \n> making a copy of all the data in memory.\n>\n> (b) Calculate the coverage for each AlignedRead object separately and \n> add up the GenomeData objects. The `+` operator is not supported for \n> GenomeData objects but it is for Rle objects. So I need to loop \n> through the chromosomes.\n>\n> I've now written this short function for the purpose:\n>\n> sumUpCoverage <- function( lanes, seqLens )\n> {\n>    res <- NULL\n>    for( i in 1:length(lanes) ) {\n>       cvg <- coverage( lanes, width=seqLens )\n>       if( is.null( res ) )\n>          res <- cvg\n>       else {\n>          stopifnot( all( names(res) == names(cvg) ) )\n>          for( seq in names(res) )\n>             res[[seq]] <- res[[seq]] + cvg[[seq]]\n>       }\n>    }\n>    res\n> }\n>\n> This does not seem very elegant (and it takes 9 minutes, which, \n> however, might be ok for 29 mio reads). Any idea how to do it better? \n> (The use of 'for' instead of 'sapply' is on purpose: I hope to save \n> memory that way.)\n>\n> And would it make sense to overload the `+` operator for GenomeData \n> objects? If so, could I suggest adding this to BSgenome?\n>\n> Cheers\n>   Simon\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Simon,\nCould you provide some profiling information to show where the \nbottlenecks are? I am also wondering if I should be building up the \nfunctionality for RleList, which could have `+` and other Ma",
+      "thread_id": "thread-dee66b952cb7",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-123852cf8459",
+      "message_id": "<509e0620906300912h3dc6d6edg735d1c0f02490ed6@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-06-30T16:12:16Z",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "subject_clean": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "in_reply_to": "<4A4A2FF5.2000001@ebi.ac.uk>",
+      "references": [
+        "<4A4A2FF5.2000001@ebi.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4c09d595/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4c09d595/attachment.pl>",
+      "thread_id": "thread-dee66b952cb7",
+      "thread_depth": 1,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-c8ef7b6639fb",
+      "message_id": "<4A4A422C.7000302@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-06-30T16:49:48Z",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several\tlanes",
+      "subject_clean": "[Bioc-sig-seq] `+` for GenomeData and coverage from several\tlanes",
+      "in_reply_to": "<509e0620906300912h3dc6d6edg735d1c0f02490ed6@mail.gmail.com>",
+      "references": [
+        "<4A4A2FF5.2000001@ebi.ac.uk>",
+        "<509e0620906300912h3dc6d6edg735d1c0f02490ed6@mail.gmail.com>"
+      ],
+      "body_plain": "Michael Lawrence wrote:\n> On Tue, Jun 30, 2009 at 8:32 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n> \n>> Hi Michael et al.\n>>\n>> Assume I have a list of AlignedRead objects, with data from several Solexa\n>> lanes. I would like to get a coverage vector over all the lanes.\n>>\n>> As 'coverage' takes only one AlignedRead object, I have two possibilities:\n>>\n>> (a) Concatenate the AlignedRead objects to a single big one. As far as I\n>> can see, 'rbind2' is not implemented for AlignedRead, and 'append' seemed\n>> very slow to me. It is probably not posible to do this without making a copy\n>> of all the data in memory.\n>>\n> \n> I think this is what combineLanes() in the chipseq package does, and it\n> seems to work fine for us. Note that it takes a GenomeDataList, rather than\n> a list of AlignedReads, but ShortRead makes it easy to get a GenomeDataList,\n> if I remember right.\n\nGenomeData is under-specified in terms of its content, and combineLanes\nis I think expecting distinct plus and minus strand information. This\nalso makes it difficult to implement a '+' on GenomeData.\n\nI have a \"Reduce\"-like function I'll add to BSgenome later today.\n\nMartin\n\n> Of course, optimization is welcome.\n> \n> \n>> (b) Calculate the coverage for each AlignedRead object separately and add\n>> up the GenomeData objects. The `+` operator is not supported for GenomeData\n>> objects but it is for Rle objects. So I need to loop through the\n>> chromosomes.\n>>\n> \n>> I've now written this short function for the purpose:\n>>\n>> sumUpCoverage <- function( lanes, seqLens )\n>> {\n>>   res <- NULL\n>>   for( i in 1:length(lanes) ) {\n>>      cvg <- coverage( lanes, width=seqLens )\n>>      if( is.null( res ) )\n>>         res <- cvg\n>>      else {\n>>         stopifnot( all( names(res) == names(cvg) ) )\n>>         for( seq in names(res) )\n>>            res[[seq]] <- res[[seq]] + cvg[[seq]]\n>>      }\n>>   }\n>>   res\n>> }\n>>\n>> This does not seem very elegant (and it takes 9 minutes, which, however,\n>> might be ok for 29 mio reads). Any idea how to do it better? (The use of\n>> 'for' instead of 'sapply' is on purpose: I hope to save memory that way.)\n>>\n>> And would it make sense to overload the `+` operator for GenomeData\n>> objects? If so, could I suggest adding this to BSgenome?\n>>\n>> Cheers\n>>  Simon\n>>\n>>\n>>\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Michael Lawrence wrote:\n> On Tue, Jun 30, 2009 at 8:32 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n> \n>> Hi Michael et al.\n>>\n>> Assume I have a list of AlignedRead objects, with data from several S",
+      "thread_id": "thread-dee66b952cb7",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-301ab45bed4f",
+      "message_id": "<4A4A504A.3070605@ebi.ac.uk>",
+      "from_name": "Simon Anders",
+      "from_email_hash": "cb9ed5459dcad29e255922ad48d9608b23c8cda027eda1f5406b5cfbc347a7f9",
+      "date": "2009-06-30T17:50:02Z",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "subject_clean": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "in_reply_to": "<4A4A37DE.7050002@fhcrc.org>",
+      "references": [
+        "<4A4A2FF5.2000001@ebi.ac.uk>",
+        "<4A4A37DE.7050002@fhcrc.org>"
+      ],
+      "body_plain": "Hi\n\nPatrick Aboyoun wrote:\n> Simon,\n> Could you provide some profiling information to show where the \n> bottlenecks are? \n\nI don't know if there is really a clear bottleneck. 9 minutes to \ncalculate the coverage of 29 mio reads is 20 seconds per mio reads; this \nis probably what the coverage function always needed. So, in the code \ngiven in my mail, the summing up of the GenomeData objects is just \nawkward but not a performance penalty.\n\n > I am also wondering if I should be building up the\n > functionality for RleList, which could have `+` and other Math\n > operations. We have a lot of classes in the Sequence space and it is\n > not clear yet which classes are going to be part of the winning\n > solution.\n\nI'd say that this is the main issue. I discover new classes every day. \nYou just mentioned 'RleList', Michael mentions 'GenomeDataList', and \nMartin has another way to go again.\n\nI'm sorry to say that, at least for me, this has become hopelessly \nconfusing, and I imagine that many other users fell the same. You write \nthat \"it is not clear yet which classes are going to be part of the \nwinning solution\" and I completely agree that it makes more sense to \nhave a few good classes rather than adding functionality to any class on \ndemand. So, maybe don't bother with a `+` operation for now.\n\nBest regards\n   Simon",
+      "body_snippet": "Hi\n\nPatrick Aboyoun wrote:\n> Simon,\n> Could you provide some profiling information to show where the \n> bottlenecks are? \n\nI don't know if there is really a clear bottleneck. 9 minutes to \ncalculate t",
+      "thread_id": "thread-dee66b952cb7",
+      "thread_depth": 2,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-43fd211b6e1a",
+      "message_id": "<20090630200121.3leof0abk0c4ckk8@webmail.fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2009-07-01T03:01:21Z",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several\tlanes",
+      "subject_clean": "[Bioc-sig-seq] `+` for GenomeData and coverage from several\tlanes",
+      "in_reply_to": "<4A4A504A.3070605@ebi.ac.uk>",
+      "references": [
+        "<4A4A2FF5.2000001@ebi.ac.uk>",
+        "<4A4A37DE.7050002@fhcrc.org>",
+        "<4A4A504A.3070605@ebi.ac.uk>"
+      ],
+      "body_plain": "Simon,\nI checked in a speedup for coverage calculations to the IRanges  \npackage. It should be about 30 - 50% faster now. On my laptop, it took  \naround 50 seconds to calculate the coverage of 29 million ranges over  \na 1e8 sequence domain on my laptop. Under the old coverage code, this  \ncalculation took about 100 seconds.\n\n> suppressMessages(library(IRanges))\n> N <- 29e6\n> set.seed(0)\n> x <- IRanges(start=sample(1e8 - 36, N, replace = TRUE), width = 36)\n> system.time(coverage(x, width = 1e8))\n    user  system elapsed\n  49.747   4.262  54.305\n> sessionInfo()\nR version 2.10.0 Under development (unstable) (2009-06-28 r48863)\ni386-apple-darwin9.7.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] IRanges_1.3.28\n\n\n\nPatrick\n\n\nQuoting Simon Anders <anders at ebi.ac.uk>:\n\n> Hi\n>\n> Patrick Aboyoun wrote:\n>> Simon,\n>> Could you provide some profiling information to show where the   \n>> bottlenecks are?\n>\n> I don't know if there is really a clear bottleneck. 9 minutes to\n> calculate the coverage of 29 mio reads is 20 seconds per mio reads;\n> this is probably what the coverage function always needed. So, in the\n> code given in my mail, the summing up of the GenomeData objects is just\n> awkward but not a performance penalty.\n>\n>> I am also wondering if I should be building up the\n>> functionality for RleList, which could have `+` and other Math\n>> operations. We have a lot of classes in the Sequence space and it is\n>> not clear yet which classes are going to be part of the winning\n>> solution.\n>\n> I'd say that this is the main issue. I discover new classes every day.\n> You just mentioned 'RleList', Michael mentions 'GenomeDataList', and\n> Martin has another way to go again.\n>\n> I'm sorry to say that, at least for me, this has become hopelessly\n> confusing, and I imagine that many other users fell the same. You write\n> that \"it is not clear yet which classes are going to be part of the\n> winning solution\" and I completely agree that it makes more sense to\n> have a few good classes rather than adding functionality to any class\n> on demand. So, maybe don't bother with a `+` operation for now.\n>\n> Best regards\n>   Simon",
+      "body_snippet": "Simon,\nI checked in a speedup for coverage calculations to the IRanges  \npackage. It should be about 30 - 50% faster now. On my laptop, it took  \naround 50 seconds to calculate the coverage of 29 mill",
+      "thread_id": "thread-dee66b952cb7",
+      "thread_depth": 3,
+      "month": "2009-06"
+    },
+    {
+      "id": "msg-f9741d56869d",
+      "message_id": "<20090630200128.ea6sgq2bkw0k88gk@webmail.fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2009-07-01T03:01:28Z",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several\tlanes",
+      "subject_clean": "[Bioc-sig-seq] `+` for GenomeData and coverage from several\tlanes",
+      "in_reply_to": "<4A4A504A.3070605@ebi.ac.uk>",
+      "references": [
+        "<4A4A2FF5.2000001@ebi.ac.uk>",
+        "<4A4A37DE.7050002@fhcrc.org>",
+        "<4A4A504A.3070605@ebi.ac.uk>"
+      ],
+      "body_plain": "Simon,\nI checked in a speedup for coverage calculations to the IRanges  \npackage. It should be about 30 - 50% faster now. On my laptop, it took  \naround 50 seconds to calculate the coverage of 29 million ranges over  \na 1e8 sequence domain on my laptop. Under the old coverage code, this  \ncalculation took about 100 seconds.\n\n> suppressMessages(library(IRanges))\n> N <- 29e6\n> set.seed(0)\n> x <- IRanges(start=sample(1e8 - 36, N, replace = TRUE), width = 36)\n> system.time(coverage(x, width = 1e8))\n    user  system elapsed\n  49.747   4.262  54.305\n> sessionInfo()\nR version 2.10.0 Under development (unstable) (2009-06-28 r48863)\ni386-apple-darwin9.7.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] IRanges_1.3.28\n\n\n\nPatrick\n\n\nQuoting Simon Anders <anders at ebi.ac.uk>:\n\n> Hi\n>\n> Patrick Aboyoun wrote:\n>> Simon,\n>> Could you provide some profiling information to show where the   \n>> bottlenecks are?\n>\n> I don't know if there is really a clear bottleneck. 9 minutes to\n> calculate the coverage of 29 mio reads is 20 seconds per mio reads;\n> this is probably what the coverage function always needed. So, in the\n> code given in my mail, the summing up of the GenomeData objects is just\n> awkward but not a performance penalty.\n>\n>> I am also wondering if I should be building up the\n>> functionality for RleList, which could have `+` and other Math\n>> operations. We have a lot of classes in the Sequence space and it is\n>> not clear yet which classes are going to be part of the winning\n>> solution.\n>\n> I'd say that this is the main issue. I discover new classes every day.\n> You just mentioned 'RleList', Michael mentions 'GenomeDataList', and\n> Martin has another way to go again.\n>\n> I'm sorry to say that, at least for me, this has become hopelessly\n> confusing, and I imagine that many other users fell the same. You write\n> that \"it is not clear yet which classes are going to be part of the\n> winning solution\" and I completely agree that it makes more sense to\n> have a few good classes rather than adding functionality to any class\n> on demand. So, maybe don't bother with a `+` operation for now.\n>\n> Best regards\n>   Simon",
+      "body_snippet": "Simon,\nI checked in a speedup for coverage calculations to the IRanges  \npackage. It should be about 30 - 50% faster now. On my laptop, it took  \naround 50 seconds to calculate the coverage of 29 mill",
+      "thread_id": "thread-dee66b952cb7",
+      "thread_depth": 3,
+      "month": "2009-06"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-56cf67d5d25a",
+      "subject": "[Bioc-sig-seq] Extracting DNA sequences from BSgenome.Mmusculus.UCSC.mm9_1.3.11",
+      "message_count": 4,
+      "participants": [
+        "Hervé Pagès",
+        "Kasper Daniel Hansen",
+        "Paul Leo"
+      ],
+      "started": "2009-06-01T09:32:09Z",
+      "last_reply": "2009-06-01T23:28:39Z",
+      "root_message_id": "msg-56cf67d5d25a"
+    },
+    {
+      "id": "thread-584e3da63534",
+      "subject": "[Bioc-sig-seq] complement and reverseComplement from a character vector",
+      "message_count": 4,
+      "participants": [
+        "Hervé Pagès",
+        "Nicolas Delhomme"
+      ],
+      "started": "2009-06-02T09:56:52Z",
+      "last_reply": "2009-06-17T19:23:44Z",
+      "root_message_id": "msg-584e3da63534"
+    },
+    {
+      "id": "thread-4fa013504612",
+      "subject": "[Bioc-sig-seq] viral RNA library",
+      "message_count": 1,
+      "participants": [
+        "Daniel Brewer"
+      ],
+      "started": "2009-06-02T10:14:49Z",
+      "last_reply": "2009-06-02T10:14:49Z",
+      "root_message_id": "msg-4fa013504612"
+    },
+    {
+      "id": "thread-bad484d2f456",
+      "subject": "[Bioc-sig-seq] extendReads() error in chipseq package",
+      "message_count": 3,
+      "participants": [
+        "Martin Morgan",
+        "Rebecca Sun"
+      ],
+      "started": "2009-06-03T23:40:11Z",
+      "last_reply": "2009-06-04T00:14:28Z",
+      "root_message_id": "msg-bad484d2f456"
+    },
+    {
+      "id": "thread-8ee9e8831806",
+      "subject": "[Bioc-sig-seq] Pairwise comparisons of peak sets (for ChIP-seqs or anything else)",
+      "message_count": 3,
+      "participants": [
+        "Ivan Gregoretti",
+        "Thomas Girke"
+      ],
+      "started": "2009-06-04T14:56:52Z",
+      "last_reply": "2009-06-04T19:24:12Z",
+      "root_message_id": "msg-8ee9e8831806"
+    },
+    {
+      "id": "thread-86a0cf4d25d4",
+      "subject": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
+      "message_count": 3,
+      "participants": [
+        "Ivan Gregoretti",
+        "Martin Morgan"
+      ],
+      "started": "2009-06-08T18:16:26Z",
+      "last_reply": "2009-06-11T13:58:23Z",
+      "root_message_id": "msg-86a0cf4d25d4"
+    },
+    {
+      "id": "thread-07378af8cbb5",
+      "subject": "[Bioc-sig-seq] [BioC] Error in assign while calling the vmatchPattern function",
+      "message_count": 2,
+      "participants": [
+        "Henrik Bengtsson",
+        "Hervé Pagès"
+      ],
+      "started": "2009-06-17T01:09:40Z",
+      "last_reply": "2009-06-17T05:27:01Z",
+      "root_message_id": "msg-07378af8cbb5"
+    },
+    {
+      "id": "thread-997d1c720350",
+      "subject": "[Bioc-sig-seq] removing variable length 3' adaptor sequence",
+      "message_count": 2,
+      "participants": [
+        "Lana Schaffer",
+        "Martin Morgan"
+      ],
+      "started": "2009-06-23T17:34:14Z",
+      "last_reply": "2009-06-23T17:38:59Z",
+      "root_message_id": "msg-997d1c720350"
+    },
+    {
+      "id": "thread-223a758b6fc6",
+      "subject": "[Bioc-sig-seq] Size of Illumina fastaq files to be read in shortReads",
+      "message_count": 3,
+      "participants": [
+        "Anastasia Gioti",
+        "Kasper Daniel Hansen",
+        "Martin Morgan"
+      ],
+      "started": "2009-06-24T18:37:33Z",
+      "last_reply": "2009-06-25T06:40:47Z",
+      "root_message_id": "msg-223a758b6fc6"
+    },
+    {
+      "id": "thread-4aa6ece81280",
+      "subject": "[Bioc-sig-seq] Rle vs RangedData",
+      "message_count": 5,
+      "participants": [
+        "Michael Lawrence",
+        "Patrick Aboyoun",
+        "Simon Anders",
+        "Wolfgang Huber"
+      ],
+      "started": "2009-06-26T10:32:11Z",
+      "last_reply": "2009-06-29T18:23:52Z",
+      "root_message_id": "msg-4aa6ece81280"
+    },
+    {
+      "id": "thread-be9f907b46db",
+      "subject": "[Bioc-sig-seq] Protocol for analyzing digital expression profile data",
+      "message_count": 1,
+      "participants": [
+        "xuxiang086"
+      ],
+      "started": "2009-06-30T08:00:35Z",
+      "last_reply": "2009-06-30T08:00:35Z",
+      "root_message_id": "msg-be9f907b46db"
+    },
+    {
+      "id": "thread-dee66b952cb7",
+      "subject": "[Bioc-sig-seq] `+` for GenomeData and coverage from several lanes",
+      "message_count": 7,
+      "participants": [
+        "Martin Morgan",
+        "Michael Lawrence",
+        "Patrick Aboyoun",
+        "Simon Anders"
+      ],
+      "started": "2009-06-30T15:32:05Z",
+      "last_reply": "2009-07-01T03:01:28Z",
+      "root_message_id": "msg-dee66b952cb7"
+    }
+  ]
+}

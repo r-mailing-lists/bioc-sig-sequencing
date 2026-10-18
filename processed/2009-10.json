@@ -1,0 +1,1059 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2009-10",
+  "messages": [
+    {
+      "id": "msg-d33aed71e698",
+      "message_id": "<6905A00A-A326-46FA-B11F-1587E3E0D0F3@hudsonalpha.org>",
+      "from_name": "Michael Muratet",
+      "from_email_hash": "b919d0cf997b02a655f5decd658aad2beb81444b240f9c180de20c2c36c5270a",
+      "date": "2009-10-01T21:42:58Z",
+      "subject": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "subject_clean": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Greetings\n\nI have been working on incorporating the new Illumina SCS v2.4 file  \nstructure into the ShortRead package. I downloaded and built the R- \ndevel version 2.10.0 (2009-09-09 r49643) and then installed  \nBioConductor from it. I have a version of ShortRead that I wanted to  \ntest, so I built in the tree I have locally (output at the end of this  \nmessage). I started my dev. version of R and tried to load ShortRead  \nand got:\n\nLoading required package: Biostrings\nLoading required package: BSgenome\nLoading required package: lattice\nError in dyn.load(file, DLLpath = DLLpath, ...) :\n   unable to load shared library '/Users/mmuratet/Downloads/R-devel/ \nlibrary/ShortRead/libs/ShortRead.so':\n   dlopen(/Users/mmuratet/Downloads/R-devel/library/ShortRead/libs/ \nShortRead.so, 6): Symbol not found: _cache_XStringSet\n   Referenced from: /Users/mmuratet/Downloads/R-devel/library/ \nShortRead/libs/ShortRead.so\n   Expected in: dynamic lookup\n\nError: package/namespace load failed for 'ShortRead'\n\nI suspect an issue with the Biostrings lib, and _cache_XStringSet is a  \nsymbol in Biostrings.so. Shouldn't this be loaded already?\n\nCan anyone suggest a place where I may have gone wrong?\n\nSession info follows.\n\nThanks\n\nMike\n\nSessionInfo():\n\n > sessionInfo()\nR version 2.10.0 Under development (unstable) (2009-09-09 r49643)\ni386-apple-darwin9.8.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] lattice_0.17-25    BSgenome_1.13.11   Biostrings_2.13.37  \nIRanges_1.3.71\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.5.6 grid_2.10.0   hwriter_1.1\n\nOutput from ShortRead build:\n\nMacintosh-8:~ mmuratet$ Downloads/R-devel/bin/R CMD INSTALL ShortRead\n* installing to library ?/Users/mmuratet/Downloads/R-devel/library?\n* installing *source* package ?ShortRead? ...\nchecking for gcc... gcc\nchecking for C compiler default output file name... a.out\nchecking whether the C compiler works... yes\nchecking whether we are cross compiling... no\nchecking for suffix of executables...\nchecking for suffix of object files... o\nchecking whether we are using the GNU C compiler... yes\nchecking whether gcc accepts -g... yes\nchecking for gcc option to accept ISO C89... none needed\nchecking for gzeof in -lz... yes\nconfigure: creating ./config.status\nconfig.status: creating src/Makevars\n** libs\ngcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/ \ninclude -I/usr/local/include -I\"/Users/mmuratet/Downloads/R-devel/ \nlibrary/IRanges/include\" -I\"/Users/mmuratet/Downloads/R-devel/library/ \nBiostrings/include\"   -fPIC  -g -O2 -c alphabet.c -o alphabet.o\ngcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/ \ninclude -I/usr/local/include -I\"/Users/mmuratet/Downloads/R-devel/ \nlibrary/IRanges/include\" -I\"/Users/mmuratet/Downloads/R-devel/library/ \nBiostrings/include\"   -fPIC  -g -O2 -c io.c -o io.o\ngcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/ \ninclude -I/usr/local/include -I\"/Users/mmuratet/Downloads/R-devel/ \nlibrary/IRanges/include\" -I\"/Users/mmuratet/Downloads/R-devel/library/ \nBiostrings/include\"   -fPIC  -g -O2 -c io_bowtie.c -o io_bowtie.o\ngcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/ \ninclude -I/usr/local/include -I\"/Users/mmuratet/Downloads/R-devel/ \nlibrary/IRanges/include\" -I\"/Users/mmuratet/Downloads/R-devel/library/ \nBiostrings/include\"   -fPIC  -g -O2 -c io_soap.c -o io_soap.o\ngcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/ \ninclude -I/usr/local/include -I\"/Users/mmuratet/Downloads/R-devel/ \nlibrary/IRanges/include\" -I\"/Users/mmuratet/Downloads/R-devel/library/ \nBiostrings/include\"   -fPIC  -g -O2 -c pileup.c -o pileup.o\ng++ -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/include -I/usr/ \nlocal/include -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/ \ninclude\" -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/ \ninclude\"   -fPIC  -g -O2 -c readBfaToc.cc -o readBfaToc.o\ng++ -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/include -I/usr/ \nlocal/include -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/ \ninclude\" -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/ \ninclude\"   -fPIC  -g -O2 -c read_maq_map.cc -o read_maq_map.o\ngcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/ \ninclude -I/usr/local/include -I\"/Users/mmuratet/Downloads/R-devel/ \nlibrary/IRanges/include\" -I\"/Users/mmuratet/Downloads/R-devel/library/ \nBiostrings/include\"   -fPIC  -g -O2 -c util.c -o util.o\ngcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/ \ninclude -I/usr/local/include -I\"/Users/mmuratet/Downloads/R-devel/ \nlibrary/IRanges/include\" -I\"/Users/mmuratet/Downloads/R-devel/library/ \nBiostrings/include\"   -fPIC  -g -O2 -c xsnap.c -o xsnap.o\ng++ -dynamiclib -Wl,-headerpad_max_install_names -undefined  \ndynamic_lookup -single_module -multiply_defined suppress -L/sw/lib -L/ \nusr/local/lib -o ShortRead.so Biostrings_stubs.o IRanges_stubs.o  \nR_init_ShortRead.o alphabet.o io.o io_bowtie.o io_soap.o pileup.o  \nreadBfaToc.o read_maq_map.o util.o xsnap.o -lz -L/Users/mmuratet/ \nDownloads/R-devel/lib -lR -dylib_file libRblas.dylib:/Users/mmuratet/ \nDownloads/R-devel/lib/libRblas.dylib -lintl -liconv -lc -Wl,-framework  \n-Wl,CoreFoundation\n** R\n** inst\n** preparing package for lazy loading\n\nAttaching package: 'IRanges'\n\n\n\tThe following object(s) are masked from package:base :\n\n\t Map,\n\t cbind,\n\t mapply,\n\t order,\n\t pmax,\n\t pmax.int,\n\t pmin,\n\t pmin.int,\n\t rbind,\n\t rep.int,\n\t table\n\nWarning in .reportSuperclassConflicts(Class, classDef at contains, where) :\n   unable to find a consistent ordering of superclasses for class  \n\"ArrayIntensity\": order chosen is inconsistent with the superclasses  \nof \"array\"\n** help\n*** installing help indices\n** building package indices ...\n* DONE (ShortRead)",
+      "body_snippet": "Greetings\n\nI have been working on incorporating the new Illumina SCS v2.4 file  \nstructure into the ShortRead package. I downloaded and built the R- \ndevel version 2.10.0 (2009-09-09 r49643) and then ",
+      "thread_id": "thread-d33aed71e698",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-756dbeff8cdc",
+      "message_id": "<4AC552AA.10109@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-02T01:08:58Z",
+      "subject": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "subject_clean": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "in_reply_to": "<6905A00A-A326-46FA-B11F-1587E3E0D0F3@hudsonalpha.org>",
+      "references": [
+        "<6905A00A-A326-46FA-B11F-1587E3E0D0F3@hudsonalpha.org>"
+      ],
+      "body_plain": "Hi Mike --\n\nMichael Muratet wrote:\n> Greetings\n> \n> I have been working on incorporating the new Illumina SCS v2.4 file\n> structure into the ShortRead package. I downloaded and built the R-devel\n> version 2.10.0 (2009-09-09 r49643) and then installed BioConductor from\n> it. I have a version of ShortRead that I wanted to test, so I built in\n> the tree I have locally (output at the end of this message). I started\n> my dev. version of R and tried to load ShortRead and got:\n> \n> Loading required package: Biostrings\n> Loading required package: BSgenome\n> Loading required package: lattice\n> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>   unable to load shared library\n> '/Users/mmuratet/Downloads/R-devel/library/ShortRead/libs/ShortRead.so':\n>  \n> dlopen(/Users/mmuratet/Downloads/R-devel/library/ShortRead/libs/ShortRead.so,\n> 6): Symbol not found: _cache_XStringSet\n>   Referenced from:\n> /Users/mmuratet/Downloads/R-devel/library/ShortRead/libs/ShortRead.so\n>   Expected in: dynamic lookup\n> \n> Error: package/namespace load failed for 'ShortRead'\n> \n> I suspect an issue with the Biostrings lib, and _cache_XStringSet is a\n> symbol in Biostrings.so. Shouldn't this be loaded already?\n> \n> Can anyone suggest a place where I may have gone wrong?\n\nProbably the problem is that your version of ShortRead and of the other\nBioconductor packages are not in sync. Probably what you want to do is\nuse the 'svn' version control system, and 'check out' the relevant\npackages from the bioconductor code repository, and use the checked out\ncopies for installation instead of biocLite(). Then copy your changed\nfiles into the repository and go from there. Very roughly\n\n  cd some/directory\n  svn co -N https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks\n  cd Rpacks\n  svn up IRanges Biostrings BSgenome ShortRead\n  R CMD INSTALL --clean IRanges Biostrings BSgenome\n  cp my/modified/ShortRead/R/AllClasses.R ShortRead/R/AllClasses\n  R CMD INSTALL --clean ShortRead\n\nUse\n\n  svn add ShortRead/R/new-file.R\n\nto add a file to svn's manifest of files that it is tracking.\n\n  svn stat ShortRead\n\nwill show you which files are new / modified and\n\n  svn diff ShortRead\n\nwill show you the changes. Finally,\n\n  svn diff ShortRead > ShortRead.patch\n\nwill summarize the differences into a file that can be used by the\npackage maintainer to update ShortRead. You can periodically, from\nwithin the Rpacks directory,\n\n  svn up IRanges Biostrings BSgenome ShortRead\n  R CMD INSTALL --clean IRanges Biostrings BSgenome ShortRead\n\nto sync up with the latest versions in the repository. There are\nadditional instructions on the Bioconductor developer wiki, at\n\n  http://wiki.fhcrc.org/bioc/SvnHowTo\n\nThe instructions I gave in this email checks out the top-level 'Rpacks'\ndirectory of the Bioconductor repository, and then specific packages in\nthe repository; this is not such a good idea if you're interested in a\nlong-term relationship with svn and Bioconductor, you'd probably want to\n check out the entire directory structure.\n\nMartin\n\n> \n> Session info follows.\n> \n> Thanks\n> \n> Mike\n> \n> SessionInfo():\n> \n>> sessionInfo()\n> R version 2.10.0 Under development (unstable) (2009-09-09 r49643)\n> i386-apple-darwin9.8.0\n> \n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] lattice_0.17-25    BSgenome_1.13.11   Biostrings_2.13.37 IRanges_1.3.71\n> \n> loaded via a namespace (and not attached):\n> [1] Biobase_2.5.6 grid_2.10.0   hwriter_1.1\n> \n> Output from ShortRead build:\n> \n> Macintosh-8:~ mmuratet$ Downloads/R-devel/bin/R CMD INSTALL ShortRead\n> * installing to library ?/Users/mmuratet/Downloads/R-devel/library?\n> * installing *source* package ?ShortRead? ...\n> checking for gcc... gcc\n> checking for C compiler default output file name... a.out\n> checking whether the C compiler works... yes\n> checking whether we are cross compiling... no\n> checking for suffix of executables...\n> checking for suffix of object files... o\n> checking whether we are using the GNU C compiler... yes\n> checking whether gcc accepts -g... yes\n> checking for gcc option to accept ISO C89... none needed\n> checking for gzeof in -lz... yes\n> configure: creating ./config.status\n> config.status: creating src/Makevars\n> ** libs\n> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include \n> -I/sw/include -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c alphabet.c -o alphabet.o\n> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include \n> -I/sw/include -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c io.c -o io.o\n> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include \n> -I/sw/include -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c io_bowtie.c -o io_bowtie.o\n> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include \n> -I/sw/include -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c io_soap.c -o io_soap.o\n> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include \n> -I/sw/include -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c pileup.c -o pileup.o\n> g++ -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/include\n> -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c readBfaToc.cc -o readBfaToc.o\n> g++ -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/include\n> -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c read_maq_map.cc -o read_maq_map.o\n> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include \n> -I/sw/include -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c util.c -o util.o\n> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include \n> -I/sw/include -I/usr/local/include\n> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"  \n> -fPIC  -g -O2 -c xsnap.c -o xsnap.o\n> g++ -dynamiclib -Wl,-headerpad_max_install_names -undefined\n> dynamic_lookup -single_module -multiply_defined suppress -L/sw/lib\n> -L/usr/local/lib -o ShortRead.so Biostrings_stubs.o IRanges_stubs.o\n> R_init_ShortRead.o alphabet.o io.o io_bowtie.o io_soap.o pileup.o\n> readBfaToc.o read_maq_map.o util.o xsnap.o -lz\n> -L/Users/mmuratet/Downloads/R-devel/lib -lR -dylib_file\n> libRblas.dylib:/Users/mmuratet/Downloads/R-devel/lib/libRblas.dylib\n> -lintl -liconv -lc -Wl,-framework -Wl,CoreFoundation\n> ** R\n> ** inst\n> ** preparing package for lazy loading\n> \n> Attaching package: 'IRanges'\n> \n> \n>     The following object(s) are masked from package:base :\n> \n>      Map,\n>      cbind,\n>      mapply,\n>      order,\n>      pmax,\n>      pmax.int,\n>      pmin,\n>      pmin.int,\n>      rbind,\n>      rep.int,\n>      table\n> \n> Warning in .reportSuperclassConflicts(Class, classDef at contains, where) :\n>   unable to find a consistent ordering of superclasses for class\n> \"ArrayIntensity\": order chosen is inconsistent with the superclasses of\n> \"array\"\n> ** help\n> *** installing help indices\n> ** building package indices ...\n> * DONE (ShortRead)\n> \n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Mike --\n\nMichael Muratet wrote:\n> Greetings\n> \n> I have been working on incorporating the new Illumina SCS v2.4 file\n> structure into the ShortRead package. I downloaded and built the R-devel\n> ver",
+      "thread_id": "thread-d33aed71e698",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-3663afc64c01",
+      "message_id": "<4AC565BD.4040708@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-02T02:30:21Z",
+      "subject": "[Bioc-sig-seq] New Bioconductor team member",
+      "subject_clean": "[Bioc-sig-seq] New Bioconductor team member",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Bioconductors --\n\nIt's with great pleasure that I (re)-introduce the newest member of the\nBioconductor team here in Seattle. Seth Falcon has rejoined our group,\nbringing with him excellent programming and leadership skills, he is a\nmember of R-core, the select group of individuals able to update the\ncode of R itself.\n\nMany of you will recognize Seth's name from his previous participation\nin Bioconductor. Seth played a central role in developing key components\nof Bioconductor, and in making all aspects of the project run\nexceptionally smoothly.\n\nExpect to see Seth's influence in the coming months, as Biocondcutor\ncontinues to develop as an essential tool for analysis and visualization\nof high-throughput genomic data.\n\nMartin\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Bioconductors --\n\nIt's with great pleasure that I (re)-introduce the newest member of the\nBioconductor team here in Seattle. Seth Falcon has rejoined our group,\nbringing with him excellent programming",
+      "thread_id": "thread-3663afc64c01",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-1af747702ad4",
+      "message_id": "<509e0620910011952na40cc07ya0484f3fbdf6682d@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-02T02:52:05Z",
+      "subject": "[Bioc-sig-seq] WIG from coverage",
+      "subject_clean": "[Bioc-sig-seq] WIG from coverage",
+      "in_reply_to": "<509e0620909301515j2726404bpc94c8d6463e27a59@mail.gmail.com>",
+      "references": [
+        "<1254334830.31408@venus.he.net>",
+        "<509e0620909301515j2726404bpc94c8d6463e27a59@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091001/bb7e3482/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091001/bb7e3482/attachment.pl>",
+      "thread_id": "thread-1af747702ad4",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-6bb8531c2872",
+      "message_id": "<509e0620910012013g3e0be5acpf23e4665576c8fd2@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-02T03:13:13Z",
+      "subject": "[Bioc-sig-seq] WIG from coverage",
+      "subject_clean": "[Bioc-sig-seq] WIG from coverage",
+      "in_reply_to": "<509e0620909301515j2726404bpc94c8d6463e27a59@mail.gmail.com>",
+      "references": [
+        "<1254334830.31408@venus.he.net>",
+        "<509e0620909301515j2726404bpc94c8d6463e27a59@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091001/b9fd54c7/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091001/b9fd54c7/attachment.pl>",
+      "thread_id": "thread-6bb8531c2872",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-fdbca0d37014",
+      "message_id": "<9D46485F-BFF4-44B7-946F-71283C327052@hudsonalpha.org>",
+      "from_name": "Michael Muratet",
+      "from_email_hash": "b919d0cf997b02a655f5decd658aad2beb81444b240f9c180de20c2c36c5270a",
+      "date": "2009-10-02T13:56:40Z",
+      "subject": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "subject_clean": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "in_reply_to": "<4AC552AA.10109@fhcrc.org>",
+      "references": [
+        "<6905A00A-A326-46FA-B11F-1587E3E0D0F3@hudsonalpha.org>",
+        "<4AC552AA.10109@fhcrc.org>"
+      ],
+      "body_plain": "Martin\n\nThanks, I'll give it a go.\n\nMike\nOn Oct 1, 2009, at 8:08 PM, Martin Morgan wrote:\n\n> Hi Mike --\n>\n> Michael Muratet wrote:\n>> Greetings\n>>\n>> I have been working on incorporating the new Illumina SCS v2.4 file\n>> structure into the ShortRead package. I downloaded and built the R- \n>> devel\n>> version 2.10.0 (2009-09-09 r49643) and then installed BioConductor  \n>> from\n>> it. I have a version of ShortRead that I wanted to test, so I built  \n>> in\n>> the tree I have locally (output at the end of this message). I  \n>> started\n>> my dev. version of R and tried to load ShortRead and got:\n>>\n>> Loading required package: Biostrings\n>> Loading required package: BSgenome\n>> Loading required package: lattice\n>> Error in dyn.load(file, DLLpath = DLLpath, ...) :\n>>  unable to load shared library\n>> '/Users/mmuratet/Downloads/R-devel/library/ShortRead/libs/ \n>> ShortRead.so':\n>>\n>> dlopen(/Users/mmuratet/Downloads/R-devel/library/ShortRead/libs/ \n>> ShortRead.so,\n>> 6): Symbol not found: _cache_XStringSet\n>>  Referenced from:\n>> /Users/mmuratet/Downloads/R-devel/library/ShortRead/libs/ShortRead.so\n>>  Expected in: dynamic lookup\n>>\n>> Error: package/namespace load failed for 'ShortRead'\n>>\n>> I suspect an issue with the Biostrings lib, and _cache_XStringSet  \n>> is a\n>> symbol in Biostrings.so. Shouldn't this be loaded already?\n>>\n>> Can anyone suggest a place where I may have gone wrong?\n>\n> Probably the problem is that your version of ShortRead and of the  \n> other\n> Bioconductor packages are not in sync. Probably what you want to do is\n> use the 'svn' version control system, and 'check out' the relevant\n> packages from the bioconductor code repository, and use the checked  \n> out\n> copies for installation instead of biocLite(). Then copy your changed\n> files into the repository and go from there. Very roughly\n>\n>  cd some/directory\n>  svn co -N https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks\n>  cd Rpacks\n>  svn up IRanges Biostrings BSgenome ShortRead\n>  R CMD INSTALL --clean IRanges Biostrings BSgenome\n>  cp my/modified/ShortRead/R/AllClasses.R ShortRead/R/AllClasses\n>  R CMD INSTALL --clean ShortRead\n>\n> Use\n>\n>  svn add ShortRead/R/new-file.R\n>\n> to add a file to svn's manifest of files that it is tracking.\n>\n>  svn stat ShortRead\n>\n> will show you which files are new / modified and\n>\n>  svn diff ShortRead\n>\n> will show you the changes. Finally,\n>\n>  svn diff ShortRead > ShortRead.patch\n>\n> will summarize the differences into a file that can be used by the\n> package maintainer to update ShortRead. You can periodically, from\n> within the Rpacks directory,\n>\n>  svn up IRanges Biostrings BSgenome ShortRead\n>  R CMD INSTALL --clean IRanges Biostrings BSgenome ShortRead\n>\n> to sync up with the latest versions in the repository. There are\n> additional instructions on the Bioconductor developer wiki, at\n>\n>  http://wiki.fhcrc.org/bioc/SvnHowTo\n>\n> The instructions I gave in this email checks out the top-level  \n> 'Rpacks'\n> directory of the Bioconductor repository, and then specific packages  \n> in\n> the repository; this is not such a good idea if you're interested in a\n> long-term relationship with svn and Bioconductor, you'd probably  \n> want to\n> check out the entire directory structure.\n>\n> Martin\n>\n>>\n>> Session info follows.\n>>\n>> Thanks\n>>\n>> Mike\n>>\n>> SessionInfo():\n>>\n>>> sessionInfo()\n>> R version 2.10.0 Under development (unstable) (2009-09-09 r49643)\n>> i386-apple-darwin9.8.0\n>>\n>> locale:\n>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] lattice_0.17-25    BSgenome_1.13.11   Biostrings_2.13.37  \n>> IRanges_1.3.71\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.5.6 grid_2.10.0   hwriter_1.1\n>>\n>> Output from ShortRead build:\n>>\n>> Macintosh-8:~ mmuratet$ Downloads/R-devel/bin/R CMD INSTALL ShortRead\n>> * installing to library ?/Users/mmuratet/Downloads/R-devel/library?\n>> * installing *source* package ?ShortRead? ...\n>> checking for gcc... gcc\n>> checking for C compiler default output file name... a.out\n>> checking whether the C compiler works... yes\n>> checking whether we are cross compiling... no\n>> checking for suffix of executables...\n>> checking for suffix of object files... o\n>> checking whether we are using the GNU C compiler... yes\n>> checking whether gcc accepts -g... yes\n>> checking for gcc option to accept ISO C89... none needed\n>> checking for gzeof in -lz... yes\n>> configure: creating ./config.status\n>> config.status: creating src/Makevars\n>> ** libs\n>> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include\n>> -I/sw/include -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c alphabet.c -o alphabet.o\n>> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include\n>> -I/sw/include -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c io.c -o io.o\n>> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include\n>> -I/sw/include -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c io_bowtie.c -o io_bowtie.o\n>> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include\n>> -I/sw/include -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c io_soap.c -o io_soap.o\n>> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include\n>> -I/sw/include -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c pileup.c -o pileup.o\n>> g++ -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/include\n>> -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c readBfaToc.cc -o readBfaToc.o\n>> g++ -I/Users/mmuratet/Downloads/R-devel/include  -I/sw/include\n>> -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c read_maq_map.cc -o read_maq_map.o\n>> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include\n>> -I/sw/include -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c util.c -o util.o\n>> gcc -std=gnu99 -I/Users/mmuratet/Downloads/R-devel/include\n>> -I/sw/include -I/usr/local/include\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/IRanges/include\"\n>> -I\"/Users/mmuratet/Downloads/R-devel/library/Biostrings/include\"\n>> -fPIC  -g -O2 -c xsnap.c -o xsnap.o\n>> g++ -dynamiclib -Wl,-headerpad_max_install_names -undefined\n>> dynamic_lookup -single_module -multiply_defined suppress -L/sw/lib\n>> -L/usr/local/lib -o ShortRead.so Biostrings_stubs.o IRanges_stubs.o\n>> R_init_ShortRead.o alphabet.o io.o io_bowtie.o io_soap.o pileup.o\n>> readBfaToc.o read_maq_map.o util.o xsnap.o -lz\n>> -L/Users/mmuratet/Downloads/R-devel/lib -lR -dylib_file\n>> libRblas.dylib:/Users/mmuratet/Downloads/R-devel/lib/libRblas.dylib\n>> -lintl -liconv -lc -Wl,-framework -Wl,CoreFoundation\n>> ** R\n>> ** inst\n>> ** preparing package for lazy loading\n>>\n>> Attaching package: 'IRanges'\n>>\n>>\n>>    The following object(s) are masked from package:base :\n>>\n>>     Map,\n>>     cbind,\n>>     mapply,\n>>     order,\n>>     pmax,\n>>     pmax.int,\n>>     pmin,\n>>     pmin.int,\n>>     rbind,\n>>     rep.int,\n>>     table\n>>\n>> Warning in .reportSuperclassConflicts(Class, classDef at contains,  \n>> where) :\n>>  unable to find a consistent ordering of superclasses for class\n>> \"ArrayIntensity\": order chosen is inconsistent with the  \n>> superclasses of\n>> \"array\"\n>> ** help\n>> *** installing help indices\n>> ** building package indices ...\n>> * DONE (ShortRead)\n>>\n>>\n>\n>\n> -- \n> Martin Morgan\n> Computational Biology / Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N.\n> PO Box 19024 Seattle, WA 98109\n>\n> Location: Arnold Building M1 B861\n> Phone: (206) 667-2793\n\nMichael Muratet, Ph.D.\nSenior Scientist\nHudsonAlpha Institute for Biotechnology\nmmuratet at hudsonalpha.org\n(256) 327-0473 (p)\n(256) 327-0966 (f)\n\nRoom 4005\n601 Genome Way\nHuntsville, Alabama 35806",
+      "body_snippet": "Martin\n\nThanks, I'll give it a go.\n\nMike\nOn Oct 1, 2009, at 8:08 PM, Martin Morgan wrote:\n\n> Hi Mike --\n>\n> Michael Muratet wrote:\n>> Greetings\n>>\n>> I have been working on incorporating the new Illum",
+      "thread_id": "thread-d33aed71e698",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-02055129061c",
+      "message_id": "<26EDB15D-142C-4AF0-A978-4DE7F2236249@hudsonalpha.org>",
+      "from_name": "Michael Muratet",
+      "from_email_hash": "b919d0cf997b02a655f5decd658aad2beb81444b240f9c180de20c2c36c5270a",
+      "date": "2009-10-02T15:42:30Z",
+      "subject": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "subject_clean": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "in_reply_to": "<4AC552AA.10109@fhcrc.org>",
+      "references": [
+        "<6905A00A-A326-46FA-B11F-1587E3E0D0F3@hudsonalpha.org>",
+        "<4AC552AA.10109@fhcrc.org>"
+      ],
+      "body_plain": "On Oct 1, 2009, at 8:08 PM, Martin Morgan wrote:\n\n> Hi Mike --\n>\n> Probably the problem is that your version of ShortRead and of the  \n> other\n> Bioconductor packages are not in sync. Probably what you want to do is\n> use the 'svn' version control system, and 'check out' the relevant\n> packages from the bioconductor code repository, and use the checked  \n> out\n> copies for installation instead of biocLite(). Then copy your changed\n> files into the repository and go from there. Very roughly\n>\n>  cd some/directory\n>  svn co -N https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks\n>  cd Rpacks\n>  svn up IRanges Biostrings BSgenome ShortRead\n>  R CMD INSTALL --clean IRanges Biostrings BSgenome\n>  cp my/modified/ShortRead/R/AllClasses.R ShortRead/R/AllClasses\n>  R CMD INSTALL --clean ShortRead\n\n\nMartin\n\nThat does the job, thanks.\n\nMike",
+      "body_snippet": "On Oct 1, 2009, at 8:08 PM, Martin Morgan wrote:\n\n> Hi Mike --\n>\n> Probably the problem is that your version of ShortRead and of the  \n> other\n> Bioconductor packages are not in sync. Probably what yo",
+      "thread_id": "thread-d33aed71e698",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-91b1a3368a3f",
+      "message_id": "<420E3D9F-7AA0-4316-859B-1EF9D6EDA581@hudsonalpha.org>",
+      "from_name": "Michael Muratet",
+      "from_email_hash": "b919d0cf997b02a655f5decd658aad2beb81444b240f9c180de20c2c36c5270a",
+      "date": "2009-10-07T21:05:59Z",
+      "subject": "[Bioc-sig-seq] Getting file names from list.files in a more useful order",
+      "subject_clean": "[Bioc-sig-seq] Getting file names from list.files in a more useful order",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Greetings\n\nI am working on adapting readIntensities from ShortRead to handle the  \nnew Illumina intensity file format, *.cif. Illumina has dropped the  \nleading zeros from the file name so that if you use list.files to get  \nfile names from the old style you get:\n\nlist.files(pattern=\"int.txt.p.gz\")\n   [1] \"s_1_0001_int.txt.p.gz\" \"s_1_0002_int.txt.p.gz\"  \n\"s_1_0003_int.txt.p.gz\" \"s_1_0004_int.txt.p.gz\" \"s_1_0005_int.txt.p.gz\"\n   [6] \"s_1_0006_int.txt.p.gz\" \"s_1_0007_int.txt.p.gz\"  \n\"s_1_0008_int.txt.p.gz\" \"s_1_0009_int.txt.p.gz\" \"s_1_0010_int.txt.p.gz\"\n  [11] \"s_1_0011_int.txt.p.gz\" \"s_1_0012_int.txt.p.gz\"  \n\"s_1_0013_int.txt.p.gz\" \"s_1_0014_int.txt.p.gz\" \"s_1_0015_int.txt.p.gz\"\n  [16] \"s_1_0016_int.txt.p.gz\" \"s_1_0017_int.txt.p.gz\"  \n\"s_1_0018_int.txt.p.gz\" \"s_1_0019_int.txt.p.gz\" \"s_1_0020_int.txt.p.gz\"\n\nwhich puts everything in the order that one would like to read. I  \nbelieve this is because the lexical sorting matches the arithmetic  \norder of the tiles.\n\nThe new scheme yields:\n\nlist.files(pattern=\"cif\")\n   [1] \"s_1_1.cif\"   \"s_1_10.cif\"  \"s_1_100.cif\" \"s_1_101.cif\"  \n\"s_1_102.cif\" \"s_1_103.cif\" \"s_1_104.cif\" \"s_1_105.cif\" \"s_1_106.cif\"\n  [10] \"s_1_107.cif\" \"s_1_108.cif\" \"s_1_109.cif\" \"s_1_11.cif\"   \n\"s_1_110.cif\" \"s_1_111.cif\" \"s_1_112.cif\" \"s_1_113.cif\" \"s_1_114.cif\"\n  [19] \"s_1_115.cif\" \"s_1_116.cif\" \"s_1_117.cif\" \"s_1_118.cif\"  \n\"s_1_119.cif\" \"s_1_12.cif\"  \"s_1_120.cif\" \"s_1_13.cif\"  \"s_1_14.cif\"\n\nwhich complicates building the requisite data structures because it's  \nnot in tile order.\n\nThe new convention is further complicated by the fact that the  \nintensity files are now arranged in sub-folders by cycle and lane.\n\nI could buffer everything until it's all read and then organize it  \nappropriately, but it seems like it would much simpler if I could get  \nthe vector into tile order instead of lexical order. I don't see a  \ncommand or other simple way to do this, but I'm hoping someone will be  \nable to offer a suggestion. Anybody have any ideas?\n\nThanks\n\nMike",
+      "body_snippet": "Greetings\n\nI am working on adapting readIntensities from ShortRead to handle the  \nnew Illumina intensity file format, *.cif. Illumina has dropped the  \nleading zeros from the file name so that if you",
+      "thread_id": "thread-91b1a3368a3f",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-950192e598c1",
+      "message_id": "<4ACD57C8.6020404@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-08T03:08:56Z",
+      "subject": "[Bioc-sig-seq] Getting file names from list.files in a more useful order",
+      "subject_clean": "[Bioc-sig-seq] Getting file names from list.files in a more useful order",
+      "in_reply_to": "<420E3D9F-7AA0-4316-859B-1EF9D6EDA581@hudsonalpha.org>",
+      "references": [
+        "<420E3D9F-7AA0-4316-859B-1EF9D6EDA581@hudsonalpha.org>"
+      ],
+      "body_plain": "Hi Michael --\n\nMichael Muratet wrote:\n> Greetings\n> \n> I am working on adapting readIntensities from ShortRead to handle the\n> new Illumina intensity file format, *.cif. Illumina has dropped the\n> leading zeros from the file name so that if you use list.files to get\n> file names from the old style you get:\n> \n> list.files(pattern=\"int.txt.p.gz\")\n>   [1] \"s_1_0001_int.txt.p.gz\" \"s_1_0002_int.txt.p.gz\"\n> \"s_1_0003_int.txt.p.gz\" \"s_1_0004_int.txt.p.gz\" \"s_1_0005_int.txt.p.gz\"\n>   [6] \"s_1_0006_int.txt.p.gz\" \"s_1_0007_int.txt.p.gz\"\n> \"s_1_0008_int.txt.p.gz\" \"s_1_0009_int.txt.p.gz\" \"s_1_0010_int.txt.p.gz\"\n>  [11] \"s_1_0011_int.txt.p.gz\" \"s_1_0012_int.txt.p.gz\"\n> \"s_1_0013_int.txt.p.gz\" \"s_1_0014_int.txt.p.gz\" \"s_1_0015_int.txt.p.gz\"\n>  [16] \"s_1_0016_int.txt.p.gz\" \"s_1_0017_int.txt.p.gz\"\n> \"s_1_0018_int.txt.p.gz\" \"s_1_0019_int.txt.p.gz\" \"s_1_0020_int.txt.p.gz\"\n> \n> which puts everything in the order that one would like to read. I\n> believe this is because the lexical sorting matches the arithmetic order\n> of the tiles.\n> \n> The new scheme yields:\n> \n> list.files(pattern=\"cif\")\n>   [1] \"s_1_1.cif\"   \"s_1_10.cif\"  \"s_1_100.cif\" \"s_1_101.cif\"\n> \"s_1_102.cif\" \"s_1_103.cif\" \"s_1_104.cif\" \"s_1_105.cif\" \"s_1_106.cif\"\n>  [10] \"s_1_107.cif\" \"s_1_108.cif\" \"s_1_109.cif\" \"s_1_11.cif\" \n> \"s_1_110.cif\" \"s_1_111.cif\" \"s_1_112.cif\" \"s_1_113.cif\" \"s_1_114.cif\"\n>  [19] \"s_1_115.cif\" \"s_1_116.cif\" \"s_1_117.cif\" \"s_1_118.cif\"\n> \"s_1_119.cif\" \"s_1_12.cif\"  \"s_1_120.cif\" \"s_1_13.cif\"  \"s_1_14.cif\"\n\n\nyou could extract the lane and tile information along the lines of\n\n  files = c(\"s_1_1.cif\", \"s_1_10.cif\")\n  lanes = as.integer(sub(\"s_([[:digit:]]+).*\", \"\\\\1\", files))\n  tiles = as.integer(sub(\".*_([[:digit:]]+).cif\", \"\\\\1\", files))\n\nand then order the files with\n\n  files[order(lanes, tiles)]\n\nIn earlier versions, I think the file name is actually configurable by\nthe pipeline software, and recorded in the xml configuration files; few\npeople seemed to actually do this though.\n\n> which complicates building the requisite data structures because it's\n> not in tile order.\n> \n> The new convention is further complicated by the fact that the intensity\n> files are now arranged in sub-folders by cycle and lane.\n> \n> I could buffer everything until it's all read and then organize it\n> appropriately, but it seems like it would much simpler if I could get\n> the vector into tile order instead of lexical order. I don't see a\n> command or other simple way to do this, but I'm hoping someone will be\n> able to offer a suggestion. Anybody have any ideas?\n> \n> Thanks\n> \n> Mike\n> \n> \n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Michael --\n\nMichael Muratet wrote:\n> Greetings\n> \n> I am working on adapting readIntensities from ShortRead to handle the\n> new Illumina intensity file format, *.cif. Illumina has dropped the\n> lea",
+      "thread_id": "thread-91b1a3368a3f",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-29e58cf41046",
+      "message_id": "<41CD6BFC-2EDC-4EA7-BF19-3D8A927D9327@hudsonalpha.org>",
+      "from_name": "Michael Muratet",
+      "from_email_hash": "b919d0cf997b02a655f5decd658aad2beb81444b240f9c180de20c2c36c5270a",
+      "date": "2009-10-08T21:17:03Z",
+      "subject": "[Bioc-sig-seq] Getting file names from list.files in a more useful order",
+      "subject_clean": "[Bioc-sig-seq] Getting file names from list.files in a more useful order",
+      "in_reply_to": "<4ACD57C8.6020404@fhcrc.org>",
+      "references": [
+        "<420E3D9F-7AA0-4316-859B-1EF9D6EDA581@hudsonalpha.org>",
+        "<4ACD57C8.6020404@fhcrc.org>"
+      ],
+      "body_plain": "On Oct 7, 2009, at 10:08 PM, Martin Morgan wrote:\n\n> Hi Michael --\n>\n> Michael Muratet wrote:\n>> Greetings\n>>\n>> I am working on adapting readIntensities from ShortRead to handle the\n>> new Illumina intensity file format, *.cif. Illumina has dropped the\n>> leading zeros from the file name so that if you use list.files to get\n>> file names from the old style you get:\n>>\n>>\n>\n>\n> you could extract the lane and tile information along the lines of\n>\n>  files = c(\"s_1_1.cif\", \"s_1_10.cif\")\n>  lanes = as.integer(sub(\"s_([[:digit:]]+).*\", \"\\\\1\", files))\n>  tiles = as.integer(sub(\".*_([[:digit:]]+).cif\", \"\\\\1\", files))\n>\n> and then order the files with\n>\n>  files[order(lanes, tiles)]\n>\n> In earlier versions, I think the file name is actually configurable by\n> the pipeline software, and recorded in the xml configuration files;  \n> few\n> people seemed to actually do this though.\n>\n\nMartin\n\nThanks for the suggestions. Everything appears to be working in a  \nsatisfactory manner now. Give me a few days to test and verify, update  \nthe docs and tests, and I'll send you diffs to incorporate.\n\nRegards\n\nMike\n\n>\n>\n> -- \n> Martin Morgan\n> Computational Biology / Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N.\n> PO Box 19024 Seattle, WA 98109\n>\n> Location: Arnold Building M1 B861\n> Phone: (206) 667-2793\n\nMichael Muratet, Ph.D.\nSenior Scientist\nHudsonAlpha Institute for Biotechnology\nmmuratet at hudsonalpha.org\n(256) 327-0473 (p)\n(256) 327-0966 (f)\n\nRoom 4005\n601 Genome Way\nHuntsville, Alabama 35806",
+      "body_snippet": "On Oct 7, 2009, at 10:08 PM, Martin Morgan wrote:\n\n> Hi Michael --\n>\n> Michael Muratet wrote:\n>> Greetings\n>>\n>> I am working on adapting readIntensities from ShortRead to handle the\n>> new Illumina i",
+      "thread_id": "thread-91b1a3368a3f",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-c61af8eadaa0",
+      "message_id": "<8F89C5E3-2B68-45D3-A6C5-7FF92C3C587E@hudsonalpha.org>",
+      "from_name": "Michael Muratet",
+      "from_email_hash": "b919d0cf997b02a655f5decd658aad2beb81444b240f9c180de20c2c36c5270a",
+      "date": "2009-10-09T15:20:03Z",
+      "subject": "[Bioc-sig-seq] Fwd: SFC#00118080 - Control over file name format?",
+      "subject_clean": "[Bioc-sig-seq] Fwd: SFC#00118080 - Control over file name format?",
+      "in_reply_to": null,
+      "references": [
+        "<18984188.8509.1255100905476.JavaMail.sfdc@na6-app1-7-sjl.ops.sfdc.net>"
+      ],
+      "body_plain": "Greetings\n\nThe latest version of the Illumina SCS software (v2.4) writes  \nintensity files to network disk storage in separate folders for each  \ncycle and without leading zeros, e.g., s_1_10.cif. The position files,  \nhowever, do have leading zeros, e.g., s_1_0010_pos.txt. I checked the  \nmanuals and couldn't find a way to change one file name or the other  \nand so I checked with Illumina and their response is below.\n\nI think the best way to handle the difference WRT reading *.cif files  \nin ShortRead is to make a list of all pos file names, delete the  \nleading zeros, and then search that list with the pattern from  \nreadIntensities. Does that sound reasonable?\n\nCheers\n\nMike\n\nBegin forwarded message:\n\n> From: Tiffany Briere <techsupport at illumina.com>\n> Date: October 9, 2009 10:08:25 AM CDT\n> To: \"mmuratet at hudsonalpha.org\" <mmuratet at hudsonalpha.org>\n> Subject: RE: SFC#00118080 - Control over file name format?\n> Reply-To: techsupport-ilmn at illumina.com\n>\n> Dear Mike,\n>\n> As I promised, I checked with one of our bioinformaticists.  The  \n> naming of intensity files is not controllable through a config  \n> setting.\n>\n> Please contact me through TechSupport at illumina.com if you have any  \n> additional questions.\n>\n> Best regards,\n> Tiffany\n>\n> Tiffany Briere\n> Assoc Technical Applications Scientist\n> Illumina, Inc.\n> 9885 Towne Centre Drive\n> San Diego, CA  92121-1975\n> Tel:  800-809-4566\n> Fax: 858-202-4766\n> E-mail:  TechSupport at illumina.com\n> Web:    www.illumina.com\n>\n>\n> -----<Email Received>-----\n> From: mmuratet at hudsonalpha.org\n> Sent: 10/08/2009 07:47 AM PDT\n> To: techsupport-ilmn at illumina.com\n> CC:\n> Subject: Control over file name format?\n>\n> Greetings\n>\n> I have heard that the user has some control over the intensity file\n> names (*.cif/*.nse) via a XML config file. It would be great if we\n> could get the 'old' style name that has leading zeros rather than, for\n> example, s_1_10.cif. I can't find anything in the manuals. Is this\n> true? How do you go about it?\n>\n> Thanks\n>\n> Mike\n>\n> Michael Muratet, Ph.D.\n> Senior Scientist\n> HudsonAlpha Institute for Biotechnology\n> mmuratet at hudsonalpha.org\n> (256) 327-0473 (p)\n> (256) 327-0966 (f)\n>\n> Room 4005\n> 601 Genome Way\n> Huntsville, Alabama 35806\n\nMichael Muratet, Ph.D.\nSenior Scientist\nHudsonAlpha Institute for Biotechnology\nmmuratet at hudsonalpha.org\n(256) 327-0473 (p)\n(256) 327-0966 (f)\n\nRoom 4005\n601 Genome Way\nHuntsville, Alabama 35806",
+      "body_snippet": "Greetings\n\nThe latest version of the Illumina SCS software (v2.4) writes  \nintensity files to network disk storage in separate folders for each  \ncycle and without leading zeros, e.g., s_1_10.cif. The",
+      "thread_id": "thread-c61af8eadaa0",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-8650cac72f9c",
+      "message_id": "<4ACF6FB8.6010409@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-09T17:15:36Z",
+      "subject": "[Bioc-sig-seq] Fwd: SFC#00118080 - Control over file name format?",
+      "subject_clean": "[Bioc-sig-seq] Fwd: SFC#00118080 - Control over file name format?",
+      "in_reply_to": "<8F89C5E3-2B68-45D3-A6C5-7FF92C3C587E@hudsonalpha.org>",
+      "references": [
+        "<18984188.8509.1255100905476.JavaMail.sfdc@na6-app1-7-sjl.ops.sfdc.net>",
+        "<8F89C5E3-2B68-45D3-A6C5-7FF92C3C587E@hudsonalpha.org>"
+      ],
+      "body_plain": "Hi Michael -- I'll respond off-list; this level of detail is really\ninternal to the package. Martin\n\nMichael Muratet wrote:\n> Greetings\n> \n> The latest version of the Illumina SCS software (v2.4) writes intensity\n> files to network disk storage in separate folders for each cycle and\n> without leading zeros, e.g., s_1_10.cif. The position files, however, do\n> have leading zeros, e.g., s_1_0010_pos.txt. I checked the manuals and\n> couldn't find a way to change one file name or the other and so I\n> checked with Illumina and their response is below.\n> \n> I think the best way to handle the difference WRT reading *.cif files in\n> ShortRead is to make a list of all pos file names, delete the leading\n> zeros, and then search that list with the pattern from readIntensities.\n> Does that sound reasonable?\n> \n> Cheers\n> \n> Mike\n> \n> Begin forwarded message:\n> \n>> From: Tiffany Briere <techsupport at illumina.com>\n>> Date: October 9, 2009 10:08:25 AM CDT\n>> To: \"mmuratet at hudsonalpha.org\" <mmuratet at hudsonalpha.org>\n>> Subject: RE: SFC#00118080 - Control over file name format?\n>> Reply-To: techsupport-ilmn at illumina.com\n>>\n>> Dear Mike,\n>>\n>> As I promised, I checked with one of our bioinformaticists.  The\n>> naming of intensity files is not controllable through a config setting.\n>>\n>> Please contact me through TechSupport at illumina.com if you have any\n>> additional questions.\n>>\n>> Best regards,\n>> Tiffany\n>>\n>> Tiffany Briere\n>> Assoc Technical Applications Scientist\n>> Illumina, Inc.\n>> 9885 Towne Centre Drive\n>> San Diego, CA  92121-1975\n>> Tel:  800-809-4566\n>> Fax: 858-202-4766\n>> E-mail:  TechSupport at illumina.com\n>> Web:    www.illumina.com\n>>\n>>\n>> -----<Email Received>-----\n>> From: mmuratet at hudsonalpha.org\n>> Sent: 10/08/2009 07:47 AM PDT\n>> To: techsupport-ilmn at illumina.com\n>> CC:\n>> Subject: Control over file name format?\n>>\n>> Greetings\n>>\n>> I have heard that the user has some control over the intensity file\n>> names (*.cif/*.nse) via a XML config file. It would be great if we\n>> could get the 'old' style name that has leading zeros rather than, for\n>> example, s_1_10.cif. I can't find anything in the manuals. Is this\n>> true? How do you go about it?\n>>\n>> Thanks\n>>\n>> Mike\n>>\n>> Michael Muratet, Ph.D.\n>> Senior Scientist\n>> HudsonAlpha Institute for Biotechnology\n>> mmuratet at hudsonalpha.org\n>> (256) 327-0473 (p)\n>> (256) 327-0966 (f)\n>>\n>> Room 4005\n>> 601 Genome Way\n>> Huntsville, Alabama 35806\n> \n> Michael Muratet, Ph.D.\n> Senior Scientist\n> HudsonAlpha Institute for Biotechnology\n> mmuratet at hudsonalpha.org\n> (256) 327-0473 (p)\n> (256) 327-0966 (f)\n> \n> Room 4005\n> 601 Genome Way\n> Huntsville, Alabama 35806\n> \n> \n> \n> \n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Michael -- I'll respond off-list; this level of detail is really\ninternal to the package. Martin\n\nMichael Muratet wrote:\n> Greetings\n> \n> The latest version of the Illumina SCS software (v2.4) writ",
+      "thread_id": "thread-c61af8eadaa0",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-2732e4813cc2",
+      "message_id": "<534145.11507.qm@web36906.mail.mud.yahoo.com>",
+      "from_name": "joseph",
+      "from_email_hash": "8e151c9abc2cfcc762f760091519f85e9b3d6858f7d51f61f9737a1f1d3ec6a7",
+      "date": "2009-10-09T19:53:23Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns question",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns question",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091009/68f0cc7c/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091009/68f0cc7c/attachment.pl>",
+      "thread_id": "thread-2732e4813cc2",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-d64541f88f65",
+      "message_id": "<6DAB49CD-1A90-4428-8543-0D40C23AAC8C@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2009-10-09T20:23:23Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns question",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns question",
+      "in_reply_to": "<534145.11507.qm@web36906.mail.mud.yahoo.com>",
+      "references": [
+        "<534145.11507.qm@web36906.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "Allowing 2 errors, the first two letters of Rpattern3 match the last  \ntwo letters of the subject.\n\nMaybe you want max.Rmismatch=2, which is effectively c(rep(-1,11),2),  \nor something else to prevent\nunintended trimming.\n\nOn Oct 9, 2009, at 3:53 PM, joseph wrote:\n\n> Hello\n>  In the example below, Rpattern2 (2 mismatches) trims the subject  \n> correctly, while Rpattern3 (3 mismatches) which is not supposed to  \n> do any trimming, it trims the last 2 nucleotides. Can you explain why?\n>\n>\n>> subject <- DNAStringSet(\"GCTGGAACCCAGGGTGTTGTACCTGTAGGCACCA\")\n>> Rpattern2 <- \"CTGaAGGCACgA\" # 2 mismatches\n>> Rpattern3 <- \"tTGaAGGCACgA\" # 3 mismatches\n>> trimLRPatterns(Rpattern = Rpattern2, subject = subject,  \n>> max.Rmismatch = rep(2, 12))\n>   A DNAStringSet instance of length 1\n>     width seq\n> [1]    22 GCTGGAACCCAGGGTGTTGTAC\n>> trimLRPatterns(Rpattern = Rpattern3, subject = subject,  \n>> max.Rmismatch = rep(2, 12))\n>   A DNAStringSet instance of length 1\n>     width seq\n> [1]    32 GCTGGAACCCAGGGTGTTGTACCTGTAGGCAC\n>\n>\n>> sessionInfo()\n> R version 2.10.0 alpha (2009-10-01 r49909)\n> x86_64-apple-darwin9.8.0\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] rtracklayer_1.5.17 RCurl_1.2-0        bitops_1.0-4.1      \n> ShortRead_1.3.36\n> [5] lattice_0.17-25    BSgenome_1.13.16   Biostrings_2.13.48  \n> IRanges_1.3.87\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.5.8 grid_2.10.0   hwriter_1.1   tools_2.10.0  XML_2.6-0\n>>\n>\n>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Allowing 2 errors, the first two letters of Rpattern3 match the last  \ntwo letters of the subject.\n\nMaybe you want max.Rmismatch=2, which is effectively c(rep(-1,11),2),  \nor something else to prevent",
+      "thread_id": "thread-2732e4813cc2",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-1d0725b26970",
+      "message_id": "<9A6509A94A33124187515A9901DC551F0B9C223EBB@VAIEXCH05.vai.org>",
+      "from_name": "Dykema, Karl",
+      "from_email_hash": "0d10a4d131fa84821c4069fb77a1fb9f6fb98ee5682dbf8e09b676fc666a50d1",
+      "date": "2009-10-09T20:55:53Z",
+      "subject": "[Bioc-sig-seq] Mean coverage of capture regions",
+      "subject_clean": "[Bioc-sig-seq] Mean coverage of capture regions",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello All, \n\nI am attempting to calculate the mean number of reads for every exon that was represented on our custom Nimblegen capture chip. The capture regions don't line up exactly with the exon coordinates so I identified all exons that have an overlap, about 9500. I have previously done some crude sampling of the pileup output and my results were a lot better than what I seem to be calculating now. Currently I am running coverage() on my alignedRead object and then looping through the capture regions something like this:\n\ncurCov <- coverage(lane1)\nfor(q in c(1:22,\"X\",\"Y\")){\n\tcapturedExonsOnChrom <- capturedExons[which(capturedExons$chrom==q),]\n\tfor(i in 1:length(capturedExonsOnChrom)) {\n\t\texonCoordinates <- capturedExonsOnChrom[i]$exonStart:capturedExonsOnChrom[i]$exonEnd\n\t\tcapturedExonMeanCoverage[] <- mean(as.vector(curCov[[q]])[exonCoordinates])\n\t}\n}\n\nFirst off, I am assuming that there is a more efficient method to do this. Is that the case? Also, I have also been using GenomeGraphs to create plots of the coverage and those plots also seem to show plenty of reads where my calculations above indicate none. I am hoping there is an error in my current method because the previous coverage numbers were quite encouraging. Thanks in advance for your help.\n\n\n-------------------------------------\nKarl Dykema\nComputational Biologist\nVan Andel Research Institute\nThis email message, including any attachments, is for th...{{dropped:6}}",
+      "body_snippet": "Hello All, \n\nI am attempting to calculate the mean number of reads for every exon that was represented on our custom Nimblegen capture chip. The capture regions don't line up exactly with the exon coo",
+      "thread_id": "thread-1d0725b26970",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-3c3792626e1f",
+      "message_id": "<264855a00910091437y661257bcn73752b586d474eb5@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "d3b2169ffaaea1999a7a7b6290f8606b140e4c4584ca87b961aa66a7047b372c",
+      "date": "2009-10-09T21:37:11Z",
+      "subject": "[Bioc-sig-seq] Mean coverage of capture regions",
+      "subject_clean": "[Bioc-sig-seq] Mean coverage of capture regions",
+      "in_reply_to": "<9A6509A94A33124187515A9901DC551F0B9C223EBB@VAIEXCH05.vai.org>",
+      "references": [
+        "<9A6509A94A33124187515A9901DC551F0B9C223EBB@VAIEXCH05.vai.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091009/cb92367a/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091009/cb92367a/attachment.pl>",
+      "thread_id": "thread-1d0725b26970",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-7b652fc25315",
+      "message_id": "<4ACFD402.2030503@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2009-10-10T00:23:30Z",
+      "subject": "[Bioc-sig-seq] Mean coverage of capture regions",
+      "subject_clean": "[Bioc-sig-seq] Mean coverage of capture regions",
+      "in_reply_to": "<264855a00910091437y661257bcn73752b586d474eb5@mail.gmail.com>",
+      "references": [
+        "<9A6509A94A33124187515A9901DC551F0B9C223EBB@VAIEXCH05.vai.org>",
+        "<264855a00910091437y661257bcn73752b586d474eb5@mail.gmail.com>"
+      ],
+      "body_plain": "Karl,\nI just added a viewsMeans method to IRanges 1.3.90 within BioC 2.5 to \nmake this task easier. (This is in svn now and will be available via \nbiocLite tomorrow.) So assuming you are using R-devel (2.10)\n\n## load the packages\nsuppressMessages(library(ShortRead))\n\n## create lane1 AlignedRead object here\n\n## generate the coverage\n## this will produce a SimpleRleList\ncurCov <- coverage(lane1)\n\n## get the exon boundaries\n## this will create a CompressedIRangesList\ncurExons <-\n  split(IRanges(start=capturedExonsOnChrom$exonStart,\n                end=capturedExonsOnChrom$exonEnd),\n        capturedExons$chrom)\n\n## now get the chroms you are looking for\ncurCov <- curCov[c(1:22, \"X\", \"Y\")]\ncurExons <- curExons[c(1:22, \"X\", \"Y\")]\n\n## create views on your chromosomes\ncurViews <- RleViewsList(rleList = curCov, rangesList = curExons)\n\n## generate the exon means\nviewMeans(curViews)\n\n> sessionInfo()\nR version 2.10.0 alpha (2009-10-08 r49995) \ni386-apple-darwin9.8.0 \n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] ShortRead_1.3.36   lattice_0.17-26    BSgenome_1.13.16   Biostrings_2.13.50\n[5] IRanges_1.3.90    \n\nloaded via a namespace (and not attached):\n[1] Biobase_2.5.8 grid_2.10.0   hwriter_1.1  \n\n\n\n\n\nSean Davis wrote:\n> On Fri, Oct 9, 2009 at 4:55 PM, Dykema, Karl <Karl.Dykema at vai.org> wrote:\n>\n>   \n>> Hello All,\n>>\n>> I am attempting to calculate the mean number of reads for every exon that\n>> was represented on our custom Nimblegen capture chip. The capture regions\n>> don't line up exactly with the exon coordinates so I identified all exons\n>> that have an overlap, about 9500. I have previously done some crude sampling\n>> of the pileup output and my results were a lot better than what I seem to be\n>> calculating now. Currently I am running coverage() on my alignedRead object\n>> and then looping through the capture regions something like this:\n>>\n>> curCov <- coverage(lane1)\n>> for(q in c(1:22,\"X\",\"Y\")){\n>>        capturedExonsOnChrom <-\n>> capturedExons[which(capturedExons$chrom==q),]\n>>        for(i in 1:length(capturedExonsOnChrom)) {\n>>                exonCoordinates <-\n>> capturedExonsOnChrom[i]$exonStart:capturedExonsOnChrom[i]$exonEnd\n>>                capturedExonMeanCoverage[] <-\n>> mean(as.vector(curCov[[q]])[exonCoordinates])\n>>        }\n>> }\n>>\n>> First off, I am assuming that there is a more efficient method to do this.\n>> Is that the case? Also, I have also been using GenomeGraphs to create plots\n>> of the coverage and those plots also seem to show plenty of reads where my\n>> calculations above indicate none. I am hoping there is an error in my\n>> current method because the previous coverage numbers were quite encouraging.\n>> Thanks in advance for your help.\n>>\n>>\n>>     \n> Hi, Karl.\n>\n> I put together a little vignette that includes, among other things, a little\n> vignette that includes a short example of calculation of given a capture\n> method (Agilent, but the idea is the same).  The reads are read in using the\n> ShortRead package and the capture regions are in the form of a simple bed\n> file.  The vignette is here:\n>\n> http://watson.nci.nih.gov/~sdavis/sequencing_example.pdf\n>\n> Feel free to take a look at it for a slightly more efficient way of doing\n> things.  I'm not guaranteeing total correctness in the code and not all\n> parts will apply to nimblegen, I suppose, but it might get you started.\n>\n> Sean\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Karl,\nI just added a viewsMeans method to IRanges 1.3.90 within BioC 2.5 to \nmake this task easier. (This is in svn now and will be available via \nbiocLite tomorrow.) So assuming you are using R-devel",
+      "thread_id": "thread-1d0725b26970",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-a6c01374c598",
+      "message_id": "<4AD38027.6060406@fhcrc.org>",
+      "from_name": "Marc Carlson",
+      "from_email_hash": "63182bae9b15df223407341203cb8ed095d4cf2c8e9f0f84a8b7320bd591907d",
+      "date": "2009-10-12T19:14:47Z",
+      "subject": "[Bioc-sig-seq] Annotation of the lactococcus lactis genome",
+      "subject_clean": "[Bioc-sig-seq] Annotation of the lactococcus lactis genome",
+      "in_reply_to": "<OFA2B3D9DB.6690E0D8-ONC1257634.0024CFC7-C1257634.0024F000@chr-hansen.com>",
+      "references": [
+        "<OFA2B3D9DB.6690E0D8-ONC1257634.0024CFC7-C1257634.0024F000@chr-hansen.com>"
+      ],
+      "body_plain": "Hi Karin,\n\nSorry about the long delay to reply, but its probably better late than\nnot at all.  I have actually been busy inventing and testing a solution\njust for people like you.  In the devel branch, (soon to be release)\nthere is a way to solve this problem that has been introduced to\nCategory and GOstats so that if you have an annotation source you can\nstill do hypergeometric testing.  You will still need some source of\nannotation, it just doesn't have to be an annotation package anymore. \nFor your specific critter, I would probably use blast2GO to get GO data\nfor example.  You can find such data here:\n\nhttp://bioinfo.cipf.es/b2gfar/\n\nJust search for Lactocuccus.\n\nNow once you have that, you will want to do something like this:\n\nlibrary(\"GOstats\")\nlibrary(\"GSEABase\")\nlibrary(\"AnnotationDbi\")\n\nframe=GOFrame(yourFrameData,organism=\"Homo sapiens\")\nallFrame=GOAllFrame(frame)\ngsc <- GeneSetCollection(allFrame, setType = GOCollection())\nparams <- GSEAGOHyperGParams(name=\"My Custom GSEA based annot Params\",\ngeneSetCollection=gsc, geneIds = genes, universeGeneIds = universe,\nontology = \"MF\", pvalueCutoff = 0.05, conditio\nnal = FALSE, testDirection = \"over\")\nOver <- hyperGTest(params)\n\n\nThis example assumes that you have a data.frame to start with that\ncontains GO terms matched with Gene IDs.  It also assumes that your Gene\nIDs are unique identifiers so you might want to check that to make\nsure.  Some details about what your data.frame should look like are in\nthe manual page for GOFrame.  I can answer other questions if you have them.\n\n\n  Marc\n\n\n\n\nKarin Bjerre wrote:\n> Dear all, this is really basic questions, but I am new in the area. \n>\n> I have sequenced two strains of Lactococcus lactis, and now I would like \n> to annotate them. As I understand, the annotation software ?annotationDbi? \n> does not support this organism. Some Lactococcus lactis strains have been \n> sequenced and are available at NCBI, and pathways are present in KEGG. \n>\n> Well, I guess it its possible to annotate within R/Bioconductor, do you \n> have any suggestions how I should do? \n>\n> Best regards\n>\n> /Karin\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>",
+      "body_snippet": "Hi Karin,\n\nSorry about the long delay to reply, but its probably better late than\nnot at all.  I have actually been busy inventing and testing a solution\njust for people like you.  In the devel branch",
+      "thread_id": "thread-a6c01374c598",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-90248050f8b6",
+      "message_id": "<267324.49866.qm@web36901.mail.mud.yahoo.com>",
+      "from_name": "joseph",
+      "from_email_hash": "8e151c9abc2cfcc762f760091519f85e9b3d6858f7d51f61f9737a1f1d3ec6a7",
+      "date": "2009-10-12T20:45:10Z",
+      "subject": "[Bioc-sig-seq] coverage to wig",
+      "subject_clean": "[Bioc-sig-seq] coverage to wig",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091012/12b5caa2/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091012/12b5caa2/attachment.pl>",
+      "thread_id": "thread-90248050f8b6",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-19e09f77b4b4",
+      "message_id": "<509e0620910121611p7e26ee2eh6a992a7461aa2501@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-12T23:11:36Z",
+      "subject": "[Bioc-sig-seq] coverage to wig",
+      "subject_clean": "[Bioc-sig-seq] coverage to wig",
+      "in_reply_to": "<267324.49866.qm@web36901.mail.mud.yahoo.com>",
+      "references": [
+        "<267324.49866.qm@web36901.mail.mud.yahoo.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091012/67dd1706/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091012/67dd1706/attachment.pl>",
+      "thread_id": "thread-90248050f8b6",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-aa0257d603fc",
+      "message_id": "<1255730289.4023@venus.he.net>",
+      "from_name": "Chris Seidel",
+      "from_email_hash": "021f6f5624656d1863097736e3b57ef70cbe334ac3d2ce10331e53ada73b3c59",
+      "date": "2009-10-16T21:58:09Z",
+      "subject": "[Bioc-sig-seq] rtracklayer and coverage() from GenomeData",
+      "subject_clean": "[Bioc-sig-seq] rtracklayer and coverage() from GenomeData",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI'm getting an error using export() to generate a wig file from a\ncoverage result.\n\nIn an earlier thread (Subject: Re: [Bioc-sig-seq] WIG from coverage, Sep\n30, 2009 at 3:15 PM) there was an example of going from reads to\ncoverage to wig, and Michael Lawrence had suggested:\n\n> The most convenient path would be to perform the analysis over all\n> chromosomes and lanes at once. The extendReads() function should do\nthis for\n> you, e.g:\n>\n> extendedReads <- extendReads(ypd, seqLen=150)\n>\n> The 'extendedReads' above is a GenomeDataList. You could then do something\n> like:\n>\n> cov <- gdapply(extendedReads, coverage)\n>\n> Now 'cov' is another GenomeDataList. Just subset out one lane and export\n> it:\n>\n> export(cov$wce, \"wce.wig\")\n\nWhen I try this, I get an error:\n\n# read in data and convert to genome data objects\naln <- readAligned(spath, pattern=\"s_1_export.txt\", type=\"SolexaExport\",\nfilter=filt)\nip <- as(aln,\"GenomeData\")\naln <- readAligned(spath, pattern=\"s_2_export.txt\", type=\"SolexaExport\",\nfilter=filt)\nwce <- as(aln,\"GenomeData\")\n\n# create GenomeDataList from ip and wce\ncb <- GenomeDataList(list(ip=ip, wce=wce))\n\n# extend reads\ncb.ext <- extendReads(cb, seqLen=50)\n\n# get coverage for both lanes across all chromosomes\ncb.cov <- gdapply(cb.ext, coverage)\n\n# export the ip lane to wig\nexport(cb.cov$ip, \"cb_ip.wig\")\n\nError in object[order(start(object)), ] :\n    cannot combine 'i' row values from different spaces\n\nHowever, it works correctly if I \"export\" one chromosome at a time:\n\nexport(cb.cov$ip$chr2L, \"cb_ip.wig\")\n\nIs this a bug, or am I doing something wrong? Can export take a\nsubsetted GenomeDataList object? I even tried coercing the GenomeData\nelement to RangedData, but I got the same error while trying to export.\n\n-Chris Seidel\n\n> sessionInfo()\nR version 2.10.0 Under development (unstable) (2009-09-03 r49555)\nx86 <- 64-unknown-linux-gnu\n\nother attached packages:\n  [1] rtracklayer <- 1.5.17 RCurl <- 1.2-0        bitops <- 1.0-4.1    \nchipseq <- 0.1.27\n[5] ShortRead <- 1.3.36   lattice <- 0.17-25    BSgenome <- 1.13.14  \nBiostrings <- 2.13.47\n[9] IRanges <- 1.3.87\n\nloaded via a namespace (and not attached):\n  [1] Biobase <- 2.5.8 XML <- 2.6-0     grid <- 2.10.0   hwriter <- 1.1\n  tools <- 2.10.0",
+      "body_snippet": "Hello,\n\nI'm getting an error using export() to generate a wig file from a\ncoverage result.\n\nIn an earlier thread (Subject: Re: [Bioc-sig-seq] WIG from coverage, Sep\n30, 2009 at 3:15 PM) there was an e",
+      "thread_id": "thread-aa0257d603fc",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-98de6c80d41e",
+      "message_id": "<509e0620910161536m109a1a69g82fa9db569fa5133@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-16T22:36:02Z",
+      "subject": "[Bioc-sig-seq] rtracklayer and coverage() from GenomeData",
+      "subject_clean": "[Bioc-sig-seq] rtracklayer and coverage() from GenomeData",
+      "in_reply_to": "<1255730289.4023@venus.he.net>",
+      "references": [
+        "<1255730289.4023@venus.he.net>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091016/208b57e7/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091016/208b57e7/attachment.pl>",
+      "thread_id": "thread-aa0257d603fc",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-24da7015ec8e",
+      "message_id": "<1255973123.20915@venus.he.net>",
+      "from_name": "Chris Seidel",
+      "from_email_hash": "021f6f5624656d1863097736e3b57ef70cbe334ac3d2ce10331e53ada73b3c59",
+      "date": "2009-10-19T17:25:23Z",
+      "subject": "[Bioc-sig-seq] gdapply, coverage,  and widths for all chromosomes",
+      "subject_clean": "[Bioc-sig-seq] gdapply, coverage,  and widths for all chromosomes",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "In using gdapply to get coverage over all chromosomes of a\nGenomeDataList object:\n\ncov <- gdapply(extendedReads, coverage)\n\nhow do you supply the \"width\" argument to coverage? When I try handing\nit a vector of chromosome lengths, it complains that it needs a single\nvalue.\n\n-Chris",
+      "body_snippet": "In using gdapply to get coverage over all chromosomes of a\nGenomeDataList object:\n\ncov <- gdapply(extendedReads, coverage)\n\nhow do you supply the \"width\" argument to coverage? When I try handing\nit a ",
+      "thread_id": "thread-24da7015ec8e",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-d1621bcc368a",
+      "message_id": "<eb555e660910191238r125c863yfbd3f5dfca4b0e4f@mail.gmail.com>",
+      "from_name": "Deepayan Sarkar",
+      "from_email_hash": "e2f6c1c06815045681b456968d2e109321e5194ba71ca82f1f6f312db1508e36",
+      "date": "2009-10-19T19:38:45Z",
+      "subject": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "subject_clean": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "in_reply_to": "<1255973123.20915@venus.he.net>",
+      "references": [
+        "<1255973123.20915@venus.he.net>"
+      ],
+      "body_plain": "On Mon, Oct 19, 2009 at 10:25 AM, Chris Seidel <seidel at phaget4.org> wrote:\n> In using gdapply to get coverage over all chromosomes of a\n> GenomeDataList object:\n>\n> cov <- gdapply(extendedReads, coverage)\n>\n> how do you supply the \"width\" argument to coverage? When I try handing\n> it a vector of chromosome lengths, it complains that it needs a single\n> value.\n\nYou cannot. That's a limitation of gdapply, potentially fixable by\nmaking the chromosome lengths available as phenodata associated with\nthe \"GenomeDataList\" object.\n\nOne reason for not addressing this limitation yet is that for most\ndownstream operations the default choice of 'width' seemed OK. Could\nyou explain why that is not sufficient in your case?\n\n-Deepayan",
+      "body_snippet": "On Mon, Oct 19, 2009 at 10:25 AM, Chris Seidel <seidel at phaget4.org> wrote:\n> In using gdapply to get coverage over all chromosomes of a\n> GenomeDataList object:\n>\n> cov <- gdapply(extendedReads, co",
+      "thread_id": "thread-24da7015ec8e",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-f68d576418db",
+      "message_id": "<509e0620910191240h5c15fb09jde170d73a4e621e7@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-19T19:40:08Z",
+      "subject": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "subject_clean": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "in_reply_to": "<1255973123.20915@venus.he.net>",
+      "references": [
+        "<1255973123.20915@venus.he.net>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091019/76778dc8/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091019/76778dc8/attachment.pl>",
+      "thread_id": "thread-24da7015ec8e",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-587c01ed6701",
+      "message_id": "<4ADCC588.6000902@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-19T20:01:12Z",
+      "subject": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "subject_clean": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "in_reply_to": "<509e0620910191240h5c15fb09jde170d73a4e621e7@mail.gmail.com>",
+      "references": [
+        "<1255973123.20915@venus.he.net>",
+        "<509e0620910191240h5c15fb09jde170d73a4e621e7@mail.gmail.com>"
+      ],
+      "body_plain": "Michael Lawrence wrote:\n> On Mon, Oct 19, 2009 at 10:25 AM, Chris Seidel <seidel at phaget4.org> wrote:\n> \n>> In using gdapply to get coverage over all chromosomes of a\n>> GenomeDataList object:\n>>\n>> cov <- gdapply(extendedReads, coverage)\n\na different route to this point (<...> representing arguments you'd\nprovide) is\n\n  aln <- readAligned(<...>) # or aln <- AlignedRead(<...>)\n  library(BSgenome.Hsapiens.UCSC.hg18)\n  wd <- seqlengths(Hsapiens)\n  ## subset aln and wd so that they have matching names, e.g.,\n  ## it might also be necessary to adjust names, e.g,. dropping '.fa'\n  aln <- aln[chromosome(aln) %in% names(wd)]\n  wd <- wd[names(wd) %in% chromosome(aln)]\n  cvg <- coverage(aln, width=wd, extend=200L)\n\nthis also results in a list of Rle's (a SimpleRleList). See\n?\"AlignedRead-class\" for details; this is a non-trivial operation, e.g.,\nit maybe useful to separately manage strands.\n\nMartin\n\n\n>>\n>> how do you supply the \"width\" argument to coverage? When I try handing\n>> it a vector of chromosome lengths, it complains that it needs a single\n>> value.\n>>\n>>\n> This is the normal behavior of apply functions in R. The additional\n> arguments are passed in whole to the function every time it is invoked. We\n> don't have an \"mapply\" variant of gdapply, so you'll need to do some extra\n> work, like keeping track of an index.\n> \n> Perhaps we could make this easier using metadata? We know the genome of\n> 'extendedReads' so 'coverage' could be smart and refer to the appropriate\n> BSgenome package.\n> \n> Michael\n> \n> \n> \n>> -Chris\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n> \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Michael Lawrence wrote:\n> On Mon, Oct 19, 2009 at 10:25 AM, Chris Seidel <seidel at phaget4.org> wrote:\n> \n>> In using gdapply to get coverage over all chromosomes of a\n>> GenomeDataList object:\n>>\n>>",
+      "thread_id": "thread-24da7015ec8e",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-dc63a2fe98d3",
+      "message_id": "<1255986164.29484@venus.he.net>",
+      "from_name": "Chris Seidel",
+      "from_email_hash": "021f6f5624656d1863097736e3b57ef70cbe334ac3d2ce10331e53ada73b3c59",
+      "date": "2009-10-19T21:02:44Z",
+      "subject": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "subject_clean": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Thanks for the responses.\n\nOn Mon, Oct 19, 2009, Deepayan wrote: \n> for most downstream operations the default choice of 'width' \n> seemed OK.Could you explain why that is not sufficient in your case?\n\nI didn't know there was a default choice. I thought that without a\n'width' argument, coverage is only calculated between 0 and the\nright-most read (i.e. highest integer position).\n\nFor instance, I create a GenomeData object from a set of aligned reads:\n\n> str(aln.gd$chr2L)\nList of 2\n $ -: int [1:538743] 8223524 17606696 [...] 2021681 21292267 ...\n $ +: int [1:542167] 22057110 2479626 [...] 17195586 21698792 ...\n\nhanding this to extendReads(), will extend those positions, but no where\nis it known that this is drosophila data or that chr2L actually has\n23,011,544 bases. So handing the extended reads to coverage(), would\nonly calculate coverage between 0 and the highest extended read (or so I\nthought).\n\nI want to extend the reads to the ends of the chromosomes, because what\nI actually want to do is to calculate coverage for an IP sample, and a\nWhole Cell Extract sample, and then divide the two (perhaps after adding\n1 to each position to avoid dividing by zero) to create a ratio - and\nthen export to WIG.\n\ne.g. where ypd is a GenomeDataList object:\n\nip1 <- extendReads(ypd$ip$chrI, seqLen=200)\nwce1 <- extendReads(ypd$wce$chrI, seqLen=200)\n\nip1.cov <- coverage(ip1, width=230208)\nwce1.cov <- coverage(wce1, width=230208)\n\nip1.cov <- ip1.cov + 1\nwce1.cov <- wce1.cov + 1\nrat <- log2(ip1.cov/wce1.cov)\n\nexport(rat, \"ip1_wce1_rat.wig\")\n\n(not perfect, but goes a long way to exploring the data.)\n\nThe ratios represent signal over background, and one can investigate\nnormalization, smoothing, peaks, etc. I've figured out how to do all\nthese things with single chromosomes, but as Michael has pointed out,\nit's much more natural (and elegant) to do this for all the chromosomes\nat once.\n\n-Chris\n\nDeepayan wrote: \n>  On Mon, Oct 19, 2009 at 10:25 AM, Chris Seidel <seidel at\nphaget4.org> wrote:\n> > In using gdapply to get coverage over all chromosomes of a\n> > GenomeDataList object:\n> >\n> > cov <- gdapply(extendedReads, coverage)\n> >\n> > how do you supply the \"width\" argument to coverage? When I try handing\n> > it a vector of chromosome lengths, it complains that it needs a single\n> > value.\n> \n> You cannot. That's a limitation of gdapply, potentially fixable by\n> making the chromosome lengths available as phenodata associated with\n> the \"GenomeDataList\" object.\n> \n> One reason for not addressing this limitation yet is that for most\n> downstream operations the default choice of 'width' seemed OK. Could\n> you explain why that is not sufficient in your case?\n>\n> -Deepayan",
+      "body_snippet": "Thanks for the responses.\n\nOn Mon, Oct 19, 2009, Deepayan wrote: \n> for most downstream operations the default choice of 'width' \n> seemed OK.Could you explain why that is not sufficient in your case?",
+      "thread_id": "thread-dc63a2fe98d3",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-588beed6b015",
+      "message_id": "<509e0620910191537k4073b4cch8336fd42e2f72caa@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-19T22:37:43Z",
+      "subject": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "subject_clean": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "in_reply_to": "<4ADCC588.6000902@fhcrc.org>",
+      "references": [
+        "<1255973123.20915@venus.he.net>",
+        "<509e0620910191240h5c15fb09jde170d73a4e621e7@mail.gmail.com>",
+        "<4ADCC588.6000902@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091019/44cc33e7/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091019/44cc33e7/attachment.pl>",
+      "thread_id": "thread-24da7015ec8e",
+      "thread_depth": 3,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-fc3fea2393cb",
+      "message_id": "<5E09189DCC2AB149B8EE6F595890EFAD01F50C@BL2PRD0102MB029.prod.exchangelabs.com>",
+      "from_name": "pterry at huskers.unl.edu",
+      "from_email_hash": "451b60417347881d1411be90e0dc48b9af1cc31e0974d2d23e738160d3b043e7",
+      "date": "2009-10-20T16:11:46Z",
+      "subject": "[Bioc-sig-seq] Error message when working with IRanges package",
+      "subject_clean": "[Bioc-sig-seq] Error message when working with IRanges package",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear bioc-sig-sequencing,\n\nCan you comment on the following error message I received while using the IRanges package.\n\nI tried the following with a gene information file downloaded from UCSC Table Browser (C. elegans, chrIII):\n\nThe first two lines of the gene information file are:\n\nmterry at system76-pc:~/data09/R_working$ head -n 2 celegans_chrIII.txt\n#name   chrom   strand  txStart txEnd   cdsStart        cdsEnd  exonCount       exonStarts      exonEnds        proteinID\ncTel54X.1       chrIII  -       1270    2917    1270    2917    4       1270,1557,2680,2816,    1507,2167,2764,2917,    fbxa-6\n\ngenetable<-read.table(\"celegans_chrIII.txt\", header=T, sep=\"\\t\")\n> head(genetable, n = 2L)\n  cTel54X.1 chrIII X. X1270 X2917 X1270.1 X2917.1 X4\n1  H10E21.2 chrIII  +  8855 11940    8855   11940  6\n2 H10E21.3a chrIII  - 12185 14801   12188   14753  7\n                       X1270.1557.2680.2816.\n1          8855,9268,9886,10515,10796,11674,\n2 12185,12475,12964,13463,13811,14521,14740,\n                       X1507.2167.2764.2917.   fbxa.6\n1         8957,9428,10072,10641,11105,11940, H10E21.2\n2 12401,12627,13391,13682,14083,14686,14801,   nhr-80\n>\n\n##############################################################\nI note: the preceding 'read.table' command made the 1st data line in 'genetable' into sort of a header?  The error in the following code line cites a problem in row 1 of the 'genetable' data structure.\n################################################################\n\n> promoter<-IRanges(start=genetable$txStart-1000*as.real(genetable$strand==\"+\"), width=1000)\nError in solveUserSEW0(start = start, end = end, width = width) :\n  solving row 1: range cannot be determined from the supplied arguments (too many NAs)\n\n> sessionInfo()\nR version 2.10.0 Under development (unstable) (2009-09-11 r49665)\nx86_64-unknown-linux-gnu\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] ShortRead_1.3.40   lattice_0.17-26    rtracklayer_1.5.23 RCurl_1.2-1\n[5] bitops_1.0-4.1     BSgenome_1.13.16   Biostrings_2.13.52 IRanges_1.3.93\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.5.8 grid_2.10.0   hwriter_1.1   XML_2.6-0\n>\n\nThanks,\nP. Terry\npterry at huskers.unl.edu",
+      "body_snippet": "Dear bioc-sig-sequencing,\n\nCan you comment on the following error message I received while using the IRanges package.\n\nI tried the following with a gene information file downloaded from UCSC Table Bro",
+      "thread_id": "thread-fc3fea2393cb",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-18632e3a0110",
+      "message_id": "<509e0620910201055s29ccd83bv4a1c400a5d369055@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-20T17:55:44Z",
+      "subject": "[Bioc-sig-seq] Error message when working with IRanges package",
+      "subject_clean": "[Bioc-sig-seq] Error message when working with IRanges package",
+      "in_reply_to": "<5E09189DCC2AB149B8EE6F595890EFAD01F50C@BL2PRD0102MB029.prod.exchangelabs.com>",
+      "references": [
+        "<5E09189DCC2AB149B8EE6F595890EFAD01F50C@BL2PRD0102MB029.prod.exchangelabs.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091020/ec72e2d0/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091020/ec72e2d0/attachment.pl>",
+      "thread_id": "thread-fc3fea2393cb",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-00e3f9583566",
+      "message_id": "<509e0620910201341qcbdf67apdb915eca04bf1f91@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-20T20:41:44Z",
+      "subject": "[Bioc-sig-seq] Error message when working with IRanges package",
+      "subject_clean": "[Bioc-sig-seq] Error message when working with IRanges package",
+      "in_reply_to": "<509e0620910201055s29ccd83bv4a1c400a5d369055@mail.gmail.com>",
+      "references": [
+        "<5E09189DCC2AB149B8EE6F595890EFAD01F50C@BL2PRD0102MB029.prod.exchangelabs.com>",
+        "<509e0620910201055s29ccd83bv4a1c400a5d369055@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091020/fc1d34f7/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091020/fc1d34f7/attachment.pl>",
+      "thread_id": "thread-fc3fea2393cb",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-c921dff0ccb2",
+      "message_id": "<91ff0b3d0910220338q67634f3bk24afb07ecdefd6fe@mail.gmail.com>",
+      "from_name": "Florence Cavalli",
+      "from_email_hash": "bd7bd1ae851f31c79360e8458eaaa42066c4a569aa2013fb99e6a3db0dcc1565",
+      "date": "2009-10-22T10:38:03Z",
+      "subject": "[Bioc-sig-seq] coverage ranges included in gene ranges and input data",
+      "subject_clean": "[Bioc-sig-seq] coverage ranges included in gene ranges and input data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091022/3780270c/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091022/3780270c/attachment.pl>",
+      "thread_id": "thread-c921dff0ccb2",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-bb044845407c",
+      "message_id": "<509e0620910220809o31c25dfeva5e80942868079c7@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-22T15:09:53Z",
+      "subject": "[Bioc-sig-seq] coverage ranges included in gene ranges and input data",
+      "subject_clean": "[Bioc-sig-seq] coverage ranges included in gene ranges and input data",
+      "in_reply_to": "<91ff0b3d0910220338q67634f3bk24afb07ecdefd6fe@mail.gmail.com>",
+      "references": [
+        "<91ff0b3d0910220338q67634f3bk24afb07ecdefd6fe@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091022/e23a14bf/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091022/e23a14bf/attachment.pl>",
+      "thread_id": "thread-c921dff0ccb2",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-82058a25d501",
+      "message_id": "<4AE0A770.1020708@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2009-10-22T18:41:52Z",
+      "subject": "[Bioc-sig-seq] coverage ranges included in gene ranges and\tinput data",
+      "subject_clean": "[Bioc-sig-seq] coverage ranges included in gene ranges and\tinput data",
+      "in_reply_to": "<509e0620910220809o31c25dfeva5e80942868079c7@mail.gmail.com>",
+      "references": [
+        "<91ff0b3d0910220338q67634f3bk24afb07ecdefd6fe@mail.gmail.com>",
+        "<509e0620910220809o31c25dfeva5e80942868079c7@mail.gmail.com>"
+      ],
+      "body_plain": "Florence,\nBelow is code I would use to find the median coverage depth within specified ranges. This snippet includes a simplification to the coverage method that I just checked into svn and so will be available tomorrow at bioconductor.org via biocLite. Does this code meet your needs and seem reasonable to you?\n\n> suppressMessages(library(IRanges))\n> \n> TSS_Dm_Anno_ch <-\n+   RangedData(IRangesList(\n+              \"2L\" = IRanges(start=c(2, 3, 5, 8), width=2),\n+              \"2R\" = IRanges(start=c(1, 4, 6), width=3)))\n\n> polII_cov_wt_ch <-\n+   RangedData(IRangesList(\n+              \"2L\" = IRanges(start=c(1, 4, 6), width=c(3, 2, 4)),\n+              \"2R\" = IRanges(start=c(1, 2, 3, 6), width=c(3, 3, 3, 4))),\n+              score = c(2, 4, 7, 3, 1, 1, 1))\n\n> ## requires IRanges >= 1.3.96\n> polIIcoverage <- coverage(polII_cov_wt_ch, weight = \"score\")\n> ##otherwise:\n> ##polIIcoverage <- coverage(polII_cov_wt_ch, weight = values(polII_cov_wt_ch)[,\"score\"])\n\n> cov_med <- aggregate(polIIcoverage, ranges(TSS_Dm_Anno_ch), median)\n\n> TSS_Dm_Anno_ch$med_cov <- unlist(cov_med)\n\n> TSS_Dm_Anno_ch\nRangedData with 7 ranges and 1 value column on 2 sequences\ncolnames(1): med_cov\nnames(2): 2L 2R\n\n> as.data.frame(TSS_Dm_Anno_ch)\n  space start end width med_cov\n1    2L     2   3     2     2.0\n2    2L     3   4     2     3.0\n3    2L     5   6     2     5.5\n4    2L     8   9     2     7.0\n5    2R     1   3     3     4.0\n6    2R     4   6     3     1.0\n7    2R     6   8     3     1.0\n\n> sessionInfo()\nR version 2.10.0 RC (2009-10-18 r50160) \ni386-apple-darwin9.8.0 \n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] IRanges_1.3.96\n\n\n\n\n\nMichael Lawrence wrote:\n> On Thu, Oct 22, 2009 at 3:38 AM, Florence Cavalli <florence at ebi.ac.uk>wrote:\n>\n>   \n>> Hello,\n>>\n>> I am working with ChIP-seq data. I want to get the median of the coverage\n>> for each gene that I have in a RangedData.\n>> My coverage is a RangedData object as well. I extracted the ranges of my\n>> two\n>> objects and I used the %in% function but it gives me the ranges that are\n>> totally or partly in a particular gene. I wish to be more restrictive and\n>> to\n>> include only the ranges that are entirely in the gene.\n>>\n>> Here is an example.\n>>\n>>     \n>>> class(TSS_Dm_Anno_ch)\n>>>       \n>> [1] \"RangedData\"\n>> attr(,\"package\")\n>> [1] \"IRanges\"\n>>     \n>>> region.TU=ranges(TSS_Dm_Anno_ch)\n>>> region.TU\n>>>       \n>> CompressedIRangesList: 7 ranges\n>> sequences(7): \"2L\" \"2R\" \"3L\" \"3R\" \"4\" \"U\" \"X\"\n>>     \n>>> class(region.TU)\n>>>       \n>> [1] \"CompressedIRangesList\"\n>> attr(,\"package\")\n>> [1] \"IRanges\"\n>>\n>>     \n>>> polII_cov_wt_ch\n>>>       \n>> RangedData: 6931803 ranges by 1 column on 7 sequences\n>> colnames(1): score\n>> names(7): 2L 2R 3L 3R 4 U X\n>>     \n>>> values.ranges=ranges(polII_cov_wt_ch)\n>>> values.ranges\n>>>       \n>> CompressedIRangesList: 7 ranges\n>> sequences(7): \"2L\" \"2R\" \"3L\" \"3R\" \"4\" \"U\" \"X\"\n>>\n>> ## Get the borders for each gene, i,e the row numbers in values.ranges (min\n>> and max) which correspond to ranges that are in the gene (g) range.\n>> borders=lapply(names(values.ranges), function(ch)\n>> t(sapply(1:nrow(as.data.frame(region.TU[[ch]])),function(g)\n>> range(which(values.ranges[[ch]] %in% region.TU[[ch]][g])))))\n>>\n>>     \n>\n> And I use the following function to obtain the median of the coverage on the\n>   \n>> ranges included in the borders\n>>\n>> getMedianInRegionFromRangedData <- function(M.values,ranges){\n>>  median.values=sapply(1:nrow(ranges), function(r)\n>> median(M.values[ranges[r,1]:ranges[r,2],]$score))\n>>  return(median.values)\n>> }\n>>\n>>\n>>     \n> Assuming that the RangedData represents a run-length encoded coverage\n> vector, the above code is taking the median of the run values, not the\n> median of the actual coverage. That is, as far as I can tell, you are not\n> weighting the median calculation by the run lengths.\n>\n> Maybe that's intentional, but anyway RangedData is designed for storing\n> variables on a set of ranges. A value of a variable, like score, applies to\n> the range, not to every element of the range. In other words, RangedData is\n> not formally a run-length encoding, so it is not a very convenient\n> representation of coverage.\n>\n> Coverage is more naturally represented as a sequence, e.g. an Rle object.\n> You could construct an RleList from the RangedData (which would be easy if\n> your RangedData has the zero regions). Then form an RleViews(List) using the\n> gene ranges and viewApply() over it.\n>\n> Maybe others have better ideas..\n>\n>\n>   \n>>  median.values=unlist(lapply(names(borders), function(ch)\n>> getMedianInRegionFromRangedData(polII_cov_wt_ch[ch],borders[[ch]])))\n>>\n>> I am sure my code should be improved, using a mapply I guess!?\n>>\n>> I haven't found yet the appropriate function to be more restrictive.\n>> So far, I did it using something like\n>> min(which(start(values.ranges[[ch]])>start(region.TU[[ch]])[g])) and\n>> max(which(start(values.ranges[[ch]])<end(region.TU[[ch]])[g]))-1 to get\n>> these borders but it's not efficient at all.\n>> Should I use a seqselect or Find functions of the Sequence class?\n>>\n>> One more question, is there any particular function in the chipseq package\n>> or in an other package to help us to use the input data, taking it into\n>> account to analyse the real signal?\n>>\n>> Many thanks in advance,\n>> Florence\n>>\n>>     \n>>> sessionInfo()\n>>>       \n>> R version 2.10.0 alpha (2009-10-04 r49926)\n>> x86_64-unknown-linux-gnu\n>>\n>> locale:\n>>  [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C\n>>  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8\n>>  [5] LC_MONETARY=C              LC_MESSAGES=en_GB.UTF-8\n>>  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C\n>>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n>> [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] BSgenome.Dmelanogaster.UCSC.dm3_1.3.11\n>> [2] chipseq_0.1.27\n>> [3] ShortRead_1.3.40\n>> [4] lattice_0.17-26\n>> [5] BSgenome_1.13.16\n>> [6] Biostrings_2.13.53\n>> [7] IRanges_1.3.94\n>>\n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.5.8 grid_2.10.0   hwriter_1.1   tools_2.10.0\n>>\n>> ----------------------------------------\n>> Florence Cavalli\n>> PhD student, Luscombe group\n>> EMBL-European Bioinformatics Institute\n>> Wellcome Trust Genome Campus\n>> Hinxton\n>> CB10 1SD\n>> Cambridge\n>> UK\n>> email:florence at ebi.ac.uk <email%3Aflorence at ebi.ac.uk> <\n>> email%3Aflorence at ebi.ac.uk <email%253Aflorence at ebi.ac.uk>>\n>>\n>>        [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>>     \n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Florence,\nBelow is code I would use to find the median coverage depth within specified ranges. This snippet includes a simplification to the coverage method that I just checked into svn and so will be",
+      "thread_id": "thread-c921dff0ccb2",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-d0caf403f37e",
+      "message_id": "<91ff0b3d0910231503p4b4a2748te58e3f994423dd98@mail.gmail.com>",
+      "from_name": "Florence Cavalli",
+      "from_email_hash": "bd7bd1ae851f31c79360e8458eaaa42066c4a569aa2013fb99e6a3db0dcc1565",
+      "date": "2009-10-23T22:03:59Z",
+      "subject": "[Bioc-sig-seq] coverage ranges included in gene ranges and input data",
+      "subject_clean": "[Bioc-sig-seq] coverage ranges included in gene ranges and input data",
+      "in_reply_to": "<4AE0A770.1020708@fhcrc.org>",
+      "references": [
+        "<91ff0b3d0910220338q67634f3bk24afb07ecdefd6fe@mail.gmail.com>",
+        "<509e0620910220809o31c25dfeva5e80942868079c7@mail.gmail.com>",
+        "<4AE0A770.1020708@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091023/de816708/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091023/de816708/attachment.pl>",
+      "thread_id": "thread-c921dff0ccb2",
+      "thread_depth": 3,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-9c7aa25b1488",
+      "message_id": "<1256520673.30547.36.camel@BIOINFORM01-ubuntu>",
+      "from_name": "Paul Leo",
+      "from_email_hash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+      "date": "2009-10-26T01:31:13Z",
+      "subject": "[Bioc-sig-seq] Paired end reads -tools?",
+      "subject_clean": "[Bioc-sig-seq] Paired end reads -tools?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I have some low coverage paired end data. I would like to plot the\ndifference between the paired end reads. \n\nI've used Shortread, IRANGES etc some but have not seen explicit use of\npaired end data ... I'm not quite sure how that data is handled in\nIRANGES as a RangedData object?\n\nWould be grateful any pointers or ideas on what others have used to\nanalyse this data.... looking for structural varions in matched\ncancer/normal based on  paired in read  distance( data is very low\ncoverage so I think this is all I can hope for at the moment...)\n\nThanks\nPaul",
+      "body_snippet": "I have some low coverage paired end data. I would like to plot the\ndifference between the paired end reads. \n\nI've used Shortread, IRANGES etc some but have not seen explicit use of\npaired end data ..",
+      "thread_id": "thread-9c7aa25b1488",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-767ba8e1b479",
+      "message_id": "<F64467E9-BEE2-40FE-8CDD-47788083F027@embl.de>",
+      "from_name": "Nicolas Delhomme",
+      "from_email_hash": "e1bcfb33fa39c0fa362850148b5fab2fc3bcba8158505ec7e26a57a5446bd20b",
+      "date": "2009-10-26T12:03:45Z",
+      "subject": "[Bioc-sig-seq] Paired end reads -tools?",
+      "subject_clean": "[Bioc-sig-seq] Paired end reads -tools?",
+      "in_reply_to": "<1256520673.30547.36.camel@BIOINFORM01-ubuntu>",
+      "references": [
+        "<1256520673.30547.36.camel@BIOINFORM01-ubuntu>"
+      ],
+      "body_plain": "Hi Paul,\n\nFirst to clarify, are you talking about paired-end (insert size of  \naround 200bp) or mate-pair (insert size of around 2-3kb) sequencing?\n\nI've been doing some analysis of mate pair data in R (for a de-novo  \nassembly). The synopsis of what I've done is (I can elaborate if you  \nthink what I've done is of interest for you):\n\n1) load the aligned reads\n\n2) filter them for N containing reads, reads aligned to non-ref  \nchromosome, etc\n\n3) identify the uniquely mapped mate pair, i.e. each mate map only  \nonce in the genome and has a single mate (computationally performed  \nusing their ids)\n\n4) convert the mate reads into intervals stored into a RangedData object\n\n5) estimate the insert size distribution and further processing  \n(assembly in my case)\n\nIn your case, if you're using mate pairs (I hardly see how to do that  \nwith \"standard\" paired reads), you could have a window sliding along  \nyour chromosome and estimating whether the insert size in your cancer  \nsample is different from the one in the normal sample.\n\nBest,\n\nNico\n\n\n\n---------------------------------------------------------------\nNicolas Delhomme\n\nHigh Throughput Functional Genomics Center\n\nEuropean Molecular Biology Laboratory\n\nTel: +49 6221 387 8426\nEmail: nicolas.delhomme at embl.de\nMeyerhofstrasse 1 - Postfach 10.2209\n69102 Heidelberg, Germany\n---------------------------------------------------------------\n\n\n\nOn 26 Oct 2009, at 02:31, Paul Leo wrote:\n\n> I have some low coverage paired end data. I would like to plot the\n> difference between the paired end reads.\n>\n> I've used Shortread, IRANGES etc some but have not seen explicit use  \n> of\n> paired end data ... I'm not quite sure how that data is handled in\n> IRANGES as a RangedData object?\n>\n> Would be grateful any pointers or ideas on what others have used to\n> analyse this data.... looking for structural varions in matched\n> cancer/normal based on  paired in read  distance( data is very low\n> coverage so I think this is all I can hope for at the moment...)\n>\n> Thanks\n> Paul\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Paul,\n\nFirst to clarify, are you talking about paired-end (insert size of  \naround 200bp) or mate-pair (insert size of around 2-3kb) sequencing?\n\nI've been doing some analysis of mate pair data in ",
+      "thread_id": "thread-9c7aa25b1488",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-8e5147fc9d52",
+      "message_id": "<5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>",
+      "from_name": "pterry at huskers.unl.edu",
+      "from_email_hash": "451b60417347881d1411be90e0dc48b9af1cc31e0974d2d23e738160d3b043e7",
+      "date": "2009-10-27T22:53:02Z",
+      "subject": "[Bioc-sig-seq] GenomicFeatures package",
+      "subject_clean": "[Bioc-sig-seq] GenomicFeatures package",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear bioc-sig-sequencing,\n\nPreviously, I tried the following with a UCSC available genome.\n\ngenetable<-read.table(\"celegans_chrIII.txt\", header=T, sep=\"\\t\")\n> promoter<-IRanges(start=genetable$txStart-1000*as.real(genetable$strand==\"+\"), width=1000)\n\nIt was suggested I might \"check out the GenomicFeatures package, which has utilities for working with a data.frame representation of the UCSC genes table. For example, the 'transcripts' function will give you a set of regions, including the promoters you're trying to generate.\"\n\nI have a genome, arabidopsis, apparently not available at the UCSC database, but rather from TAIR.\n\nFor this genome, might the GenomicFeatures pakage be similarly helpful?  I assume one might start with a file like TAIR9_GFF3_genes.gff from the TAIR site?  I note it has records for 'gene', 'mRNA', 'CDS', 'exon', perhaps others?\n\nThanks,\nP. Terry\npterry at huskers.unl.edu",
+      "body_snippet": "Dear bioc-sig-sequencing,\n\nPreviously, I tried the following with a UCSC available genome.\n\ngenetable<-read.table(\"celegans_chrIII.txt\", header=T, sep=\"\\t\")\n> promoter<-IRanges(start=genetable$txStart",
+      "thread_id": "thread-8e5147fc9d52",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-f9ac487ec94a",
+      "message_id": "<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-28T18:43:37Z",
+      "subject": "[Bioc-sig-seq] GenomicFeatures package",
+      "subject_clean": "[Bioc-sig-seq] GenomicFeatures package",
+      "in_reply_to": "<5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>",
+      "references": [
+        "<5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091028/06dcc6ba/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091028/06dcc6ba/attachment.pl>",
+      "thread_id": "thread-8e5147fc9d52",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-ed8fbb375732",
+      "message_id": "<6phbpjr9ucx.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-28T19:44:14Z",
+      "subject": "[Bioc-sig-seq] GenomicFeatures package",
+      "subject_clean": "[Bioc-sig-seq] GenomicFeatures package",
+      "in_reply_to": "<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com> (Michael Lawrence's message of \"Wed, 28 Oct 2009 11:43:37 -0700\")",
+      "references": [
+        "<5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>",
+        "<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>"
+      ],
+      "body_plain": "Michael Lawrence <mflawren at fhcrc.org> writes:\n\n> On Tue, Oct 27, 2009 at 3:53 PM, pterry at huskers.unl.edu <\n> pterry at huskers.unl.edu> wrote:\n>\n>> Dear bioc-sig-sequencing,\n>>\n>> Previously, I tried the following with a UCSC available genome.\n>>\n>> genetable<-read.table(\"celegans_chrIII.txt\", header=T, sep=\"\\t\")\n>> >\n>> promoter<-IRanges(start=genetable$txStart-1000*as.real(genetable$strand==\"+\"),\n>> width=1000)\n>>\n>> It was suggested I might \"check out the GenomicFeatures package, which has\n>> utilities for working with a data.frame representation of the UCSC genes\n>> table. For example, the 'transcripts' function will give you a set of\n>> regions, including the promoters you're trying to generate.\"\n>>\n>> I have a genome, arabidopsis, apparently not available at the UCSC\n>> database, but rather from TAIR.\n>>\n>> For this genome, might the GenomicFeatures pakage be similarly helpful?  I\n>> assume one might start with a file like TAIR9_GFF3_genes.gff from the TAIR\n>> site?  I note it has records for 'gene', 'mRNA', 'CDS', 'exon', perhaps\n>> others?\n>>\n>>\n> It could be useful, but you'll need to get it into the shape expected by the\n> GenomicFeatures functions. With specific regard to transcripts(), it will\n> need a 'chrom' column with the chromosome names, 'name' column for the gene\n> name, and 'txStart' and 'txEnd' for the start and end of the transcripts,\n> using UCSC coordinate conventions.\n>\n> I'm now thinking that it would be more convenient for the user if there was\n> a transcripts method on a RangesList object, which could provide the\n> necessary information. This could be extracted from the RangedData, which\n> rtracklayer can create from your GFF file, with one caveat: if the GFF file\n> contains a mixture of features (genes, exons, etc) and relies on the\n> hierarchical features of GFF, it will take more work to get things into the\n> right shape.\n>\n> The question then is where would this new functionality belong? The future\n> of the GenomicFeatures package was a bit uncertain, the last time I checked.\n\nThe intention is that GenomicFeatures will mature to contain these\nsorts of data structures and functions, so that it's easy to create or\nretrieve transcript or exon information.\n\nMartin\n\n> Michael\n>\n> Thanks,\n>> P. Terry\n>> pterry at huskers.unl.edu\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Michael Lawrence <mflawren at fhcrc.org> writes:\n\n> On Tue, Oct 27, 2009 at 3:53 PM, pterry at huskers.unl.edu <\n> pterry at huskers.unl.edu> wrote:\n>\n>> Dear bioc-sig-sequencing,\n>>\n>> Previously, I ",
+      "thread_id": "thread-8e5147fc9d52",
+      "thread_depth": 2,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-22f0732fc87e",
+      "message_id": "<CDF8DB02-7C8A-466F-AF71-F7AE0D095315@mbl.edu>",
+      "from_name": "Jennifer Wernegreen",
+      "from_email_hash": "450bfd4c014d0ea1cc2799f6fc598c36bac51de701efc5b799810322641c9fa4",
+      "date": "2009-10-28T20:00:56Z",
+      "subject": "[Bioc-sig-seq] filter fastQ based on quality score?",
+      "subject_clean": "[Bioc-sig-seq] filter fastQ based on quality score?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI'm hoping that someone can offer guidance about filtering reads from  \nfastQ files based on quality score.\n\nUsing Shortread (or another program in Bioconductor), is it possible  \nto filter a fastQ file to remove reads that have an average quality  \nscore below a certain value, and then output the remaining reads as a  \nfastQ file?   If so, could one apply this filter to paired-end data?   \nFor example, it would be helpful to remove a read pair when either or  \nboth individual reads in that pair fall below the quality threshold.\n\nI see the defined filters in Shortread (strandFilter, nFilter, etc),  \nbut I'm not sure how to create a custom filter based on average  \nquality score.  My modest start on the problem and a few lines from  \nour fastQ files are below.\n\nAny hints would be very much appreciated.\n\nJen\n\n\n\nlibrary(ShortRead)\nreads <- readFastq(\"~/\", pattern=\"query.fastq\")\n    # import reads from fastq file into ShortReadQ Object\n    # replace \"~/\" with your path and query.fastq with filename\n\n#### ?? how to filter out (remove) reads if average quality score <25?  \n(for example) ####\n#### ?? how to apply this filter to paired-end data ####\n\nwriteFastq(filteredReads, \"output.fastq\")\n# export filtered reads to fastq file\n\n\n\nA couple of sample lines from the two fastq files...  We have about  \n7.5 million reads per file.  (\"ANNACG\" notes the adaptor for this  \nlibrary, which oddly had a consistent N in the sequence.)\n\n\npaired end file 1\n\n@HWW-T7400-009_1_120_1879_1134#ANNACG/1\nTGTTGTAACTCTTTAATTACCCACNGAGNNNNATTCATAATAATTGCTNNNNNNNNNNANTTATATTAAAACTGATATCATACAAAAATAAATAATCATT\n+\nAB?B>A>@@BABBC??@BABB>3=&561&&&&4 at BBBB>BB%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% \n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n@HWW-T7400-009_1_120_1879_1950#ANNACG/1\nACTATTATGTCTATTCGAGAGCATNATCNNNNGTACTGGATTATCGATNNNNNNNNNNGNGACATCAATTTTAGTAAACAGTTTCCATTCCTTACTTTAT\n+\nABB9BBABBABB<BABB?B8>A?8&9A;&&&&9=A>BB@@A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% \n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n\n\n\n\npaired end file 2\n\n@HWW-T7400-009_1_120_1879_1134#ANNACG/2\nGCGCAGTATATAATTTCCATTGTTTTTCTCAAGTATAACATACTGTATGATATTGTCGGATTAAAATAAAAATAAAATATTAATGATTATTTATTTTTGT\n+\n?CCCBBABA?BBCBCC=B?CAC at B87ABBC?7>B=C at 5?@@4=BBBCBC9BBCB?AABB;=AA@;>B<5@? \n@?6-?BBBBB>=BC???B=-AB?9=9ABB\n@HWW-T7400-009_1_120_1879_1950#ANNACG/2\nTCCTCGACATGCACTGAATAATTCATTGTGGATAGGATCATATATTACACCTATTTCAATATTTTTGTTTTGTTGTACAGCAATAGATAAAGTAAGGAAT\n+\nBBA@@B4<3BB?7=?=<=B7ABBB>BA at A@A1;BBA?AA<<=@>==?9B?>B@>A@=0=6*A at B:89)>? \n5B?>B@>=@BB>4B2A=-53>B*&80 at 81@",
+      "body_snippet": "Hello,\n\nI'm hoping that someone can offer guidance about filtering reads from  \nfastQ files based on quality score.\n\nUsing Shortread (or another program in Bioconductor), is it possible  \nto filter a ",
+      "thread_id": "thread-22f0732fc87e",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-82b0e3a2792c",
+      "message_id": "<6phy6mv6xvy.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-28T20:56:17Z",
+      "subject": "[Bioc-sig-seq] filter fastQ based on quality score?",
+      "subject_clean": "[Bioc-sig-seq] filter fastQ based on quality score?",
+      "in_reply_to": "<CDF8DB02-7C8A-466F-AF71-F7AE0D095315@mbl.edu> (Jennifer Wernegreen's message of \"Wed, 28 Oct 2009 16:00:56 -0400\")",
+      "references": [
+        "<CDF8DB02-7C8A-466F-AF71-F7AE0D095315@mbl.edu>"
+      ],
+      "body_plain": "Jennifer Wernegreen <jwernegreen at mbl.edu> writes:\n\n> Hello,\n>\n> I'm hoping that someone can offer guidance about filtering reads from\n> fastQ files based on quality score.\n>\n> Using Shortread (or another program in Bioconductor), is it possible\n> to filter a fastQ file to remove reads that have an average quality\n> score below a certain value, and then output the remaining reads as a\n> fastQ file?   If so, could one apply this filter to paired-end data?\n> For example, it would be helpful to remove a read pair when either or\n> both individual reads in that pair fall below the quality threshold.\n>\n> I see the defined filters in Shortread (strandFilter, nFilter, etc),\n> but I'm not sure how to create a custom filter based on average\n> quality score.  My modest start on the problem and a few lines from\n> our fastQ files are below.\n\nHi Jen --\n\nI did this to get some sample data\n\n> example(readFastq)\n> rfq\nclass: ShortReadQ\nlength: 256 reads; width: 36 cycles\n\nThe first thing is that the fastq files contain no information about\nwhether the scores are encoded on the 'Solexa' or standard Phred\nscale, I'm guessing you'll need to convert\n\n  rfq <- initialize(rfq, quality=as(quality(rfq), \"SFastqQuality\"))\n\nYou can create a matrix of scores, and then calculate the mean across\nrows (maybe a median is more apporiate?)\n\n  score <- rowMeans(as(quality(rfq), \"matrix\"))\n\n(there is also alphabetScore, which doesn't require that all reads are\nthe same width; score <- alphabetScore(quality(rfq)) / width(rfq)).\n\nThe paired end part is more complicated, but you'd probably parse the\nid's into an 'id' and a 'pair' part, along the lines of (untested)\n\n  ids <- as.character(id(rfq))\n  df <- data.frame(\n           id=sub(\"/[[:digit:]]$\", \"\", ids),\n           pair=as.integer(sub(\".*/([[:digit:]])$\", \"\\\\1\", ids)),\n           score=score,\n           stringsAsFactors=FALSE)\n\nThe 'either or both (above) threshold' might be\n\n  ok <- with(df, tapply(score, id, function(score, thresh) {\n      all(score > thres)\n  }, thresh=20))\n\n'ok' has one element per id, but you need to make sure these are\nordered correctly, perhaps\n\n  ok[df$id]\n\nThe final bit of the puzzle is to create a filter, as\n\n  filt <- srFilter(function(x) {\n    score <- rowMeans(as(quality(x), \"matrix\"))\n    ids <- as.character(id(x))\n    df <- data.frame(\n             id=sub(\"/[[:digit:]]$\", \"\", ids),\n             score=score,\n             stringsAsFactors=FALSE)\n    ok <- with(df, tapply(score, id, function(score, thresh) {\n        all(score > thresh)\n    }, thresh=20))\n    ok[df$id]\n  }, name=\"HighQualityPairs\")\n\nand then\n\n  rfq[filt(rfq)]\n\na slight variant would make a 'factory' to produce filters with\ndifferent thresholds (or other parameters)\n\nhighQualityPairsFilter <-function(threshold=20) {\n  srFilter(function(x) {\n    score <- rowMeans(as(quality(x), \"matrix\"))\n    ids <- as.character(id(x))\n    df <- data.frame(\n             id=sub(\"/[[:digit:]]$\", \"\", ids),\n             score=score,\n             stringsAsFactors=FALSE)\n    ok <- with(df, tapply(score, id, function(score, thresh) {\n        all(score > thresh)\n    }, thresh=threshold)) # this line is different\n    ok[df$id]\n  }, name=\"HighQualityPairs\")\n}\n\nand then\n\n> rfq[highQualityPairsFilter(20)(rfq)]\nclass: ShortReadQ\nlength: 249 reads; width: 36 cycles\n> rfq[highQualityPairsFilter(25)(rfq)]\nclass: ShortReadQ\nlength: 104 reads; width: 36 cycles\n\nMartin\n\n> Any hints would be very much appreciated.\n>\n> Jen\n>\n>\n>\n> library(ShortRead)\n> reads <- readFastq(\"~/\", pattern=\"query.fastq\")\n>     # import reads from fastq file into ShortReadQ Object\n>     # replace \"~/\" with your path and query.fastq with filename\n>\n> #### ?? how to filter out (remove) reads if average quality score <25?\n> (for example) ####\n> #### ?? how to apply this filter to paired-end data ####\n>\n> writeFastq(filteredReads, \"output.fastq\")\n> # export filtered reads to fastq file\n>\n>\n>\n> A couple of sample lines from the two fastq files...  We have about\n> 7.5 million reads per file.  (\"ANNACG\" notes the adaptor for this\n> library, which oddly had a consistent N in the sequence.)\n>\n>\n> paired end file 1\n>\n> @HWW-T7400-009_1_120_1879_1134#ANNACG/1\n> TGTTGTAACTCTTTAATTACCCACNGAGNNNNATTCATAATAATTGCTNNNNNNNNNNANTTATATTAAAACTGATATCATACAAAAATAAATAATCATT\n> +\n> AB?B>A>@@BABBC??@BABB>3=&561&&&&4 at BBBB>BB%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n> %%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n> @HWW-T7400-009_1_120_1879_1950#ANNACG/1\n> ACTATTATGTCTATTCGAGAGCATNATCNNNNGTACTGGATTATCGATNNNNNNNNNNGNGACATCAATTTTAGTAAACAGTTTCCATTCCTTACTTTAT\n> +\n> ABB9BBABBABB<BABB?B8>A?8&9A;&&&&9=A>BB@@A%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n> %%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n>\n>\n>\n>\n> paired end file 2\n>\n> @HWW-T7400-009_1_120_1879_1134#ANNACG/2\n> GCGCAGTATATAATTTCCATTGTTTTTCTCAAGTATAACATACTGTATGATATTGTCGGATTAAAATAAAAATAAAATATTAATGATTATTTATTTTTGT\n> +\n> ?CCCBBABA?BBCBCC=B?CAC at B87ABBC?7>B=C at 5?@@4=BBBCBC9BBCB?AABB;=AA@;>B<5@?\n> @?6-?BBBBB>=BC???B=-AB?9=9ABB\n> @HWW-T7400-009_1_120_1879_1950#ANNACG/2\n> TCCTCGACATGCACTGAATAATTCATTGTGGATAGGATCATATATTACACCTATTTCAATATTTTTGTTTTGTTGTACAGCAATAGATAAAGTAAGGAAT\n> +\n> BBA@@B4<3BB?7=?=<=B7ABBB>BA at A@A1;BBA?AA<<=@>==?9B?>B@>A@=0=6*A at B:89)>?\n> 5B?>B@>=@BB>4B2A=-53>B*&80 at 81@\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Jennifer Wernegreen <jwernegreen at mbl.edu> writes:\n\n> Hello,\n>\n> I'm hoping that someone can offer guidance about filtering reads from\n> fastQ files based on quality score.\n>\n> Using Shortread (or a",
+      "thread_id": "thread-22f0732fc87e",
+      "thread_depth": 1,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-c0a11c3821b1",
+      "message_id": "<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2009-10-29T15:28:01Z",
+      "subject": "[Bioc-sig-seq] GenomicFeatures package",
+      "subject_clean": "[Bioc-sig-seq] GenomicFeatures package",
+      "in_reply_to": "<6phbpjr9ucx.fsf@gopher4.fhcrc.org>",
+      "references": [
+        "<5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>",
+        "<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>",
+        "<6phbpjr9ucx.fsf@gopher4.fhcrc.org>"
+      ],
+      "body_plain": "Hi,\n\nOn Oct 28, 2009, at 3:44 PM, Martin Morgan wrote:\n<snip>\n>>>\n>> It could be useful, but you'll need to get it into the shape  \n>> expected by the\n>> GenomicFeatures functions. With specific regard to transcripts(),  \n>> it will\n>> need a 'chrom' column with the chromosome names, 'name' column for  \n>> the gene\n>> name, and 'txStart' and 'txEnd' for the start and end of the  \n>> transcripts,\n>> using UCSC coordinate conventions.\n>>\n>> I'm now thinking that it would be more convenient for the user if  \n>> there was\n>> a transcripts method on a RangesList object, which could provide the\n>> necessary information. This could be extracted from the RangedData,  \n>> which\n>> rtracklayer can create from your GFF file, with one caveat: if the  \n>> GFF file\n>> contains a mixture of features (genes, exons, etc) and relies on the\n>> hierarchical features of GFF, it will take more work to get things  \n>> into the\n>> right shape.\n>>\n>> The question then is where would this new functionality belong? The  \n>> future\n>> of the GenomicFeatures package was a bit uncertain, the last time I  \n>> checked.\n>\n> The intention is that GenomicFeatures will mature to contain these\n> sorts of data structures and functions, so that it's easy to create or\n> retrieve transcript or exon information.\n</snip>\n\nI've actually been working on a package of my own that does a lot of  \nthis stuff, since I've been working lately with rna-seq data.\n\nIt takes an input file similar to what you get from the ucsc table  \nbrowser with gene, tx/cds -start/-end, exon, etc. columns and whips up  \nan annotation package for the genome/annotation source you are using  \n(info is stored in an SQLite database). You can then query the  \ndatabase for genes of interest by name, chromosome, or bounded (start/ \nend) chromosome position for further downstream use.\n\nUsually results are returned to the user as lists of gene objects,  \nwhich the user would have to whip into a data.frame format if that's  \nwhat's desired.\n\nI'll post some code below to show you what I mean, and see if you all  \nthink it's helpful. I'm not sure that it's ready for public  \nconsumption, but I guess I just wanted to mention that it was my  \nintention to develop this a bit further in the near future. If it's  \nuseful for other people, all the better.\n\nUnfortunately I need to put much of this on hold for the immediate  \nfuture, since I have to prepare for my upcoming qualifying exam ...\n\nI realize it somehow does similar things to what the GenomicFeatures  \npackage might have done, but I needed this exact functionality for my  \nimmediate analysis needs, and thought I'd have a go at it. The SQLite  \ndatabase that's generated actually stores gene, transcript, and exon  \ninfo in RTree indices[1], so ranged queries (like all genes/ \ntranscripts between some start/stop positions) are super fast. It  \nrequires a custom compile of SQLite, though\n\nExamples of how I use it are pasted below.\n\n-steve\n\n[1] RTree: http://www.sqlite.org/rtree.html\n\n##############################\n# Using with refseq annotations for hg18\n\nR> library(GenomeAnnotations) # name of my library\nR> hg18.refseq <- GenomeDB(\"hg18\", \"refseq\")\nR> d1r <- Gene(\"DICER1\", genome=hg18.refseq)\n\n## Getting transcript info\n\nR> transcripts(d1r)\nSimpleRangesList instance:\n$NM_030621\nIRanges instance:\n         start      end width\n[1]  94622320 94626752  4433\n[2]  94627120 94627200    81\n[3]  94627296 94627456   161\n[4]  94629976 94630248   273\n[5]  94631912 94632800   889\n[6]  94635872 94636024   153\n[7]  94639432 94640216   785\n[8]  94641160 94641336   177\n[9]  94641768 94641872   105\n...       ...      ...   ...\n[20] 94660288 94660760   473\n[21] 94662672 94662840   169\n[22] 94665560 94665720   161\n[23] 94666144 94666280   137\n[24] 94667600 94667728   129\n[25] 94668608 94668768   161\n[26] 94669408 94669592   185\n[27] 94676752 94676848    97\n[28] 94677776 94677808    33\n\n<1 additional element>\n\n## UTR Info\nR> getUtr3(d1r)\n$NM_030621\nIRanges instance:\n        start      end width\n[1] 94622320 94626587  4268\n\n$NM_177438\nIRanges instance:\n        start      end width\n[1] 94622320 94626587  4268\n\nR> getUtr5(d1r)\n$NM_030621\nIRanges instance:\n        start      end width\n[1] 94669548 94669592    45\n[2] 94676752 94676848    97\n[3] 94677776 94677808    33\n\n$NM_177438\nIRanges instance:\n        start      end width\n[1] 94669548 94669592    45\n[2] 94693320 94693512   193\n\n\n## Get genes on chromosome 1\nR> genes.1 <- getGenesOnChromosome(hg18.refseq, 1)\nR> names(genes.1)[1:5]\n[1] \"WASH5P\"       \"LOC100288778\" \"FAM138F\"      \"FAM138A\"       \n\"FAM138C\"\n\n## Get genes on chr1 between pos 1e6 and 1e7\nR> genes.1.sub <- getGenesOnChromosome(hg18.refseq, 1, start=1e6,  \nend=1e7)\nR> names(genes.1.sub)[1:5]\n[1] \"C1orf159\" \"TTLL10\"   \"TTLL10\"   \"TNFRSF18\" \"TNFRSF18\"\n\n#########################################\n# or, hg18 aceview annos\nR> hg18.ace <- GenomeDB(\"hg18\", \"aceview\")\nR> d1a <- Gene(\"DICER1\", genome=hg18.ace)\nR> transcripts(d1a)\nSimpleRangesList instance:\n$DICER1.cApr07\nIRanges instance:\n         start      end width\n[1]  94622320 94626752  4433\n[2]  94627120 94627200    81\n[3]  94627296 94627456   161\n[4]  94629976 94630248   273\n[5]  94631912 94632800   889\n[6]  94635872 94636024   153\n[7]  94639432 94640216   785\n[8]  94641160 94641336   177\n[9]  94641768 94641872   105\n...       ...      ...   ...\n[19] 94653712 94653840   129\n[20] 94660288 94660760   473\n[21] 94662672 94662840   169\n[22] 94665560 94665720   161\n[23] 94666144 94666280   137\n[24] 94667600 94667728   129\n[25] 94668608 94668768   161\n[26] 94669408 94669592   185\n[27] 94693320 94693512   193\n\n<10 additional elements>\n\nR> getUtr3(d1a)\n$DICER1.cApr07\nIRanges instance:\n        start      end width\n[1] 94622320 94626587  4268\n\n$DICER1.bApr07\nIRanges instance:\n        start      end width\n[1] 94622320 94626587  4268\n\n.... etc ...\n\n--\nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n   |  Memorial Sloan-Kettering Cancer Center\n   |  Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Oct 28, 2009, at 3:44 PM, Martin Morgan wrote:\n<snip>\n>>>\n>> It could be useful, but you'll need to get it into the shape  \n>> expected by the\n>> GenomicFeatures functions. With specific regar",
+      "thread_id": "thread-8e5147fc9d52",
+      "thread_depth": 3,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-a3ddcf23e9d6",
+      "message_id": "<47d9979f0910291307h5f6ffe98ua1497c38dc930c63@mail.gmail.com>",
+      "from_name": "Bogdan Tanasa",
+      "from_email_hash": "bc1b32bc2d214565b1d915961bd032024cecc368fb0f727c63da90509657992e",
+      "date": "2009-10-29T20:07:04Z",
+      "subject": "[Bioc-sig-seq] ChIP-seq normalization",
+      "subject_clean": "[Bioc-sig-seq] ChIP-seq normalization",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091029/31ac9321/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091029/31ac9321/attachment.pl>",
+      "thread_id": "thread-a3ddcf23e9d6",
+      "thread_depth": 0,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-733c014e6ce1",
+      "message_id": "<6phskcz2rk3.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2009-10-31T21:15:40Z",
+      "subject": "[Bioc-sig-seq] GenomicFeatures package",
+      "subject_clean": "[Bioc-sig-seq] GenomicFeatures package",
+      "in_reply_to": "<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com> (Steve Lianoglou's message of \"Thu, 29 Oct 2009 11:28:01 -0400\")",
+      "references": [
+        "<5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>",
+        "<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>",
+        "<6phbpjr9ucx.fsf@gopher4.fhcrc.org>",
+        "<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>"
+      ],
+      "body_plain": "Hi Steve --\n\nSteve Lianoglou <mailinglist.honeypot at gmail.com> writes:\n\n> Hi,\n>\n> On Oct 28, 2009, at 3:44 PM, Martin Morgan wrote:\n> <snip>\n>>>>\n>>> It could be useful, but you'll need to get it into the shape\n>>> expected by the\n>>> GenomicFeatures functions. With specific regard to transcripts(),\n>>> it will\n>>> need a 'chrom' column with the chromosome names, 'name' column for\n>>> the gene\n>>> name, and 'txStart' and 'txEnd' for the start and end of the\n>>> transcripts,\n>>> using UCSC coordinate conventions.\n>>>\n>>> I'm now thinking that it would be more convenient for the user if\n>>> there was\n>>> a transcripts method on a RangesList object, which could provide the\n>>> necessary information. This could be extracted from the RangedData,\n>>> which\n>>> rtracklayer can create from your GFF file, with one caveat: if the\n>>> GFF file\n>>> contains a mixture of features (genes, exons, etc) and relies on the\n>>> hierarchical features of GFF, it will take more work to get things\n>>> into the\n>>> right shape.\n>>>\n>>> The question then is where would this new functionality belong? The\n>>> future\n>>> of the GenomicFeatures package was a bit uncertain, the last time I\n>>> checked.\n>>\n>> The intention is that GenomicFeatures will mature to contain these\n>> sorts of data structures and functions, so that it's easy to create or\n>> retrieve transcript or exon information.\n> </snip>\n\n> I've actually been working on a package of my own that does a lot of\n> this stuff, since I've been working lately with rna-seq data.\n>\n> It takes an input file similar to what you get from the ucsc table\n> browser with gene, tx/cds -start/-end, exon, etc. columns and whips up\n> an annotation package for the genome/annotation source you are using\n> (info is stored in an SQLite database). You can then query the\n> database for genes of interest by name, chromosome, or bounded (start/\n> end) chromosome position for further downstream use.\n>\n> Usually results are returned to the user as lists of gene objects,\n> which the user would have to whip into a data.frame format if that's\n> what's desired.\n>\n> I'll post some code below to show you what I mean, and see if you all\n> think it's helpful. I'm not sure that it's ready for public\n> consumption, but I guess I just wanted to mention that it was my\n> intention to develop this a bit further in the near future. If it's\n> useful for other people, all the better.\n\nJust wanted to acknowledge this email. I like how straight-forward\nyour interface is, and the use of appropriate classes. RTree and the\ncustom compile is a little problematic; I wonder whether it's really\nnecessary for data this size (i.e., not too large) or whether there\nare other ways in which the query could be optimized (representing the\ndata in-memory and using IRanges::findOverlaps?).\n\nWhat ever the case, it would be good to coordinate your activities\nwith what we do here in Seattle and with GenomicFeatures, so we'll try\nand keep the channels of communication open.\n\nMartin\n\n> Unfortunately I need to put much of this on hold for the immediate\n> future, since I have to prepare for my upcoming qualifying exam ...\n>\n> I realize it somehow does similar things to what the GenomicFeatures\n> package might have done, but I needed this exact functionality for my\n> immediate analysis needs, and thought I'd have a go at it. The SQLite\n> database that's generated actually stores gene, transcript, and exon\n> info in RTree indices[1], so ranged queries (like all genes/\n> transcripts between some start/stop positions) are super fast. It\n> requires a custom compile of SQLite, though\n>\n> Examples of how I use it are pasted below.\n>\n> -steve\n>\n> [1] RTree: http://www.sqlite.org/rtree.html\n>\n> ##############################\n> # Using with refseq annotations for hg18\n>\n> R> library(GenomeAnnotations) # name of my library\n> R> hg18.refseq <- GenomeDB(\"hg18\", \"refseq\")\n> R> d1r <- Gene(\"DICER1\", genome=hg18.refseq)\n>\n> ## Getting transcript info\n>\n> R> transcripts(d1r)\n> SimpleRangesList instance:\n> $NM_030621\n> IRanges instance:\n>          start      end width\n> [1]  94622320 94626752  4433\n> [2]  94627120 94627200    81\n> [3]  94627296 94627456   161\n> [4]  94629976 94630248   273\n> [5]  94631912 94632800   889\n> [6]  94635872 94636024   153\n> [7]  94639432 94640216   785\n> [8]  94641160 94641336   177\n> [9]  94641768 94641872   105\n> ...       ...      ...   ...\n> [20] 94660288 94660760   473\n> [21] 94662672 94662840   169\n> [22] 94665560 94665720   161\n> [23] 94666144 94666280   137\n> [24] 94667600 94667728   129\n> [25] 94668608 94668768   161\n> [26] 94669408 94669592   185\n> [27] 94676752 94676848    97\n> [28] 94677776 94677808    33\n>\n> <1 additional element>\n>\n> ## UTR Info\n> R> getUtr3(d1r)\n> $NM_030621\n> IRanges instance:\n>         start      end width\n> [1] 94622320 94626587  4268\n>\n> $NM_177438\n> IRanges instance:\n>         start      end width\n> [1] 94622320 94626587  4268\n>\n> R> getUtr5(d1r)\n> $NM_030621\n> IRanges instance:\n>         start      end width\n> [1] 94669548 94669592    45\n> [2] 94676752 94676848    97\n> [3] 94677776 94677808    33\n>\n> $NM_177438\n> IRanges instance:\n>         start      end width\n> [1] 94669548 94669592    45\n> [2] 94693320 94693512   193\n>\n>\n> ## Get genes on chromosome 1\n> R> genes.1 <- getGenesOnChromosome(hg18.refseq, 1)\n> R> names(genes.1)[1:5]\n> [1] \"WASH5P\"       \"LOC100288778\" \"FAM138F\"      \"FAM138A\"\n> \"FAM138C\"\n>\n> ## Get genes on chr1 between pos 1e6 and 1e7\n> R> genes.1.sub <- getGenesOnChromosome(hg18.refseq, 1, start=1e6,\n> end=1e7)\n> R> names(genes.1.sub)[1:5]\n> [1] \"C1orf159\" \"TTLL10\"   \"TTLL10\"   \"TNFRSF18\" \"TNFRSF18\"\n>\n> #########################################\n> # or, hg18 aceview annos\n> R> hg18.ace <- GenomeDB(\"hg18\", \"aceview\")\n> R> d1a <- Gene(\"DICER1\", genome=hg18.ace)\n> R> transcripts(d1a)\n> SimpleRangesList instance:\n> $DICER1.cApr07\n> IRanges instance:\n>          start      end width\n> [1]  94622320 94626752  4433\n> [2]  94627120 94627200    81\n> [3]  94627296 94627456   161\n> [4]  94629976 94630248   273\n> [5]  94631912 94632800   889\n> [6]  94635872 94636024   153\n> [7]  94639432 94640216   785\n> [8]  94641160 94641336   177\n> [9]  94641768 94641872   105\n> ...       ...      ...   ...\n> [19] 94653712 94653840   129\n> [20] 94660288 94660760   473\n> [21] 94662672 94662840   169\n> [22] 94665560 94665720   161\n> [23] 94666144 94666280   137\n> [24] 94667600 94667728   129\n> [25] 94668608 94668768   161\n> [26] 94669408 94669592   185\n> [27] 94693320 94693512   193\n>\n> <10 additional elements>\n>\n> R> getUtr3(d1a)\n> $DICER1.cApr07\n> IRanges instance:\n>         start      end width\n> [1] 94622320 94626587  4268\n>\n> $DICER1.bApr07\n> IRanges instance:\n>         start      end width\n> [1] 94622320 94626587  4268\n>\n> .... etc ...\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M1 B861\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Steve --\n\nSteve Lianoglou <mailinglist.honeypot at gmail.com> writes:\n\n> Hi,\n>\n> On Oct 28, 2009, at 3:44 PM, Martin Morgan wrote:\n> <snip>\n>>>>\n>>> It could be useful, but you'll need to get it in",
+      "thread_id": "thread-8e5147fc9d52",
+      "thread_depth": 4,
+      "month": "2009-10"
+    },
+    {
+      "id": "msg-8591a86a7a6f",
+      "message_id": "<509e0620910311614x4b483efcge70479d50862e3fd@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2009-10-31T23:14:07Z",
+      "subject": "[Bioc-sig-seq] GenomicFeatures package",
+      "subject_clean": "[Bioc-sig-seq] GenomicFeatures package",
+      "in_reply_to": "<6phskcz2rk3.fsf@gopher4.fhcrc.org>",
+      "references": [
+        "<5E09189DCC2AB149B8EE6F595890EFAD020CFE@BL2PRD0102MB029.prod.exchangelabs.com>",
+        "<509e0620910281143w39f16756i17d5e86fec6f677a@mail.gmail.com>",
+        "<6phbpjr9ucx.fsf@gopher4.fhcrc.org>",
+        "<F0508849-9B62-4EE5-AC89-482B1203DA65@gmail.com>",
+        "<6phskcz2rk3.fsf@gopher4.fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091031/06e58df6/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091031/06e58df6/attachment.pl>",
+      "thread_id": "thread-8e5147fc9d52",
+      "thread_depth": 5,
+      "month": "2009-10"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-d33aed71e698",
+      "subject": "[Bioc-sig-seq] Trouble loading development version of ShortRead on OS X",
+      "message_count": 4,
+      "participants": [
+        "Martin Morgan",
+        "Michael Muratet"
+      ],
+      "started": "2009-10-01T21:42:58Z",
+      "last_reply": "2009-10-02T15:42:30Z",
+      "root_message_id": "msg-d33aed71e698"
+    },
+    {
+      "id": "thread-3663afc64c01",
+      "subject": "[Bioc-sig-seq] New Bioconductor team member",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2009-10-02T02:30:21Z",
+      "last_reply": "2009-10-02T02:30:21Z",
+      "root_message_id": "msg-3663afc64c01"
+    },
+    {
+      "id": "thread-1af747702ad4",
+      "subject": "[Bioc-sig-seq] WIG from coverage",
+      "message_count": 1,
+      "participants": [
+        "Michael Lawrence"
+      ],
+      "started": "2009-10-02T02:52:05Z",
+      "last_reply": "2009-10-02T02:52:05Z",
+      "root_message_id": "msg-1af747702ad4"
+    },
+    {
+      "id": "thread-6bb8531c2872",
+      "subject": "[Bioc-sig-seq] WIG from coverage",
+      "message_count": 1,
+      "participants": [
+        "Michael Lawrence"
+      ],
+      "started": "2009-10-02T03:13:13Z",
+      "last_reply": "2009-10-02T03:13:13Z",
+      "root_message_id": "msg-6bb8531c2872"
+    },
+    {
+      "id": "thread-91b1a3368a3f",
+      "subject": "[Bioc-sig-seq] Getting file names from list.files in a more useful order",
+      "message_count": 3,
+      "participants": [
+        "Martin Morgan",
+        "Michael Muratet"
+      ],
+      "started": "2009-10-07T21:05:59Z",
+      "last_reply": "2009-10-08T21:17:03Z",
+      "root_message_id": "msg-91b1a3368a3f"
+    },
+    {
+      "id": "thread-c61af8eadaa0",
+      "subject": "[Bioc-sig-seq] Fwd: SFC#00118080 - Control over file name format?",
+      "message_count": 2,
+      "participants": [
+        "Martin Morgan",
+        "Michael Muratet"
+      ],
+      "started": "2009-10-09T15:20:03Z",
+      "last_reply": "2009-10-09T17:15:36Z",
+      "root_message_id": "msg-c61af8eadaa0"
+    },
+    {
+      "id": "thread-2732e4813cc2",
+      "subject": "[Bioc-sig-seq] trimLRPatterns question",
+      "message_count": 2,
+      "participants": [
+        "Harris A. Jaffee",
+        "joseph"
+      ],
+      "started": "2009-10-09T19:53:23Z",
+      "last_reply": "2009-10-09T20:23:23Z",
+      "root_message_id": "msg-2732e4813cc2"
+    },
+    {
+      "id": "thread-1d0725b26970",
+      "subject": "[Bioc-sig-seq] Mean coverage of capture regions",
+      "message_count": 3,
+      "participants": [
+        "Dykema, Karl",
+        "Patrick Aboyoun",
+        "Sean Davis"
+      ],
+      "started": "2009-10-09T20:55:53Z",
+      "last_reply": "2009-10-10T00:23:30Z",
+      "root_message_id": "msg-1d0725b26970"
+    },
+    {
+      "id": "thread-a6c01374c598",
+      "subject": "[Bioc-sig-seq] Annotation of the lactococcus lactis genome",
+      "message_count": 1,
+      "participants": [
+        "Marc Carlson"
+      ],
+      "started": "2009-10-12T19:14:47Z",
+      "last_reply": "2009-10-12T19:14:47Z",
+      "root_message_id": "msg-a6c01374c598"
+    },
+    {
+      "id": "thread-90248050f8b6",
+      "subject": "[Bioc-sig-seq] coverage to wig",
+      "message_count": 2,
+      "participants": [
+        "Michael Lawrence",
+        "joseph"
+      ],
+      "started": "2009-10-12T20:45:10Z",
+      "last_reply": "2009-10-12T23:11:36Z",
+      "root_message_id": "msg-90248050f8b6"
+    },
+    {
+      "id": "thread-aa0257d603fc",
+      "subject": "[Bioc-sig-seq] rtracklayer and coverage() from GenomeData",
+      "message_count": 2,
+      "participants": [
+        "Chris Seidel",
+        "Michael Lawrence"
+      ],
+      "started": "2009-10-16T21:58:09Z",
+      "last_reply": "2009-10-16T22:36:02Z",
+      "root_message_id": "msg-aa0257d603fc"
+    },
+    {
+      "id": "thread-24da7015ec8e",
+      "subject": "[Bioc-sig-seq] gdapply, coverage,  and widths for all chromosomes",
+      "message_count": 5,
+      "participants": [
+        "Chris Seidel",
+        "Deepayan Sarkar",
+        "Martin Morgan",
+        "Michael Lawrence"
+      ],
+      "started": "2009-10-19T17:25:23Z",
+      "last_reply": "2009-10-19T22:37:43Z",
+      "root_message_id": "msg-24da7015ec8e"
+    },
+    {
+      "id": "thread-dc63a2fe98d3",
+      "subject": "[Bioc-sig-seq] gdapply, coverage, and widths for all chromosomes",
+      "message_count": 1,
+      "participants": [
+        "Chris Seidel"
+      ],
+      "started": "2009-10-19T21:02:44Z",
+      "last_reply": "2009-10-19T21:02:44Z",
+      "root_message_id": "msg-dc63a2fe98d3"
+    },
+    {
+      "id": "thread-fc3fea2393cb",
+      "subject": "[Bioc-sig-seq] Error message when working with IRanges package",
+      "message_count": 3,
+      "participants": [
+        "Michael Lawrence",
+        "pterry at huskers.unl.edu"
+      ],
+      "started": "2009-10-20T16:11:46Z",
+      "last_reply": "2009-10-20T20:41:44Z",
+      "root_message_id": "msg-fc3fea2393cb"
+    },
+    {
+      "id": "thread-c921dff0ccb2",
+      "subject": "[Bioc-sig-seq] coverage ranges included in gene ranges and input data",
+      "message_count": 4,
+      "participants": [
+        "Florence Cavalli",
+        "Michael Lawrence",
+        "Patrick Aboyoun"
+      ],
+      "started": "2009-10-22T10:38:03Z",
+      "last_reply": "2009-10-23T22:03:59Z",
+      "root_message_id": "msg-c921dff0ccb2"
+    },
+    {
+      "id": "thread-9c7aa25b1488",
+      "subject": "[Bioc-sig-seq] Paired end reads -tools?",
+      "message_count": 2,
+      "participants": [
+        "Nicolas Delhomme",
+        "Paul Leo"
+      ],
+      "started": "2009-10-26T01:31:13Z",
+      "last_reply": "2009-10-26T12:03:45Z",
+      "root_message_id": "msg-9c7aa25b1488"
+    },
+    {
+      "id": "thread-8e5147fc9d52",
+      "subject": "[Bioc-sig-seq] GenomicFeatures package",
+      "message_count": 6,
+      "participants": [
+        "Martin Morgan",
+        "Michael Lawrence",
+        "Steve Lianoglou",
+        "pterry at huskers.unl.edu"
+      ],
+      "started": "2009-10-27T22:53:02Z",
+      "last_reply": "2009-10-31T23:14:07Z",
+      "root_message_id": "msg-8e5147fc9d52"
+    },
+    {
+      "id": "thread-22f0732fc87e",
+      "subject": "[Bioc-sig-seq] filter fastQ based on quality score?",
+      "message_count": 2,
+      "participants": [
+        "Jennifer Wernegreen",
+        "Martin Morgan"
+      ],
+      "started": "2009-10-28T20:00:56Z",
+      "last_reply": "2009-10-28T20:56:17Z",
+      "root_message_id": "msg-22f0732fc87e"
+    },
+    {
+      "id": "thread-a3ddcf23e9d6",
+      "subject": "[Bioc-sig-seq] ChIP-seq normalization",
+      "message_count": 1,
+      "participants": [
+        "Bogdan Tanasa"
+      ],
+      "started": "2009-10-29T20:07:04Z",
+      "last_reply": "2009-10-29T20:07:04Z",
+      "root_message_id": "msg-a3ddcf23e9d6"
+    }
+  ]
+}

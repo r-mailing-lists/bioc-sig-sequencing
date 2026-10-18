@@ -1,0 +1,90 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2008-05",
+  "messages": [
+    {
+      "id": "msg-44a0fb8fcb0e",
+      "message_id": "<6phmym9w7cj.fsf@gopher4.fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-05-29T13:46:52Z",
+      "subject": "[Bioc-sig-seq] Introducing the ShortRead package",
+      "subject_clean": "[Bioc-sig-seq] Introducing the ShortRead package",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Short readers!\n\nI want to introduce the ShortRead package for high throughput\nsequencing. It is available using biocLite with a development version\nof R, or via svn. It is still under active development, but useful\nanyway. Here are some of the main functions:\n\nreadXStringColumns, readFastq, readAligned: these functions read\nsequence data into R objects. The XStringColumns variant is the\nbuilding block, reading one or more columns of sequence, quality\nscore, or other data into the corresponding XStringSet (from\nBiostrings) object. readFastq reads fastq-style (sequence + quality)\nfiles, readAligned reads alignment files (currently Solexa 'export'\nand maq 'mapview'; soon maq binary) files.\n\nSolexaPath, SolexaSet: these are functions and classes to help with\nSolexa data. SolexaPath provides a convenient way to navigate the\nfile hierarchy created by a Solexa run. SolexaSet is like an\nExpressionSet, coordinating sequence data with the phenotype\ndescription of the samples. The SolexaSet class is still a work in\nprogress.\n\nalphabetByCycle, srorder, srduplicated, srsort and additional\nfunctions provide basic tools for exploring XStringSet objects. For\ninstance, alphabetByCycle can be used to summarize nucleotide\nfrequency or quality score by cycle; several of the data sets I've\nlooked at show surprising patterns that trace back to quality control\nissues of one sort or another.\n\nAll of the objects are intended to be created with constructors (e.g.,\nthe read* functions, or SolexaPath() and the like) rather than\nexplicit calls to 'new'. There are accessors (e.g., sread(), quality()\nto extract the reads and quality scores) and other basic manipulations\n(e.g., subset operations) that coordinate different components of the\nobject.\n\nThe package is still very much in development. Complete man pages\nusually indicate a relatively stable structure or functionality; all\nof the functions and classes mentioned above have man pages.\n\nDirections include a 'qa' suite for Solexa data, a MAQ binary file\nparser (thanks to Simon Anders), further tools for efficiently\nmanipulating and representing these objects (generally, 32-bit users\nwill be frustrated by the current generation, especially in\ndown-stream analysis), and useful functionality for qa and exploratory\nassessment. A vignette is also in the works, to provide common work\nflows and more detail on package use.\n\nI'm eager to hear your feedback, and would be happy to incorporate\nadditions that you might have been working on for your own purposes --\nthe current Solexa emphasis reflects the data we have most ready\naccess to, but ShortRead is meant as an entry point for many of the\nhigh throughput technologies.\n\nMartin\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Short readers!\n\nI want to introduce the ShortRead package for high throughput\nsequencing. It is available using biocLite with a development version\nof R, or via svn. It is still under active developme",
+      "thread_id": "thread-44a0fb8fcb0e",
+      "thread_depth": 0,
+      "month": "2008-05"
+    },
+    {
+      "id": "msg-2ef3387b62fd",
+      "message_id": "<20080530121342.zirxvg9mw40c0owo@webmail.fhcrc.org>",
+      "from_name": "hpages at fhcrc.org",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2008-05-30T19:13:42Z",
+      "subject": "[Bioc-sig-seq] Short demo of some recent additions to Biostrings",
+      "subject_clean": "[Bioc-sig-seq] Short demo of some recent additions to Biostrings",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nThere are some recent additions to Biostrings and to the BSgenome data\npackages that I'd like to illustrate here with a small script. This script\nwill focus on the following recent features:\n   - injecting SNPs in the chromosome sequences\n   - countPDict() and matchPDict() supporting IUPAC ambiguity letters\n     in the subject\n   - masking regions of the chromosome sequences\n\nThis will only work with the latest version of Biostrings i.e.\nv 2.8.11 in release and v 2.9.16 in devel, which are not online yet but\nwill be in the next 24 hours. Also you need the latest version of the\nBSgenome data package for hg18 (v 1.3.7) which contains 3 built-in\nmasks for each chromosome sequence, and the SNPlocs.Hsapiens.dbSNP.20071016\npackage which contains the basic SNP information for hg18.\n\nIn order to keep this short, I give the commands only, not the output they\nproduce. I've tested this on a 64-bit Linux machine (see sessionInfo() at\nthe end for the details). For more details, please look at the GenomeSearching\nvignette in the BSgenome package (used to be in Biostrings) and at the man\npages for the individual functions. Please note that this is still a work\nin progress and that the vignette and the man pages are not complete yet\n(I'm actively working on the vignette though). Feedback and bug reports\nare welcome. Thanks!\n\nH.\n\n\nlibrary(Biostrings)\n\n### Load the probe sequences (25-mers) for chip hgu95av2 (Affymetrix) and\n### store them in a PDict object that will allow us to do fast searching.\nlibrary(hgu95av2probe)\ndict0 <- hgu95av2probe$sequence\nlength(dict0)  # 201800 probes\npdict <- PDict(dict0)\n\n### Load Human genome from UCSC (version hg18) and load the chr1 sequence.\nlibrary(BSgenome.Hsapiens.UCSC.hg18)\nHsapiens\nchr1 <- Hsapiens$chr1\nchr1  # note the 3 inactive built-in masks\nalphabetFrequency(chr1)\n\n### Count the number of hits per probe (exact matching).\nc1 <- countPDict(pdict, chr1)  # takes about 20 sec.\nsum(c1)  # 209980 (total number of hits)\nsum(c1 == 0)  # 191209 (number of probes with no hit)\n\n### Inject the known SNPs (from dbSNP) in the hg18 genome and load chr1\n### again (now with the SNPs embedded in the sequence). Note that the\n### SNPs are really injected when the sequence is loaded (on-the-fly\n### injection at sequence load time).\navailable.SNPs()\nlibrary(SNPlocs.Hsapiens.dbSNP.20071016)\nhg18snp <- injectSNPs(Hsapiens, 'SNPlocs.Hsapiens.dbSNP.20071016')\nhg18snp  # note the additional line \"with SNPs injected from...\"\nchr1snp <- hg18snp$chr1  # load the sequence and inject the SNPs\nchr1snp\nalphabetFrequency(chr1snp)  # note the IUPAC ambiguity letters\n\n### By default countPDict()/matchPDict() do exact matching so they\n### don't treat these ambiguity letters as ambiguities.\nc1snp <- countPDict(pdict, chr1snp)  # about 20 sec. again\nsum(c1snp)  # 197165\nsum(c1snp == 0)  # 192165\n\n### To treat the ambiguity letters in the subject as ambiguities,\n### use the 'fixed=c(pattern=TRUE, subject=FALSE)' option (or its\n### shorter form 'fixed=\"pattern\"').\nc1snpN <- countPDict(pdict, chr1snp, fixed=\"pattern\")  # doesn't work!\n\n### The above didn't work because the internal algorithm cannot deal\n### with regions with a high density of ambiguity letters, and the\n### N-blocks are such regions! The solution is too mask these regions\n### by activating the mask of assembly gaps (built-in mask).\nactive(masks(chr1snp))[1] <- TRUE\nalphabetFrequency(chr1snp)\nchr1snp  # about 9% of the sequence is masked now\nc1snpN <- countPDict(pdict, chr1snp, fixed=\"pattern\")  # takes about 22 sec.\nsum(c1snpN)  # 217121 (the total number of hits has increased...)\nsum(c1snpN == 0)  # 191137 (... and there are less probes with no hit)\n\n### Just a sanity check: the number of hits per probe can only increase!\nall(c1snpN >= c1)\nsum(c1snpN > c1)  # 248\nwhich(c1snpN > c1)[1:10]  # the first 10 probes that match at SNP locations\nwhich(c1snp == max(c1snp))  # the probe with the greatest number of hits...\nc1snpN[201534] - c1[201534]  # ... gains 199 hits with the SNP version of chr1\n\n### Let's try to \"see\" some SNPs\nprobe0 <- dict0[201534]  # the probe with the greatest number of hits\nhits0 <- matchPattern(probe0, chr1snp, fixed=\"pattern\")\nhits0\nsnpperhit <- alphabetFrequency(hits0, baseOnly=TRUE)[ , 'other']\nhits0[snpperhit != 0]  # hits containing at least 1 SNP\nmax(snpperhit)  # there are at most 4 SNPs per hit\nhits0[snpperhit == 4]  # display them\n\n\n> sessionInfo()\nR version 2.7.0 (2008-04-22)\nx86_64-unknown-linux-gnu\n\nlocale:\nLC_CTYPE=en_CA.UTF-8;LC_NUMERIC=C;LC_TIME=en_CA.UTF-8;LC_COLLATE=en_CA.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_CA.UTF-8;LC_PAPER=en_CA.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_CA.UTF-8;LC_IDENTIFICATION=C\n\nattached base packages:\n[1] tools     stats     graphics  grDevices utils     datasets  methods\n[8] base\n\nother attached packages:\n  [1] SNPlocs.Hsapiens.dbSNP.20071016_0.99.1\n  [2] BSgenome.Hsapiens.UCSC.hg18_1.3.7\n  [3] BSgenome_1.8.3\n  [4] Biostrings_2.8.11\n  [5] hgu95av2probe_2.2.0\n  [6] matchprobes_1.12.0\n  [7] affy_1.18.1\n  [8] preprocessCore_1.2.0\n  [9] affyio_1.8.0\n[10] Biobase_2.0.1",
+      "body_snippet": "Hi,\n\nThere are some recent additions to Biostrings and to the BSgenome data\npackages that I'd like to illustrate here with a small script. This script\nwill focus on the following recent features:\n   -",
+      "thread_id": "thread-2ef3387b62fd",
+      "thread_depth": 0,
+      "month": "2008-05"
+    },
+    {
+      "id": "msg-eb42ddff2489",
+      "message_id": "<509e0620805310425y17c59cfet29c3aa09aee940a4@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "e9ff4b3acc925189bce61741d9f30f26f996837e9604d7ac3a80794d259750a9",
+      "date": "2008-05-31T11:25:07Z",
+      "subject": "[Bioc-sig-seq] TileQC",
+      "subject_clean": "[Bioc-sig-seq] TileQC",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080531/7f6a0f73/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080531/7f6a0f73/attachment.pl>",
+      "thread_id": "thread-eb42ddff2489",
+      "thread_depth": 0,
+      "month": "2008-05"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-44a0fb8fcb0e",
+      "subject": "[Bioc-sig-seq] Introducing the ShortRead package",
+      "message_count": 1,
+      "participants": [
+        "Martin Morgan"
+      ],
+      "started": "2008-05-29T13:46:52Z",
+      "last_reply": "2008-05-29T13:46:52Z",
+      "root_message_id": "msg-44a0fb8fcb0e"
+    },
+    {
+      "id": "thread-2ef3387b62fd",
+      "subject": "[Bioc-sig-seq] Short demo of some recent additions to Biostrings",
+      "message_count": 1,
+      "participants": [
+        "hpages at fhcrc.org"
+      ],
+      "started": "2008-05-30T19:13:42Z",
+      "last_reply": "2008-05-30T19:13:42Z",
+      "root_message_id": "msg-2ef3387b62fd"
+    },
+    {
+      "id": "thread-eb42ddff2489",
+      "subject": "[Bioc-sig-seq] TileQC",
+      "message_count": 1,
+      "participants": [
+        "Michael Lawrence"
+      ],
+      "started": "2008-05-31T11:25:07Z",
+      "last_reply": "2008-05-31T11:25:07Z",
+      "root_message_id": "msg-eb42ddff2489"
+    }
+  ]
+}

@@ -1,0 +1,5371 @@
+From KQu at genomichealth.com  Tue Feb  1 20:08:45 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Tue, 1 Feb 2011 19:08:45 +0000
+Subject: [Bioc-sig-seq] short read quality score summary in ShortRead error
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F1C9FF3CB@SRV322.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110201/cbc8db0d/attachment.pl>
+
+From mtmorgan at fhcrc.org  Tue Feb  1 20:26:12 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 01 Feb 2011 11:26:12 -0800
+Subject: [Bioc-sig-seq] short read quality score summary in ShortRead
+ error
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F1C9FF3CB@SRV322.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F1C9FF3CB@SRV322.genomichealth.com>
+Message-ID: <4D485E54.2000706@fhcrc.org>
+
+On 02/01/2011 11:08 AM, Kunbin Qu wrote:
+> Hi, all:
+> 
+> I am trying to assess the read quality score for each lane (mean and
+median etc.) from a Hi-Seq run which has about 70-90 million reads per
+lane. When I used as(quality(readFastQ), "numeric"), it gave an error
+"allocMatrix: too many elements specified". Is there a way to get around
+this? Thanks.
+
+An R vector (including a matrix) must be less than 2^31-1 elements long,
+so a work-around is to divide the ShortReadQ object into chunks such
+that sum(width(s1q)) < 2^31-1.
+
+Depending on what you do down-stream, it might be sufficient to use
+alphabetByCycle (alphabet use epr cycle) or alphabetFrequency (alphabet
+use per read).
+
+Martin
+
+> 
+> -Kunbin>
+> 
+>> seqQ
+> class: ShortReadQ
+> length: 76115764 reads; width: 50 cycles
+>> s1q<-quality(seqQ)
+>> s1q
+> class: SFastqQuality
+> quality:
+>   A BStringSet instance of length 76115764
+>            width seq
+>        [1]    50 aa``_BcccccccccddddddadJdQTTTB]]SZY[\_PZbc_bbddad\
+>        [2]    50 ]\SUTB_[[][]]]]dfecfef^cddffcedbd^ddeed`cd`dedeef`
+>        [3]    50 aa```Bcccb\ccccggggggggegegefgggege^abbdeeabedgade
+>        [4]    50 ^VZXWB_YN]TMUTYddadd_dcda[[R[T\``Wc^bc\bacaddd`a\d
+>        [5]    50 cccccBc]cacbb]cgggdfggegegaggeeggggaeegggbecgefcZ\
+>        [6]    50 ddccdbeeea_]]`Z\cc`c]SZ_]]S[K]ccbbWaTL_``V]^_cddWV
+>        [7]    50 XYWWYB[]_]]]^\]cddddbfedfdddbacacacfff_edTd`aU[XYX
+>        [8]    50 bbb`bBcccccddddgggggggggggegggfggdgggggegeggdggggg
+>        [9]    50 bba`bBcccccddddgeggegggggdggffggcfe`edeegae`geddd`
+>        ...   ... ...
+> [76115756]    50 e`eeeBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [76115757]    50 aaVa`BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [76115758]    50 ]ZXRERHZZFUZ[XDKKDDRHLPUQa```^XZ^HQ`]]T[WDXRH^YSWW
+> [76115759]    50 eeededd_dcBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [76115760]    50 c[^BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [76115761]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [76115762]    50 __BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [76115763]    50 _^X_BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [76115764]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+>> summary(as(s1q, "numeric"))
+> Error in asMethod(object) : allocMatrix: too many elements specified
+>> sessionInfo()
+> R version 2.11.0 (2010-04-22)
+> x86_64-unknown-linux-gnu
+> 
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> other attached packages:
+> [1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.19-11
+> [4] Biostrings_2.16.7   GenomicRanges_1.0.1 IRanges_1.6.8
+> 
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.8.0 grid_2.11.0   hwriter_1.3   tools_2.11.0
+>>
+> 
+> 
+> ______________________________________________________________________
+> The contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From dasolexa at hotmail.com  Fri Feb  4 11:36:18 2011
+From: dasolexa at hotmail.com (David A.)
+Date: Fri, 4 Feb 2011 11:36:18 +0100
+Subject: [Bioc-sig-seq] goseq for Arabidopsis
+Message-ID: <SNT116-W54C26FCDA1A91A785E0197C6E60@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/69ea3328/attachment.pl>
+
+From dasolexa at hotmail.com  Fri Feb  4 13:33:19 2011
+From: dasolexa at hotmail.com (David A.)
+Date: Fri, 4 Feb 2011 13:33:19 +0100
+Subject: [Bioc-sig-seq] goseq for Arabidopsis
+In-Reply-To: <SNT116-W54C26FCDA1A91A785E0197C6E60@phx.gbl>
+References: <SNT116-W54C26FCDA1A91A785E0197C6E60@phx.gbl>
+Message-ID: <SNT116-W244233D46C14E1DBE624CAC6E60@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/30232d9c/attachment.pl>
+
+From jasonlu68 at gmail.com  Wed Feb  9 19:41:25 2011
+From: jasonlu68 at gmail.com (Jason Lu)
+Date: Wed, 9 Feb 2011 13:41:25 -0500
+Subject: [Bioc-sig-seq] Questions on the edgeR package
+Message-ID: <AANLkTinzc6vgcEUj9Zh+++BT+=KOQvy-8e3iGfmyiDLG@mail.gmail.com>
+
+Hi,
+
+I have two questions on the edgeR package, and hope someone here could help.
+
+Question-1. The calculation of the effective library size for the
+two-library case has been a mystery to me. In the Genome Biology
+(2010) paper, it was mentioned that "the effective library sizes are
+calculated by multiplying/dividing the square root of the estimated
+normalization factor with the original library size.". When I use the
+edgeR to compute the norm.factors, it actually comes up two
+norm.factors. From what I read from other posts, for the
+multiple-library case the effective library sizes are the
+original.lib.size * norm.factors. My question is how to compute the
+effective lib.sizes for the two-lib case ( used by the sage.test in
+the next step).
+> d = calcNormFactors(d)
+> d
+An object of class "DGEList"
+$samples
+   group lib.size norm.factors
+c1     1  5248721        0.979
+c2     0  6352217        1.021
+
+
+Question-2. I encountered a strange error when I try to run
+"estimateTagwiseDisp" (below). It works fine with "estimateCommonDisp"
+though.
+
+> load("~/ctable.rda")
+> library(edgeR)
+>
+> grp = rep(c('cancer','normal'),each=3)
+> d = DGEList(counts = ctab[,1:6], group = grp)
+Calculating library sizes from column totals.
+> d = calcNormFactors(d)
+>
+> setwd("~/samplerun/seqf/comp")
+>
+> options(digits = 4)
+> d = d[rowSums(d$counts)>5,]
+> d.2 <- estimateTagwiseDisp(d, prior.n = 15)
+Error in t.default(object$counts) : argument is not a matrix
+> class(d$counts)
+[1] "matrix"
+> d$counts[1:2,]
+   c1 c2 c3  n1 n2  n3
+1  25 32 40 100 96 102
+10  1  0  0   7  2   0
+> d$samples
+    group lib.size norm.factors
+c1 cancer  5248721       0.9049
+c2 cancer  6352217       0.9388
+c3 cancer 12012184       0.9409
+n1 normal  7477196       1.2217
+n2 normal  8012616       1.1123
+n3 normal  6691637       0.9206
+> sessionInfo()
+R version 2.13.0 Under development (unstable) (2011-01-20 r54055)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base
+
+other attached packages:
+[1] edgeR_2.1.10
+
+loaded via a namespace (and not attached):
+[1] limma_3.7.22
+
+Thanks for help.
+
+Jason
+
+
+From mrobinson at wehi.EDU.AU  Wed Feb  9 23:43:10 2011
+From: mrobinson at wehi.EDU.AU (Mark Robinson)
+Date: Thu, 10 Feb 2011 09:43:10 +1100
+Subject: [Bioc-sig-seq] Questions on the edgeR package
+In-Reply-To: <AANLkTinzc6vgcEUj9Zh+++BT+=KOQvy-8e3iGfmyiDLG@mail.gmail.com>
+References: <AANLkTinzc6vgcEUj9Zh+++BT+=KOQvy-8e3iGfmyiDLG@mail.gmail.com>
+Message-ID: <9FA0D7D0-5123-491D-84C8-2AFCCC3E7B3F@wehi.edu.au>
+
+Hi Jason.
+
+Some answers below.
+
+
+On 2011-02-10, at 5:41 AM, Jason Lu wrote:
+
+> Hi,
+> 
+> I have two questions on the edgeR package, and hope someone here could help.
+> 
+> Question-1. The calculation of the effective library size for the
+> two-library case has been a mystery to me. In the Genome Biology
+> (2010) paper, it was mentioned that "the effective library sizes are
+> calculated by multiplying/dividing the square root of the estimated
+> normalization factor with the original library size.". When I use the
+> edgeR to compute the norm.factors, it actually comes up two
+> norm.factors. From what I read from other posts, for the
+> multiple-library case the effective library sizes are the
+> original.lib.size * norm.factors. My question is how to compute the
+> effective lib.sizes for the two-lib case ( used by the sage.test in
+> the next step).
+>> d = calcNormFactors(d)
+>> d
+> An object of class "DGEList"
+> $samples
+>   group lib.size norm.factors
+> c1     1  5248721        0.979
+> c2     0  6352217        1.021
+
+A few things have changed over time.  Awhile back, the normalization factors were explicitly relative a reference column.  Now, they are still calculated against a reference column, but themselves are normalized to multiply to 1.  If you plan to use sage.test() -- which I should point out will come out roughly equivalent to exactTest() with no replicates -- then yes, you should use the product of lib.size*norm.factors.  This is actually equivalent (on 2 libraries) to the earlier practice of only having 1 normalization factor and partitioning it with square roots to each library.  For your example above, something like:
+
+D <- d$counts
+f <- d$samples$lib.size*d$samples$norm.factors
+st <- sage.test( D[,1], D[,2], n1=f[1], n2=f[2] )
+
+
+> Question-2. I encountered a strange error when I try to run
+> "estimateTagwiseDisp" (below). It works fine with "estimateCommonDisp"
+> though.
+> 
+>> load("~/ctable.rda")
+>> library(edgeR)
+>> 
+>> grp = rep(c('cancer','normal'),each=3)
+>> d = DGEList(counts = ctab[,1:6], group = grp)
+> Calculating library sizes from column totals.
+>> d = calcNormFactors(d)
+>> 
+>> setwd("~/samplerun/seqf/comp")
+>> 
+>> options(digits = 4)
+>> d = d[rowSums(d$counts)>5,]
+>> d.2 <- estimateTagwiseDisp(d, prior.n = 15)
+> Error in t.default(object$counts) : argument is not a matrix
+
+estimateTagwiseDisp() requires estimateCommonDisp() to be called first. You can fix this by calling:
+
+[...]
+d = d[rowSums(d$counts)>5,]
+d <- estimateCommonDisp(d)
+d.2 <- estimateTagwiseDisp(d, prior.n = 15)
+
+Of course, we should have a more informative error.  Thanks for pointing this out, we'll make a change.
+
+Cheers,
+Mark
+
+
+
+>> class(d$counts)
+> [1] "matrix"
+>> d$counts[1:2,]
+>   c1 c2 c3  n1 n2  n3
+> 1  25 32 40 100 96 102
+> 10  1  0  0   7  2   0
+>> d$samples
+>    group lib.size norm.factors
+> c1 cancer  5248721       0.9049
+> c2 cancer  6352217       0.9388
+> c3 cancer 12012184       0.9409
+> n1 normal  7477196       1.2217
+> n2 normal  8012616       1.1123
+> n3 normal  6691637       0.9206
+>> sessionInfo()
+> R version 2.13.0 Under development (unstable) (2011-01-20 r54055)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+> 
+> locale:
+> [1] C
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices datasets  utils     methods   base
+> 
+> other attached packages:
+> [1] edgeR_2.1.10
+> 
+> loaded via a namespace (and not attached):
+> [1] limma_3.7.22
+> 
+> Thanks for help.
+> 
+> Jason
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+------------------------------
+Mark Robinson, PhD (Melb)
+Epigenetics Laboratory, Garvan
+Bioinformatics Division, WEHI
+e: mrobinson at wehi.edu.au
+e: m.robinson at garvan.org.au
+p: +61 (0)3 9345 2628
+f: +61 (0)3 9347 0852
+------------------------------
+
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:6}}
+
+
+From chuzhang at ymail.com  Fri Feb 11 00:48:39 2011
+From: chuzhang at ymail.com (Chu Zhang)
+Date: Thu, 10 Feb 2011 23:48:39 +0000 (GMT)
+Subject: [Bioc-sig-seq] processing alignments
+Message-ID: <314492.4285.qm@web132305.mail.ird.yahoo.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110210/8eb83736/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Fri Feb 11 02:21:49 2011
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Thu, 10 Feb 2011 20:21:49 -0500
+Subject: [Bioc-sig-seq] processing alignments
+In-Reply-To: <314492.4285.qm@web132305.mail.ird.yahoo.com>
+References: <314492.4285.qm@web132305.mail.ird.yahoo.com>
+Message-ID: <AANLkTi=E_o_d2mNe2QaN11ceEmpNUJ8kp=naPt=k-7Xv@mail.gmail.com>
+
+Hi,
+
+On Thu, Feb 10, 2011 at 6:48 PM, Chu Zhang <chuzhang at ymail.com> wrote:
+> Hi Guys,
+>
+> I have Bowtied (aligned) sequences against a local database having few sequences
+> of length between 70-300bp. Now lets take SeqA ?of length 120bp from my target
+> database. Since the RNA-Seq reads are of length 38bp i guess, how do i ascertain
+> that for instance 3 different reads aligned perfectly to cover the SeqA.
+
+I'm not sure what you mean by "aligned perfectly to cover SeqA", but
+-- I'd load your reads into a GRanges object which is easy to
+manipulate.
+
+You can look at the `coverage` function to then see how much of (and
+to what dept) your SeqA is covered. Be aware the "strandedness" of
+reads can be issue. You should be aware if your rna-seq data keeps
+"strand" info or not and deal with your data accordingly.
+
+Also, the I/GRange findOverlaps functionality will be your friend, too.
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+?| Memorial Sloan-Kettering Cancer Center
+?| Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From p.leo at uq.edu.au  Fri Feb 11 02:48:44 2011
+From: p.leo at uq.edu.au (Paul Leo)
+Date: Fri, 11 Feb 2011 11:48:44 +1000
+Subject: [Bioc-sig-seq] processing alignments
+In-Reply-To: <AANLkTi=E_o_d2mNe2QaN11ceEmpNUJ8kp=naPt=k-7Xv@mail.gmail.com>
+References: <314492.4285.qm@web132305.mail.ird.yahoo.com>
+	<AANLkTi=E_o_d2mNe2QaN11ceEmpNUJ8kp=naPt=k-7Xv@mail.gmail.com>
+Message-ID: <1297388924.16076.326.camel@bioinform01-ubuntu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/9653b19e/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Fri Feb 11 02:58:51 2011
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Thu, 10 Feb 2011 20:58:51 -0500
+Subject: [Bioc-sig-seq] processing alignments
+In-Reply-To: <1297388924.16076.326.camel@bioinform01-ubuntu>
+References: <314492.4285.qm@web132305.mail.ird.yahoo.com>
+	<AANLkTi=E_o_d2mNe2QaN11ceEmpNUJ8kp=naPt=k-7Xv@mail.gmail.com>
+	<1297388924.16076.326.camel@bioinform01-ubuntu>
+Message-ID: <AANLkTi=Z9r377N3t5RrgbezVzGE+FwxhmYpioDbxhede@mail.gmail.com>
+
+Hi,
+
+On Thu, Feb 10, 2011 at 8:48 PM, Paul Leo <p.leo at uq.edu.au> wrote:
+>
+> Also if your alignments are in BAM format , so can use Rsamtools to
+> extract that region. Inspection of the cigar will tell you which reads
+> aligned perfectly. That would be an extremely fast calculation.
+
+Actually, I'm not sure that that's true, is it? Don't cigar strings
+only really tell you about indels?
+
+Say you have two reads, both 38bp long.
+
+If one aligns perfectly, its cigar is 38M
+If the other aligns with 1 mismatch, its still 38M.
+
+You can use the NM tag if you're after 'perfect matches', though ...
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+?| Memorial Sloan-Kettering Cancer Center
+?| Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From p.leo at uq.edu.au  Fri Feb 11 03:31:16 2011
+From: p.leo at uq.edu.au (Paul Leo)
+Date: Fri, 11 Feb 2011 12:31:16 +1000
+Subject: [Bioc-sig-seq] processing alignments
+In-Reply-To: <AANLkTi=Z9r377N3t5RrgbezVzGE+FwxhmYpioDbxhede@mail.gmail.com>
+References: <314492.4285.qm@web132305.mail.ird.yahoo.com>
+	<AANLkTi=E_o_d2mNe2QaN11ceEmpNUJ8kp=naPt=k-7Xv@mail.gmail.com>
+	<1297388924.16076.326.camel@bioinform01-ubuntu>
+	<AANLkTi=Z9r377N3t5RrgbezVzGE+FwxhmYpioDbxhede@mail.gmail.com>
+Message-ID: <1297391476.16076.339.camel@bioinform01-ubuntu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/fb652fe2/attachment.pl>
+
+From chuzhang at ymail.com  Sat Feb 12 02:54:39 2011
+From: chuzhang at ymail.com (Chu Zhang)
+Date: Sat, 12 Feb 2011 01:54:39 +0000 (GMT)
+Subject: [Bioc-sig-seq] processing alignments
+In-Reply-To: <1297391476.16076.339.camel@bioinform01-ubuntu>
+References: <314492.4285.qm@web132305.mail.ird.yahoo.com>
+	<AANLkTi=E_o_d2mNe2QaN11ceEmpNUJ8kp=naPt=k-7Xv@mail.gmail.com>
+	<1297388924.16076.326.camel@bioinform01-ubuntu>
+	<AANLkTi=Z9r377N3t5RrgbezVzGE+FwxhmYpioDbxhede@mail.gmail.com>
+	<1297391476.16076.339.camel@bioinform01-ubuntu>
+Message-ID: <645775.88936.qm@web132308.mail.ird.yahoo.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110212/4435954b/attachment.pl>
+
+From D.Strbenac at garvan.org.au  Sun Feb 13 05:00:11 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Sun, 13 Feb 2011 15:00:11 +1100 (EST)
+Subject: [Bioc-sig-seq] Replace Elements of RleList is Slow
+Message-ID: <20110213150011.BKV90599@gimr.garvan.unsw.edu.au>
+
+Hello,
+
+I have an RleList where sometimes I'd like to substitute some elements, before doing a viewApply on this modified list. I have an example where I just have one element and this takes almost a minute. Is there a chance of optimising this code in IRanges ? I'm trying to avoid casting the RleLists to lists then back to RleLists, to make my code shorter.
+
+> class(coverageGenes)
+[1] "SimpleRleList"
+attr(,"package")
+[1] "IRanges"
+> length(coverageGenes)
+[1] 17805
+> w
+[1] 8007
+> xxx
+SimpleRleList of length 1
+$chr18
+'numeric' Rle of length 51001 with 15108 runs
+  Lengths:               501                 1 ...             14735
+  Values :  2.18311877482829  2.18461816959122 ...                 0
+
+> system.time(coverageGenes[w]  <- xxx)
+   user  system elapsed 
+ 55.780   2.070  57.866
+
+> cgLIST <- as.list(coverageGenes)
+> xxxL <- as.list(xxx)
+
+> system.time(cgLIST[w]  <- xxxL)
+   user  system elapsed 
+      0       0       0 
+
+So, the plain list based method works in a flash.
+Note that xxx and w can sometimes be longer than 1, but I am just illustrating the base case. I had memory problems working with them being a bit longer. With only length 6 xxx and w, RAM usage shot up by 17 GB.
+
+> sessionInfo()
+R version 2.12.0 (2010-10-15)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] aroma.affymetrix_1.7.0             aroma.apd_0.1.7                   
+ [3] affxparser_1.22.0                  R.huge_0.2.0                      
+ [5] aroma.core_1.7.0                   aroma.light_1.18.0                
+ [7] matrixStats_0.2.2                  R.rsp_0.4.0                       
+ [9] R.cache_0.3.0                      R.filesets_0.9.0                  
+[11] digest_0.4.2                       R.utils_1.5.3                     
+[13] R.oo_1.7.4                         R.methodsS3_1.2.1                 
+[15] BSgenome.Hsapiens.UCSC.hg18_1.3.16 BSgenome_1.18.3                   
+[17] Biostrings_2.18.2                  GenomicRanges_1.2.3               
+[19] IRanges_1.8.9                     
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.10.0 tools_2.12.0 
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From D.Strbenac at garvan.org.au  Mon Feb 14 00:00:15 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Mon, 14 Feb 2011 10:00:15 +1100 (EST)
+Subject: [Bioc-sig-seq] viewApplying Efficiently
+Message-ID: <20110214100015.BKW15712@gimr.garvan.unsw.edu.au>
+
+Hello,
+
+I have an RleList of about 17000 Rles and I'd like to get the regularly spaced values out of each one of them and have a list of vectors of numbers as the result.
+
+e.g. my views locations is 17000 of these :
+
+> samplingRL[[1]] # is a RangesList
+IRanges of length 101
+      start   end width
+[1]     501   501     1
+[2]    1001  1001     1
+[3]    1501  1501     1
+[4]    2001  2001     1
+[5]    2501  2501     1
+[6]    3001  3001     1
+[7]    3501  3501     1
+[8]    4001  4001     1
+[9]    4501  4501     1
+...     ...   ...   ...
+[93]  46501 46501     1
+[94]  47001 47001     1
+[95]  47501 47501     1
+[96]  48001 48001     1
+[97]  48501 48501     1
+[98]  49001 49001     1
+[99]  49501 49501     1
+[100] 50001 50001     1
+[101] 50501 50501     1
+
+and my RleList has data like :
+
+> rleList[[1]]
+'numeric' Rle of length 51001 with 38620 runs
+  Lengths:               501                 1 ...              1089
+  Values : 0.671728853793319 0.677726432845045 ... 0.224909214439609
+
+I do the following to get the sampling position values in one step, but it uses up over 20 GB RAM in a matter of seconds, and I have to kill the process.
+
+result <- viewApply(Views(rleList, samplingRL), function(samples) as.numeric(samples), simplify = TRUE)
+
+Is there a better way ?
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From D.Strbenac at garvan.org.au  Mon Feb 14 00:05:05 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Mon, 14 Feb 2011 10:05:05 +1100 (EST)
+Subject: [Bioc-sig-seq] viewApplying Efficiently
+In-Reply-To: <20110214100015.BKW15712@gimr.garvan.unsw.edu.au>
+References: <20110214100015.BKW15712@gimr.garvan.unsw.edu.au>
+Message-ID: <20110214100505.BKW15882@gimr.garvan.unsw.edu.au>
+
+To clarify, samplingRL is a RangesList, not samplingRL[[1]].
+
+---- Original message ----
+>Date: Mon, 14 Feb 2011 10:00:15 +1100 (EST)
+>From: bioc-sig-sequencing-bounces at r-project.org (on behalf of Dario Strbenac <D.Strbenac at garvan.org.au>)
+>Subject: [Bioc-sig-seq] viewApplying Efficiently  
+>To: bioc-sig-sequencing at r-project.org
+>
+>Hello,
+>
+>I have an RleList of about 17000 Rles and I'd like to get the regularly spaced values out of each one of them and have a list of vectors of numbers as the result.
+>
+>e.g. my views locations is 17000 of these :
+>
+>> samplingRL[[1]] # is a RangesList
+>IRanges of length 101
+>      start   end width
+>[1]     501   501     1
+>[2]    1001  1001     1
+>[3]    1501  1501     1
+>[4]    2001  2001     1
+>[5]    2501  2501     1
+>[6]    3001  3001     1
+>[7]    3501  3501     1
+>[8]    4001  4001     1
+>[9]    4501  4501     1
+>...     ...   ...   ...
+>[93]  46501 46501     1
+>[94]  47001 47001     1
+>[95]  47501 47501     1
+>[96]  48001 48001     1
+>[97]  48501 48501     1
+>[98]  49001 49001     1
+>[99]  49501 49501     1
+>[100] 50001 50001     1
+>[101] 50501 50501     1
+>
+>and my RleList has data like :
+>
+>> rleList[[1]]
+>'numeric' Rle of length 51001 with 38620 runs
+>  Lengths:               501                 1 ...              1089
+>  Values : 0.671728853793319 0.677726432845045 ... 0.224909214439609
+>
+>I do the following to get the sampling position values in one step, but it uses up over 20 GB RAM in a matter of seconds, and I have to kill the process.
+>
+>result <- viewApply(Views(rleList, samplingRL), function(samples) as.numeric(samples), simplify = TRUE)
+>
+>Is there a better way ?
+>
+>--------------------------------------
+>Dario Strbenac
+>Research Assistant
+>Cancer Epigenetics
+>Garvan Institute of Medical Research
+>Darlinghurst NSW 2010
+>Australia
+>
+>_______________________________________________
+>Bioc-sig-sequencing mailing list
+>Bioc-sig-sequencing at r-project.org
+>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From mtmorgan at fhcrc.org  Mon Feb 14 01:44:19 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Sun, 13 Feb 2011 16:44:19 -0800
+Subject: [Bioc-sig-seq] viewApplying Efficiently
+In-Reply-To: <20110214100015.BKW15712@gimr.garvan.unsw.edu.au>
+References: <20110214100015.BKW15712@gimr.garvan.unsw.edu.au>
+Message-ID: <4D587AE3.3000507@fhcrc.org>
+
+On 02/13/2011 03:00 PM, Dario Strbenac wrote:
+> Hello,
+> 
+
+> I have an RleList of about 17000 Rles and I'd like to get the
+regularly spaced values out of each one of them and have a list of
+vectors of numbers as the result.
+
+Maybe along the lines of
+
+elt <- Rle(as.numeric(floor(runif(50100, 1, 2.2)))) # simulated
+m <- Rle(rep(c(FALSE, TRUE), 100), rep(c(500, 1), 100)) # mask
+as.numeric((elt * m)[m])
+
+? This might be in an lapply on the RleList; m would have to be
+constructed to be the right length for each element.
+
+Martin
+> 
+> e.g. my views locations is 17000 of these :
+> 
+>> samplingRL[[1]] # is a RangesList
+> IRanges of length 101
+>       start   end width
+> [1]     501   501     1
+> [2]    1001  1001     1
+> [3]    1501  1501     1
+> [4]    2001  2001     1
+> [5]    2501  2501     1
+> [6]    3001  3001     1
+> [7]    3501  3501     1
+> [8]    4001  4001     1
+> [9]    4501  4501     1
+> ...     ...   ...   ...
+> [93]  46501 46501     1
+> [94]  47001 47001     1
+> [95]  47501 47501     1
+> [96]  48001 48001     1
+> [97]  48501 48501     1
+> [98]  49001 49001     1
+> [99]  49501 49501     1
+> [100] 50001 50001     1
+> [101] 50501 50501     1
+> 
+> and my RleList has data like :
+> 
+>> rleList[[1]]
+> 'numeric' Rle of length 51001 with 38620 runs
+>   Lengths:               501                 1 ...              1089
+>   Values : 0.671728853793319 0.677726432845045 ... 0.224909214439609
+> 
+> I do the following to get the sampling position values in one step, but it uses up over 20 GB RAM in a matter of seconds, and I have to kill the process.
+> 
+> result <- viewApply(Views(rleList, samplingRL), function(samples) as.numeric(samples), simplify = TRUE)
+> 
+> Is there a better way ?
+> 
+> --------------------------------------
+> Dario Strbenac
+> Research Assistant
+> Cancer Epigenetics
+> Garvan Institute of Medical Research
+> Darlinghurst NSW 2010
+> Australia
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From D.Strbenac at garvan.org.au  Mon Feb 14 04:00:09 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Mon, 14 Feb 2011 14:00:09 +1100 (EST)
+Subject: [Bioc-sig-seq] IRanges runmean Arithmetic Precision
+Message-ID: <20110214140009.BKW22524@gimr.garvan.unsw.edu.au>
+
+Hi,
+
+We've noticed that using runmean on Rles with all elements being a mix of positive or zero numbers sometimes results in some very small negative numbers. Is it possible for it to be exactly zero ?
+
+> cvg
+'numeric' Rle of length 199432144 with 1495580 runs
+  Lengths:             35100                35 ...                18
+  Values :                 0 0.750447078847223 ... 0.750447078847223
+> negs <- which(cvg < 0)
+> negs
+integer(0)
+> smCvg <- IRanges::runmean(cvg, 1001, endrule = "constant")
+> negs <- which(smCvg < 0)
+> smCvg[head(negs)]
+'numeric' Rle of length 6 with 1 run
+  Lengths:                     6
+  Values : -1.56163238628593e-16
+
+> sessionInfo()
+R version 2.12.0 (2010-10-15)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] aroma.affymetrix_1.7.0             aroma.apd_0.1.7                   
+ [3] affxparser_1.22.0                  R.huge_0.2.0                      
+ [5] aroma.core_1.7.0                   aroma.light_1.18.0                
+ [7] matrixStats_0.2.2                  R.rsp_0.4.0                       
+ [9] R.cache_0.3.0                      R.filesets_0.9.0                  
+[11] digest_0.4.2                       R.utils_1.5.3                     
+[13] R.oo_1.7.4                         R.methodsS3_1.2.1                 
+[15] BSgenome.Hsapiens.UCSC.hg18_1.3.16 BSgenome_1.18.3                   
+[17] Biostrings_2.18.2                  GenomicRanges_1.2.3               
+[19] IRanges_1.8.9                     
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.10.0 tools_2.12.0  
+
+
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From mtmorgan at fhcrc.org  Mon Feb 14 14:24:41 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 14 Feb 2011 05:24:41 -0800
+Subject: [Bioc-sig-seq] IRanges runmean Arithmetic Precision
+In-Reply-To: <20110214140009.BKW22524@gimr.garvan.unsw.edu.au>
+References: <20110214140009.BKW22524@gimr.garvan.unsw.edu.au>
+Message-ID: <4D592D19.40906@fhcrc.org>
+
+On 02/13/2011 07:00 PM, Dario Strbenac wrote:
+> Hi,
+> 
+> We've noticed that using runmean on Rles with all elements being a mix of positive or zero numbers sometimes results in some very small negative numbers. Is it possible for it to be exactly zero ?
+> 
+>> cvg
+> 'numeric' Rle of length 199432144 with 1495580 runs
+>   Lengths:             35100                35 ...                18
+>   Values :                 0 0.750447078847223 ... 0.750447078847223
+>> negs <- which(cvg < 0)
+>> negs
+> integer(0)
+>> smCvg <- IRanges::runmean(cvg, 1001, endrule = "constant")
+>> negs <- which(smCvg < 0)
+>> smCvg[head(negs)]
+> 'numeric' Rle of length 6 with 1 run
+>   Lengths:                     6
+>   Values : -1.56163238628593e-16
+
+Not that there couldn't be improvements in numerical precision of
+runmean, but this is a realization of R FAQ 7.31
+
+http://cran.r-project.org/doc/FAQ/R-FAQ.html#Why-doesn_0027t-R-think-these-numbers-are-equal_003f
+
+See also ?signif.
+
+Martin
+
+> 
+>> sessionInfo()
+> R version 2.12.0 (2010-10-15)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+> 
+> locale:
+>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base     
+> 
+> other attached packages:
+>  [1] aroma.affymetrix_1.7.0             aroma.apd_0.1.7                   
+>  [3] affxparser_1.22.0                  R.huge_0.2.0                      
+>  [5] aroma.core_1.7.0                   aroma.light_1.18.0                
+>  [7] matrixStats_0.2.2                  R.rsp_0.4.0                       
+>  [9] R.cache_0.3.0                      R.filesets_0.9.0                  
+> [11] digest_0.4.2                       R.utils_1.5.3                     
+> [13] R.oo_1.7.4                         R.methodsS3_1.2.1                 
+> [15] BSgenome.Hsapiens.UCSC.hg18_1.3.16 BSgenome_1.18.3                   
+> [17] Biostrings_2.18.2                  GenomicRanges_1.2.3               
+> [19] IRanges_1.8.9                     
+> 
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.10.0 tools_2.12.0  
+> 
+> 
+> 
+> --------------------------------------
+> Dario Strbenac
+> Research Assistant
+> Cancer Epigenetics
+> Garvan Institute of Medical Research
+> Darlinghurst NSW 2010
+> Australia
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From mtmorgan at fhcrc.org  Mon Feb 14 14:33:21 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Mon, 14 Feb 2011 05:33:21 -0800
+Subject: [Bioc-sig-seq] viewApplying Efficiently
+In-Reply-To: <4D587AE3.3000507@fhcrc.org>
+References: <20110214100015.BKW15712@gimr.garvan.unsw.edu.au>
+	<4D587AE3.3000507@fhcrc.org>
+Message-ID: <4D592F21.5050801@fhcrc.org>
+
+On 02/13/2011 04:44 PM, Martin Morgan wrote:
+> On 02/13/2011 03:00 PM, Dario Strbenac wrote:
+>> Hello,
+>>
+> 
+>> I have an RleList of about 17000 Rles and I'd like to get the
+> regularly spaced values out of each one of them and have a list of
+> vectors of numbers as the result.
+> 
+> Maybe along the lines of
+> 
+> elt <- Rle(as.numeric(floor(runif(50100, 1, 2.2)))) # simulated
+> m <- Rle(rep(c(FALSE, TRUE), 100), rep(c(500, 1), 100)) # mask
+> as.numeric((elt * m)[m])
+
+just
+
+  i = seq(501, length(elt), by=500)
+  as.numeric(elt[i])
+
+> 
+> ? This might be in an lapply on the RleList; m would have to be
+> constructed to be the right length for each element.
+> 
+> Martin
+>>
+>> e.g. my views locations is 17000 of these :
+>>
+>>> samplingRL[[1]] # is a RangesList
+>> IRanges of length 101
+>>       start   end width
+>> [1]     501   501     1
+>> [2]    1001  1001     1
+>> [3]    1501  1501     1
+>> [4]    2001  2001     1
+>> [5]    2501  2501     1
+>> [6]    3001  3001     1
+>> [7]    3501  3501     1
+>> [8]    4001  4001     1
+>> [9]    4501  4501     1
+>> ...     ...   ...   ...
+>> [93]  46501 46501     1
+>> [94]  47001 47001     1
+>> [95]  47501 47501     1
+>> [96]  48001 48001     1
+>> [97]  48501 48501     1
+>> [98]  49001 49001     1
+>> [99]  49501 49501     1
+>> [100] 50001 50001     1
+>> [101] 50501 50501     1
+>>
+>> and my RleList has data like :
+>>
+>>> rleList[[1]]
+>> 'numeric' Rle of length 51001 with 38620 runs
+>>   Lengths:               501                 1 ...              1089
+>>   Values : 0.671728853793319 0.677726432845045 ... 0.224909214439609
+>>
+>> I do the following to get the sampling position values in one step, but it uses up over 20 GB RAM in a matter of seconds, and I have to kill the process.
+>>
+>> result <- viewApply(Views(rleList, samplingRL), function(samples) as.numeric(samples), simplify = TRUE)
+>>
+>> Is there a better way ?
+>>
+>> --------------------------------------
+>> Dario Strbenac
+>> Research Assistant
+>> Cancer Epigenetics
+>> Garvan Institute of Medical Research
+>> Darlinghurst NSW 2010
+>> Australia
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From D.Strbenac at garvan.org.au  Mon Feb 14 23:00:26 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Tue, 15 Feb 2011 09:00:26 +1100 (EST)
+Subject: [Bioc-sig-seq] IRanges runmean Arithmetic Precision
+In-Reply-To: <4D592D19.40906@fhcrc.org>
+References: <20110214140009.BKW22524@gimr.garvan.unsw.edu.au>
+	<4D592D19.40906@fhcrc.org>
+Message-ID: <20110215090026.BKW54509@gimr.garvan.unsw.edu.au>
+
+Ah, thanks for the pointer to the section of the FAQ. This cleared it up for me.
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From paboyoun at fhcrc.org  Mon Feb 14 23:17:03 2011
+From: paboyoun at fhcrc.org (Aboyoun, Patrick E)
+Date: Mon, 14 Feb 2011 14:17:03 -0800 (PST)
+Subject: [Bioc-sig-seq] IRanges runmean Arithmetic Precision
+In-Reply-To: <20110215090026.BKW54509@gimr.garvan.unsw.edu.au>
+Message-ID: <656978417.4409.1297721823644.JavaMail.root@zimbra4.fhcrc.org>
+
+Dario,
+As Martin mentioned Rle methods for runsum, runwtsum, runmean, viewSums, and viewMeans could be more numerically precise, perhaps by following base R's lead and use long doubles, when available. However, since floating point arithmetic has only finite precision, this will only make the problem less pervasive, not remove it entirely.
+
+
+Here are some tricks you can employ to get around this issue:
+
+1) If your metric has a handful of significant digits, create integers out of your decimal values and operate on those integers. For example,
+
+library(IRanges)
+x <- Rle(seq(0.9999, 1, length = 100) * pi, 1:100)
+x
+shiftDecPlaces <- 5
+runValue(x) <- as.integer(round((10^shiftDecPlaces) * runValue(x), shiftDecPlaces))
+x
+means <- round(runmean(x, 21, endrule = "constant")/(10^shiftDecPlaces), shiftDecPlaces)
+means
+
+
+2) If you want to focus on forcing small numbers (in absolute terms) to be zero, use zapsmall on the run values
+
+library(IRanges)
+x <- Rle(c(-1, seq(-1e-16, 1e-16, length = 98), 1), 1:100)
+x
+runValue(x) <- zapsmall(runValue(x), digits = 7)
+x
+
+
+These techniques can be extended to RleList objects as well, so you might want to experiment with your data to see what might suit your needs best.
+
+
+Cheers,
+Patrick
+
+
+----- Original Message -----
+From: "Dario Strbenac" <D.Strbenac at garvan.org.au>
+To: "Martin Morgan" <mtmorgan at fhcrc.org>, "D Strbenac" <D.Strbenac at garvan.org.au>
+Cc: bioc-sig-sequencing at r-project.org
+Sent: Monday, February 14, 2011 2:00:26 PM
+Subject: Re: [Bioc-sig-seq] IRanges runmean Arithmetic Precision
+
+Ah, thanks for the pointer to the section of the FAQ. This cleared it up for me.
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From supat.thongjuea at gmail.com  Wed Feb 16 02:01:26 2011
+From: supat.thongjuea at gmail.com (supat thongjuea)
+Date: Wed, 16 Feb 2011 02:01:26 +0100
+Subject: [Bioc-sig-seq] iteration on two Rle Views
+Message-ID: <AANLkTikiQiDYc1fkov9misF9aMvSWnsRjuiWMR4RfF_R@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/b5a6d794/attachment.pl>
+
+From dasolexa at hotmail.com  Wed Feb 16 13:43:03 2011
+From: dasolexa at hotmail.com (David A.)
+Date: Wed, 16 Feb 2011 13:43:03 +0100
+Subject: [Bioc-sig-seq] R453Plus1Toolbox
+Message-ID: <SNT116-W10D1073B12E6D38003F98AC6D20@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/5810f751/attachment.pl>
+
+From lpagie at xs4all.nl  Wed Feb 16 14:12:25 2011
+From: lpagie at xs4all.nl (Ludo Pagie)
+Date: Wed, 16 Feb 2011 14:12:25 +0100
+Subject: [Bioc-sig-seq] trimLRPatterns;
+	matching pattern from pos -1 gives solveUserSEW error
+Message-ID: <4D5BCD39.8040501@xs4all.nl>
+
+Hi all,
+
+I'm trimming reads using an Rpattern which in some cases extends on the 
+left side. If the pattern starts at exactly position -1 trimLRPattern 
+throws an error. If the pattern starts further 'upstream' it returns a 
+zero length sequence, as expected:
+
+library(ShortRead)
+# create a pattern
+fragment <- paste(sample(c('A','C','G','T'),10,replace=TRUE),collapse='')
+# create some reads based on the pattern; for different reads the
+# pattern extends either on the left, the right, or both sides
+reads <- substring(fragment,1:4,7:10)
+
+# trim all reads; all reads should match the pattern fully and be
+# trimmed from start to end
+trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads), 
+max.Rmismatch=0.5, ranges=TRUE, Rfixed=FALSE)
+
+# IRanges of length 4
+#     start end width
+# [1]     1   0     0
+# [2]     0  -1     0
+# [3]    -1  -2     0
+# [4]    -2  -3     0
+
+# if I want the reads to be trimmed right away an error is thrown for
+# the second read
+trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads[c(1,3,4)]), 
+max.Rmismatch=0.5, ranges=FALSE)
+#   A DNAStringSet instance of length 3
+#     width seq
+# [1]     0
+# [2]     0
+# [3]     0
+
+trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads[2]), 
+max.Rmismatch=0.5, ranges=FALSE)
+
+# Error in solveUserSEW(width(x), start = start, end = end, width =
+# width) :
+#   solving row 1: 'allow.nonnarrowing' is FALSE and the supplied start
+# (0) is < 1
+
+
+ > sessionInfo()
+R version 2.12.0 (2010-10-15)
+Platform: i686-pc-linux-gnu (32-bit)
+
+locale:
+  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] ShortRead_1.8.2     Rsamtools_1.2.1     lattice_0.19-13
+[4] Biostrings_2.18.2   GenomicRanges_1.2.2 IRanges_1.8.7
+[7] multtest_2.6.0      Biobase_2.10.0
+
+loaded via a namespace (and not attached):
+[1] grid_2.12.0     hwriter_1.3     MASS_7.3-9      splines_2.12.0
+[5] survival_2.36-2 tools_2.12.0
+
+
+
+Where is this error coming from?
+
+Ludo
+
+
+From lawrence.michael at gene.com  Wed Feb 16 15:13:54 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Wed, 16 Feb 2011 06:13:54 -0800
+Subject: [Bioc-sig-seq] iteration on two Rle Views
+In-Reply-To: <AANLkTikiQiDYc1fkov9misF9aMvSWnsRjuiWMR4RfF_R@mail.gmail.com>
+References: <AANLkTikiQiDYc1fkov9misF9aMvSWnsRjuiWMR4RfF_R@mail.gmail.com>
+Message-ID: <AANLkTimBd2xbZK22J4roV-ygjQSXsNWoXzrV5fPc=Tsf@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/ffb6df79/attachment.pl>
+
+From h.klein at uni-muenster.de  Wed Feb 16 18:02:18 2011
+From: h.klein at uni-muenster.de (Hans-Ulrich Klein)
+Date: Wed, 16 Feb 2011 18:02:18 +0100
+Subject: [Bioc-sig-seq] R453Plus1Toolbox
+In-Reply-To: <SNT116-W10D1073B12E6D38003F98AC6D20@phx.gbl>
+References: <SNT116-W10D1073B12E6D38003F98AC6D20@phx.gbl>
+Message-ID: <4D5C031A.6010201@uni-muenster.de>
+
+Hi Dave,
+
+that is right. The manual of Roche's AVA software says: "The automatic 
+Variant detection does not currently report insertions or monomer 
+deletions shorter than 3 bases." At this time, the R453Plus1Toolbox does 
+not implement an indel calling algorithm but relies on the results 
+reported by the AVA software.
+Since it seems that Roche is not going to solve this issue, we have this 
+topic on our to-do list for our package.
+
+Best,
+Hans-Ulrich
+
+
+On 16/02/11 13:43, David A. wrote:
+> Hi, I have found a package called R453Plus1Toolbox for analysis of Roche's sequencing data. As far as I know, using AVA, 1bp indels are filtered off fro mthe results to avoid false positives. They can be seen by going to the flowgrams of the region, but they are not part of the output table. Does anyone know if R453Plus1Toolbox can detect them?
+>
+> Thanks,
+>
+> Dave
+>   		 	   		
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>    
+
+
+-- 
+Hans-Ulrich Klein
+Institute of Medical Informatics
+University of M?nster
+Domagkstra?e 9
+48149 M?nster, Germany
+Tel.: +49 (0)251 83-58405
+
+
+From mtmorgan at fhcrc.org  Wed Feb 16 18:01:43 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 16 Feb 2011 09:01:43 -0800
+Subject: [Bioc-sig-seq] iteration on two Rle Views
+In-Reply-To: <AANLkTimBd2xbZK22J4roV-ygjQSXsNWoXzrV5fPc=Tsf@mail.gmail.com>
+References: <AANLkTikiQiDYc1fkov9misF9aMvSWnsRjuiWMR4RfF_R@mail.gmail.com>
+	<AANLkTimBd2xbZK22J4roV-ygjQSXsNWoXzrV5fPc=Tsf@mail.gmail.com>
+Message-ID: <4D5C02F7.5010106@fhcrc.org>
+
+On 02/16/2011 06:13 AM, Michael Lawrence wrote:
+> On Tue, Feb 15, 2011 at 5:01 PM, supat thongjuea
+> <supat.thongjuea at gmail.com>wrote:
+> 
+>> Hi,
+>>
+>> I have two Rle views call chip.views and contr.views. I would like to speed
+>> up the iteration for getting the coefficient values from the linear
+>> regression model.
+>> I used sapply for those two Views but it is quite slow to get  coefficient
+>> value from around 10,000 Views. Do you have any suggestion how to speed up
+>> this?.
+>>
+>>                    chip.cov <-coverage(chip.GRanges.uniq)
+>>                    contr.cov<-coverage(contr.GRanges.uniq)
+>>                    window.size=100000
+>>                    step.size = window.size
+>>                    ends <- seq(from=window.size,to=chr.size,by=step.size)
+>>                    starts <-
+>> seq(from=1,to=chr.size-window.size,by=step.size)
+>>                    chip.views<-Views(chip.cov[[1]],starts,ends)
+>>                    contr.views<-Views(contr.cov[[1]],starts,ends)
+>>
+>>                    factor<-sapply(1:length(chip.views),function(x)
+>>
+>> lsfit(as.integer(chip.views[[x]]),as.integer(contr.views[[x]]))$coefficients[[2]])
+>>
+>>
+> Not sure about speeding this up, but for the sake of clarity anyway, you
+> might want to use the viewApply() function instead of sapply here.
+
+Supat -- you might try to profile your code to identify where the
+slowness is; see ?Rprof. If it is actually in lsfit then perhaps a
+little direct algebra on the two vectors (instead of lsfit) will more
+efficiently calculate the coefficient you're interested in.
+
+Martin
+
+> 
+> Michael
+> 
+> Best regards,
+>> Supat Thongjuea
+>>
+>>        [[alternative HTML version deleted]]
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From dasolexa at hotmail.com  Wed Feb 16 18:31:13 2011
+From: dasolexa at hotmail.com (David A.)
+Date: Wed, 16 Feb 2011 18:31:13 +0100
+Subject: [Bioc-sig-seq] R453Plus1Toolbox
+In-Reply-To: <4D5C031A.6010201@uni-muenster.de>
+References: <SNT116-W10D1073B12E6D38003F98AC6D20@phx.gbl>,
+	<4D5C031A.6010201@uni-muenster.de>
+Message-ID: <SNT116-W40D4B605CEF07351C57EEDC6D20@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/18b6c074/attachment.pl>
+
+From hj at jhu.edu  Wed Feb 16 21:22:46 2011
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Wed, 16 Feb 2011 15:22:46 -0500
+Subject: [Bioc-sig-seq] trimLRPatterns;
+	matching pattern from pos -1 gives solveUserSEW error
+In-Reply-To: <4D5BCD39.8040501@xs4all.nl>
+References: <4D5BCD39.8040501@xs4all.nl>
+Message-ID: <EDC7A342-1F1C-4DF3-BB96-0AD6A1F02AEC@jhu.edu>
+
+This will be a whole lot of detail in lieu of a final fix (proposal  
+below).
+
+I don't believe the authors, certainly not I, envisioned your  
+situation, which I think I can
+abstract correctly here:
+
+	library(Biostrings)
+	trimLRPatterns(Rpattern="CA", subject="A", max.Rmismatch=1)	# same  
+as max.Rmismatch=c(-1,1)
+
+To have loaded ShortRead was irrelevant and perhaps confusing.
+
+Now, what should happen with the call above, from your point of view?
+
+The first test is for the whole Rpattern "ending at the right end of  
+the subject", thus extending
+off the left end of the subject by 1 letter as you say.  For a match,  
+we need to allow for at least
+1 error, and that is sufficient because the rest of the Rpattern is  
+the same as the subject.  Note
+that this 1 goes in the *last* element of the max.Rmismatch vector.   
+So, this test should succeed,
+the entire subject should get trimmed, and your result should be "".
+
+To gain insight, you have
+
+	showMethods("trimLRPatterns", includeDefs=TRUE)
+
+That might lead you to make your trimLRPatterns call under
+
+	debug(Biostrings:::.XStringSet.trimLRPatterns)
+
+The abort
+
+   Error in solveUserSEW(width(x), start = start, end = end, width =  
+width) :
+   solving row 1: 'allow.nonnarrowing' is FALSE and the supplied  
+start (0) is < 1
+
+clearly occurs in the call
+
+	narrow(subject, start=0, end=-1)
+
+at the end of .XStringSet.trimLRPatterns, but who is at fault?
+
+Well, Biostrings:::.computeTrimEnd() returned the -1, violating this  
+comment:
+
+	### 'subject' must be an XStringSet object of length != 0.
+	### Returns an integer vector of the same length as 'subject' where  
+the i-th
+	### value is guaranteed to be >= 0 and <= width(subject)[i].
+
+I think -1 is correct, and the comment is false [see my claim about  
+the authors].
+
+Then, just before the call to narrow(), we have this  
+in .XStringSet.trimLRPatterns:
+
+     ## For those invalid ranges where 'start > end + 1L', we  
+arbitrarily
+     ## decide to set the 'start' to 'end + 1' (another reasonable  
+choice
+     ## would have been to set the 'end' to 'start - 1').
+
+With end=-1, start=1 (from .computeTrimStart, correctly) gets changed  
+to end+1 = 0.
+
+In this situation, the other choice would have fixed your problem.  I  
+don't think it
+would create any other problems.
+
+-Harris
+
+On Feb 16, 2011, at 8:12 AM, Ludo Pagie wrote:
+
+> Hi all,
+>
+> I'm trimming reads using an Rpattern which in some cases extends on  
+> the left side. If the pattern starts at exactly position -1  
+> trimLRPattern throws an error. If the pattern starts further  
+> 'upstream' it returns a zero length sequence, as expected:
+>
+> library(ShortRead)
+> # create a pattern
+> fragment <- paste(sample(c('A','C','G','T'), 
+> 10,replace=TRUE),collapse='')
+> # create some reads based on the pattern; for different reads the
+> # pattern extends either on the left, the right, or both sides
+> reads <- substring(fragment,1:4,7:10)
+>
+> # trim all reads; all reads should match the pattern fully and be
+> # trimmed from start to end
+> trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads),  
+> max.Rmismatch=0.5, ranges=TRUE, Rfixed=FALSE)
+>
+> # IRanges of length 4
+> #     start end width
+> # [1]     1   0     0
+> # [2]     0  -1     0
+> # [3]    -1  -2     0
+> # [4]    -2  -3     0
+>
+> # if I want the reads to be trimmed right away an error is thrown for
+> # the second read
+> trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads[c 
+> (1,3,4)]), max.Rmismatch=0.5, ranges=FALSE)
+> #   A DNAStringSet instance of length 3
+> #     width seq
+> # [1]     0
+> # [2]     0
+> # [3]     0
+>
+> trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads[2]),  
+> max.Rmismatch=0.5, ranges=FALSE)
+>
+> # Error in solveUserSEW(width(x), start = start, end = end, width =
+> # width) :
+> #   solving row 1: 'allow.nonnarrowing' is FALSE and the supplied  
+> start
+> # (0) is < 1
+>
+>
+> > sessionInfo()
+> R version 2.12.0 (2010-10-15)
+> Platform: i686-pc-linux-gnu (32-bit)
+>
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] ShortRead_1.8.2     Rsamtools_1.2.1     lattice_0.19-13
+> [4] Biostrings_2.18.2   GenomicRanges_1.2.2 IRanges_1.8.7
+> [7] multtest_2.6.0      Biobase_2.10.0
+>
+> loaded via a namespace (and not attached):
+> [1] grid_2.12.0     hwriter_1.3     MASS_7.3-9      splines_2.12.0
+> [5] survival_2.36-2 tools_2.12.0
+>
+>
+>
+> Where is this error coming from?
+>
+> Ludo
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From hj at jhu.edu  Wed Feb 16 23:46:58 2011
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Wed, 16 Feb 2011 17:46:58 -0500
+Subject: [Bioc-sig-seq] trimLRPatterns;
+	matching pattern from pos -1 gives solveUserSEW error
+In-Reply-To: <EDC7A342-1F1C-4DF3-BB96-0AD6A1F02AEC@jhu.edu>
+References: <4D5BCD39.8040501@xs4all.nl>
+	<EDC7A342-1F1C-4DF3-BB96-0AD6A1F02AEC@jhu.edu>
+Message-ID: <0F695D91-B242-42F5-9E09-98CA477EF577@jhu.edu>
+
+Sorry, I retract my proposed fix.  It would break the opposite case:
+	
+	trimLRPatterns(subject="A", Lpattern="AC", max.Lmismatch=1)
+
+I lean toward trusting the comments on .computeTrimStart  
+and .computeTrimEnd,
+meaning that the code should adhere to them -- perhaps as follows.
+
+The last line of .computeTrimStart becomes
+
+	pmin(pattern_length + 2L - ii, width(subject) + 1L)
+
+and the last line of .computeTrimEnd becomes
+
+	pmax(subject_width - pattern_length - 1L + ii, 0L)
+
+No doubt I've still missed something.
+
+On Feb 16, 2011, at 3:22 PM, Harris A. Jaffee wrote:
+> This will be a whole lot of detail in lieu of a final fix (proposal  
+> below).
+>
+> I don't believe the authors, certainly not I, envisioned your  
+> situation, which I think I can
+> abstract correctly here:
+>
+> 	library(Biostrings)
+> 	trimLRPatterns(Rpattern="CA", subject="A", max.Rmismatch=1)	# same  
+> as max.Rmismatch=c(-1,1)
+>
+> To have loaded ShortRead was irrelevant and perhaps confusing.
+>
+> Now, what should happen with the call above, from your point of view?
+>
+> The first test is for the whole Rpattern "ending at the right end  
+> of the subject", thus extending
+> off the left end of the subject by 1 letter as you say.  For a  
+> match, we need to allow for at least
+> 1 error, and that is sufficient because the rest of the Rpattern is  
+> the same as the subject.  Note
+> that this 1 goes in the *last* element of the max.Rmismatch  
+> vector.  So, this test should succeed,
+> the entire subject should get trimmed, and your result should be "".
+>
+> To gain insight, you have
+>
+> 	showMethods("trimLRPatterns", includeDefs=TRUE)
+>
+> That might lead you to make your trimLRPatterns call under
+>
+> 	debug(Biostrings:::.XStringSet.trimLRPatterns)
+>
+> The abort
+>
+>   Error in solveUserSEW(width(x), start = start, end = end, width =  
+> width) :
+>   solving row 1: 'allow.nonnarrowing' is FALSE and the supplied  
+> start (0) is < 1
+>
+> clearly occurs in the call
+>
+> 	narrow(subject, start=0, end=-1)
+>
+> at the end of .XStringSet.trimLRPatterns, but who is at fault?
+>
+> Well, Biostrings:::.computeTrimEnd() returned the -1, violating  
+> this comment:
+>
+> 	### 'subject' must be an XStringSet object of length != 0.
+> 	### Returns an integer vector of the same length as 'subject'  
+> where the i-th
+> 	### value is guaranteed to be >= 0 and <= width(subject)[i].
+>
+> I think -1 is correct, and the comment is false [see my claim about  
+> the authors].
+>
+> Then, just before the call to narrow(), we have this  
+> in .XStringSet.trimLRPatterns:
+>
+>     ## For those invalid ranges where 'start > end + 1L', we  
+> arbitrarily
+>     ## decide to set the 'start' to 'end + 1' (another reasonable  
+> choice
+>     ## would have been to set the 'end' to 'start - 1').
+>
+> With end=-1, start=1 (from .computeTrimStart, correctly) gets  
+> changed to end+1 = 0.
+>
+> In this situation, the other choice would have fixed your problem.   
+> I don't think it
+> would create any other problems.
+>
+> -Harris
+>
+> On Feb 16, 2011, at 8:12 AM, Ludo Pagie wrote:
+>
+>> Hi all,
+>>
+>> I'm trimming reads using an Rpattern which in some cases extends  
+>> on the left side. If the pattern starts at exactly position -1  
+>> trimLRPattern throws an error. If the pattern starts further  
+>> 'upstream' it returns a zero length sequence, as expected:
+>>
+>> library(ShortRead)
+>> # create a pattern
+>> fragment <- paste(sample(c('A','C','G','T'), 
+>> 10,replace=TRUE),collapse='')
+>> # create some reads based on the pattern; for different reads the
+>> # pattern extends either on the left, the right, or both sides
+>> reads <- substring(fragment,1:4,7:10)
+>>
+>> # trim all reads; all reads should match the pattern fully and be
+>> # trimmed from start to end
+>> trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads),  
+>> max.Rmismatch=0.5, ranges=TRUE, Rfixed=FALSE)
+>>
+>> # IRanges of length 4
+>> #     start end width
+>> # [1]     1   0     0
+>> # [2]     0  -1     0
+>> # [3]    -1  -2     0
+>> # [4]    -2  -3     0
+>>
+>> # if I want the reads to be trimmed right away an error is thrown for
+>> # the second read
+>> trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads[c 
+>> (1,3,4)]), max.Rmismatch=0.5, ranges=FALSE)
+>> #   A DNAStringSet instance of length 3
+>> #     width seq
+>> # [1]     0
+>> # [2]     0
+>> # [3]     0
+>>
+>> trimLRPatterns(Rpattern=fragment, subject=DNAStringSet(reads[2]),  
+>> max.Rmismatch=0.5, ranges=FALSE)
+>>
+>> # Error in solveUserSEW(width(x), start = start, end = end, width =
+>> # width) :
+>> #   solving row 1: 'allow.nonnarrowing' is FALSE and the supplied  
+>> start
+>> # (0) is < 1
+>>
+>>
+>> > sessionInfo()
+>> R version 2.12.0 (2010-10-15)
+>> Platform: i686-pc-linux-gnu (32-bit)
+>>
+>> locale:
+>>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+>> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>>
+>> attached base packages:
+>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>
+>> other attached packages:
+>> [1] ShortRead_1.8.2     Rsamtools_1.2.1     lattice_0.19-13
+>> [4] Biostrings_2.18.2   GenomicRanges_1.2.2 IRanges_1.8.7
+>> [7] multtest_2.6.0      Biobase_2.10.0
+>>
+>> loaded via a namespace (and not attached):
+>> [1] grid_2.12.0     hwriter_1.3     MASS_7.3-9      splines_2.12.0
+>> [5] survival_2.36-2 tools_2.12.0
+>>
+>>
+>>
+>> Where is this error coming from?
+>>
+>> Ludo
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From h.klein at uni-muenster.de  Fri Feb 18 10:03:28 2011
+From: h.klein at uni-muenster.de (Hans-Ulrich Klein)
+Date: Fri, 18 Feb 2011 10:03:28 +0100
+Subject: [Bioc-sig-seq] R453Plus1Toolbox
+In-Reply-To: <SNT116-W40D4B605CEF07351C57EEDC6D20@phx.gbl>
+References: <SNT116-W10D1073B12E6D38003F98AC6D20@phx.gbl>,
+	<4D5C031A.6010201@uni-muenster.de>
+	<SNT116-W40D4B605CEF07351C57EEDC6D20@phx.gbl>
+Message-ID: <4D5E35E0.3040500@uni-muenster.de>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110218/31f802ce/attachment.pl>
+
+From lawrence.michael at gene.com  Sun Feb 20 15:32:26 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Sun, 20 Feb 2011 06:32:26 -0800
+Subject: [Bioc-sig-seq] ShortRead + GappedAlignments ->
+	QualityAlignedXStringSet?
+Message-ID: <AANLkTim5NHWz7sL3eUwzqU8jbu62rW2UG7KJhA7PV6Np@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/fef871db/attachment.ksh>
+
+From lawrence.michael at gene.com  Sun Feb 20 15:47:03 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Sun, 20 Feb 2011 06:47:03 -0800
+Subject: [Bioc-sig-seq] ShortRead + GappedAlignments ->
+	QualityAlignedXStringSet?
+In-Reply-To: <AANLkTim5NHWz7sL3eUwzqU8jbu62rW2UG7KJhA7PV6Np@mail.gmail.com>
+References: <AANLkTim5NHWz7sL3eUwzqU8jbu62rW2UG7KJhA7PV6Np@mail.gmail.com>
+Message-ID: <AANLkTi=KpGpO6KpoM0XuvtVFh36oYVxjy2XPay1ONYjA@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/69fe484a/attachment.pl>
+
+From mtmorgan at fhcrc.org  Sun Feb 20 21:54:37 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Sun, 20 Feb 2011 12:54:37 -0800
+Subject: [Bioc-sig-seq] ShortRead + GappedAlignments
+	->	QualityAlignedXStringSet?
+In-Reply-To: <AANLkTi=KpGpO6KpoM0XuvtVFh36oYVxjy2XPay1ONYjA@mail.gmail.com>
+References: <AANLkTim5NHWz7sL3eUwzqU8jbu62rW2UG7KJhA7PV6Np@mail.gmail.com>
+	<AANLkTi=KpGpO6KpoM0XuvtVFh36oYVxjy2XPay1ONYjA@mail.gmail.com>
+Message-ID: <4D617F8D.20803@fhcrc.org>
+
+On 02/20/2011 06:47 AM, Michael Lawrence wrote:
+> Looked into this a little and found that QualityAlignedXStringSet can only
+> represent insertions or deletions, not both. To represent both, you would
+> need two such objects, one for the read, one for the reference. Something
+> like a PairwiseAlignedFixedSubject, but without all the pairwise alignment
+> stuff.
+
+A class would be good, yes. Perhaps the cigar is sufficient for
+describing indels, with sequence / quality information as
+elementMetadata on the GappedAlignments object plus functions in
+?"cigar-utils" enough to get consensusMatrix, etc.? Martin
+
+> Anyway, such a thing would be nice to have. For example, consensusMatrix
+> would give us a pileup.
+> 
+> Michael
+> 
+> On Sun, Feb 20, 2011 at 6:32 AM, Michael Lawrence <michafla at gene.com> wrote:
+> 
+>> Right now, AlignedRead only contains the position for a mapped read and
+>> leaves off any indel information. GappedAlignments has this. Would it be
+>> possible to combine GappedAlignments and a QualityScaledXStringSet (i.e.,
+>> from a ShortRead object) to get a QualityAlignedXStringSet? It would be nice
+>> to merge the sequence-based alignment infrastructure in Biostrings with the
+>> range-based alignment representation in GenomicRanges.
+>>
+>> Thoughts?
+>>
+>> Michael
+>>
+>>
+>>
+>>
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From lawrence.michael at gene.com  Sun Feb 20 22:28:58 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Sun, 20 Feb 2011 13:28:58 -0800
+Subject: [Bioc-sig-seq] ShortRead + GappedAlignments ->
+	QualityAlignedXStringSet?
+In-Reply-To: <4D617F8D.20803@fhcrc.org>
+References: <AANLkTim5NHWz7sL3eUwzqU8jbu62rW2UG7KJhA7PV6Np@mail.gmail.com>
+	<AANLkTi=KpGpO6KpoM0XuvtVFh36oYVxjy2XPay1ONYjA@mail.gmail.com>
+	<4D617F8D.20803@fhcrc.org>
+Message-ID: <AANLkTimHyXxbGYptAokph10vQXff=QX4KKeQoyKaCiNY@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/6f82491d/attachment.pl>
+
+From lgautier at gmail.com  Mon Feb 21 15:36:10 2011
+From: lgautier at gmail.com (Laurent Gautier)
+Date: Mon, 21 Feb 2011 15:36:10 +0100
+Subject: [Bioc-sig-seq] RNASeq, differential expression between group,
+ and large variance within groups
+Message-ID: <4D62785A.30004@gmail.com>
+
+Dear List,
+
+
+We are looking at tag-based RNASeq data, and after running popular 
+packages for finding differential expression (edgeR, and DEGseq) we were 
+looking that the actual counts for the significant ones.
+
+We are observing a somewhat extreme variance within each group for those 
+(say one sample with high count for gene X while others have zero count).
+
+For example, gene X flagged as differentially expressed has the 
+following counts (adjusted p-value with DGESeq is 9.401479e-10):
+0         grp_A
+0         grp_A
+0         grp_A
+92207  grp_B
+0          grp_B
+0          grp_B
+
+The underlying binomial is obviously not like the almost-Gaussian 
+assumed in microarrays/t-test-like approaches, but this kind of outcome 
+is somehow intriguing me. Do people here have experience to share 
+regarding how well such gene hold through the qPCR verification step ?
+
+
+
+Laurent
+
+PS: In case the sessionInfo() matters
+
+R version 2.12.1 (2010-12-16)
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+locale:
+  [1] LC_CTYPE=en_DK.UTF-8       LC_NUMERIC=C
+  [3] LC_TIME=en_DK.UTF-8        LC_COLLATE=en_DK.UTF-8
+  [5] LC_MONETARY=C              LC_MESSAGES=en_DK.UTF-8
+  [7] LC_PAPER=en_DK.UTF-8       LC_NAME=C
+  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_DK.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] DESeq_1.2.1     locfit_1.5-6    lattice_0.19-17 akima_0.5-4
+[5] Biobase_2.10.0
+
+loaded via a namespace (and not attached):
+  [1] annotate_1.28.0      AnnotationDbi_1.12.0 DBI_0.2-5
+  [4] genefilter_1.32.0    geneplotter_1.28.0   grid_2.12.1
+  [7] RColorBrewer_1.0-2   RSQLite_0.9-4        splines_2.12.1
+[10] survival_2.36-2      tools_2.12.1         xtable_1.5-6
+
+
+From mads at sonderkar.dk  Mon Feb 21 15:58:52 2011
+From: mads at sonderkar.dk (=?iso-8859-1?Q?Mads_S=F8nderk=E6r?=)
+Date: Mon, 21 Feb 2011 15:58:52 +0100
+Subject: [Bioc-sig-seq] RNASeq, differential expression between group,
+	and large variance within groups
+In-Reply-To: <4D62785A.30004@gmail.com>
+References: <4D62785A.30004@gmail.com>
+Message-ID: <001e01cbd1d7$dd7865a0$986930e0$@sonderkar.dk>
+
+I think it looks like a "rouge" tag, since it is not found in all the
+replicates (biological or technical?).
+Is the gene (or tag) annotated?
+Depending on the cutting enzyme, is it the most 3' canonical, or could it be
+caused by incomplete digestion?
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org
+[mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Laurent
+Gautier
+Sent: 21. februar 2011 15:36
+To: bioc-sig-sequencing at r-project.org
+Subject: [Bioc-sig-seq] RNASeq, differential expression between group, and
+large variance within groups
+
+Dear List,
+
+
+We are looking at tag-based RNASeq data, and after running popular packages
+for finding differential expression (edgeR, and DEGseq) we were looking that
+the actual counts for the significant ones.
+
+We are observing a somewhat extreme variance within each group for those
+(say one sample with high count for gene X while others have zero count).
+
+For example, gene X flagged as differentially expressed has the following
+counts (adjusted p-value with DGESeq is 9.401479e-10):
+0         grp_A
+0         grp_A
+0         grp_A
+92207  grp_B
+0          grp_B
+0          grp_B
+
+The underlying binomial is obviously not like the almost-Gaussian assumed in
+microarrays/t-test-like approaches, but this kind of outcome is somehow
+intriguing me. Do people here have experience to share regarding how well
+such gene hold through the qPCR verification step ?
+
+
+
+Laurent
+
+PS: In case the sessionInfo() matters
+
+R version 2.12.1 (2010-12-16)
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+locale:
+  [1] LC_CTYPE=en_DK.UTF-8       LC_NUMERIC=C
+  [3] LC_TIME=en_DK.UTF-8        LC_COLLATE=en_DK.UTF-8
+  [5] LC_MONETARY=C              LC_MESSAGES=en_DK.UTF-8
+  [7] LC_PAPER=en_DK.UTF-8       LC_NAME=C
+  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_DK.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] DESeq_1.2.1     locfit_1.5-6    lattice_0.19-17 akima_0.5-4
+[5] Biobase_2.10.0
+
+loaded via a namespace (and not attached):
+  [1] annotate_1.28.0      AnnotationDbi_1.12.0 DBI_0.2-5
+  [4] genefilter_1.32.0    geneplotter_1.28.0   grid_2.12.1
+  [7] RColorBrewer_1.0-2   RSQLite_0.9-4        splines_2.12.1
+[10] survival_2.36-2      tools_2.12.1         xtable_1.5-6
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From mailinglist.honeypot at gmail.com  Tue Feb 22 18:48:19 2011
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Tue, 22 Feb 2011 12:48:19 -0500
+Subject: [Bioc-sig-seq] RNASeq, differential expression between group,
+ and large variance within groups
+In-Reply-To: <001e01cbd1d7$dd7865a0$986930e0$@sonderkar.dk>
+References: <4D62785A.30004@gmail.com>
+	<001e01cbd1d7$dd7865a0$986930e0$@sonderkar.dk>
+Message-ID: <AANLkTimALgehSVvyMG-=h9xQyJQ+t1sEPohZ4BaZKm0B@mail.gmail.com>
+
+Hi,
+
+Just to add to what Mads said -- most Tag sequencing protocols involve
+a pcr amplification step, which might be causing the result you see
+here. Unfortunately, unlike "normal" rna-seq, with tag sequencing, you
+can't use information like coverage in the local neighborhood of your
+"rogue" tag to help flag pcr amplification artifacts.
+
+> Depending on the cutting enzyme, is it the most 3' canonical, or could it be
+> caused by incomplete digestion?
+
+I would guess that incomplete digestion would happen across the board, though.
+
+Assuming you are just interested in using the tag-seq data to identify
+overall gene expression, wouldn't it make sense to sum all of the tag
+counts over your gene (whether they are 3' canonical or otherwise),
+and feed those counts into edgeR/DESeq, etc. for expression analysis
+anyway?
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+?| Memorial Sloan-Kettering Cancer Center
+?| Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From anders at embl.de  Mon Feb 21 20:34:00 2011
+From: anders at embl.de (Simon Anders)
+Date: Mon, 21 Feb 2011 20:34:00 +0100
+Subject: [Bioc-sig-seq] RNASeq, differential expression between group,
+ and large variance within groups
+In-Reply-To: <4D62785A.30004@gmail.com>
+References: <4D62785A.30004@gmail.com>
+Message-ID: <34581245209f70b0d3a158acbde7cf39@imap.embl.de>
+
+Dear Laurant
+
+On 02/21/2011 03:36 PM, Laurent Gautier wrote:
+> We are looking at tag-based RNASeq data, and after running popular 
+> packages for finding differential expression (edgeR, and DEGseq) we were
+
+> looking that the actual counts for the significant ones.
+> 
+> We are observing a somewhat extreme variance within each group for those
+
+> (say one sample with high count for gene X while others have zero
+count).
+> 
+> For example, gene X flagged as differentially expressed has the 
+> following counts (adjusted p-value with DGESeq is 9.401479e-10):
+> 0 grp_A
+> 0 grp_A
+> 0 grp_A
+> 92207 grp_B
+> 0 grp_B
+> 0 grp_B
+> 
+> The underlying binomial is obviously not like the almost-Gaussian 
+> assumed in microarrays/t-test-like approaches, but this kind of outcome 
+> is somehow intriguing me. Do people here have experience to share 
+> regarding how well such gene hold through the qPCR verification step ?
+
+I have seen such genes as well in my data sets, and I am in fact worried
+that DESeq does not do a too great job handling them. The vignette talks
+about this issue, which I term "variance outliers", but maybe does not put
+enough emphasis on it. I'm currently working on improvements.
+
+The origin of the issue is this: DESeq is based on the assumption that
+genes of similar expression strength have roughly the same variance. If one
+has only few replicates, this is the best one can do, because even if all
+genes of a certain expression strength have variances differing by factors
+of 10 or so, we would not be able to see that from the per-gene estimate of
+variance that we use, because the chi-square distribution for a variance
+estimated from just three replicates (as in your case) is so wide that such
+discrepancies are to be expected. However, there are occasionally genes
+with such a large sample variance that the basic assumption that this gene
+has the same true variance as its neighbours becomes implausible. I
+suggest, for the moment, to exclude these genes.
+
+To help you flag them, the results data frame returned by 'nbinom.test'
+contains the columns 'resVarA' and 'resVarB', which give the "variance
+residuals", i.e., the ratio of per-gene variance over fitted variance.
+Accept as hits only those genes with an adjusted p value below your chosen
+FDR threshold _and_ a residual variance below some threshold.
+
+How to chose this threshold? I am not quite sure about this, to be honest,
+and this is why the vignette is a bit vague on the issue. For now, I
+suggest to have a look at the plot generated by
+
+  plot( pmax( res$resVarA, res$resVarB ), res$pval )
+
+You will notice that to the left of the plot, the p values spread over the
+whole range from 0 to 1, as you would expect, but to the very right, there
+are a few genes that all have low p value,. This is the regime where type-I
+error control breaks down. I suggest to judge by eye where this starts to
+be the case and discount the genes further to the right.
+
+In most data sets these are only very few genes, but still, it is not a
+fully satisfactory state of affair. I recently tested how edgeR deals with
+the issue and found that it does not do a much better job in handling such
+genes unless you have a large number of replicates. 
+
+Certainly, we need a better approach and I am currently testing some
+ideas, and may have something soon. For now, just cut out the variance
+outliers.
+
+Cheers
+  Simon
+
+
+
++---
+| Dr. Simon Anders, Dipl.-Phys.
+| European Molecular Biology Laboratory (EMBL), Heidelberg
+| office phone +49-6221-387-8632
+| preferred (permanent) e-mail: sanders at fs.tum.de
+
+
+From KQu at genomichealth.com  Wed Feb 23 05:10:04 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Wed, 23 Feb 2011 04:10:04 +0000
+Subject: [Bioc-sig-seq] trimLRPatterns question
+In-Reply-To: <AANLkTimALgehSVvyMG-=h9xQyJQ+t1sEPohZ4BaZKm0B@mail.gmail.com>
+References: <4D62785A.30004@gmail.com>
+	<001e01cbd1d7$dd7865a0$986930e0$@sonderkar.dk>
+	<AANLkTimALgehSVvyMG-=h9xQyJQ+t1sEPohZ4BaZKm0B@mail.gmail.com>
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F1CA112C6@SRV321.genomichealth.com>
+
+Hi, 
+
+I have a 50 cycle RNA-seq run, with variable length of adapters in some reads. The length of the adapter is longer than 50 bp, and the portion in each read could be as high as the full length of 50 cycles, as well as zero bp. When I trim the adapter, I do not want over trim, so the max.Rmismatch parameter I used was shorter than (eg, 3 bp shorter) than the full length, also with more mismatch tolerance for longer portion, less mismatch for short segment. So I wrote like the following:
+
+trimLen<-length(adapter)
+trimCoords<-trimLRPatterns(Rpattern=adapter, subject=seqs, max.Rmismatch = c(rep(2,trimLen-15), rep(1, 12)), ranges=T, with.Rindels=TRUE) 
+
+the value for the max.Rmismatch is basically: 
+> c(rep(2,trimLen-15), rep(1, 12))
+ [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1
+[39] 1 1 1 1 1 1 1 1 1
+
+So I want to leave the last 3 bp alone (to avoid over-trimming by chance), then followed by 12 bp with 1 mismatch, then 35 bp with 2 mismatch. Somehow when I tried this to the read, it does not seem work, the trimmed reads really do not seem what they should be. Anyone can help me on this? Thanks
+
+-Kunbin
+
+
+> sessionInfo()
+R version 2.11.0 (2010-04-22) 
+x86_64-unknown-linux-gnu 
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.19-11    
+[4] Biostrings_2.16.7   GenomicRanges_1.0.1 IRanges_1.6.8      
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.8.0 grid_2.11.0   hwriter_1.3   tools_2.11.0 
+>
+
+______________________________________________________________________
+The contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.
+
+
+From jayoung at fhcrc.org  Wed Feb 23 05:22:22 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Tue, 22 Feb 2011 20:22:22 -0800
+Subject: [Bioc-sig-seq] findOverlaps with GenomicRanges?
+Message-ID: <320985AC-6E5A-471A-B68B-FB4AF4631EF4@fhcrc.org>
+
+Hi there,
+
+Is findOverlaps supposed to work on GRanges objects?  For me it works on RangedData but not on GRanges - see below for the error, sessionInfo, etc.   It would be useful for me if it could also work on GRanges, so if this doesn't count as a bug report can we count it as a feature request? 
+
+thanks very much,
+
+Janet
+
+
+------------------------------------------------------------------- 
+
+Dr. Janet Young (Trask lab)
+
+Fred Hutchinson Cancer Research Center
+1100 Fairview Avenue N., C3-168, 
+P.O. Box 19024, Seattle, WA 98109-1024, USA.
+
+tel: (206) 667 1471 fax: (206) 667 6524
+email: jayoung  ...at...  fhcrc.org
+
+http://www.fhcrc.org/labs/trask/
+
+------------------------------------------------------------------- 
+
+
+
+> library(GenomicRanges)
+Loading required package: IRanges
+
+Attaching package: 'IRanges'
+
+The following object(s) are masked from 'package:base':
+
+    cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rbind, rep.int, table
+
+> 
+> myregions_GR <- GRanges(seqnames=c("chr1","chr1","chr2"),ranges=IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L))   )
+> 
+> findOverlaps(myregions_GR)
+Error in match.arg(type) : 'arg' must be of length 1
+> 
+> 
+> myregions_RD <- RangedData(IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L)),space=c("chr1","chr1","chr2"),strand=c("+","+","+")   )
+> 
+> findOverlaps(myregions_RD)
+RangesMatchingList of length 2
+names(2): chr1 chr2
+> 
+> sessionInfo()
+R version 2.12.1 (2010-12-16)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] GenomicRanges_1.2.3 IRanges_1.8.9      
+
+
+From mtmorgan at fhcrc.org  Wed Feb 23 05:43:54 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 22 Feb 2011 20:43:54 -0800
+Subject: [Bioc-sig-seq] findOverlaps with GenomicRanges?
+In-Reply-To: <320985AC-6E5A-471A-B68B-FB4AF4631EF4@fhcrc.org>
+References: <320985AC-6E5A-471A-B68B-FB4AF4631EF4@fhcrc.org>
+Message-ID: <4D64908A.3010700@fhcrc.org>
+
+On 02/22/2011 08:22 PM, Janet Young wrote:
+> Hi there,
+> 
+> Is findOverlaps supposed to work on GRanges objects?  For me it works
+> on RangedData but not on GRanges - see below for the error,
+> sessionInfo, etc.   It would be useful for me if it could also work
+> on GRanges, so if this doesn't count as a bug report can we count it
+> as a feature request?
+
+Hi Janet -- it's a bug; try
+
+> ??findOverlaps
+> ?"findOverlaps,GenomicRanges,GenomicRanges-method"
+> findOverlaps(myregions_GR, type="any")
+An object of class "RangesMatching"
+Slot "matchMatrix":
+     query subject
+[1,]     1       1
+[2,]     1       2
+[3,]     2       1
+[4,]     2       2
+[5,]     3       3
+
+Slot "DIM":
+[1] 3 3
+
+or another appropriate argument for 'type'. It seems to be fixed in devel.
+
+Martin
+
+
+> 
+> thanks very much,
+> 
+> Janet
+> 
+> 
+> -------------------------------------------------------------------
+> 
+> Dr. Janet Young (Trask lab)
+> 
+> Fred Hutchinson Cancer Research Center 1100 Fairview Avenue N.,
+> C3-168, P.O. Box 19024, Seattle, WA 98109-1024, USA.
+> 
+> tel: (206) 667 1471 fax: (206) 667 6524 email: jayoung  ...at...
+> fhcrc.org
+> 
+> http://www.fhcrc.org/labs/trask/
+> 
+> -------------------------------------------------------------------
+> 
+> 
+> 
+>> library(GenomicRanges)
+> Loading required package: IRanges
+> 
+> Attaching package: 'IRanges'
+> 
+> The following object(s) are masked from 'package:base':
+> 
+> cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin, 
+> pmin.int, rbind, rep.int, table
+> 
+>> 
+>> myregions_GR <-
+>> GRanges(seqnames=c("chr1","chr1","chr2"),ranges=IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L))
+>> )
+>> 
+>> findOverlaps(myregions_GR)
+> Error in match.arg(type) : 'arg' must be of length 1
+>> 
+>> 
+>> myregions_RD <-
+>> RangedData(IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L)),space=c("chr1","chr1","chr2"),strand=c("+","+","+")
+>> )
+>> 
+>> findOverlaps(myregions_RD)
+> RangesMatchingList of length 2 names(2): chr1 chr2
+>> 
+>> sessionInfo()
+> R version 2.12.1 (2010-12-16) Platform: x86_64-unknown-linux-gnu
+> (64-bit)
+> 
+> locale: [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C [3]
+> LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8 [5] LC_MONETARY=C
+> LC_MESSAGES=en_US.UTF-8 [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C [11]
+> LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+> 
+> attached base packages: [1] stats     graphics  grDevices utils
+> datasets  methods   base
+> 
+> other attached packages: [1] GenomicRanges_1.2.3 IRanges_1.8.9
+> 
+> _______________________________________________ Bioc-sig-sequencing
+> mailing list Bioc-sig-sequencing at r-project.org 
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From jayoung at fhcrc.org  Wed Feb 23 06:04:07 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Tue, 22 Feb 2011 21:04:07 -0800
+Subject: [Bioc-sig-seq] findOverlaps with GenomicRanges?
+In-Reply-To: <4D64908A.3010700@fhcrc.org>
+References: <320985AC-6E5A-471A-B68B-FB4AF4631EF4@fhcrc.org>
+	<4D64908A.3010700@fhcrc.org>
+Message-ID: <24289AE1-E6C7-4B4B-9033-338BA0558C81@fhcrc.org>
+
+Hi,
+
+Thanks, Martin - that'll work.
+
+I also just realized that for RangedData, findOverlaps is correctly assuming subject=query when I only specify one set of ranges as input.  But for GenomicRanges, it doesn't have that default set up.  If I specify subject as well:
+	findOverlaps(myregions_GR, myregions_GR) 
+then findOverlaps DOES work for GenomicRanges.
+
+On top of that, I want to use the argument 
+	ignoreSelf=T
+which works combined with your workaround (adding type="any") but not mine (specifying both subject and query).
+
+thanks again,
+
+Janet
+
+
+
+
+On Feb 22, 2011, at 8:43 PM, Martin Morgan wrote:
+
+> On 02/22/2011 08:22 PM, Janet Young wrote:
+>> Hi there,
+>> 
+>> Is findOverlaps supposed to work on GRanges objects?  For me it works
+>> on RangedData but not on GRanges - see below for the error,
+>> sessionInfo, etc.   It would be useful for me if it could also work
+>> on GRanges, so if this doesn't count as a bug report can we count it
+>> as a feature request?
+> 
+> Hi Janet -- it's a bug; try
+> 
+>> ??findOverlaps
+>> ?"findOverlaps,GenomicRanges,GenomicRanges-method"
+>> findOverlaps(myregions_GR, type="any")
+> An object of class "RangesMatching"
+> Slot "matchMatrix":
+>     query subject
+> [1,]     1       1
+> [2,]     1       2
+> [3,]     2       1
+> [4,]     2       2
+> [5,]     3       3
+> 
+> Slot "DIM":
+> [1] 3 3
+> 
+> or another appropriate argument for 'type'. It seems to be fixed in devel.
+> 
+> Martin
+> 
+> 
+>> 
+>> thanks very much,
+>> 
+>> Janet
+>> 
+>> 
+>> -------------------------------------------------------------------
+>> 
+>> Dr. Janet Young (Trask lab)
+>> 
+>> Fred Hutchinson Cancer Research Center 1100 Fairview Avenue N.,
+>> C3-168, P.O. Box 19024, Seattle, WA 98109-1024, USA.
+>> 
+>> tel: (206) 667 1471 fax: (206) 667 6524 email: jayoung  ...at...
+>> fhcrc.org
+>> 
+>> http://www.fhcrc.org/labs/trask/
+>> 
+>> -------------------------------------------------------------------
+>> 
+>> 
+>> 
+>>> library(GenomicRanges)
+>> Loading required package: IRanges
+>> 
+>> Attaching package: 'IRanges'
+>> 
+>> The following object(s) are masked from 'package:base':
+>> 
+>> cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin, 
+>> pmin.int, rbind, rep.int, table
+>> 
+>>> 
+>>> myregions_GR <-
+>>> GRanges(seqnames=c("chr1","chr1","chr2"),ranges=IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L))
+>>> )
+>>> 
+>>> findOverlaps(myregions_GR)
+>> Error in match.arg(type) : 'arg' must be of length 1
+>>> 
+>>> 
+>>> myregions_RD <-
+>>> RangedData(IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L)),space=c("chr1","chr1","chr2"),strand=c("+","+","+")
+>>> )
+>>> 
+>>> findOverlaps(myregions_RD)
+>> RangesMatchingList of length 2 names(2): chr1 chr2
+>>> 
+>>> sessionInfo()
+>> R version 2.12.1 (2010-12-16) Platform: x86_64-unknown-linux-gnu
+>> (64-bit)
+>> 
+>> locale: [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C [3]
+>> LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8 [5] LC_MONETARY=C
+>> LC_MESSAGES=en_US.UTF-8 [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>> [9] LC_ADDRESS=C               LC_TELEPHONE=C [11]
+>> LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>> 
+>> attached base packages: [1] stats     graphics  grDevices utils
+>> datasets  methods   base
+>> 
+>> other attached packages: [1] GenomicRanges_1.2.3 IRanges_1.8.9
+>> 
+>> _______________________________________________ Bioc-sig-sequencing
+>> mailing list Bioc-sig-sequencing at r-project.org 
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+> -- 
+> Computational Biology
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+> 
+> Location: M1-B861
+> Telephone: 206 667-2793
+
+
+From hj at jhu.edu  Wed Feb 23 07:22:25 2011
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Wed, 23 Feb 2011 01:22:25 -0500
+Subject: [Bioc-sig-seq] trimLRPatterns question
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F1CA112C6@SRV321.genomichealth.com>
+References: <4D62785A.30004@gmail.com>
+	<001e01cbd1d7$dd7865a0$986930e0$@sonderkar.dk>
+	<AANLkTimALgehSVvyMG-=h9xQyJQ+t1sEPohZ4BaZKm0B@mail.gmail.com>
+	<806E483E7E5A1E4CA78AC236E1F3324F1CA112C6@SRV321.genomichealth.com>
+Message-ID: <32D37E0C-3340-45AD-B88C-3643B3453D0F@jhu.edu>
+
+You hint that your trimLen is > 50, yet when you show your  
+max.Rmismatch, it's clearly of length 47, composed
+of rep(1,12) and rep(2,N) with N=trimLen-15.  So N=35 and  
+trimLen=50.  A max.Rmismatch of length 47 (= 50-3)
+will be augmented by rep(-1,3) at the bottom, preventing any matches  
+of an adapter prefix of length 3 or less
+with a read suffix.  This is an effect that you want, but to allow  
+more mismatch tolerance for longer adapter
+prefixes, against read suffixes, your max.Rmismatch vector must be  
+monotone increasing, even if not strictly,
+rather than decreasing.  So your max.Rmismatch is at least reversed.   
+Its max (last value) might also be > 2.
+Perhaps like this:
+
+ > ceiling(1:47 * 1/12)
+  [1] 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3  
+3 3 3 3 4 4
+[39] 4 4 4 4 4 4 4 4 4
+
+This will be better than any max.Rmismatch=e, with e in (0,1).
+
+-Harris
+
+On Feb 22, 2011, at 11:10 PM, Kunbin Qu wrote:
+
+> Hi,
+>
+> I have a 50 cycle RNA-seq run, with variable length of adapters in  
+> some reads. The length of the adapter is longer than 50 bp, and the  
+> portion in each read could be as high as the full length of 50  
+> cycles, as well as zero bp. When I trim the adapter, I do not want  
+> over trim, so the max.Rmismatch parameter I used was shorter than  
+> (eg, 3 bp shorter) than the full length, also with more mismatch  
+> tolerance for longer portion, less mismatch for short segment. So I  
+> wrote like the following:
+>
+> trimLen<-length(adapter)
+> trimCoords<-trimLRPatterns(Rpattern=adapter, subject=seqs,  
+> max.Rmismatch = c(rep(2,trimLen-15), rep(1, 12)), ranges=T,  
+> with.Rindels=TRUE)
+>
+> the value for the max.Rmismatch is basically:
+>> c(rep(2,trimLen-15), rep(1, 12))
+>  [1] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2  
+> 2 2 2 2 1 1 1
+> [39] 1 1 1 1 1 1 1 1 1
+>
+> So I want to leave the last 3 bp alone (to avoid over-trimming by  
+> chance), then followed by 12 bp with 1 mismatch, then 35 bp with 2  
+> mismatch. Somehow when I tried this to the read, it does not seem  
+> work, the trimmed reads really do not seem what they should be.  
+> Anyone can help me on this? Thanks
+>
+> -Kunbin
+>
+>
+>> sessionInfo()
+> R version 2.11.0 (2010-04-22)
+> x86_64-unknown-linux-gnu
+>
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+> other attached packages:
+> [1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.19-11
+> [4] Biostrings_2.16.7   GenomicRanges_1.0.1 IRanges_1.6.8
+>
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.8.0 grid_2.11.0   hwriter_1.3   tools_2.11.0
+>>
+>
+> ______________________________________________________________________
+> The contents of this electronic message, including any attachments,  
+> are intended only for the use of the individual or entity to which  
+> they are addressed and may contain confidential information. If you  
+> are not the intended recipient, you are hereby notified that any  
+> use, dissemination, distribution, or copying of this message or any  
+> attachment is strictly prohibited. If you have received this  
+> transmission in error, please send an e-mail to  
+> postmaster at genomichealth.com and delete this message, along with  
+> any attachments, from your computer.
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From jayoung at fhcrc.org  Wed Feb 23 21:15:25 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 23 Feb 2011 12:15:25 -0800
+Subject: [Bioc-sig-seq] reduce error on RangedData with unused space names
+Message-ID: <A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>
+
+Hi again,
+
+I noticed that "reduce" gives an error on RangedData objects if there are space names that contain no ranges:
+	Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+
+I can work around it, but it'd great not to need to do that.  All the details are below.
+
+thanks very much,
+
+Janet
+
+------------------------------------------------------------------- 
+
+Dr. Janet Young (Trask lab)
+
+Fred Hutchinson Cancer Research Center
+1100 Fairview Avenue N., C3-168, 
+P.O. Box 19024, Seattle, WA 98109-1024, USA.
+
+tel: (206) 667 1471 fax: (206) 667 6524
+email: jayoung  ...at...  fhcrc.org
+
+http://www.fhcrc.org/labs/trask/
+
+------------------------------------------------------------------- 
+
+
+
+> library(IRanges,warn.conflicts=F)
+
+> myregions_RD <- RangedData(IRanges(start=c(101L,201L,101L,101L),end=c(250L,300L,220L,501L)),space=c("chr1","chr1","chr1","chr2"),strand=c("+","+","+","+")   )
+
+> #### this works
+> reduce(myregions_RD)
+RangedData with 2 rows and 1 value column across 2 spaces
+        space     ranges |      strand
+  <character>  <IRanges> | <character>
+1        chr1 [101, 300] |           +
+2        chr2 [101, 501] |           +
+
+> ### drop regions that are bigger than 300bp (now there's nothing left on chr2)
+> myregions_RD <- myregions_RD[which(width(myregions_RD)<=300),]
+
+> ### this doesn't work - reduce doesn't like a space without any elements
+> reduce(myregions_RD)
+Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+
+> ### workaround - drop the unused space names
+> myregions_RD <- RangedData(IRanges(start=start(myregions_RD),end=end(myregions_RD)),space=as.character(space(myregions_RD)),strand=myregions_RD$strand   )
+
+> ### now it works
+> reduce(myregions_RD)
+RangedData with 1 row and 1 value column across 1 space
+        space     ranges |      strand
+  <character>  <IRanges> | <character>
+1        chr1 [101, 300] |           +
+
+> sessionInfo()
+R version 2.12.1 (2010-12-16)
+Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] IRanges_1.8.9
+
+
+From jayoung at fhcrc.org  Thu Feb 24 01:06:35 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 23 Feb 2011 16:06:35 -0800
+Subject: [Bioc-sig-seq] weird interaction between BSgenome (getSeq) and
+	ChIPpeakAnno
+Message-ID: <11619F04-6634-4F7C-8BD1-1CE9B8BCAF08@fhcrc.org>
+
+Hi again,
+
+(sorry, you're probably tired of hearing from me now).
+
+I have just started to play with ChIPpeakAnno - it looks like it might be very useful for me.  However, once I load it I get an error from BSgenome's getSeq function.  Here's the error alone (myregions_RD is a RangedData object), and below is my full code.
+
+getSeq(Cfamiliaris,myregions_RD)
+Error in x[[name, exact = FALSE]] : 
+  missing '[[' method for Sequence class GRanges
+
+
+thanks (yet again),
+
+Janet
+
+------------------------------------------------------------------- 
+
+Dr. Janet Young (Trask lab)
+
+Fred Hutchinson Cancer Research Center
+1100 Fairview Avenue N., C3-168, 
+P.O. Box 19024, Seattle, WA 98109-1024, USA.
+
+tel: (206) 667 1471 fax: (206) 667 6524
+email: jayoung  ...at...  fhcrc.org
+
+http://www.fhcrc.org/labs/trask/
+
+------------------------------------------------------------------- 
+
+
+
+
+R version 2.12.1 (2010-12-16)
+Copyright (C) 2010 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> library(IRanges)
+
+
+Attaching package: 'IRanges'
+
+The following object(s) are masked from 'package:base':
+
+    cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rbind, rep.int, table
+
+
+
+> library(BSgenome.Cfamiliaris.UCSC.canFam2)
+Loading required package: BSgenome
+Loading required package: GenomicRanges
+Loading required package: Biostrings
+
+> myregions_RD <- RangedData(IRanges(start=c(100001L,2000001L),end=c(100100L,2000100L)),space=c("chr1","chr2"),strand=c("+","+")   )
+
+> getSeq(Cfamiliaris,myregions_RD)
+[1] "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+[2] "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+
+> library(ChIPpeakAnno)
+Loading required package: biomaRt
+Loading required package: multtest
+Loading required package: Biobase
+
+Welcome to Bioconductor
+
+  Vignettes contain introductory material. To view, type
+  'openVignette()'. To cite Bioconductor, see
+  'citation("Biobase")' and for packages 'citation(pkgname)'.
+
+
+Attaching package: 'Biobase'
+
+The following object(s) are masked from 'package:IRanges':
+
+    updateObject
+
+Loading required package: BSgenome.Ecoli.NCBI.20080805
+Loading required package: GO.db
+Loading required package: AnnotationDbi
+Loading required package: DBI
+Loading required package: org.Hs.eg.db
+Loading required package: limma
+
+> getSeq(Cfamiliaris,myregions_RD)
+Error in x[[name, exact = FALSE]] : 
+  missing '[[' method for Sequence class GRanges
+
+> sessionInfo()
+R version 2.12.1 (2010-12-16)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] ChIPpeakAnno_1.6.0                      
+ [2] limma_3.6.9                             
+ [3] org.Hs.eg.db_2.4.6                      
+ [4] GO.db_2.4.5                             
+ [5] RSQLite_0.9-4                           
+ [6] DBI_0.2-5                               
+ [7] AnnotationDbi_1.12.0                    
+ [8] BSgenome.Ecoli.NCBI.20080805_1.3.16     
+ [9] multtest_2.7.1                          
+[10] Biobase_2.10.0                          
+[11] biomaRt_2.6.0                           
+[12] BSgenome.Cfamiliaris.UCSC.canFam2_1.3.16
+[13] BSgenome_1.18.3                         
+[14] Biostrings_2.18.2                       
+[15] GenomicRanges_1.2.3                     
+[16] IRanges_1.8.9                           
+
+loaded via a namespace (and not attached):
+[1] MASS_7.3-11     RCurl_1.5-0     splines_2.12.1  survival_2.36-5
+[5] XML_3.2-0      
+
+
+From mtmorgan at fhcrc.org  Thu Feb 24 14:41:41 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Thu, 24 Feb 2011 05:41:41 -0800
+Subject: [Bioc-sig-seq] findOverlaps with GenomicRanges?
+In-Reply-To: <24289AE1-E6C7-4B4B-9033-338BA0558C81@fhcrc.org>
+References: <320985AC-6E5A-471A-B68B-FB4AF4631EF4@fhcrc.org>
+	<4D64908A.3010700@fhcrc.org>
+	<24289AE1-E6C7-4B4B-9033-338BA0558C81@fhcrc.org>
+Message-ID: <4D666015.4080508@fhcrc.org>
+
+On 02/22/2011 09:04 PM, Janet Young wrote:
+> Hi,
+> 
+> Thanks, Martin - that'll work.
+> 
+> I also just realized that for RangedData, findOverlaps is correctly assuming subject=query when I only specify one set of ranges as input.  But for GenomicRanges, it doesn't have that default set up.  If I specify subject as well:
+> 	findOverlaps(myregions_GR, myregions_GR) 
+> then findOverlaps DOES work for GenomicRanges.
+
+Hi Janet --
+
+not sure what you mean. I have
+
+gr = GRanges(seqnames=c("chr1","chr1","chr2"),
+             ranges=IRanges(start=c(101L,201L,101L),
+                            end=c(250L,301L,201L)))
+identical(findOverlaps(gr, type="any"),
+          findOverlaps(gr, gr, type="any"))
+
+maybe you were just indicating the workaround findOverlaps(gr, gr)?
+
+> On top of that, I want to use the argument 
+> 	ignoreSelf=T
+> which works combined with your workaround (adding type="any") but not mine (specifying both subject and query).
+
+ignoreSelf is only available for a signature like
+findOverlaps,RangedData,missing, or findOverlaps,GRanges,missing, so
+asking to ignore self with 2 arguments never works. From ?findOverlaps
+
+          If 'subject' is omitted, 'query' is queried against itself.
+          In this case, and only this case, the 'ignoreSelf' and
+          'ignoreRedundant' arguments are allowed. By default, the
+
+Better to expend the keystrokes and type TRUE rather than T
+
+> T <- FALSE # surprises ahead!
+> TRUE <- FALSE
+Error in TRUE <- FALSE : invalid (do_set) left-hand side to assignment
+
+'T' is a plain old variable, TRUE a language reserved words.
+
+Martin
+
+> thanks again,
+> 
+> Janet
+> 
+> 
+> 
+> 
+> On Feb 22, 2011, at 8:43 PM, Martin Morgan wrote:
+> 
+>> On 02/22/2011 08:22 PM, Janet Young wrote:
+>>> Hi there,
+>>>
+>>> Is findOverlaps supposed to work on GRanges objects?  For me it works
+>>> on RangedData but not on GRanges - see below for the error,
+>>> sessionInfo, etc.   It would be useful for me if it could also work
+>>> on GRanges, so if this doesn't count as a bug report can we count it
+>>> as a feature request?
+>>
+>> Hi Janet -- it's a bug; try
+>>
+>>> ??findOverlaps
+>>> ?"findOverlaps,GenomicRanges,GenomicRanges-method"
+>>> findOverlaps(myregions_GR, type="any")
+>> An object of class "RangesMatching"
+>> Slot "matchMatrix":
+>>     query subject
+>> [1,]     1       1
+>> [2,]     1       2
+>> [3,]     2       1
+>> [4,]     2       2
+>> [5,]     3       3
+>>
+>> Slot "DIM":
+>> [1] 3 3
+>>
+>> or another appropriate argument for 'type'. It seems to be fixed in devel.
+>>
+>> Martin
+>>
+>>
+>>>
+>>> thanks very much,
+>>>
+>>> Janet
+>>>
+>>>
+>>> -------------------------------------------------------------------
+>>>
+>>> Dr. Janet Young (Trask lab)
+>>>
+>>> Fred Hutchinson Cancer Research Center 1100 Fairview Avenue N.,
+>>> C3-168, P.O. Box 19024, Seattle, WA 98109-1024, USA.
+>>>
+>>> tel: (206) 667 1471 fax: (206) 667 6524 email: jayoung  ...at...
+>>> fhcrc.org
+>>>
+>>> http://www.fhcrc.org/labs/trask/
+>>>
+>>> -------------------------------------------------------------------
+>>>
+>>>
+>>>
+>>>> library(GenomicRanges)
+>>> Loading required package: IRanges
+>>>
+>>> Attaching package: 'IRanges'
+>>>
+>>> The following object(s) are masked from 'package:base':
+>>>
+>>> cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin, 
+>>> pmin.int, rbind, rep.int, table
+>>>
+>>>>
+>>>> myregions_GR <-
+>>>> GRanges(seqnames=c("chr1","chr1","chr2"),ranges=IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L))
+>>>> )
+>>>>
+>>>> findOverlaps(myregions_GR)
+>>> Error in match.arg(type) : 'arg' must be of length 1
+>>>>
+>>>>
+>>>> myregions_RD <-
+>>>> RangedData(IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L)),space=c("chr1","chr1","chr2"),strand=c("+","+","+")
+>>>> )
+>>>>
+>>>> findOverlaps(myregions_RD)
+>>> RangesMatchingList of length 2 names(2): chr1 chr2
+>>>>
+>>>> sessionInfo()
+>>> R version 2.12.1 (2010-12-16) Platform: x86_64-unknown-linux-gnu
+>>> (64-bit)
+>>>
+>>> locale: [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C [3]
+>>> LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8 [5] LC_MONETARY=C
+>>> LC_MESSAGES=en_US.UTF-8 [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>>> [9] LC_ADDRESS=C               LC_TELEPHONE=C [11]
+>>> LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>>>
+>>> attached base packages: [1] stats     graphics  grDevices utils
+>>> datasets  methods   base
+>>>
+>>> other attached packages: [1] GenomicRanges_1.2.3 IRanges_1.8.9
+>>>
+>>> _______________________________________________ Bioc-sig-sequencing
+>>> mailing list Bioc-sig-sequencing at r-project.org 
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> -- 
+>> Computational Biology
+>> Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>>
+>> Location: M1-B861
+>> Telephone: 206 667-2793
+> 
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From lawrence.michael at gene.com  Thu Feb 24 15:46:46 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Thu, 24 Feb 2011 06:46:46 -0800
+Subject: [Bioc-sig-seq] reduce error on RangedData with unused space
+	names
+In-Reply-To: <A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>
+References: <A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>
+Message-ID: <AANLkTi=8cL4JZSPXpDMKXvS-z60Yw27eLcHrwdyrpVT-@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/8556f320/attachment.pl>
+
+From lawrence.michael at gene.com  Thu Feb 24 15:52:38 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Thu, 24 Feb 2011 06:52:38 -0800
+Subject: [Bioc-sig-seq] weird interaction between BSgenome (getSeq) and
+	ChIPpeakAnno
+In-Reply-To: <11619F04-6634-4F7C-8BD1-1CE9B8BCAF08@fhcrc.org>
+References: <11619F04-6634-4F7C-8BD1-1CE9B8BCAF08@fhcrc.org>
+Message-ID: <AANLkTikDWnqY4i=cfpN-3qy=cMg+S2nF6NoaNu=ZVZMU@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/e102075d/attachment.pl>
+
+From ivangreg at gmail.com  Thu Feb 24 16:11:26 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 24 Feb 2011 10:11:26 -0500
+Subject: [Bioc-sig-seq] weird interaction between BSgenome (getSeq) and
+	ChIPpeakAnno
+In-Reply-To: <11619F04-6634-4F7C-8BD1-1CE9B8BCAF08@fhcrc.org>
+References: <11619F04-6634-4F7C-8BD1-1CE9B8BCAF08@fhcrc.org>
+Message-ID: <AANLkTimy4A9wi+gSsNy_ZwHMucofjaLOgdaAM0=dRpVS@mail.gmail.com>
+
+Hello Janet.
+
+First, we are not tired of your posts. For instance, your catch of the
+bug in the reduce() function will save hours of frustration for many
+users. Thank you.
+
+Second, the getSeq() problem that you find after loading ChIPpeakAnno
+seems to be solved in the devel branch (see sessionInfo below). I
+tested it following your steps but with BSgenome.Mmusculus.UCSC.mm9.
+Not that it actually matters but I chose this genome because it has 3
+million Ns at the beginning of every chromosome (except chrY).
+
+I hope this helps.
+
+Ivan
+
+########################################################
+> sessionInfo()
+R version 2.13.0 Under development (unstable) (2010-12-02 r53747)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8
+ [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8
+ [7] LC_PAPER=en_US.utf8       LC_NAME=C
+ [9] LC_ADDRESS=C              LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+ [1] ChIPpeakAnno_1.7.0                  limma_3.7.23
+ [3] org.Hs.eg.db_2.4.6                  GO.db_2.4.5
+ [5] RSQLite_0.9-4                       DBI_0.2-5
+ [7] AnnotationDbi_1.13.13               BSgenome.Ecoli.NCBI.20080805_1.3.17
+ [9] multtest_2.7.1                      Biobase_2.11.8
+[11] biomaRt_2.7.1                       BSgenome.Mmusculus.UCSC.mm9_1.3.17
+[13] BSgenome_1.19.3                     Biostrings_2.19.9
+[15] GenomicRanges_1.3.18                IRanges_1.9.22
+
+loaded via a namespace (and not attached):
+[1] MASS_7.3-11     RCurl_1.5-0     splines_2.13.0  survival_2.36-5
+[5] XML_3.2-0
+
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1016 and 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+
+On Wed, Feb 23, 2011 at 7:06 PM, Janet Young <jayoung at fhcrc.org> wrote:
+> Hi again,
+>
+> (sorry, you're probably tired of hearing from me now).
+>
+> I have just started to play with ChIPpeakAnno - it looks like it might be very useful for me. ?However, once I load it I get an error from BSgenome's getSeq function. ?Here's the error alone (myregions_RD is a RangedData object), and below is my full code.
+>
+> getSeq(Cfamiliaris,myregions_RD)
+> Error in x[[name, exact = FALSE]] :
+> ?missing '[[' method for Sequence class GRanges
+>
+>
+> thanks (yet again),
+>
+> Janet
+>
+> -------------------------------------------------------------------
+>
+> Dr. Janet Young (Trask lab)
+>
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Avenue N., C3-168,
+> P.O. Box 19024, Seattle, WA 98109-1024, USA.
+>
+> tel: (206) 667 1471 fax: (206) 667 6524
+> email: jayoung ?...at... ?fhcrc.org
+>
+> http://www.fhcrc.org/labs/trask/
+>
+> -------------------------------------------------------------------
+>
+>
+>
+>
+> R version 2.12.1 (2010-12-16)
+> Copyright (C) 2010 The R Foundation for Statistical Computing
+> ISBN 3-900051-07-0
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> R is free software and comes with ABSOLUTELY NO WARRANTY.
+> You are welcome to redistribute it under certain conditions.
+> Type 'license()' or 'licence()' for distribution details.
+>
+> ?Natural language support but running in an English locale
+>
+> R is a collaborative project with many contributors.
+> Type 'contributors()' for more information and
+> 'citation()' on how to cite R or R packages in publications.
+>
+> Type 'demo()' for some demos, 'help()' for on-line help, or
+> 'help.start()' for an HTML browser interface to help.
+> Type 'q()' to quit R.
+>
+>> library(IRanges)
+>
+>
+> Attaching package: 'IRanges'
+>
+> The following object(s) are masked from 'package:base':
+>
+> ? ?cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,
+> ? ?pmin.int, rbind, rep.int, table
+>
+>
+>
+>> library(BSgenome.Cfamiliaris.UCSC.canFam2)
+> Loading required package: BSgenome
+> Loading required package: GenomicRanges
+> Loading required package: Biostrings
+>
+>> myregions_RD <- RangedData(IRanges(start=c(100001L,2000001L),end=c(100100L,2000100L)),space=c("chr1","chr2"),strand=c("+","+") ? )
+>
+>> getSeq(Cfamiliaris,myregions_RD)
+> [1] "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+> [2] "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+>
+>> library(ChIPpeakAnno)
+> Loading required package: biomaRt
+> Loading required package: multtest
+> Loading required package: Biobase
+>
+> Welcome to Bioconductor
+>
+> ?Vignettes contain introductory material. To view, type
+> ?'openVignette()'. To cite Bioconductor, see
+> ?'citation("Biobase")' and for packages 'citation(pkgname)'.
+>
+>
+> Attaching package: 'Biobase'
+>
+> The following object(s) are masked from 'package:IRanges':
+>
+> ? ?updateObject
+>
+> Loading required package: BSgenome.Ecoli.NCBI.20080805
+> Loading required package: GO.db
+> Loading required package: AnnotationDbi
+> Loading required package: DBI
+> Loading required package: org.Hs.eg.db
+> Loading required package: limma
+>
+>> getSeq(Cfamiliaris,myregions_RD)
+> Error in x[[name, exact = FALSE]] :
+> ?missing '[[' method for Sequence class GRanges
+>
+>> sessionInfo()
+> R version 2.12.1 (2010-12-16)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> locale:
+> ?[1] LC_CTYPE=en_US.UTF-8 ? ? ? LC_NUMERIC=C
+> ?[3] LC_TIME=en_US.UTF-8 ? ? ? ?LC_COLLATE=en_US.UTF-8
+> ?[5] LC_MONETARY=C ? ? ? ? ? ? ?LC_MESSAGES=en_US.UTF-8
+> ?[7] LC_PAPER=en_US.UTF-8 ? ? ? LC_NAME=C
+> ?[9] LC_ADDRESS=C ? ? ? ? ? ? ? LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+>
+> other attached packages:
+> ?[1] ChIPpeakAnno_1.6.0
+> ?[2] limma_3.6.9
+> ?[3] org.Hs.eg.db_2.4.6
+> ?[4] GO.db_2.4.5
+> ?[5] RSQLite_0.9-4
+> ?[6] DBI_0.2-5
+> ?[7] AnnotationDbi_1.12.0
+> ?[8] BSgenome.Ecoli.NCBI.20080805_1.3.16
+> ?[9] multtest_2.7.1
+> [10] Biobase_2.10.0
+> [11] biomaRt_2.6.0
+> [12] BSgenome.Cfamiliaris.UCSC.canFam2_1.3.16
+> [13] BSgenome_1.18.3
+> [14] Biostrings_2.18.2
+> [15] GenomicRanges_1.2.3
+> [16] IRanges_1.8.9
+>
+> loaded via a namespace (and not attached):
+> [1] MASS_7.3-11 ? ? RCurl_1.5-0 ? ? splines_2.12.1 ?survival_2.36-5
+> [5] XML_3.2-0
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From ivangreg at gmail.com  Thu Feb 24 16:41:20 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 24 Feb 2011 10:41:20 -0500
+Subject: [Bioc-sig-seq] reduce error on RangedData with unused space
+	names
+In-Reply-To: <AANLkTi=8cL4JZSPXpDMKXvS-z60Yw27eLcHrwdyrpVT-@mail.gmail.com>
+References: <A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>
+	<AANLkTi=8cL4JZSPXpDMKXvS-z60Yw27eLcHrwdyrpVT-@mail.gmail.com>
+Message-ID: <AANLkTikF4yJ4ArCmgNK9Ak3VVTDqDgax-5so2rYBNGw-@mail.gmail.com>
+
+Hi Michael and Janet,
+
+I think that the reduce bug still persists in the devel branch. I
+updated all my Bioconductor packages yesterday and yet, following her
+steps I get
+
+> reduce(myregions_RD)
+Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+
+I hope the sessionInfo() helps.
+
+Thank you,
+
+Ivan
+
+> sessionInfo()
+R version 2.13.0 Under development (unstable) (2010-12-02 r53747)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8
+ [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8
+ [7] LC_PAPER=en_US.utf8       LC_NAME=C
+ [9] LC_ADDRESS=C              LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+ [1] ChIPpeakAnno_1.7.0                  limma_3.7.23
+ [3] org.Hs.eg.db_2.4.6                  GO.db_2.4.5
+ [5] RSQLite_0.9-4                       DBI_0.2-5
+ [7] AnnotationDbi_1.13.13               BSgenome.Ecoli.NCBI.20080805_1.3.17
+ [9] multtest_2.7.1                      Biobase_2.11.8
+[11] biomaRt_2.7.1                       BSgenome.Mmusculus.UCSC.mm9_1.3.17
+[13] BSgenome_1.19.3                     Biostrings_2.19.9
+[15] GenomicRanges_1.3.18                IRanges_1.9.22
+
+loaded via a namespace (and not attached):
+[1] MASS_7.3-11     RCurl_1.5-0     splines_2.13.0  survival_2.36-5
+[5] XML_3.2-0
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1016 and 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+
+On Thu, Feb 24, 2011 at 9:46 AM, Michael Lawrence
+<lawrence.michael at gene.com> wrote:
+> Thanks. Seems to be fixed already in devel.
+>
+> On Wed, Feb 23, 2011 at 12:15 PM, Janet Young <jayoung at fhcrc.org> wrote:
+>
+>> Hi again,
+>>
+>> I noticed that "reduce" gives an error on RangedData objects if there are
+>> space names that contain no ranges:
+>> ? ? ? ?Error in endoapply(x[, by], FUN) : 'FUN' did not produce an
+>> endomorphism
+>>
+>> I can work around it, but it'd great not to need to do that. ?All the
+>> details are below.
+>>
+>> thanks very much,
+>>
+>> Janet
+>>
+>> -------------------------------------------------------------------
+>>
+>> Dr. Janet Young (Trask lab)
+>>
+>> Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Avenue N., C3-168,
+>> P.O. Box 19024, Seattle, WA 98109-1024, USA.
+>>
+>> tel: (206) 667 1471 fax: (206) 667 6524
+>> email: jayoung ?...at... ?fhcrc.org
+>>
+>> http://www.fhcrc.org/labs/trask/
+>>
+>> -------------------------------------------------------------------
+>>
+>>
+>>
+>> > library(IRanges,warn.conflicts=F)
+>>
+>> > myregions_RD <-
+>> RangedData(IRanges(start=c(101L,201L,101L,101L),end=c(250L,300L,220L,501L)),space=c("chr1","chr1","chr1","chr2"),strand=c("+","+","+","+")
+>> ? )
+>>
+>> > #### this works
+>> > reduce(myregions_RD)
+>> RangedData with 2 rows and 1 value column across 2 spaces
+>> ? ? ? ?space ? ? ranges | ? ? ?strand
+>> ?<character> ?<IRanges> | <character>
+>> 1 ? ? ? ?chr1 [101, 300] | ? ? ? ? ? +
+>> 2 ? ? ? ?chr2 [101, 501] | ? ? ? ? ? +
+>>
+>> > ### drop regions that are bigger than 300bp (now there's nothing left on
+>> chr2)
+>> > myregions_RD <- myregions_RD[which(width(myregions_RD)<=300),]
+>>
+>> > ### this doesn't work - reduce doesn't like a space without any elements
+>> > reduce(myregions_RD)
+>> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+>>
+>> > ### workaround - drop the unused space names
+>> > myregions_RD <-
+>> RangedData(IRanges(start=start(myregions_RD),end=end(myregions_RD)),space=as.character(space(myregions_RD)),strand=myregions_RD$strand
+>> ? )
+>>
+>> > ### now it works
+>> > reduce(myregions_RD)
+>> RangedData with 1 row and 1 value column across 1 space
+>> ? ? ? ?space ? ? ranges | ? ? ?strand
+>> ?<character> ?<IRanges> | <character>
+>> 1 ? ? ? ?chr1 [101, 300] | ? ? ? ? ? +
+>>
+>> > sessionInfo()
+>> R version 2.12.1 (2010-12-16)
+>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+>>
+>> locale:
+>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+>>
+>> attached base packages:
+>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+>>
+>> other attached packages:
+>> [1] IRanges_1.8.9
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>
+> ? ? ? ?[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From jayoung at fhcrc.org  Thu Feb 24 20:14:48 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Thu, 24 Feb 2011 11:14:48 -0800
+Subject: [Bioc-sig-seq] reduce error on RangedData with unused space
+	names
+In-Reply-To: <AANLkTikF4yJ4ArCmgNK9Ak3VVTDqDgax-5so2rYBNGw-@mail.gmail.com>
+References: <A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>
+	<AANLkTi=8cL4JZSPXpDMKXvS-z60Yw27eLcHrwdyrpVT-@mail.gmail.com>
+	<AANLkTikF4yJ4ArCmgNK9Ak3VVTDqDgax-5so2rYBNGw-@mail.gmail.com>
+Message-ID: <62A6F103-A16A-4D3D-96AD-CD1542B939C2@fhcrc.org>
+
+Hi,
+
+Thanks for the feedback (and the encouragement, Ivan).
+
+This brings up a couple of more general questions about versions and development cycles: as a regular user, I'm assuming it might be not be such a good idea for me to use R-devel and associated devel bioc versions, as I want stable code for my analyses. Is that true, or should I be playing with R-devel instead?  
+
+Also, if I find a bug that's been fixed in devel but is still there in the main release, is it still useful to report that to y'all?  (I might install devel in parallel just for testing these kinds of things, even if I don't use it for most of my analyses).  
+
+In general, do fixes make it into the main branch when packages get updated (which seems to happen quite often in the case of IRanges?) or should we wait for the next full version upgrade?  (for example, that ChIPpeakAnno/getSeq issue - it looks like it's been fixed in devel for a while now, but not in the main branch) 
+
+Janet
+
+
+
+
+
+
+On Feb 24, 2011, at 7:41 AM, Ivan Gregoretti wrote:
+
+> Hi Michael and Janet,
+> 
+> I think that the reduce bug still persists in the devel branch. I
+> updated all my Bioconductor packages yesterday and yet, following her
+> steps I get
+> 
+>> reduce(myregions_RD)
+> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+> 
+> I hope the sessionInfo() helps.
+> 
+> Thank you,
+> 
+> Ivan
+> 
+>> sessionInfo()
+> R version 2.13.0 Under development (unstable) (2010-12-02 r53747)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+> 
+> locale:
+> [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C
+> [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8
+> [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8
+> [7] LC_PAPER=en_US.utf8       LC_NAME=C
+> [9] LC_ADDRESS=C              LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> other attached packages:
+> [1] ChIPpeakAnno_1.7.0                  limma_3.7.23
+> [3] org.Hs.eg.db_2.4.6                  GO.db_2.4.5
+> [5] RSQLite_0.9-4                       DBI_0.2-5
+> [7] AnnotationDbi_1.13.13               BSgenome.Ecoli.NCBI.20080805_1.3.17
+> [9] multtest_2.7.1                      Biobase_2.11.8
+> [11] biomaRt_2.7.1                       BSgenome.Mmusculus.UCSC.mm9_1.3.17
+> [13] BSgenome_1.19.3                     Biostrings_2.19.9
+> [15] GenomicRanges_1.3.18                IRanges_1.9.22
+> 
+> loaded via a namespace (and not attached):
+> [1] MASS_7.3-11     RCurl_1.5-0     splines_2.13.0  survival_2.36-5
+> [5] XML_3.2-0
+> 
+> 
+> Ivan Gregoretti, PhD
+> National Institute of Diabetes and Digestive and Kidney Diseases
+> National Institutes of Health
+> 5 Memorial Dr, Building 5, Room 205.
+> Bethesda, MD 20892. USA.
+> Phone: 1-301-496-1016 and 1-301-496-1592
+> Fax: 1-301-496-9878
+> 
+> 
+> 
+> On Thu, Feb 24, 2011 at 9:46 AM, Michael Lawrence
+> <lawrence.michael at gene.com> wrote:
+>> Thanks. Seems to be fixed already in devel.
+>> 
+>> On Wed, Feb 23, 2011 at 12:15 PM, Janet Young <jayoung at fhcrc.org> wrote:
+>> 
+>>> Hi again,
+>>> 
+>>> I noticed that "reduce" gives an error on RangedData objects if there are
+>>> space names that contain no ranges:
+>>>        Error in endoapply(x[, by], FUN) : 'FUN' did not produce an
+>>> endomorphism
+>>> 
+>>> I can work around it, but it'd great not to need to do that.  All the
+>>> details are below.
+>>> 
+>>> thanks very much,
+>>> 
+>>> Janet
+>>> 
+>>> -------------------------------------------------------------------
+>>> 
+>>> Dr. Janet Young (Trask lab)
+>>> 
+>>> Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Avenue N., C3-168,
+>>> P.O. Box 19024, Seattle, WA 98109-1024, USA.
+>>> 
+>>> tel: (206) 667 1471 fax: (206) 667 6524
+>>> email: jayoung  ...at...  fhcrc.org
+>>> 
+>>> http://www.fhcrc.org/labs/trask/
+>>> 
+>>> -------------------------------------------------------------------
+>>> 
+>>> 
+>>> 
+>>>> library(IRanges,warn.conflicts=F)
+>>> 
+>>>> myregions_RD <-
+>>> RangedData(IRanges(start=c(101L,201L,101L,101L),end=c(250L,300L,220L,501L)),space=c("chr1","chr1","chr1","chr2"),strand=c("+","+","+","+")
+>>>   )
+>>> 
+>>>> #### this works
+>>>> reduce(myregions_RD)
+>>> RangedData with 2 rows and 1 value column across 2 spaces
+>>>        space     ranges |      strand
+>>>  <character>  <IRanges> | <character>
+>>> 1        chr1 [101, 300] |           +
+>>> 2        chr2 [101, 501] |           +
+>>> 
+>>>> ### drop regions that are bigger than 300bp (now there's nothing left on
+>>> chr2)
+>>>> myregions_RD <- myregions_RD[which(width(myregions_RD)<=300),]
+>>> 
+>>>> ### this doesn't work - reduce doesn't like a space without any elements
+>>>> reduce(myregions_RD)
+>>> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+>>> 
+>>>> ### workaround - drop the unused space names
+>>>> myregions_RD <-
+>>> RangedData(IRanges(start=start(myregions_RD),end=end(myregions_RD)),space=as.character(space(myregions_RD)),strand=myregions_RD$strand
+>>>   )
+>>> 
+>>>> ### now it works
+>>>> reduce(myregions_RD)
+>>> RangedData with 1 row and 1 value column across 1 space
+>>>        space     ranges |      strand
+>>>  <character>  <IRanges> | <character>
+>>> 1        chr1 [101, 300] |           +
+>>> 
+>>>> sessionInfo()
+>>> R version 2.12.1 (2010-12-16)
+>>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+>>> 
+>>> locale:
+>>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+>>> 
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>> 
+>>> other attached packages:
+>>> [1] IRanges_1.8.9
+>>> 
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>> 
+>> 
+>>        [[alternative HTML version deleted]]
+>> 
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>> 
+
+
+From jayoung at fhcrc.org  Thu Feb 24 20:23:03 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Thu, 24 Feb 2011 11:23:03 -0800
+Subject: [Bioc-sig-seq] findOverlaps with GenomicRanges?
+In-Reply-To: <4D666015.4080508@fhcrc.org>
+References: <320985AC-6E5A-471A-B68B-FB4AF4631EF4@fhcrc.org>
+	<4D64908A.3010700@fhcrc.org>
+	<24289AE1-E6C7-4B4B-9033-338BA0558C81@fhcrc.org>
+	<4D666015.4080508@fhcrc.org>
+Message-ID: <38013C1E-0586-4ED7-AA95-CD5890C614FD@fhcrc.org>
+
+Hi again,
+
+
+On Feb 24, 2011, at 5:41 AM, Martin Morgan wrote:
+> On 02/22/2011 09:04 PM, Janet Young wrote:
+>> Hi,
+>> 
+>> Thanks, Martin - that'll work.
+>> 
+>> I also just realized that for RangedData, findOverlaps is correctly assuming subject=query when I only specify one set of ranges as input.  But for GenomicRanges, it doesn't have that default set up.  If I specify subject as well:
+>> 	findOverlaps(myregions_GR, myregions_GR) 
+>> then findOverlaps DOES work for GenomicRanges.
+> 
+> Hi Janet --
+> 
+> not sure what you mean. I have
+> 
+> gr = GRanges(seqnames=c("chr1","chr1","chr2"),
+>             ranges=IRanges(start=c(101L,201L,101L),
+>                            end=c(250L,301L,201L)))
+> identical(findOverlaps(gr, type="any"),
+>          findOverlaps(gr, gr, type="any"))
+> 
+> maybe you were just indicating the workaround findOverlaps(gr, gr)?
+
+Yes, I was - sorry that was unclear.
+
+> Better to expend the keystrokes and type TRUE rather than T
+> 
+>> T <- FALSE # surprises ahead!
+>> TRUE <- FALSE
+> Error in TRUE <- FALSE : invalid (do_set) left-hand side to assignment
+> 
+> 'T' is a plain old variable, TRUE a language reserved words.
+
+not sure where I picked up that bad habit from!  It seems to work most of the time (that's why it's dangerous, I'm sure....)
+
+
+Janet
+
+
+> Martin
+> 
+>> thanks again,
+>> 
+>> Janet
+>> 
+>> 
+>> 
+>> 
+>> On Feb 22, 2011, at 8:43 PM, Martin Morgan wrote:
+>> 
+>>> On 02/22/2011 08:22 PM, Janet Young wrote:
+>>>> Hi there,
+>>>> 
+>>>> Is findOverlaps supposed to work on GRanges objects?  For me it works
+>>>> on RangedData but not on GRanges - see below for the error,
+>>>> sessionInfo, etc.   It would be useful for me if it could also work
+>>>> on GRanges, so if this doesn't count as a bug report can we count it
+>>>> as a feature request?
+>>> 
+>>> Hi Janet -- it's a bug; try
+>>> 
+>>>> ??findOverlaps
+>>>> ?"findOverlaps,GenomicRanges,GenomicRanges-method"
+>>>> findOverlaps(myregions_GR, type="any")
+>>> An object of class "RangesMatching"
+>>> Slot "matchMatrix":
+>>>    query subject
+>>> [1,]     1       1
+>>> [2,]     1       2
+>>> [3,]     2       1
+>>> [4,]     2       2
+>>> [5,]     3       3
+>>> 
+>>> Slot "DIM":
+>>> [1] 3 3
+>>> 
+>>> or another appropriate argument for 'type'. It seems to be fixed in devel.
+>>> 
+>>> Martin
+>>> 
+>>> 
+>>>> 
+>>>> thanks very much,
+>>>> 
+>>>> Janet
+>>>> 
+>>>> 
+>>>> -------------------------------------------------------------------
+>>>> 
+>>>> Dr. Janet Young (Trask lab)
+>>>> 
+>>>> Fred Hutchinson Cancer Research Center 1100 Fairview Avenue N.,
+>>>> C3-168, P.O. Box 19024, Seattle, WA 98109-1024, USA.
+>>>> 
+>>>> tel: (206) 667 1471 fax: (206) 667 6524 email: jayoung  ...at...
+>>>> fhcrc.org
+>>>> 
+>>>> http://www.fhcrc.org/labs/trask/
+>>>> 
+>>>> -------------------------------------------------------------------
+>>>> 
+>>>> 
+>>>> 
+>>>>> library(GenomicRanges)
+>>>> Loading required package: IRanges
+>>>> 
+>>>> Attaching package: 'IRanges'
+>>>> 
+>>>> The following object(s) are masked from 'package:base':
+>>>> 
+>>>> cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin, 
+>>>> pmin.int, rbind, rep.int, table
+>>>> 
+>>>>> 
+>>>>> myregions_GR <-
+>>>>> GRanges(seqnames=c("chr1","chr1","chr2"),ranges=IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L))
+>>>>> )
+>>>>> 
+>>>>> findOverlaps(myregions_GR)
+>>>> Error in match.arg(type) : 'arg' must be of length 1
+>>>>> 
+>>>>> 
+>>>>> myregions_RD <-
+>>>>> RangedData(IRanges(start=c(101L,201L,101L),end=c(250L,301L,201L)),space=c("chr1","chr1","chr2"),strand=c("+","+","+")
+>>>>> )
+>>>>> 
+>>>>> findOverlaps(myregions_RD)
+>>>> RangesMatchingList of length 2 names(2): chr1 chr2
+>>>>> 
+>>>>> sessionInfo()
+>>>> R version 2.12.1 (2010-12-16) Platform: x86_64-unknown-linux-gnu
+>>>> (64-bit)
+>>>> 
+>>>> locale: [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C [3]
+>>>> LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8 [5] LC_MONETARY=C
+>>>> LC_MESSAGES=en_US.UTF-8 [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>>>> [9] LC_ADDRESS=C               LC_TELEPHONE=C [11]
+>>>> LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>>>> 
+>>>> attached base packages: [1] stats     graphics  grDevices utils
+>>>> datasets  methods   base
+>>>> 
+>>>> other attached packages: [1] GenomicRanges_1.2.3 IRanges_1.8.9
+>>>> 
+>>>> _______________________________________________ Bioc-sig-sequencing
+>>>> mailing list Bioc-sig-sequencing at r-project.org 
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>> 
+>>> 
+>>> -- 
+>>> Computational Biology
+>>> Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>>> 
+>>> Location: M1-B861
+>>> Telephone: 206 667-2793
+>> 
+> 
+> 
+> -- 
+> Computational Biology
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+> 
+> Location: M1-B861
+> Telephone: 206 667-2793
+
+
+From ivangreg at gmail.com  Thu Feb 24 21:14:06 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 24 Feb 2011 15:14:06 -0500
+Subject: [Bioc-sig-seq] reduce error on RangedData with unused space
+	names
+In-Reply-To: <62A6F103-A16A-4D3D-96AD-CD1542B939C2@fhcrc.org>
+References: <A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>
+	<AANLkTi=8cL4JZSPXpDMKXvS-z60Yw27eLcHrwdyrpVT-@mail.gmail.com>
+	<AANLkTikF4yJ4ArCmgNK9Ak3VVTDqDgax-5so2rYBNGw-@mail.gmail.com>
+	<62A6F103-A16A-4D3D-96AD-CD1542B939C2@fhcrc.org>
+Message-ID: <AANLkTimDR+rW4z6F5W1nyR8shNrjnWn_3eKNNLt+U0==@mail.gmail.com>
+
+Most bug fixes go to the devel branch. When the bug is potentially
+nasty, developers fix the release version as well.
+
+The fixes made in today's devel will become the next release version.
+If you are going to work with the Bioconductor tools, I strongly
+recommend to switch to the devel branch.
+
+Convinced by an experienced R user, I did the switch and I never regretted it.
+
+Michael may have a better informed opinion.
+
+Ivan
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1016 and 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+
+On Thu, Feb 24, 2011 at 2:14 PM, Janet Young <jayoung at fhcrc.org> wrote:
+> Hi,
+>
+> Thanks for the feedback (and the encouragement, Ivan).
+>
+> This brings up a couple of more general questions about versions and development cycles: as a regular user, I'm assuming it might be not be such a good idea for me to use R-devel and associated devel bioc versions, as I want stable code for my analyses. Is that true, or should I be playing with R-devel instead?
+>
+> Also, if I find a bug that's been fixed in devel but is still there in the main release, is it still useful to report that to y'all? ?(I might install devel in parallel just for testing these kinds of things, even if I don't use it for most of my analyses).
+>
+> In general, do fixes make it into the main branch when packages get updated (which seems to happen quite often in the case of IRanges?) or should we wait for the next full version upgrade? ?(for example, that ChIPpeakAnno/getSeq issue - it looks like it's been fixed in devel for a while now, but not in the main branch)
+>
+> Janet
+>
+>
+>
+>
+>
+>
+> On Feb 24, 2011, at 7:41 AM, Ivan Gregoretti wrote:
+>
+>> Hi Michael and Janet,
+>>
+>> I think that the reduce bug still persists in the devel branch. I
+>> updated all my Bioconductor packages yesterday and yet, following her
+>> steps I get
+>>
+>>> reduce(myregions_RD)
+>> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+>>
+>> I hope the sessionInfo() helps.
+>>
+>> Thank you,
+>>
+>> Ivan
+>>
+>>> sessionInfo()
+>> R version 2.13.0 Under development (unstable) (2010-12-02 r53747)
+>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>
+>> locale:
+>> [1] LC_CTYPE=en_US.utf8 ? ? ? LC_NUMERIC=C
+>> [3] LC_TIME=en_US.utf8 ? ? ? ?LC_COLLATE=en_US.utf8
+>> [5] LC_MONETARY=C ? ? ? ? ? ? LC_MESSAGES=en_US.utf8
+>> [7] LC_PAPER=en_US.utf8 ? ? ? LC_NAME=C
+>> [9] LC_ADDRESS=C ? ? ? ? ? ? ?LC_TELEPHONE=C
+>> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+>>
+>> attached base packages:
+>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+>>
+>> other attached packages:
+>> [1] ChIPpeakAnno_1.7.0 ? ? ? ? ? ? ? ? ?limma_3.7.23
+>> [3] org.Hs.eg.db_2.4.6 ? ? ? ? ? ? ? ? ?GO.db_2.4.5
+>> [5] RSQLite_0.9-4 ? ? ? ? ? ? ? ? ? ? ? DBI_0.2-5
+>> [7] AnnotationDbi_1.13.13 ? ? ? ? ? ? ? BSgenome.Ecoli.NCBI.20080805_1.3.17
+>> [9] multtest_2.7.1 ? ? ? ? ? ? ? ? ? ? ?Biobase_2.11.8
+>> [11] biomaRt_2.7.1 ? ? ? ? ? ? ? ? ? ? ? BSgenome.Mmusculus.UCSC.mm9_1.3.17
+>> [13] BSgenome_1.19.3 ? ? ? ? ? ? ? ? ? ? Biostrings_2.19.9
+>> [15] GenomicRanges_1.3.18 ? ? ? ? ? ? ? ?IRanges_1.9.22
+>>
+>> loaded via a namespace (and not attached):
+>> [1] MASS_7.3-11 ? ? RCurl_1.5-0 ? ? splines_2.13.0 ?survival_2.36-5
+>> [5] XML_3.2-0
+>>
+>>
+>> Ivan Gregoretti, PhD
+>> National Institute of Diabetes and Digestive and Kidney Diseases
+>> National Institutes of Health
+>> 5 Memorial Dr, Building 5, Room 205.
+>> Bethesda, MD 20892. USA.
+>> Phone: 1-301-496-1016 and 1-301-496-1592
+>> Fax: 1-301-496-9878
+>>
+>>
+>>
+>> On Thu, Feb 24, 2011 at 9:46 AM, Michael Lawrence
+>> <lawrence.michael at gene.com> wrote:
+>>> Thanks. Seems to be fixed already in devel.
+>>>
+>>> On Wed, Feb 23, 2011 at 12:15 PM, Janet Young <jayoung at fhcrc.org> wrote:
+>>>
+>>>> Hi again,
+>>>>
+>>>> I noticed that "reduce" gives an error on RangedData objects if there are
+>>>> space names that contain no ranges:
+>>>> ? ? ? ?Error in endoapply(x[, by], FUN) : 'FUN' did not produce an
+>>>> endomorphism
+>>>>
+>>>> I can work around it, but it'd great not to need to do that. ?All the
+>>>> details are below.
+>>>>
+>>>> thanks very much,
+>>>>
+>>>> Janet
+>>>>
+>>>> -------------------------------------------------------------------
+>>>>
+>>>> Dr. Janet Young (Trask lab)
+>>>>
+>>>> Fred Hutchinson Cancer Research Center
+>>>> 1100 Fairview Avenue N., C3-168,
+>>>> P.O. Box 19024, Seattle, WA 98109-1024, USA.
+>>>>
+>>>> tel: (206) 667 1471 fax: (206) 667 6524
+>>>> email: jayoung ?...at... ?fhcrc.org
+>>>>
+>>>> http://www.fhcrc.org/labs/trask/
+>>>>
+>>>> -------------------------------------------------------------------
+>>>>
+>>>>
+>>>>
+>>>>> library(IRanges,warn.conflicts=F)
+>>>>
+>>>>> myregions_RD <-
+>>>> RangedData(IRanges(start=c(101L,201L,101L,101L),end=c(250L,300L,220L,501L)),space=c("chr1","chr1","chr1","chr2"),strand=c("+","+","+","+")
+>>>> ? )
+>>>>
+>>>>> #### this works
+>>>>> reduce(myregions_RD)
+>>>> RangedData with 2 rows and 1 value column across 2 spaces
+>>>> ? ? ? ?space ? ? ranges | ? ? ?strand
+>>>> ?<character> ?<IRanges> | <character>
+>>>> 1 ? ? ? ?chr1 [101, 300] | ? ? ? ? ? +
+>>>> 2 ? ? ? ?chr2 [101, 501] | ? ? ? ? ? +
+>>>>
+>>>>> ### drop regions that are bigger than 300bp (now there's nothing left on
+>>>> chr2)
+>>>>> myregions_RD <- myregions_RD[which(width(myregions_RD)<=300),]
+>>>>
+>>>>> ### this doesn't work - reduce doesn't like a space without any elements
+>>>>> reduce(myregions_RD)
+>>>> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism
+>>>>
+>>>>> ### workaround - drop the unused space names
+>>>>> myregions_RD <-
+>>>> RangedData(IRanges(start=start(myregions_RD),end=end(myregions_RD)),space=as.character(space(myregions_RD)),strand=myregions_RD$strand
+>>>> ? )
+>>>>
+>>>>> ### now it works
+>>>>> reduce(myregions_RD)
+>>>> RangedData with 1 row and 1 value column across 1 space
+>>>> ? ? ? ?space ? ? ranges | ? ? ?strand
+>>>> ?<character> ?<IRanges> | <character>
+>>>> 1 ? ? ? ?chr1 [101, 300] | ? ? ? ? ? +
+>>>>
+>>>>> sessionInfo()
+>>>> R version 2.12.1 (2010-12-16)
+>>>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+>>>>
+>>>> locale:
+>>>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+>>>>
+>>>> attached base packages:
+>>>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+>>>>
+>>>> other attached packages:
+>>>> [1] IRanges_1.8.9
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>>
+>>>
+>>> ? ? ? ?[[alternative HTML version deleted]]
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>
+>
+
+
+From ivangreg at gmail.com  Thu Feb 24 22:47:39 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Thu, 24 Feb 2011 16:47:39 -0500
+Subject: [Bioc-sig-seq] matchPWM() without PWMscoreStartingAt()
+Message-ID: <AANLkTi=uNx9xgEPgxc-NF5giBqrzQ0MOCwKSDJYGEULW@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/dc9de68c/attachment.pl>
+
+From lawrence.michael at gene.com  Fri Feb 25 05:10:08 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Thu, 24 Feb 2011 20:10:08 -0800
+Subject: [Bioc-sig-seq] reduce error on RangedData with unused space
+	names
+In-Reply-To: <AANLkTikF4yJ4ArCmgNK9Ak3VVTDqDgax-5so2rYBNGw-@mail.gmail.com>
+References: <A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>
+	<AANLkTi=8cL4JZSPXpDMKXvS-z60Yw27eLcHrwdyrpVT-@mail.gmail.com>
+	<AANLkTikF4yJ4ArCmgNK9Ak3VVTDqDgax-5so2rYBNGw-@mail.gmail.com>
+Message-ID: <AANLkTi=Kk-WFa=sAsrzve1daZm0VLNKBfYA2hRf6tRGi@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/def5cb07/attachment.pl>
+
+From D.Strbenac at garvan.org.au  Fri Feb 25 07:00:11 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Fri, 25 Feb 2011 17:00:11 +1100 (EST)
+Subject: [Bioc-sig-seq] GRangesList with duplicate names
+Message-ID: <20110225170011.BLA22084@gimr.garvan.unsw.edu.au>
+
+Hello,
+
+It is possible to create a GRangesList with duplicated names, but not to re-order it.
+
+> summary(grl)
+     Length       Class        Mode 
+          3 GRangesList          S4 
+> names(grl) <- c("Cancer", "Cancer", "Normal")
+> grl[3:1]
+Error in `rownames<-`(`*tmp*`, value = c("Normal", "Cancer", "Cancer")) : 
+  duplicate rownames not allowed
+> sessionInfo()
+R version 2.12.0 (2010-10-15)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] GenomicRanges_1.2.3 IRanges_1.8.9      
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From hpages at fhcrc.org  Fri Feb 25 09:08:47 2011
+From: hpages at fhcrc.org (Pages, Herve)
+Date: Fri, 25 Feb 2011 00:08:47 -0800 (PST)
+Subject: [Bioc-sig-seq] GRangesList with duplicate names
+In-Reply-To: <20110225170011.BLA22084@gimr.garvan.unsw.edu.au>
+Message-ID: <1778725991.1750.1298621327466.JavaMail.root@zimbra4.fhcrc.org>
+
+Hi Dario,
+
+A GRangesList object with duplicated names is apparently
+considered broken:
+
+> grl <- GRangesList(GRanges(), GRanges())
+> names(grl) <- c("a", "a")
+> validObject(grl)
+Error in `rownames<-`(`*tmp*`, value = c("a", "a")) : 
+  duplicate rownames not allowed
+
+If we are ok with this feature, we should fix the "names<-"
+method (and any other code around that lets the user generate
+broken objects).
+
+But if we are not ok with this feature, we should modify
+the validity method for GRangesList objects. I tend to prefer
+this solution for 3 reasons:
+
+  1. Consistency with ordinary vectors: the names of a vector
+     in R are not required to be unique.
+
+  2. It's not uncommon to see the same name used for 2 different
+     genes. One might still want to be able to stick those names
+     on a GRangesList object where each top-level element corresponds
+     to a gene (e.g. exons grouped by gene).
+
+  3. It's easier to modify the validity method than to go around
+     trying to find and fix every piece of code in GenomicRanges
+     (and maybe other places) that can potentially produce a
+     GRangesList object with duplicated names.
+
+How do our power users feel about this?
+
+Thanks,
+H.
+
+
+----- Original Message -----
+From: "Dario Strbenac" <D.Strbenac at garvan.org.au>
+To: bioc-sig-sequencing at r-project.org
+Sent: Thursday, February 24, 2011 10:00:11 PM
+Subject: [Bioc-sig-seq] GRangesList with duplicate names
+
+Hello,
+
+It is possible to create a GRangesList with duplicated names, but not to re-order it.
+
+> summary(grl)
+     Length       Class        Mode 
+          3 GRangesList          S4 
+> names(grl) <- c("Cancer", "Cancer", "Normal")
+> grl[3:1]
+Error in `rownames<-`(`*tmp*`, value = c("Normal", "Cancer", "Cancer")) : 
+  duplicate rownames not allowed
+> sessionInfo()
+R version 2.12.0 (2010-10-15)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] GenomicRanges_1.2.3 IRanges_1.8.9      
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From ivangreg at gmail.com  Fri Feb 25 15:48:26 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Fri, 25 Feb 2011 09:48:26 -0500
+Subject: [Bioc-sig-seq] GRangesList with duplicate names
+In-Reply-To: <1778725991.1750.1298621327466.JavaMail.root@zimbra4.fhcrc.org>
+References: <20110225170011.BLA22084@gimr.garvan.unsw.edu.au>
+	<1778725991.1750.1298621327466.JavaMail.root@zimbra4.fhcrc.org>
+Message-ID: <AANLkTi=QL8Unag-22U_Wc9koFA_cOxDEovMRLnwu4F7E@mail.gmail.com>
+
+Hello Herv?,
+
+While we wait for comments from "power users", I just wanted to say
+that non-unique names open the door for potentially more problems than
+solutions.
+
+Imagine a Python dictionary or a Perl hash with multiple values per key.
+
+I wonder how many R/Bioconductor functions exploit the vector's
+capability to hold multiple elements with the same name.
+
+Regardless, thanks for asking users opinions.
+
+Ivan
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1016 and 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+
+On Fri, Feb 25, 2011 at 3:08 AM, Pages, Herve <hpages at fhcrc.org> wrote:
+> Hi Dario,
+>
+> A GRangesList object with duplicated names is apparently
+> considered broken:
+>
+>> grl <- GRangesList(GRanges(), GRanges())
+>> names(grl) <- c("a", "a")
+>> validObject(grl)
+> Error in `rownames<-`(`*tmp*`, value = c("a", "a")) :
+> ?duplicate rownames not allowed
+>
+> If we are ok with this feature, we should fix the "names<-"
+> method (and any other code around that lets the user generate
+> broken objects).
+>
+> But if we are not ok with this feature, we should modify
+> the validity method for GRangesList objects. I tend to prefer
+> this solution for 3 reasons:
+>
+> ?1. Consistency with ordinary vectors: the names of a vector
+> ? ? in R are not required to be unique.
+>
+> ?2. It's not uncommon to see the same name used for 2 different
+> ? ? genes. One might still want to be able to stick those names
+> ? ? on a GRangesList object where each top-level element corresponds
+> ? ? to a gene (e.g. exons grouped by gene).
+>
+> ?3. It's easier to modify the validity method than to go around
+> ? ? trying to find and fix every piece of code in GenomicRanges
+> ? ? (and maybe other places) that can potentially produce a
+> ? ? GRangesList object with duplicated names.
+>
+> How do our power users feel about this?
+>
+> Thanks,
+> H.
+>
+>
+> ----- Original Message -----
+> From: "Dario Strbenac" <D.Strbenac at garvan.org.au>
+> To: bioc-sig-sequencing at r-project.org
+> Sent: Thursday, February 24, 2011 10:00:11 PM
+> Subject: [Bioc-sig-seq] GRangesList with duplicate names
+>
+> Hello,
+>
+> It is possible to create a GRangesList with duplicated names, but not to re-order it.
+>
+>> summary(grl)
+> ? ? Length ? ? ? Class ? ? ? ?Mode
+> ? ? ? ? ?3 GRangesList ? ? ? ? ?S4
+>> names(grl) <- c("Cancer", "Cancer", "Normal")
+>> grl[3:1]
+> Error in `rownames<-`(`*tmp*`, value = c("Normal", "Cancer", "Cancer")) :
+> ?duplicate rownames not allowed
+>> sessionInfo()
+> R version 2.12.0 (2010-10-15)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> locale:
+> ?[1] LC_CTYPE=en_AU.UTF-8 ? ? ? LC_NUMERIC=C
+> ?[3] LC_TIME=en_AU.UTF-8 ? ? ? ?LC_COLLATE=en_AU.UTF-8
+> ?[5] LC_MONETARY=C ? ? ? ? ? ? ?LC_MESSAGES=en_AU.UTF-8
+> ?[7] LC_PAPER=en_AU.UTF-8 ? ? ? LC_NAME=C
+> ?[9] LC_ADDRESS=C ? ? ? ? ? ? ? LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+>
+> other attached packages:
+> [1] GenomicRanges_1.2.3 IRanges_1.8.9
+>
+> --------------------------------------
+> Dario Strbenac
+> Research Assistant
+> Cancer Epigenetics
+> Garvan Institute of Medical Research
+> Darlinghurst NSW 2010
+> Australia
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From mailinglist.honeypot at gmail.com  Fri Feb 25 16:05:20 2011
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Fri, 25 Feb 2011 10:05:20 -0500
+Subject: [Bioc-sig-seq] GRangesList with duplicate names
+In-Reply-To: <AANLkTi=QL8Unag-22U_Wc9koFA_cOxDEovMRLnwu4F7E@mail.gmail.com>
+References: <20110225170011.BLA22084@gimr.garvan.unsw.edu.au>
+	<1778725991.1750.1298621327466.JavaMail.root@zimbra4.fhcrc.org>
+	<AANLkTi=QL8Unag-22U_Wc9koFA_cOxDEovMRLnwu4F7E@mail.gmail.com>
+Message-ID: <AANLkTinT6tC4P=s+XTf4tYOq=NUDP7DxZYdw25eeuBv8@mail.gmail.com>
+
+Hi,
+
+I think I'm with Ivan and leaning towards not allowing duplicate names
+in a GRangesList, even though normal lists in R do allow duplicate
+names.
+
+As Ivan suggested, I also often use the names of any R list when I
+want to use the list as something similar to a Python dictionary.
+
+Still, if the consensus turns out to allow duplicate names in
+*RangesList(s), perhaps it'd be nice for the the validity method to
+fire off a warning that duplicate names exist in the list so the user
+knows something might be fishy.
+
+-steve
+
+On Fri, Feb 25, 2011 at 9:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+> Hello Herv?,
+>
+> While we wait for comments from "power users", I just wanted to say
+> that non-unique names open the door for potentially more problems than
+> solutions.
+>
+> Imagine a Python dictionary or a Perl hash with multiple values per key.
+>
+> I wonder how many R/Bioconductor functions exploit the vector's
+> capability to hold multiple elements with the same name.
+>
+> Regardless, thanks for asking users opinions.
+>
+> Ivan
+>
+>
+> Ivan Gregoretti, PhD
+> National Institute of Diabetes and Digestive and Kidney Diseases
+> National Institutes of Health
+> 5 Memorial Dr, Building 5, Room 205.
+> Bethesda, MD 20892. USA.
+> Phone: 1-301-496-1016 and 1-301-496-1592
+> Fax: 1-301-496-9878
+>
+>
+>
+> On Fri, Feb 25, 2011 at 3:08 AM, Pages, Herve <hpages at fhcrc.org> wrote:
+>> Hi Dario,
+>>
+>> A GRangesList object with duplicated names is apparently
+>> considered broken:
+>>
+>>> grl <- GRangesList(GRanges(), GRanges())
+>>> names(grl) <- c("a", "a")
+>>> validObject(grl)
+>> Error in `rownames<-`(`*tmp*`, value = c("a", "a")) :
+>> ?duplicate rownames not allowed
+>>
+>> If we are ok with this feature, we should fix the "names<-"
+>> method (and any other code around that lets the user generate
+>> broken objects).
+>>
+>> But if we are not ok with this feature, we should modify
+>> the validity method for GRangesList objects. I tend to prefer
+>> this solution for 3 reasons:
+>>
+>> ?1. Consistency with ordinary vectors: the names of a vector
+>> ? ? in R are not required to be unique.
+>>
+>> ?2. It's not uncommon to see the same name used for 2 different
+>> ? ? genes. One might still want to be able to stick those names
+>> ? ? on a GRangesList object where each top-level element corresponds
+>> ? ? to a gene (e.g. exons grouped by gene).
+>>
+>> ?3. It's easier to modify the validity method than to go around
+>> ? ? trying to find and fix every piece of code in GenomicRanges
+>> ? ? (and maybe other places) that can potentially produce a
+>> ? ? GRangesList object with duplicated names.
+>>
+>> How do our power users feel about this?
+>>
+>> Thanks,
+>> H.
+>>
+>>
+>> ----- Original Message -----
+>> From: "Dario Strbenac" <D.Strbenac at garvan.org.au>
+>> To: bioc-sig-sequencing at r-project.org
+>> Sent: Thursday, February 24, 2011 10:00:11 PM
+>> Subject: [Bioc-sig-seq] GRangesList with duplicate names
+>>
+>> Hello,
+>>
+>> It is possible to create a GRangesList with duplicated names, but not to re-order it.
+>>
+>>> summary(grl)
+>> ? ? Length ? ? ? Class ? ? ? ?Mode
+>> ? ? ? ? ?3 GRangesList ? ? ? ? ?S4
+>>> names(grl) <- c("Cancer", "Cancer", "Normal")
+>>> grl[3:1]
+>> Error in `rownames<-`(`*tmp*`, value = c("Normal", "Cancer", "Cancer")) :
+>> ?duplicate rownames not allowed
+>>> sessionInfo()
+>> R version 2.12.0 (2010-10-15)
+>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>
+>> locale:
+>> ?[1] LC_CTYPE=en_AU.UTF-8 ? ? ? LC_NUMERIC=C
+>> ?[3] LC_TIME=en_AU.UTF-8 ? ? ? ?LC_COLLATE=en_AU.UTF-8
+>> ?[5] LC_MONETARY=C ? ? ? ? ? ? ?LC_MESSAGES=en_AU.UTF-8
+>> ?[7] LC_PAPER=en_AU.UTF-8 ? ? ? LC_NAME=C
+>> ?[9] LC_ADDRESS=C ? ? ? ? ? ? ? LC_TELEPHONE=C
+>> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C
+>>
+>> attached base packages:
+>> [1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+>>
+>> other attached packages:
+>> [1] GenomicRanges_1.2.3 IRanges_1.8.9
+>>
+>> --------------------------------------
+>> Dario Strbenac
+>> Research Assistant
+>> Cancer Epigenetics
+>> Garvan Institute of Medical Research
+>> Darlinghurst NSW 2010
+>> Australia
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+?| Memorial Sloan-Kettering Cancer Center
+?| Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From ivangreg at gmail.com  Fri Feb 25 18:00:01 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Fri, 25 Feb 2011 12:00:01 -0500
+Subject: [Bioc-sig-seq] Feature request: matchPWM() and DNA reverse
+	complement.
+Message-ID: <AANLkTinnRco5Lw-Gx3=h_dw2_ukcechcQSgiWtZLeAbd@mail.gmail.com>
+
+Hi everybody,
+
+Wouldn't it be great if matchPWM() optionally searched for matches on
+the reverse complement of its subject?
+
+
+Currently, we can do this by running
+
+A <- matchPWM(pwm, subject)
+B <- matchPWM(reverseComplement(pwm), subject)
+
+followed by merging A and B and finally sorting by coordinate.
+
+The actual production code looks quite awkward but I want to keep it simple.
+
+It would be light-speed fast if you could just
+
+matchPWM(pwm,subject,also.reverse=TRUE)
+
+Granted that the output should also display a strand column but I hope
+users would not find this feature too inconvenient.
+
+Please hold this request into consideration
+
+Thank you,
+
+Ivan
+
+
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1016 and 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+From mtmorgan at fhcrc.org  Fri Feb 25 18:46:02 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Fri, 25 Feb 2011 09:46:02 -0800
+Subject: [Bioc-sig-seq] GRangesList with duplicate names
+In-Reply-To: <AANLkTinT6tC4P=s+XTf4tYOq=NUDP7DxZYdw25eeuBv8@mail.gmail.com>
+References: <20110225170011.BLA22084@gimr.garvan.unsw.edu.au>	<1778725991.1750.1298621327466.JavaMail.root@zimbra4.fhcrc.org>	<AANLkTi=QL8Unag-22U_Wc9koFA_cOxDEovMRLnwu4F7E@mail.gmail.com>
+	<AANLkTinT6tC4P=s+XTf4tYOq=NUDP7DxZYdw25eeuBv8@mail.gmail.com>
+Message-ID: <4D67EADA.8090804@fhcrc.org>
+
+On 02/25/2011 07:05 AM, Steve Lianoglou wrote:
+> Hi,
+> 
+> I think I'm with Ivan and leaning towards not allowing duplicate names
+> in a GRangesList, even though normal lists in R do allow duplicate
+> names.
+> 
+> As Ivan suggested, I also often use the names of any R list when I
+> want to use the list as something similar to a Python dictionary.
+
+
+I cast my vote in the same direction, for similar reasons.
+
+Dario's use case offered a different on GRangesList which I had thought
+of as a collection of GRanges in a hierarchical relationship, like
+exons-within-genes. Maybe this is just me, though.
+
+Wanted also to suggest some alternatives, with
+
+  a <- GRanges("A", IRanges(1:3, width=5))
+  b <- GRanges("B", IRanges(5:7, width=10))
+  c <- GRanges("C", IRanges(10:12, width=15))
+
+The first is to use a GRangesList but store the case / control status as
+elementMetadata / values and take advantage of the flexibility that
+offers to record them as a factor
+
+> grl <- GRangesList(a=a, b=b, c=c)
+> values(grl)[["Status"]] <- factor(c("Cancer", "Cancer", "Control"))
+
+The second is to more-or-less honor the notion of GRangesList as a
+hierarchy, hence use a different data structure
+
+> lst <- SimpleList(a=a, b=b, c=c)
+> df <- DataFrame(Status=factor(c("Cancer", "Cancer", "Control")))
+> elementMetadata(lst) <- df
+
+The third might be relevant if the GRanges ('regions of interest') are
+actually common across samples, e.g.,
+
+  d <- GRanges("D", IRanges(c(1,5, 10), c(7, 16, 26)))
+
+perhaps with measurements made on each
+
+  assays <- SimpleList(asinhCounts=matrix(rnorm(9, 6, 2), 3))
+
+and coordinated in a SummarizedExperiment
+
+> ## some additional annotation on rows / cols
+> names(d) <- paste("roi", seq_len(length(d)), sep="")
+> rownames(df) <- paste("sample", seq_len(nrow(df)), sep="")
+> sx <- SummarizedExperiment(assays, rowData=d, colData=df)
+> sx
+class: SummarizedExperiment
+dim: 3 3
+assays(1): asinhCounts
+rownames(3): roi1 roi2 roi3
+rowData values names(0):
+colnames(3): sample1 sample2 sample3
+colData names(1): Status
+
+where measurements (e.g., asinh-transformed counts) associated with
+ranges in all samples are part of 'assays', marginal values associated
+with rows / ranges (e.g., significance values associated with
+differential expression) are values(rowData(sx)), and marginal values
+associated with columns / samples are colData(sx).
+
+Martin
+
+
+> Still, if the consensus turns out to allow duplicate names in
+> *RangesList(s), perhaps it'd be nice for the the validity method to
+> fire off a warning that duplicate names exist in the list so the user
+> knows something might be fishy.
+> 
+> -steve
+> 
+> On Fri, Feb 25, 2011 at 9:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+>> Hello Herv?,
+>>
+>> While we wait for comments from "power users", I just wanted to say
+>> that non-unique names open the door for potentially more problems than
+>> solutions.
+>>
+>> Imagine a Python dictionary or a Perl hash with multiple values per key.
+>>
+>> I wonder how many R/Bioconductor functions exploit the vector's
+>> capability to hold multiple elements with the same name.
+>>
+>> Regardless, thanks for asking users opinions.
+>>
+>> Ivan
+>>
+>>
+>> Ivan Gregoretti, PhD
+>> National Institute of Diabetes and Digestive and Kidney Diseases
+>> National Institutes of Health
+>> 5 Memorial Dr, Building 5, Room 205.
+>> Bethesda, MD 20892. USA.
+>> Phone: 1-301-496-1016 and 1-301-496-1592
+>> Fax: 1-301-496-9878
+>>
+>>
+>>
+>> On Fri, Feb 25, 2011 at 3:08 AM, Pages, Herve <hpages at fhcrc.org> wrote:
+>>> Hi Dario,
+>>>
+>>> A GRangesList object with duplicated names is apparently
+>>> considered broken:
+>>>
+>>>> grl <- GRangesList(GRanges(), GRanges())
+>>>> names(grl) <- c("a", "a")
+>>>> validObject(grl)
+>>> Error in `rownames<-`(`*tmp*`, value = c("a", "a")) :
+>>>  duplicate rownames not allowed
+>>>
+>>> If we are ok with this feature, we should fix the "names<-"
+>>> method (and any other code around that lets the user generate
+>>> broken objects).
+>>>
+>>> But if we are not ok with this feature, we should modify
+>>> the validity method for GRangesList objects. I tend to prefer
+>>> this solution for 3 reasons:
+>>>
+>>>  1. Consistency with ordinary vectors: the names of a vector
+>>>     in R are not required to be unique.
+>>>
+>>>  2. It's not uncommon to see the same name used for 2 different
+>>>     genes. One might still want to be able to stick those names
+>>>     on a GRangesList object where each top-level element corresponds
+>>>     to a gene (e.g. exons grouped by gene).
+>>>
+>>>  3. It's easier to modify the validity method than to go around
+>>>     trying to find and fix every piece of code in GenomicRanges
+>>>     (and maybe other places) that can potentially produce a
+>>>     GRangesList object with duplicated names.
+>>>
+>>> How do our power users feel about this?
+>>>
+>>> Thanks,
+>>> H.
+>>>
+>>>
+>>> ----- Original Message -----
+>>> From: "Dario Strbenac" <D.Strbenac at garvan.org.au>
+>>> To: bioc-sig-sequencing at r-project.org
+>>> Sent: Thursday, February 24, 2011 10:00:11 PM
+>>> Subject: [Bioc-sig-seq] GRangesList with duplicate names
+>>>
+>>> Hello,
+>>>
+>>> It is possible to create a GRangesList with duplicated names, but not to re-order it.
+>>>
+>>>> summary(grl)
+>>>     Length       Class        Mode
+>>>          3 GRangesList          S4
+>>>> names(grl) <- c("Cancer", "Cancer", "Normal")
+>>>> grl[3:1]
+>>> Error in `rownames<-`(`*tmp*`, value = c("Normal", "Cancer", "Cancer")) :
+>>>  duplicate rownames not allowed
+>>>> sessionInfo()
+>>> R version 2.12.0 (2010-10-15)
+>>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>>
+>>> locale:
+>>>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C
+>>>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8
+>>>  [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8
+>>>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C
+>>>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+>>> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>
+>>> other attached packages:
+>>> [1] GenomicRanges_1.2.3 IRanges_1.8.9
+>>>
+>>> --------------------------------------
+>>> Dario Strbenac
+>>> Research Assistant
+>>> Cancer Epigenetics
+>>> Garvan Institute of Medical Research
+>>> Darlinghurst NSW 2010
+>>> Australia
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+> 
+> 
+> 
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From hpages at fhcrc.org  Fri Feb 25 20:50:04 2011
+From: hpages at fhcrc.org (Pages, Herve)
+Date: Fri, 25 Feb 2011 11:50:04 -0800 (PST)
+Subject: [Bioc-sig-seq] GRangesList with duplicate names
+In-Reply-To: <4D67EADA.8090804@fhcrc.org>
+Message-ID: <1972655611.1873.1298663404739.JavaMail.root@zimbra4.fhcrc.org>
+
+Hi,
+
+An important use case for GRangesList is the storage of a list
+of genomic features grouped by their appartenance to a parent
+feature (actually this was the original motivation for implementing
+the GRangesList class).
+
+Annotations are not perfect:
+
+  > library(GenomicFeatures)
+  > txdb <- makeTranscriptDbFromUCSC(tablename="refGene")
+  > tx <- transcripts(txdb, columns="tx_name")
+  > any(duplicated(values(tx)$tx_name))
+  [1] TRUE
+
+Here the transcript names are not unique:
+
+  > any(duplicated(values(tx)$tx_name))
+  [1] TRUE
+
+Here tx_name is just a column in the values slot of the GRanges object.
+Duplicates are of course perfectly ok here.
+
+However, the following code generates a GRangesList object with
+duplicated names:
+
+  > ex <- exonsBy(txdb, "tx", use.names=TRUE)
+  Warning message:
+  In .set.group.names(ans, use.names, txdb, by) :
+    some group names are NAs or duplicated
+  > any(duplicated(names(ex)))
+  [1] TRUE
+
+Note the warning.
+
+By default (i.e. without specifying use.names=TRUE), the internal ids
+of the transcripts (tx_id col, guaranteed to be unique) would have been
+put on the object here instead of the tx names. It's worth remembering
+that the original version of exonsBy() was always using those internal
+ids but, a few months ago, the 'use.names' arg was added because some
+users found it useful. See this thread:
+
+https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2010-August/001387.html
+
+Should we revisit this?
+
+Also, by not allowing duplicated names, some basic operations like
+combining 2 GRangesList objects with clashing names won't work anymore:
+
+  > x <- GRangesList(a=GRanges(), b=GRanges())
+  > names(c(x, x))
+  [1] "a" "b" "a" "b"
+
+Or, if one of the 2 objects has no names:
+
+  > y <- GRangesList(GRanges(), GRanges())
+  > names(c(x, y))
+  [1] "a" "b" ""  "" 
+
+Or if my index 'i' contains duplicated values:
+
+  > i <- c(2, 1, 2)
+  > x[i]  # will have duplicated names
+
+etc...
+
+(Note that validObject would fail on all those objects I just made.)
+
+I guess names are not required to be unique on ordinary lists
+for those reasons too. Environments do require names to be unique
+and can use a hash table internally for fast name lookup. Those 2
+features make them the equivalent of dictionaries in Python.
+
+Disclaimer: I've never been a fan of the fact that the names of
+an ordinary list or vector in R can have duplicates. I've just
+learned to live with it. A really bad consequence of this feature
+is that subsetting 'x' by a non-unique name only returns the first
+element with that name:
+
+  > x <- c(a=2, b=3, a=4)
+  > x[names(x)]
+  a b a 
+  2 3 2 
+
+Without even a warning!
+
+For GRangesList objects, and more generally, for (almost) all the
+List (L uppercase) subclasses defined in IRanges and GenomicRanges,
+duplicated names are currently ok. And we don't issue a warning either
+when subsetting by a non-unique name (we were just following what
+ordinary lists do) but we could (and maybe we should).
+
+Cheers,
+H.
+
+----- Original Message -----
+From: "Martin Morgan" <mtmorgan at fhcrc.org>
+To: "Steve Lianoglou" <mailinglist.honeypot at gmail.com>
+Cc: bioc-sig-sequencing at r-project.org
+Sent: Friday, February 25, 2011 9:46:02 AM
+Subject: Re: [Bioc-sig-seq] GRangesList with duplicate names
+
+On 02/25/2011 07:05 AM, Steve Lianoglou wrote:
+> Hi,
+> 
+> I think I'm with Ivan and leaning towards not allowing duplicate names
+> in a GRangesList, even though normal lists in R do allow duplicate
+> names.
+> 
+> As Ivan suggested, I also often use the names of any R list when I
+> want to use the list as something similar to a Python dictionary.
+
+
+I cast my vote in the same direction, for similar reasons.
+
+Dario's use case offered a different on GRangesList which I had thought
+of as a collection of GRanges in a hierarchical relationship, like
+exons-within-genes. Maybe this is just me, though.
+
+Wanted also to suggest some alternatives, with
+
+  a <- GRanges("A", IRanges(1:3, width=5))
+  b <- GRanges("B", IRanges(5:7, width=10))
+  c <- GRanges("C", IRanges(10:12, width=15))
+
+The first is to use a GRangesList but store the case / control status as
+elementMetadata / values and take advantage of the flexibility that
+offers to record them as a factor
+
+> grl <- GRangesList(a=a, b=b, c=c)
+> values(grl)[["Status"]] <- factor(c("Cancer", "Cancer", "Control"))
+
+The second is to more-or-less honor the notion of GRangesList as a
+hierarchy, hence use a different data structure
+
+> lst <- SimpleList(a=a, b=b, c=c)
+> df <- DataFrame(Status=factor(c("Cancer", "Cancer", "Control")))
+> elementMetadata(lst) <- df
+
+The third might be relevant if the GRanges ('regions of interest') are
+actually common across samples, e.g.,
+
+  d <- GRanges("D", IRanges(c(1,5, 10), c(7, 16, 26)))
+
+perhaps with measurements made on each
+
+  assays <- SimpleList(asinhCounts=matrix(rnorm(9, 6, 2), 3))
+
+and coordinated in a SummarizedExperiment
+
+> ## some additional annotation on rows / cols
+> names(d) <- paste("roi", seq_len(length(d)), sep="")
+> rownames(df) <- paste("sample", seq_len(nrow(df)), sep="")
+> sx <- SummarizedExperiment(assays, rowData=d, colData=df)
+> sx
+class: SummarizedExperiment
+dim: 3 3
+assays(1): asinhCounts
+rownames(3): roi1 roi2 roi3
+rowData values names(0):
+colnames(3): sample1 sample2 sample3
+colData names(1): Status
+
+where measurements (e.g., asinh-transformed counts) associated with
+ranges in all samples are part of 'assays', marginal values associated
+with rows / ranges (e.g., significance values associated with
+differential expression) are values(rowData(sx)), and marginal values
+associated with columns / samples are colData(sx).
+
+Martin
+
+
+> Still, if the consensus turns out to allow duplicate names in
+> *RangesList(s), perhaps it'd be nice for the the validity method to
+> fire off a warning that duplicate names exist in the list so the user
+> knows something might be fishy.
+> 
+> -steve
+> 
+> On Fri, Feb 25, 2011 at 9:48 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+>> Hello Herv?,
+>>
+>> While we wait for comments from "power users", I just wanted to say
+>> that non-unique names open the door for potentially more problems than
+>> solutions.
+>>
+>> Imagine a Python dictionary or a Perl hash with multiple values per key.
+>>
+>> I wonder how many R/Bioconductor functions exploit the vector's
+>> capability to hold multiple elements with the same name.
+>>
+>> Regardless, thanks for asking users opinions.
+>>
+>> Ivan
+>>
+>>
+>> Ivan Gregoretti, PhD
+>> National Institute of Diabetes and Digestive and Kidney Diseases
+>> National Institutes of Health
+>> 5 Memorial Dr, Building 5, Room 205.
+>> Bethesda, MD 20892. USA.
+>> Phone: 1-301-496-1016 and 1-301-496-1592
+>> Fax: 1-301-496-9878
+>>
+>>
+>>
+>> On Fri, Feb 25, 2011 at 3:08 AM, Pages, Herve <hpages at fhcrc.org> wrote:
+>>> Hi Dario,
+>>>
+>>> A GRangesList object with duplicated names is apparently
+>>> considered broken:
+>>>
+>>>> grl <- GRangesList(GRanges(), GRanges())
+>>>> names(grl) <- c("a", "a")
+>>>> validObject(grl)
+>>> Error in `rownames<-`(`*tmp*`, value = c("a", "a")) :
+>>>  duplicate rownames not allowed
+>>>
+>>> If we are ok with this feature, we should fix the "names<-"
+>>> method (and any other code around that lets the user generate
+>>> broken objects).
+>>>
+>>> But if we are not ok with this feature, we should modify
+>>> the validity method for GRangesList objects. I tend to prefer
+>>> this solution for 3 reasons:
+>>>
+>>>  1. Consistency with ordinary vectors: the names of a vector
+>>>     in R are not required to be unique.
+>>>
+>>>  2. It's not uncommon to see the same name used for 2 different
+>>>     genes. One might still want to be able to stick those names
+>>>     on a GRangesList object where each top-level element corresponds
+>>>     to a gene (e.g. exons grouped by gene).
+>>>
+>>>  3. It's easier to modify the validity method than to go around
+>>>     trying to find and fix every piece of code in GenomicRanges
+>>>     (and maybe other places) that can potentially produce a
+>>>     GRangesList object with duplicated names.
+>>>
+>>> How do our power users feel about this?
+>>>
+>>> Thanks,
+>>> H.
+>>>
+>>>
+>>> ----- Original Message -----
+>>> From: "Dario Strbenac" <D.Strbenac at garvan.org.au>
+>>> To: bioc-sig-sequencing at r-project.org
+>>> Sent: Thursday, February 24, 2011 10:00:11 PM
+>>> Subject: [Bioc-sig-seq] GRangesList with duplicate names
+>>>
+>>> Hello,
+>>>
+>>> It is possible to create a GRangesList with duplicated names, but not to re-order it.
+>>>
+>>>> summary(grl)
+>>>     Length       Class        Mode
+>>>          3 GRangesList          S4
+>>>> names(grl) <- c("Cancer", "Cancer", "Normal")
+>>>> grl[3:1]
+>>> Error in `rownames<-`(`*tmp*`, value = c("Normal", "Cancer", "Cancer")) :
+>>>  duplicate rownames not allowed
+>>>> sessionInfo()
+>>> R version 2.12.0 (2010-10-15)
+>>> Platform: x86_64-unknown-linux-gnu (64-bit)
+>>>
+>>> locale:
+>>>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C
+>>>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8
+>>>  [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8
+>>>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C
+>>>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+>>> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>
+>>> other attached packages:
+>>> [1] GenomicRanges_1.2.3 IRanges_1.8.9
+>>>
+>>> --------------------------------------
+>>> Dario Strbenac
+>>> Research Assistant
+>>> Cancer Epigenetics
+>>> Garvan Institute of Medical Research
+>>> Darlinghurst NSW 2010
+>>> Australia
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+> 
+> 
+> 
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From hpages at fhcrc.org  Fri Feb 25 23:46:07 2011
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Fri, 25 Feb 2011 14:46:07 -0800
+Subject: [Bioc-sig-seq] matchPWM() without PWMscoreStartingAt()
+In-Reply-To: <AANLkTi=uNx9xgEPgxc-NF5giBqrzQ0MOCwKSDJYGEULW@mail.gmail.com>
+References: <AANLkTi=uNx9xgEPgxc-NF5giBqrzQ0MOCwKSDJYGEULW@mail.gmail.com>
+Message-ID: <4D68312F.8000005@fhcrc.org>
+
+Ivan,
+
+On 02/24/2011 01:47 PM, Ivan Gregoretti wrote:
+> Hi everybody,
+>
+> The function matchPWM() that is invoked like this
+>
+> matchPWM(pwm, subject, min.score="80%", ...)
+>
+> provides a very fast way of identifying the positions in 'subject' that
+> match a Position Weight Matrix with a minimum score of 80 percent (relative
+> to the maximum score).
+>
+> The result looks like this
+>
+> matchPWM(pwmMa,Mmusculus[['chr19']],min.score="90%")
+>   Views on a 61342430-letter DNAString subject
+> subject: NNNNNNNNNNNNNNNNNNNNNNNNNNNN...TATCTCCGAGATGCACCCGCCTGCTTGC
+> views:
+>           start      end width
+>   [1]  3499390  3499407    18 [TTTTGGTCATGGTGCTTC]
+>    [2]  3847991  3848008    18 [TTGAATTCCTGATCCTTC]
+>   [3]  4433615  4433632    18 [TTTGATTCCTGATTCTTC]
+>    [4]  5200625  5200642    18 [TCTTAGTCATGGTGCTTT]
+>   [5]  6475713  6475730    18 [TCTTGTTTCTGCTGCTTC]
+>    [6]  8899734  8899751    18 [TTTCATTCCTGTTTCTTT]
+>   [7]  9435046  9435063    18 [TTGTGTTCCTGCTGCTTC]
+>    [8]  9490297  9490314    18 [TTTTATTCATGCTGTTTC]
+>   [9] 10148754 10148771    18 [TCATGGTCATGGTGCTTC]
+>    ...      ...      ...   ... ...
+> [103] 53870063 53870080    18 [TCAAAGTCATGCTCCTTC]
+> [104] 55886021 55886038    18 [TCTTTTTCCTGGTACTTC]
+> [105] 56158096 56158113    18 [GCTGATTCTTGCTGCTTC]
+> [106] 56585172 56585189    18 [TTTCATTCCAGTTGCTTA]
+> [107] 56905278 56905295    18 [TTCTGTTCCTGGTACTTC]
+> [108] 57831404 57831421    18 [TTTTATTTATGTTACTTC]
+> [109] 58794481 58794498    18 [TCGAATTCCTGCTGCTTT]
+> [110] 59452136 59452153    18 [TTGCATTTGTGTTACTTC]
+> [111] 59597303 59597320    18 [TTTTAGTCATGGTGTTTC]
+>
+>
+> My question:
+>
+> How do you get matchPWM to report the score?
+>
+>
+> Why that is important:
+>
+> The function PWMscoreStartingAt() was created to answer that question. Now,
+> for some PWMs, running matchPWM with a permissive min.score like "80%"
+> results in half a million matches. The problem is that PWMscoreStartingAt()
+> can compute the scores one match at a time. In other words, it takes a
+> DNAString but not a DNAStringSet.
+
+Computing the scores of all the matches is easy and very very fast,
+even when there are millions of matches:
+
+ > library(Biostrings)
+ > data(HNF4alpha)
+ > pwm <- PWM(HNF4alpha)
+ > library(BSgenome.Mmusculus.UCSC.mm9)
+ > subject <- Mmusculus[["chr19"]]
+ > m <- matchPWM(pwm, subject, min.score="60%")
+ > length(m)
+[1] 4924385
+ > system.time(scores <- PWMscoreStartingAt(pwm, unmasked(subject), 
+starting.at=start(m)))
+    user  system elapsed
+   0.100   0.012   0.114
+ > length(scores)
+[1] 4924385
+ > head(scores)
+[1] 0.6609854 0.6421621 0.6924616 0.6075919 0.6024951 0.6281836
+ >
+
+Note that you don't need to use a DNAStringSet for this.
+
+But I take your point that having the scores automatically attached to
+the matches would be convenient.
+
+More on your other matchPWM's related request in the next email.
+
+Cheers,
+H.
+
+>
+> Rather than hoping for a vercotised version of PWMscoreStartingAt(), I guess
+> that it is more practical to try to retrieve the score computed by
+> matchPWM().
+>
+> Any suggestions?
+>
+> Thank you,
+>
+> Ivan
+>
+>> sessionInfo()
+> R version 2.13.0 Under development (unstable) (2010-12-02 r53747)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> locale:
+> [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C              LC_TIME=en_US.utf8
+>
+>   [4] LC_COLLATE=en_US.utf8     LC_MONETARY=C
+> LC_MESSAGES=en_US.utf8
+> [7] LC_PAPER=en_US.utf8       LC_NAME=C                 LC_ADDRESS=C
+>
+> [10] LC_TELEPHONE=C            LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C
+>
+>
+> attached base packages:
+> [1] grid      stats     graphics  grDevices utils     datasets  methods
+> base
+>
+> other attached packages:
+> [1] multicore_0.1-4                    lattice_0.19-17
+> [3] BSgenome.Mmusculus.UCSC.mm9_1.3.17 BSgenome_1.19.3
+> [5] cosmo_1.17.0                       seqLogo_1.17.0
+> [7] GenomicRanges_1.3.18               Biostrings_2.19.9
+> [9] IRanges_1.9.22
+>
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.11.8 tools_2.13.0
+>
+>
+> Ivan Gregoretti, PhD
+> National Institute of Diabetes and Digestive and Kidney Diseases
+> National Institutes of Health
+> 5 Memorial Dr, Building 5, Room 205.
+> Bethesda, MD 20892. USA.
+> Phone: 1-301-496-1016 and 1-301-496-1592
+> Fax: 1-301-496-9878
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M2-B876
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From D.Strbenac at garvan.org.au  Mon Feb 28 07:00:22 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Mon, 28 Feb 2011 17:00:22 +1100 (EST)
+Subject: [Bioc-sig-seq] GenomeDataList to data.frame Coercion
+Message-ID: <20110228170022.BLB24836@gimr.garvan.unsw.edu.au>
+
+Hello,
+
+I tried out an example in the documentation without success.
+
+> gd <- GenomeData(list(chr1 = IRanges(1, 10), chrX = IRanges(2, 5)),
++ organism = "Mmusculus", provider = "UCSC",
++ providerVersion = "mm9")
+> gdl <- GenomeDataList(list(gd))
+> as(gdl, "data.frame")
+NULL
+> 
+> sessionInfo()
+R version 2.12.0 (2010-10-15)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8   
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
+
+other attached packages:
+ [1] BSgenome_1.18.3     Rsamtools_1.2.3     Biostrings_2.18.2  
+ [4] gplots_2.8.0        caTools_1.11        bitops_1.0-4.1     
+ [7] gdata_2.8.1         gtools_2.6.2        GenomicRanges_1.2.3
+[10] IRanges_1.8.9      
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.10.0 tools_2.12.0  
+> gd <- GenomeData(list(chr1 = IRanges(1, 10), chrX = IRanges(2, 5)),
++ organism = "Mmusculus", provider = "UCSC",
++ providerVersion = "mm9")
+> gdl <- GenomeDataList(list(gd))
+> as(gdl, "data.frame")
+NULL
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From heidi at ebi.ac.uk  Mon Feb 28 13:52:26 2011
+From: heidi at ebi.ac.uk (Heidi Dvinge)
+Date: Mon, 28 Feb 2011 12:52:26 -0000 (UTC)
+Subject: [Bioc-sig-seq] GenomeDataList to data.frame Coercion
+In-Reply-To: <20110228170022.BLB24836@gimr.garvan.unsw.edu.au>
+References: <20110228170022.BLB24836@gimr.garvan.unsw.edu.au>
+Message-ID: <43635.143.65.196.20.1298897546.squirrel@webmail.ebi.ac.uk>
+
+> Hello,
+>
+> I tried out an example in the documentation without success.
+>
+>> gd <- GenomeData(list(chr1 = IRanges(1, 10), chrX = IRanges(2, 5)),
+> + organism = "Mmusculus", provider = "UCSC",
+> + providerVersion = "mm9")
+
+I think you alrady have a GenomeDataList here, no?
+as(gd, "data.frame")
+should work.
+
+>> gdl <- GenomeDataList(list(gd))
+>> as(gdl, "data.frame")
+> NULL
+
+Again, this looks like a list of a list. Does as(gdl[[1]], "data.frame")
+work?
+
+HTH
+\Heidi
+>>
+>> sessionInfo()
+> R version 2.12.0 (2010-10-15)
+> Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+> locale:
+>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C
+>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8
+>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] grid      stats     graphics  grDevices utils     datasets  methods
+> [8] base
+>
+> other attached packages:
+>  [1] BSgenome_1.18.3     Rsamtools_1.2.3     Biostrings_2.18.2
+>  [4] gplots_2.8.0        caTools_1.11        bitops_1.0-4.1
+>  [7] gdata_2.8.1         gtools_2.6.2        GenomicRanges_1.2.3
+> [10] IRanges_1.8.9
+>
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.10.0 tools_2.12.0
+>> gd <- GenomeData(list(chr1 = IRanges(1, 10), chrX = IRanges(2, 5)),
+> + organism = "Mmusculus", provider = "UCSC",
+> + providerVersion = "mm9")
+>> gdl <- GenomeDataList(list(gd))
+>> as(gdl, "data.frame")
+> NULL
+>
+> --------------------------------------
+> Dario Strbenac
+> Research Assistant
+> Cancer Epigenetics
+> Garvan Institute of Medical Research
+> Darlinghurst NSW 2010
+> Australia
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From lawrence.michael at gene.com  Mon Feb 28 14:49:38 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Mon, 28 Feb 2011 05:49:38 -0800
+Subject: [Bioc-sig-seq] GenomeDataList to data.frame Coercion
+In-Reply-To: <20110228170022.BLB24836@gimr.garvan.unsw.edu.au>
+References: <20110228170022.BLB24836@gimr.garvan.unsw.edu.au>
+Message-ID: <AANLkTikkJm-=Q=ZF=rTkPjPm0wsLHfhqrfC8Bd5CjiYd@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110228/6df8ab82/attachment.pl>
+

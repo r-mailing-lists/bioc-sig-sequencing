@@ -1,0 +1,4692 @@
+From ramzi.temanni at gmail.com  Tue Dec  1 13:19:46 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Tue, 1 Dec 2009 13:19:46 +0100
+Subject: [Bioc-sig-seq] NA vector for alignQuality with Bowtie output
+Message-ID: <68bbfdd40912010419y43feca34i4bf5c800abbd5e29@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091201/b75e76ea/attachment.pl>
+
+From mtmorgan at fhcrc.org  Tue Dec  1 13:33:53 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 01 Dec 2009 04:33:53 -0800
+Subject: [Bioc-sig-seq] NA vector for alignQuality with Bowtie output
+In-Reply-To: <68bbfdd40912010419y43feca34i4bf5c800abbd5e29@mail.gmail.com>
+References: <68bbfdd40912010419y43feca34i4bf5c800abbd5e29@mail.gmail.com>
+Message-ID: <4B150D31.60800@fhcrc.org>
+
+Ramzi TEMANNI wrote:
+> Hi,
+> I'm loading bowtie aligned data using the following instruction:
+> aln<- readAligned("./S1", pattern="S1_1.hg19.bowtie.align", type="Bowtie")
+> but when i call alignQuality(aln), i get the following:
+> class: NumericQuality
+> quality: NA NA ... NA NA (4340867 total)
+> Anyone have an idea why quality is NA ?
+
+Hi  Ramzi --
+
+Here's the description of Bowtie output
+
+ http://bowtie-bio.sourceforge.net/manual.shtml#algn_out
+
+there is no alignment quality reported.
+
+Martin
+> 
+> Thanks in advance
+> 
+>> sessionInfo()
+> R version 2.10.0 (2009-10-26)
+> x86_64-pc-linux-gnu
+> 
+> locale:
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> other attached packages:
+>  [1] doMC_1.2.0        multicore_0.1-3   foreach_1.3.0     codetools_0.2-2
+>  [5] iterators_1.0.3   ShortRead_1.4.0   lattice_0.17-26   BSgenome_1.14.2
+>  [9] Biostrings_2.14.8 IRanges_1.4.8
+> 
+> loaded via a namespace (and not attached):
+> [1] Biobase_2.6.0 grid_2.10.0   hwriter_1.1   tcltk_2.10.0  tools_2.10.0
+> 
+> 
+> Best Regards,
+> Ramzi
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From ramzi.temanni at gmail.com  Tue Dec  1 14:02:12 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Tue, 1 Dec 2009 14:02:12 +0100
+Subject: [Bioc-sig-seq] NA vector for alignQuality with Bowtie output
+In-Reply-To: <4B150D31.60800@fhcrc.org>
+References: <68bbfdd40912010419y43feca34i4bf5c800abbd5e29@mail.gmail.com>
+	<4B150D31.60800@fhcrc.org>
+Message-ID: <68bbfdd40912010502w65b49d36ydd269be8f89aa48@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091201/fc94c51c/attachment.pl>
+
+From mailinglist.honeypot at gmail.com  Tue Dec  1 17:44:52 2009
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Tue, 1 Dec 2009 11:44:52 -0500
+Subject: [Bioc-sig-seq] NA vector for alignQuality with Bowtie output
+In-Reply-To: <68bbfdd40912010502w65b49d36ydd269be8f89aa48@mail.gmail.com>
+References: <68bbfdd40912010419y43feca34i4bf5c800abbd5e29@mail.gmail.com>
+	<4B150D31.60800@fhcrc.org>
+	<68bbfdd40912010502w65b49d36ydd269be8f89aa48@mail.gmail.com>
+Message-ID: <57518D28-7D4F-443E-9F6E-2621D74B6C5C@gmail.com>
+
+Hi,
+
+On Dec 1, 2009, at 8:02 AM, Ramzi TEMANNI wrote:
+
+> Hi Martin,
+> 
+> Thanks for the info, I was mixing between reads quality and alignment
+> quality
+> Indeed there' no info about alignment Quality on bowtie output and reads
+> quality could be extracted using quality() accessors.
+> 
+> I'm trying to generate mate pair data from single read data by aligning
+> single reads (1/2) then look at the id and recover aligned pairs based on
+> their
+> ID. I'm trying to find out structural variations mainly fusion genes where
+> mate 1 & 2 belong to different chromosomes. I'm trying to filter the data by
+> keeping only pairs belonguing to diffrent chromosomes, but the final number
+> is high around 20000 reads and it's very high so i'm looking for further
+> filtering to remove artefact from there.
+
+This isn't really here nor there, but just out of curiosity: is the number of reads (20,000) really that high? How many reads are in your sample?
+
+Or are the number of different loci that these reads map to higher than you expected? Or, to put it another way, why are you expecting the number of such events to be so low? :-)
+
+-steve
+
+--
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+  |  Memorial Sloan-Kettering Cancer Center
+  |  Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From APratap at som.umaryland.edu  Wed Dec  2 23:31:45 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Wed, 2 Dec 2009 17:31:45 -0500
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+References: <20091121230844.GA23474@biocluster.ucr.edu><4B0B3294.7040407@fhcrc.org><20091124013659.GA4957@biocluster.ucr.edu>
+	<4B0CD92E.8090804@fhcrc.org>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+
+Hi All
+
+After taking an exciting BioC course at FredHutch recently, I am trying
+to dive into BioC world to make more sense of NGS data. I would also
+like to thank the entire BioC team present there. You guys were simply
+great. I appreciate you all patiently answering tons of questions and
+taught some of the cool things we can do with BioC packages.
+
+For my current problem I would like to generate coverage plots for a
+small bacterial genome. I have the reads imported as a AlignedRead
+object and I am not sure how to proceed next. The help for the
+"coverage" method didn't get me very far. I am looking for some pointers
+to help me resolve the following questions.
+
+1. How to create a RLE list from the AlignRead object using coverage
+method ? 
+2. Do I need to pack my reference genome as BSgenome data package in
+order to do this ? If yes I just have the sequence and no group II mask
+file.
+3. Finally how to plot a RLE list.
+
+Thanks!
+-Abhi
+
+
+From mflawren at fhcrc.org  Wed Dec  2 23:50:55 2009
+From: mflawren at fhcrc.org (Michael Lawrence)
+Date: Wed, 2 Dec 2009 14:50:55 -0800
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+References: <20091121230844.GA23474@biocluster.ucr.edu>
+	<4B0B3294.7040407@fhcrc.org>
+	<20091124013659.GA4957@biocluster.ucr.edu>
+	<4B0CD92E.8090804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091202/440330ec/attachment.pl>
+
+From paboyoun at fhcrc.org  Thu Dec  3 00:19:25 2009
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Wed, 02 Dec 2009 15:19:25 -0800
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+In-Reply-To: <509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com>
+References: <20091121230844.GA23474@biocluster.ucr.edu>	<4B0B3294.7040407@fhcrc.org>	<20091124013659.GA4957@biocluster.ucr.edu>	<4B0CD92E.8090804@fhcrc.org>	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+	<509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com>
+Message-ID: <4B16F5FD.6000001@fhcrc.org>
+
+Abhi,
+To answer your first question, there is a coverage method for 
+AlignedRead objects in the ShortRead package. S4 methods can be hard to 
+find in R's help pages, particularly if the methods for a generic are 
+stored across multiple packages. When I'm unsure what is around, I use 
+the showMethods function to get a list of available methods for an S4 
+generic:
+
+ > suppressMessages(library(ShortRead))
+ > showMethods("coverage")
+Function: coverage (package IRanges)
+x="AlignedRead"
+x="AlignedXStringSet0"
+x="IRanges"
+x="MaskCollection"
+x="MaskedXString"
+x="MIndex"
+x="numeric"
+x="PairwiseAlignedFixedSubject"
+x="PairwiseAlignedFixedSubjectSummary"
+x="RangedData"
+x="RangesList"
+x="Views"
+
+ From there I use a help command of the form 
+help("<<generic>>,<<signature>>-method")
+
+ > help("coverage,AlignedRead-method")
+
+In that man page you will find information on how to use coverage for an 
+AlignedRead object.
+
+Once you have the coverage vectors (in the form of an RleList), you can 
+use the approach Michael outlined for plotting.
+
+
+Patrick
+
+
+
+Michael Lawrence wrote:
+> On Wed, Dec 2, 2009 at 2:31 PM, Pratap, Abhishek
+> <APratap at som.umaryland.edu>wrote:
+>
+>   
+>> Hi All
+>>
+>> After taking an exciting BioC course at FredHutch recently, I am trying
+>> to dive into BioC world to make more sense of NGS data. I would also
+>> like to thank the entire BioC team present there. You guys were simply
+>> great. I appreciate you all patiently answering tons of questions and
+>> taught some of the cool things we can do with BioC packages.
+>>
+>> For my current problem I would like to generate coverage plots for a
+>> small bacterial genome. I have the reads imported as a AlignedRead
+>> object and I am not sure how to proceed next. The help for the
+>> "coverage" method didn't get me very far. I am looking for some pointers
+>> to help me resolve the following questions.
+>>
+>> 1. How to create a RLE list from the AlignRead object using coverage
+>> method ?
+>> 2. Do I need to pack my reference genome as BSgenome data package in
+>> order to do this ? If yes I just have the sequence and no group II mask
+>> file.
+>> 3. Finally how to plot a RLE list.
+>>
+>>
+>>     
+> This is a pretty difficult question to answer. Do you want to see all
+> chromosomes at once (like a karyotype plot)? An overview of entire
+> chromosomes? Or do you want to explore the data in an interactive genome
+> browser?
+>
+> There are many packages in Bioconductor for plotting this sort of data,
+> including GenomeGraphs and HilbertVis. For genome browsers, there's
+> rtracklayer and others.
+>
+> For example, with rtracklayer:
+> session <- browserSession()
+> session$coverage <- as(coverage, "RangedData")
+>
+>
+>
+>   
+>> Thanks!
+>> -Abhi
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>     
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From APratap at som.umaryland.edu  Thu Dec  3 00:38:07 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Wed, 2 Dec 2009 18:38:07 -0500
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+References: <20091121230844.GA23474@biocluster.ucr.edu>
+	<4B0B3294.7040407@fhcrc.org>
+	<20091124013659.GA4957@biocluster.ucr.edu>
+	<4B0CD92E.8090804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+	<509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904D520D0@ISSOMEXMAIL.som.umaryland.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091202/a41d40ef/attachment.pl>
+
+From APratap at som.umaryland.edu  Thu Dec  3 01:52:59 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Wed, 2 Dec 2009 19:52:59 -0500
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+References: <20091121230844.GA23474@biocluster.ucr.edu>	<4B0B3294.7040407@fhcrc.org>	<20091124013659.GA4957@biocluster.ucr.edu>	<4B0CD92E.8090804@fhcrc.org>	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+	<509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com>
+	<4B16F5FD.6000001@fhcrc.org>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904D520E6@ISSOMEXMAIL.som.umaryland.edu>
+
+Hi Patrick
+
+Thanks for letting me know how to search doc efficiently. Picking up on
+the coverage method, I tried the following. Also I would like to use
+only one chr, in this case (K-10_OM_revised.fasta *). How can I change
+the aln object to just one one specific chromosome. I tired few of my
+beginner tricks (aln$ K-10_OM_revised.fasta,
+aln[[K-10_OM_revised.fasta]] but dint work. I guess I am not using right
+method on aln object.
+
+cov_rLe <- coverage(x=aln, start=1, end=4832581, shift=0L,
+width=NULL,weight=1L,coords="leftmost",extend=0L);
+
+Error: UserArgumentMismatch
+  'names(shift)' (or 'names(start)') mismatch with
+'levels(chromosome(x))'
+  see ?"AlignedRead-class"
+In addition: Warning message:
+UserArgumentMismatch
+  use 'shift'/'width'  instead of 'start'/'end'
+
+
+Here 4832581 is the length of the genome.
+
+
+*
+Levels(chromosome(aln))  ======== Just to clear the confusion about the
+chromosome name. 
+175] "7:0:1"                 "7:1:0"                 "7:7:1"
+
+[178] "8:0:0"                 "K-10_OM_revised.fasta" "NM"
+
+[181] "QC"                   
+
+Cheers!
+-Abhi
+
+
+
+-----Original Message-----
+From: Patrick Aboyoun [mailto:paboyoun at fhcrc.org] 
+Sent: Wednesday, December 02, 2009 6:19 PM
+To: Pratap, Abhishek
+Cc: Michael Lawrence; bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+
+Abhi,
+To answer your first question, there is a coverage method for 
+AlignedRead objects in the ShortRead package. S4 methods can be hard to 
+find in R's help pages, particularly if the methods for a generic are 
+stored across multiple packages. When I'm unsure what is around, I use 
+the showMethods function to get a list of available methods for an S4 
+generic:
+
+ > suppressMessages(library(ShortRead))
+ > showMethods("coverage")
+Function: coverage (package IRanges)
+x="AlignedRead"
+x="AlignedXStringSet0"
+x="IRanges"
+x="MaskCollection"
+x="MaskedXString"
+x="MIndex"
+x="numeric"
+x="PairwiseAlignedFixedSubject"
+x="PairwiseAlignedFixedSubjectSummary"
+x="RangedData"
+x="RangesList"
+x="Views"
+
+ From there I use a help command of the form 
+help("<<generic>>,<<signature>>-method")
+
+ > help("coverage,AlignedRead-method")
+
+In that man page you will find information on how to use coverage for an
+
+AlignedRead object.
+
+Once you have the coverage vectors (in the form of an RleList), you can 
+use the approach Michael outlined for plotting.
+
+
+Patrick
+
+
+
+Michael Lawrence wrote:
+> On Wed, Dec 2, 2009 at 2:31 PM, Pratap, Abhishek
+> <APratap at som.umaryland.edu>wrote:
+>
+>   
+>> Hi All
+>>
+>> After taking an exciting BioC course at FredHutch recently, I am
+trying
+>> to dive into BioC world to make more sense of NGS data. I would also
+>> like to thank the entire BioC team present there. You guys were
+simply
+>> great. I appreciate you all patiently answering tons of questions and
+>> taught some of the cool things we can do with BioC packages.
+>>
+>> For my current problem I would like to generate coverage plots for a
+>> small bacterial genome. I have the reads imported as a AlignedRead
+>> object and I am not sure how to proceed next. The help for the
+>> "coverage" method didn't get me very far. I am looking for some
+pointers
+>> to help me resolve the following questions.
+>>
+>> 1. How to create a RLE list from the AlignRead object using coverage
+>> method ?
+>> 2. Do I need to pack my reference genome as BSgenome data package in
+>> order to do this ? If yes I just have the sequence and no group II
+mask
+>> file.
+>> 3. Finally how to plot a RLE list.
+>>
+>>
+>>     
+> This is a pretty difficult question to answer. Do you want to see all
+> chromosomes at once (like a karyotype plot)? An overview of entire
+> chromosomes? Or do you want to explore the data in an interactive
+genome
+> browser?
+>
+> There are many packages in Bioconductor for plotting this sort of
+data,
+> including GenomeGraphs and HilbertVis. For genome browsers, there's
+> rtracklayer and others.
+>
+> For example, with rtracklayer:
+> session <- browserSession()
+> session$coverage <- as(coverage, "RangedData")
+>
+>
+>
+>   
+>> Thanks!
+>> -Abhi
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>     
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>   
+
+
+From APratap at som.umaryland.edu  Thu Dec  3 02:47:24 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Wed, 2 Dec 2009 20:47:24 -0500
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+References: <20091121230844.GA23474@biocluster.ucr.edu>	<4B0B3294.7040407@fhcrc.org>	<20091124013659.GA4957@biocluster.ucr.edu>	<4B0CD92E.8090804@fhcrc.org>	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu><509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com><4B16F5FD.6000001@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520E6@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904D520EC@ISSOMEXMAIL.som.umaryland.edu>
+
+Hi Patrick
+
+Trying few more things I was atleast able to deal with selecting only
+one Chr with filtered reads.
+
+ned_chr <- chromosome(aln) == "K-10_OM_revised.fasta"
+filtered <- alignData(aln)[["filtering"]] == "Y"
+aln_chr_1_filt <- aln[ned_chr & filtered]
+
+levels(chromosome(aln_chr_1_filt) )
+[1] "K-10_OM_revised.fasta"
+
+
+But the problem with coverage functions still remains the same.
+
+
+cov_rLe <- coverage(x=aln_chr_1_filt, start=1, end=4832581, shift=0L,
+width=NULL,weight=1L,coords="leftmost",extend=0L);
+
+Error: UserArgumentMismatch
+  'names(shift)' (or 'names(start)') mismatch with
+'levels(chromosome(x))'
+  see ?"AlignedRead-class"
+In addition: Warning message:
+UserArgumentMismatch
+  use 'shift'/'width'  instead of 'start'/'end'
+
+
+-Abhi
+
+
+
+
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org
+[mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Pratap,
+Abhishek
+Sent: Wednesday, December 02, 2009 7:53 PM
+To: Patrick Aboyoun
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+
+Hi Patrick
+
+Thanks for letting me know how to search doc efficiently. Picking up on
+the coverage method, I tried the following. Also I would like to use
+only one chr, in this case (K-10_OM_revised.fasta *). How can I change
+the aln object to just one one specific chromosome. I tired few of my
+beginner tricks (aln$ K-10_OM_revised.fasta,
+aln[[K-10_OM_revised.fasta]] but dint work. I guess I am not using right
+method on aln object.
+
+cov_rLe <- coverage(x=aln, start=1, end=4832581, shift=0L,
+width=NULL,weight=1L,coords="leftmost",extend=0L);
+
+Error: UserArgumentMismatch
+  'names(shift)' (or 'names(start)') mismatch with
+'levels(chromosome(x))'
+  see ?"AlignedRead-class"
+In addition: Warning message:
+UserArgumentMismatch
+  use 'shift'/'width'  instead of 'start'/'end'
+
+
+Here 4832581 is the length of the genome.
+
+
+*
+Levels(chromosome(aln))  ======== Just to clear the confusion about the
+chromosome name. 
+175] "7:0:1"                 "7:1:0"                 "7:7:1"
+
+[178] "8:0:0"                 "K-10_OM_revised.fasta" "NM"
+
+[181] "QC"                   
+
+Cheers!
+-Abhi
+
+
+
+-----Original Message-----
+From: Patrick Aboyoun [mailto:paboyoun at fhcrc.org] 
+Sent: Wednesday, December 02, 2009 6:19 PM
+To: Pratap, Abhishek
+Cc: Michael Lawrence; bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+
+Abhi,
+To answer your first question, there is a coverage method for 
+AlignedRead objects in the ShortRead package. S4 methods can be hard to 
+find in R's help pages, particularly if the methods for a generic are 
+stored across multiple packages. When I'm unsure what is around, I use 
+the showMethods function to get a list of available methods for an S4 
+generic:
+
+ > suppressMessages(library(ShortRead))
+ > showMethods("coverage")
+Function: coverage (package IRanges)
+x="AlignedRead"
+x="AlignedXStringSet0"
+x="IRanges"
+x="MaskCollection"
+x="MaskedXString"
+x="MIndex"
+x="numeric"
+x="PairwiseAlignedFixedSubject"
+x="PairwiseAlignedFixedSubjectSummary"
+x="RangedData"
+x="RangesList"
+x="Views"
+
+ From there I use a help command of the form 
+help("<<generic>>,<<signature>>-method")
+
+ > help("coverage,AlignedRead-method")
+
+In that man page you will find information on how to use coverage for an
+
+AlignedRead object.
+
+Once you have the coverage vectors (in the form of an RleList), you can 
+use the approach Michael outlined for plotting.
+
+
+Patrick
+
+
+
+Michael Lawrence wrote:
+> On Wed, Dec 2, 2009 at 2:31 PM, Pratap, Abhishek
+> <APratap at som.umaryland.edu>wrote:
+>
+>   
+>> Hi All
+>>
+>> After taking an exciting BioC course at FredHutch recently, I am
+trying
+>> to dive into BioC world to make more sense of NGS data. I would also
+>> like to thank the entire BioC team present there. You guys were
+simply
+>> great. I appreciate you all patiently answering tons of questions and
+>> taught some of the cool things we can do with BioC packages.
+>>
+>> For my current problem I would like to generate coverage plots for a
+>> small bacterial genome. I have the reads imported as a AlignedRead
+>> object and I am not sure how to proceed next. The help for the
+>> "coverage" method didn't get me very far. I am looking for some
+pointers
+>> to help me resolve the following questions.
+>>
+>> 1. How to create a RLE list from the AlignRead object using coverage
+>> method ?
+>> 2. Do I need to pack my reference genome as BSgenome data package in
+>> order to do this ? If yes I just have the sequence and no group II
+mask
+>> file.
+>> 3. Finally how to plot a RLE list.
+>>
+>>
+>>     
+> This is a pretty difficult question to answer. Do you want to see all
+> chromosomes at once (like a karyotype plot)? An overview of entire
+> chromosomes? Or do you want to explore the data in an interactive
+genome
+> browser?
+>
+> There are many packages in Bioconductor for plotting this sort of
+data,
+> including GenomeGraphs and HilbertVis. For genome browsers, there's
+> rtracklayer and others.
+>
+> For example, with rtracklayer:
+> session <- browserSession()
+> session$coverage <- as(coverage, "RangedData")
+>
+>
+>
+>   
+>> Thanks!
+>> -Abhi
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>     
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>   
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From khansen at stat.berkeley.edu  Thu Dec  3 06:11:57 2009
+From: khansen at stat.berkeley.edu (Kasper Daniel Hansen)
+Date: Thu, 3 Dec 2009 00:11:57 -0500
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+References: <20091121230844.GA23474@biocluster.ucr.edu><4B0B3294.7040407@fhcrc.org><20091124013659.GA4957@biocluster.ucr.edu>
+	<4B0CD92E.8090804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <13BB2C07-B4AE-496B-AED1-D63638DE7949@stat.berkeley.edu>
+
+On Dec 2, 2009, at 5:31 PM, Pratap, Abhishek wrote:
+
+> 2. Do I need to pack my reference genome as BSgenome data package in
+> order to do this ? If yes I just have the sequence and no group II mask
+> file.
+
+If you want a BSgenome package it is pretty easy to make (but it might require some familiarity with R's package system), and it does not require any mask files.  The are additonal - sometimes useful - information.
+
+Kasper
+
+From hj at jhu.edu  Thu Dec  3 09:33:04 2009
+From: hj at jhu.edu (Harris A. Jaffee)
+Date: Thu, 3 Dec 2009 03:33:04 -0500
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+In-Reply-To: <13BB2C07-B4AE-496B-AED1-D63638DE7949@stat.berkeley.edu>
+References: <20091121230844.GA23474@biocluster.ucr.edu>
+	<4B0B3294.7040407@fhcrc.org>
+	<20091124013659.GA4957@biocluster.ucr.edu>
+	<4B0CD92E.8090804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu>
+	<13BB2C07-B4AE-496B-AED1-D63638DE7949@stat.berkeley.edu>
+Message-ID: <D0A88ED1-0B14-4E94-A4F7-CD7F2C3EE0A3@jhu.edu>
+
+The details from Herve:
+
+	http://bioconductor.org/packages/release/bioc/vignettes/BSgenome/ 
+inst/doc/BSgenomeForge.pdf
+
+On Dec 3, 2009, at 12:11 AM, Kasper Daniel Hansen wrote:
+
+> On Dec 2, 2009, at 5:31 PM, Pratap, Abhishek wrote:
+>
+>> 2. Do I need to pack my reference genome as BSgenome data package in
+>> order to do this ? If yes I just have the sequence and no group II  
+>> mask
+>> file.
+>
+> If you want a BSgenome package it is pretty easy to make (but it  
+> might require some familiarity with R's package system), and it  
+> does not require any mask files.  The are additonal - sometimes  
+> useful - information.
+>
+> Kasper
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From purna at atc.tcs.com  Thu Dec  3 09:44:24 2009
+From: purna at atc.tcs.com (Purnachander)
+Date: Thu, 03 Dec 2009 14:14:24 +0530
+Subject: [Bioc-sig-seq] Error while installing Rolexa
+Message-ID: <4B177A68.7020400@atc.tcs.com>
+
+Dear All,
+I tried to install Rolexa package into my system. However, I encountered 
+the following error message:
+
+Error Message :
+Warning in install.packages(pkgs = pkgs, repos = repos, dependencies = 
+dependencies, :
+argument 'lib' is missing: using '/usr/lib/R/library'
+Warning message:
+In getDependencies(pkgs, dependencies, available, lib) :
+package ?Rolexa? is not available
+
+Here I'm unable to figure out the error message, so can you explain what 
+the error is ?
+
+sessionInfo():
+R version 2.9.0 (2009-04-17)
+i386-redhat-linux-gnu
+
+locale:
+LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats graphics grDevices utils datasets methods base
+
+other attached packages:
+[1] rtracklayer_1.4.1 RCurl_1.3-0 bitops_1.0-4.1
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.4.1 Biostrings_2.12.8 BSgenome_1.12.5 IRanges_1.2.3
+[5] tools_2.9.0 XML_2.6-0
+
+
+Regards,
+Purnachander G
+
+
+From stvjc at channing.harvard.edu  Thu Dec  3 10:05:55 2009
+From: stvjc at channing.harvard.edu (Vincent Carey)
+Date: Thu, 3 Dec 2009 04:05:55 -0500
+Subject: [Bioc-sig-seq] Error while installing Rolexa
+In-Reply-To: <4B177A68.7020400@atc.tcs.com>
+References: <4B177A68.7020400@atc.tcs.com>
+Message-ID: <2c3c9e80912030105l5118062awf1bf7b21e707109f@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091203/5e42096f/attachment.pl>
+
+From mtmorgan at fhcrc.org  Mon Dec  7 04:14:29 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Sun, 06 Dec 2009 19:14:29 -0800
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904D520EC@ISSOMEXMAIL.som.umaryland.edu>
+References: <20091121230844.GA23474@biocluster.ucr.edu>	<4B0B3294.7040407@fhcrc.org>	<20091124013659.GA4957@biocluster.ucr.edu>	<4B0CD92E.8090804@fhcrc.org>	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu><509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com><4B16F5FD.6000001@fhcrc.org>	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520E6@ISSOMEXMAIL.som.umaryland.edu>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520EC@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <4B1C7315.1090607@fhcrc.org>
+
+Hi Abhi --
+
+Pratap, Abhishek wrote:
+> Hi Patrick
+> 
+> Trying few more things I was atleast able to deal with selecting only
+> one Chr with filtered reads.
+> 
+> ned_chr <- chromosome(aln) == "K-10_OM_revised.fasta"
+> filtered <- alignData(aln)[["filtering"]] == "Y"
+> aln_chr_1_filt <- aln[ned_chr & filtered]
+> 
+> levels(chromosome(aln_chr_1_filt) )
+> [1] "K-10_OM_revised.fasta"
+> 
+> 
+> But the problem with coverage functions still remains the same.
+> 
+> 
+> cov_rLe <- coverage(x=aln_chr_1_filt, start=1, end=4832581, shift=0L,
+> width=NULL,weight=1L,coords="leftmost",extend=0L);
+> 
+> Error: UserArgumentMismatch
+>   'names(shift)' (or 'names(start)') mismatch with
+> 'levels(chromosome(x))'
+>   see ?"AlignedRead-class"
+> In addition: Warning message:
+> UserArgumentMismatch
+>   use 'shift'/'width'  instead of 'start'/'end'
+
+I wasn't sure whether this was ever resolved for you.
+
+The first thing is to choose between EITHER shift/width OR start/end,
+not both. Better to use shift/width, as it is the way this will be done
+in the future.
+
+Second, shift/width needs to be a named vector, with names matching
+those in 'aln'.
+
+This is illustrated in the example on ?"coverage,AlignedRead-method",
+where we see
+
+  cvg <- coverage(aln, shift=c(ChrA=10L))
+
+so for your example above you might try
+
+  coverage(aln_chr_1_filt, width=c("K-10_OM_revised.fasta"=4832581L))
+
+The 'L' is a way of making sure 4832581 is an integer, instead of a real
+number. No need to specify shift, weight, coords or extend, as these are
+all the default values. The quotation marks around K-10_OM_revised.fasta
+are required because "K-10_OM_revised.fasta" without quotes would not be
+a valid name (the - would be parsed as a minus sign, and R would
+complain about a syntax error).
+
+Hope that helps.
+
+Martin
+
+
+
+> 
+> 
+> -Abhi
+> 
+> 
+> 
+> 
+> 
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Pratap,
+> Abhishek
+> Sent: Wednesday, December 02, 2009 7:53 PM
+> To: Patrick Aboyoun
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+> 
+> Hi Patrick
+> 
+> Thanks for letting me know how to search doc efficiently. Picking up on
+> the coverage method, I tried the following. Also I would like to use
+> only one chr, in this case (K-10_OM_revised.fasta *). How can I change
+> the aln object to just one one specific chromosome. I tired few of my
+> beginner tricks (aln$ K-10_OM_revised.fasta,
+> aln[[K-10_OM_revised.fasta]] but dint work. I guess I am not using right
+> method on aln object.
+> 
+> cov_rLe <- coverage(x=aln, start=1, end=4832581, shift=0L,
+> width=NULL,weight=1L,coords="leftmost",extend=0L);
+> 
+> Error: UserArgumentMismatch
+>   'names(shift)' (or 'names(start)') mismatch with
+> 'levels(chromosome(x))'
+>   see ?"AlignedRead-class"
+> In addition: Warning message:
+> UserArgumentMismatch
+>   use 'shift'/'width'  instead of 'start'/'end'
+> 
+> 
+> Here 4832581 is the length of the genome.
+> 
+> 
+> *
+> Levels(chromosome(aln))  ======== Just to clear the confusion about the
+> chromosome name. 
+> 175] "7:0:1"                 "7:1:0"                 "7:7:1"
+> 
+> [178] "8:0:0"                 "K-10_OM_revised.fasta" "NM"
+> 
+> [181] "QC"                   
+> 
+> Cheers!
+> -Abhi
+> 
+> 
+> 
+> -----Original Message-----
+> From: Patrick Aboyoun [mailto:paboyoun at fhcrc.org] 
+> Sent: Wednesday, December 02, 2009 6:19 PM
+> To: Pratap, Abhishek
+> Cc: Michael Lawrence; bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+> 
+> Abhi,
+> To answer your first question, there is a coverage method for 
+> AlignedRead objects in the ShortRead package. S4 methods can be hard to 
+> find in R's help pages, particularly if the methods for a generic are 
+> stored across multiple packages. When I'm unsure what is around, I use 
+> the showMethods function to get a list of available methods for an S4 
+> generic:
+> 
+>  > suppressMessages(library(ShortRead))
+>  > showMethods("coverage")
+> Function: coverage (package IRanges)
+> x="AlignedRead"
+> x="AlignedXStringSet0"
+> x="IRanges"
+> x="MaskCollection"
+> x="MaskedXString"
+> x="MIndex"
+> x="numeric"
+> x="PairwiseAlignedFixedSubject"
+> x="PairwiseAlignedFixedSubjectSummary"
+> x="RangedData"
+> x="RangesList"
+> x="Views"
+> 
+>  From there I use a help command of the form 
+> help("<<generic>>,<<signature>>-method")
+> 
+>  > help("coverage,AlignedRead-method")
+> 
+> In that man page you will find information on how to use coverage for an
+> 
+> AlignedRead object.
+> 
+> Once you have the coverage vectors (in the form of an RleList), you can 
+> use the approach Michael outlined for plotting.
+> 
+> 
+> Patrick
+> 
+> 
+> 
+> Michael Lawrence wrote:
+>> On Wed, Dec 2, 2009 at 2:31 PM, Pratap, Abhishek
+>> <APratap at som.umaryland.edu>wrote:
+>>
+>>   
+>>> Hi All
+>>>
+>>> After taking an exciting BioC course at FredHutch recently, I am
+> trying
+>>> to dive into BioC world to make more sense of NGS data. I would also
+>>> like to thank the entire BioC team present there. You guys were
+> simply
+>>> great. I appreciate you all patiently answering tons of questions and
+>>> taught some of the cool things we can do with BioC packages.
+>>>
+>>> For my current problem I would like to generate coverage plots for a
+>>> small bacterial genome. I have the reads imported as a AlignedRead
+>>> object and I am not sure how to proceed next. The help for the
+>>> "coverage" method didn't get me very far. I am looking for some
+> pointers
+>>> to help me resolve the following questions.
+>>>
+>>> 1. How to create a RLE list from the AlignRead object using coverage
+>>> method ?
+>>> 2. Do I need to pack my reference genome as BSgenome data package in
+>>> order to do this ? If yes I just have the sequence and no group II
+> mask
+>>> file.
+>>> 3. Finally how to plot a RLE list.
+>>>
+>>>
+>>>     
+>> This is a pretty difficult question to answer. Do you want to see all
+>> chromosomes at once (like a karyotype plot)? An overview of entire
+>> chromosomes? Or do you want to explore the data in an interactive
+> genome
+>> browser?
+>>
+>> There are many packages in Bioconductor for plotting this sort of
+> data,
+>> including GenomeGraphs and HilbertVis. For genome browsers, there's
+>> rtracklayer and others.
+>>
+>> For example, with rtracklayer:
+>> session <- browserSession()
+>> session$coverage <- as(coverage, "RangedData")
+>>
+>>
+>>
+>>   
+>>> Thanks!
+>>> -Abhi
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>>     
+>> 	[[alternative HTML version deleted]]
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>   
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From ramzi.temanni at gmail.com  Mon Dec  7 15:52:17 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Mon, 7 Dec 2009 15:52:17 +0100
+Subject: [Bioc-sig-seq] unexpected genes names list using getBM{biomaRt}
+Message-ID: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091207/9114754a/attachment.pl>
+
+From seandavi at gmail.com  Mon Dec  7 15:57:55 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Mon, 7 Dec 2009 09:57:55 -0500
+Subject: [Bioc-sig-seq] unexpected genes names list using getBM{biomaRt}
+In-Reply-To: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>
+References: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>
+Message-ID: <264855a00912070657m78f4e82ap64c29136db06e353@mail.gmail.com>
+
+On Mon, Dec 7, 2009 at 9:52 AM, Ramzi TEMANNI <ramzi.temanni at gmail.com> wrote:
+> Hi,
+> I want to extract the gene names knowing the chromosome and the position for
+> each genes:
+>> t.cpd[1:10,1:2]
+> ? ? ?CHR.M1 POS.M1
+> ?[1,] "12" ? "140059033"
+> ?[2,] "19" ? "164634640"
+> ?[3,] "10" ? "32347784"
+> ?[4,] "11" ? "30576841"
+> ?[5,] "2" ? ?"86479831"
+> ?[6,] "12" ? "237019866"
+> ?[7,] "4" ? ?"76487174"
+> ?[8,] "20" ? "136121868"
+> ?[9,] "2" ? ?"6255547"
+> [10,] "1" ? ?"67658137"
+>
+> i use the following commands:
+> library(biomaRt)
+> mart = useMart("ensembl")
+> ensembl = useDataset("hsapiens_gene_ensembl", mart = mart)
+> gn.m1<-getBM(attributes= c("hgnc_symbol"),
+> ? ? ? filters=c("chromosome_name","start"),
+> ? ? ? values=list(t.cpd[1:10,1],t.cpd[1:10,2]), mart=ensembl)
+>
+> I'm expecting having a list of 10 genes names, but instead i get 8652 genes:
+> hgnc_symbol
+> 1 ? ? ?OR2M1P
+> 2 ? ? ?OR2L1P
+> 3 ? HSD17B7P1
+> 4 ? ? OR14L1P
+> 5 ? ? ? OR2W5
+> 6 ? ? ? VN1R5
+> ......
+> 8649 ? ? ? ?WFS1
+> 8650 ? ?SNORD73A
+> 8651 ? ? SNORA24
+> 8652 ? ? SNORA26
+>
+> Did I miss something ?
+
+Your query will pull out all genes that are in the chromosomal regions
+STARTING with your start position.  In other words, you are getting
+all of the genes that are to the right of the start positions.  You
+probably want to specify an end position as well as a start position
+for your query.
+
+Sean
+
+
+From ramzi.temanni at gmail.com  Mon Dec  7 16:08:42 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Mon, 7 Dec 2009 16:08:42 +0100
+Subject: [Bioc-sig-seq] unexpected genes names list using getBM{biomaRt}
+In-Reply-To: <264855a00912070657m78f4e82ap64c29136db06e353@mail.gmail.com>
+References: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>
+	<264855a00912070657m78f4e82ap64c29136db06e353@mail.gmail.com>
+Message-ID: <68bbfdd40912070708y20608523k4cd57dc60aa4e6b9@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091207/3564d3a4/attachment.pl>
+
+From jmacdon at med.umich.edu  Mon Dec  7 16:20:48 2009
+From: jmacdon at med.umich.edu (James W. MacDonald)
+Date: Mon, 07 Dec 2009 10:20:48 -0500
+Subject: [Bioc-sig-seq] unexpected genes names list using getBM{biomaRt}
+In-Reply-To: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>
+References: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>
+Message-ID: <4B1D1D50.2080401@med.umich.edu>
+
+Hi Ramzi,
+
+Ramzi TEMANNI wrote:
+> Hi,
+> I want to extract the gene names knowing the chromosome and the position for
+> each genes:
+>> t.cpd[1:10,1:2]
+>       CHR.M1 POS.M1
+>  [1,] "12"   "140059033"
+>  [2,] "19"   "164634640"
+>  [3,] "10"   "32347784"
+>  [4,] "11"   "30576841"
+>  [5,] "2"    "86479831"
+>  [6,] "12"   "237019866"
+>  [7,] "4"    "76487174"
+>  [8,] "20"   "136121868"
+>  [9,] "2"    "6255547"
+> [10,] "1"    "67658137"
+> 
+> i use the following commands:
+> library(biomaRt)
+> mart = useMart("ensembl")
+> ensembl = useDataset("hsapiens_gene_ensembl", mart = mart)
+> gn.m1<-getBM(attributes= c("hgnc_symbol"),
+>        filters=c("chromosome_name","start"),
+>        values=list(t.cpd[1:10,1],t.cpd[1:10,2]), mart=ensembl)
+> 
+> I'm expecting having a list of 10 genes names, but instead i get 8652 genes:
+> hgnc_symbol
+> 1      OR2M1P
+> 2      OR2L1P
+> 3   HSD17B7P1
+> 4     OR14L1P
+> 5       OR2W5
+> 6       VN1R5
+> ......
+> 8649        WFS1
+> 8650    SNORD73A
+> 8651     SNORA24
+> 8652     SNORA26
+> 
+> Did I miss something ?
+
+Yes. You are giving the start position, but not the end. Without 
+explicitly telling the Biomart server where to stop looking for genes, 
+where do you think it will stop by default?
+
+Also, several of your coordinates are nonsensical. For instance, chr12 
+is only 133851859 bases long, chr20 is 63025520 bases long, etc.
+
+Best,
+
+Jim
+
+
+> 
+> Thanks in advance for your help
+> 
+> Best Regards,
+> Ramzi
+> 
+> ----------------------------------------------------------------
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+-- 
+James W. MacDonald, M.S.
+Biostatistician
+Douglas Lab
+University of Michigan
+Department of Human Genetics
+5912 Buhl
+1241 E. Catherine St.
+Ann Arbor MI 48109-5618
+734-615-7826
+**********************************************************
+Electronic Mail is not secure, may not be read every day, and should not be used for urgent or sensitive issues 
+
+
+From APratap at som.umaryland.edu  Mon Dec  7 17:45:11 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Mon, 7 Dec 2009 11:45:11 -0500
+Subject: [Bioc-sig-seq] Plotting Coverage for inhouse genome
+References: <20091121230844.GA23474@biocluster.ucr.edu>	<4B0B3294.7040407@fhcrc.org>	<20091124013659.GA4957@biocluster.ucr.edu>	<4B0CD92E.8090804@fhcrc.org>	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520B2@ISSOMEXMAIL.som.umaryland.edu><509e0620912021450w72546de3ra848689c511a7306@mail.gmail.com><4B16F5FD.6000001@fhcrc.org>	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520E6@ISSOMEXMAIL.som.umaryland.edu>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904D520EC@ISSOMEXMAIL.som.umaryland.edu>
+	<4B1C7315.1090607@fhcrc.org>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C4592F2C52@ISSOMEXMAIL.som.umaryland.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091207/f408f262/attachment.pl>
+
+From arici.voievod at gmail.com  Sat Dec  5 23:28:24 2009
+From: arici.voievod at gmail.com (Arici Pogonici)
+Date: Sat, 5 Dec 2009 14:28:24 -0800
+Subject: [Bioc-sig-seq] finding consensus sites in a set of DNA sequences
+Message-ID: <8cc65c570912051428x486c5d27n848340707b9a8679@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091205/d1651eb2/attachment.pl>
+
+From whuber at embl.de  Tue Dec  8 13:24:13 2009
+From: whuber at embl.de (Wolfgang Huber)
+Date: Tue, 08 Dec 2009 13:24:13 +0100
+Subject: [Bioc-sig-seq] finding consensus sites in a set of DNA sequences
+In-Reply-To: <8cc65c570912051428x486c5d27n848340707b9a8679@mail.gmail.com>
+References: <8cc65c570912051428x486c5d27n848340707b9a8679@mail.gmail.com>
+Message-ID: <4B1E456D.6080703@embl.de>
+
+Dear Arici
+
+yes.
+
+	Best wishes
+	Wolfgang
+
+
+Arici Pogonici scripsit 12/05/2009 11:28 PM:
+> Hi dear group -
+> 
+> please could you let me know whether there is any command in R/BioC that
+> would allow to identify long consensus sites (16-20 nt length) in a set of
+> DNA sequences.
+> 
+> Thanks a lot !
+> 
+> Arici
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+
+Best wishes
+      Wolfgang
+
+
+--
+Wolfgang Huber
+EMBL
+http://www.embl.de/research/units/genome_biology/huber/contact
+
+
+From whuber at embl.de  Tue Dec  8 14:00:38 2009
+From: whuber at embl.de (Wolfgang Huber)
+Date: Tue, 08 Dec 2009 14:00:38 +0100
+Subject: [Bioc-sig-seq] finding consensus sites in a set of DNA sequences
+In-Reply-To: <8cc65c570912051428x486c5d27n848340707b9a8679@mail.gmail.com>
+References: <8cc65c570912051428x486c5d27n848340707b9a8679@mail.gmail.com>
+Message-ID: <4B1E4DF6.6010904@embl.de>
+
+
+Hi Arici
+
+yes. For discovering such sequences, look at the "cosmo" package: 
+http://www.bioconductor.org/packages/bioc/vignettes/cosmo/inst/doc/cosmo.pdf
+
+For simply identifying known candidate sequences, 
+vMatchPattern/vcountPattern in "Biostrings" (which also offers 
+components with which you can build tools to try your own ideas).
+
+Arici Pogonici scripsit 12/05/2009 11:28 PM:
+> Hi dear group -
+> 
+> please could you let me know whether there is any command in R/BioC that
+> would allow to identify long consensus sites (16-20 nt length) in a set of
+> DNA sequences.
+> 
+> Thanks a lot !
+> 
+> Arici
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+
+Best wishes
+      Wolfgang
+
+
+--
+Wolfgang Huber
+EMBL
+http://www.embl.de/research/units/genome_biology/huber/contact
+
+
+From jmacdon at med.umich.edu  Tue Dec  8 16:51:44 2009
+From: jmacdon at med.umich.edu (James W. MacDonald)
+Date: Tue, 08 Dec 2009 10:51:44 -0500
+Subject: [Bioc-sig-seq] unexpected genes names list using getBM{biomaRt}
+In-Reply-To: <68bbfdd40912080014u7218ac94i42cf2155e97fe5f3@mail.gmail.com>
+References: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>	
+	<4B1D1D50.2080401@med.umich.edu>	
+	<68bbfdd40912070732x65e889fcycef132e87084be01@mail.gmail.com>
+	<68bbfdd40912080014u7218ac94i42cf2155e97fe5f3@mail.gmail.com>
+Message-ID: <4B1E7610.40603@med.umich.edu>
+
+Hi Ramzi,
+
+Ramzi TEMANNI wrote:
+> Hi James,
+> I found out that I'm using UCSC hg19 ref but Biomart uses GRCh37 ref and 
+> that's why the output generates many genes.
+> i'm trying to find out a way to convert coordinates but seems I have to 
+> align again using the GRCh37 ref.
+
+I don't think that is the problem, as UCSC hg19 is based on GRCh37. I 
+think there might be a problem on the Biomart server side. As far as I 
+can tell, the query string produced by biomaRt is correct, but the 
+Biomart server returns more than I think it should.
+
+In fact, if you do the query for each chromosome individually, you 
+either get one or zero genes returned. It's only if you do the query for 
+more than one chromosomal region at a time that you get these extra genes:
+
+ > getBM("hgnc_symbol", c("chromosome_name","start","end"), 
+list(t.cpd[3,1], t.cpd[3,2], t.cpd[3,2]+50), enseembl)
+[1] hgnc_symbol
+<0 rows> (or 0-length row.names)
+ > getBM("hgnc_symbol", c("chromosome_name","start","end"), 
+list(t.cpd[4,1], t.cpd[4,2], t.cpd[4,2]+50), enseembl)
+   hgnc_symbol
+1      MPPED2
+ > getBM("hgnc_symbol", c("chromosome_name","start","end"), 
+list(t.cpd[5,1], t.cpd[5,2], t.cpd[5,2]+50), enseembl)
+   hgnc_symbol
+1       REEP1
+ > tmp <- getBM("hgnc_symbol", c("chromosome_name","start","end"), 
+list(t.cpd[4:5,1], t.cpd[4:5,2], t.cpd[4:5,2]+50), enseembl)
+ > dim(tmp)
+[1] 946   1
+ > head(tmp)
+   hgnc_symbol
+1       ZFP91
+2        CNTF
+3    C11orf76
+4     RPLP0P2
+5    C11orf64
+6      OR4D8P
+ > grep("REEP1", tmp[,1], value=T)
+[1] "REEP1"
+
+The XMLQuery that is sent to the Biomart server looks like this (if 
+Rhoda Kinsella or Steffen Durinck are following this at all).
+
+Browse[2]> xmlQuery
+[1] "<?xml version='1.0' encoding='UTF-8'?><!DOCTYPE Query><Query 
+virtualSchemaName = 'default' uniqueRows = '1' count = '0' 
+datasetConfigVersion = '0.6' requestid= \"biomaRt\"> <Dataset name = 
+'hsapiens_gene_ensembl'><Attribute name = 'hgnc_symbol'/><Filter name = 
+'chromosome_name' value = '11,2' /><Filter name = 'start' value = 
+'30576841,86479831' /><Filter name = 'end' value = '30576891,86479881' 
+/></Dataset></Query>"
+
+Best,
+
+Jim
+
+
+
+> 
+> Regards,
+> Ramzi
+> ----------------------------------------------------------------
+> 
+> 
+> On Mon, Dec 7, 2009 at 4:32 PM, Ramzi TEMANNI <ramzi.temanni at gmail.com 
+> <mailto:ramzi.temanni at gmail.com>> wrote:
+> 
+>     Hi James,
+> 
+>     Thanks for your reply,
+>     As i have short reads of 50b, I've modified the code accordigly to
+>     your suggestion:
+>     gn.m1<-getBM(attributes= c("hgnc_symbol"),
+>            filters=c("chromosome_name","
+>     start",*"end"*),
+>           
+>     values=list(t.cpd[1:10,1],as.numeric(t.cpd[1:10,2]),*as.numeric(t.cpd[1:10,2])+50*),
+>     mart=ensembl)
+> 
+>     But still having more genes than expected:
+> 
+>     hgnc_symbol
+>     1      UBE2G1
+>     2      DUSP5P
+>     3   HIST3H2BA
+>     4     ZNF847P
+>     5     ACTBP11
+>     6     ZC3H11B
+>     ........
+>     8488     PPP2R2C
+>     8489        WFS1
+>     8490    SNORD73A
+>     8491     SNORA24
+>     8492     SNORA26
+> 
+>     Did I miss something  ?
+> 
+>     Thanks for the remark regarding the position, you are right ! I did
+>     not notice that, have to get back to the bowtie alignment file and
+>     see what is the reason behind that. I'm using bowtie with the last
+>     hg19 ref.
+> 
+>     Thanks again for your comment. 
+> 
+>     Best Regards,
+>     Ramzi
+> 
+>     ----------------------------------------------------------------
+> 
+> 
+> 
+>     On Mon, Dec 7, 2009 at 4:20 PM, James W. MacDonald
+>     <jmacdon at med.umich.edu <mailto:jmacdon at med.umich.edu>> wrote:
+> 
+>         Hi Ramzi,
+> 
+> 
+>         Ramzi TEMANNI wrote:
+> 
+>             Hi,
+>             I want to extract the gene names knowing the chromosome and
+>             the position for
+>             each genes:
+> 
+>                 t.cpd[1:10,1:2]
+> 
+>                  CHR.M1 POS.M1
+>              [1,] "12"   "140059033"
+>              [2,] "19"   "164634640"
+>              [3,] "10"   "32347784"
+>              [4,] "11"   "30576841"
+>              [5,] "2"    "86479831"
+>              [6,] "12"   "237019866"
+>              [7,] "4"    "76487174"
+>              [8,] "20"   "136121868"
+>              [9,] "2"    "6255547"
+>             [10,] "1"    "67658137"
+> 
+>             i use the following commands:
+>             library(biomaRt)
+>             mart = useMart("ensembl")
+>             ensembl = useDataset("hsapiens_gene_ensembl", mart = mart)
+>             gn.m1<-getBM(attributes= c("hgnc_symbol"),
+>                   filters=c("chromosome_name","start"),
+>                   values=list(t.cpd[1:10,1],t.cpd[1:10,2]), mart=ensembl)
+> 
+>             I'm expecting having a list of 10 genes names, but instead i
+>             get 8652 genes:
+>             hgnc_symbol
+>             1      OR2M1P
+>             2      OR2L1P
+>             3   HSD17B7P1
+>             4     OR14L1P
+>             5       OR2W5
+>             6       VN1R5
+>             ......
+>             8649        WFS1
+>             8650    SNORD73A
+>             8651     SNORA24
+>             8652     SNORA26
+> 
+>             Did I miss something ?
+> 
+> 
+>         Yes. You are giving the start position, but not the end. Without
+>         explicitly telling the Biomart server where to stop looking for
+>         genes, where do you think it will stop by default?
+> 
+>         Also, several of your coordinates are nonsensical. For instance,
+>         chr12 is only 133851859 bases long, chr20 is 63025520 bases
+>         long, etc.
+> 
+>         Best,
+> 
+>         Jim
+> 
+> 
+> 
+>             Thanks in advance for your help
+> 
+>             Best Regards,
+>             Ramzi
+> 
+>             ----------------------------------------------------------------
+> 
+>                    [[alternative HTML version deleted]]
+> 
+>             _______________________________________________
+>             Bioc-sig-sequencing mailing list
+>             Bioc-sig-sequencing at r-project.org
+>             <mailto:Bioc-sig-sequencing at r-project.org>
+>             https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+>         -- 
+>         James W. MacDonald, M.S.
+>         Biostatistician
+>         Douglas Lab
+>         University of Michigan
+>         Department of Human Genetics
+>         5912 Buhl
+>         1241 E. Catherine St.
+>         Ann Arbor MI 48109-5618
+>         734-615-7826
+>         **********************************************************
+>         Electronic Mail is not secure, may not be read every day, and
+>         should not be used for urgent or sensitive issues
+> 
+> 
+> 
+
+-- 
+James W. MacDonald, M.S.
+Biostatistician
+Douglas Lab
+University of Michigan
+Department of Human Genetics
+5912 Buhl
+1241 E. Catherine St.
+Ann Arbor MI 48109-5618
+734-615-7826
+**********************************************************
+Electronic Mail is not secure, may not be read every day, and should not be used for urgent or sensitive issues 
+
+
+From ramzi.temanni at gmail.com  Tue Dec  8 17:51:41 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Tue, 8 Dec 2009 17:51:41 +0100
+Subject: [Bioc-sig-seq] unexpected genes names list using getBM{biomaRt}
+In-Reply-To: <4B1E7610.40603@med.umich.edu>
+References: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>
+	<4B1D1D50.2080401@med.umich.edu>
+	<68bbfdd40912070732x65e889fcycef132e87084be01@mail.gmail.com>
+	<68bbfdd40912080014u7218ac94i42cf2155e97fe5f3@mail.gmail.com>
+	<4B1E7610.40603@med.umich.edu>
+Message-ID: <68bbfdd40912080851p687bce66t85793d3f3aafe04b@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091208/f24a82a8/attachment.pl>
+
+From ramzi.temanni at gmail.com  Tue Dec  8 19:29:51 2009
+From: ramzi.temanni at gmail.com (Mohamed-Ramzi TEMANNI)
+Date: Tue, 08 Dec 2009 19:29:51 +0100
+Subject: [Bioc-sig-seq] unexpected genes names list using getBM{biomaRt}
+In-Reply-To: <4B1E9522.2040601@med.umich.edu>
+References: <68bbfdd40912070652g2c2d0a35y3b6f92154643380@mail.gmail.com>	
+	<4B1D1D50.2080401@med.umich.edu>
+	<68bbfdd40912070732x65e889fcycef132e87084be01@mail.gmail.com>
+	<4B1E9522.2040601@med.umich.edu>
+Message-ID: <4B1E9B1F.7020706@imap.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091208/74b7396c/attachment.pl>
+
+From APratap at som.umaryland.edu  Tue Dec  8 23:05:59 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Tue, 8 Dec 2009 17:05:59 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+References: <20091102110908.M34578@curie.fr>
+	<4AEEDFE5.2010304@fhcrc.org><747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+
+Hi Martin
+
+Just wondering if people outside the firewall/network without passw
+could download this package ?
+
+
+Thanks,
+-Abhi 
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org
+[mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+Morgan
+Sent: Monday, November 02, 2009 8:58 AM
+To: Wu Wei
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+
+Hi Wave --
+
+svn co
+https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+
+R CMD INSTALL --clean Rsamtools
+
+see the script in Rsamtools/inst/script/readAligned_prototype.R
+
+e.g.,
+
+  source(system.file("script", "readAligned_prototype.R",
+                     package="Rsamtools"))
+  .readAligned_bam(<...>) # args like the other readAligned
+
+see ?scanBam for additional ideas.
+
+Martin
+
+Wu Wei wrote:
+> Hi Martin,
+> 
+> I am also looking for that. Would you please also forward that
+> additional info to me.
+> 
+> Thanks,
+> Wave
+> 
+> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+> 
+>> Joern Toedling wrote:
+>>> Hi everyone,
+>>>
+>>> has anybody by chance already written a parser for importing
+>>> alignments in
+>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>> to be
+>>> gaining more and more support, yet it is still absent from the
+>>> options in
+>>> function readAligned. If one of you already has written such a
+parsing
+>>> function and would not mind sharing it, please let me know.
+>>
+>> Hi Joern -- there is a package in the Bioc svn repository that does
+>> this; it is not yet in the devel branch, there are some limitations
+in
+>> terms of AlignedRead (e.g., AlignedRead currently supports only
+ungapped
+>> alignments, whereas BAM allows gapped). I'll forward additional info
+>> off-list.
+>>
+>> Martin
+>>>
+>>> Best regards,
+>>> Joern
+>>>
+>>> ---
+>>> Joern Toedling
+>>> Institut Curie -- U900
+>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>> Tel. +33 (0)156246926
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> -- 
+>> Martin Morgan
+>> Computational Biology / Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N.
+>> PO Box 19024 Seattle, WA 98109
+>>
+>> Location: Arnold Building M1 B861
+>> Phone: (206) 667-2793
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+> 
+> Wu Wei
+> Postdoctoral Fellow
+> Steinmetz Group, EMBL Heidelberg
+> Tex: +49 6221 387-8310 (8114)
+> Fax: +49 6221 387-8518
+> Email: wuwei at embl.de
+> 
+> 
+> 
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From seandavi at gmail.com  Tue Dec  8 23:08:40 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Tue, 8 Dec 2009 17:08:40 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <264855a00912081408u3a686029i94df0361637fad07@mail.gmail.com>
+
+On Tue, Dec 8, 2009 at 5:05 PM, Pratap, Abhishek
+<APratap at som.umaryland.edu> wrote:
+> Hi Martin
+>
+> Just wondering if people outside the firewall/network without passw
+> could download this package ?
+
+You can, yes.  You'll want to use svn and follow the instructions that
+Martin posted in the last email (below).
+
+Sean
+
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+> Morgan
+> Sent: Monday, November 02, 2009 8:58 AM
+> To: Wu Wei
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>
+> Hi Wave --
+>
+> svn co
+> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+>
+> R CMD INSTALL --clean Rsamtools
+>
+> see the script in Rsamtools/inst/script/readAligned_prototype.R
+>
+> e.g.,
+>
+> ?source(system.file("script", "readAligned_prototype.R",
+> ? ? ? ? ? ? ? ? ? ? package="Rsamtools"))
+> ?.readAligned_bam(<...>) # args like the other readAligned
+>
+> see ?scanBam for additional ideas.
+>
+> Martin
+>
+> Wu Wei wrote:
+>> Hi Martin,
+>>
+>> I am also looking for that. Would you please also forward that
+>> additional info to me.
+>>
+>> Thanks,
+>> Wave
+>>
+>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>
+>>> Joern Toedling wrote:
+>>>> Hi everyone,
+>>>>
+>>>> has anybody by chance already written a parser for importing
+>>>> alignments in
+>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>> to be
+>>>> gaining more and more support, yet it is still absent from the
+>>>> options in
+>>>> function readAligned. If one of you already has written such a
+> parsing
+>>>> function and would not mind sharing it, please let me know.
+>>>
+>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>> this; it is not yet in the devel branch, there are some limitations
+> in
+>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+> ungapped
+>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>> off-list.
+>>>
+>>> Martin
+>>>>
+>>>> Best regards,
+>>>> Joern
+>>>>
+>>>> ---
+>>>> Joern Toedling
+>>>> Institut Curie -- U900
+>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>> Tel. +33 (0)156246926
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>>
+>>> --
+>>> Martin Morgan
+>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N.
+>>> PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: Arnold Building M1 B861
+>>> Phone: (206) 667-2793
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>>
+>> Wu Wei
+>> Postdoctoral Fellow
+>> Steinmetz Group, EMBL Heidelberg
+>> Tex: +49 6221 387-8310 (8114)
+>> Fax: +49 6221 387-8518
+>> Email: wuwei at embl.de
+>>
+>>
+>>
+>>
+>
+>
+> --
+> Martin Morgan
+> Computational Biology / Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N.
+> PO Box 19024 Seattle, WA 98109
+>
+> Location: Arnold Building M1 B861
+> Phone: (206) 667-2793
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From APratap at som.umaryland.edu  Tue Dec  8 23:15:27 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Tue, 8 Dec 2009 17:15:27 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+	<264855a00912081408u3a686029i94df0361637fad07@mail.gmail.com>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD235B@ISSOMEXMAIL.som.umaryland.edu>
+
+Hey Sean
+
+I guess I should be stated this in the beginning. Checking out from this rep (https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools) requires a password. Am I missing something obvious ?
+
+I also tried anonymous din't work.
+
+
+-Abhi
+
+-----Original Message-----
+From: Sean Davis [mailto:seandavi at gmail.com] 
+Sent: Tuesday, December 08, 2009 5:09 PM
+To: Pratap, Abhishek
+Cc: Martin Morgan; Wu Wei; bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+
+On Tue, Dec 8, 2009 at 5:05 PM, Pratap, Abhishek
+<APratap at som.umaryland.edu> wrote:
+> Hi Martin
+>
+> Just wondering if people outside the firewall/network without passw
+> could download this package ?
+
+You can, yes.  You'll want to use svn and follow the instructions that
+Martin posted in the last email (below).
+
+Sean
+
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+> Morgan
+> Sent: Monday, November 02, 2009 8:58 AM
+> To: Wu Wei
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>
+> Hi Wave --
+>
+> svn co
+> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+>
+> R CMD INSTALL --clean Rsamtools
+>
+> see the script in Rsamtools/inst/script/readAligned_prototype.R
+>
+> e.g.,
+>
+> ?source(system.file("script", "readAligned_prototype.R",
+> ? ? ? ? ? ? ? ? ? ? package="Rsamtools"))
+> ?.readAligned_bam(<...>) # args like the other readAligned
+>
+> see ?scanBam for additional ideas.
+>
+> Martin
+>
+> Wu Wei wrote:
+>> Hi Martin,
+>>
+>> I am also looking for that. Would you please also forward that
+>> additional info to me.
+>>
+>> Thanks,
+>> Wave
+>>
+>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>
+>>> Joern Toedling wrote:
+>>>> Hi everyone,
+>>>>
+>>>> has anybody by chance already written a parser for importing
+>>>> alignments in
+>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>> to be
+>>>> gaining more and more support, yet it is still absent from the
+>>>> options in
+>>>> function readAligned. If one of you already has written such a
+> parsing
+>>>> function and would not mind sharing it, please let me know.
+>>>
+>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>> this; it is not yet in the devel branch, there are some limitations
+> in
+>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+> ungapped
+>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>> off-list.
+>>>
+>>> Martin
+>>>>
+>>>> Best regards,
+>>>> Joern
+>>>>
+>>>> ---
+>>>> Joern Toedling
+>>>> Institut Curie -- U900
+>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>> Tel. +33 (0)156246926
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>>
+>>> --
+>>> Martin Morgan
+>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N.
+>>> PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: Arnold Building M1 B861
+>>> Phone: (206) 667-2793
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>>
+>> Wu Wei
+>> Postdoctoral Fellow
+>> Steinmetz Group, EMBL Heidelberg
+>> Tex: +49 6221 387-8310 (8114)
+>> Fax: +49 6221 387-8518
+>> Email: wuwei at embl.de
+>>
+>>
+>>
+>>
+>
+>
+> --
+> Martin Morgan
+> Computational Biology / Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N.
+> PO Box 19024 Seattle, WA 98109
+>
+> Location: Arnold Building M1 B861
+> Phone: (206) 667-2793
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+From mtmorgan at fhcrc.org  Tue Dec  8 23:17:23 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 08 Dec 2009 14:17:23 -0800
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+References: <20091102110908.M34578@curie.fr>
+	<4AEEDFE5.2010304@fhcrc.org><747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <4B1ED073.8030804@fhcrc.org>
+
+Pratap, Abhishek wrote:
+> Hi Martin
+> 
+> Just wondering if people outside the firewall/network without passw
+> could download this package ?
+
+Hi Abhi -- there are short instructions on use of svn, including
+password, at
+
+  http://wiki.fhcrc.org/bioc/SvnHowTo
+
+Important to note that this package is very much under active
+development, so subject to frequent and unpredictable change.
+
+Martin
+
+> 
+> 
+> Thanks,
+> -Abhi 
+> 
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+> Morgan
+> Sent: Monday, November 02, 2009 8:58 AM
+> To: Wu Wei
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+> 
+> Hi Wave --
+> 
+> svn co
+> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+> 
+> R CMD INSTALL --clean Rsamtools
+> 
+> see the script in Rsamtools/inst/script/readAligned_prototype.R
+> 
+> e.g.,
+> 
+>   source(system.file("script", "readAligned_prototype.R",
+>                      package="Rsamtools"))
+>   .readAligned_bam(<...>) # args like the other readAligned
+> 
+> see ?scanBam for additional ideas.
+> 
+> Martin
+> 
+> Wu Wei wrote:
+>> Hi Martin,
+>>
+>> I am also looking for that. Would you please also forward that
+>> additional info to me.
+>>
+>> Thanks,
+>> Wave
+>>
+>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>
+>>> Joern Toedling wrote:
+>>>> Hi everyone,
+>>>>
+>>>> has anybody by chance already written a parser for importing
+>>>> alignments in
+>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>> to be
+>>>> gaining more and more support, yet it is still absent from the
+>>>> options in
+>>>> function readAligned. If one of you already has written such a
+> parsing
+>>>> function and would not mind sharing it, please let me know.
+>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>> this; it is not yet in the devel branch, there are some limitations
+> in
+>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+> ungapped
+>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>> off-list.
+>>>
+>>> Martin
+>>>> Best regards,
+>>>> Joern
+>>>>
+>>>> ---
+>>>> Joern Toedling
+>>>> Institut Curie -- U900
+>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>> Tel. +33 (0)156246926
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>> -- 
+>>> Martin Morgan
+>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N.
+>>> PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: Arnold Building M1 B861
+>>> Phone: (206) 667-2793
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> Wu Wei
+>> Postdoctoral Fellow
+>> Steinmetz Group, EMBL Heidelberg
+>> Tex: +49 6221 387-8310 (8114)
+>> Fax: +49 6221 387-8518
+>> Email: wuwei at embl.de
+>>
+>>
+>>
+>>
+> 
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From APratap at som.umaryland.edu  Tue Dec  8 23:19:54 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Tue, 8 Dec 2009 17:19:54 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+References: <20091102110908.M34578@curie.fr>
+	<4AEEDFE5.2010304@fhcrc.org><747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+	<4B1ED073.8030804@fhcrc.org>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD2362@ISSOMEXMAIL.som.umaryland.edu>
+
+Thanks Martin. Clearly shows I am just getting started :).
+
+-Abhi
+
+-----Original Message-----
+From: Martin Morgan [mailto:mtmorgan at fhcrc.org] 
+Sent: Tuesday, December 08, 2009 5:17 PM
+To: Pratap, Abhishek
+Cc: Wu Wei; bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+
+Pratap, Abhishek wrote:
+> Hi Martin
+> 
+> Just wondering if people outside the firewall/network without passw
+> could download this package ?
+
+Hi Abhi -- there are short instructions on use of svn, including
+password, at
+
+  http://wiki.fhcrc.org/bioc/SvnHowTo
+
+Important to note that this package is very much under active
+development, so subject to frequent and unpredictable change.
+
+Martin
+
+> 
+> 
+> Thanks,
+> -Abhi 
+> 
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+> Morgan
+> Sent: Monday, November 02, 2009 8:58 AM
+> To: Wu Wei
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+> 
+> Hi Wave --
+> 
+> svn co
+> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+> 
+> R CMD INSTALL --clean Rsamtools
+> 
+> see the script in Rsamtools/inst/script/readAligned_prototype.R
+> 
+> e.g.,
+> 
+>   source(system.file("script", "readAligned_prototype.R",
+>                      package="Rsamtools"))
+>   .readAligned_bam(<...>) # args like the other readAligned
+> 
+> see ?scanBam for additional ideas.
+> 
+> Martin
+> 
+> Wu Wei wrote:
+>> Hi Martin,
+>>
+>> I am also looking for that. Would you please also forward that
+>> additional info to me.
+>>
+>> Thanks,
+>> Wave
+>>
+>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>
+>>> Joern Toedling wrote:
+>>>> Hi everyone,
+>>>>
+>>>> has anybody by chance already written a parser for importing
+>>>> alignments in
+>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>> to be
+>>>> gaining more and more support, yet it is still absent from the
+>>>> options in
+>>>> function readAligned. If one of you already has written such a
+> parsing
+>>>> function and would not mind sharing it, please let me know.
+>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>> this; it is not yet in the devel branch, there are some limitations
+> in
+>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+> ungapped
+>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>> off-list.
+>>>
+>>> Martin
+>>>> Best regards,
+>>>> Joern
+>>>>
+>>>> ---
+>>>> Joern Toedling
+>>>> Institut Curie -- U900
+>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>> Tel. +33 (0)156246926
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>> -- 
+>>> Martin Morgan
+>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N.
+>>> PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: Arnold Building M1 B861
+>>> Phone: (206) 667-2793
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> Wu Wei
+>> Postdoctoral Fellow
+>> Steinmetz Group, EMBL Heidelberg
+>> Tex: +49 6221 387-8310 (8114)
+>> Fax: +49 6221 387-8518
+>> Email: wuwei at embl.de
+>>
+>>
+>>
+>>
+> 
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From APratap at som.umaryland.edu  Tue Dec  8 23:26:40 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Tue, 8 Dec 2009 17:26:40 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+References: <20091102110908.M34578@curie.fr><4AEEDFE5.2010304@fhcrc.org><747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de><4AEEE585.2060801@fhcrc.org><B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu><4B1ED073.8030804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD2362@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD2369@ISSOMEXMAIL.som.umaryland.edu>
+
+If following a hint that I should move to R-devel for testing RSamtools.
+
+This is while trying to install RSAMTools
+
+Warning in .completeClassSlots(ClassDef, where) :
+  undefined slot classes in definition of "Alignments0":
+gapped_ranges(class "GappedRanges")
+Error in setValidity2("Alignments0", .valid.Alignments0, where =
+asNamespace("Rsamtools")) : 
+  unused argument(s) (where = asNamespace("Rsamtools"))
+Error : unable to load R code in package 'Rsamtools'
+ERROR: lazy loading failed for package 'Rsamtools'
+* removing
+'/local/projects/grc/devel/apratap/softwares/R-2.10.0/lib64/R/library/Rs
+amtools
+
+
+-Abhi
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org
+[mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Pratap,
+Abhishek
+Sent: Tuesday, December 08, 2009 5:20 PM
+To: Martin Morgan
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+
+Thanks Martin. Clearly shows I am just getting started :).
+
+-Abhi
+
+-----Original Message-----
+From: Martin Morgan [mailto:mtmorgan at fhcrc.org] 
+Sent: Tuesday, December 08, 2009 5:17 PM
+To: Pratap, Abhishek
+Cc: Wu Wei; bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+
+Pratap, Abhishek wrote:
+> Hi Martin
+> 
+> Just wondering if people outside the firewall/network without passw
+> could download this package ?
+
+Hi Abhi -- there are short instructions on use of svn, including
+password, at
+
+  http://wiki.fhcrc.org/bioc/SvnHowTo
+
+Important to note that this package is very much under active
+development, so subject to frequent and unpredictable change.
+
+Martin
+
+> 
+> 
+> Thanks,
+> -Abhi 
+> 
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+> Morgan
+> Sent: Monday, November 02, 2009 8:58 AM
+> To: Wu Wei
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+> 
+> Hi Wave --
+> 
+> svn co
+> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+> 
+> R CMD INSTALL --clean Rsamtools
+> 
+> see the script in Rsamtools/inst/script/readAligned_prototype.R
+> 
+> e.g.,
+> 
+>   source(system.file("script", "readAligned_prototype.R",
+>                      package="Rsamtools"))
+>   .readAligned_bam(<...>) # args like the other readAligned
+> 
+> see ?scanBam for additional ideas.
+> 
+> Martin
+> 
+> Wu Wei wrote:
+>> Hi Martin,
+>>
+>> I am also looking for that. Would you please also forward that
+>> additional info to me.
+>>
+>> Thanks,
+>> Wave
+>>
+>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>
+>>> Joern Toedling wrote:
+>>>> Hi everyone,
+>>>>
+>>>> has anybody by chance already written a parser for importing
+>>>> alignments in
+>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>> to be
+>>>> gaining more and more support, yet it is still absent from the
+>>>> options in
+>>>> function readAligned. If one of you already has written such a
+> parsing
+>>>> function and would not mind sharing it, please let me know.
+>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>> this; it is not yet in the devel branch, there are some limitations
+> in
+>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+> ungapped
+>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>> off-list.
+>>>
+>>> Martin
+>>>> Best regards,
+>>>> Joern
+>>>>
+>>>> ---
+>>>> Joern Toedling
+>>>> Institut Curie -- U900
+>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>> Tel. +33 (0)156246926
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>> -- 
+>>> Martin Morgan
+>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>> 1100 Fairview Ave. N.
+>>> PO Box 19024 Seattle, WA 98109
+>>>
+>>> Location: Arnold Building M1 B861
+>>> Phone: (206) 667-2793
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>>
+>> Wu Wei
+>> Postdoctoral Fellow
+>> Steinmetz Group, EMBL Heidelberg
+>> Tex: +49 6221 387-8310 (8114)
+>> Fax: +49 6221 387-8518
+>> Email: wuwei at embl.de
+>>
+>>
+>>
+>>
+> 
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From seandavi at gmail.com  Tue Dec  8 23:29:39 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Tue, 8 Dec 2009 17:29:39 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD2369@ISSOMEXMAIL.som.umaryland.edu>
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+	<4B1ED073.8030804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD2362@ISSOMEXMAIL.som.umaryland.edu>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD2369@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <264855a00912081429o3b27e1a0of2a7ed71d4d5ee69@mail.gmail.com>
+
+On Tue, Dec 8, 2009 at 5:26 PM, Pratap, Abhishek
+<APratap at som.umaryland.edu> wrote:
+> If following a hint that I should move to R-devel for testing RSamtools.
+
+Yes.  You'll need to be using R-devel and the devel branch of bioconductor.
+
+> This is while trying to install RSAMTools
+>
+> Warning in .completeClassSlots(ClassDef, where) :
+> ?undefined slot classes in definition of "Alignments0":
+> gapped_ranges(class "GappedRanges")
+> Error in setValidity2("Alignments0", .valid.Alignments0, where =
+> asNamespace("Rsamtools")) :
+> ?unused argument(s) (where = asNamespace("Rsamtools"))
+> Error : unable to load R code in package 'Rsamtools'
+> ERROR: lazy loading failed for package 'Rsamtools'
+> * removing
+> '/local/projects/grc/devel/apratap/softwares/R-2.10.0/lib64/R/library/Rs
+> amtools
+>
+>
+> -Abhi
+>
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Pratap,
+> Abhishek
+> Sent: Tuesday, December 08, 2009 5:20 PM
+> To: Martin Morgan
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>
+> Thanks Martin. Clearly shows I am just getting started :).
+>
+> -Abhi
+>
+> -----Original Message-----
+> From: Martin Morgan [mailto:mtmorgan at fhcrc.org]
+> Sent: Tuesday, December 08, 2009 5:17 PM
+> To: Pratap, Abhishek
+> Cc: Wu Wei; bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>
+> Pratap, Abhishek wrote:
+>> Hi Martin
+>>
+>> Just wondering if people outside the firewall/network without passw
+>> could download this package ?
+>
+> Hi Abhi -- there are short instructions on use of svn, including
+> password, at
+>
+> ?http://wiki.fhcrc.org/bioc/SvnHowTo
+>
+> Important to note that this package is very much under active
+> development, so subject to frequent and unpredictable change.
+>
+> Martin
+>
+>>
+>>
+>> Thanks,
+>> -Abhi
+>>
+>> -----Original Message-----
+>> From: bioc-sig-sequencing-bounces at r-project.org
+>> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+>> Morgan
+>> Sent: Monday, November 02, 2009 8:58 AM
+>> To: Wu Wei
+>> Cc: bioc-sig-sequencing at r-project.org
+>> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>>
+>> Hi Wave --
+>>
+>> svn co
+>> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+>>
+>> R CMD INSTALL --clean Rsamtools
+>>
+>> see the script in Rsamtools/inst/script/readAligned_prototype.R
+>>
+>> e.g.,
+>>
+>> ? source(system.file("script", "readAligned_prototype.R",
+>> ? ? ? ? ? ? ? ? ? ? ?package="Rsamtools"))
+>> ? .readAligned_bam(<...>) # args like the other readAligned
+>>
+>> see ?scanBam for additional ideas.
+>>
+>> Martin
+>>
+>> Wu Wei wrote:
+>>> Hi Martin,
+>>>
+>>> I am also looking for that. Would you please also forward that
+>>> additional info to me.
+>>>
+>>> Thanks,
+>>> Wave
+>>>
+>>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>>
+>>>> Joern Toedling wrote:
+>>>>> Hi everyone,
+>>>>>
+>>>>> has anybody by chance already written a parser for importing
+>>>>> alignments in
+>>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>>> to be
+>>>>> gaining more and more support, yet it is still absent from the
+>>>>> options in
+>>>>> function readAligned. If one of you already has written such a
+>> parsing
+>>>>> function and would not mind sharing it, please let me know.
+>>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>>> this; it is not yet in the devel branch, there are some limitations
+>> in
+>>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+>> ungapped
+>>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>>> off-list.
+>>>>
+>>>> Martin
+>>>>> Best regards,
+>>>>> Joern
+>>>>>
+>>>>> ---
+>>>>> Joern Toedling
+>>>>> Institut Curie -- U900
+>>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>>> Tel. +33 (0)156246926
+>>>>>
+>>>>> _______________________________________________
+>>>>> Bioc-sig-sequencing mailing list
+>>>>> Bioc-sig-sequencing at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>>
+>>>> --
+>>>> Martin Morgan
+>>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>>> 1100 Fairview Ave. N.
+>>>> PO Box 19024 Seattle, WA 98109
+>>>>
+>>>> Location: Arnold Building M1 B861
+>>>> Phone: (206) 667-2793
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>>
+>>> Wu Wei
+>>> Postdoctoral Fellow
+>>> Steinmetz Group, EMBL Heidelberg
+>>> Tex: +49 6221 387-8310 (8114)
+>>> Fax: +49 6221 387-8518
+>>> Email: wuwei at embl.de
+>>>
+>>>
+>>>
+>>>
+>>
+>>
+>
+>
+> --
+> Martin Morgan
+> Computational Biology / Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N.
+> PO Box 19024 Seattle, WA 98109
+>
+> Location: Arnold Building M1 B861
+> Phone: (206) 667-2793
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From APratap at som.umaryland.edu  Wed Dec  9 00:06:06 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Tue, 8 Dec 2009 18:06:06 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+	<4B1ED073.8030804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD2362@ISSOMEXMAIL.som.umaryland.edu>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD2369@ISSOMEXMAIL.som.umaryland.edu>
+	<264855a00912081429o3b27e1a0of2a7ed71d4d5ee69@mail.gmail.com>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD237D@ISSOMEXMAIL.som.umaryland.edu>
+
+Sorry I could not find the way to install BioC dev version. I was looking here : http://www.bioconductor.org/docs/install/
+
+
+-Abhi
+
+-----Original Message-----
+From: Sean Davis [mailto:seandavi at gmail.com] 
+Sent: Tuesday, December 08, 2009 5:30 PM
+To: Pratap, Abhishek
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+
+On Tue, Dec 8, 2009 at 5:26 PM, Pratap, Abhishek
+<APratap at som.umaryland.edu> wrote:
+> If following a hint that I should move to R-devel for testing RSamtools.
+
+Yes.  You'll need to be using R-devel and the devel branch of bioconductor.
+
+> This is while trying to install RSAMTools
+>
+> Warning in .completeClassSlots(ClassDef, where) :
+> ?undefined slot classes in definition of "Alignments0":
+> gapped_ranges(class "GappedRanges")
+> Error in setValidity2("Alignments0", .valid.Alignments0, where =
+> asNamespace("Rsamtools")) :
+> ?unused argument(s) (where = asNamespace("Rsamtools"))
+> Error : unable to load R code in package 'Rsamtools'
+> ERROR: lazy loading failed for package 'Rsamtools'
+> * removing
+> '/local/projects/grc/devel/apratap/softwares/R-2.10.0/lib64/R/library/Rs
+> amtools
+>
+>
+> -Abhi
+>
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org
+> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Pratap,
+> Abhishek
+> Sent: Tuesday, December 08, 2009 5:20 PM
+> To: Martin Morgan
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>
+> Thanks Martin. Clearly shows I am just getting started :).
+>
+> -Abhi
+>
+> -----Original Message-----
+> From: Martin Morgan [mailto:mtmorgan at fhcrc.org]
+> Sent: Tuesday, December 08, 2009 5:17 PM
+> To: Pratap, Abhishek
+> Cc: Wu Wei; bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>
+> Pratap, Abhishek wrote:
+>> Hi Martin
+>>
+>> Just wondering if people outside the firewall/network without passw
+>> could download this package ?
+>
+> Hi Abhi -- there are short instructions on use of svn, including
+> password, at
+>
+> ?http://wiki.fhcrc.org/bioc/SvnHowTo
+>
+> Important to note that this package is very much under active
+> development, so subject to frequent and unpredictable change.
+>
+> Martin
+>
+>>
+>>
+>> Thanks,
+>> -Abhi
+>>
+>> -----Original Message-----
+>> From: bioc-sig-sequencing-bounces at r-project.org
+>> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+>> Morgan
+>> Sent: Monday, November 02, 2009 8:58 AM
+>> To: Wu Wei
+>> Cc: bioc-sig-sequencing at r-project.org
+>> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>>
+>> Hi Wave --
+>>
+>> svn co
+>> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+>>
+>> R CMD INSTALL --clean Rsamtools
+>>
+>> see the script in Rsamtools/inst/script/readAligned_prototype.R
+>>
+>> e.g.,
+>>
+>> ? source(system.file("script", "readAligned_prototype.R",
+>> ? ? ? ? ? ? ? ? ? ? ?package="Rsamtools"))
+>> ? .readAligned_bam(<...>) # args like the other readAligned
+>>
+>> see ?scanBam for additional ideas.
+>>
+>> Martin
+>>
+>> Wu Wei wrote:
+>>> Hi Martin,
+>>>
+>>> I am also looking for that. Would you please also forward that
+>>> additional info to me.
+>>>
+>>> Thanks,
+>>> Wave
+>>>
+>>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>>
+>>>> Joern Toedling wrote:
+>>>>> Hi everyone,
+>>>>>
+>>>>> has anybody by chance already written a parser for importing
+>>>>> alignments in
+>>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>>> to be
+>>>>> gaining more and more support, yet it is still absent from the
+>>>>> options in
+>>>>> function readAligned. If one of you already has written such a
+>> parsing
+>>>>> function and would not mind sharing it, please let me know.
+>>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>>> this; it is not yet in the devel branch, there are some limitations
+>> in
+>>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+>> ungapped
+>>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>>> off-list.
+>>>>
+>>>> Martin
+>>>>> Best regards,
+>>>>> Joern
+>>>>>
+>>>>> ---
+>>>>> Joern Toedling
+>>>>> Institut Curie -- U900
+>>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>>> Tel. +33 (0)156246926
+>>>>>
+>>>>> _______________________________________________
+>>>>> Bioc-sig-sequencing mailing list
+>>>>> Bioc-sig-sequencing at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>>
+>>>> --
+>>>> Martin Morgan
+>>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>>> 1100 Fairview Ave. N.
+>>>> PO Box 19024 Seattle, WA 98109
+>>>>
+>>>> Location: Arnold Building M1 B861
+>>>> Phone: (206) 667-2793
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>>
+>>> Wu Wei
+>>> Postdoctoral Fellow
+>>> Steinmetz Group, EMBL Heidelberg
+>>> Tex: +49 6221 387-8310 (8114)
+>>> Fax: +49 6221 387-8518
+>>> Email: wuwei at embl.de
+>>>
+>>>
+>>>
+>>>
+>>
+>>
+>
+>
+> --
+> Martin Morgan
+> Computational Biology / Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N.
+> PO Box 19024 Seattle, WA 98109
+>
+> Location: Arnold Building M1 B861
+> Phone: (206) 667-2793
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+From seandavi at gmail.com  Wed Dec  9 00:09:32 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Tue, 8 Dec 2009 18:09:32 -0500
+Subject: [Bioc-sig-seq] readAligned and BAM format
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD237D@ISSOMEXMAIL.som.umaryland.edu>
+References: <20091102110908.M34578@curie.fr> <4AEEDFE5.2010304@fhcrc.org>
+	<747A367C-37AF-41CF-962D-E9D72F7D88C7@embl.de>
+	<4AEEE585.2060801@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD234B@ISSOMEXMAIL.som.umaryland.edu>
+	<4B1ED073.8030804@fhcrc.org>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD2362@ISSOMEXMAIL.som.umaryland.edu>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD2369@ISSOMEXMAIL.som.umaryland.edu>
+	<264855a00912081429o3b27e1a0of2a7ed71d4d5ee69@mail.gmail.com>
+	<B79B4BB2EC31EC4CA3AEC6B95158C45904DD237D@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <264855a00912081509x5a0c730v3fb06a65523fcfe0@mail.gmail.com>
+
+On Tue, Dec 8, 2009 at 6:06 PM, Pratap, Abhishek
+<APratap at som.umaryland.edu> wrote:
+> Sorry I could not find the way to install BioC dev version. I was looking here : http://www.bioconductor.org/docs/install/
+
+Hi, Abhi.
+
+Simply install the development version of R (available from the CRAN
+website) and then use biocLite() as usual.  You will get the devel
+versions of bioconductor packages.
+
+Sean
+
+> -----Original Message-----
+> From: Sean Davis [mailto:seandavi at gmail.com]
+> Sent: Tuesday, December 08, 2009 5:30 PM
+> To: Pratap, Abhishek
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>
+> On Tue, Dec 8, 2009 at 5:26 PM, Pratap, Abhishek
+> <APratap at som.umaryland.edu> wrote:
+>> If following a hint that I should move to R-devel for testing RSamtools.
+>
+> Yes. ?You'll need to be using R-devel and the devel branch of bioconductor.
+>
+>> This is while trying to install RSAMTools
+>>
+>> Warning in .completeClassSlots(ClassDef, where) :
+>> ?undefined slot classes in definition of "Alignments0":
+>> gapped_ranges(class "GappedRanges")
+>> Error in setValidity2("Alignments0", .valid.Alignments0, where =
+>> asNamespace("Rsamtools")) :
+>> ?unused argument(s) (where = asNamespace("Rsamtools"))
+>> Error : unable to load R code in package 'Rsamtools'
+>> ERROR: lazy loading failed for package 'Rsamtools'
+>> * removing
+>> '/local/projects/grc/devel/apratap/softwares/R-2.10.0/lib64/R/library/Rs
+>> amtools
+>>
+>>
+>> -Abhi
+>>
+>> -----Original Message-----
+>> From: bioc-sig-sequencing-bounces at r-project.org
+>> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Pratap,
+>> Abhishek
+>> Sent: Tuesday, December 08, 2009 5:20 PM
+>> To: Martin Morgan
+>> Cc: bioc-sig-sequencing at r-project.org
+>> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>>
+>> Thanks Martin. Clearly shows I am just getting started :).
+>>
+>> -Abhi
+>>
+>> -----Original Message-----
+>> From: Martin Morgan [mailto:mtmorgan at fhcrc.org]
+>> Sent: Tuesday, December 08, 2009 5:17 PM
+>> To: Pratap, Abhishek
+>> Cc: Wu Wei; bioc-sig-sequencing at r-project.org
+>> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>>
+>> Pratap, Abhishek wrote:
+>>> Hi Martin
+>>>
+>>> Just wondering if people outside the firewall/network without passw
+>>> could download this package ?
+>>
+>> Hi Abhi -- there are short instructions on use of svn, including
+>> password, at
+>>
+>> ?http://wiki.fhcrc.org/bioc/SvnHowTo
+>>
+>> Important to note that this package is very much under active
+>> development, so subject to frequent and unpredictable change.
+>>
+>> Martin
+>>
+>>>
+>>>
+>>> Thanks,
+>>> -Abhi
+>>>
+>>> -----Original Message-----
+>>> From: bioc-sig-sequencing-bounces at r-project.org
+>>> [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Martin
+>>> Morgan
+>>> Sent: Monday, November 02, 2009 8:58 AM
+>>> To: Wu Wei
+>>> Cc: bioc-sig-sequencing at r-project.org
+>>> Subject: Re: [Bioc-sig-seq] readAligned and BAM format
+>>>
+>>> Hi Wave --
+>>>
+>>> svn co
+>>> https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/Rsamtools
+>>>
+>>> R CMD INSTALL --clean Rsamtools
+>>>
+>>> see the script in Rsamtools/inst/script/readAligned_prototype.R
+>>>
+>>> e.g.,
+>>>
+>>> ? source(system.file("script", "readAligned_prototype.R",
+>>> ? ? ? ? ? ? ? ? ? ? ?package="Rsamtools"))
+>>> ? .readAligned_bam(<...>) # args like the other readAligned
+>>>
+>>> see ?scanBam for additional ideas.
+>>>
+>>> Martin
+>>>
+>>> Wu Wei wrote:
+>>>> Hi Martin,
+>>>>
+>>>> I am also looking for that. Would you please also forward that
+>>>> additional info to me.
+>>>>
+>>>> Thanks,
+>>>> Wave
+>>>>
+>>>> On 2 Nov 2009, at 14:34, Martin Morgan wrote:
+>>>>
+>>>>> Joern Toedling wrote:
+>>>>>> Hi everyone,
+>>>>>>
+>>>>>> has anybody by chance already written a parser for importing
+>>>>>> alignments in
+>>>>>> BAM/SAM format into objects of class AlignedRead? This format seems
+>>>>>> to be
+>>>>>> gaining more and more support, yet it is still absent from the
+>>>>>> options in
+>>>>>> function readAligned. If one of you already has written such a
+>>> parsing
+>>>>>> function and would not mind sharing it, please let me know.
+>>>>> Hi Joern -- there is a package in the Bioc svn repository that does
+>>>>> this; it is not yet in the devel branch, there are some limitations
+>>> in
+>>>>> terms of AlignedRead (e.g., AlignedRead currently supports only
+>>> ungapped
+>>>>> alignments, whereas BAM allows gapped). I'll forward additional info
+>>>>> off-list.
+>>>>>
+>>>>> Martin
+>>>>>> Best regards,
+>>>>>> Joern
+>>>>>>
+>>>>>> ---
+>>>>>> Joern Toedling
+>>>>>> Institut Curie -- U900
+>>>>>> 26 rue d'Ulm, 75005 Paris, FRANCE
+>>>>>> Tel. +33 (0)156246926
+>>>>>>
+>>>>>> _______________________________________________
+>>>>>> Bioc-sig-sequencing mailing list
+>>>>>> Bioc-sig-sequencing at r-project.org
+>>>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>>>
+>>>>> --
+>>>>> Martin Morgan
+>>>>> Computational Biology / Fred Hutchinson Cancer Research Center
+>>>>> 1100 Fairview Ave. N.
+>>>>> PO Box 19024 Seattle, WA 98109
+>>>>>
+>>>>> Location: Arnold Building M1 B861
+>>>>> Phone: (206) 667-2793
+>>>>>
+>>>>> _______________________________________________
+>>>>> Bioc-sig-sequencing mailing list
+>>>>> Bioc-sig-sequencing at r-project.org
+>>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>>
+>>>>
+>>>> Wu Wei
+>>>> Postdoctoral Fellow
+>>>> Steinmetz Group, EMBL Heidelberg
+>>>> Tex: +49 6221 387-8310 (8114)
+>>>> Fax: +49 6221 387-8518
+>>>> Email: wuwei at embl.de
+>>>>
+>>>>
+>>>>
+>>>>
+>>>
+>>>
+>>
+>>
+>> --
+>> Martin Morgan
+>> Computational Biology / Fred Hutchinson Cancer Research Center
+>> 1100 Fairview Ave. N.
+>> PO Box 19024 Seattle, WA 98109
+>>
+>> Location: Arnold Building M1 B861
+>> Phone: (206) 667-2793
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>
+
+
+From APratap at som.umaryland.edu  Wed Dec  9 00:29:05 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Tue, 8 Dec 2009 18:29:05 -0500
+Subject: [Bioc-sig-seq] Probs installing dev version of Rsamtools
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD238C@ISSOMEXMAIL.som.umaryland.edu>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091208/db831fb2/attachment.pl>
+
+From mtmorgan at fhcrc.org  Wed Dec  9 00:51:34 2009
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 08 Dec 2009 15:51:34 -0800
+Subject: [Bioc-sig-seq] Probs installing dev version of Rsamtools
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD238C@ISSOMEXMAIL.som.umaryland.edu>
+References: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD238C@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <4B1EE686.2020001@fhcrc.org>
+
+Hi Abhi --
+
+Pratap, Abhishek wrote:
+> Hi All
+> 
+>  
+> 
+> I am starting a new thread since the old issues I believe have been
+> taken care of. I am trying to install dev version of Rsamtools and
+> following is what I have done till now.    -Abhi
+> 
+>  
+> 
+>  
+> 
+> 1.       R devel install
+> 
+> 2.       BioC devel install ver 2.5.8
+> 
+>  
+> 
+> ..CMD:- Rdev CMD INSTALL --clean Rsamtools/
+> 
+>  
+> 
+> ****Error:*****
+> 
+> Warning in .completeClassSlots(ClassDef, where) :
+> 
+>   undefined slot classes in definition of "Alignments0":
+> gapped_ranges(class "GappedRanges")
+> 
+> Error in setValidity2("Alignments0", .valid.Alignments0, where =
+> asNamespace("Rsamtools")) : 
+> 
+>   unused argument(s) (where = asNamespace("Rsamtools"))
+> 
+> Error : unable to load R code in package 'Rsamtools'
+> 
+> ERROR: lazy loading failed for package 'Rsamtools'
+> 
+
+As mentioned, this package is under active development; your best bet is
+to wait for it to mature. As a first step, you must use the 'devel'
+version of R (sessionInfo below says 2.10.1 RC; you're looking for
+2.11.0 Under development), and you'll need to ensure that you are using
+svn versions of the package dependencies, particularly Biostrings and
+IRanges. Having checked out IRanges, Biostrings, and Rsamtools, one might
+
+  svn up IRanges Biostrings Rsamtools
+  R CMD INSTALL --clean IRanges Biostrings Rsamtools
+
+even then, the packages may not be functional -- it is not even in
+'devel' for a reason!
+
+Again, your best bet is to wait for Rsamtools to become more stable.
+
+Martin
+
+> * removing
+> '/local/projects/grc/devel/apratap/softwares/R-devel/R-rc/lib64/R/librar
+> y/Rsamtools'
+> 
+>  
+> 
+> ========
+> 
+>  
+> 
+>  
+> 
+> sessionInfo()
+> 
+> R version 2.10.1 RC (2009-12-06 r50688) 
+> 
+> x86_64-unknown-linux-gnu 
+> 
+>  
+> 
+> locale:
+> 
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+> 
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+> 
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   
+> 
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+> 
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+> 
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+> 
+>  
+> 
+> attached base packages:
+> 
+> [1] stats     graphics  grDevices utils     datasets  methods   base   
+> 
+>  
+> 
+>  
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From sfalcon at fhcrc.org  Wed Dec  9 00:57:29 2009
+From: sfalcon at fhcrc.org (Seth Falcon)
+Date: Tue, 08 Dec 2009 15:57:29 -0800
+Subject: [Bioc-sig-seq] Probs installing dev version of Rsamtools
+In-Reply-To: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD238C@ISSOMEXMAIL.som.umaryland.edu>
+References: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD238C@ISSOMEXMAIL.som.umaryland.edu>
+Message-ID: <4B1EE7E9.2050807@fhcrc.org>
+
+Hi,
+
+
+On 12/8/09 3:29 PM, Pratap, Abhishek wrote:
+> 1.       R devel install
+
+It might help to describe what you did to install R devel.  It doesn't 
+seem that you are using R-devel based on your sessionInfo which says:
+
+ > sessionInfo()
+ >
+ > R version 2.10.1 RC (2009-12-06 r50688)
+ >
+ > x86_64-unknown-linux-gnu
+
+You should get something more along the lines of:
+
+     R version 2.11.0 Under development (unstable) (--)
+
+
+> ..CMD:- Rdev CMD INSTALL --clean Rsamtools/
+
+You will also want to be sure dependencies are already installed when 
+installing from source in this fashion.  Looking at the DESCIPTION file 
+in Rsamtools/ you might try:
+
+   Rdev
+   source("http://bioconductor.org/biocLite.R")
+   biocLite(c("IRanges", "Biostrings", "BSgenome"))
+
+Then repeat what you tried for installing Rsamtools
+
++ seth
+
+-- 
+Seth Falcon
+Program in Computational Biology | Fred Hutchinson Cancer Research Center
+
+
+From APratap at som.umaryland.edu  Wed Dec  9 01:36:18 2009
+From: APratap at som.umaryland.edu (Pratap, Abhishek)
+Date: Tue, 8 Dec 2009 19:36:18 -0500
+Subject: [Bioc-sig-seq] Probs installing dev version of Rsamtools
+References: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD238C@ISSOMEXMAIL.som.umaryland.edu>
+	<4B1EE686.2020001@fhcrc.org>
+Message-ID: <B79B4BB2EC31EC4CA3AEC6B95158C45904DD2391@ISSOMEXMAIL.som.umaryland.edu>
+
+Thanks Martin and Seth for your tricks. I have it working finally.
+
+Cheers!
+-Abhi
+
+-----Original Message-----
+From: Martin Morgan [mailto:mtmorgan at fhcrc.org] 
+Sent: Tuesday, December 08, 2009 6:52 PM
+To: Pratap, Abhishek
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Probs installing dev version of Rsamtools
+
+Hi Abhi --
+
+Pratap, Abhishek wrote:
+> Hi All
+> 
+>  
+> 
+> I am starting a new thread since the old issues I believe have been
+> taken care of. I am trying to install dev version of Rsamtools and
+> following is what I have done till now.    -Abhi
+> 
+>  
+> 
+>  
+> 
+> 1.       R devel install
+> 
+> 2.       BioC devel install ver 2.5.8
+> 
+>  
+> 
+> ..CMD:- Rdev CMD INSTALL --clean Rsamtools/
+> 
+>  
+> 
+> ****Error:*****
+> 
+> Warning in .completeClassSlots(ClassDef, where) :
+> 
+>   undefined slot classes in definition of "Alignments0":
+> gapped_ranges(class "GappedRanges")
+> 
+> Error in setValidity2("Alignments0", .valid.Alignments0, where =
+> asNamespace("Rsamtools")) : 
+> 
+>   unused argument(s) (where = asNamespace("Rsamtools"))
+> 
+> Error : unable to load R code in package 'Rsamtools'
+> 
+> ERROR: lazy loading failed for package 'Rsamtools'
+> 
+
+As mentioned, this package is under active development; your best bet is
+to wait for it to mature. As a first step, you must use the 'devel'
+version of R (sessionInfo below says 2.10.1 RC; you're looking for
+2.11.0 Under development), and you'll need to ensure that you are using
+svn versions of the package dependencies, particularly Biostrings and
+IRanges. Having checked out IRanges, Biostrings, and Rsamtools, one
+might
+
+  svn up IRanges Biostrings Rsamtools
+  R CMD INSTALL --clean IRanges Biostrings Rsamtools
+
+even then, the packages may not be functional -- it is not even in
+'devel' for a reason!
+
+Again, your best bet is to wait for Rsamtools to become more stable.
+
+Martin
+
+> * removing
+>
+'/local/projects/grc/devel/apratap/softwares/R-devel/R-rc/lib64/R/librar
+> y/Rsamtools'
+> 
+>  
+> 
+> ========
+> 
+>  
+> 
+>  
+> 
+> sessionInfo()
+> 
+> R version 2.10.1 RC (2009-12-06 r50688) 
+> 
+> x86_64-unknown-linux-gnu 
+> 
+>  
+> 
+> locale:
+> 
+>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+> 
+>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+> 
+>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   
+> 
+>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+> 
+>  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+> 
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+> 
+>  
+> 
+> attached base packages:
+> 
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+
+> 
+>  
+> 
+>  
+> 
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M1 B861
+Phone: (206) 667-2793
+
+
+From purna at atc.tcs.com  Wed Dec  9 09:26:31 2009
+From: purna at atc.tcs.com (Purnachander)
+Date: Wed, 09 Dec 2009 13:56:31 +0530
+Subject: [Bioc-sig-seq] Querying Pubmed using search terms?
+Message-ID: <4B1F5F37.4080308@atc.tcs.com>
+
+Hello,
+
+I'm using "annotate" package to access articles from PUBMED. I found 
+that I can access articles only If I know PMID's.
+
+For E.g:
+ > id<-c("1939271" "2449431" "7729427" "7835343" "7836461" "7933101")
+ > x<-pubmed(id)
+
+Is it possible to search Pubmed with query terms like "RNA-seq", 
+"Metagenomics", etc.
+
+Regards,
+Purnachander
+
+
+From seandavi at gmail.com  Wed Dec  9 10:37:07 2009
+From: seandavi at gmail.com (Sean Davis)
+Date: Wed, 9 Dec 2009 04:37:07 -0500
+Subject: [Bioc-sig-seq] Querying Pubmed using search terms?
+In-Reply-To: <4B1F5F37.4080308@atc.tcs.com>
+References: <4B1F5F37.4080308@atc.tcs.com>
+Message-ID: <264855a00912090137u2fec0668x3f09ef097ac6c1d2@mail.gmail.com>
+
+On Wed, Dec 9, 2009 at 3:26 AM, Purnachander <purna at atc.tcs.com> wrote:
+> Hello,
+>
+> I'm using "annotate" package to access articles from PUBMED. I found that I
+> can access articles only If I know PMID's.
+>
+> For E.g:
+>> id<-c("1939271" "2449431" "7729427" "7835343" "7836461" "7933101")
+>> x<-pubmed(id)
+>
+> Is it possible to search Pubmed with query terms like "RNA-seq",
+> "Metagenomics", etc.
+
+As one possibility, see the NCBI eutils pages:
+
+http://eutils.ncbi.nlm.nih.gov/
+
+Use RCurl to make the calls to eutils and the XML package to parse the results.
+
+Sean
+
+
+From ramzi.temanni at gmail.com  Thu Dec 17 14:24:12 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Thu, 17 Dec 2009 14:24:12 +0100
+Subject: [Bioc-sig-seq] ploting paired-end reads using GenomeGraphs
+Message-ID: <68bbfdd40912170524p30440e10te36d4a9dfaf99d6b@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091217/536da40d/attachment.pl>
+
+From khansen at stat.berkeley.edu  Thu Dec 17 14:37:06 2009
+From: khansen at stat.berkeley.edu (Kasper Daniel Hansen)
+Date: Thu, 17 Dec 2009 08:37:06 -0500
+Subject: [Bioc-sig-seq] ploting paired-end reads using GenomeGraphs
+In-Reply-To: <68bbfdd40912170524p30440e10te36d4a9dfaf99d6b@mail.gmail.com>
+References: <68bbfdd40912170524p30440e10te36d4a9dfaf99d6b@mail.gmail.com>
+Message-ID: <CC90EC95-F06F-446C-86DC-5C1C06B32F9A@stat.berkeley.edu>
+
+There is a MappedRead class, but I think right now it only supports single-end.  It would however be more or less trivial to extend to paired end reads.  I have cc'ed the GenomeGraphs people.
+
+Kasper
+
+On Dec 17, 2009, at 8:24 AM, Ramzi TEMANNI wrote:
+
+> Hi,
+> I would be interested in plotting the paired reads in a specific area of the
+> genome to have a nice representation of the distribution of paired reads .
+> Suppose we would like to visualize reads in this area:
+> chr7:13730853-14031050
+> i found out that the GenomeGraphs package can provide different
+> possibilities for plotting such data
+> using the following code :
+> library(GenomeGraphs)
+> mart <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+> ideogram <- makeIdeogram(chromosome = 7)
+> genomeAxis <- makeGenomeAxis(add53 = TRUE,
+>    add35 = TRUE)
+> gdPlot(list(ideogram, genomeAxis), minBase = 13730853, maxBase = 14031050)
+> I get a template with the idiogram and an axis of the area of intrest.
+> 
+> How can I add the paired reads to that template (drowing rectangles
+> [pos.m1--pos.m2])?
+> 
+>       CHR.M1   POS.M1 DIR.M1 CHR.M2    POS.M2 DIR.M2       GAP
+> 452475   chr7 13733464      -   chr7  13736747      +      3283
+> 310647   chr7 13739099      -   chr7  13742564      +      3465
+> 642995   chr7 13740159      -   chr7  13743227      +      3068
+> 124021   chr7 13743838      -   chr7  13747629      +      3791
+> 145136   chr7 13747724      -   chr7  13751470      +      3746
+> 95433    chr7 13752663      -   chr7  13756523      +      3860
+> 349071   chr7 13754592      -   chr7  13758004      +      3412
+> 578333   chr7 13764031      -   chr7  13767173      +      3142
+> 729375   chr7 13793339      -   chr7  13796280      +      2941
+> 39128    chr7 13862817      -   chr7  13866904      +      4087
+> 621938   chr7 13867663      -   chr7  13870756      +      3093
+> 841914   chr7 13870339      +   chr7  13870692      -       353
+> 204578   chr7 13873601      -   chr7  13877234      +      3633
+> 414932   chr7 13877564      -   chr7  13880892      +      3328
+> 450397   chr7 13878852      -   chr7  13882138      +      3286
+> 594118   chr7 13880502      -   chr7  13883627      +      3125
+> 276694   chr7 13884763      -   chr7  13888278      +      3515
+> 389308   chr7 13887051      -   chr7  13890410      +      3359
+> 42539    chr7 13895684      -   chr7  13899746      +      4062
+> 117314   chr7 13896500      -   chr7  13900307      +      3807
+> 251549   chr7 13901220      -   chr7  13904774      +      3554
+> 608668   chr7 13915635      -   chr7  13918743      +      3108
+> 847653   chr7 13920433      +   chr7  13920728      -       295
+> 67139    chr7 13933413      -   chr7  13937358      +      3945
+> 182569   chr7 13937777      -   chr7  13941450      +      3673
+> 294702   chr7 13938511      -   chr7  13941999      +      3488
+> 535133   chr7 13942971      -   chr7  13946161      +      3190
+> 515881   chr7 13943523      -   chr7  13946735      +      3212
+> 698816   chr7 13951296      -   chr7  13954289      +      2993
+> 741044   chr7 13953294      -   chr7  13956211      +      2917
+> 237927   chr7 13959649      -   chr7  13963225      +      3576
+> 124263   chr7 13961471      -   chr7  13965262      +      3791
+> 806523   chr7 13971198      -   chr7  13973008      +      1810
+> 342437   chr7 13982437      -   chr7  13985858      +      3421
+> 374119   chr7 13985689      -   chr7  13989068      +      3379
+> 
+> Thanks in advance for your suggestion.
+> 
+> Kind regards,
+> Ramzi
+> ----------------------------------------------------------------
+> 
+> 	[[alternative HTML version deleted]]
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From ramzi.temanni at gmail.com  Thu Dec 17 15:14:13 2009
+From: ramzi.temanni at gmail.com (Ramzi TEMANNI)
+Date: Thu, 17 Dec 2009 15:14:13 +0100
+Subject: [Bioc-sig-seq] ploting paired-end reads using GenomeGraphs
+In-Reply-To: <CC90EC95-F06F-446C-86DC-5C1C06B32F9A@stat.berkeley.edu>
+References: <68bbfdd40912170524p30440e10te36d4a9dfaf99d6b@mail.gmail.com>
+	<CC90EC95-F06F-446C-86DC-5C1C06B32F9A@stat.berkeley.edu>
+Message-ID: <68bbfdd40912170614u6dbc1d4y37d5007237d3ba7c@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091217/67303682/attachment.pl>
+
+From khansen at stat.berkeley.edu  Thu Dec 17 15:24:19 2009
+From: khansen at stat.berkeley.edu (Kasper Daniel Hansen)
+Date: Thu, 17 Dec 2009 09:24:19 -0500
+Subject: [Bioc-sig-seq] ploting paired-end reads using GenomeGraphs
+In-Reply-To: <68bbfdd40912170614u6dbc1d4y37d5007237d3ba7c@mail.gmail.com>
+References: <68bbfdd40912170524p30440e10te36d4a9dfaf99d6b@mail.gmail.com>
+	<CC90EC95-F06F-446C-86DC-5C1C06B32F9A@stat.berkeley.edu>
+	<68bbfdd40912170614u6dbc1d4y37d5007237d3ba7c@mail.gmail.com>
+Message-ID: <07D91128-F185-476B-A65F-5A9FEE0230BB@stat.berkeley.edu>
+
+library(GenomeGraphs)
+test <- new("MappedRead", start = 1:10, end = 4:13, strand = rep(c("+", "-"), each = 5))
+gdPlot(test, minBase = 1, maxBase = 13)
+
+There is no analogue to makeBaseTrack for example.  You'll notice that the reads are colored according to strand.
+
+All that needs to be done is essentially to have start1, start2, end1, end2 and then draw small rectangle, line, small rectangle, for each read.
+
+Kasper
+
+
+On Dec 17, 2009, at 9:14 AM, Ramzi TEMANNI wrote:
+
+> Hi Kasper,
+> Thanks for your reply,
+> I've take a look at the Reference Manual but unfortunately there's no example on how MappedReads class works.
+> If you are familiar with it, could you please send me a quick example on how it works ?
+> Thanks in advance,
+> Regards,
+> Ramzi
+> ----------------------------------------------------------------
+> 
+> 
+> On Thu, Dec 17, 2009 at 2:37 PM, Kasper Daniel Hansen <khansen at stat.berkeley.edu> wrote:
+> There is a MappedRead class, but I think right now it only supports single-end.  It would however be more or less trivial to extend to paired end reads.  I have cc'ed the GenomeGraphs people.
+> 
+> Kasper
+> 
+> On Dec 17, 2009, at 8:24 AM, Ramzi TEMANNI wrote:
+> 
+> > Hi,
+> > I would be interested in plotting the paired reads in a specific area of the
+> > genome to have a nice representation of the distribution of paired reads .
+> > Suppose we would like to visualize reads in this area:
+> > chr7:13730853-14031050
+> > i found out that the GenomeGraphs package can provide different
+> > possibilities for plotting such data
+> > using the following code :
+> > library(GenomeGraphs)
+> > mart <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+> > ideogram <- makeIdeogram(chromosome = 7)
+> > genomeAxis <- makeGenomeAxis(add53 = TRUE,
+> >    add35 = TRUE)
+> > gdPlot(list(ideogram, genomeAxis), minBase = 13730853, maxBase = 14031050)
+> > I get a template with the idiogram and an axis of the area of intrest.
+> >
+> > How can I add the paired reads to that template (drowing rectangles
+> > [pos.m1--pos.m2])?
+> >
+> >       CHR.M1   POS.M1 DIR.M1 CHR.M2    POS.M2 DIR.M2       GAP
+> > 452475   chr7 13733464      -   chr7  13736747      +      3283
+> > 310647   chr7 13739099      -   chr7  13742564      +      3465
+> > 642995   chr7 13740159      -   chr7  13743227      +      3068
+> > 124021   chr7 13743838      -   chr7  13747629      +      3791
+> > 145136   chr7 13747724      -   chr7  13751470      +      3746
+> > 95433    chr7 13752663      -   chr7  13756523      +      3860
+> > 349071   chr7 13754592      -   chr7  13758004      +      3412
+> > 578333   chr7 13764031      -   chr7  13767173      +      3142
+> > 729375   chr7 13793339      -   chr7  13796280      +      2941
+> > 39128    chr7 13862817      -   chr7  13866904      +      4087
+> > 621938   chr7 13867663      -   chr7  13870756      +      3093
+> > 841914   chr7 13870339      +   chr7  13870692      -       353
+> > 204578   chr7 13873601      -   chr7  13877234      +      3633
+> > 414932   chr7 13877564      -   chr7  13880892      +      3328
+> > 450397   chr7 13878852      -   chr7  13882138      +      3286
+> > 594118   chr7 13880502      -   chr7  13883627      +      3125
+> > 276694   chr7 13884763      -   chr7  13888278      +      3515
+> > 389308   chr7 13887051      -   chr7  13890410      +      3359
+> > 42539    chr7 13895684      -   chr7  13899746      +      4062
+> > 117314   chr7 13896500      -   chr7  13900307      +      3807
+> > 251549   chr7 13901220      -   chr7  13904774      +      3554
+> > 608668   chr7 13915635      -   chr7  13918743      +      3108
+> > 847653   chr7 13920433      +   chr7  13920728      -       295
+> > 67139    chr7 13933413      -   chr7  13937358      +      3945
+> > 182569   chr7 13937777      -   chr7  13941450      +      3673
+> > 294702   chr7 13938511      -   chr7  13941999      +      3488
+> > 535133   chr7 13942971      -   chr7  13946161      +      3190
+> > 515881   chr7 13943523      -   chr7  13946735      +      3212
+> > 698816   chr7 13951296      -   chr7  13954289      +      2993
+> > 741044   chr7 13953294      -   chr7  13956211      +      2917
+> > 237927   chr7 13959649      -   chr7  13963225      +      3576
+> > 124263   chr7 13961471      -   chr7  13965262      +      3791
+> > 806523   chr7 13971198      -   chr7  13973008      +      1810
+> > 342437   chr7 13982437      -   chr7  13985858      +      3421
+> > 374119   chr7 13985689      -   chr7  13989068      +      3379
+> >
+> > Thanks in advance for your suggestion.
+> >
+> > Kind regards,
+> > Ramzi
+> > ----------------------------------------------------------------
+> >
+> >       [[alternative HTML version deleted]]
+> >
+> > _______________________________________________
+> > Bioc-sig-sequencing mailing list
+> > Bioc-sig-sequencing at r-project.org
+> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+
+
+From mmuratet at hudsonalpha.org  Tue Dec 22 23:44:40 2009
+From: mmuratet at hudsonalpha.org (Michael Muratet)
+Date: Tue, 22 Dec 2009 16:44:40 -0600
+Subject: [Bioc-sig-seq] Genominator
+Message-ID: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+
+Greetings
+
+I am trying to install Genominator (and GenomeGraphs). I tried the  
+usual:
+
+source("http://bioconductor.org/biocLite.R")
+biocLite("Genominator")
+and it returned:
+Running biocinstall version 2.3.14 with R version 2.8.0 Your version  
+of R requires version 2.3 of Bioconductor.
+Warning message: package ?Genominator? is not available
+So I tried downloading the tarball from the website and R CMD INSTALL  
+Genominator_1.0.2.tar.gz
+and got:
+{loading and cranking output} then
+ERROR: Environment (text enclosed in {}) found in \title{...}.
+The title must be plain text! ERROR: building help failed for package  
+'Genominator' ** Removing '/Library/Frameworks/R.framework/Resources/ 
+library/Genominator'
+I think maybe there's an issue with the package, but I'm willing to  
+accept I fouled up somewhere. Anybody have any suggestions?
+sysinfo:
+sessionInfo() R version 2.8.0 (2008-10-20) i386-apple-darwin8.11.1  
+locale: en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8 attached  
+base packages: [1] stats graphics grDevices utils datasets methods  
+base loaded via a namespace (and not attached): [1] tools_2.8.0
+Thanks
+Mike
+
+Michael Muratet, Ph.D.
+Senior Scientist
+HudsonAlpha Institute for Biotechnology
+mmuratet at hudsonalpha.org
+(256) 327-0473 (p)
+(256) 327-0966 (f)
+
+Room 4005
+601 Genome Way
+Huntsville, Alabama 35806
+
+
+From sfalcon at fhcrc.org  Tue Dec 22 23:49:17 2009
+From: sfalcon at fhcrc.org (Seth Falcon)
+Date: Tue, 22 Dec 2009 14:49:17 -0800
+Subject: [Bioc-sig-seq] Genominator
+In-Reply-To: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+References: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+Message-ID: <4B314CED.2050000@fhcrc.org>
+
+Hi Michael,
+
+The first thing to try is to install a (much) newer version of R.  The 
+latest release is R 2.10.1.
+
++ seth
+
+On 12/22/09 2:44 PM, Michael Muratet wrote:
+> Greetings
+>
+> I am trying to install Genominator (and GenomeGraphs). I tried the usual:
+>
+> source("http://bioconductor.org/biocLite.R")
+> biocLite("Genominator")
+> and it returned:
+> Running biocinstall version 2.3.14 with R version 2.8.0 Your version of
+> R requires version 2.3 of Bioconductor.
+> Warning message: package ?Genominator? is not available
+> So I tried downloading the tarball from the website and R CMD INSTALL
+> Genominator_1.0.2.tar.gz
+> and got:
+> {loading and cranking output} then
+> ERROR: Environment (text enclosed in {}) found in \title{...}.
+> The title must be plain text! ERROR: building help failed for package
+> 'Genominator' ** Removing
+> '/Library/Frameworks/R.framework/Resources/library/Genominator'
+> I think maybe there's an issue with the package, but I'm willing to
+> accept I fouled up somewhere. Anybody have any suggestions?
+> sysinfo:
+> sessionInfo() R version 2.8.0 (2008-10-20) i386-apple-darwin8.11.1
+> locale: en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8 attached
+> base packages: [1] stats graphics grDevices utils datasets methods base
+> loaded via a namespace (and not attached): [1] tools_2.8.0
+> Thanks
+> Mike
+>
+> Michael Muratet, Ph.D.
+> Senior Scientist
+> HudsonAlpha Institute for Biotechnology
+> mmuratet at hudsonalpha.org
+> (256) 327-0473 (p)
+> (256) 327-0966 (f)
+>
+> Room 4005
+> 601 Genome Way
+> Huntsville, Alabama 35806
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Seth Falcon
+Program in Computational Biology | Fred Hutchinson Cancer Research Center
+
+
+From paboyoun at fhcrc.org  Tue Dec 22 23:58:15 2009
+From: paboyoun at fhcrc.org (Patrick Aboyoun)
+Date: Tue, 22 Dec 2009 14:58:15 -0800
+Subject: [Bioc-sig-seq] Genominator
+In-Reply-To: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+References: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+Message-ID: <4B314F07.60703@fhcrc.org>
+
+Michael,
+Bioconductor packages are coupled with a particular version of R. 
+Genominator was introduced into Bioconductor in BioC 2.5 to be used with 
+R 2.10. To use the Genominator package, update your version of R to 
+2.10.1 and use the biocLite call you specified below.
+
+
+Cheers,
+Patrick
+
+
+Michael Muratet wrote:
+> Greetings
+>
+> I am trying to install Genominator (and GenomeGraphs). I tried the usual:
+>
+> source("http://bioconductor.org/biocLite.R")
+> biocLite("Genominator")
+> and it returned:
+> Running biocinstall version 2.3.14 with R version 2.8.0 Your version 
+> of R requires version 2.3 of Bioconductor.
+> Warning message: package ?Genominator? is not available
+> So I tried downloading the tarball from the website and R CMD INSTALL 
+> Genominator_1.0.2.tar.gz
+> and got:
+> {loading and cranking output} then
+> ERROR: Environment (text enclosed in {}) found in \title{...}.
+> The title must be plain text! ERROR: building help failed for package 
+> 'Genominator' ** Removing 
+> '/Library/Frameworks/R.framework/Resources/library/Genominator'
+> I think maybe there's an issue with the package, but I'm willing to 
+> accept I fouled up somewhere. Anybody have any suggestions?
+> sysinfo:
+> sessionInfo() R version 2.8.0 (2008-10-20) i386-apple-darwin8.11.1 
+> locale: en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8 attached 
+> base packages: [1] stats graphics grDevices utils datasets methods 
+> base loaded via a namespace (and not attached): [1] tools_2.8.0
+> Thanks
+> Mike
+>
+> Michael Muratet, Ph.D.
+> Senior Scientist
+> HudsonAlpha Institute for Biotechnology
+> mmuratet at hudsonalpha.org
+> (256) 327-0473 (p)
+> (256) 327-0966 (f)
+>
+> Room 4005
+> 601 Genome Way
+> Huntsville, Alabama 35806
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From Arnaud.Droit at ircm.qc.ca  Wed Dec 23 01:14:40 2009
+From: Arnaud.Droit at ircm.qc.ca (Droit Arnaud)
+Date: Tue, 22 Dec 2009 19:14:40 -0500
+Subject: [Bioc-sig-seq] Illumina vs. ABI Solid
+Message-ID: <125BD1BB-09F5-4670-8C1B-3E02DB23100A@ircm.qc.ca>
+
+Hi all,
+
+The institute where I currently work is in the process of buying a new HT sequencer. We are debating whether we should get an Illumina or a Solid sequencer. I was wondering if anyone of you could give me some advice in terms of analysis. As a bioinformatician using R, I am particularly interested in comparisons in terms of analysis, data manipulation/storage in R, etc. We have some experience analyzing Illumina data but no experience with Solid data.
+
+Thanks to all!
+
+Arnaud Droit, Ph.D
+Bioinformatician
+Computational Biology Research Unit
+Clinical Research Institute of Montreal
+http://www.rglab.org
+
+
+From mailinglist.honeypot at gmail.com  Wed Dec 23 03:02:49 2009
+From: mailinglist.honeypot at gmail.com (Steve Lianoglou)
+Date: Tue, 22 Dec 2009 21:02:49 -0500
+Subject: [Bioc-sig-seq] Illumina vs. ABI Solid
+In-Reply-To: <125BD1BB-09F5-4670-8C1B-3E02DB23100A@ircm.qc.ca>
+References: <125BD1BB-09F5-4670-8C1B-3E02DB23100A@ircm.qc.ca>
+Message-ID: <bbdc7ed00912221802x257ee3b8n3b40d86365a5f662@mail.gmail.com>
+
+Hi,
+
+2009/12/22 Droit Arnaud <Arnaud.Droit at ircm.qc.ca>:
+> Hi all,
+>
+> The institute where I currently work is in the process of buying a new HT sequencer. We are debating whether we should get an Illumina or a Solid sequencer. I was wondering if anyone of you could give me some advice in terms of analysis. As a bioinformatician using R, I am particularly interested in comparisons in terms of analysis, data manipulation/storage in R, etc. We have some experience analyzing Illumina data but no experience with Solid data.
+
+For whatever its worth, we had someone from The Broad recently give a
+talk about some work he's been doing with RNA-seq.
+
+Near the beginning of the talk he had a slide with the number of
+machines they had from each platform, it broke down to something
+roughly like so (if I remember correctly):
+
+Illumina: ~ 90
+SOLiD: < 10
+454 : < 10
+
+And he mentioned that the solid and 454 machines are just basically
+collecting dust.
+
+I don't really have enough experience with either platform to draw and
+judgements myself, but the guy giving the talk seemed pretty convinced
+and thought it was relevant to share.
+
+-steve
+
+-- 
+Steve Lianoglou
+Graduate Student: Computational Systems Biology
+ | Memorial Sloan-Kettering Cancer Center
+ | Weill Medical College of Cornell University
+Contact Info: http://cbio.mskcc.org/~lianos/contact
+
+
+From Sulev.Koks at ut.ee  Wed Dec 23 08:16:22 2009
+From: Sulev.Koks at ut.ee (=?ISO-8859-4?Q?Sulev_K=F5ks?=)
+Date: Wed, 23 Dec 2009 09:16:22 +0200
+Subject: [Bioc-sig-seq] Illumina vs. ABI Solid
+In-Reply-To: <bbdc7ed00912221802x257ee3b8n3b40d86365a5f662@mail.gmail.com>
+References: <125BD1BB-09F5-4670-8C1B-3E02DB23100A@ircm.qc.ca>
+	<bbdc7ed00912221802x257ee3b8n3b40d86365a5f662@mail.gmail.com>
+Message-ID: <4EE82027-7501-40B8-89C0-B77B74EFEEC6@ut.ee>
+
+Hi,
+It actually depends... I'm not so convinced on the superiority of  
+Illumina. In fact, I know labs where Illuminas collecting dust.
+
+We use SOLID 3plus and are very satisfied. One very important issue  
+for us - SOLID is the ONLY platform what allows to preserve  
+strandedness. For any kind of RNA seq applications, this is actually  
+cornerstone for the analysis of transcriptome. Without this  
+information you just throw away substantial part of the data.
+
+There is no price difference between platforms - but with one run in  
+SOLID you get up to 60 GB of reads. Illumina doesn't reach this yet.
+
+So, I do not think that Illumina is better than SOLID. There are labs  
+who prefer Illumina, and labs who prefer SOLID. SOLID came out later  
+and lost a lot of market share, but this is not the reason to think  
+its worse that Illu.
+
+Cheers
+Sulev
+
+On 23.12.2009, at 4:02, Steve Lianoglou wrote:
+
+> Hi,
+>
+> 2009/12/22 Droit Arnaud <Arnaud.Droit at ircm.qc.ca>:
+>> Hi all,
+>>
+>> The institute where I currently work is in the process of buying a  
+>> new HT sequencer. We are debating whether we should get an Illumina  
+>> or a Solid sequencer. I was wondering if anyone of you could give  
+>> me some advice in terms of analysis. As a bioinformatician using R,  
+>> I am particularly interested in comparisons in terms of analysis,  
+>> data manipulation/storage in R, etc. We have some experience  
+>> analyzing Illumina data but no experience with Solid data.
+>
+> For whatever its worth, we had someone from The Broad recently give a
+> talk about some work he's been doing with RNA-seq.
+>
+> Near the beginning of the talk he had a slide with the number of
+> machines they had from each platform, it broke down to something
+> roughly like so (if I remember correctly):
+>
+> Illumina: ~ 90
+> SOLiD: < 10
+> 454 : < 10
+>
+> And he mentioned that the solid and 454 machines are just basically
+> collecting dust.
+>
+> I don't really have enough experience with either platform to draw and
+> judgements myself, but the guy giving the talk seemed pretty convinced
+> and thought it was relevant to share.
+>
+> -steve
+>
+> -- 
+> Steve Lianoglou
+> Graduate Student: Computational Systems Biology
+> | Memorial Sloan-Kettering Cancer Center
+> | Weill Medical College of Cornell University
+> Contact Info: http://cbio.mskcc.org/~lianos/contact
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From mmuratet at hudsonalpha.org  Wed Dec 23 17:21:18 2009
+From: mmuratet at hudsonalpha.org (Michael Muratet)
+Date: Wed, 23 Dec 2009 10:21:18 -0600
+Subject: [Bioc-sig-seq] Genominator
+In-Reply-To: <4B314F07.60703@fhcrc.org>
+References: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+	<4B314F07.60703@fhcrc.org>
+Message-ID: <0845B29B-E8D7-4EAA-8610-825AE0844E78@hudsonalpha.org>
+
+							
+On Dec 22, 2009, at 4:58 PM, Patrick Aboyoun wrote:
+
+> Michael,
+> Bioconductor packages are coupled with a particular version of R.  
+> Genominator was introduced into Bioconductor in BioC 2.5 to be used  
+> with R 2.10. To use the Genominator package, update your version of  
+> R to 2.10.1 and use the biocLite call you specified below.
+>
+>
+> Cheers,
+> Patrick
+>
+Thanks guys. It was operator error (old version)
+
+Merry Christmas.
+
+Mike
+>
+> Michael Muratet wrote:
+>> Greetings
+>>
+>> I am trying to install Genominator (and GenomeGraphs). I tried the  
+>> usual:
+>>
+>> source("http://bioconductor.org/biocLite.R")
+>> biocLite("Genominator")
+>> and it returned:
+>> Running biocinstall version 2.3.14 with R version 2.8.0 Your  
+>> version of R requires version 2.3 of Bioconductor.
+>> Warning message: package ?Genominator? is not available
+>> So I tried downloading the tarball from the website and R CMD  
+>> INSTALL Genominator_1.0.2.tar.gz
+>> and got:
+>> {loading and cranking output} then
+>> ERROR: Environment (text enclosed in {}) found in \title{...}.
+>> The title must be plain text! ERROR: building help failed for  
+>> package 'Genominator' ** Removing '/Library/Frameworks/R.framework/ 
+>> Resources/library/Genominator'
+>> I think maybe there's an issue with the package, but I'm willing to  
+>> accept I fouled up somewhere. Anybody have any suggestions?
+>> sysinfo:
+>> sessionInfo() R version 2.8.0 (2008-10-20) i386-apple-darwin8.11.1  
+>> locale: en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8  
+>> attached base packages: [1] stats graphics grDevices utils datasets  
+>> methods base loaded via a namespace (and not attached): [1]  
+>> tools_2.8.0
+>> Thanks
+>> Mike
+>>
+>> Michael Muratet, Ph.D.
+>> Senior Scientist
+>> HudsonAlpha Institute for Biotechnology
+>> mmuratet at hudsonalpha.org
+>> (256) 327-0473 (p)
+>> (256) 327-0966 (f)
+>>
+>> Room 4005
+>> 601 Genome Way
+>> Huntsville, Alabama 35806
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+Michael Muratet, Ph.D.
+Senior Scientist
+HudsonAlpha Institute for Biotechnology
+mmuratet at hudsonalpha.org
+(256) 327-0473 (p)
+(256) 327-0966 (f)
+
+Room 4005
+601 Genome Way
+Huntsville, Alabama 35806
+
+
+From khansen at stat.berkeley.edu  Wed Dec 23 18:37:44 2009
+From: khansen at stat.berkeley.edu (Kasper Daniel Hansen)
+Date: Wed, 23 Dec 2009 12:37:44 -0500
+Subject: [Bioc-sig-seq] Genominator
+In-Reply-To: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+References: <24531AC7-76BB-458D-AB74-8BD9811BABFD@hudsonalpha.org>
+Message-ID: <E1367D6B-2206-418A-9F82-5D823693406B@stat.berkeley.edu>
+
+Hi Michael
+
+As Seth and Patrick has said: you need to upgrade your R.  For Genominator we have recently added some additional functionality that I highly recommend - especially functionality for easier import of ShortReads into a database.  So I would also suggest checking out the devel version.
+
+Kasper
+
+On Dec 22, 2009, at 17:44 PM, Michael Muratet wrote:
+
+> Greetings
+> 
+> I am trying to install Genominator (and GenomeGraphs). I tried the usual:
+> 
+> source("http://bioconductor.org/biocLite.R")
+> biocLite("Genominator")
+> and it returned:
+> Running biocinstall version 2.3.14 with R version 2.8.0 Your version of R requires version 2.3 of Bioconductor.
+> Warning message: package ?Genominator? is not available
+> So I tried downloading the tarball from the website and R CMD INSTALL Genominator_1.0.2.tar.gz
+> and got:
+> {loading and cranking output} then
+> ERROR: Environment (text enclosed in {}) found in \title{...}.
+> The title must be plain text! ERROR: building help failed for package 'Genominator' ** Removing '/Library/Frameworks/R.framework/Resources/library/Genominator'
+> I think maybe there's an issue with the package, but I'm willing to accept I fouled up somewhere. Anybody have any suggestions?
+> sysinfo:
+> sessionInfo() R version 2.8.0 (2008-10-20) i386-apple-darwin8.11.1 locale: en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8 attached base packages: [1] stats graphics grDevices utils datasets methods base loaded via a namespace (and not attached): [1] tools_2.8.0
+> Thanks
+> Mike
+> 
+> Michael Muratet, Ph.D.
+> Senior Scientist
+> HudsonAlpha Institute for Biotechnology
+> mmuratet at hudsonalpha.org
+> (256) 327-0473 (p)
+> (256) 327-0966 (f)
+> 
+> Room 4005
+> 601 Genome Way
+> Huntsville, Alabama 35806
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From khansen at stat.berkeley.edu  Wed Dec 23 18:46:26 2009
+From: khansen at stat.berkeley.edu (Kasper Daniel Hansen)
+Date: Wed, 23 Dec 2009 12:46:26 -0500
+Subject: [Bioc-sig-seq] Illumina vs. ABI Solid
+In-Reply-To: <4EE82027-7501-40B8-89C0-B77B74EFEEC6@ut.ee>
+References: <125BD1BB-09F5-4670-8C1B-3E02DB23100A@ircm.qc.ca>
+	<bbdc7ed00912221802x257ee3b8n3b40d86365a5f662@mail.gmail.com>
+	<4EE82027-7501-40B8-89C0-B77B74EFEEC6@ut.ee>
+Message-ID: <85E5C11C-16F2-4957-B511-A4B5EF324FD2@stat.berkeley.edu>
+
+
+On Dec 23, 2009, at 2:16 AM, Sulev K?ks wrote:
+
+> Hi,
+> It actually depends... I'm not so convinced on the superiority of Illumina. In fact, I know labs where Illuminas collecting dust.
+> 
+> We use SOLID 3plus and are very satisfied. One very important issue for us - SOLID is the ONLY platform what allows to preserve strandedness. For any kind of RNA seq applications, this is actually cornerstone for the analysis of transcriptome. Without this information you just throw away substantial part of the data.
+
+This is not true.  I know of at least two library preps for Illumina that preserve strandedness.
+
+> There is no price difference between platforms - but with one run in SOLID you get up to 60 GB of reads. Illumina doesn't reach this yet.
+
+There is a big difference between labs regarding how many reads they get.  The market moves pretty fast.  I am not too sure that SOLiD produces the most reads right now.  And as far as I know they produce shorter reads, which is critical for some applications.
+
+> So, I do not think that Illumina is better than SOLID. There are labs who prefer Illumina, and labs who prefer SOLID. SOLID came out later and lost a lot of market share, but this is not the reason to think its worse that Illu.
+
+One major difference is that most tools right now operate directly on FASTQ files.  This means that they do not operate in colorspace, and a big (possible) advantage of the SOLiD platform is lost.  If you are in a lab with substantial bioinformatics resources this might not be a problem, because you can work around it.  But if not, the selection of tools for the SOLiD platform is - in my impression - much smaller.  And analysis is quickly becoming the the bottleneck for these types of data.
+
+Kasper
+
+> Cheers
+> Sulev
+> 
+> On 23.12.2009, at 4:02, Steve Lianoglou wrote:
+> 
+>> Hi,
+>> 
+>> 2009/12/22 Droit Arnaud <Arnaud.Droit at ircm.qc.ca>:
+>>> Hi all,
+>>> 
+>>> The institute where I currently work is in the process of buying a new HT sequencer. We are debating whether we should get an Illumina or a Solid sequencer. I was wondering if anyone of you could give me some advice in terms of analysis. As a bioinformatician using R, I am particularly interested in comparisons in terms of analysis, data manipulation/storage in R, etc. We have some experience analyzing Illumina data but no experience with Solid data.
+>> 
+>> For whatever its worth, we had someone from The Broad recently give a
+>> talk about some work he's been doing with RNA-seq.
+>> 
+>> Near the beginning of the talk he had a slide with the number of
+>> machines they had from each platform, it broke down to something
+>> roughly like so (if I remember correctly):
+>> 
+>> Illumina: ~ 90
+>> SOLiD: < 10
+>> 454 : < 10
+>> 
+>> And he mentioned that the solid and 454 machines are just basically
+>> collecting dust.
+>> 
+>> I don't really have enough experience with either platform to draw and
+>> judgements myself, but the guy giving the talk seemed pretty convinced
+>> and thought it was relevant to share.
+>> 
+>> -steve
+>> 
+>> -- 
+>> Steve Lianoglou
+>> Graduate Student: Computational Systems Biology
+>> | Memorial Sloan-Kettering Cancer Center
+>> | Weill Medical College of Cornell University
+>> Contact Info: http://cbio.mskcc.org/~lianos/contact
+>> 
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From ivangreg at gmail.com  Wed Dec 23 21:35:09 2009
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Wed, 23 Dec 2009 15:35:09 -0500
+Subject: [Bioc-sig-seq] idiogram
+Message-ID: <a394a9180912231235o1b0b9b33h763636c2d8c9f447@mail.gmail.com>
+
+Hello fellow listers,
+
+Does anybody know how to draw a horizontal idiogram?
+
+
+I am trying to draw the banding of mouse chr1. Its just what you see
+when you use the UCSC genome browser. No rocket science.
+
+I installed the library 'idiogram' and yet the drawings do not look
+like the G bands familiar to biologists. I want to make it obvious,
+like the UCSC. Biologists (not necessarily bioinformaticians)
+appreciate clarity.
+
+Thank you,
+
+Ivan
+
+### version ###
+> sessionInfo()
+R version 2.10.0 (2009-10-26)
+x86_64-redhat-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] idiogram_1.22.0     plotrix_2.7-2       annotate_1.24.0
+[4] AnnotationDbi_1.8.0 Biobase_2.6.0
+
+loaded via a namespace (and not attached):
+[1] DBI_0.2-4     RSQLite_0.7-3 tools_2.10.0  xtable_1.5-6
+
+
+
+Ivan Gregoretti, PhD
+National Institute of Diabetes and Digestive and Kidney Diseases
+National Institutes of Health
+5 Memorial Dr, Building 5, Room 205.
+Bethesda, MD 20892. USA.
+Phone: 1-301-496-1592
+Fax: 1-301-496-9878
+
+
+From pterry at huskers.unl.edu  Wed Dec 23 04:19:19 2009
+From: pterry at huskers.unl.edu (pterry at huskers.unl.edu)
+Date: Wed, 23 Dec 2009 03:19:19 +0000
+Subject: [Bioc-sig-seq] 'agregate' error message
+Message-ID: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEBC5@BL2PRD0102MB029.prod.exchangelabs.com>
+
+Dear bioc-sig-sequencing,
+
+I am working with a toy example to learn the material covered in part 3 (Differential expression, pages 10-11) of 'A ChIP-Seq Data Analysis' handout for a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+
+I generated an error message in the following output.  Can you comment?
+(I note that when I use the sample data & code from the handout, ctcf.rda & gfp.rda, no errors are generated)
+
+> x <- IRanges(start=c(1L, 9L, 4L, 1L, 5L, 10L, 15L, 17L, 17L),
++                     width=c(5L, 6L, 3L, 4L, 3L, 3L, 5L, 3L, 3L))
+
+> y <- IRanges(start=c(4L, 4L, 4L, 10L, 10L, 10L),
++                     width=c(2L, 2L, 2L, 2L, 2L, 2L))
+
+> cov.x <- coverage(x)
+> cov.y <- coverage(y)
+> allPeaks <- slice(cov.x, lower = 3)
+> allPeaks
+Views on a 19-length Rle subject
+
+views:
+    start end width
+[1]     4   5     2 [3 3]
+[2]    17  19     3 [3 3 3]
+> x.counts <- aggregate(cov.x, allPeaks, sum)
+> x.counts
+[1] 6 9
+> y.counts <- aggregate(cov.y, allPeaks, sum)
+Error in findIntervalAndStartFromWidth(start, runLength(x)) :
+  'x' must be less than 'sum(width)'
+
+> sessionInfo()
+R version 2.10.1 (2009-12-14)
+x86_64-pc-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] ChIPseqTutorial_0.0.1              BSgenome.Mmusculus.UCSC.mm9_1.3.16
+[3] chipseq_0.2.0                      ShortRead_1.4.0
+[5] lattice_0.17-26                    BSgenome_1.14.0
+[7] Biostrings_2.14.1                  IRanges_1.4.2
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0 grid_2.10.1   hwriter_1.1
+>
+
+Thanks,
+P. Terry
+huskers.unl.edu
+
+
+From pterry at huskers.unl.edu  Wed Dec 23 04:20:58 2009
+From: pterry at huskers.unl.edu (pterry at huskers.unl.edu)
+Date: Wed, 23 Dec 2009 03:20:58 +0000
+Subject: [Bioc-sig-seq] 'agregate' error message
+Message-ID: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEBD4@BL2PRD0102MB029.prod.exchangelabs.com>
+
+Dear bioc-sig-sequencing,
+
+I am working with a toy example to learn the material covered in part 3 (Differential expression, pages 10-11) of 'A ChIP-Seq Data Analysis' handout for a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+
+I generated an error message in the following output.  Can you comment?
+(I note that when I use the sample data & code from the handout, ctcf.rda & gfp.rda, no errors are generated)
+
+> x <- IRanges(start=c(1L, 9L, 4L, 1L, 5L, 10L, 15L, 17L, 17L),
++                     width=c(5L, 6L, 3L, 4L, 3L, 3L, 5L, 3L, 3L))
+
+> y <- IRanges(start=c(4L, 4L, 4L, 10L, 10L, 10L),
++                     width=c(2L, 2L, 2L, 2L, 2L, 2L))
+
+> cov.x <- coverage(x)
+> cov.y <- coverage(y)
+> allPeaks <- slice(cov.x, lower = 3)
+> allPeaks
+Views on a 19-length Rle subject
+
+views:
+    start end width
+[1]     4   5     2 [3 3]
+[2]    17  19     3 [3 3 3]
+> x.counts <- aggregate(cov.x, allPeaks, sum)
+> x.counts
+[1] 6 9
+> y.counts <- aggregate(cov.y, allPeaks, sum)
+Error in findIntervalAndStartFromWidth(start, runLength(x)) :
+  'x' must be less than 'sum(width)'
+
+> sessionInfo()
+R version 2.10.1 (2009-12-14)
+x86_64-pc-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] ChIPseqTutorial_0.0.1              BSgenome.Mmusculus.UCSC.mm9_1.3.16
+[3] chipseq_0.2.0                      ShortRead_1.4.0
+[5] lattice_0.17-26                    BSgenome_1.14.0
+[7] Biostrings_2.14.1                  IRanges_1.4.2
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0 grid_2.10.1   hwriter_1.1
+>
+
+Thanks,
+P. Terry
+huskers.unl.edu
+
+
+From pterry at huskers.unl.edu  Wed Dec 23 04:21:25 2009
+From: pterry at huskers.unl.edu (pterry at huskers.unl.edu)
+Date: Wed, 23 Dec 2009 03:21:25 +0000
+Subject: [Bioc-sig-seq] 'agregate' error message
+Message-ID: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEBE3@BL2PRD0102MB029.prod.exchangelabs.com>
+
+Dear bioc-sig-sequencing,
+
+I am working with a toy example to learn the material covered in part 3 (Differential expression, pages 10-11) of 'A ChIP-Seq Data Analysis' handout for a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+
+I generated an error message in the following output.  Can you comment?
+(I note that when I use the sample data & code from the handout, ctcf.rda & gfp.rda, no errors are generated)
+
+> x <- IRanges(start=c(1L, 9L, 4L, 1L, 5L, 10L, 15L, 17L, 17L),
++                     width=c(5L, 6L, 3L, 4L, 3L, 3L, 5L, 3L, 3L))
+
+> y <- IRanges(start=c(4L, 4L, 4L, 10L, 10L, 10L),
++                     width=c(2L, 2L, 2L, 2L, 2L, 2L))
+
+> cov.x <- coverage(x)
+> cov.y <- coverage(y)
+> allPeaks <- slice(cov.x, lower = 3)
+> allPeaks
+Views on a 19-length Rle subject
+
+views:
+    start end width
+[1]     4   5     2 [3 3]
+[2]    17  19     3 [3 3 3]
+> x.counts <- aggregate(cov.x, allPeaks, sum)
+> x.counts
+[1] 6 9
+> y.counts <- aggregate(cov.y, allPeaks, sum)
+Error in findIntervalAndStartFromWidth(start, runLength(x)) :
+  'x' must be less than 'sum(width)'
+
+> sessionInfo()
+R version 2.10.1 (2009-12-14)
+x86_64-pc-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] ChIPseqTutorial_0.0.1              BSgenome.Mmusculus.UCSC.mm9_1.3.16
+[3] chipseq_0.2.0                      ShortRead_1.4.0
+[5] lattice_0.17-26                    BSgenome_1.14.0
+[7] Biostrings_2.14.1                  IRanges_1.4.2
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0 grid_2.10.1   hwriter_1.1
+>
+
+Thanks,
+P. Terry
+huskers.unl.edu
+
+
+From pterry at huskers.unl.edu  Mon Dec 28 17:52:27 2009
+From: pterry at huskers.unl.edu (pterry at huskers.unl.edu)
+Date: Mon, 28 Dec 2009 16:52:27 +0000
+Subject: [Bioc-sig-seq] 'coverage' error message
+Message-ID: <5E09189DCC2AB149B8EE6F595890EFAD1E8EEC11@BL2PRD0102MB029.prod.exchangelabs.com>
+
+Dear bioc-sig-sequencing,
+
+I am trying to analyze Eland aligned files for differential expression, using the 'A ChIP-Seq Data Analysis' handout from a 11/19/09 session at the 'High throughput sequence analysis tools and approaches with Bioconductor' workshop in Seattle.
+
+I generated an error message in the following output.  Can you comment?
+
+...
+
+> alns_8 <- readAligned(cdataDir, pattern, "SolexaExport")
+> alns_8
+class: AlignedRead
+length: 1380439 reads; width: 35 cycles
+chromosome: chr1.fas chr1.fas ... chr1.fas chr1.fas
+position: 7568294 167488 ... 4687256 5376960
+strand: + + ... + +
+alignQuality: NumericQuality
+alignData varLabels: run lane ... filtering contig
+> head(sread(alns_8))
+  A DNAStringSet instance of length 6
+    width seq
+[1]    35 AGCTATGATCAAGAGAACCTTTCACGATCANNNCN
+[2]    35 CGGACGACGGGTAGTTTCGGGCTGTACCAANNNAN
+[3]    35 AGCTCAGCGATCTGAGCCACTTGCTCTTTGNNNTN
+[4]    35 GGGCCATAGGCCCGTTAAAATATTTTTCTCTNNCT
+[5]    35 ATTGTCCATTGACAAATGAAGATATTGGGATNNTT
+[6]    35 ACCCCTCCACCAGTATGTTGGCGAAAATCTCNNCC
+> table(strand(alns_8), useNA="ifany")
+
+     -      +      *
+689912 690527      0
+
+...
+
+> library(BSgenome.Athaliana.TAIR.04232008)
+> arab.chromlens <- seqlengths(Athaliana)
+> head(arab.chromlens)
+    chr1     chr2     chr3     chr4     chr5     chrC
+30432563 19705359 23470805 18585042 26992728   154478
+> cov.arab8 <- coverage(alns_8, width = arab.chromlens, extend = 126L)
+Error: UserArgumentMismatch
+  'names(width)' (or 'names(end)') mismatch with 'levels(chromosome(x))'
+  see ?"AlignedRead-class"
+
+> sessionInfo()
+R version 2.10.1 (2009-12-14)
+x86_64-pc-linux-gnu
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] BSgenome.Athaliana.TAIR.04232008_1.3.16
+[2] chipseq_0.2.0
+[3] ShortRead_1.4.0
+[4] lattice_0.17-26
+[5] BSgenome_1.14.0
+[6] Biostrings_2.14.1
+[7] IRanges_1.4.2
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.6.0 grid_2.10.1   hwriter_1.1
+>
+
+
+Thanks,
+P. Terry
+pterry at huskers.unl.edu
+
+

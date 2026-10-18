@@ -1,0 +1,942 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2010-12",
+  "messages": [
+    {
+      "id": "msg-efb62d99473d",
+      "message_id": "<4CF66146.3000403@imperial.ac.uk>",
+      "from_name": "Anna Terry",
+      "from_email_hash": "2c0150a1257fc086ff10a5a84edc16de9a24d437b4484c7231644bd362fb9451",
+      "date": "2010-12-01T14:52:54Z",
+      "subject": "[Bioc-sig-seq] BSgenome getSeq and unstranded GRanges objects",
+      "subject_clean": "[Bioc-sig-seq] BSgenome getSeq and unstranded GRanges objects",
+      "in_reply_to": "<4CF5E13A.1020103@fhcrc.org>",
+      "references": [
+        "<4CF50D74.8050705@imperial.ac.uk>",
+        "<AANLkTik_muxvFevpPhqjJZhC0xNzaUR4Dyiomb4BocWT@mail.gmail.com>",
+        "<4CF5E13A.1020103@fhcrc.org>"
+      ],
+      "body_plain": "Hi Herv?, Michael,\n\nThat's great! I did try searching the message boards, but couldn't find \nanything.\n\nThanks for the help\nAnna\n\nOn 01/12/10 05:46, Herv? Pag?s wrote:\n> Hi Anna, Michael,\n>\n> This is already the case if you use the current version of BSgenome:\n>\n>     >  library(BSgenome.Mmusculus.UCSC.mm9)\n>\n>     >  gr<- GRanges(\"chr5\", IRanges(125821746, 125821945))\n>\n>     >  gr\n>     GRanges with 1 range and 0 elementMetadata values\n>         seqnames                 ranges strand |\n>            <Rle>               <IRanges>   <Rle>  |\n>     [1]     chr5 [125821746, 125821945]      * |\n>\n>     seqlengths\n>      chr5\n>        NA\n>\n>     >  getSeq(Mmusculus, gr)\n>     [1]\n> \"TGAACGCCCTCCACTCAAAATTCCGTGTCCCTCGGGGCCCTTTGCACTTCCCCCACTCGGAATTCCATATCCCTTTGGGCTTTTGCACACCCTCCATTCTGTGTCCCTCGTGGCCTTTGCACACTGTCCCCTCGGAATTCCATGTCTCCCGGGACCTTTGCACACCCTTCGTACAGAATTCTGTGTCCCTCGAGGCCTTA\"\n>\n>     >  sessionInfo()\n>     R version 2.12.0 (2010-10-15)\n>     Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n>     locale:\n>      [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C\n>      [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8\n>      [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8\n>      [7] LC_PAPER=en_US.utf8       LC_NAME=C\n>      [9] LC_ADDRESS=C              LC_TELEPHONE=C\n>     [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C\n>\n>     attached base packages:\n>     [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n>     other attached packages:\n>     [1] BSgenome.Mmusculus.UCSC.mm9_1.3.16 BSgenome_1.18.2\n>     [3] Biostrings_2.19.1                  GenomicRanges_1.3.0\n>     [5] IRanges_1.8.5\n>\n>     loaded via a namespace (and not attached):\n>     [1] Biobase_2.10.0\n>\n> Cheers,\n> H.\n>\n>\n> On 11/30/2010 08:14 PM, Michael Lawrence wrote:\n>    \n>> This is a sensible request, as it would be consistent with the behavior for\n>> RangesList and RangedData. Anyone opposed to this change?\n>>\n>> On Tue, Nov 30, 2010 at 6:43 AM, Anna Terry<anna.terry at csc.mrc.ac.uk>wrote:\n>>\n>>      \n>>> Hi,\n>>>\n>>> Would it be possible for the BSgenome function getSeq to return the +\n>>> strand by default when given a GRanges object where the strand is \"*\" rather\n>>> than throw an error?  The strand is not known for ChIP-seq regions and so it\n>>> is sensible to have the strand as \"*\" when storing them in a GRanges object.\n>>>\n>>> Anna\n>>>\n>>>        \n>>>> problem.gr\n>>>>          \n>>> GRanges with 1 range and 6 elementMetadata values\n>>>      seqnames                 ranges strand |     score     count    unique\n>>> <Rle>   <IRanges>   <Rle>   |<numeric>   <integer>   <integer>\n>>> [1]     chr5 [125821746, 125821945]      * |  97.02651       124       116\n>>>      ref.count    height       max\n>>> <integer>   <numeric>   <numeric>\n>>> [1]        10  29.03108 125821846\n>>>\n>>> seqlengths\n>>>           chr1         chr2         chr3 ...  chrY_random chrUn_random\n>>>      197195432    181748087    159599783 ...     58682461      5900358\n>>>\n>>>        \n>>>> problem.seq<- getSeq(Mmusculus, problem.gr)\n>>>>          \n>>> Error in .extractSeqsFromDNAString(subject, ranges(grg), strand(grg)) :\n>>>    'strand' elements must be \"+\" or \"-\"\n>>> Calls: getSeq ... lapply ->   lapply ->   FUN ->   .extractSeqsFromDNAString\n>>>\n>>>        \n>>>> problem.seq<- getSeq(Mmusculus, problem.gr, strand=\"+\")\n>>>>          \n>>> Error in .extractSeqsFromDNAString(subject, ranges(grg), strand(grg)) :\n>>>    'strand' elements must be \"+\" or \"-\"\n>>> Calls: getSeq ... lapply ->   lapply ->   FUN ->   .extractSeqsFromDNAString\n>>>\n>>>        \n>>>> problem.seq<- getSeq(Mmusculus, seqnames(problem.gr), start=start(\n>>>>          \n>>> problem.gr), end=end(problem.gr))\n>>> # works\n>>>\n>>>\n>>>        \n>>>> sessionInfo()\n>>>>          \n>>> R version 2.11.1 (2010-05-31)\n>>> x86_64-redhat-linux-gnu\n>>>\n>>> locale:\n>>>    [1] LC_CTYPE=en_GB          LC_NUMERIC=C            LC_TIME=en_GB\n>>>    [4] LC_COLLATE=en_GB        LC_MONETARY=en_GB       LC_MESSAGES=en_GB\n>>>    [7] LC_PAPER=en_GB          LC_NAME=en_GB           LC_ADDRESS=en_GB\n>>> [10] LC_TELEPHONE=en_GB      LC_MEASUREMENT=en_GB\n>>>    LC_IDENTIFICATION=en_GB\n>>>\n>>> attached base packages:\n>>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>>\n>>> other attached packages:\n>>> [1] XML_3.2-0                          BSgenome.Mmusculus.UCSC.mm9_1.3.16\n>>> [3] BSgenome_1.16.5                    GenomicRanges_1.0.9\n>>> [5] Biostrings_2.16.9                  IRanges_1.6.17\n>>> [7] rkward_0.5.3\n>>>\n>>> loaded via a namespace (and not attached):\n>>> [1] Biobase_2.8.0 tools_2.11.1\n>>>\n>>> _______________________________________________\n>>> Bioc-sig-sequencing mailing list\n>>> Bioc-sig-sequencing at r-project.org\n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>>        \n>> \t[[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>      \n>\n>    \n\n-- \nAnna Terry\nLymphocyte Development\nMRC Clinical Sciences Centre\nImperial College Faculty of Medicine\nHammersmith Hospital\nDu Cane Road\nLondon W12 0NN\n\nTel:\t0208 3832140\n\t0208 3832145\nEmail: anna.terry at csc.mrc.ac.uk",
+      "body_snippet": "Hi Herv?, Michael,\n\nThat's great! I did try searching the message boards, but couldn't find \nanything.\n\nThanks for the help\nAnna\n\nOn 01/12/10 05:46, Herv? Pag?s wrote:\n> Hi Anna, Michael,\n>\n> This is ",
+      "thread_id": "thread-efb62d99473d",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-b6d13791b436",
+      "message_id": "<AANLkTim8=3v2V2iQqPd9DhPNT7BR+BxcqPznhN-H0+qN@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-12-01T18:35:59Z",
+      "subject": "[Bioc-sig-seq] Combine GRanges Stored In A GRangesList",
+      "subject_clean": "[Bioc-sig-seq] Combine GRanges Stored In A GRangesList",
+      "in_reply_to": "<20101130160017.BKA80548@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101130160017.BKA80548@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/e310a496/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/e310a496/attachment.pl>",
+      "thread_id": "thread-b6d13791b436",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-245575a0748e",
+      "message_id": "<AANLkTinZoVFTxc9yEmfC43S2nKybgoOT9nLcmZV7gDMU@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-12-01T21:43:48Z",
+      "subject": "[Bioc-sig-seq] Citing the Bioconductor",
+      "subject_clean": "[Bioc-sig-seq] Citing the Bioconductor",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello Bioconductor hard workers,\n\nCiting R is trivial with citation() but I'd like to recognise in\nparticular the Bioc people.\n\nWhat is the best way to cite the Bioc effort without citing individual packages?\n\nI can't find an answer in bioconductor.org.\n\nThank you,\n\nIvan\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878",
+      "body_snippet": "Hello Bioconductor hard workers,\n\nCiting R is trivial with citation() but I'd like to recognise in\nparticular the Bioc people.\n\nWhat is the best way to cite the Bioc effort without citing individual p",
+      "thread_id": "thread-245575a0748e",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-15ee69e30f8b",
+      "message_id": "<AANLkTik0y9kmjM6QzjdqsZLUQ5HSijU2FtN+39NYAdfv@mail.gmail.com>",
+      "from_name": "Sunny Srivastava",
+      "from_email_hash": "63ddeb2ebec9e29354be5fe2293cc761fae127348e9a5c243384b084181d32cb",
+      "date": "2010-12-01T21:46:26Z",
+      "subject": "[Bioc-sig-seq] Citing the Bioconductor",
+      "subject_clean": "[Bioc-sig-seq] Citing the Bioconductor",
+      "in_reply_to": "<AANLkTinZoVFTxc9yEmfC43S2nKybgoOT9nLcmZV7gDMU@mail.gmail.com>",
+      "references": [
+        "<AANLkTinZoVFTxc9yEmfC43S2nKybgoOT9nLcmZV7gDMU@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/dfc900ca/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/dfc900ca/attachment.pl>",
+      "thread_id": "thread-245575a0748e",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-b116584866d4",
+      "message_id": "<AANLkTi=cvcxOQe==zfF996T60OQTzV=LxNC3Csq+F9Pz@mail.gmail.com>",
+      "from_name": "Ivan Gregoretti",
+      "from_email_hash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+      "date": "2010-12-01T21:48:03Z",
+      "subject": "[Bioc-sig-seq] Citing the Bioconductor",
+      "subject_clean": "[Bioc-sig-seq] Citing the Bioconductor",
+      "in_reply_to": "<AANLkTik0y9kmjM6QzjdqsZLUQ5HSijU2FtN+39NYAdfv@mail.gmail.com>",
+      "references": [
+        "<AANLkTinZoVFTxc9yEmfC43S2nKybgoOT9nLcmZV7gDMU@mail.gmail.com>",
+        "<AANLkTik0y9kmjM6QzjdqsZLUQ5HSijU2FtN+39NYAdfv@mail.gmail.com>"
+      ],
+      "body_plain": "Thank you, Sunny. That's exactly what I was looking for.\n\nIvan\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878\n\n\n\nOn Wed, Dec 1, 2010 at 4:46 PM, Sunny Srivastava\n<research.baba at gmail.com> wrote:\n> Hello Ivan:\n> This is (I guess) what you want\n> library(Biobase)\n> citation(\"Biobase\")\n>\n> On Wed, Dec 1, 2010 at 4:43 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n>>\n>> Hello Bioconductor hard workers,\n>>\n>> Citing R is trivial with citation() but I'd like to recognise in\n>> particular the Bioc people.\n>>\n>> What is the best way to cite the Bioc effort without citing individual\n>> packages?\n>>\n>> I can't find an answer in bioconductor.org.\n>>\n>> Thank you,\n>>\n>> Ivan\n>>\n>>\n>> Ivan Gregoretti, PhD\n>> National Institute of Diabetes and Digestive and Kidney Diseases\n>> National Institutes of Health\n>> 5 Memorial Dr, Building 5, Room 205.\n>> Bethesda, MD 20892. USA.\n>> Phone: 1-301-496-1016 and 1-301-496-1592\n>> Fax: 1-301-496-9878\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>",
+      "body_snippet": "Thank you, Sunny. That's exactly what I was looking for.\n\nIvan\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Bui",
+      "thread_id": "thread-245575a0748e",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-7a4ca1678401",
+      "message_id": "<20101202170034.BKB67554@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-12-02T06:00:34Z",
+      "subject": "[Bioc-sig-seq] GRangesList RAM Usage",
+      "subject_clean": "[Bioc-sig-seq] GRangesList RAM Usage",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI have a snippet of code that takes a GRangesList (in my case, of length 8, around about 10 million reads in each GRanges object) and a vector the same length which explains what type of experiment each element is. The snippet combines elements that are of the same type.\n\nInitially, once the GRangesList is loaded in, R is using 2 GB of RAM but then when I run my snippet, R's RAM usage hovers at 22GB - 24GB for many minutes. When I gc(), it drops back to 12GB.\n\nCould I be doing something more efficiently ?\n\n# readsIPs : the GRangesList\n# exptTypes : a vector like c(\"MeDIP\", \"MeDIP\", \"H3K27\", \"H3K27\") that is the same length as readsIP.\n\ntypeCounts <- table(exptTypes)\nif(any(typeCounts > 1))\n{\n\toldOrder <- unique(exptTypes)\n\trepTypes <- names(typeCounts)[typeCounts > 1]\n\tpooledIPs <- lapply(repTypes, function(repType)\n\t{\n\t\twhichReps <- which(exptTypes == repType)\n\t\tunlist(readsIPs[whichReps])\n\t})\n\tnames(pooledIPs) <- repTypes\n\tuniqueIdxs <- exptTypes %in% names(typeCounts)[typeCounts == 1]\n\tuniqueIPs <- readsIPs[uniqueIdxs]\n\tnames(uniqueIPs) <- exptTypes[uniqueIdxs]\n\treadsIPs <- c(GRangesList(pooledIPs), uniqueIPs)[oldOrder]\n}\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Hello,\n\nI have a snippet of code that takes a GRangesList (in my case, of length 8, around about 10 million reads in each GRanges object) and a vector the same length which explains what type of exper",
+      "thread_id": "thread-7a4ca1678401",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-fd7c861d32aa",
+      "message_id": "<AANLkTinDprndLjD=w9BuJDzbcgE-KHp=ct3-Pj4A=roQ@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-12-02T06:21:19Z",
+      "subject": "[Bioc-sig-seq] GRangesList RAM Usage",
+      "subject_clean": "[Bioc-sig-seq] GRangesList RAM Usage",
+      "in_reply_to": "<20101202170034.BKB67554@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101202170034.BKB67554@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/704e082b/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/704e082b/attachment.pl>",
+      "thread_id": "thread-7a4ca1678401",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-d350f8430374",
+      "message_id": "<4CF7B5FB.5090600@imperial.ac.uk>",
+      "from_name": "Anna Terry",
+      "from_email_hash": "2c0150a1257fc086ff10a5a84edc16de9a24d437b4484c7231644bd362fb9451",
+      "date": "2010-12-02T15:06:35Z",
+      "subject": "[Bioc-sig-seq] Random Intervals in GenomicRanges",
+      "subject_clean": "[Bioc-sig-seq] Random Intervals in GenomicRanges",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nIs there any function in GenomicRanges (or other package) for getting a \nset of random ranges based on size distribution of a sample set?\nSimilar functions are available in bedTools( \nhttp://code.google.com/p/bedtools/wiki/Usage#shuffleBed) and Random \nIntervals from the ENCODE tools on Galaxy.\n\nMany Thanks\nAnna",
+      "body_snippet": "Hi,\n\nIs there any function in GenomicRanges (or other package) for getting a \nset of random ranges based on size distribution of a sample set?\nSimilar functions are available in bedTools( \nhttp://code",
+      "thread_id": "thread-d350f8430374",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-84253de90b26",
+      "message_id": "<061AE86D-6B7D-4FF0-ABA3-0A6A13422564@uni.no>",
+      "from_name": "Michael Dondrup",
+      "from_email_hash": "802d21e21b38daedbcdec0e36300247ddbe0d3cce64f7414517dc7af6dc6362d",
+      "date": "2010-12-02T15:23:58Z",
+      "subject": "[Bioc-sig-seq] Random Intervals in GenomicRanges",
+      "subject_clean": "[Bioc-sig-seq] Random Intervals in GenomicRanges",
+      "in_reply_to": "<4CF7B5FB.5090600@imperial.ac.uk>",
+      "references": [
+        "<4CF7B5FB.5090600@imperial.ac.uk>"
+      ],
+      "body_plain": "Hi,\n\nI don't know about a specific function (maybe there is) so I use the following code to simulate ranges. \nI simplified it a bit so it might not directly run but shows the concept.\n\nsimulate.GRanges <-  function (n, mean.length, genome.size ){\n # assuming read lengths are poisson distributed around the mean length, you could use a different random function\n # assuming reads are uniformly distributed wrt. start position \n  ir = IRanges(start=as.integer(runif(n, min=1, max=genome.size)), width=rpois(n, mean.length))\n  ir = restrict(ir, 1, genome.size) # cut off reads at the end, not perfect\n  strand = Rle(sample(x=c(\"+\",\"-\", \"*\"), size=n, replace=TRUE)) # make some strand information\n  gr = GRanges(ir , seqnames=\"chr1\",\n    seqlengths=genome.size,\n    strand=strand, universe=\"Mygenome\") \n  return(gr)\n}\n\nYou just need to get an estimate of read-length distribution from somewhere then.\n\nHope this is useful\n\nMichael\n\nOn Dec 2, 2010, at 4:06 PM, Anna Terry wrote:\n\n> Hi,\n> \n> Is there any function in GenomicRanges (or other package) for getting a set of random ranges based on size distribution of a sample set?\n> Similar functions are available in bedTools( http://code.google.com/p/bedtools/wiki/Usage#shuffleBed) and Random Intervals from the ENCODE tools on Galaxy.\n> \n> Many Thanks\n> Anna\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi,\n\nI don't know about a specific function (maybe there is) so I use the following code to simulate ranges. \nI simplified it a bit so it might not directly run but shows the concept.\n\nsimulate.GRange",
+      "thread_id": "thread-d350f8430374",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-367e36ccd41f",
+      "message_id": "<5CA41F314A288A4B90502A1CC7199E37015F70B3@CSCMLBE1.csc.es>",
+      "from_name": "nqueralt at clinic.ub.es",
+      "from_email_hash": "35e0dca4d5be8e974fe1bc1ad0728e14a10eb3844f7c8956abe8ad33c9b27573",
+      "date": "2010-12-03T08:49:30Z",
+      "subject": "[Bioc-sig-seq] Normalization of metabolomic data",
+      "subject_clean": "[Bioc-sig-seq] Normalization of metabolomic data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/af0de9da/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/af0de9da/attachment.pl>",
+      "thread_id": "thread-367e36ccd41f",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-799a6e6236d5",
+      "message_id": "<4CF909C8.6080504@dartmouth.edu>",
+      "from_name": "Lionel (Lee) Brooks 3rd",
+      "from_email_hash": "56a3eb5d886b2deabad0cc9db459ad73725d83239e69760c48e67a6de0541df1",
+      "date": "2010-12-03T15:16:24Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns: can someone clarify the effects of the \"ranges\" argument?",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns: can someone clarify the effects of the \"ranges\" argument?",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello all,\n\nI am using trimLRPatterns to trim adapter sequences from my short read \nfastq file.  I followed the excellent tutorial at UCRiverside and \neverything works swimmingly.  My issue is that I do not understand the \ndistinction between objects created with trimLRPatterns(...,ranges=TRUE) \nand those created with trimLRPatterns(...,ranges=FALSE).\n\nI create my ShortRead object in the following manner:\n\nreads <- readFastq(\"/path/to/seqandqualities.fastq\")\nseqs <- sread(reads) # get sequence list\nqual <- quality(reads) # get quality score list\nqual <- quality(qual) # strip quality score type\nadapter3pr <- \"TCGTATGCCGTCTTCTGCTTG\"\nadapter5pr <- \"CGACAGGTTCAGAGTTCTACAGTCCGACGATC\"\n   # This is the adapter sequence to be trimmed from the ends of your reads\ntrimCoords <- trimLRPatterns(Rpattern=adapter3pr, Lpattern=adapter5pr, \nsubject=seqs, ranges=T)\n   # Trim sequences looking for a right end and left end pattern\n   # Gets IRanges object with trimmed coordinates\nseqs <- DNAStringSet(seqs, start=start(trimCoords), end=end(trimCoords))\nqual <- BStringSet(qual, start=start(trimCoords), end=end(trimCoords))\n   # Use IRanges coordinates to trim sequences and quality scores\nqual <- SFastqQuality(qual) # reapply quality score type\ntrimmed <- ShortReadQ(sread=seqs, quality=qual, id=id(reads))\n\nNow...my confusion arose when I used the same code EXCEPT I used \nranges=F in the trimLRPatterns call.  Like this:\n\ntrimCoords <- trimLRPatterns(Rpattern=adapter3pr, Lpattern=adapter5pr, \nsubject=seqs, ranges=F)\n\nbut upon examing the resulting object:\n\natrributes(trimCoords)\n\nI can see no difference between the object that I created when \nranges=T.  Can anyone tell me what is happening here?  I wish to extract \nthe match coordinates from the trimCoords object.\n\nPlease Note I adapted this code from:\nhttp://manuals.bioinformatics.ucr.edu/home/ht-seq#TOC-SmallRNA-Profiling\n\nAppreciatively,\nLee Brooks",
+      "body_snippet": "Hello all,\n\nI am using trimLRPatterns to trim adapter sequences from my short read \nfastq file.  I followed the excellent tutorial at UCRiverside and \neverything works swimmingly.  My issue is that I ",
+      "thread_id": "thread-799a6e6236d5",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-12326bae8cc2",
+      "message_id": "<AANLkTikF-S6FbKst0YLEj==c=HLFuQ8bZ4goD88LYjag@mail.gmail.com>",
+      "from_name": "Jim Silverton",
+      "from_email_hash": "70b97172847bea4c4d9ecef9a20ae6eb6cb5d186aade22902fc31df08b022f8b",
+      "date": "2010-12-03T22:05:49Z",
+      "subject": "[Bioc-sig-seq] Simulating data",
+      "subject_clean": "[Bioc-sig-seq] Simulating data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/56f57931/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/56f57931/attachment.pl>",
+      "thread_id": "thread-12326bae8cc2",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-1a779b612f6c",
+      "message_id": "<5F8532CF-DBBC-4F61-9A0F-CB18AAA886AC@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2010-12-03T23:23:30Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns: can someone clarify the effects of\tthe \"ranges\" argument?",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns: can someone clarify the effects of\tthe \"ranges\" argument?",
+      "in_reply_to": "<4CF909C8.6080504@dartmouth.edu>",
+      "references": [
+        "<4CF909C8.6080504@dartmouth.edu>"
+      ],
+      "body_plain": "You are correct.  Your setting of 'ranges' is being ignored by the  \nShortRead\nmethod, as we clearly see from\n\n\tshowMethods(\"trimLRPatterns\", includeDefs=TRUE)\n\nIt sounds like a bug to me unless there is documentation for it,  \nwhich I don't\nfind, but maybe I don't know where to look.\n\nThe workaround for you right now, to get an IRanges value, would be  \nto send\ntrimLRPatterns the sread slot of your ShortRead object, as in\n\n\ttrimLRPatterns(subject=sread(your_ShortRead_object), ranges=T, other  \nparams)\n\nBut perhaps Martin knows better.\n\n-Harris\n\nOn Dec 3, 2010, at 10:16 AM, Lionel (Lee) Brooks 3rd wrote:\n> Hello all,\n>\n> I am using trimLRPatterns to trim adapter sequences from my short  \n> read fastq file.  I followed the excellent tutorial at UCRiverside  \n> and everything works swimmingly.  My issue is that I do not  \n> understand the distinction between objects created with  \n> trimLRPatterns(...,ranges=TRUE) and those created with  \n> trimLRPatterns(...,ranges=FALSE).\n>\n> I create my ShortRead object in the following manner:\n>\n> reads <- readFastq(\"/path/to/seqandqualities.fastq\")\n> seqs <- sread(reads) # get sequence list\n> qual <- quality(reads) # get quality score list\n> qual <- quality(qual) # strip quality score type\n> adapter3pr <- \"TCGTATGCCGTCTTCTGCTTG\"\n> adapter5pr <- \"CGACAGGTTCAGAGTTCTACAGTCCGACGATC\"\n>   # This is the adapter sequence to be trimmed from the ends of  \n> your reads\n> trimCoords <- trimLRPatterns(Rpattern=adapter3pr,  \n> Lpattern=adapter5pr, subject=seqs, ranges=T)\n>   # Trim sequences looking for a right end and left end pattern\n>   # Gets IRanges object with trimmed coordinates\n> seqs <- DNAStringSet(seqs, start=start(trimCoords), end=end \n> (trimCoords))\n> qual <- BStringSet(qual, start=start(trimCoords), end=end(trimCoords))\n>   # Use IRanges coordinates to trim sequences and quality scores\n> qual <- SFastqQuality(qual) # reapply quality score type\n> trimmed <- ShortReadQ(sread=seqs, quality=qual, id=id(reads))\n>\n> Now...my confusion arose when I used the same code EXCEPT I used  \n> ranges=F in the trimLRPatterns call.  Like this:\n>\n> trimCoords <- trimLRPatterns(Rpattern=adapter3pr,  \n> Lpattern=adapter5pr, subject=seqs, ranges=F)\n>\n> but upon examing the resulting object:\n>\n> atrributes(trimCoords)\n>\n> I can see no difference between the object that I created when  \n> ranges=T.  Can anyone tell me what is happening here?  I wish to  \n> extract the match coordinates from the trimCoords object.\n>\n> Please Note I adapted this code from:\n> http://manuals.bioinformatics.ucr.edu/home/ht-seq#TOC-SmallRNA- \n> Profiling\n>\n> Appreciatively,\n> Lee Brooks\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "You are correct.  Your setting of 'ranges' is being ignored by the  \nShortRead\nmethod, as we clearly see from\n\n\tshowMethods(\"trimLRPatterns\", includeDefs=TRUE)\n\nIt sounds like a bug to me unless there",
+      "thread_id": "thread-799a6e6236d5",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-2c2bb4a0a873",
+      "message_id": "<4CF9CF0C.60105@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-12-04T05:18:04Z",
+      "subject": "[Bioc-sig-seq] trimLRPatterns: can someone clarify the effects of\tthe \"ranges\" argument?",
+      "subject_clean": "[Bioc-sig-seq] trimLRPatterns: can someone clarify the effects of\tthe \"ranges\" argument?",
+      "in_reply_to": "<5F8532CF-DBBC-4F61-9A0F-CB18AAA886AC@jhu.edu>",
+      "references": [
+        "<4CF909C8.6080504@dartmouth.edu>",
+        "<5F8532CF-DBBC-4F61-9A0F-CB18AAA886AC@jhu.edu>"
+      ],
+      "body_plain": "On 12/03/2010 03:23 PM, Harris A. Jaffee wrote:\n> You are correct.  Your setting of 'ranges' is being ignored by the\n> ShortRead\n> method, as we clearly see from\n> \n>     showMethods(\"trimLRPatterns\", includeDefs=TRUE)\n> \n> It sounds like a bug to me unless there is documentation for it, which I\n> don't\n> find, but maybe I don't know where to look.\n> \n> The workaround for you right now, to get an IRanges value, would be to send\n> trimLRPatterns the sread slot of your ShortRead object, as in\n> \n>     trimLRPatterns(subject=sread(your_ShortRead_object), ranges=T, other\n> params)\n> \n> But perhaps Martin knows better.\n\nHi Harris, Lionel,\n\nthat the ranges argument is ignored is documented on ?\n?\"trimLRPatterns,ShortRead-method\", but I've changed this to be\nconsistent with the behavior of ?trimLRPatterns in ShortRead v. 1.9.8 to\nappear in the Devel branch.\n\nMartin\n\n> \n> -Harris\n> \n> On Dec 3, 2010, at 10:16 AM, Lionel (Lee) Brooks 3rd wrote:\n>> Hello all,\n>>\n>> I am using trimLRPatterns to trim adapter sequences from my short read\n>> fastq file.  I followed the excellent tutorial at UCRiverside and\n>> everything works swimmingly.  My issue is that I do not understand the\n>> distinction between objects created with\n>> trimLRPatterns(...,ranges=TRUE) and those created with\n>> trimLRPatterns(...,ranges=FALSE).\n>>\n>> I create my ShortRead object in the following manner:\n>>\n>> reads <- readFastq(\"/path/to/seqandqualities.fastq\")\n>> seqs <- sread(reads) # get sequence list\n>> qual <- quality(reads) # get quality score list\n>> qual <- quality(qual) # strip quality score type\n>> adapter3pr <- \"TCGTATGCCGTCTTCTGCTTG\"\n>> adapter5pr <- \"CGACAGGTTCAGAGTTCTACAGTCCGACGATC\"\n>>   # This is the adapter sequence to be trimmed from the ends of your\n>> reads\n>> trimCoords <- trimLRPatterns(Rpattern=adapter3pr, Lpattern=adapter5pr,\n>> subject=seqs, ranges=T)\n>>   # Trim sequences looking for a right end and left end pattern\n>>   # Gets IRanges object with trimmed coordinates\n>> seqs <- DNAStringSet(seqs, start=start(trimCoords), end=end(trimCoords))\n>> qual <- BStringSet(qual, start=start(trimCoords), end=end(trimCoords))\n>>   # Use IRanges coordinates to trim sequences and quality scores\n>> qual <- SFastqQuality(qual) # reapply quality score type\n>> trimmed <- ShortReadQ(sread=seqs, quality=qual, id=id(reads))\n>>\n>> Now...my confusion arose when I used the same code EXCEPT I used\n>> ranges=F in the trimLRPatterns call.  Like this:\n>>\n>> trimCoords <- trimLRPatterns(Rpattern=adapter3pr, Lpattern=adapter5pr,\n>> subject=seqs, ranges=F)\n>>\n>> but upon examing the resulting object:\n>>\n>> atrributes(trimCoords)\n>>\n>> I can see no difference between the object that I created when\n>> ranges=T.  Can anyone tell me what is happening here?  I wish to\n>> extract the match coordinates from the trimCoords object.\n>>\n>> Please Note I adapted this code from:\n>> http://manuals.bioinformatics.ucr.edu/home/ht-seq#TOC-SmallRNA-Profiling\n>>\n>> Appreciatively,\n>> Lee Brooks\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 12/03/2010 03:23 PM, Harris A. Jaffee wrote:\n> You are correct.  Your setting of 'ranges' is being ignored by the\n> ShortRead\n> method, as we clearly see from\n> \n>     showMethods(\"trimLRPatterns\",",
+      "thread_id": "thread-799a6e6236d5",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8130cfd00bcd",
+      "message_id": "<4CFCC2F2.9040705@imperial.ac.uk>",
+      "from_name": "Anna Terry",
+      "from_email_hash": "2c0150a1257fc086ff10a5a84edc16de9a24d437b4484c7231644bd362fb9451",
+      "date": "2010-12-06T11:03:14Z",
+      "subject": "[Bioc-sig-seq] Random Intervals in GenomicRanges",
+      "subject_clean": "[Bioc-sig-seq] Random Intervals in GenomicRanges",
+      "in_reply_to": "<061AE86D-6B7D-4FF0-ABA3-0A6A13422564@uni.no>",
+      "references": [
+        "<4CF7B5FB.5090600@imperial.ac.uk>",
+        "<061AE86D-6B7D-4FF0-ABA3-0A6A13422564@uni.no>"
+      ],
+      "body_plain": "Hi Michael,\n\nThanks for this - I used runif to write the following function, which \nwill return the same number of fixed width regions for each chromosome \nas a given genomic ranges object and make sure that they are non \noverlapping.\n\nCheers\nAnna\n\nrandomGRangesFixedWidth <- function(granges, width) {\n   random.gr <- GRanges()\n   for(i in 1:length(seqnames(granges)@values)) {\n     curr.ir <- IRanges()\n     while(length(curr.ir) < seqnames(granges)@lengths[i]) {\n       nToAdd <- seqnames(granges)@lengths[i] - length(curr.ir)\n       temp.ir <- IRanges(start=as.integer(runif(nToAdd, min=1, \nmax=seqlengths(granges)[seqnames(granges)@values[i]]-(width -1))), \nwidth=width)\n       curr.ir <- c(curr.ir, temp.ir)\n       curr.ir <- asNormalIRanges(curr.ir)\n       curr.ir <- curr.ir[width(curr.ir) ==width]\n       curr.ir <- IRanges(curr.ir)\n     }\n     random.gr <- c(random.gr, \nGRanges(seqnames=rep(seqnames(granges)@values[i], \nseqnames(granges)@lengths[i]), ranges=asNormalIRanges(curr.ir)))\n   }\n   seqlengths(random.gr) <- seqlengths(granges)\n   return(random.gr)\n}\n\nOn 02/12/10 15:23, Michael Dondrup wrote:\n> Hi,\n>\n> I don't know about a specific function (maybe there is) so I use the following code to simulate ranges.\n> I simplified it a bit so it might not directly run but shows the concept.\n>\n> simulate.GRanges<-  function (n, mean.length, genome.size ){\n>   # assuming read lengths are poisson distributed around the mean length, you could use a different random function\n>   # assuming reads are uniformly distributed wrt. start position\n>    ir = IRanges(start=as.integer(runif(n, min=1, max=genome.size)), width=rpois(n, mean.length))\n>    ir = restrict(ir, 1, genome.size) # cut off reads at the end, not perfect\n>    strand = Rle(sample(x=c(\"+\",\"-\", \"*\"), size=n, replace=TRUE)) # make some strand information\n>    gr = GRanges(ir , seqnames=\"chr1\",\n>      seqlengths=genome.size,\n>      strand=strand, universe=\"Mygenome\")\n>    return(gr)\n> }\n>\n> You just need to get an estimate of read-length distribution from somewhere then.\n>\n> Hope this is useful\n>\n> Michael\n>\n> On Dec 2, 2010, at 4:06 PM, Anna Terry wrote:\n>\n>    \n>> Hi,\n>>\n>> Is there any function in GenomicRanges (or other package) for getting a set of random ranges based on size distribution of a sample set?\n>> Similar functions are available in bedTools( http://code.google.com/p/bedtools/wiki/Usage#shuffleBed) and Random Intervals from the ENCODE tools on Galaxy.\n>>\n>> Many Thanks\n>> Anna\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>      \n>    \n\n-- \nAnna Terry\nLymphocyte Development\nMRC Clinical Sciences Centre\nImperial College Faculty of Medicine\nHammersmith Hospital\nDu Cane Road\nLondon W12 0NN\n\nTel:\t0208 3832140\n\t0208 3832145\nEmail: anna.terry at csc.mrc.ac.uk",
+      "body_snippet": "Hi Michael,\n\nThanks for this - I used runif to write the following function, which \nwill return the same number of fixed width regions for each chromosome \nas a given genomic ranges object and make su",
+      "thread_id": "thread-d350f8430374",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-631f33d5e918",
+      "message_id": "<4CFFE66C.3000101@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-12-08T20:11:24Z",
+      "subject": "[Bioc-sig-seq] Simulating data",
+      "subject_clean": "[Bioc-sig-seq] Simulating data",
+      "in_reply_to": "<AANLkTikF-S6FbKst0YLEj==c=HLFuQ8bZ4goD88LYjag@mail.gmail.com>",
+      "references": [
+        "<AANLkTikF-S6FbKst0YLEj==c=HLFuQ8bZ4goD88LYjag@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Jim,\n\nOn 12/03/2010 02:05 PM, Jim Silverton wrote:\n> Hello,\n> I want to simulate some RNA seq data and use fisher's exact test. Is there\n> code available for this?\n\nThere is a simple/naive/non-realistic example of how to simulate reads\n(not RNA-seq specific) in the man page of BSgenome::getSeq() function.\n\nSee ?getSeq, then look for the \"D. EXTRACTING A HIGH NUMBER OF RANDOM\n40-MERS FROM A GENOME\" example. Just a starting point. To be more\nrealistic the code would need to be adapted to reflect the protocol\nused and integrate experimental errors. Doesn't sound like a simple\ntask but maybe someone on the list already tried to do something like\nthis?\n\n> Secondly do you have the code for Tarone's Test and\n> Gilbert's discrete FDR?\n>\n\nSomeone else will know...\n\nCheers,\nH.\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Jim,\n\nOn 12/03/2010 02:05 PM, Jim Silverton wrote:\n> Hello,\n> I want to simulate some RNA seq data and use fisher's exact test. Is there\n> code available for this?\n\nThere is a simple/naive/non-real",
+      "thread_id": "thread-12326bae8cc2",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-84de05985992",
+      "message_id": "<C9255C0D.312B%srm@stowers.org>",
+      "from_name": "Meier, Samuel",
+      "from_email_hash": "b1a5676c250426d121bf7d6d158cc9fb33407e1d4cb51eb274b29dcd66b52baf",
+      "date": "2010-12-08T22:00:13Z",
+      "subject": "[Bioc-sig-seq] rtracklayer liftOver",
+      "subject_clean": "[Bioc-sig-seq] rtracklayer liftOver",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI am trying to use the liftOver function from the rtracklayer package, but I receive the following error message when attempting to import the chain file downloaded from UCSC.\n\n> import.chain(\"dm3ToDp3.over.chain\")\nError in getClass(\"Alignment\") : \"Alignment\" is not a defined class\n\n> sessionInfo()\nR version 2.12.0 (2010-10-15)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n[1] C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n [1] rtracklayer_1.10.3\n [2] RCurl_1.4-3\n [3] bitops_1.0-4.1\n [4] BSgenome.Dyakuba.UCSC.droYak2_1.0.0\n [5] BSgenome.Dsimulans.UCSC.droSim1_1.0.0\n [6] BSgenome.Dpseudoobscura.UCSC.dp3_1.0.0\n [7] BSgenome.Derecta.UCSC.droEre1_1.0.0\n [8] BSgenome.Dananassae.UCSC.droAna2_1.0.0\n [9] BSgenome.Dmelanogaster.UCSC.dm3_1.3.16\n[10] BSgenome_1.18.0\n[11] Biostrings_2.18.0\n[12] GenomicRanges_1.2.1\n[13] IRanges_1.8.2\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.10.0 XML_3.2-0      tools_2.12.0\n\nThanks,\nSam Meier",
+      "body_snippet": "Hello,\n\nI am trying to use the liftOver function from the rtracklayer package, but I receive the following error message when attempting to import the chain file downloaded from UCSC.\n\n> import.chain(",
+      "thread_id": "thread-84de05985992",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-83e99013485d",
+      "message_id": "<4D000ED2.7090701@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-12-08T23:03:46Z",
+      "subject": "[Bioc-sig-seq] short read low complexity filtering",
+      "subject_clean": "[Bioc-sig-seq] short read low complexity filtering",
+      "in_reply_to": "<AANLkTimy3vSa2+E=ifOt9H1Je7YOSBwT4epN7U-6Vu5Q@mail.gmail.com>",
+      "references": [
+        "<AANLkTimy3vSa2+E=ifOt9H1Je7YOSBwT4epN7U-6Vu5Q@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Robert,\n\nSorry for the late answer. I'm cc'ing the Bioc-sig-seq mailing list\nso my answer will be archived and searchable.\n\nOn 12/02/2010 12:52 PM, R. T. Sweeney wrote:\n> Dear Herve,\n> My name is Robert Sweeney, a Stanford post-doc, new to R, looking\n> forward to attending the R/bioconductor workshop Dec 9-10.\n> I have a question about the R dustmasker-like script you suggested for\n> removing low complexity short reads from fastq files.\n> Here is the thread you wrote on it:\n> https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2009-February/000170.html\n>\n> I am also new to the dustmasker type scoring. I am wondering if you\n> could help me understand better. Attached is the output from the script.\n> Could you briefly explain what the scores mean and about where I should\n> choose a cut-off value?\n\nI'm not a dustmasker expert. In fact I've never used it. There is a\npaper about the DUST implementation here:\n\nhttp://www.ncbi.nlm.nih.gov/pubmed/16796549\n\nIt seems that DUST has been used within BLAST for many years. But\nbecause it uses a sliding windows of length 64 nucleotides my\nunderstanding is that it is better suited for masking portions of a\ngenome than for scoring the complexity of short reads.\n\nAnyway, the basic idea behind DUST is simple, intuitive, and can\nbe easily adapted to work on short reads. The basic idea is that\nregions (or short reads) with a poor tri-nucleotide content (i.e.\nwith a small number of *distinct* tri-nucleotides) are considered\nto have a low complexity. For example those sequences have a low\ncomplexity:\n\n   AAAAAAAAAA     contains only 1 tri-nculeotide: AAA\n   ATATATATATAT   contains 2 tri-nucleotide: ATA and TAT\n\nIn the other hands, regions (or short reads) with a rich tri-nucleotide\ncontent (i.e. many distinct tri-nucleotides) are considered to have\na high complexity. For example, the following 36-mer\n\n   GGGCTACATGACGGTCCTGTATTTAGCCAGAGGATC\n\nhas the highest complexity a 36-mer can have because all the\ntri-nucleotides contained in it (34 in total) are distinct.\n\nThere are many ways to implement this idea. The one I chose is\nto penalize reads for which some tri-nucleotides are represented\nmore than once. This is achieved by this part of the code:\n\n    tnf2 <- tnf - 1L\n    tnf2[tnf2 < 0] <- 0L\n    scores <- rowSums(tnf2 * tnf2)\n\nwhere 'tnf' is a matrix containing the tri-nucleotide counts\nfor each short read. The matrix has 1 row per short read and\n64 columns (i.e. one column per each possible tri-nucleotide).\n\nThe final 'scores' vector is just a numeric vector of length the\nnumber of short reads.\n\nAs for about where to choose a cut-off value, it all depends on\nthe kind of data you have, what you want to do with it, etc...\nit's really up to you. I would try different values and for each\nof them I would look at:\n\n   reads[scores >= cut-off]\n\nwhere 'reads' is the DNAStringSet object containing your reads.\nStart using the highest score as the cut-off and see what you\nget (you should get only poly-As, poly-Cs, poly-Gs and poly-Ts).\nThen try with lower values until you are satisfied. This is of\ncourse a pragmatic approach with no serious statistical background :-)\n\n> Also, how would we generate the two output files:\n> name_low_complexity_removed.fastq and low_complexity_reads.fastq?\n\nYou could try to use write.XStringSet(...  , format=\"fastq\") for this.\nOr use the IO facilities of the ShortRead package. It depends what you\nwant to do with the scores. Alternatively you can also generate FASTA\nfiles and try to convert them to FASTQ files with an external tool.\n\n>\n> Thanks for any help you can provide and look forward to meeting you at\n> the workshop.\n\nSee you there.\n\nCheers,\nH.\n\n>\n> Thanks,\n> Robert Sweeney\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Robert,\n\nSorry for the late answer. I'm cc'ing the Bioc-sig-seq mailing list\nso my answer will be archived and searchable.\n\nOn 12/02/2010 12:52 PM, R. T. Sweeney wrote:\n> Dear Herve,\n> My name is R",
+      "thread_id": "thread-83e99013485d",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-e277518757b5",
+      "message_id": "<4D001073.5030507@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2010-12-08T23:10:43Z",
+      "subject": "[Bioc-sig-seq] short read low complexity filtering",
+      "subject_clean": "[Bioc-sig-seq] short read low complexity filtering",
+      "in_reply_to": "<4D000ED2.7090701@fhcrc.org>",
+      "references": [
+        "<AANLkTimy3vSa2+E=ifOt9H1Je7YOSBwT4epN7U-6Vu5Q@mail.gmail.com>",
+        "<4D000ED2.7090701@fhcrc.org>"
+      ],
+      "body_plain": "On 12/08/2010 03:03 PM, Herv? Pag?s wrote:\n[...]\n>\n>> Also, how would we generate the two output files:\n>> name_low_complexity_removed.fastq and low_complexity_reads.fastq?\n>\n> You could try to use write.XStringSet(... , format=\"fastq\") for this.\n> Or use the IO facilities of the ShortRead package. It depends what you\n> want to do with the scores.\n                       ^^^^^^\nI meant \"with the qualities\". The FASTQ format stores the qualities of\nthe reads too.\n\nH.",
+      "body_snippet": "On 12/08/2010 03:03 PM, Herv? Pag?s wrote:\n[...]\n>\n>> Also, how would we generate the two output files:\n>> name_low_complexity_removed.fastq and low_complexity_reads.fastq?\n>\n> You could try to use wr",
+      "thread_id": "thread-83e99013485d",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8557356f9e2b",
+      "message_id": "<AANLkTikKRMDSNMHJrjNuuHEUjuxKZmTejh=FjJXKrwU-@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-12-09T21:52:26Z",
+      "subject": "[Bioc-sig-seq] rtracklayer liftOver",
+      "subject_clean": "[Bioc-sig-seq] rtracklayer liftOver",
+      "in_reply_to": "<C9255C0D.312B%srm@stowers.org>",
+      "references": [
+        "<C9255C0D.312B%srm@stowers.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101209/f68bd2fd/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101209/f68bd2fd/attachment.pl>",
+      "thread_id": "thread-84de05985992",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-7bc62baddc35",
+      "message_id": "<AANLkTinFxH+zcCmtXR1G0J=ts2z0pLsSNWa-mogvAwDx@mail.gmail.com>",
+      "from_name": "Jason Lu",
+      "from_email_hash": "ac8b20aef82cdde6bfdfd4e28dae434610791670138e62d0ae0a590fe4e9806d",
+      "date": "2010-12-10T19:56:42Z",
+      "subject": "[Bioc-sig-seq] countOverlaps question",
+      "subject_clean": "[Bioc-sig-seq] countOverlaps question",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nFirst thank developers for building so many cool tools for HTS.\nI have a question which I would like to have someone give me an hint\nor two. Thanks.\n\nHere I have ,\n> countOverlaps(cds[1],aln)\n2\n\nI kind of expect the answer should be 6. Any idea?\n\n> aln\nGappedAlignments of length 6\n    rname strand cigar qwidth    start      end width ngap\n[1] chr19      +   33M     33 58858743 58858775    33    0\n[2] chr19      -   33M     33 58858812 58858844    33    0\n[3] chr19      +   33M     33 58858912 58858944    33    0\n[4] chr19      -   33M     33 58858921 58858953    33    0\n[5] chr19      +   33M     33 58858934 58858966    33    0\n[6] chr19      +   33M     33 58858940 58858972    33    0\n\n> cds[1]\nGRangesList of length 1\n$1\nGRanges with 8 ranges and 2 elementMetadata values\n    seqnames               ranges strand |    cds_id    cds_name\n       <Rle>            <IRanges>  <Rle> | <integer> <character>\n[1]    chr19 [58858388, 58858395]      - |    185127          NA\n[2]    chr19 [58858719, 58859006]      - |    185128          NA\n[3]    chr19 [58861736, 58862017]      - |    185129          NA\n[4]    chr19 [58862757, 58863053]      - |    185130          NA\n[5]    chr19 [58863649, 58863921]      - |    185131          NA\n[6]    chr19 [58864294, 58864563]      - |    185132          NA\n[7]    chr19 [58864658, 58864693]      - |    185133          NA\n[8]    chr19 [58864770, 58864803]      - |    185134          NA\n\n\nseqlengths\n                  chr1                  chr2 ... chr18_gl000207_random\n             249250621             243199373 ...                  4262\n\n> sessionInfo()\nR version 2.12.0 (2010-10-15)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices datasets  utils     methods   base\n\nother attached packages:\n[1] GenomicFeatures_1.2.0 Rsamtools_1.2.1       Biostrings_2.17.48\n[4] GenomicRanges_1.1.38  IRanges_1.7.40\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.9.2      biomaRt_2.6.0      BSgenome_1.17.7    DBI_0.2-5\n[5] RCurl_1.4-4        RSQLite_0.9-2      rtracklayer_1.10.1 tools_2.12.0\n[9] XML_3.2-0\n\nMany thanks!\n\nJason",
+      "body_snippet": "Hi,\n\nFirst thank developers for building so many cool tools for HTS.\nI have a question which I would like to have someone give me an hint\nor two. Thanks.\n\nHere I have ,\n> countOverlaps(cds[1],aln)\n2\n\n",
+      "thread_id": "thread-7bc62baddc35",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-6f1ca0201394",
+      "message_id": "<AANLkTikAmqkST7orjNA8jCpZhcxfQzc-qbi9qZ7WpUPA@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2010-12-10T20:08:34Z",
+      "subject": "[Bioc-sig-seq] countOverlaps question",
+      "subject_clean": "[Bioc-sig-seq] countOverlaps question",
+      "in_reply_to": "<AANLkTinFxH+zcCmtXR1G0J=ts2z0pLsSNWa-mogvAwDx@mail.gmail.com>",
+      "references": [
+        "<AANLkTinFxH+zcCmtXR1G0J=ts2z0pLsSNWa-mogvAwDx@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101210/da55504b/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101210/da55504b/attachment.pl>",
+      "thread_id": "thread-7bc62baddc35",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-26dae219878d",
+      "message_id": "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+      "from_name": "Neel Aluru",
+      "from_email_hash": "082569eb7bf4f305c12a40d5d9729a1b6936a8f785c59e779f0d0f553aa1019e",
+      "date": "2010-12-12T02:12:39Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear Bioc Users,\n\nI just have quick question about the SOLiD sequencing analysis. Does Bioconductor has any packages that can handle SOLiD color space data. I want to do some preliminary analysis such as converting them to fastq sanger format and fasta format of unique reads. Right now I am using some perl scripts that come with aligners (BWA/bowtie). I went through BioC mailing lists and some associated papers and they have mentioned that in future they will extend their usage to SOLiD. If you know about them, could you please share it!\n\nThank you very much in advance.\n\nSincerely,\nNeel\n\nNeel Aluru\nPostdoctoral Scholar\nBiology Department\nWoods Hole Oceanographic Institution\nWoods Hole, MA 02543\nUSA\n508-289-3607",
+      "body_snippet": "Dear Bioc Users,\n\nI just have quick question about the SOLiD sequencing analysis. Does Bioconductor has any packages that can handle SOLiD color space data. I want to do some preliminary analysis such",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-9b7b81650fe9",
+      "message_id": "<4D04301F.7060900@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-12-12T02:14:55Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+      "references": [
+        "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>"
+      ],
+      "body_plain": "On 12/11/2010 06:12 PM, Neel Aluru wrote:\n> Dear Bioc Users,\n> \n> I just have quick question about the SOLiD sequencing analysis. Does\n> Bioconductor has any packages that can handle SOLiD color space data.\n> I want to do some preliminary analysis such as converting them to\n> fastq sanger format and fasta format of unique reads. Right now I am\n> using some perl scripts that come with aligners (BWA/bowtie). I went\n> through BioC mailing lists and some associated papers and they have\n> mentioned that in future they will extend their usage to SOLiD. If\n> you know about them, could you please share it!\n> \n> Thank you very much in advance.\n\nHi Neel -- I don't think there are any Bioc packages handling color\nspace; it would seem like one would want to carry color space through\nalignment / variant calling / ..., rather than converting to fastq? Martin\n\n> \n> Sincerely, Neel\n> \n> Neel Aluru Postdoctoral Scholar Biology Department Woods Hole\n> Oceanographic Institution Woods Hole, MA 02543 USA 508-289-3607\n> \n> _______________________________________________ Bioc-sig-sequencing\n> mailing list Bioc-sig-sequencing at r-project.org \n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 12/11/2010 06:12 PM, Neel Aluru wrote:\n> Dear Bioc Users,\n> \n> I just have quick question about the SOLiD sequencing analysis. Does\n> Bioconductor has any packages that can handle SOLiD color space",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-89069f243271",
+      "message_id": "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>",
+      "from_name": "Neel Aluru",
+      "from_email_hash": "082569eb7bf4f305c12a40d5d9729a1b6936a8f785c59e779f0d0f553aa1019e",
+      "date": "2010-12-12T02:26:04Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": "<4D04301F.7060900@fhcrc.org>",
+      "references": [
+        "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+        "<4D04301F.7060900@fhcrc.org>"
+      ],
+      "body_plain": "Thanks, Martin. I also have read and heard about doing everything in color space. But, all the short read aligners convert the csfasta files to fastq before mapping to the genome. \n\nNeel\n\nOn Dec 11, 2010, at 9:14 PM, Martin Morgan wrote:\n\n> On 12/11/2010 06:12 PM, Neel Aluru wrote:\n>> Dear Bioc Users,\n>> \n>> I just have quick question about the SOLiD sequencing analysis. Does\n>> Bioconductor has any packages that can handle SOLiD color space data.\n>> I want to do some preliminary analysis such as converting them to\n>> fastq sanger format and fasta format of unique reads. Right now I am\n>> using some perl scripts that come with aligners (BWA/bowtie). I went\n>> through BioC mailing lists and some associated papers and they have\n>> mentioned that in future they will extend their usage to SOLiD. If\n>> you know about them, could you please share it!\n>> \n>> Thank you very much in advance.\n> \n> Hi Neel -- I don't think there are any Bioc packages handling color\n> space; it would seem like one would want to carry color space through\n> alignment / variant calling / ..., rather than converting to fastq? Martin\n> \n>> \n>> Sincerely, Neel\n>> \n>> Neel Aluru Postdoctoral Scholar Biology Department Woods Hole\n>> Oceanographic Institution Woods Hole, MA 02543 USA 508-289-3607\n>> \n>> _______________________________________________ Bioc-sig-sequencing\n>> mailing list Bioc-sig-sequencing at r-project.org \n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> \n> -- \n> Computational Biology\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n> \n> Location: M1-B861\n> Telephone: 206 667-2793\n> \n\nNeel Aluru\nPostdoctoral Scholar\nBiology Department\nWoods Hole Oceanographic Institution\nWoods Hole, MA 02543\nUSA\n508-289-3607",
+      "body_snippet": "Thanks, Martin. I also have read and heard about doing everything in color space. But, all the short read aligners convert the csfasta files to fastq before mapping to the genome. \n\nNeel\n\nOn Dec 11, 2",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8b569a47c235",
+      "message_id": "<4D0436E1.9040901@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-12-12T02:43:45Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>",
+      "references": [
+        "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+        "<4D04301F.7060900@fhcrc.org>",
+        "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>"
+      ],
+      "body_plain": "On 12/11/2010 06:26 PM, Neel Aluru wrote:\n> Thanks, Martin. I also have read and heard about doing everything in\ncolor space. But, all the short read aligners convert the csfasta files\nto fastq before mapping to the genome.\n\nHi Neel -- I'm not a color space wiz but see\n\nhttp://solidsoftwaretools.com/gf/\nhttp://solid.community.appliedbiosystems.com/index.jspa\n\nMartin\n\n> Neel\n> \n> On Dec 11, 2010, at 9:14 PM, Martin Morgan wrote:\n> \n>> On 12/11/2010 06:12 PM, Neel Aluru wrote:\n>>> Dear Bioc Users,\n>>>\n>>> I just have quick question about the SOLiD sequencing analysis. Does\n>>> Bioconductor has any packages that can handle SOLiD color space data.\n>>> I want to do some preliminary analysis such as converting them to\n>>> fastq sanger format and fasta format of unique reads. Right now I am\n>>> using some perl scripts that come with aligners (BWA/bowtie). I went\n>>> through BioC mailing lists and some associated papers and they have\n>>> mentioned that in future they will extend their usage to SOLiD. If\n>>> you know about them, could you please share it!\n>>>\n>>> Thank you very much in advance.\n>>\n>> Hi Neel -- I don't think there are any Bioc packages handling color\n>> space; it would seem like one would want to carry color space through\n>> alignment / variant calling / ..., rather than converting to fastq? Martin\n>>\n>>>\n>>> Sincerely, Neel\n>>>\n>>> Neel Aluru Postdoctoral Scholar Biology Department Woods Hole\n>>> Oceanographic Institution Woods Hole, MA 02543 USA 508-289-3607\n>>>\n>>> _______________________________________________ Bioc-sig-sequencing\n>>> mailing list Bioc-sig-sequencing at r-project.org \n>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>>\n>> -- \n>> Computational Biology\n>> Fred Hutchinson Cancer Research Center\n>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>>\n>> Location: M1-B861\n>> Telephone: 206 667-2793\n>>\n> \n> Neel Aluru\n> Postdoctoral Scholar\n> Biology Department\n> Woods Hole Oceanographic Institution\n> Woods Hole, MA 02543\n> USA\n> 508-289-3607\n> \n> \n> \n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 12/11/2010 06:26 PM, Neel Aluru wrote:\n> Thanks, Martin. I also have read and heard about doing everything in\ncolor space. But, all the short read aligners convert the csfasta files\nto fastq before",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 3,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-18592bd4bec6",
+      "message_id": "<715F3657-AED6-45F0-BD86-E4ACDBDAD9E8@whoi.edu>",
+      "from_name": "Neel Aluru",
+      "from_email_hash": "082569eb7bf4f305c12a40d5d9729a1b6936a8f785c59e779f0d0f553aa1019e",
+      "date": "2010-12-12T02:55:37Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": "<4D0436E1.9040901@fhcrc.org>",
+      "references": [
+        "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+        "<4D04301F.7060900@fhcrc.org>",
+        "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>",
+        "<4D0436E1.9040901@fhcrc.org>"
+      ],
+      "body_plain": "Thanks, Martin. I have been looking at it.\n\nNeel\n\nOn Dec 11, 2010, at 9:43 PM, Martin Morgan wrote:\n\n> On 12/11/2010 06:26 PM, Neel Aluru wrote:\n>> Thanks, Martin. I also have read and heard about doing everything in\n> color space. But, all the short read aligners convert the csfasta files\n> to fastq before mapping to the genome.\n> \n> Hi Neel -- I'm not a color space wiz but see\n> \n> http://solidsoftwaretools.com/gf/\n> http://solid.community.appliedbiosystems.com/index.jspa\n> \n> Martin\n> \n>> Neel\n>> \n>> On Dec 11, 2010, at 9:14 PM, Martin Morgan wrote:\n>> \n>>> On 12/11/2010 06:12 PM, Neel Aluru wrote:\n>>>> Dear Bioc Users,\n>>>> \n>>>> I just have quick question about the SOLiD sequencing analysis. Does\n>>>> Bioconductor has any packages that can handle SOLiD color space data.\n>>>> I want to do some preliminary analysis such as converting them to\n>>>> fastq sanger format and fasta format of unique reads. Right now I am\n>>>> using some perl scripts that come with aligners (BWA/bowtie). I went\n>>>> through BioC mailing lists and some associated papers and they have\n>>>> mentioned that in future they will extend their usage to SOLiD. If\n>>>> you know about them, could you please share it!\n>>>> \n>>>> Thank you very much in advance.\n>>> \n>>> Hi Neel -- I don't think there are any Bioc packages handling color\n>>> space; it would seem like one would want to carry color space through\n>>> alignment / variant calling / ..., rather than converting to fastq? Martin\n>>> \n>>>> \n>>>> Sincerely, Neel\n>>>> \n>>>> Neel Aluru Postdoctoral Scholar Biology Department Woods Hole\n>>>> Oceanographic Institution Woods Hole, MA 02543 USA 508-289-3607\n>>>> \n>>>> _______________________________________________ Bioc-sig-sequencing\n>>>> mailing list Bioc-sig-sequencing at r-project.org \n>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>> \n>>> \n>>> -- \n>>> Computational Biology\n>>> Fred Hutchinson Cancer Research Center\n>>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>>> \n>>> Location: M1-B861\n>>> Telephone: 206 667-2793\n>>> \n>> \n>> Neel Aluru\n>> Postdoctoral Scholar\n>> Biology Department\n>> Woods Hole Oceanographic Institution\n>> Woods Hole, MA 02543\n>> USA\n>> 508-289-3607\n>> \n>> \n>> \n> \n> \n> -- \n> Computational Biology\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n> \n> Location: M1-B861\n> Telephone: 206 667-2793\n> \n\nNeel Aluru\nPostdoctoral Scholar\nBiology Department\nWoods Hole Oceanographic Institution\nWoods Hole, MA 02543\nUSA\n508-289-3607",
+      "body_snippet": "Thanks, Martin. I have been looking at it.\n\nNeel\n\nOn Dec 11, 2010, at 9:43 PM, Martin Morgan wrote:\n\n> On 12/11/2010 06:26 PM, Neel Aluru wrote:\n>> Thanks, Martin. I also have read and heard about doi",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 4,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-2eec85552204",
+      "message_id": "<AANLkTikzmGTh_r=vYw6h-Cuz+Y+ym_=Zi4_Pz8SJ2u9-@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-12-12T15:57:25Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>",
+      "references": [
+        "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+        "<4D04301F.7060900@fhcrc.org>",
+        "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>"
+      ],
+      "body_plain": "Hi Neel,,\n\nOn Sat, Dec 11, 2010 at 9:26 PM, Neel Aluru <naluru at whoi.edu> wrote:\n> Thanks, Martin. I also have read and heard about doing everything in color space. But, all the short read aligners convert the csfasta files to fastq before mapping to the genome.\n\nI don't actually think this is true. I've just had to deal with some\nSOLiD data, and bowtie does everything in colorspace (you can give it\nthe csfasta and qual files separately -- look for their -Q flag). Note\nthat you have to align to a special color space index.\n\nI'd also be very surprised if BWA doesn't handle color space reads,\nsince (i) you can specify building a color space specific indiex (in\nthe bwa index ... command); and (ii) their paper says they handle\ncolor space reads. I think the fastq file you would use as input to\nBWA would just have the sequences in color space.\n\nThe SHRiMP aligner also does colorspace ...\n\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi Neel,,\n\nOn Sat, Dec 11, 2010 at 9:26 PM, Neel Aluru <naluru at whoi.edu> wrote:\n> Thanks, Martin. I also have read and heard about doing everything in color space. But, all the short read aligners ",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 3,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8a00db51d7a0",
+      "message_id": "<4D050ADB.9010203@unito.it>",
+      "from_name": "rcaloger",
+      "from_email_hash": "50fb8afd9683f42bcc98012315fcbad4ecc7c3c1dc1631b60a45ae41ce0b2c7f",
+      "date": "2010-12-12T17:48:11Z",
+      "subject": "[Bioc-sig-seq] [BioC] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] [BioC] SOLiD color space data",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi Neel,\nI work both with Illumina and SOLiD data.\nAs aligner I use SHRIMP,\nhttp://compbio.cs.toronto.edu/shrimp\nIt indexes the genome in color space.\nAfter mapping you can easily upload in R the mapped data.\nCheers\nRaffaele\n\nOn 12/11/2010 06:12 PM, Neel Aluru wrote:\n>Dear Bioc Users,\n\n>I just have quick question about the SOLiD sequencing analysis. Does Bioconductor has any packages that can handle SOLiD color space>data. I want to do some preliminary analysis such as converting them to fastq sanger format and fasta format of unique reads. Right>now I am using some perl scripts that come with aligners (BWA/bowtie). I went through BioC mailing lists and some associated papers>and they have mentioned that in future they will extend their usage to SOLiD. If you know about them, could you please share it!\n\n>Thank you very much in advance.\n\n>Sincerely,\n>Neel\n\n>Neel Aluru\n>Postdoctoral Scholar\n>Biology Department\n>Woods Hole Oceanographic Institution\n>Woods Hole, MA 02543\n>USA\n>508-289-3607\n\n\n\n\n-- \n\n----------------------------------------\nProf. Raffaele A. Calogero\nBioinformatics and Genomics Unit\nMBC Centro di Biotecnologie Molecolari\nVia Nizza 52, Torino 10126\ntel.   ++39 0116706457\nFax    ++39 0116706487\nMobile ++39 3333827080\nemail: raffaele.calogero at unito.it\n        raffaele[dot]calogero[at]gmail[dot]com\nwww:   http://www.bioinformatica.unito.it",
+      "body_snippet": "Hi Neel,\nI work both with Illumina and SOLiD data.\nAs aligner I use SHRIMP,\nhttp://compbio.cs.toronto.edu/shrimp\nIt indexes the genome in color space.\nAfter mapping you can easily upload in R the mapp",
+      "thread_id": "thread-8a00db51d7a0",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-061a7aaf78d1",
+      "message_id": "<B92AB3DD-7273-446B-9714-EEE953764E26@whoi.edu>",
+      "from_name": "Neel Aluru",
+      "from_email_hash": "082569eb7bf4f305c12a40d5d9729a1b6936a8f785c59e779f0d0f553aa1019e",
+      "date": "2010-12-12T19:09:09Z",
+      "subject": "[Bioc-sig-seq] [BioC] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] [BioC] SOLiD color space data",
+      "in_reply_to": "<4D050ADB.9010203@unito.it>",
+      "references": [
+        "<4D050ADB.9010203@unito.it>"
+      ],
+      "body_plain": "Thank you all for the suggestions. I really appreciate it.\n\nRaffaele, I used BWA and it also indexes the genome in color space. Are you doing small RNA analysis with SOLiD seq? If so, what are the steps in your analysis pipeline? Which files format (SAM or BAM) are you uploading into R?\n\nThank you,\n\nNeel\n\n\n\n\nOn Dec 12, 2010, at 12:48 PM, rcaloger wrote:\n\n> Hi Neel,\n> I work both with Illumina and SOLiD data.\n> As aligner I use SHRIMP,\n> http://compbio.cs.toronto.edu/shrimp\n> It indexes the genome in color space.\n> After mapping you can easily upload in R the mapped data.\n> Cheers\n> Raffaele\n> \n> On 12/11/2010 06:12 PM, Neel Aluru wrote:\n>> Dear Bioc Users,\n> \n>> I just have quick question about the SOLiD sequencing analysis. Does Bioconductor has any packages that can handle SOLiD color space>data. I want to do some preliminary analysis such as converting them to fastq sanger format and fasta format of unique reads. Right>now I am using some perl scripts that come with aligners (BWA/bowtie). I went through BioC mailing lists and some associated papers>and they have mentioned that in future they will extend their usage to SOLiD. If you know about them, could you please share it!\n> \n>> Thank you very much in advance.\n> \n>> Sincerely,\n>> Neel\n> \n>> Neel Aluru\n>> Postdoctoral Scholar\n>> Biology Department\n>> Woods Hole Oceanographic Institution\n>> Woods Hole, MA 02543\n>> USA\n>> 508-289-3607\n> \n> \n> \n> \n> -- \n> \n> ----------------------------------------\n> Prof. Raffaele A. Calogero\n> Bioinformatics and Genomics Unit\n> MBC Centro di Biotecnologie Molecolari\n> Via Nizza 52, Torino 10126\n> tel.   ++39 0116706457\n> Fax    ++39 0116706487\n> Mobile ++39 3333827080\n> email: raffaele.calogero at unito.it\n>       raffaele[dot]calogero[at]gmail[dot]com\n> www:   http://www.bioinformatica.unito.it\n> \n> \n\nNeel Aluru\nPostdoctoral Scholar\nBiology Department\nWoods Hole Oceanographic Institution\nWoods Hole, MA 02543\nUSA\n508-289-3607",
+      "body_snippet": "Thank you all for the suggestions. I really appreciate it.\n\nRaffaele, I used BWA and it also indexes the genome in color space. Are you doing small RNA analysis with SOLiD seq? If so, what are the ste",
+      "thread_id": "thread-8a00db51d7a0",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-a9bcf0515d0b",
+      "message_id": "<195DE200-5D8E-4833-BBD4-8AE0781FF463@whoi.edu>",
+      "from_name": "Neel Aluru",
+      "from_email_hash": "082569eb7bf4f305c12a40d5d9729a1b6936a8f785c59e779f0d0f553aa1019e",
+      "date": "2010-12-12T19:14:01Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": "<AANLkTikzmGTh_r=vYw6h-Cuz+Y+ym_=Zi4_Pz8SJ2u9-@mail.gmail.com>",
+      "references": [
+        "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+        "<4D04301F.7060900@fhcrc.org>",
+        "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>",
+        "<AANLkTikzmGTh_r=vYw6h-Cuz+Y+ym_=Zi4_Pz8SJ2u9-@mail.gmail.com>"
+      ],
+      "body_plain": "Hi Steve,\n\nThanks for your comments. Yes, I used BWA and it works in color space as well. As a first step, I trimmed the adaptors using cutadapt and wrote the output to BWA fastq (I believe that is csfastq). Then I indexed the genome in color space and mapped the reads. My mapping didn't work and that made me think if my files are in wrong format.\n\nDo you do small RNA analysis? \n\nThank you,\n\nNeel\n\n\n\nOn Dec 12, 2010, at 10:57 AM, Steve Lianoglou wrote:\n\n> Hi Neel,,\n> \n> On Sat, Dec 11, 2010 at 9:26 PM, Neel Aluru <naluru at whoi.edu> wrote:\n>> Thanks, Martin. I also have read and heard about doing everything in color space. But, all the short read aligners convert the csfasta files to fastq before mapping to the genome.\n> \n> I don't actually think this is true. I've just had to deal with some\n> SOLiD data, and bowtie does everything in colorspace (you can give it\n> the csfasta and qual files separately -- look for their -Q flag). Note\n> that you have to align to a special color space index.\n> \n> I'd also be very surprised if BWA doesn't handle color space reads,\n> since (i) you can specify building a color space specific indiex (in\n> the bwa index ... command); and (ii) their paper says they handle\n> color space reads. I think the fastq file you would use as input to\n> BWA would just have the sequences in color space.\n> \n> The SHRiMP aligner also does colorspace ...\n> \n> -- \n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n>  | Memorial Sloan-Kettering Cancer Center\n>  | Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n> \n\nNeel Aluru\nPostdoctoral Scholar\nBiology Department\nWoods Hole Oceanographic Institution\nWoods Hole, MA 02543\nUSA\n508-289-3607",
+      "body_snippet": "Hi Steve,\n\nThanks for your comments. Yes, I used BWA and it works in color space as well. As a first step, I trimmed the adaptors using cutadapt and wrote the output to BWA fastq (I believe that is cs",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 4,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-e03c611b8c10",
+      "message_id": "<AANLkTi=wyb1_z89BgR7mVkvV=Lnv4FA4+fZmD=k4S5Bf@mail.gmail.com>",
+      "from_name": "Steve Lianoglou",
+      "from_email_hash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+      "date": "2010-12-13T02:52:26Z",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "subject_clean": "[Bioc-sig-seq] SOLiD color space data",
+      "in_reply_to": "<195DE200-5D8E-4833-BBD4-8AE0781FF463@whoi.edu>",
+      "references": [
+        "<D81B4695-9ECB-4771-8B92-BBEE90AA50A7@whoi.edu>",
+        "<4D04301F.7060900@fhcrc.org>",
+        "<50640BE4-C5FE-49CB-A61C-9F0D6894AE4D@whoi.edu>",
+        "<AANLkTikzmGTh_r=vYw6h-Cuz+Y+ym_=Zi4_Pz8SJ2u9-@mail.gmail.com>",
+        "<195DE200-5D8E-4833-BBD4-8AE0781FF463@whoi.edu>"
+      ],
+      "body_plain": "Hi,\n\nOn Sun, Dec 12, 2010 at 2:14 PM, Neel Aluru <naluru at whoi.edu> wrote:\n> Hi Steve,\n>\n> Thanks for your comments. Yes, I used BWA and it works in color space as well. As a first step, I trimmed the adaptors using cutadapt and wrote the output to BWA fastq (I believe that is csfastq). Then I indexed the genome in color space and mapped the reads. My mapping didn't work and that made me think if my files are in wrong format.\n>\n> Do you do small RNA analysis?\n\nI don't at the moment, sorry.\n\nI haven't stumbled on cutadapt before, thanks for pointing it out.\nUnfortunately I'm not sure how to help you smoke out your problem. Are\nyou sure you have the correct adapter sequence you are trimming out?\n\nIf you expect your reads to be of a minimum length, maybe you can just\ninclude the first X basepairs of the reads and try to align it that\nway? (maybe there's something wrong with the 3' trimming)\n\n-steve\n-- \nSteve Lianoglou\nGraduate Student: Computational Systems Biology\n?| Memorial Sloan-Kettering Cancer Center\n?| Weill Medical College of Cornell University\nContact Info: http://cbio.mskcc.org/~lianos/contact",
+      "body_snippet": "Hi,\n\nOn Sun, Dec 12, 2010 at 2:14 PM, Neel Aluru <naluru at whoi.edu> wrote:\n> Hi Steve,\n>\n> Thanks for your comments. Yes, I used BWA and it works in color space as well. As a first step, I trimmed t",
+      "thread_id": "thread-26dae219878d",
+      "thread_depth": 5,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-3c85cbcd1214",
+      "message_id": "<20101213150018.BKF40466@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-12-13T04:00:18Z",
+      "subject": "[Bioc-sig-seq] scanBam Error",
+      "subject_clean": "[Bioc-sig-seq] scanBam Error",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hello,\n\nI'm having trouble reading in a BAM file when \"seq\" is one of the strings passed to the what argument of ScanBamParam. If it's not, then the the reading completes successfully. I don't understand what the error means. It is :\n\nError in .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param) : \n  INTEGER() can only be applied to a 'integer', not a 'closure'\n\nThe traceback is :\n\n> traceback()\n4: .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...)\n3: .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param)\n2: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n       param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n           \"strand\", \"pos\", \"seq\")))\n1: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n       param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n           \"strand\", \"pos\", \"seq\")))\n\nand the environment is :\n\nR version 2.12.0 (2010-10-15)\nPlatform: x86_64-pc-mingw32/x64 (64-bit)\n\nlocale:\n[1] LC_COLLATE=English_Australia.1252  LC_CTYPE=English_Australia.1252    LC_MONETARY=English_Australia.1252 LC_NUMERIC=C                       LC_TIME=English_Australia.1252    \n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] Rsamtools_1.2.1     Biostrings_2.18.0   GenomicRanges_1.2.0 IRanges_1.8.2      \n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Hello,\n\nI'm having trouble reading in a BAM file when \"seq\" is one of the strings passed to the what argument of ScanBamParam. If it's not, then the the reading completes successfully. I don't underst",
+      "thread_id": "thread-3c85cbcd1214",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-0e01bb6cfad7",
+      "message_id": "<4D05A82B.9020805@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-12-13T04:59:23Z",
+      "subject": "[Bioc-sig-seq] scanBam Error",
+      "subject_clean": "[Bioc-sig-seq] scanBam Error",
+      "in_reply_to": "<20101213150018.BKF40466@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101213150018.BKF40466@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "On 12/12/2010 08:00 PM, Dario Strbenac wrote:\n> Hello,\n> \n\n> I'm having trouble reading in a BAM file when \"seq\" is one of the\nstrings passed to the what argument of ScanBamParam. If it's not, then\nthe the reading completes successfully. I don't understand what the\nerror means. It is :\n> \n> Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param) : \n>   INTEGER() can only be applied to a 'integer', not a 'closure'\n> \n> The traceback is :\n> \n>> traceback()\n> 4: .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...)\n> 3: .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param)\n> 2: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n>            \"strand\", \"pos\", \"seq\")))\n> 1: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n>            \"strand\", \"pos\", \"seq\")))\n> \n> and the environment is :\n> \n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-pc-mingw32/x64 (64-bit)\n> \n> locale:\n> [1] LC_COLLATE=English_Australia.1252  LC_CTYPE=English_Australia.1252    LC_MONETARY=English_Australia.1252 LC_NUMERIC=C                       LC_TIME=English_Australia.1252    \n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base     \n> \n> other attached packages:\n> [1] Rsamtools_1.2.1     Biostrings_2.18.0   GenomicRanges_1.2.0 IRanges_1.8.2      \n> \n> loaded via a namespace (and not attached):\n> [1] Biobase_2.8.0\n\nHi Dario -- this is some kind of error in Rsamtools' C code, but I'm not\nable to reproduce it on my end so can't track it down. Is there any way\nof producing and sharing with me an example file that has this problem?\n\nOne thing (not causing the bug) in your traceback is that 'flag' should\nbe an argument to ScanBamParam; as it is I think it is being silently\nignored.\n\nMartin\n\n> \n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 12/12/2010 08:00 PM, Dario Strbenac wrote:\n> Hello,\n> \n\n> I'm having trouble reading in a BAM file when \"seq\" is one of the\nstrings passed to the what argument of ScanBamParam. If it's not, then\nth",
+      "thread_id": "thread-3c85cbcd1214",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-4ad2b64aef74",
+      "message_id": "<20101213171538.BKF43929@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-12-13T06:15:38Z",
+      "subject": "[Bioc-sig-seq] scanBam Error",
+      "subject_clean": "[Bioc-sig-seq] scanBam Error",
+      "in_reply_to": "<4D05A82B.9020805@fhcrc.org>",
+      "references": [
+        "<20101213150018.BKF40466@gimr.garvan.unsw.edu.au>",
+        "<4D05A82B.9020805@fhcrc.org>"
+      ],
+      "body_plain": "I tried it out by making a smaller bam file with only reads from one chromosome, and it worked fine. The full bam file is 4 GB and has 75 million reads in it. Could the size be a problem ? Could you test out a bam file of this size on your end, without me sending you one that big ? Also, the error is different after I put the scamBamParam in the right spot :\n\nError in .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...) : \n  negative length vectors are not allowed\n\nInteger overflow somewhere, maybe ?\n\n- Dario.\n\n---- Original message ----\n>Date: Sun, 12 Dec 2010 20:59:23 -0800\n>From: Martin Morgan <mtmorgan at fhcrc.org>  \n>Subject: Re: [Bioc-sig-seq] scanBam Error  \n>To: D.Strbenac at garvan.org.au\n>Cc: bioc-sig-sequencing at r-project.org\n>\n>On 12/12/2010 08:00 PM, Dario Strbenac wrote:\n>> Hello,\n>> \n>\n>> I'm having trouble reading in a BAM file when \"seq\" is one of the\n>strings passed to the what argument of ScanBamParam. If it's not, then\n>the the reading completes successfully. I don't understand what the\n>error means. It is :\n>> \n>> Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param) : \n>>   INTEGER() can only be applied to a 'integer', not a 'closure'\n>> \n>> The traceback is :\n>> \n>>> traceback()\n>> 4: .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...)\n>> 3: .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param)\n>> 2: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n>>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n>>            \"strand\", \"pos\", \"seq\")))\n>> 1: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n>>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n>>            \"strand\", \"pos\", \"seq\")))\n>> \n>> and the environment is :\n>> \n>> R version 2.12.0 (2010-10-15)\n>> Platform: x86_64-pc-mingw32/x64 (64-bit)\n>> \n>> locale:\n>> [1] LC_COLLATE=English_Australia.1252  LC_CTYPE=English_Australia.1252    LC_MONETARY=English_Australia.1252 LC_NUMERIC=C                       LC_TIME=English_Australia.1252    \n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> \n>> other attached packages:\n>> [1] Rsamtools_1.2.1     Biostrings_2.18.0   GenomicRanges_1.2.0 IRanges_1.8.2      \n>> \n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.8.0\n>\n>Hi Dario -- this is some kind of error in Rsamtools' C code, but I'm not\n>able to reproduce it on my end so can't track it down. Is there any way\n>of producing and sharing with me an example file that has this problem?\n>\n>One thing (not causing the bug) in your traceback is that 'flag' should\n>be an argument to ScanBamParam; as it is I think it is being silently\n>ignored.\n>\n>Martin\n>\n>> \n>> --------------------------------------\n>> Dario Strbenac\n>> Research Assistant\n>> Cancer Epigenetics\n>> Garvan Institute of Medical Research\n>> Darlinghurst NSW 2010\n>> Australia\n>> \n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n>-- \n>Computational Biology\n>Fred Hutchinson Cancer Research Center\n>1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>\n>Location: M1-B861\n>Telephone: 206 667-2793",
+      "body_snippet": "I tried it out by making a smaller bam file with only reads from one chromosome, and it worked fine. The full bam file is 4 GB and has 75 million reads in it. Could the size be a problem ? Could you t",
+      "thread_id": "thread-3c85cbcd1214",
+      "thread_depth": 2,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-831bbdf28945",
+      "message_id": "<1292225484.27388.62.camel@bioinform01-ubuntu>",
+      "from_name": "Paul Leo",
+      "from_email_hash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+      "date": "2010-12-13T07:31:24Z",
+      "subject": "[Bioc-sig-seq] scanBam Error",
+      "subject_clean": "[Bioc-sig-seq] scanBam Error",
+      "in_reply_to": "<20101213171538.BKF43929@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101213150018.BKF40466@gimr.garvan.unsw.edu.au>",
+        "<4D05A82B.9020805@fhcrc.org>",
+        "<20101213171538.BKF43929@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101213/7e1e8511/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101213/7e1e8511/attachment.pl>",
+      "thread_id": "thread-3c85cbcd1214",
+      "thread_depth": 3,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-76877ec24a7c",
+      "message_id": "<20101214090037.BKF61254@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2010-12-13T22:00:37Z",
+      "subject": "[Bioc-sig-seq] scanBam Error",
+      "subject_clean": "[Bioc-sig-seq] scanBam Error",
+      "in_reply_to": "<1292225484.27388.62.camel@bioinform01-ubuntu>",
+      "references": [
+        "<20101213150018.BKF40466@gimr.garvan.unsw.edu.au>",
+        "<4D05A82B.9020805@fhcrc.org>",
+        "<20101213171538.BKF43929@gimr.garvan.unsw.edu.au>",
+        "<1292225484.27388.62.camel@bioinform01-ubuntu>"
+      ],
+      "body_plain": "Hi,\n\nYes, that works fine, thanks. It must've been a size issue I was having.\n\n---- Original message ----\n>Date: Mon, 13 Dec 2010 17:31:24 +1000\n>From: Paul Leo <p.leo at uq.edu.au>  \n>Subject: Re: [Bioc-sig-seq] scanBam Error  \n>To: D.Strbenac at garvan.org.au\n>Cc: bioc-sig-sequencing at r-project.org\n>\n>   Do you need all the sequence data at once?\n>\n>   Instead of using a smaller bam file can you read in\n>   a smaller portion of your large bamfile ?\n>\n>   data.gr<-GRanges(seqnames\n>   =paste(\"chr\",13,sep=\"\"),ranges =\n>   IRanges(start=as.numeric(28608234),end=as.numeric(28608363)),strand=\"+\")\n>\n>   which<-  data.gr\n>   params<-ScanBamParam(which=which,flag=scanBamFlag(isUnmappedQuery=FALSE,isDuplicate=NA,isValidVendorRead=TRUE),simpleCigar\n>   = FALSE,reverseComplement =\n>   FALSE,what=c(\"qname\",\"flag\",\"rname\",\"seq\",\"strand\",\"pos\",\"mpos\",\"qwidth\",\"cigar\",\"qual\",\"mapq\",\"isize\",\n>   \"mrnm\" ),tag=\"RG\" ) # change to what you want\n>   aln1 <- scanBam(\"HS1808.bam\",param=params)\n>\n>   aln1[[1]]\n>\n>   That should work fine?\n>\n>--                                                                     \n>Dr Paul Leo                                                            \n>Bioinformatician                                                       \n>UQ Diamantina Institute for Cancer, Immunology and Metabolic Medicine  \n>---------------------------------------------------------------------  \n>Level 4, R Wing                                                        \n>Princess Alexandra Hospital                                            \n>Ipswich Rd                                                             \n>Woolloongabba QLD 4102                                                 \n>Tel: +61 7 3240 7740  Mob: 041 303 8691  Fax: +61 7 3240 5946          \n>Email: p.leo at uq.edu.au   Web: http://www.di.uq.edu.au                  \n>\n>   -----Original Message-----\n>   From: Dario Strbenac <D.Strbenac at garvan.org.au>\n>   Reply-to: D.Strbenac at garvan.org.au\n>   To: bioc-sig-sequencing at r-project.org\n>   Subject: Re: [Bioc-sig-seq] scanBam Error\n>   Date: Mon, 13 Dec 2010 17:15:38 +1100\n>\n> I tried it out by making a smaller bam file with only reads from one chromosome, and it worked fine. The full bam file is 4 GB and has 75 million reads in it. Could the size be a problem ? Could you test out a bam file of this size on your end, without me sending you one that big ? Also, the error is different after I put the scamBamParam in the right spot :\n>\n> Error in .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...) :\n>   negative length vectors are not allowed\n>\n> Integer overflow somewhere, maybe ?\n>\n> - Dario.\n>\n> ---- Original message ----\n> >Date: Sun, 12 Dec 2010 20:59:23 -0800\n> >From: Martin Morgan <mtmorgan at fhcrc.org> \n> >Subject: Re: [Bioc-sig-seq] scanBam Error \n> >To: D.Strbenac at garvan.org.au\n> >Cc: bioc-sig-sequencing at r-project.org\n> >\n> >On 12/12/2010 08:00 PM, Dario Strbenac wrote:\n> >> Hello,\n> >>\n> >\n> >> I'm having trouble reading in a BAM file when \"seq\" is one of the\n> >strings passed to the what argument of ScanBamParam. If it's not, then\n> >the the reading completes successfully. I don't understand what the\n> >error means. It is :\n> >>\n> >> Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param) :\n> >>   INTEGER() can only be applied to a 'integer', not a 'closure'\n> >>\n> >> The traceback is :\n> >>\n> >>> traceback()\n> >> 4: .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...)\n> >> 3: .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param)\n> >> 2: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE),\n> >>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\",\n> >>            \"strand\", \"pos\", \"seq\")))\n> >> 1: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE),\n> >>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\",\n> >>            \"strand\", \"pos\", \"seq\")))\n> >>\n> >> and the environment is :\n> >>\n> >> R version 2.12.0 (2010-10-15)\n> >> Platform: x86_64-pc-mingw32/x64 (64-bit)\n> >>\n> >> locale:\n> >> [1] LC_COLLATE=English_Australia.1252  LC_CTYPE=English_Australia.1252    LC_MONETARY=English_Australia.1252 LC_NUMERIC=C                       LC_TIME=English_Australia.1252   \n> >>\n> >> attached base packages:\n> >> [1] stats     graphics  grDevices utils     datasets  methods   base    \n> >>\n> >> other attached packages:\n> >> [1] Rsamtools_1.2.1     Biostrings_2.18.0   GenomicRanges_1.2.0 IRanges_1.8.2     \n> >>\n> >> loaded via a namespace (and not attached):\n> >> [1] Biobase_2.8.0\n> >\n> >Hi Dario -- this is some kind of error in Rsamtools' C code, but I'm not\n> >able to reproduce it on my end so can't track it down. Is there any way\n> >of producing and sharing with me an example file that has this problem?\n> >\n> >One thing (not causing the bug) in your traceback is that 'flag' should\n> >be an argument to ScanBamParam; as it is I think it is being silently\n> >ignored.\n> >\n> >Martin\n> >\n> >>\n> >> --------------------------------------\n> >> Dario Strbenac\n> >> Research Assistant\n> >> Cancer Epigenetics\n> >> Garvan Institute of Medical Research\n> >> Darlinghurst NSW 2010\n> >> Australia\n> >>\n> >> _______________________________________________\n> >> Bioc-sig-sequencing mailing list\n> >> Bioc-sig-sequencing at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >\n> >\n> >--\n> >Computational Biology\n> >Fred Hutchinson Cancer Research Center\n> >1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n> >\n> >Location: M1-B861\n> >Telephone: 206 667-2793\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Hi,\n\nYes, that works fine, thanks. It must've been a size issue I was having.\n\n---- Original message ----\n>Date: Mon, 13 Dec 2010 17:31:24 +1000\n>From: Paul Leo <p.leo at uq.edu.au>  \n>Subject: Re: [B",
+      "thread_id": "thread-3c85cbcd1214",
+      "thread_depth": 4,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-19549c18a76a",
+      "message_id": "<AANLkTi=8uJJQ_DKsVgwP4vPPRTZQ3nAJ5p6kJC4DyAoj@mail.gmail.com>",
+      "from_name": "R. T. Sweeney",
+      "from_email_hash": "9b8ec0b4574be26f1f4b50a0ae7afea80b5d17bcb2153467c9999d94aec3a8f7",
+      "date": "2010-12-14T18:43:12Z",
+      "subject": "[Bioc-sig-seq] ShortRead/srFilter custom \"chromosome filter\"",
+      "subject_clean": "[Bioc-sig-seq] ShortRead/srFilter custom \"chromosome filter\"",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101214/5e835d13/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101214/5e835d13/attachment.pl>",
+      "thread_id": "thread-19549c18a76a",
+      "thread_depth": 0,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-578a1e406391",
+      "message_id": "<4D0A5021.40200@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2010-12-16T17:45:05Z",
+      "subject": "[Bioc-sig-seq] scanBam Error",
+      "subject_clean": "[Bioc-sig-seq] scanBam Error",
+      "in_reply_to": "<20101214090037.BKF61254@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20101213150018.BKF40466@gimr.garvan.unsw.edu.au>",
+        "<4D05A82B.9020805@fhcrc.org>",
+        "<20101213171538.BKF43929@gimr.garvan.unsw.edu.au>",
+        "<1292225484.27388.62.camel@bioinform01-ubuntu>",
+        "<20101214090037.BKF61254@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "On 12/13/2010 02:00 PM, Dario Strbenac wrote:\n> Hi,\n> \n> Yes, that works fine, thanks. It must've been a size issue I was having.\n\nRsamtools 1.2.2 in release has been updated to say\n\n  too many records, use 'param=ScanBamParam(which=<...>)'\n\nwhen the number of reads / nucleotides results in more than 2^31-1\nnucleotides; The devel version of Rsamtools also currently does this,\nbut the intention is to arrive at a more robust solution.\n\nI think this addresses the problem, but would be happy to know if the\noriginal example still fails.\n\nMartin\n\n\n> \n> ---- Original message ----\n>> Date: Mon, 13 Dec 2010 17:31:24 +1000\n>> From: Paul Leo <p.leo at uq.edu.au>  \n>> Subject: Re: [Bioc-sig-seq] scanBam Error  \n>> To: D.Strbenac at garvan.org.au\n>> Cc: bioc-sig-sequencing at r-project.org\n>>\n>>   Do you need all the sequence data at once?\n>>\n>>   Instead of using a smaller bam file can you read in\n>>   a smaller portion of your large bamfile ?\n>>\n>>   data.gr<-GRanges(seqnames\n>>   =paste(\"chr\",13,sep=\"\"),ranges =\n>>   IRanges(start=as.numeric(28608234),end=as.numeric(28608363)),strand=\"+\")\n>>\n>>   which<-  data.gr\n>>   params<-ScanBamParam(which=which,flag=scanBamFlag(isUnmappedQuery=FALSE,isDuplicate=NA,isValidVendorRead=TRUE),simpleCigar\n>>   = FALSE,reverseComplement =\n>>   FALSE,what=c(\"qname\",\"flag\",\"rname\",\"seq\",\"strand\",\"pos\",\"mpos\",\"qwidth\",\"cigar\",\"qual\",\"mapq\",\"isize\",\n>>   \"mrnm\" ),tag=\"RG\" ) # change to what you want\n>>   aln1 <- scanBam(\"HS1808.bam\",param=params)\n>>\n>>   aln1[[1]]\n>>\n>>   That should work fine?\n>>\n>> --                                                                     \n>> Dr Paul Leo                                                            \n>> Bioinformatician                                                       \n>> UQ Diamantina Institute for Cancer, Immunology and Metabolic Medicine  \n>> ---------------------------------------------------------------------  \n>> Level 4, R Wing                                                        \n>> Princess Alexandra Hospital                                            \n>> Ipswich Rd                                                             \n>> Woolloongabba QLD 4102                                                 \n>> Tel: +61 7 3240 7740  Mob: 041 303 8691  Fax: +61 7 3240 5946          \n>> Email: p.leo at uq.edu.au   Web: http://www.di.uq.edu.au                  \n>>\n>>   -----Original Message-----\n>>   From: Dario Strbenac <D.Strbenac at garvan.org.au>\n>>   Reply-to: D.Strbenac at garvan.org.au\n>>   To: bioc-sig-sequencing at r-project.org\n>>   Subject: Re: [Bioc-sig-seq] scanBam Error\n>>   Date: Mon, 13 Dec 2010 17:15:38 +1100\n>>\n>> I tried it out by making a smaller bam file with only reads from one chromosome, and it worked fine. The full bam file is 4 GB and has 75 million reads in it. Could the size be a problem ? Could you test out a bam file of this size on your end, without me sending you one that big ? Also, the error is different after I put the scamBamParam in the right spot :\n>>\n>> Error in .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...) :\n>>   negative length vectors are not allowed\n>>\n>> Integer overflow somewhere, maybe ?\n>>\n>> - Dario.\n>>\n>> ---- Original message ----\n>>> Date: Sun, 12 Dec 2010 20:59:23 -0800\n>>> From: Martin Morgan <mtmorgan at fhcrc.org> \n>>> Subject: Re: [Bioc-sig-seq] scanBam Error \n>>> To: D.Strbenac at garvan.org.au\n>>> Cc: bioc-sig-sequencing at r-project.org\n>>>\n>>> On 12/12/2010 08:00 PM, Dario Strbenac wrote:\n>>>> Hello,\n>>>>\n>>>\n>>>> I'm having trouble reading in a BAM file when \"seq\" is one of the\n>>> strings passed to the what argument of ScanBamParam. If it's not, then\n>>> the the reading completes successfully. I don't understand what the\n>>> error means. It is :\n>>>>\n>>>> Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param) :\n>>>>   INTEGER() can only be applied to a 'integer', not a 'closure'\n>>>>\n>>>> The traceback is :\n>>>>\n>>>>> traceback()\n>>>> 4: .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...)\n>>>> 3: .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param)\n>>>> 2: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE),\n>>>>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\",\n>>>>            \"strand\", \"pos\", \"seq\")))\n>>>> 1: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE),\n>>>>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\",\n>>>>            \"strand\", \"pos\", \"seq\")))\n>>>>\n>>>> and the environment is :\n>>>>\n>>>> R version 2.12.0 (2010-10-15)\n>>>> Platform: x86_64-pc-mingw32/x64 (64-bit)\n>>>>\n>>>> locale:\n>>>> [1] LC_COLLATE=English_Australia.1252  LC_CTYPE=English_Australia.1252    LC_MONETARY=English_Australia.1252 LC_NUMERIC=C                       LC_TIME=English_Australia.1252   \n>>>>\n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices utils     datasets  methods   base    \n>>>>\n>>>> other attached packages:\n>>>> [1] Rsamtools_1.2.1     Biostrings_2.18.0   GenomicRanges_1.2.0 IRanges_1.8.2     \n>>>>\n>>>> loaded via a namespace (and not attached):\n>>>> [1] Biobase_2.8.0\n>>>\n>>> Hi Dario -- this is some kind of error in Rsamtools' C code, but I'm not\n>>> able to reproduce it on my end so can't track it down. Is there any way\n>>> of producing and sharing with me an example file that has this problem?\n>>>\n>>> One thing (not causing the bug) in your traceback is that 'flag' should\n>>> be an argument to ScanBamParam; as it is I think it is being silently\n>>> ignored.\n>>>\n>>> Martin\n>>>\n>>>>\n>>>> --------------------------------------\n>>>> Dario Strbenac\n>>>> Research Assistant\n>>>> Cancer Epigenetics\n>>>> Garvan Institute of Medical Research\n>>>> Darlinghurst NSW 2010\n>>>> Australia\n>>>>\n>>>> _______________________________________________\n>>>> Bioc-sig-sequencing mailing list\n>>>> Bioc-sig-sequencing at r-project.org\n>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>>\n>>>\n>>> --\n>>> Computational Biology\n>>> Fred Hutchinson Cancer Research Center\n>>> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>>>\n>>> Location: M1-B861\n>>> Telephone: 206 667-2793\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> \n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 12/13/2010 02:00 PM, Dario Strbenac wrote:\n> Hi,\n> \n> Yes, that works fine, thanks. It must've been a size issue I was having.\n\nRsamtools 1.2.2 in release has been updated to say\n\n  too many record",
+      "thread_id": "thread-3c85cbcd1214",
+      "thread_depth": 5,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-8d646a6e7fca",
+      "message_id": "<AANLkTimx+rTcg4O+FV+2q7Kf_mL9X-1qgUayGauqHQrP@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2010-12-21T01:49:06Z",
+      "subject": "[Bioc-sig-seq] ShortRead/srFilter custom \"chromosome filter\"",
+      "subject_clean": "[Bioc-sig-seq] ShortRead/srFilter custom \"chromosome filter\"",
+      "in_reply_to": "<AANLkTi=8uJJQ_DKsVgwP4vPPRTZQ3nAJ5p6kJC4DyAoj@mail.gmail.com>",
+      "references": [
+        "<AANLkTi=8uJJQ_DKsVgwP4vPPRTZQ3nAJ5p6kJC4DyAoj@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101220/ab5a3b56/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101220/ab5a3b56/attachment.pl>",
+      "thread_id": "thread-19549c18a76a",
+      "thread_depth": 1,
+      "month": "2010-12"
+    },
+    {
+      "id": "msg-2690932829bf",
+      "message_id": "<B4E038096093394CBFEBF30AE6F593CF087418462E@USETCMSXMB02.NAFTA.SYNGENTA.ORG>",
+      "from_name": "kristen.dang at syngenta.com",
+      "from_email_hash": "d3f68eac7a1942429b9ea19ba51db1c72f210c86c986caebb4dc2b0da160b880",
+      "date": "2010-12-29T20:39:01Z",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "subject_clean": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear fellow edgeR users,\n\nI have an RNA-seq dataset with 2 factors and 24 samples (balanced) that I am attempting to analyze with edgeR. I keep encountering the following error when I use the estimateCRDisp function.\n\n> data.cd = estimateCRDisp(data, design)\nError in while (any(i)) { : missing value where TRUE/FALSE needed\nIn addition: There were 50 or more warnings (use warnings() to see the first 50)\n> warnings()\nWarning messages:\n1: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x = 530.381844\n2: In dpois(y[i, ], lambda = mu[i, ], log = TRUE) : non-integer x = 676.500000\n[etc]\n\n> traceback()\n3: mglmOneGroup(y, offset, dispersion)\n2: adjustedProfileLik(spline.disp[i], y.filt, design = design, offset = offset.mat.filt +\n       lib.size.mat.filt)\n1: estimateCRDisp(data, design)\n>\n\nI see why the \"dpois\" function is giving an error, but I am not sure why a non-integer value is being sent to it. Any suggestions are greatly appreciated.\n\n\nInformation about my session and commands follows:\n\nlibrary(edgeR)\ntargets = read.csv(\"design_file.csv\")\ntargets$factor_a = factor(targets$factor_a)\ntargets$factor_b = factor(targets$factor_b)\n\ndata = readDGE(targets)\ndata = calcNormFactors(data)\n\ncontrasts(targets$factor_a) = contr.sum(2)\ncontrasts(targets$factor_b) = contr.sum(2)\ndesign = model.matrix(~factor_a+factor_b, data = targets)\ndata.cd = estimateCRDisp(data, design)\n\n\n> sessionInfo()\nR version 2.12.0 (2010-10-15)\nPlatform: i386-pc-mingw32/i386 (32-bit)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] edgeR_2.0.2\n\nloaded via a namespace (and not attached):\n[1] limma_3.6.9  tools_2.12.0\n\n\n\nKristen Dang, Ph.D.\nComputational Biologist\nSyngenta Biotechnology\nResearch Triangle Park, NC\n\n\n\n\nmessage may contain confidential information. If you are not the designated recipient, please notify the sender immediately, and delete the original and any copies. Any use of the message by you is prohibited.",
+      "body_snippet": "Dear fellow edgeR users,\n\nI have an RNA-seq dataset with 2 factors and 24 samples (balanced) that I am attempting to analyze with edgeR. I keep encountering the following error when I use the estimate",
+      "thread_id": "thread-2690932829bf",
+      "thread_depth": 0,
+      "month": "2010-12"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-efb62d99473d",
+      "subject": "[Bioc-sig-seq] BSgenome getSeq and unstranded GRanges objects",
+      "message_count": 1,
+      "participants": [
+        "Anna Terry"
+      ],
+      "started": "2010-12-01T14:52:54Z",
+      "last_reply": "2010-12-01T14:52:54Z",
+      "root_message_id": "msg-efb62d99473d"
+    },
+    {
+      "id": "thread-b6d13791b436",
+      "subject": "[Bioc-sig-seq] Combine GRanges Stored In A GRangesList",
+      "message_count": 1,
+      "participants": [
+        "Michael Lawrence"
+      ],
+      "started": "2010-12-01T18:35:59Z",
+      "last_reply": "2010-12-01T18:35:59Z",
+      "root_message_id": "msg-b6d13791b436"
+    },
+    {
+      "id": "thread-245575a0748e",
+      "subject": "[Bioc-sig-seq] Citing the Bioconductor",
+      "message_count": 3,
+      "participants": [
+        "Ivan Gregoretti",
+        "Sunny Srivastava"
+      ],
+      "started": "2010-12-01T21:43:48Z",
+      "last_reply": "2010-12-01T21:48:03Z",
+      "root_message_id": "msg-245575a0748e"
+    },
+    {
+      "id": "thread-7a4ca1678401",
+      "subject": "[Bioc-sig-seq] GRangesList RAM Usage",
+      "message_count": 2,
+      "participants": [
+        "Dario Strbenac",
+        "Michael Lawrence"
+      ],
+      "started": "2010-12-02T06:00:34Z",
+      "last_reply": "2010-12-02T06:21:19Z",
+      "root_message_id": "msg-7a4ca1678401"
+    },
+    {
+      "id": "thread-d350f8430374",
+      "subject": "[Bioc-sig-seq] Random Intervals in GenomicRanges",
+      "message_count": 3,
+      "participants": [
+        "Anna Terry",
+        "Michael Dondrup"
+      ],
+      "started": "2010-12-02T15:06:35Z",
+      "last_reply": "2010-12-06T11:03:14Z",
+      "root_message_id": "msg-d350f8430374"
+    },
+    {
+      "id": "thread-367e36ccd41f",
+      "subject": "[Bioc-sig-seq] Normalization of metabolomic data",
+      "message_count": 1,
+      "participants": [
+        "nqueralt at clinic.ub.es"
+      ],
+      "started": "2010-12-03T08:49:30Z",
+      "last_reply": "2010-12-03T08:49:30Z",
+      "root_message_id": "msg-367e36ccd41f"
+    },
+    {
+      "id": "thread-799a6e6236d5",
+      "subject": "[Bioc-sig-seq] trimLRPatterns: can someone clarify the effects of the \"ranges\" argument?",
+      "message_count": 3,
+      "participants": [
+        "Harris A. Jaffee",
+        "Lionel (Lee) Brooks 3rd",
+        "Martin Morgan"
+      ],
+      "started": "2010-12-03T15:16:24Z",
+      "last_reply": "2010-12-04T05:18:04Z",
+      "root_message_id": "msg-799a6e6236d5"
+    },
+    {
+      "id": "thread-12326bae8cc2",
+      "subject": "[Bioc-sig-seq] Simulating data",
+      "message_count": 2,
+      "participants": [
+        "Hervé Pagès",
+        "Jim Silverton"
+      ],
+      "started": "2010-12-03T22:05:49Z",
+      "last_reply": "2010-12-08T20:11:24Z",
+      "root_message_id": "msg-12326bae8cc2"
+    },
+    {
+      "id": "thread-84de05985992",
+      "subject": "[Bioc-sig-seq] rtracklayer liftOver",
+      "message_count": 2,
+      "participants": [
+        "Meier, Samuel",
+        "Michael Lawrence"
+      ],
+      "started": "2010-12-08T22:00:13Z",
+      "last_reply": "2010-12-09T21:52:26Z",
+      "root_message_id": "msg-84de05985992"
+    },
+    {
+      "id": "thread-83e99013485d",
+      "subject": "[Bioc-sig-seq] short read low complexity filtering",
+      "message_count": 2,
+      "participants": [
+        "Hervé Pagès"
+      ],
+      "started": "2010-12-08T23:03:46Z",
+      "last_reply": "2010-12-08T23:10:43Z",
+      "root_message_id": "msg-83e99013485d"
+    },
+    {
+      "id": "thread-7bc62baddc35",
+      "subject": "[Bioc-sig-seq] countOverlaps question",
+      "message_count": 2,
+      "participants": [
+        "Jason Lu",
+        "Michael Lawrence"
+      ],
+      "started": "2010-12-10T19:56:42Z",
+      "last_reply": "2010-12-10T20:08:34Z",
+      "root_message_id": "msg-7bc62baddc35"
+    },
+    {
+      "id": "thread-26dae219878d",
+      "subject": "[Bioc-sig-seq] SOLiD color space data",
+      "message_count": 8,
+      "participants": [
+        "Martin Morgan",
+        "Neel Aluru",
+        "Steve Lianoglou"
+      ],
+      "started": "2010-12-12T02:12:39Z",
+      "last_reply": "2010-12-13T02:52:26Z",
+      "root_message_id": "msg-26dae219878d"
+    },
+    {
+      "id": "thread-8a00db51d7a0",
+      "subject": "[Bioc-sig-seq] [BioC] SOLiD color space data",
+      "message_count": 2,
+      "participants": [
+        "Neel Aluru",
+        "rcaloger"
+      ],
+      "started": "2010-12-12T17:48:11Z",
+      "last_reply": "2010-12-12T19:09:09Z",
+      "root_message_id": "msg-8a00db51d7a0"
+    },
+    {
+      "id": "thread-3c85cbcd1214",
+      "subject": "[Bioc-sig-seq] scanBam Error",
+      "message_count": 6,
+      "participants": [
+        "Dario Strbenac",
+        "Martin Morgan",
+        "Paul Leo"
+      ],
+      "started": "2010-12-13T04:00:18Z",
+      "last_reply": "2010-12-16T17:45:05Z",
+      "root_message_id": "msg-3c85cbcd1214"
+    },
+    {
+      "id": "thread-19549c18a76a",
+      "subject": "[Bioc-sig-seq] ShortRead/srFilter custom \"chromosome filter\"",
+      "message_count": 2,
+      "participants": [
+        "R. T. Sweeney",
+        "Sean Davis"
+      ],
+      "started": "2010-12-14T18:43:12Z",
+      "last_reply": "2010-12-21T01:49:06Z",
+      "root_message_id": "msg-19549c18a76a"
+    },
+    {
+      "id": "thread-2690932829bf",
+      "subject": "[Bioc-sig-seq] error msg from edgeR estimateCRDisp",
+      "message_count": 1,
+      "participants": [
+        "kristen.dang at syngenta.com"
+      ],
+      "started": "2010-12-29T20:39:01Z",
+      "last_reply": "2010-12-29T20:39:01Z",
+      "root_message_id": "msg-2690932829bf"
+    }
+  ]
+}

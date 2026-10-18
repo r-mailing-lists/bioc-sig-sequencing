@@ -1,0 +1,4642 @@
+From mtmorgan at fhcrc.org  Wed Apr  2 05:20:09 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 01 Apr 2008 20:20:09 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+Message-ID: <47F2FB69.4010105@fhcrc.org>
+
+Short-readers!
+
+I want to take this opportunity to provide an update on the directions 
+we've initiated for short reads. It would be great to get your feedback, 
+and to hear of your own efforts.
+
+WARNING: This software is in development, and is far from final. In 
+particular, functions in the BiostringsCinterfaceDemo package are NOT 
+meant to be final or for use in other packages; they're here to 
+demonstrate 'proof-of-concept' and to illustrate how users can access 
+the Biostrings package from C code. I'll indicate which functions are 
+from BiostringsCinterfaceDemo below. Expect a short-read 'base' package 
+to materialize in the devel branch of Bioconductor in the not too 
+distant future.
+
+WARNING: The data used to illustrate functionality are not meant to be 
+indiciative of the quality of data produced by Solexa; they are 
+generally 'first runs' that present a number of interesting challenges 
+for interpretation.
+
+HARDWARE AND SOFTWARE: The following include timing and object size 
+measurements. The machine being used is fast, but we're not doing 
+anything fancy to, e.g., exploit multiple processors. The machine has a 
+very large amount of memory; we used about 10 GB below, looking at three 
+different data sets. The following uses the R-2-7-branch (this is 
+different from R-devel). The Biostrings and BiostringsCinterfaceDemo 
+packages are updated very regularly, so be prepared for broken or 
+outdated functions.
+
+Herve Pages is responsible for the clever code; I am just a scribe.
+
+Ok, first a convenience function to print out 'size' in megabytes, 
+'cause objects are large!
+
+ > mb <- function(sz) noquote(sprintf("%.1f MB", sz / (1024^2)))
+
+
+* Starters...
+
+We load the BiostringsCinterfaceDemo, which requires Biostrings. Both of 
+these need to be from the 'development' branch of Bioconductor. Both are 
+changing rapidly, and should be obtained from svn and updated regularly 
+(http://wiki.fhcrc.org/bioc/DeveloperPage, 
+http://wiki.fhcrc.org/bioc/SvnHowTo).
+
+ > library(BiostringsCinterfaceDemo)
+
+
+* I/O, DNAStringSet, and alphabetFrequency
+
+We next read in a fasta file derived from a lane of solexa reads. Here's 
+what the data looks like:
+
+ > readLines(fastaFile, 10)
+  [1] ">5_1_102_368"
+  [2] "TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT"
+  [3] ">5_1_120_254"
+  [4] "TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT"
+  [5] ">5_1_110_385"
+  [6] "GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC"
+  [7] ">5_1_118_88"
+  [8] "GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC"
+  [9] ">5_1_113_327"
+[10] "GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC"
+
+This is a single lane from a Solexa training run; the data are not 
+filtered, and the run is not meant to be representative in terms of 
+quality or other characteristics. The DNA used for the reads is from 
+phage phiX-174. Here's how we read it in (countLines and readSolexaFastA 
+are in BiostringsCinterfaceDemo)
+
+ > countLines(fastaFile)
+s_5.fasta
+  18955056
+ > system.time({
++     seqa <- readSolexaFastA(fastaFile)
++ }, gcFirst=TRUE)
+    user  system elapsed
+   67.48    2.08   69.68
+ > mb(object.size(seqa))
+[1] 397.7 MB
+ > seqa
+   A DNAStringSet instance of length 9477528
+           width seq
+       [1]    36 TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT
+       [2]    36 TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT
+       [3]    36 GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC
+       [4]    36 GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC
+       [5]    36 GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC
+       [6]    36 TGACCCTCAGCAATCTTAAACTTCTTAGACGAATCA
+       [7]    36 GCTGGTTCTCACTTCTGTTACTCCAGCTTCTTCGGC
+       [8]    36 TTTAGGTGTCTGTAAAACAGGTGCCGAAGAAGCTGG
+       [9]    36 GGTCTGTTGAACACGACCAGAAAACTGGCCTAACGA
+       ...   ... ...
+[9477520]    36 TACGCAGTTTTGCCGTATACTCGTTGTTCTGACTCT
+[9477521]    36 TATACCCCCCCTCCTACTTGTGCTGTTTCTCATGTT
+[9477522]    36 CAGGTTGTTTCTGTTGGTGCTGATATTTCTTTTTTT
+[9477523]    36 GTCTTCCTTGCTTGTCAGATTGGTCGTCTTATTACC
+[9477524]    36 ATACGAAAGACCAGGTATATGCACAAAATGAGTTGC
+[9477525]    36 ACCACAAACGCGCTCGTTTATGCTTGCCTCTATTAC
+[9477526]    36 ------------------------------------
+[9477527]    36 CCAGCAAGGAAGCCAAGATGGGAAAGGTCATGCGGC
+[9477528]    36 CATTGTTGACCACCTACATACCACAGACGAGCACCT
+
+It takes just over a minute to read in the nearly 9.5 million reads. The 
+reads are stored efficiently, without the overhead of R character 
+strings. The data structure (a DNAStringSet, from Biostrings and 
+therefore stable) will not copy the large data, but instead contains 
+'views' into it.
+
+A basic question is about the nucleotides present in the reads. 
+alphabetFrequency (from Biostrings) scans all the sequences and tallies 
+nucleotides
+
+ > system.time({
++     alf1 <- alphabetFrequency(seqa, collapse=TRUE, freq=TRUE)
++ }, gcFirst=TRUE)
+    user  system elapsed
+   0.612   0.000   0.612
+ > alf1
+      A      C      G      T      M      R      W      S      Y      K
+0.2449 0.2119 0.2201 0.3030 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+      V      H      D      B      N      -
+0.0000 0.0000 0.0000 0.0000 0.0000 0.0201
+
+(bases are recored with IUPAC symbols, see ?IUPAC_CODE_MAP). This 
+executes very efficiently. A variant produces a matrix with rows 
+corresponding to reads and columns to bases.
+
+ > alf <- alphabetFrequency(seqa, baseOnly=TRUE)
+ > dim(alf)
+[1] 9477528       5
+ > head(alf)
+       A  C  G  T other
+[1,]  9  4  6 17     0
+[2,] 11  6  5 14     0
+[3,] 10  9  4 13     0
+[4,]  4  9 12 11     0
+[5,]  6  6 11 13     0
+[6,] 12 10  4 10     0
+
+This can be remarkably useful. For instance, to select just the 'clean' 
+sequences (those without ambiguous base calls), one can
+
+ > cleanSeqs <- seqa[alf[,"other"]==0]
+ > length(seqa)
+[1] 9477528
+ > length(cleanSeqs)
+[1] 9207292
+
+This creates a new DNAStringSet with just the clean sequences. It 
+executes very quickly, because the DNAStringSet is a view into the 
+original. The memory associated with the reads themselves is not copied. 
+here is the alphabetFrequency of the 'clean' reads.
+
+ > cleanAlf <- alphabetFrequency(cleanSeqs, baseOnly=TRUE)
+
+Again this is very useful, for instance the distribution of GC content 
+among clean reads is
+
+ > plot(density(rowSums(cleanAlf[,c("G", "C")]) / rowSums(cleanAlf)))
+
+
+* PDict, countPDict, matchPDict
+
+A 'PDict' (defined in Biostrings) is a dictionary-like structure that 
+can be used for very efficient exact- and partially-exact matching 
+algorithms. To illustrate, we'll use data from about a million reads of 
+the Solexa BAC cloning vector. These reads again come from an early run 
+on the Solexa instrumentation here, and results should not be taken to 
+be representative of performance.
+
+We read and clean the sequences as above, resulting in
+
+ > length(cleanSeqs)
+[1] 923680
+
+We then create a PDict from our DNAStringSet with
+
+ > system.time({
++     pDict <- PDict(cleanSeqs)
++ }, gcFirst=TRUE)
+    user  system elapsed
+    1.09    0.00    1.10
+ > pDict
+923680-pattern constant width PDict object of width 25 (patterns have no 
+names)
+ > mb(object.size(pDict))
+[1] 160.4 MB
+
+This is created quickly. It is a larger object, but the size allows fast 
+searches. Here we'll use Biostrings readFASTA to read in the sequence to 
+which the data are to be aligned.
+
+ > bac <- read.DNAStringSet(bacFile, "fasta")[[1]]
+Read 2479 items
+ > length(bac)
+[1] 173427
+
+This is a BAC clone. We'll match our pDict to the BAC subject, finding 
+all EXACT matches;
+
+ > system.time({
++     counts <- countPDict(pDict, bac)
++ }, gcFirst=FALSE)
+    user  system elapsed
+   0.200   0.048   0.268
+ > length(counts)
+[1] 923680
+ > table(counts)[1:5]/sum(table(counts))
+counts
+       0       1       2       3       4
+0.53954 0.42738 0.01136 0.00528 0.00334
+
+This is very fast, partly because the subject against which the PDict is 
+being matched is short. A more realistic use case is to match against a 
+genome. The integration with BSgenome packages is very smooth. To match 
+our pDict against human chromosome 6 (where the BAC cloning vector comes 
+from), we can load the appropriate BSgenome package and chromosome
+
+ > library(BSgenome.Hsapiens.UCSC.hg18)
+
+ > Hsapiens[["chr6"]]
+   170899992-letter "DNAString" instance
+seq: 
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+
+(The N's represent the chromsome telomeres, whose seuqences is not 
+available). We look for exact matches
+
+ > system.time({
++     hcount <- countPDict(pDict, Hsapiens[["chr6"]])
++ }, gcFirst=TRUE)
+    user  system elapsed
+    24.2     0.0    24.2
+ > table(hcount)[1:5] / sum(table(hcount))
+hcount
+       0       1       2       3       4
+0.50466 0.32996 0.02043 0.00959 0.00761
+
+About 1/2 the sequences exactly match one or more locations on 
+chromosome 6. Some sequences match many times, though the reason (in 
+this case, anyway) is not too surprising:
+
+ > max(hcount)
+[1] 8286
+ > maxIdx = which(hcount==max(hcount))
+ > cleanSeqs[maxIdx]
+   A DNAStringSet instance of length 70
+      width seq
+  [1]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [2]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [3]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [4]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [5]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [6]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [7]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [8]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  [9]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+  ...   ... ...
+[62]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[63]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[64]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[65]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[66]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[67]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[68]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[69]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+[70]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+
+(that these are identical can be checked with 
+unique(as.character(cleanSeqs[maxIdx])))
+
+The current implementation of PDict allows for a 'trusted band' of 
+nucleotides that need to match exactly, allowing for approximate matches 
+in the remaining nucleotides. Here we trust the first 12 bases, and 
+allow up to 3 mismatches. Also, we use the more informative matchPDict, 
+which allows us to find the positions of all matches
+
+ > trusted <- PDict(cleanSeqs, tb.end=12)
+ > system.time({
++     mmMatch <- matchPDict(trusted, Hsapiens[[6]], max.mismatch=3)
++ }, gcFirst=TRUE)
+    user  system elapsed
+  195.58    3.85  199.44
+ > table(cut(countIndex(mmMatch), c(0, 10^(0:5)), right=FALSE))
+
+         [0,1)        [1,10)      [10,100)   [100,1e+03) [1e+03,1e+04)
+        377233        337806         72983         66322         60818
+[1e+04,1e+05)
+          8518
+
+Execution time increases as the stringency of the match decreases. PDict 
+facilities do not yet incorporate quality scores, but filtering results 
+based on quality (qualities are discussed further below) represents a 
+natural direction for development.
+
+
+
+* alphabetByCycle
+
+alphabetByCycle uses a small C function in BiostringsCinterfaceDemo, 
+alphabet_by_cycle. It and the read* functions in this package illustrate 
+how to access DNAStringSet objects at the C level. alphabetByCycle is a 
+matrix that tallies nucleotide use per cycle
+
+ > system.time({
++     abc <- alphabetByCycle(seqa)
++ })
+    user  system elapsed
+    2.68    0.00    2.68
+
+Again this can be quite useful. For instance, we can find out the number 
+of bases that were not called, as a function of cycle
+
+ > abc["-",]
+  [1]  22181 108829 123173 180382 225091 225055 216787 208538 208881
+[10] 213104 148936 142966 141030 148163 178747 204304 211538 211303
+[19] 213722 211167 208021 208715 165441 158359 147110 151462 204781
+[28] 221008 223922 221171 227622 226936 232232 236606 242387 241718
+
+and the number of 'T' nucleotides as a function of cycle
+
+ > abc["T",] / colSums(abc[1:4,])
+  [1] 0.286 0.292 0.292 0.284 0.292 0.280 0.293 0.297 0.299 0.287 0.290
+[12] 0.294 0.294 0.299 0.300 0.301 0.304 0.305 0.306 0.309 0.310 0.311
+[23] 0.312 0.316 0.315 0.319 0.320 0.322 0.326 0.328 0.331 0.335 0.339
+[34] 0.342 0.346 0.358
+
+That's quite a striking increase after cycle 25!
+
+
+* Qualities
+
+Solexa reads have quality scores associated with each base call. These 
+are summarized in files formatted like:
+
+ > readLines(fastqFile, n=8)
+[1] "@HWI-EAS88_1_1_1_1001_499"
+[2] "GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT"
+[3] "+HWI-EAS88_1_1_1_1001_499"
+[4] "]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS"
+[5] "@HWI-EAS88_1_1_1_898_392"
+[6] "GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC"
+[7] "+HWI-EAS88_1_1_1_898_392"
+[8] "]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK"
+
+A record consists of four lines. The first and third lines are 
+identifiers (repeated), the second line is the sequence, the fourth line 
+an ASCII character representing the score (']' is good, Z is better than 
+A). Here we read a quality file into a data structure defined in 
+BiostringsCinterfaceDemo designed to coordinate the sequence, name, and 
+quality information.
+
+ > system.time({
++     seqq <- readSolexaFastQ(fastqFile)
++ }, gcFirst=TRUE)
+    user  system elapsed
+  17.533   0.417  17.969
+ > mb(object.size(seqq))
+[1] 254.5 MB
+ > seqq
+class: SolexaSequenceQ
+length: 2218237
+
+ > sequences(seqq)[1:5]
+   A DNAStringSet instance of length 5
+     width seq
+[1]    36 GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT
+[2]    36 GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC
+[3]    36 GCGGTGGTCTATAGTGTTATTAATATCAATTTGGGT
+[4]    36 GTTACCATGATGTTATTTCTTCATTTGGAGGTAAAA
+[5]    36 GTATGTTTCTCCTGCTTATCACCTTCTTGAAGGCTT
+ > names(seqq)[1:5]
+   A BStringSet instance of length 5
+     width seq
+[1]    24 HWI-EAS88_1_1_1_1001_499
+[2]    23 HWI-EAS88_1_1_1_898_392
+[3]    23 HWI-EAS88_1_1_1_922_465
+[4]    23 HWI-EAS88_1_1_1_895_493
+[5]    23 HWI-EAS88_1_1_1_953_493
+ > scores(seqq)[1:5]
+   A BStringSet instance of length 5
+     width seq
+[1]    36 ]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS
+[2]    36 ]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK
+[3]    36 ]]]]Y]]]]]V]T]]]]]T]]]]]V]TMJEUXEFLA
+[4]    36 ]]]]]]]]]]]]]]]]]]]]]]T]]]]RJRZTQLOA
+[5]    36 ]]]]]]]]]]]]]]]]]T]]]]]]]]]]MJUJVLSS
+
+The object returned by readSolexaFastQ is an S4 object with three slots. 
+Each slot contains a XStringSet, where 'X' is DNA for sequences, and 
+'BString' for names and scores. This represents one way of structuring 
+quality data; the S4 class coordinates subsetting, and provides 
+(read-only) accessors to the underlying objects. A likely addition to 
+this class as it matures is the inclusion of lane-specific phenotype 
+(sample) information, much as an ExpressionSet coordinates sample and 
+expression values.
+
+We can gain some basic insight into the sequences as before, e.g.,
+
+ > abc <- alphabetByCycle(sequences(seqq))
+ > abc["N",]
+  [1]     0     0     0     0     0     0     0     0     0     0     0
+[12]     0  1213  1631  1155  1240   721   418  8503   526  6493   703
+[23] 14999   718  1623   737   243 40704   811   590  1964   961   809
+[34]   910   477   208
+
+Solexa provides files with quality information after filtering reads 
+based on 'purity', a measure that precludes uncertain bases (IUPAC code 
+'N') from a user-specified region (the first 12 cycles, by default).
+
+ > abc["T",] / colSums(abc[1:4,])
+  [1] 0.298 0.290 0.292 0.290 0.295 0.279 0.292 0.298 0.301 0.293 0.295
+[12] 0.299 0.296 0.293 0.294 0.294 0.293 0.295 0.294 0.297 0.297 0.299
+[23] 0.298 0.303 0.302 0.307 0.312 0.312 0.321 0.331 0.334 0.351 0.361
+[34] 0.374 0.380 0.423
+
+We can also summarize quality information by cycle, using an alphabet 
+that reflects the encoded scores:
+
+ > alphabet <- sapply(as.raw(32:93), rawToChar)
+ > abcScore <- alphabetByCycle(scores(seqq), alphabet=alphabet)
+ >
+ > rowSums(abcScore)
+                 !        "        #        $        %        &        '
+        0        0        0        0        0        0        0        0
+        (        )        *        +        ,        -        .        /
+        0        0        0        0        0        0        0        0
+        0        1        2        3        4        5        6        7
+        0        0        0        0        0        0        0        0
+        8        9        :        ;        <        =        >        ?
+        0        0        0        0        0        0        0        0
+        @        A        B        C        D        E        F        G
+        0  1367337        0  2035064        0  1006372   819775        0
+        H        I        J        K        L        M        N        O
+  1926112   116395  1614109   356496   517731  1602298   578172  2016009
+        P        Q        R        S        T        U        V        W
+  3043393   401196  2152160  1553511  2149231   254108  3896558   232409
+        X        Y        Z        [       \\        ]
+   706452  4353706  1292309   732210        0 45133419
+ > abcScore[34:62,c(1:4, 33:36)]
+       [,1]    [,2]    [,3]    [,4]   [,5]   [,6]   [,7]   [,8]
+A        1    1788    1798       8 260944 299631 332500 354717
+B        0       0       0       0      0      0      0      0
+C       59   36426   12705     227     39 131268 140461 154643
+D        0       0       0       0      0      0      0      0
+E      133   13391    4033     180 120135      0      0      0
+F        0       0       0       0      0 259549 272238 287988
+G        0       0       0       0      0      0      0      0
+H      272    8815    2933     357 242741 234088 239917 239157
+I        0       0       0       0 116395      0      0      0
+J      472    4678    1656     586      0 195991 198114 187535
+K        5      59      25      11 110052  84345  83744  77353
+L        0       0       0       0 102438 144459 142049 128785
+M       75     171     121      92  93945 119209 116492 103765
+N      653    2992    1232     769  85940  91924  89084  79246
+O     1227    2719    1754    1576 175403 187339 176997 160100
+P    65834   57830   60855   65863  61910      0      0      0
+Q        0       0       0       0 236290      0      0      0
+R     3211    4482    4321    4215      0      0      0      0
+S        0       0       0       0  68378 470434 426641 444948
+T     4444    5373    5868    5637      0      0      0      0
+U        0       0       0       0      0      0      0      0
+V     9146   10270   11922   11547 543627      0      0      0
+W        0       0       0       0      0      0      0      0
+X        0       0       0       0      0      0      0      0
+Y    28363   29080   34093   32873      0      0      0      0
+Z        0       0       0       0      0      0      0      0
+[        0       0       0       0      0      0      0      0
+\\       0       0       0       0      0      0      0      0
+]  2104342 2040163 2074921 2094296      0      0      0      0
+
+Output from the last line shows how scores decrease from the first four 
+cycles to the last four. Standard R and Biostrings commands can be used 
+to ask many interesting questions, such as an overall quality score of 
+reads (e.g., summing the scores of individual nucleotides) and the 
+relationship between sequence characteristics (e.g., frequency of 'T') 
+and read quality.
+
+ > atgc <- alphabetFrequency(sequences(seqq), baseOnly=TRUE)
+ > qscore <- alphabetFrequency(scores(seqq))
+ > dim(qscore)
+[1] 2218237     256
+ > mb(object.size(qscore))
+[1] 2166.2 MB
+
+ > quality <- colSums(t(qscore) * 1:ncol(qscore))
+ > plot(density(quality))   # small secondary peak at low quality
+ > scores(seqq)[which(quality<2925)]
+   A BStringSet instance of length 87696
+         width seq
+     [1]    36 PPPPPPPPPPPPPEPPPPPOPPMOOPPOMMMPOOOJ
+     [2]    36 PPPPPPPPPPPPPPPPPPPPHPPPOPPMOPPPNKMA
+     [3]    36 PPPPPPPPPPPPPPPPPOPPPPPPEPMPPPMPOFAF
+     [4]    36 PPPPPPPPPPPPPPPPPPPPOPPPPPPPPPOPOOHK
+     [5]    36 PPPPPPPPPPPPPPPPPPPPPPPOPPOPOPPMKMLF
+     [6]    36 PPPPPPPPPPPPPPPPOPPPPPCPPPPHOOPPOOOO
+     [7]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOKO
+     [8]    36 PPPPPPPPPPPPPPPPPPPOPPPPPPPPJPOPOMAO
+     [9]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOL
+     ...   ... ...
+[87688]    36 PPPPPPPPMPOPCOOCOOJEOMMCCOEEHCCMAAAA
+[87689]    36 PTYOR]NTVVVJOHJCCPMEHCMHOJCECCCCAACA
+[87690]    36 Y]]]NTVYYT]TPNRPNRYHCTECOHCHHCECHAAC
+[87691]    36 YPRVNVYVPYHORCOCOPEPECJCCHCCJECHAAAA
+[87692]    36 PPPPPPPPPPPPPHPPOCPOPPOPCHMMPPPEKHOO
+[87693]    36 JJHPTTJYV]]]]JJCJCJJTCCOVCMHMCCOAAAA
+[87694]    36 PPPPPPPPPPPPPPPPPOPPPJPPPCPOHHCMOCAF
+[87695]    36 TYR]R]TN]YOEPTNERPPTVTCTVCCCRHOMIFAC
+[87696]    36 YRRYJVVTPHVPPECHPNCMCCJCEECOCCCCAAAA
+ >
+ > t <- atgc[,"T"] / rowSums(atgc[,1:4])
+ > cor(t, quality)
+[1] 0.154
+
+All of these operations are quick enough to perform in an interactive 
+session; the qscore is a large matrix (it can be made smaller by 
+choosing bounds that reflect allowable scores, e.g., 32:127), and its 
+transposition is relatively expensive.
+
+A final point to remember is that R stores a matrix m as a vector of 
+length nrow(m) * ncol(m). R has an internal limit on the size of a 
+vector equal to 2^32-1, so the maximum number of reads whose scores can 
+be represented by alphabetFrequency is less than 2^32 / 256, or about 16 
+million reads; this number of reads might be approached in a single 
+Solexa lane; a simple solution is to divide the DNAStringSet into pieces 
+that are processed separately.
+
+
+
+I hope that the forgoing provides some indication of where we stand at 
+the moment. Again, it would be great to have feedback, and to hear of 
+other efforts. And again, the programming credit goes to Herve Pages.
+
+Martin
+
+The obligatory sessionInfo, plus some stats on processing this document 
+(referencing, in the end, three different data sets).
+
+ > sessionInfo()
+R version 2.7.0 alpha (2008-03-28 r44972)
+x86_64-unknown-linux-gnu
+
+locale:
+LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+
+attached base packages:
+[1] tools     stats     graphics  grDevices utils     datasets
+[7] methods   base
+
+other attached packages:
+[1] BiostringsCinterfaceDemo_0.1.2
+[2] BSgenome.Hsapiens.UCSC.hg18_1.3.2
+[3] BSgenome_1.7.4
+[4] Biostrings_2.7.41
+[5] Biobase_1.99.4
+ > gc()
+            used   (Mb) gc trigger  (Mb) max used  (Mb)
+Ncells 9.37e+05   50.1   4.87e+06   260 1.93e+07  1033
+Vcells 6.88e+08 5252.6   1.31e+09 10031 1.31e+09  9998
+ > proc.time()
+    user  system elapsed
+   356.7    16.6   378.5
+
+
+From s.henderson at ucl.ac.uk  Wed Apr  2 12:43:24 2008
+From: s.henderson at ucl.ac.uk (Stephen Henderson)
+Date: Wed, 2 Apr 2008 11:43:24 +0100
+Subject: [Bioc-sig-seq] Bioc short read directions
+References: <47F2FB69.4010105@fhcrc.org>
+Message-ID: <61B482B74D6EE443B90356E080476E3401895452@exc2.cruciform.wibr.ucl.ac.uk>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+Url: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080402/d0452d5d/attachment.pl 
+
+From lgoff at rci.rutgers.edu  Wed Apr  2 15:27:18 2008
+From: lgoff at rci.rutgers.edu (Loyal Goff)
+Date: Wed, 2 Apr 2008 09:27:18 -0400
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <47F2FB69.4010105@fhcrc.org>
+References: <47F2FB69.4010105@fhcrc.org>
+Message-ID: <0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+
+This is a great start...thanks to both Martin and Herve. The speed is  
+indeed impressive! I do have one question.  Would it be advantageous  
+to reduce the data to a unique list of read sequences, and in doing so  
+both retain counts in a separate slot and reduce the matrix size? It  
+seems to me this would speed everything along as well. (ie. only  
+attempt to align a unique sequence once).  Does anyone have a need to  
+retain independent reads after a quality score cutoff?
+
+Loyal
+
+Loyal A. Goff
+
+Rutgers Stem Cell Research Center
+Rutgers: The State University of New Jersey
+Nelson Biology Labs D-251
+604 Allison Rd,
+Piscataway, NJ 08854
+lgoff at rci.rutgers.edu
+
+On Apr 1, 2008, at 11:20 PM, Martin Morgan wrote:
+
+> Short-readers!
+>
+> I want to take this opportunity to provide an update on the directions
+> we've initiated for short reads. It would be great to get your  
+> feedback,
+> and to hear of your own efforts.
+>
+> WARNING: This software is in development, and is far from final. In
+> particular, functions in the BiostringsCinterfaceDemo package are NOT
+> meant to be final or for use in other packages; they're here to
+> demonstrate 'proof-of-concept' and to illustrate how users can access
+> the Biostrings package from C code. I'll indicate which functions are
+> from BiostringsCinterfaceDemo below. Expect a short-read 'base'  
+> package
+> to materialize in the devel branch of Bioconductor in the not too
+> distant future.
+>
+> WARNING: The data used to illustrate functionality are not meant to be
+> indiciative of the quality of data produced by Solexa; they are
+> generally 'first runs' that present a number of interesting challenges
+> for interpretation.
+>
+> HARDWARE AND SOFTWARE: The following include timing and object size
+> measurements. The machine being used is fast, but we're not doing
+> anything fancy to, e.g., exploit multiple processors. The machine  
+> has a
+> very large amount of memory; we used about 10 GB below, looking at  
+> three
+> different data sets. The following uses the R-2-7-branch (this is
+> different from R-devel). The Biostrings and BiostringsCinterfaceDemo
+> packages are updated very regularly, so be prepared for broken or
+> outdated functions.
+>
+> Herve Pages is responsible for the clever code; I am just a scribe.
+>
+> Ok, first a convenience function to print out 'size' in megabytes,
+> 'cause objects are large!
+>
+>> mb <- function(sz) noquote(sprintf("%.1f MB", sz / (1024^2)))
+>
+>
+> * Starters...
+>
+> We load the BiostringsCinterfaceDemo, which requires Biostrings.  
+> Both of
+> these need to be from the 'development' branch of Bioconductor. Both  
+> are
+> changing rapidly, and should be obtained from svn and updated  
+> regularly
+> (http://wiki.fhcrc.org/bioc/DeveloperPage,
+> http://wiki.fhcrc.org/bioc/SvnHowTo).
+>
+>> library(BiostringsCinterfaceDemo)
+>
+>
+> * I/O, DNAStringSet, and alphabetFrequency
+>
+> We next read in a fasta file derived from a lane of solexa reads.  
+> Here's
+> what the data looks like:
+>
+>> readLines(fastaFile, 10)
+>  [1] ">5_1_102_368"
+>  [2] "TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT"
+>  [3] ">5_1_120_254"
+>  [4] "TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT"
+>  [5] ">5_1_110_385"
+>  [6] "GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC"
+>  [7] ">5_1_118_88"
+>  [8] "GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC"
+>  [9] ">5_1_113_327"
+> [10] "GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC"
+>
+> This is a single lane from a Solexa training run; the data are not
+> filtered, and the run is not meant to be representative in terms of
+> quality or other characteristics. The DNA used for the reads is from
+> phage phiX-174. Here's how we read it in (countLines and  
+> readSolexaFastA
+> are in BiostringsCinterfaceDemo)
+>
+>> countLines(fastaFile)
+> s_5.fasta
+>  18955056
+>> system.time({
+> +     seqa <- readSolexaFastA(fastaFile)
+> + }, gcFirst=TRUE)
+>    user  system elapsed
+>   67.48    2.08   69.68
+>> mb(object.size(seqa))
+> [1] 397.7 MB
+>> seqa
+>   A DNAStringSet instance of length 9477528
+>           width seq
+>       [1]    36 TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT
+>       [2]    36 TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT
+>       [3]    36 GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC
+>       [4]    36 GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC
+>       [5]    36 GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC
+>       [6]    36 TGACCCTCAGCAATCTTAAACTTCTTAGACGAATCA
+>       [7]    36 GCTGGTTCTCACTTCTGTTACTCCAGCTTCTTCGGC
+>       [8]    36 TTTAGGTGTCTGTAAAACAGGTGCCGAAGAAGCTGG
+>       [9]    36 GGTCTGTTGAACACGACCAGAAAACTGGCCTAACGA
+>       ...   ... ...
+> [9477520]    36 TACGCAGTTTTGCCGTATACTCGTTGTTCTGACTCT
+> [9477521]    36 TATACCCCCCCTCCTACTTGTGCTGTTTCTCATGTT
+> [9477522]    36 CAGGTTGTTTCTGTTGGTGCTGATATTTCTTTTTTT
+> [9477523]    36 GTCTTCCTTGCTTGTCAGATTGGTCGTCTTATTACC
+> [9477524]    36 ATACGAAAGACCAGGTATATGCACAAAATGAGTTGC
+> [9477525]    36 ACCACAAACGCGCTCGTTTATGCTTGCCTCTATTAC
+> [9477526]    36 ------------------------------------
+> [9477527]    36 CCAGCAAGGAAGCCAAGATGGGAAAGGTCATGCGGC
+> [9477528]    36 CATTGTTGACCACCTACATACCACAGACGAGCACCT
+>
+> It takes just over a minute to read in the nearly 9.5 million reads.  
+> The
+> reads are stored efficiently, without the overhead of R character
+> strings. The data structure (a DNAStringSet, from Biostrings and
+> therefore stable) will not copy the large data, but instead contains
+> 'views' into it.
+>
+> A basic question is about the nucleotides present in the reads.
+> alphabetFrequency (from Biostrings) scans all the sequences and  
+> tallies
+> nucleotides
+>
+>> system.time({
+> +     alf1 <- alphabetFrequency(seqa, collapse=TRUE, freq=TRUE)
+> + }, gcFirst=TRUE)
+>    user  system elapsed
+>   0.612   0.000   0.612
+>> alf1
+>      A      C      G      T      M      R      W      S      Y      K
+> 0.2449 0.2119 0.2201 0.3030 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+>      V      H      D      B      N      -
+> 0.0000 0.0000 0.0000 0.0000 0.0000 0.0201
+>
+> (bases are recored with IUPAC symbols, see ?IUPAC_CODE_MAP). This
+> executes very efficiently. A variant produces a matrix with rows
+> corresponding to reads and columns to bases.
+>
+>> alf <- alphabetFrequency(seqa, baseOnly=TRUE)
+>> dim(alf)
+> [1] 9477528       5
+>> head(alf)
+>       A  C  G  T other
+> [1,]  9  4  6 17     0
+> [2,] 11  6  5 14     0
+> [3,] 10  9  4 13     0
+> [4,]  4  9 12 11     0
+> [5,]  6  6 11 13     0
+> [6,] 12 10  4 10     0
+>
+> This can be remarkably useful. For instance, to select just the  
+> 'clean'
+> sequences (those without ambiguous base calls), one can
+>
+>> cleanSeqs <- seqa[alf[,"other"]==0]
+>> length(seqa)
+> [1] 9477528
+>> length(cleanSeqs)
+> [1] 9207292
+>
+> This creates a new DNAStringSet with just the clean sequences. It
+> executes very quickly, because the DNAStringSet is a view into the
+> original. The memory associated with the reads themselves is not  
+> copied.
+> here is the alphabetFrequency of the 'clean' reads.
+>
+>> cleanAlf <- alphabetFrequency(cleanSeqs, baseOnly=TRUE)
+>
+> Again this is very useful, for instance the distribution of GC content
+> among clean reads is
+>
+>> plot(density(rowSums(cleanAlf[,c("G", "C")]) / rowSums(cleanAlf)))
+>
+>
+> * PDict, countPDict, matchPDict
+>
+> A 'PDict' (defined in Biostrings) is a dictionary-like structure that
+> can be used for very efficient exact- and partially-exact matching
+> algorithms. To illustrate, we'll use data from about a million reads  
+> of
+> the Solexa BAC cloning vector. These reads again come from an early  
+> run
+> on the Solexa instrumentation here, and results should not be taken to
+> be representative of performance.
+>
+> We read and clean the sequences as above, resulting in
+>
+>> length(cleanSeqs)
+> [1] 923680
+>
+> We then create a PDict from our DNAStringSet with
+>
+>> system.time({
+> +     pDict <- PDict(cleanSeqs)
+> + }, gcFirst=TRUE)
+>    user  system elapsed
+>    1.09    0.00    1.10
+>> pDict
+> 923680-pattern constant width PDict object of width 25 (patterns  
+> have no
+> names)
+>> mb(object.size(pDict))
+> [1] 160.4 MB
+>
+> This is created quickly. It is a larger object, but the size allows  
+> fast
+> searches. Here we'll use Biostrings readFASTA to read in the  
+> sequence to
+> which the data are to be aligned.
+>
+>> bac <- read.DNAStringSet(bacFile, "fasta")[[1]]
+> Read 2479 items
+>> length(bac)
+> [1] 173427
+>
+> This is a BAC clone. We'll match our pDict to the BAC subject, finding
+> all EXACT matches;
+>
+>> system.time({
+> +     counts <- countPDict(pDict, bac)
+> + }, gcFirst=FALSE)
+>    user  system elapsed
+>   0.200   0.048   0.268
+>> length(counts)
+> [1] 923680
+>> table(counts)[1:5]/sum(table(counts))
+> counts
+>       0       1       2       3       4
+> 0.53954 0.42738 0.01136 0.00528 0.00334
+>
+> This is very fast, partly because the subject against which the  
+> PDict is
+> being matched is short. A more realistic use case is to match  
+> against a
+> genome. The integration with BSgenome packages is very smooth. To  
+> match
+> our pDict against human chromosome 6 (where the BAC cloning vector  
+> comes
+> from), we can load the appropriate BSgenome package and chromosome
+>
+>> library(BSgenome.Hsapiens.UCSC.hg18)
+>
+>> Hsapiens[["chr6"]]
+>   170899992-letter "DNAString" instance
+> seq:
+> NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN 
+> ...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+>
+> (The N's represent the chromsome telomeres, whose seuqences is not
+> available). We look for exact matches
+>
+>> system.time({
+> +     hcount <- countPDict(pDict, Hsapiens[["chr6"]])
+> + }, gcFirst=TRUE)
+>    user  system elapsed
+>    24.2     0.0    24.2
+>> table(hcount)[1:5] / sum(table(hcount))
+> hcount
+>       0       1       2       3       4
+> 0.50466 0.32996 0.02043 0.00959 0.00761
+>
+> About 1/2 the sequences exactly match one or more locations on
+> chromosome 6. Some sequences match many times, though the reason (in
+> this case, anyway) is not too surprising:
+>
+>> max(hcount)
+> [1] 8286
+>> maxIdx = which(hcount==max(hcount))
+>> cleanSeqs[maxIdx]
+>   A DNAStringSet instance of length 70
+>      width seq
+>  [1]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [2]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [3]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [4]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [5]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [6]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [7]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [8]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  [9]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  ...   ... ...
+> [62]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [63]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [64]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [65]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [66]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [67]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [68]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [69]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [70]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>
+> (that these are identical can be checked with
+> unique(as.character(cleanSeqs[maxIdx])))
+>
+> The current implementation of PDict allows for a 'trusted band' of
+> nucleotides that need to match exactly, allowing for approximate  
+> matches
+> in the remaining nucleotides. Here we trust the first 12 bases, and
+> allow up to 3 mismatches. Also, we use the more informative  
+> matchPDict,
+> which allows us to find the positions of all matches
+>
+>> trusted <- PDict(cleanSeqs, tb.end=12)
+>> system.time({
+> +     mmMatch <- matchPDict(trusted, Hsapiens[[6]], max.mismatch=3)
+> + }, gcFirst=TRUE)
+>    user  system elapsed
+>  195.58    3.85  199.44
+>> table(cut(countIndex(mmMatch), c(0, 10^(0:5)), right=FALSE))
+>
+>         [0,1)        [1,10)      [10,100)   [100,1e+03) [1e+03,1e+04)
+>        377233        337806         72983         66322         60818
+> [1e+04,1e+05)
+>          8518
+>
+> Execution time increases as the stringency of the match decreases.  
+> PDict
+> facilities do not yet incorporate quality scores, but filtering  
+> results
+> based on quality (qualities are discussed further below) represents a
+> natural direction for development.
+>
+>
+>
+> * alphabetByCycle
+>
+> alphabetByCycle uses a small C function in BiostringsCinterfaceDemo,
+> alphabet_by_cycle. It and the read* functions in this package  
+> illustrate
+> how to access DNAStringSet objects at the C level. alphabetByCycle  
+> is a
+> matrix that tallies nucleotide use per cycle
+>
+>> system.time({
+> +     abc <- alphabetByCycle(seqa)
+> + })
+>    user  system elapsed
+>    2.68    0.00    2.68
+>
+> Again this can be quite useful. For instance, we can find out the  
+> number
+> of bases that were not called, as a function of cycle
+>
+>> abc["-",]
+>  [1]  22181 108829 123173 180382 225091 225055 216787 208538 208881
+> [10] 213104 148936 142966 141030 148163 178747 204304 211538 211303
+> [19] 213722 211167 208021 208715 165441 158359 147110 151462 204781
+> [28] 221008 223922 221171 227622 226936 232232 236606 242387 241718
+>
+> and the number of 'T' nucleotides as a function of cycle
+>
+>> abc["T",] / colSums(abc[1:4,])
+>  [1] 0.286 0.292 0.292 0.284 0.292 0.280 0.293 0.297 0.299 0.287 0.290
+> [12] 0.294 0.294 0.299 0.300 0.301 0.304 0.305 0.306 0.309 0.310 0.311
+> [23] 0.312 0.316 0.315 0.319 0.320 0.322 0.326 0.328 0.331 0.335 0.339
+> [34] 0.342 0.346 0.358
+>
+> That's quite a striking increase after cycle 25!
+>
+>
+> * Qualities
+>
+> Solexa reads have quality scores associated with each base call. These
+> are summarized in files formatted like:
+>
+>> readLines(fastqFile, n=8)
+> [1] "@HWI-EAS88_1_1_1_1001_499"
+> [2] "GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT"
+> [3] "+HWI-EAS88_1_1_1_1001_499"
+> [4] "]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS"
+> [5] "@HWI-EAS88_1_1_1_898_392"
+> [6] "GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC"
+> [7] "+HWI-EAS88_1_1_1_898_392"
+> [8] "]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK"
+>
+> A record consists of four lines. The first and third lines are
+> identifiers (repeated), the second line is the sequence, the fourth  
+> line
+> an ASCII character representing the score (']' is good, Z is better  
+> than
+> A). Here we read a quality file into a data structure defined in
+> BiostringsCinterfaceDemo designed to coordinate the sequence, name,  
+> and
+> quality information.
+>
+>> system.time({
+> +     seqq <- readSolexaFastQ(fastqFile)
+> + }, gcFirst=TRUE)
+>    user  system elapsed
+>  17.533   0.417  17.969
+>> mb(object.size(seqq))
+> [1] 254.5 MB
+>> seqq
+> class: SolexaSequenceQ
+> length: 2218237
+>
+>> sequences(seqq)[1:5]
+>   A DNAStringSet instance of length 5
+>     width seq
+> [1]    36 GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT
+> [2]    36 GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC
+> [3]    36 GCGGTGGTCTATAGTGTTATTAATATCAATTTGGGT
+> [4]    36 GTTACCATGATGTTATTTCTTCATTTGGAGGTAAAA
+> [5]    36 GTATGTTTCTCCTGCTTATCACCTTCTTGAAGGCTT
+>> names(seqq)[1:5]
+>   A BStringSet instance of length 5
+>     width seq
+> [1]    24 HWI-EAS88_1_1_1_1001_499
+> [2]    23 HWI-EAS88_1_1_1_898_392
+> [3]    23 HWI-EAS88_1_1_1_922_465
+> [4]    23 HWI-EAS88_1_1_1_895_493
+> [5]    23 HWI-EAS88_1_1_1_953_493
+>> scores(seqq)[1:5]
+>   A BStringSet instance of length 5
+>     width seq
+> [1]    36 ]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS
+> [2]    36 ]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK
+> [3]    36 ]]]]Y]]]]]V]T]]]]]T]]]]]V]TMJEUXEFLA
+> [4]    36 ]]]]]]]]]]]]]]]]]]]]]]T]]]]RJRZTQLOA
+> [5]    36 ]]]]]]]]]]]]]]]]]T]]]]]]]]]]MJUJVLSS
+>
+> The object returned by readSolexaFastQ is an S4 object with three  
+> slots.
+> Each slot contains a XStringSet, where 'X' is DNA for sequences, and
+> 'BString' for names and scores. This represents one way of structuring
+> quality data; the S4 class coordinates subsetting, and provides
+> (read-only) accessors to the underlying objects. A likely addition to
+> this class as it matures is the inclusion of lane-specific phenotype
+> (sample) information, much as an ExpressionSet coordinates sample and
+> expression values.
+>
+> We can gain some basic insight into the sequences as before, e.g.,
+>
+>> abc <- alphabetByCycle(sequences(seqq))
+>> abc["N",]
+>  [1]     0     0     0     0     0     0     0     0     0     0     0
+> [12]     0  1213  1631  1155  1240   721   418  8503   526  6493   703
+> [23] 14999   718  1623   737   243 40704   811   590  1964   961   809
+> [34]   910   477   208
+>
+> Solexa provides files with quality information after filtering reads
+> based on 'purity', a measure that precludes uncertain bases (IUPAC  
+> code
+> 'N') from a user-specified region (the first 12 cycles, by default).
+>
+>> abc["T",] / colSums(abc[1:4,])
+>  [1] 0.298 0.290 0.292 0.290 0.295 0.279 0.292 0.298 0.301 0.293 0.295
+> [12] 0.299 0.296 0.293 0.294 0.294 0.293 0.295 0.294 0.297 0.297 0.299
+> [23] 0.298 0.303 0.302 0.307 0.312 0.312 0.321 0.331 0.334 0.351 0.361
+> [34] 0.374 0.380 0.423
+>
+> We can also summarize quality information by cycle, using an alphabet
+> that reflects the encoded scores:
+>
+>> alphabet <- sapply(as.raw(32:93), rawToChar)
+>> abcScore <- alphabetByCycle(scores(seqq), alphabet=alphabet)
+>>
+>> rowSums(abcScore)
+>                 !        "        #        $        %         
+> &        '
+>        0        0        0        0        0        0         
+> 0        0
+>        (        )        *        +        ,         
+> -        .        /
+>        0        0        0        0        0        0         
+> 0        0
+>        0        1        2        3        4        5         
+> 6        7
+>        0        0        0        0        0        0         
+> 0        0
+>        8        9        :        ;        <        =         
+> >        ?
+>        0        0        0        0        0        0         
+> 0        0
+>        @        A        B        C        D        E         
+> F        G
+>        0  1367337        0  2035064        0  1006372    
+> 819775        0
+>        H        I        J        K        L        M         
+> N        O
+>  1926112   116395  1614109   356496   517731  1602298   578172   
+> 2016009
+>        P        Q        R        S        T        U         
+> V        W
+>  3043393   401196  2152160  1553511  2149231   254108  3896558    
+> 232409
+>        X        Y        Z        [       \\        ]
+>   706452  4353706  1292309   732210        0 45133419
+>> abcScore[34:62,c(1:4, 33:36)]
+>       [,1]    [,2]    [,3]    [,4]   [,5]   [,6]   [,7]   [,8]
+> A        1    1788    1798       8 260944 299631 332500 354717
+> B        0       0       0       0      0      0      0      0
+> C       59   36426   12705     227     39 131268 140461 154643
+> D        0       0       0       0      0      0      0      0
+> E      133   13391    4033     180 120135      0      0      0
+> F        0       0       0       0      0 259549 272238 287988
+> G        0       0       0       0      0      0      0      0
+> H      272    8815    2933     357 242741 234088 239917 239157
+> I        0       0       0       0 116395      0      0      0
+> J      472    4678    1656     586      0 195991 198114 187535
+> K        5      59      25      11 110052  84345  83744  77353
+> L        0       0       0       0 102438 144459 142049 128785
+> M       75     171     121      92  93945 119209 116492 103765
+> N      653    2992    1232     769  85940  91924  89084  79246
+> O     1227    2719    1754    1576 175403 187339 176997 160100
+> P    65834   57830   60855   65863  61910      0      0      0
+> Q        0       0       0       0 236290      0      0      0
+> R     3211    4482    4321    4215      0      0      0      0
+> S        0       0       0       0  68378 470434 426641 444948
+> T     4444    5373    5868    5637      0      0      0      0
+> U        0       0       0       0      0      0      0      0
+> V     9146   10270   11922   11547 543627      0      0      0
+> W        0       0       0       0      0      0      0      0
+> X        0       0       0       0      0      0      0      0
+> Y    28363   29080   34093   32873      0      0      0      0
+> Z        0       0       0       0      0      0      0      0
+> [        0       0       0       0      0      0      0      0
+> \\       0       0       0       0      0      0      0      0
+> ]  2104342 2040163 2074921 2094296      0      0      0      0
+>
+> Output from the last line shows how scores decrease from the first  
+> four
+> cycles to the last four. Standard R and Biostrings commands can be  
+> used
+> to ask many interesting questions, such as an overall quality score of
+> reads (e.g., summing the scores of individual nucleotides) and the
+> relationship between sequence characteristics (e.g., frequency of 'T')
+> and read quality.
+>
+>> atgc <- alphabetFrequency(sequences(seqq), baseOnly=TRUE)
+>> qscore <- alphabetFrequency(scores(seqq))
+>> dim(qscore)
+> [1] 2218237     256
+>> mb(object.size(qscore))
+> [1] 2166.2 MB
+>
+>> quality <- colSums(t(qscore) * 1:ncol(qscore))
+>> plot(density(quality))   # small secondary peak at low quality
+>> scores(seqq)[which(quality<2925)]
+>   A BStringSet instance of length 87696
+>         width seq
+>     [1]    36 PPPPPPPPPPPPPEPPPPPOPPMOOPPOMMMPOOOJ
+>     [2]    36 PPPPPPPPPPPPPPPPPPPPHPPPOPPMOPPPNKMA
+>     [3]    36 PPPPPPPPPPPPPPPPPOPPPPPPEPMPPPMPOFAF
+>     [4]    36 PPPPPPPPPPPPPPPPPPPPOPPPPPPPPPOPOOHK
+>     [5]    36 PPPPPPPPPPPPPPPPPPPPPPPOPPOPOPPMKMLF
+>     [6]    36 PPPPPPPPPPPPPPPPOPPPPPCPPPPHOOPPOOOO
+>     [7]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOKO
+>     [8]    36 PPPPPPPPPPPPPPPPPPPOPPPPPPPPJPOPOMAO
+>     [9]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOL
+>     ...   ... ...
+> [87688]    36 PPPPPPPPMPOPCOOCOOJEOMMCCOEEHCCMAAAA
+> [87689]    36 PTYOR]NTVVVJOHJCCPMEHCMHOJCECCCCAACA
+> [87690]    36 Y]]]NTVYYT]TPNRPNRYHCTECOHCHHCECHAAC
+> [87691]    36 YPRVNVYVPYHORCOCOPEPECJCCHCCJECHAAAA
+> [87692]    36 PPPPPPPPPPPPPHPPOCPOPPOPCHMMPPPEKHOO
+> [87693]    36 JJHPTTJYV]]]]JJCJCJJTCCOVCMHMCCOAAAA
+> [87694]    36 PPPPPPPPPPPPPPPPPOPPPJPPPCPOHHCMOCAF
+> [87695]    36 TYR]R]TN]YOEPTNERPPTVTCTVCCCRHOMIFAC
+> [87696]    36 YRRYJVVTPHVPPECHPNCMCCJCEECOCCCCAAAA
+>>
+>> t <- atgc[,"T"] / rowSums(atgc[,1:4])
+>> cor(t, quality)
+> [1] 0.154
+>
+> All of these operations are quick enough to perform in an interactive
+> session; the qscore is a large matrix (it can be made smaller by
+> choosing bounds that reflect allowable scores, e.g., 32:127), and its
+> transposition is relatively expensive.
+>
+> A final point to remember is that R stores a matrix m as a vector of
+> length nrow(m) * ncol(m). R has an internal limit on the size of a
+> vector equal to 2^32-1, so the maximum number of reads whose scores  
+> can
+> be represented by alphabetFrequency is less than 2^32 / 256, or  
+> about 16
+> million reads; this number of reads might be approached in a single
+> Solexa lane; a simple solution is to divide the DNAStringSet into  
+> pieces
+> that are processed separately.
+>
+>
+>
+> I hope that the forgoing provides some indication of where we stand at
+> the moment. Again, it would be great to have feedback, and to hear of
+> other efforts. And again, the programming credit goes to Herve Pages.
+>
+> Martin
+>
+> The obligatory sessionInfo, plus some stats on processing this  
+> document
+> (referencing, in the end, three different data sets).
+>
+>> sessionInfo()
+> R version 2.7.0 alpha (2008-03-28 r44972)
+> x86_64-unknown-linux-gnu
+>
+> locale:
+> LC_CTYPE 
+> = 
+> en_US 
+> .UTF 
+> -8 
+> ;LC_NUMERIC 
+> = 
+> C 
+> ;LC_TIME 
+> = 
+> en_US 
+> .UTF 
+> -8 
+> ;LC_COLLATE 
+> = 
+> en_US 
+> .UTF 
+> -8 
+> ;LC_MONETARY 
+> = 
+> C 
+> ;LC_MESSAGES 
+> = 
+> en_US 
+> .UTF 
+> -8 
+> ;LC_PAPER 
+> = 
+> en_US 
+> .UTF 
+> -8 
+> ;LC_NAME 
+> = 
+> C 
+> ;LC_ADDRESS 
+> =C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] tools     stats     graphics  grDevices utils     datasets
+> [7] methods   base
+>
+> other attached packages:
+> [1] BiostringsCinterfaceDemo_0.1.2
+> [2] BSgenome.Hsapiens.UCSC.hg18_1.3.2
+> [3] BSgenome_1.7.4
+> [4] Biostrings_2.7.41
+> [5] Biobase_1.99.4
+>> gc()
+>            used   (Mb) gc trigger  (Mb) max used  (Mb)
+> Ncells 9.37e+05   50.1   4.87e+06   260 1.93e+07  1033
+> Vcells 6.88e+08 5252.6   1.31e+09 10031 1.31e+09  9998
+>> proc.time()
+>    user  system elapsed
+>   356.7    16.6   378.5
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From mtmorgan at fhcrc.org  Wed Apr  2 15:31:57 2008
+From: mtmorgan at fhcrc.org (mtmorgan at fhcrc.org)
+Date: Wed,  2 Apr 2008 06:31:57 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <61B482B74D6EE443B90356E080476E3401895452@exc2.cruciform.wibr.ucl.ac.uk>
+References: <47F2FB69.4010105@fhcrc.org>
+	<61B482B74D6EE443B90356E080476E3401895452@exc2.cruciform.wibr.ucl.ac.uk>
+Message-ID: <1207143117.47f38acde5f3a@webmail.fhcrc.org>
+
+Hi Stephen --
+
+Some details on PDict are in the Biostrings package, especially
+
+?PDict
+?matchPDict
+?"matchPDict-inexact"
+
+PDict is a 'dictionary' of reads. It allows for a 'trusted band'. The trusted
+band is a (constant-width) region (e.g., the first 12 nucleotides of each read
+in the PDict) that the user has special trust in, e.g., as a highly reliable
+part of the sequence.
+
+matchPDict / countPDict process the PDict by matching exactly the trusted band,
+and allowing mismatches (NOT indels) outside the trusted band. 
+
+A little more under the hood, a PDict is an implementation of an Aho-Corasick
+automaton. The entire dictionary is processed in a single pass along the
+'subject' (e.g., reference genome); I think the processing time for exact
+matches is on the order of the length of the subject + the width (not number of
+entries!) of the trusted band. The current strategy to allow for mismatches is
+more brute-force, scanning read and subject from exact matches for the trusted
+band. Variants on the PDict / matchPDict theme are still being developed, e.g.,
+tailored for SNP identification.
+
+Again, this is Herve Page's work.
+
+Hope that helps,
+
+Martin
+
+Quoting Stephen Henderson <s.henderson at ucl.ac.uk>:
+
+> Hi
+> This all soungs very promising Im very impressed by the speed of these
+> operations.
+>  
+> Can you give a little more detail about the underlying structure of PDict and
+> how it 'matches' sequences?
+> 
+>  
+> ________________________________
+> 
+> From: bioc-sig-sequencing-bounces at r-project.org on behalf of Martin Morgan
+> Sent: Wed 02/04/2008 04:20
+> To: bioc-sig-sequencing at r-project.org
+> Subject: [Bioc-sig-seq] Bioc short read directions
+> 
+> 
+> 
+> Short-readers!
+> 
+> I want to take this opportunity to provide an update on the directions
+> we've initiated for short reads. It would be great to get your feedback,
+> and to hear of your own efforts.
+> 
+> WARNING: This software is in development, and is far from final. In
+> particular, functions in the BiostringsCinterfaceDemo package are NOT
+> meant to be final or for use in other packages; they're here to
+> demonstrate 'proof-of-concept' and to illustrate how users can access
+> the Biostrings package from C code. I'll indicate which functions are
+> from BiostringsCinterfaceDemo below. Expect a short-read 'base' package
+> to materialize in the devel branch of Bioconductor in the not too
+> distant future.
+> 
+> WARNING: The data used to illustrate functionality are not meant to be
+> indiciative of the quality of data produced by Solexa; they are
+> generally 'first runs' that present a number of interesting challenges
+> for interpretation.
+> 
+> HARDWARE AND SOFTWARE: The following include timing and object size
+> measurements. The machine being used is fast, but we're not doing
+> anything fancy to, e.g., exploit multiple processors. The machine has a
+> very large amount of memory; we used about 10 GB below, looking at three
+> different data sets. The following uses the R-2-7-branch (this is
+> different from R-devel). The Biostrings and BiostringsCinterfaceDemo
+> packages are updated very regularly, so be prepared for broken or
+> outdated functions.
+> 
+> Herve Pages is responsible for the clever code; I am just a scribe.
+> 
+> Ok, first a convenience function to print out 'size' in megabytes,
+> 'cause objects are large!
+> 
+>  > mb <- function(sz) noquote(sprintf("%.1f MB", sz / (1024^2)))
+> 
+> 
+> * Starters...
+> 
+> We load the BiostringsCinterfaceDemo, which requires Biostrings. Both of
+> these need to be from the 'development' branch of Bioconductor. Both are
+> changing rapidly, and should be obtained from svn and updated regularly
+> (http://wiki.fhcrc.org/bioc/DeveloperPage,
+> http://wiki.fhcrc.org/bioc/SvnHowTo).
+> 
+>  > library(BiostringsCinterfaceDemo)
+> 
+> 
+> * I/O, DNAStringSet, and alphabetFrequency
+> 
+> We next read in a fasta file derived from a lane of solexa reads. Here's
+> what the data looks like:
+> 
+>  > readLines(fastaFile, 10)
+>   [1] ">5_1_102_368"
+>   [2] "TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT"
+>   [3] ">5_1_120_254"
+>   [4] "TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT"
+>   [5] ">5_1_110_385"
+>   [6] "GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC"
+>   [7] ">5_1_118_88"
+>   [8] "GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC"
+>   [9] ">5_1_113_327"
+> [10] "GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC"
+> 
+> This is a single lane from a Solexa training run; the data are not
+> filtered, and the run is not meant to be representative in terms of
+> quality or other characteristics. The DNA used for the reads is from
+> phage phiX-174. Here's how we read it in (countLines and readSolexaFastA
+> are in BiostringsCinterfaceDemo)
+> 
+>  > countLines(fastaFile)
+> s_5.fasta
+>   18955056
+>  > system.time({
+> +     seqa <- readSolexaFastA(fastaFile)
+> + }, gcFirst=TRUE)
+>     user  system elapsed
+>    67.48    2.08   69.68
+>  > mb(object.size(seqa))
+> [1] 397.7 MB
+>  > seqa
+>    A DNAStringSet instance of length 9477528
+>            width seq
+>        [1]    36 TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT
+>        [2]    36 TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT
+>        [3]    36 GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC
+>        [4]    36 GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC
+>        [5]    36 GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC
+>        [6]    36 TGACCCTCAGCAATCTTAAACTTCTTAGACGAATCA
+>        [7]    36 GCTGGTTCTCACTTCTGTTACTCCAGCTTCTTCGGC
+>        [8]    36 TTTAGGTGTCTGTAAAACAGGTGCCGAAGAAGCTGG
+>        [9]    36 GGTCTGTTGAACACGACCAGAAAACTGGCCTAACGA
+>        ...   ... ...
+> [9477520]    36 TACGCAGTTTTGCCGTATACTCGTTGTTCTGACTCT
+> [9477521]    36 TATACCCCCCCTCCTACTTGTGCTGTTTCTCATGTT
+> [9477522]    36 CAGGTTGTTTCTGTTGGTGCTGATATTTCTTTTTTT
+> [9477523]    36 GTCTTCCTTGCTTGTCAGATTGGTCGTCTTATTACC
+> [9477524]    36 ATACGAAAGACCAGGTATATGCACAAAATGAGTTGC
+> [9477525]    36 ACCACAAACGCGCTCGTTTATGCTTGCCTCTATTAC
+> [9477526]    36 ------------------------------------
+> [9477527]    36 CCAGCAAGGAAGCCAAGATGGGAAAGGTCATGCGGC
+> [9477528]    36 CATTGTTGACCACCTACATACCACAGACGAGCACCT
+> 
+> It takes just over a minute to read in the nearly 9.5 million reads. The
+> reads are stored efficiently, without the overhead of R character
+> strings. The data structure (a DNAStringSet, from Biostrings and
+> therefore stable) will not copy the large data, but instead contains
+> 'views' into it.
+> 
+> A basic question is about the nucleotides present in the reads.
+> alphabetFrequency (from Biostrings) scans all the sequences and tallies
+> nucleotides
+> 
+>  > system.time({
+> +     alf1 <- alphabetFrequency(seqa, collapse=TRUE, freq=TRUE)
+> + }, gcFirst=TRUE)
+>     user  system elapsed
+>    0.612   0.000   0.612
+>  > alf1
+>       A      C      G      T      M      R      W      S      Y      K
+> 0.2449 0.2119 0.2201 0.3030 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+>       V      H      D      B      N      -
+> 0.0000 0.0000 0.0000 0.0000 0.0000 0.0201
+> 
+> (bases are recored with IUPAC symbols, see ?IUPAC_CODE_MAP). This
+> executes very efficiently. A variant produces a matrix with rows
+> corresponding to reads and columns to bases.
+> 
+>  > alf <- alphabetFrequency(seqa, baseOnly=TRUE)
+>  > dim(alf)
+> [1] 9477528       5
+>  > head(alf)
+>        A  C  G  T other
+> [1,]  9  4  6 17     0
+> [2,] 11  6  5 14     0
+> [3,] 10  9  4 13     0
+> [4,]  4  9 12 11     0
+> [5,]  6  6 11 13     0
+> [6,] 12 10  4 10     0
+> 
+> This can be remarkably useful. For instance, to select just the 'clean'
+> sequences (those without ambiguous base calls), one can
+> 
+>  > cleanSeqs <- seqa[alf[,"other"]==0]
+>  > length(seqa)
+> [1] 9477528
+>  > length(cleanSeqs)
+> [1] 9207292
+> 
+> This creates a new DNAStringSet with just the clean sequences. It
+> executes very quickly, because the DNAStringSet is a view into the
+> original. The memory associated with the reads themselves is not copied.
+> here is the alphabetFrequency of the 'clean' reads.
+> 
+>  > cleanAlf <- alphabetFrequency(cleanSeqs, baseOnly=TRUE)
+> 
+> Again this is very useful, for instance the distribution of GC content
+> among clean reads is
+> 
+>  > plot(density(rowSums(cleanAlf[,c("G", "C")]) / rowSums(cleanAlf)))
+> 
+> 
+> * PDict, countPDict, matchPDict
+> 
+> A 'PDict' (defined in Biostrings) is a dictionary-like structure that
+> can be used for very efficient exact- and partially-exact matching
+> algorithms. To illustrate, we'll use data from about a million reads of
+> the Solexa BAC cloning vector. These reads again come from an early run
+> on the Solexa instrumentation here, and results should not be taken to
+> be representative of performance.
+> 
+> We read and clean the sequences as above, resulting in
+> 
+>  > length(cleanSeqs)
+> [1] 923680
+> 
+> We then create a PDict from our DNAStringSet with
+> 
+>  > system.time({
+> +     pDict <- PDict(cleanSeqs)
+> + }, gcFirst=TRUE)
+>     user  system elapsed
+>     1.09    0.00    1.10
+>  > pDict
+> 923680-pattern constant width PDict object of width 25 (patterns have no
+> names)
+>  > mb(object.size(pDict))
+> [1] 160.4 MB
+> 
+> This is created quickly. It is a larger object, but the size allows fast
+> searches. Here we'll use Biostrings readFASTA to read in the sequence to
+> which the data are to be aligned.
+> 
+>  > bac <- read.DNAStringSet(bacFile, "fasta")[[1]]
+> Read 2479 items
+>  > length(bac)
+> [1] 173427
+> 
+> This is a BAC clone. We'll match our pDict to the BAC subject, finding
+> all EXACT matches;
+> 
+>  > system.time({
+> +     counts <- countPDict(pDict, bac)
+> + }, gcFirst=FALSE)
+>     user  system elapsed
+>    0.200   0.048   0.268
+>  > length(counts)
+> [1] 923680
+>  > table(counts)[1:5]/sum(table(counts))
+> counts
+>        0       1       2       3       4
+> 0.53954 0.42738 0.01136 0.00528 0.00334
+> 
+> This is very fast, partly because the subject against which the PDict is
+> being matched is short. A more realistic use case is to match against a
+> genome. The integration with BSgenome packages is very smooth. To match
+> our pDict against human chromosome 6 (where the BAC cloning vector comes
+> from), we can load the appropriate BSgenome package and chromosome
+> 
+>  > library(BSgenome.Hsapiens.UCSC.hg18)
+> 
+>  > Hsapiens[["chr6"]]
+>    170899992-letter "DNAString" instance
+> seq:
+> NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+> 
+> (The N's represent the chromsome telomeres, whose seuqences is not
+> available). We look for exact matches
+> 
+>  > system.time({
+> +     hcount <- countPDict(pDict, Hsapiens[["chr6"]])
+> + }, gcFirst=TRUE)
+>     user  system elapsed
+>     24.2     0.0    24.2
+>  > table(hcount)[1:5] / sum(table(hcount))
+> hcount
+>        0       1       2       3       4
+> 0.50466 0.32996 0.02043 0.00959 0.00761
+> 
+> About 1/2 the sequences exactly match one or more locations on
+> chromosome 6. Some sequences match many times, though the reason (in
+> this case, anyway) is not too surprising:
+> 
+>  > max(hcount)
+> [1] 8286
+>  > maxIdx = which(hcount==max(hcount))
+>  > cleanSeqs[maxIdx]
+>    A DNAStringSet instance of length 70
+>       width seq
+>   [1]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [2]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [3]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [4]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [5]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [6]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [7]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [8]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   [9]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>   ...   ... ...
+> [62]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [63]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [64]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [65]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [66]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [67]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [68]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [69]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> [70]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> 
+> (that these are identical can be checked with
+> unique(as.character(cleanSeqs[maxIdx])))
+> 
+> The current implementation of PDict allows for a 'trusted band' of
+> nucleotides that need to match exactly, allowing for approximate matches
+> in the remaining nucleotides. Here we trust the first 12 bases, and
+> allow up to 3 mismatches. Also, we use the more informative matchPDict,
+> which allows us to find the positions of all matches
+> 
+>  > trusted <- PDict(cleanSeqs, tb.end=12)
+>  > system.time({
+> +     mmMatch <- matchPDict(trusted, Hsapiens[[6]], max.mismatch=3)
+> + }, gcFirst=TRUE)
+>     user  system elapsed
+>   195.58    3.85  199.44
+>  > table(cut(countIndex(mmMatch), c(0, 10^(0:5)), right=FALSE))
+> 
+>          [0,1)        [1,10)      [10,100)   [100,1e+03) [1e+03,1e+04)
+>         377233        337806         72983         66322         60818
+> [1e+04,1e+05)
+>           8518
+> 
+> Execution time increases as the stringency of the match decreases. PDict
+> facilities do not yet incorporate quality scores, but filtering results
+> based on quality (qualities are discussed further below) represents a
+> natural direction for development.
+> 
+> 
+> 
+> * alphabetByCycle
+> 
+> alphabetByCycle uses a small C function in BiostringsCinterfaceDemo,
+> alphabet_by_cycle. It and the read* functions in this package illustrate
+> how to access DNAStringSet objects at the C level. alphabetByCycle is a
+> matrix that tallies nucleotide use per cycle
+> 
+>  > system.time({
+> +     abc <- alphabetByCycle(seqa)
+> + })
+>     user  system elapsed
+>     2.68    0.00    2.68
+> 
+> Again this can be quite useful. For instance, we can find out the number
+> of bases that were not called, as a function of cycle
+> 
+>  > abc["-",]
+>   [1]  22181 108829 123173 180382 225091 225055 216787 208538 208881
+> [10] 213104 148936 142966 141030 148163 178747 204304 211538 211303
+> [19] 213722 211167 208021 208715 165441 158359 147110 151462 204781
+> [28] 221008 223922 221171 227622 226936 232232 236606 242387 241718
+> 
+> and the number of 'T' nucleotides as a function of cycle
+> 
+>  > abc["T",] / colSums(abc[1:4,])
+>   [1] 0.286 0.292 0.292 0.284 0.292 0.280 0.293 0.297 0.299 0.287 0.290
+> [12] 0.294 0.294 0.299 0.300 0.301 0.304 0.305 0.306 0.309 0.310 0.311
+> [23] 0.312 0.316 0.315 0.319 0.320 0.322 0.326 0.328 0.331 0.335 0.339
+> [34] 0.342 0.346 0.358
+> 
+> That's quite a striking increase after cycle 25!
+> 
+> 
+> * Qualities
+> 
+> Solexa reads have quality scores associated with each base call. These
+> are summarized in files formatted like:
+> 
+>  > readLines(fastqFile, n=8)
+> [1] "@HWI-EAS88_1_1_1_1001_499"
+> [2] "GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT"
+> [3] "+HWI-EAS88_1_1_1_1001_499"
+> [4] "]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS"
+> [5] "@HWI-EAS88_1_1_1_898_392"
+> [6] "GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC"
+> [7] "+HWI-EAS88_1_1_1_898_392"
+> [8] "]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK"
+> 
+> A record consists of four lines. The first and third lines are
+> identifiers (repeated), the second line is the sequence, the fourth line
+> an ASCII character representing the score (']' is good, Z is better than
+> A). Here we read a quality file into a data structure defined in
+> BiostringsCinterfaceDemo designed to coordinate the sequence, name, and
+> quality information.
+> 
+>  > system.time({
+> +     seqq <- readSolexaFastQ(fastqFile)
+> + }, gcFirst=TRUE)
+>     user  system elapsed
+>   17.533   0.417  17.969
+>  > mb(object.size(seqq))
+> [1] 254.5 MB
+>  > seqq
+> class: SolexaSequenceQ
+> length: 2218237
+> 
+>  > sequences(seqq)[1:5]
+>    A DNAStringSet instance of length 5
+>      width seq
+> [1]    36 GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT
+> [2]    36 GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC
+> [3]    36 GCGGTGGTCTATAGTGTTATTAATATCAATTTGGGT
+> [4]    36 GTTACCATGATGTTATTTCTTCATTTGGAGGTAAAA
+> [5]    36 GTATGTTTCTCCTGCTTATCACCTTCTTGAAGGCTT
+>  > names(seqq)[1:5]
+>    A BStringSet instance of length 5
+>      width seq
+> [1]    24 HWI-EAS88_1_1_1_1001_499
+> [2]    23 HWI-EAS88_1_1_1_898_392
+> [3]    23 HWI-EAS88_1_1_1_922_465
+> [4]    23 HWI-EAS88_1_1_1_895_493
+> [5]    23 HWI-EAS88_1_1_1_953_493
+>  > scores(seqq)[1:5]
+>    A BStringSet instance of length 5
+>      width seq
+> [1]    36 ]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS
+> [2]    36 ]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK
+> [3]    36 ]]]]Y]]]]]V]T]]]]]T]]]]]V]TMJEUXEFLA
+> [4]    36 ]]]]]]]]]]]]]]]]]]]]]]T]]]]RJRZTQLOA
+> [5]    36 ]]]]]]]]]]]]]]]]]T]]]]]]]]]]MJUJVLSS
+> 
+> The object returned by readSolexaFastQ is an S4 object with three slots.
+> Each slot contains a XStringSet, where 'X' is DNA for sequences, and
+> 'BString' for names and scores. This represents one way of structuring
+> quality data; the S4 class coordinates subsetting, and provides
+> (read-only) accessors to the underlying objects. A likely addition to
+> this class as it matures is the inclusion of lane-specific phenotype
+> (sample) information, much as an ExpressionSet coordinates sample and
+> expression values.
+> 
+> We can gain some basic insight into the sequences as before, e.g.,
+> 
+>  > abc <- alphabetByCycle(sequences(seqq))
+>  > abc["N",]
+>   [1]     0     0     0     0     0     0     0     0     0     0     0
+> [12]     0  1213  1631  1155  1240   721   418  8503   526  6493   703
+> [23] 14999   718  1623   737   243 40704   811   590  1964   961   809
+> [34]   910   477   208
+> 
+> Solexa provides files with quality information after filtering reads
+> based on 'purity', a measure that precludes uncertain bases (IUPAC code
+> 'N') from a user-specified region (the first 12 cycles, by default).
+> 
+>  > abc["T",] / colSums(abc[1:4,])
+>   [1] 0.298 0.290 0.292 0.290 0.295 0.279 0.292 0.298 0.301 0.293 0.295
+> [12] 0.299 0.296 0.293 0.294 0.294 0.293 0.295 0.294 0.297 0.297 0.299
+> [23] 0.298 0.303 0.302 0.307 0.312 0.312 0.321 0.331 0.334 0.351 0.361
+> [34] 0.374 0.380 0.423
+> 
+> We can also summarize quality information by cycle, using an alphabet
+> that reflects the encoded scores:
+> 
+>  > alphabet <- sapply(as.raw(32:93), rawToChar)
+>  > abcScore <- alphabetByCycle(scores(seqq), alphabet=alphabet)
+>  >
+>  > rowSums(abcScore)
+>                  !        "        #        $        %        &        '
+>         0        0        0        0        0        0        0        0
+>         (        )        *        +        ,        -        .        /
+>         0        0        0        0        0        0        0        0
+>         0        1        2        3        4        5        6        7
+>         0        0        0        0        0        0        0        0
+>         8        9        :        ;        <        =        >        ?
+>         0        0        0        0        0        0        0        0
+>         @        A        B        C        D        E        F        G
+>         0  1367337        0  2035064        0  1006372   819775        0
+>         H        I        J        K        L        M        N        O
+>   1926112   116395  1614109   356496   517731  1602298   578172  2016009
+>         P        Q        R        S        T        U        V        W
+>   3043393   401196  2152160  1553511  2149231   254108  3896558   232409
+>         X        Y        Z        [       \\        ]
+>    706452  4353706  1292309   732210        0 45133419
+>  > abcScore[34:62,c(1:4, 33:36)]
+>        [,1]    [,2]    [,3]    [,4]   [,5]   [,6]   [,7]   [,8]
+> A        1    1788    1798       8 260944 299631 332500 354717
+> B        0       0       0       0      0      0      0      0
+> C       59   36426   12705     227     39 131268 140461 154643
+> D        0       0       0       0      0      0      0      0
+> E      133   13391    4033     180 120135      0      0      0
+> F        0       0       0       0      0 259549 272238 287988
+> G        0       0       0       0      0      0      0      0
+> H      272    8815    2933     357 242741 234088 239917 239157
+> I        0       0       0       0 116395      0      0      0
+> J      472    4678    1656     586      0 195991 198114 187535
+> K        5      59      25      11 110052  84345  83744  77353
+> L        0       0       0       0 102438 144459 142049 128785
+> M       75     171     121      92  93945 119209 116492 103765
+> N      653    2992    1232     769  85940  91924  89084  79246
+> O     1227    2719    1754    1576 175403 187339 176997 160100
+> P    65834   57830   60855   65863  61910      0      0      0
+> Q        0       0       0       0 236290      0      0      0
+> R     3211    4482    4321    4215      0      0      0      0
+> S        0       0       0       0  68378 470434 426641 444948
+> T     4444    5373    5868    5637      0      0      0      0
+> U        0       0       0       0      0      0      0      0
+> V     9146   10270   11922   11547 543627      0      0      0
+> W        0       0       0       0      0      0      0      0
+> X        0       0       0       0      0      0      0      0
+> Y    28363   29080   34093   32873      0      0      0      0
+> Z        0       0       0       0      0      0      0      0
+> [        0       0       0       0      0      0      0      0
+> \\       0       0       0       0      0      0      0      0
+> ]  2104342 2040163 2074921 2094296      0      0      0      0
+> 
+> Output from the last line shows how scores decrease from the first four
+> cycles to the last four. Standard R and Biostrings commands can be used
+> to ask many interesting questions, such as an overall quality score of
+> reads (e.g., summing the scores of individual nucleotides) and the
+> relationship between sequence characteristics (e.g., frequency of 'T')
+> and read quality.
+> 
+>  > atgc <- alphabetFrequency(sequences(seqq), baseOnly=TRUE)
+>  > qscore <- alphabetFrequency(scores(seqq))
+>  > dim(qscore)
+> [1] 2218237     256
+>  > mb(object.size(qscore))
+> [1] 2166.2 MB
+> 
+>  > quality <- colSums(t(qscore) * 1:ncol(qscore))
+>  > plot(density(quality))   # small secondary peak at low quality
+>  > scores(seqq)[which(quality<2925)]
+>    A BStringSet instance of length 87696
+>          width seq
+>      [1]    36 PPPPPPPPPPPPPEPPPPPOPPMOOPPOMMMPOOOJ
+>      [2]    36 PPPPPPPPPPPPPPPPPPPPHPPPOPPMOPPPNKMA
+>      [3]    36 PPPPPPPPPPPPPPPPPOPPPPPPEPMPPPMPOFAF
+>      [4]    36 PPPPPPPPPPPPPPPPPPPPOPPPPPPPPPOPOOHK
+>      [5]    36 PPPPPPPPPPPPPPPPPPPPPPPOPPOPOPPMKMLF
+>      [6]    36 PPPPPPPPPPPPPPPPOPPPPPCPPPPHOOPPOOOO
+>      [7]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOKO
+>      [8]    36 PPPPPPPPPPPPPPPPPPPOPPPPPPPPJPOPOMAO
+>      [9]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOL
+>      ...   ... ...
+> [87688]    36 PPPPPPPPMPOPCOOCOOJEOMMCCOEEHCCMAAAA
+> [87689]    36 PTYOR]NTVVVJOHJCCPMEHCMHOJCECCCCAACA
+> [87690]    36 Y]]]NTVYYT]TPNRPNRYHCTECOHCHHCECHAAC
+> [87691]    36 YPRVNVYVPYHORCOCOPEPECJCCHCCJECHAAAA
+> [87692]    36 PPPPPPPPPPPPPHPPOCPOPPOPCHMMPPPEKHOO
+> [87693]    36 JJHPTTJYV]]]]JJCJCJJTCCOVCMHMCCOAAAA
+> [87694]    36 PPPPPPPPPPPPPPPPPOPPPJPPPCPOHHCMOCAF
+> [87695]    36 TYR]R]TN]YOEPTNERPPTVTCTVCCCRHOMIFAC
+> [87696]    36 YRRYJVVTPHVPPECHPNCMCCJCEECOCCCCAAAA
+>  >
+>  > t <- atgc[,"T"] / rowSums(atgc[,1:4])
+>  > cor(t, quality)
+> [1] 0.154
+> 
+> All of these operations are quick enough to perform in an interactive
+> session; the qscore is a large matrix (it can be made smaller by
+> choosing bounds that reflect allowable scores, e.g., 32:127), and its
+> transposition is relatively expensive.
+> 
+> A final point to remember is that R stores a matrix m as a vector of
+> length nrow(m) * ncol(m). R has an internal limit on the size of a
+> vector equal to 2^32-1, so the maximum number of reads whose scores can
+> be represented by alphabetFrequency is less than 2^32 / 256, or about 16
+> million reads; this number of reads might be approached in a single
+> Solexa lane; a simple solution is to divide the DNAStringSet into pieces
+> that are processed separately.
+> 
+> 
+> 
+> I hope that the forgoing provides some indication of where we stand at
+> the moment. Again, it would be great to have feedback, and to hear of
+> other efforts. And again, the programming credit goes to Herve Pages.
+> 
+> Martin
+> 
+> The obligatory sessionInfo, plus some stats on processing this document
+> (referencing, in the end, three different data sets).
+> 
+>  > sessionInfo()
+> R version 2.7.0 alpha (2008-03-28 r44972)
+> x86_64-unknown-linux-gnu
+> 
+> locale:
+>
+LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+> 
+> attached base packages:
+> [1] tools     stats     graphics  grDevices utils     datasets
+> [7] methods   base
+> 
+> other attached packages:
+> [1] BiostringsCinterfaceDemo_0.1.2
+> [2] BSgenome.Hsapiens.UCSC.hg18_1.3.2
+> [3] BSgenome_1.7.4
+> [4] Biostrings_2.7.41
+> [5] Biobase_1.99.4
+>  > gc()
+>             used   (Mb) gc trigger  (Mb) max used  (Mb)
+> Ncells 9.37e+05   50.1   4.87e+06   260 1.93e+07  1033
+> Vcells 6.88e+08 5252.6   1.31e+09 10031 1.31e+09  9998
+>  > proc.time()
+>     user  system elapsed
+>    356.7    16.6   378.5
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+> 
+> **********************************************************************
+> This email and any files transmitted with it are confi...{{dropped:12}}
+
+
+From mtmorgan at fhcrc.org  Wed Apr  2 15:49:31 2008
+From: mtmorgan at fhcrc.org (mtmorgan at fhcrc.org)
+Date: Wed,  2 Apr 2008 06:49:31 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+References: <47F2FB69.4010105@fhcrc.org>
+	<0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+Message-ID: <1207144171.47f38eeb06887@webmail.fhcrc.org>
+
+Hi Loyal --
+
+
+Quoting Loyal Goff <lgoff at rci.rutgers.edu>:
+
+> This is a great start...thanks to both Martin and Herve. The speed is  
+> indeed impressive! I do have one question.  Would it be advantageous  
+> to reduce the data to a unique list of read sequences, and in doing so  
+> both retain counts in a separate slot and reduce the matrix size? It  
+> seems to me this would speed everything along as well. (ie. only  
+> attempt to align a unique sequence once).  Does anyone have a need to  
+> retain independent reads after a quality score cutoff?
+
+In terms of matching, PDict does the right thing and it makes (little)
+difference in terms of performance whether the reads have been made unique,
+while introducing a bookkeeping nightmare for the user. Hopefully other
+algorithms will be implemented to cope with duplicates effectively, if
+appropriate.
+
+I think the bookkeeping argument also weighs quite heavily in favor of dealing
+with the data 'as-is'. I suspect also that quality scores will play an
+increasingly important part in algorithms, so a simple cut-off will not be a
+good solution. And probably the time / space 'savings' is only a fraction (10%
+duplicate reads?? Maybe someone on the list has experience with this?) of the
+requirements, so doesn't really change things that much.
+
+My first inclination is to leave the data accessible in all its glory.
+
+Martin
+
+> 
+> Loyal
+> 
+> Loyal A. Goff
+> 
+> Rutgers Stem Cell Research Center
+> Rutgers: The State University of New Jersey
+> Nelson Biology Labs D-251
+> 604 Allison Rd,
+> Piscataway, NJ 08854
+> lgoff at rci.rutgers.edu
+> 
+> On Apr 1, 2008, at 11:20 PM, Martin Morgan wrote:
+> 
+> > Short-readers!
+> >
+> > I want to take this opportunity to provide an update on the directions
+> > we've initiated for short reads. It would be great to get your  
+> > feedback,
+> > and to hear of your own efforts.
+> >
+> > WARNING: This software is in development, and is far from final. In
+> > particular, functions in the BiostringsCinterfaceDemo package are NOT
+> > meant to be final or for use in other packages; they're here to
+> > demonstrate 'proof-of-concept' and to illustrate how users can access
+> > the Biostrings package from C code. I'll indicate which functions are
+> > from BiostringsCinterfaceDemo below. Expect a short-read 'base'  
+> > package
+> > to materialize in the devel branch of Bioconductor in the not too
+> > distant future.
+> >
+> > WARNING: The data used to illustrate functionality are not meant to be
+> > indiciative of the quality of data produced by Solexa; they are
+> > generally 'first runs' that present a number of interesting challenges
+> > for interpretation.
+> >
+> > HARDWARE AND SOFTWARE: The following include timing and object size
+> > measurements. The machine being used is fast, but we're not doing
+> > anything fancy to, e.g., exploit multiple processors. The machine  
+> > has a
+> > very large amount of memory; we used about 10 GB below, looking at  
+> > three
+> > different data sets. The following uses the R-2-7-branch (this is
+> > different from R-devel). The Biostrings and BiostringsCinterfaceDemo
+> > packages are updated very regularly, so be prepared for broken or
+> > outdated functions.
+> >
+> > Herve Pages is responsible for the clever code; I am just a scribe.
+> >
+> > Ok, first a convenience function to print out 'size' in megabytes,
+> > 'cause objects are large!
+> >
+> >> mb <- function(sz) noquote(sprintf("%.1f MB", sz / (1024^2)))
+> >
+> >
+> > * Starters...
+> >
+> > We load the BiostringsCinterfaceDemo, which requires Biostrings.  
+> > Both of
+> > these need to be from the 'development' branch of Bioconductor. Both  
+> > are
+> > changing rapidly, and should be obtained from svn and updated  
+> > regularly
+> > (http://wiki.fhcrc.org/bioc/DeveloperPage,
+> > http://wiki.fhcrc.org/bioc/SvnHowTo).
+> >
+> >> library(BiostringsCinterfaceDemo)
+> >
+> >
+> > * I/O, DNAStringSet, and alphabetFrequency
+> >
+> > We next read in a fasta file derived from a lane of solexa reads.  
+> > Here's
+> > what the data looks like:
+> >
+> >> readLines(fastaFile, 10)
+> >  [1] ">5_1_102_368"
+> >  [2] "TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT"
+> >  [3] ">5_1_120_254"
+> >  [4] "TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT"
+> >  [5] ">5_1_110_385"
+> >  [6] "GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC"
+> >  [7] ">5_1_118_88"
+> >  [8] "GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC"
+> >  [9] ">5_1_113_327"
+> > [10] "GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC"
+> >
+> > This is a single lane from a Solexa training run; the data are not
+> > filtered, and the run is not meant to be representative in terms of
+> > quality or other characteristics. The DNA used for the reads is from
+> > phage phiX-174. Here's how we read it in (countLines and  
+> > readSolexaFastA
+> > are in BiostringsCinterfaceDemo)
+> >
+> >> countLines(fastaFile)
+> > s_5.fasta
+> >  18955056
+> >> system.time({
+> > +     seqa <- readSolexaFastA(fastaFile)
+> > + }, gcFirst=TRUE)
+> >    user  system elapsed
+> >   67.48    2.08   69.68
+> >> mb(object.size(seqa))
+> > [1] 397.7 MB
+> >> seqa
+> >   A DNAStringSet instance of length 9477528
+> >           width seq
+> >       [1]    36 TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT
+> >       [2]    36 TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT
+> >       [3]    36 GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC
+> >       [4]    36 GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC
+> >       [5]    36 GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC
+> >       [6]    36 TGACCCTCAGCAATCTTAAACTTCTTAGACGAATCA
+> >       [7]    36 GCTGGTTCTCACTTCTGTTACTCCAGCTTCTTCGGC
+> >       [8]    36 TTTAGGTGTCTGTAAAACAGGTGCCGAAGAAGCTGG
+> >       [9]    36 GGTCTGTTGAACACGACCAGAAAACTGGCCTAACGA
+> >       ...   ... ...
+> > [9477520]    36 TACGCAGTTTTGCCGTATACTCGTTGTTCTGACTCT
+> > [9477521]    36 TATACCCCCCCTCCTACTTGTGCTGTTTCTCATGTT
+> > [9477522]    36 CAGGTTGTTTCTGTTGGTGCTGATATTTCTTTTTTT
+> > [9477523]    36 GTCTTCCTTGCTTGTCAGATTGGTCGTCTTATTACC
+> > [9477524]    36 ATACGAAAGACCAGGTATATGCACAAAATGAGTTGC
+> > [9477525]    36 ACCACAAACGCGCTCGTTTATGCTTGCCTCTATTAC
+> > [9477526]    36 ------------------------------------
+> > [9477527]    36 CCAGCAAGGAAGCCAAGATGGGAAAGGTCATGCGGC
+> > [9477528]    36 CATTGTTGACCACCTACATACCACAGACGAGCACCT
+> >
+> > It takes just over a minute to read in the nearly 9.5 million reads.  
+> > The
+> > reads are stored efficiently, without the overhead of R character
+> > strings. The data structure (a DNAStringSet, from Biostrings and
+> > therefore stable) will not copy the large data, but instead contains
+> > 'views' into it.
+> >
+> > A basic question is about the nucleotides present in the reads.
+> > alphabetFrequency (from Biostrings) scans all the sequences and  
+> > tallies
+> > nucleotides
+> >
+> >> system.time({
+> > +     alf1 <- alphabetFrequency(seqa, collapse=TRUE, freq=TRUE)
+> > + }, gcFirst=TRUE)
+> >    user  system elapsed
+> >   0.612   0.000   0.612
+> >> alf1
+> >      A      C      G      T      M      R      W      S      Y      K
+> > 0.2449 0.2119 0.2201 0.3030 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+> >      V      H      D      B      N      -
+> > 0.0000 0.0000 0.0000 0.0000 0.0000 0.0201
+> >
+> > (bases are recored with IUPAC symbols, see ?IUPAC_CODE_MAP). This
+> > executes very efficiently. A variant produces a matrix with rows
+> > corresponding to reads and columns to bases.
+> >
+> >> alf <- alphabetFrequency(seqa, baseOnly=TRUE)
+> >> dim(alf)
+> > [1] 9477528       5
+> >> head(alf)
+> >       A  C  G  T other
+> > [1,]  9  4  6 17     0
+> > [2,] 11  6  5 14     0
+> > [3,] 10  9  4 13     0
+> > [4,]  4  9 12 11     0
+> > [5,]  6  6 11 13     0
+> > [6,] 12 10  4 10     0
+> >
+> > This can be remarkably useful. For instance, to select just the  
+> > 'clean'
+> > sequences (those without ambiguous base calls), one can
+> >
+> >> cleanSeqs <- seqa[alf[,"other"]==0]
+> >> length(seqa)
+> > [1] 9477528
+> >> length(cleanSeqs)
+> > [1] 9207292
+> >
+> > This creates a new DNAStringSet with just the clean sequences. It
+> > executes very quickly, because the DNAStringSet is a view into the
+> > original. The memory associated with the reads themselves is not  
+> > copied.
+> > here is the alphabetFrequency of the 'clean' reads.
+> >
+> >> cleanAlf <- alphabetFrequency(cleanSeqs, baseOnly=TRUE)
+> >
+> > Again this is very useful, for instance the distribution of GC content
+> > among clean reads is
+> >
+> >> plot(density(rowSums(cleanAlf[,c("G", "C")]) / rowSums(cleanAlf)))
+> >
+> >
+> > * PDict, countPDict, matchPDict
+> >
+> > A 'PDict' (defined in Biostrings) is a dictionary-like structure that
+> > can be used for very efficient exact- and partially-exact matching
+> > algorithms. To illustrate, we'll use data from about a million reads  
+> > of
+> > the Solexa BAC cloning vector. These reads again come from an early  
+> > run
+> > on the Solexa instrumentation here, and results should not be taken to
+> > be representative of performance.
+> >
+> > We read and clean the sequences as above, resulting in
+> >
+> >> length(cleanSeqs)
+> > [1] 923680
+> >
+> > We then create a PDict from our DNAStringSet with
+> >
+> >> system.time({
+> > +     pDict <- PDict(cleanSeqs)
+> > + }, gcFirst=TRUE)
+> >    user  system elapsed
+> >    1.09    0.00    1.10
+> >> pDict
+> > 923680-pattern constant width PDict object of width 25 (patterns  
+> > have no
+> > names)
+> >> mb(object.size(pDict))
+> > [1] 160.4 MB
+> >
+> > This is created quickly. It is a larger object, but the size allows  
+> > fast
+> > searches. Here we'll use Biostrings readFASTA to read in the  
+> > sequence to
+> > which the data are to be aligned.
+> >
+> >> bac <- read.DNAStringSet(bacFile, "fasta")[[1]]
+> > Read 2479 items
+> >> length(bac)
+> > [1] 173427
+> >
+> > This is a BAC clone. We'll match our pDict to the BAC subject, finding
+> > all EXACT matches;
+> >
+> >> system.time({
+> > +     counts <- countPDict(pDict, bac)
+> > + }, gcFirst=FALSE)
+> >    user  system elapsed
+> >   0.200   0.048   0.268
+> >> length(counts)
+> > [1] 923680
+> >> table(counts)[1:5]/sum(table(counts))
+> > counts
+> >       0       1       2       3       4
+> > 0.53954 0.42738 0.01136 0.00528 0.00334
+> >
+> > This is very fast, partly because the subject against which the  
+> > PDict is
+> > being matched is short. A more realistic use case is to match  
+> > against a
+> > genome. The integration with BSgenome packages is very smooth. To  
+> > match
+> > our pDict against human chromosome 6 (where the BAC cloning vector  
+> > comes
+> > from), we can load the appropriate BSgenome package and chromosome
+> >
+> >> library(BSgenome.Hsapiens.UCSC.hg18)
+> >
+> >> Hsapiens[["chr6"]]
+> >   170899992-letter "DNAString" instance
+> > seq:
+> > NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN 
+> > ...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+> >
+> > (The N's represent the chromsome telomeres, whose seuqences is not
+> > available). We look for exact matches
+> >
+> >> system.time({
+> > +     hcount <- countPDict(pDict, Hsapiens[["chr6"]])
+> > + }, gcFirst=TRUE)
+> >    user  system elapsed
+> >    24.2     0.0    24.2
+> >> table(hcount)[1:5] / sum(table(hcount))
+> > hcount
+> >       0       1       2       3       4
+> > 0.50466 0.32996 0.02043 0.00959 0.00761
+> >
+> > About 1/2 the sequences exactly match one or more locations on
+> > chromosome 6. Some sequences match many times, though the reason (in
+> > this case, anyway) is not too surprising:
+> >
+> >> max(hcount)
+> > [1] 8286
+> >> maxIdx = which(hcount==max(hcount))
+> >> cleanSeqs[maxIdx]
+> >   A DNAStringSet instance of length 70
+> >      width seq
+> >  [1]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [2]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [3]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [4]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [5]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [6]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [7]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [8]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  [9]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >  ...   ... ...
+> > [62]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [63]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [64]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [65]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [66]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [67]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [68]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [69]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> > [70]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+> >
+> > (that these are identical can be checked with
+> > unique(as.character(cleanSeqs[maxIdx])))
+> >
+> > The current implementation of PDict allows for a 'trusted band' of
+> > nucleotides that need to match exactly, allowing for approximate  
+> > matches
+> > in the remaining nucleotides. Here we trust the first 12 bases, and
+> > allow up to 3 mismatches. Also, we use the more informative  
+> > matchPDict,
+> > which allows us to find the positions of all matches
+> >
+> >> trusted <- PDict(cleanSeqs, tb.end=12)
+> >> system.time({
+> > +     mmMatch <- matchPDict(trusted, Hsapiens[[6]], max.mismatch=3)
+> > + }, gcFirst=TRUE)
+> >    user  system elapsed
+> >  195.58    3.85  199.44
+> >> table(cut(countIndex(mmMatch), c(0, 10^(0:5)), right=FALSE))
+> >
+> >         [0,1)        [1,10)      [10,100)   [100,1e+03) [1e+03,1e+04)
+> >        377233        337806         72983         66322         60818
+> > [1e+04,1e+05)
+> >          8518
+> >
+> > Execution time increases as the stringency of the match decreases.  
+> > PDict
+> > facilities do not yet incorporate quality scores, but filtering  
+> > results
+> > based on quality (qualities are discussed further below) represents a
+> > natural direction for development.
+> >
+> >
+> >
+> > * alphabetByCycle
+> >
+> > alphabetByCycle uses a small C function in BiostringsCinterfaceDemo,
+> > alphabet_by_cycle. It and the read* functions in this package  
+> > illustrate
+> > how to access DNAStringSet objects at the C level. alphabetByCycle  
+> > is a
+> > matrix that tallies nucleotide use per cycle
+> >
+> >> system.time({
+> > +     abc <- alphabetByCycle(seqa)
+> > + })
+> >    user  system elapsed
+> >    2.68    0.00    2.68
+> >
+> > Again this can be quite useful. For instance, we can find out the  
+> > number
+> > of bases that were not called, as a function of cycle
+> >
+> >> abc["-",]
+> >  [1]  22181 108829 123173 180382 225091 225055 216787 208538 208881
+> > [10] 213104 148936 142966 141030 148163 178747 204304 211538 211303
+> > [19] 213722 211167 208021 208715 165441 158359 147110 151462 204781
+> > [28] 221008 223922 221171 227622 226936 232232 236606 242387 241718
+> >
+> > and the number of 'T' nucleotides as a function of cycle
+> >
+> >> abc["T",] / colSums(abc[1:4,])
+> >  [1] 0.286 0.292 0.292 0.284 0.292 0.280 0.293 0.297 0.299 0.287 0.290
+> > [12] 0.294 0.294 0.299 0.300 0.301 0.304 0.305 0.306 0.309 0.310 0.311
+> > [23] 0.312 0.316 0.315 0.319 0.320 0.322 0.326 0.328 0.331 0.335 0.339
+> > [34] 0.342 0.346 0.358
+> >
+> > That's quite a striking increase after cycle 25!
+> >
+> >
+> > * Qualities
+> >
+> > Solexa reads have quality scores associated with each base call. These
+> > are summarized in files formatted like:
+> >
+> >> readLines(fastqFile, n=8)
+> > [1] "@HWI-EAS88_1_1_1_1001_499"
+> > [2] "GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT"
+> > [3] "+HWI-EAS88_1_1_1_1001_499"
+> > [4] "]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS"
+> > [5] "@HWI-EAS88_1_1_1_898_392"
+> > [6] "GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC"
+> > [7] "+HWI-EAS88_1_1_1_898_392"
+> > [8] "]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK"
+> >
+> > A record consists of four lines. The first and third lines are
+> > identifiers (repeated), the second line is the sequence, the fourth  
+> > line
+> > an ASCII character representing the score (']' is good, Z is better  
+> > than
+> > A). Here we read a quality file into a data structure defined in
+> > BiostringsCinterfaceDemo designed to coordinate the sequence, name,  
+> > and
+> > quality information.
+> >
+> >> system.time({
+> > +     seqq <- readSolexaFastQ(fastqFile)
+> > + }, gcFirst=TRUE)
+> >    user  system elapsed
+> >  17.533   0.417  17.969
+> >> mb(object.size(seqq))
+> > [1] 254.5 MB
+> >> seqq
+> > class: SolexaSequenceQ
+> > length: 2218237
+> >
+> >> sequences(seqq)[1:5]
+> >   A DNAStringSet instance of length 5
+> >     width seq
+> > [1]    36 GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT
+> > [2]    36 GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC
+> > [3]    36 GCGGTGGTCTATAGTGTTATTAATATCAATTTGGGT
+> > [4]    36 GTTACCATGATGTTATTTCTTCATTTGGAGGTAAAA
+> > [5]    36 GTATGTTTCTCCTGCTTATCACCTTCTTGAAGGCTT
+> >> names(seqq)[1:5]
+> >   A BStringSet instance of length 5
+> >     width seq
+> > [1]    24 HWI-EAS88_1_1_1_1001_499
+> > [2]    23 HWI-EAS88_1_1_1_898_392
+> > [3]    23 HWI-EAS88_1_1_1_922_465
+> > [4]    23 HWI-EAS88_1_1_1_895_493
+> > [5]    23 HWI-EAS88_1_1_1_953_493
+> >> scores(seqq)[1:5]
+> >   A BStringSet instance of length 5
+> >     width seq
+> > [1]    36 ]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS
+> > [2]    36 ]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK
+> > [3]    36 ]]]]Y]]]]]V]T]]]]]T]]]]]V]TMJEUXEFLA
+> > [4]    36 ]]]]]]]]]]]]]]]]]]]]]]T]]]]RJRZTQLOA
+> > [5]    36 ]]]]]]]]]]]]]]]]]T]]]]]]]]]]MJUJVLSS
+> >
+> > The object returned by readSolexaFastQ is an S4 object with three  
+> > slots.
+> > Each slot contains a XStringSet, where 'X' is DNA for sequences, and
+> > 'BString' for names and scores. This represents one way of structuring
+> > quality data; the S4 class coordinates subsetting, and provides
+> > (read-only) accessors to the underlying objects. A likely addition to
+> > this class as it matures is the inclusion of lane-specific phenotype
+> > (sample) information, much as an ExpressionSet coordinates sample and
+> > expression values.
+> >
+> > We can gain some basic insight into the sequences as before, e.g.,
+> >
+> >> abc <- alphabetByCycle(sequences(seqq))
+> >> abc["N",]
+> >  [1]     0     0     0     0     0     0     0     0     0     0     0
+> > [12]     0  1213  1631  1155  1240   721   418  8503   526  6493   703
+> > [23] 14999   718  1623   737   243 40704   811   590  1964   961   809
+> > [34]   910   477   208
+> >
+> > Solexa provides files with quality information after filtering reads
+> > based on 'purity', a measure that precludes uncertain bases (IUPAC  
+> > code
+> > 'N') from a user-specified region (the first 12 cycles, by default).
+> >
+> >> abc["T",] / colSums(abc[1:4,])
+> >  [1] 0.298 0.290 0.292 0.290 0.295 0.279 0.292 0.298 0.301 0.293 0.295
+> > [12] 0.299 0.296 0.293 0.294 0.294 0.293 0.295 0.294 0.297 0.297 0.299
+> > [23] 0.298 0.303 0.302 0.307 0.312 0.312 0.321 0.331 0.334 0.351 0.361
+> > [34] 0.374 0.380 0.423
+> >
+> > We can also summarize quality information by cycle, using an alphabet
+> > that reflects the encoded scores:
+> >
+> >> alphabet <- sapply(as.raw(32:93), rawToChar)
+> >> abcScore <- alphabetByCycle(scores(seqq), alphabet=alphabet)
+> >>
+> >> rowSums(abcScore)
+> >                 !        "        #        $        %         
+> > &        '
+> >        0        0        0        0        0        0         
+> > 0        0
+> >        (        )        *        +        ,         
+> > -        .        /
+> >        0        0        0        0        0        0         
+> > 0        0
+> >        0        1        2        3        4        5         
+> > 6        7
+> >        0        0        0        0        0        0         
+> > 0        0
+> >        8        9        :        ;        <        =         
+> > >        ?
+> >        0        0        0        0        0        0         
+> > 0        0
+> >        @        A        B        C        D        E         
+> > F        G
+> >        0  1367337        0  2035064        0  1006372    
+> > 819775        0
+> >        H        I        J        K        L        M         
+> > N        O
+> >  1926112   116395  1614109   356496   517731  1602298   578172   
+> > 2016009
+> >        P        Q        R        S        T        U         
+> > V        W
+> >  3043393   401196  2152160  1553511  2149231   254108  3896558    
+> > 232409
+> >        X        Y        Z        [       \\        ]
+> >   706452  4353706  1292309   732210        0 45133419
+> >> abcScore[34:62,c(1:4, 33:36)]
+> >       [,1]    [,2]    [,3]    [,4]   [,5]   [,6]   [,7]   [,8]
+> > A        1    1788    1798       8 260944 299631 332500 354717
+> > B        0       0       0       0      0      0      0      0
+> > C       59   36426   12705     227     39 131268 140461 154643
+> > D        0       0       0       0      0      0      0      0
+> > E      133   13391    4033     180 120135      0      0      0
+> > F        0       0       0       0      0 259549 272238 287988
+> > G        0       0       0       0      0      0      0      0
+> > H      272    8815    2933     357 242741 234088 239917 239157
+> > I        0       0       0       0 116395      0      0      0
+> > J      472    4678    1656     586      0 195991 198114 187535
+> > K        5      59      25      11 110052  84345  83744  77353
+> > L        0       0       0       0 102438 144459 142049 128785
+> > M       75     171     121      92  93945 119209 116492 103765
+> > N      653    2992    1232     769  85940  91924  89084  79246
+> > O     1227    2719    1754    1576 175403 187339 176997 160100
+> > P    65834   57830   60855   65863  61910      0      0      0
+> > Q        0       0       0       0 236290      0      0      0
+> > R     3211    4482    4321    4215      0      0      0      0
+> > S        0       0       0       0  68378 470434 426641 444948
+> > T     4444    5373    5868    5637      0      0      0      0
+> > U        0       0       0       0      0      0      0      0
+> > V     9146   10270   11922   11547 543627      0      0      0
+> > W        0       0       0       0      0      0      0      0
+> > X        0       0       0       0      0      0      0      0
+> > Y    28363   29080   34093   32873      0      0      0      0
+> > Z        0       0       0       0      0      0      0      0
+> > [        0       0       0       0      0      0      0      0
+> > \\       0       0       0       0      0      0      0      0
+> > ]  2104342 2040163 2074921 2094296      0      0      0      0
+> >
+> > Output from the last line shows how scores decrease from the first  
+> > four
+> > cycles to the last four. Standard R and Biostrings commands can be  
+> > used
+> > to ask many interesting questions, such as an overall quality score of
+> > reads (e.g., summing the scores of individual nucleotides) and the
+> > relationship between sequence characteristics (e.g., frequency of 'T')
+> > and read quality.
+> >
+> >> atgc <- alphabetFrequency(sequences(seqq), baseOnly=TRUE)
+> >> qscore <- alphabetFrequency(scores(seqq))
+> >> dim(qscore)
+> > [1] 2218237     256
+> >> mb(object.size(qscore))
+> > [1] 2166.2 MB
+> >
+> >> quality <- colSums(t(qscore) * 1:ncol(qscore))
+> >> plot(density(quality))   # small secondary peak at low quality
+> >> scores(seqq)[which(quality<2925)]
+> >   A BStringSet instance of length 87696
+> >         width seq
+> >     [1]    36 PPPPPPPPPPPPPEPPPPPOPPMOOPPOMMMPOOOJ
+> >     [2]    36 PPPPPPPPPPPPPPPPPPPPHPPPOPPMOPPPNKMA
+> >     [3]    36 PPPPPPPPPPPPPPPPPOPPPPPPEPMPPPMPOFAF
+> >     [4]    36 PPPPPPPPPPPPPPPPPPPPOPPPPPPPPPOPOOHK
+> >     [5]    36 PPPPPPPPPPPPPPPPPPPPPPPOPPOPOPPMKMLF
+> >     [6]    36 PPPPPPPPPPPPPPPPOPPPPPCPPPPHOOPPOOOO
+> >     [7]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOKO
+> >     [8]    36 PPPPPPPPPPPPPPPPPPPOPPPPPPPPJPOPOMAO
+> >     [9]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOL
+> >     ...   ... ...
+> > [87688]    36 PPPPPPPPMPOPCOOCOOJEOMMCCOEEHCCMAAAA
+> > [87689]    36 PTYOR]NTVVVJOHJCCPMEHCMHOJCECCCCAACA
+> > [87690]    36 Y]]]NTVYYT]TPNRPNRYHCTECOHCHHCECHAAC
+> > [87691]    36 YPRVNVYVPYHORCOCOPEPECJCCHCCJECHAAAA
+> > [87692]    36 PPPPPPPPPPPPPHPPOCPOPPOPCHMMPPPEKHOO
+> > [87693]    36 JJHPTTJYV]]]]JJCJCJJTCCOVCMHMCCOAAAA
+> > [87694]    36 PPPPPPPPPPPPPPPPPOPPPJPPPCPOHHCMOCAF
+> > [87695]    36 TYR]R]TN]YOEPTNERPPTVTCTVCCCRHOMIFAC
+> > [87696]    36 YRRYJVVTPHVPPECHPNCMCCJCEECOCCCCAAAA
+> >>
+> >> t <- atgc[,"T"] / rowSums(atgc[,1:4])
+> >> cor(t, quality)
+> > [1] 0.154
+> >
+> > All of these operations are quick enough to perform in an interactive
+> > session; the qscore is a large matrix (it can be made smaller by
+> > choosing bounds that reflect allowable scores, e.g., 32:127), and its
+> > transposition is relatively expensive.
+> >
+> > A final point to remember is that R stores a matrix m as a vector of
+> > length nrow(m) * ncol(m). R has an internal limit on the size of a
+> > vector equal to 2^32-1, so the maximum number of reads whose scores  
+> > can
+> > be represented by alphabetFrequency is less than 2^32 / 256, or  
+> > about 16
+> > million reads; this number of reads might be approached in a single
+> > Solexa lane; a simple solution is to divide the DNAStringSet into  
+> > pieces
+> > that are processed separately.
+> >
+> >
+> >
+> > I hope that the forgoing provides some indication of where we stand at
+> > the moment. Again, it would be great to have feedback, and to hear of
+> > other efforts. And again, the programming credit goes to Herve Pages.
+> >
+> > Martin
+> >
+> > The obligatory sessionInfo, plus some stats on processing this  
+> > document
+> > (referencing, in the end, three different data sets).
+> >
+> >> sessionInfo()
+> > R version 2.7.0 alpha (2008-03-28 r44972)
+> > x86_64-unknown-linux-gnu
+> >
+> > locale:
+> > LC_CTYPE 
+> > = 
+> > en_US 
+> > .UTF 
+> > -8 
+> > ;LC_NUMERIC 
+> > = 
+> > C 
+> > ;LC_TIME 
+> > = 
+> > en_US 
+> > .UTF 
+> > -8 
+> > ;LC_COLLATE 
+> > = 
+> > en_US 
+> > .UTF 
+> > -8 
+> > ;LC_MONETARY 
+> > = 
+> > C 
+> > ;LC_MESSAGES 
+> > = 
+> > en_US 
+> > .UTF 
+> > -8 
+> > ;LC_PAPER 
+> > = 
+> > en_US 
+> > .UTF 
+> > -8 
+> > ;LC_NAME 
+> > = 
+> > C 
+> > ;LC_ADDRESS 
+> > =C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+> >
+> > attached base packages:
+> > [1] tools     stats     graphics  grDevices utils     datasets
+> > [7] methods   base
+> >
+> > other attached packages:
+> > [1] BiostringsCinterfaceDemo_0.1.2
+> > [2] BSgenome.Hsapiens.UCSC.hg18_1.3.2
+> > [3] BSgenome_1.7.4
+> > [4] Biostrings_2.7.41
+> > [5] Biobase_1.99.4
+> >> gc()
+> >            used   (Mb) gc trigger  (Mb) max used  (Mb)
+> > Ncells 9.37e+05   50.1   4.87e+06   260 1.93e+07  1033
+> > Vcells 6.88e+08 5252.6   1.31e+09 10031 1.31e+09  9998
+> >> proc.time()
+> >    user  system elapsed
+> >   356.7    16.6   378.5
+> >
+> > _______________________________________________
+> > Bioc-sig-sequencing mailing list
+> > Bioc-sig-sequencing at r-project.org
+> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From s.henderson at ucl.ac.uk  Wed Apr  2 16:06:35 2008
+From: s.henderson at ucl.ac.uk (Stephen Henderson)
+Date: Wed, 2 Apr 2008 15:06:35 +0100
+Subject: [Bioc-sig-seq] Bioc short read directions
+References: <47F2FB69.4010105@fhcrc.org><0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+	<1207144171.47f38eeb06887@webmail.fhcrc.org>
+Message-ID: <61B482B74D6EE443B90356E080476E3401895453@exc2.cruciform.wibr.ucl.ac.uk>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+Url: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080402/d53e7997/attachment.pl 
+
+From mtmorgan at fhcrc.org  Wed Apr  2 17:48:31 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 02 Apr 2008 08:48:31 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <61B482B74D6EE443B90356E080476E3401895453@exc2.cruciform.wibr.ucl.ac.uk>
+References: <47F2FB69.4010105@fhcrc.org><0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+	<1207144171.47f38eeb06887@webmail.fhcrc.org>
+	<61B482B74D6EE443B90356E080476E3401895453@exc2.cruciform.wibr.ucl.ac.uk>
+Message-ID: <47F3AACF.4070807@fhcrc.org>
+
+Hi Stephen,
+
+Stephen Henderson wrote:
+> Hi
+> Sorry Im not at work so cant download
+>  
+> I think for many applications such as ChIP-seq you want to have multiple 
+> reads as you are effectively scoring the hits to a given location. They 
+> are not duplicates as such but enrichment scores for that point.
+
+yep.
+
+> On a related point. Do you have some functionality that deals say with 
+> reads that match multiple locations in the reference (ie repetitive 
+> regions)? Again this would help make sense of ChIP experiments.
+
+matchPDict returns information on all matches satisfying the criterion 
+implied by the trusted band and number of mismatches. Collating these in 
+a way that would be informative for ChIP-seq is probably 'easy' to do in 
+R (along the lines of table(cut(unlist(endIndex(matched)), ...)); I'm 
+not sure how efficient this would be (and one would want to be clever 
+about read & match quality, and probably directly describing ChIP-seq 
+data based on distribution of match locations rather than bins).
+
+ChIP-seq is definitely an area where R can provide some very powerful 
+tools, and I think there is effort already along those directions. It 
+would be great (for the list) to hear from those developing approaches...
+
+Martin
+
+> Stephen Henderson
+> ------------------------------------------------------------------------
+> *From:* bioc-sig-sequencing-bounces at r-project.org on behalf of 
+> mtmorgan at fhcrc.org
+> *Sent:* Wed 02/04/2008 14:49
+> *To:* Loyal Goff
+> *Cc:* Bioc-sig-sequencing at r-project.org
+> *Subject:* Re: [Bioc-sig-seq] Bioc short read directions
+> 
+> Hi Loyal --
+> 
+> 
+> Quoting Loyal Goff <lgoff at rci.rutgers.edu>:
+> 
+>  > This is a great start...thanks to both Martin and Herve. The speed is 
+>  > indeed impressive! I do have one question.  Would it be advantageous 
+>  > to reduce the data to a unique list of read sequences, and in doing so 
+>  > both retain counts in a separate slot and reduce the matrix size? It 
+>  > seems to me this would speed everything along as well. (ie. only 
+>  > attempt to align a unique sequence once).  Does anyone have a need to 
+>  > retain independent reads after a quality score cutoff?
+> 
+> In terms of matching, PDict does the right thing and it makes (little)
+> difference in terms of performance whether the reads have been made unique,
+> while introducing a bookkeeping nightmare for the user. Hopefully other
+> algorithms will be implemented to cope with duplicates effectively, if
+> appropriate.
+> 
+> I think the bookkeeping argument also weighs quite heavily in favor of 
+> dealing
+> with the data 'as-is'. I suspect also that quality scores will play an
+> increasingly important part in algorithms, so a simple cut-off will not be a
+> good solution. And probably the time / space 'savings' is only a 
+> fraction (10%
+> duplicate reads?? Maybe someone on the list has experience with this?) 
+> of the
+> requirements, so doesn't really change things that much.
+> 
+> My first inclination is to leave the data accessible in all its glory.
+> 
+> Martin
+> 
+>  >
+>  > Loyal
+>  >
+>  > Loyal A. Goff
+>  >
+>  > Rutgers Stem Cell Research Center
+>  > Rutgers: The State University of New Jersey
+>  > Nelson Biology Labs D-251
+>  > 604 Allison Rd,
+>  > Piscataway, NJ 08854
+>  > lgoff at rci.rutgers.edu
+>  >
+>  > On Apr 1, 2008, at 11:20 PM, Martin Morgan wrote:
+>  >
+>  > > Short-readers!
+>  > >
+>  > > I want to take this opportunity to provide an update on the directions
+>  > > we've initiated for short reads. It would be great to get your 
+>  > > feedback,
+>  > > and to hear of your own efforts.
+>  > >
+>  > > WARNING: This software is in development, and is far from final. In
+>  > > particular, functions in the BiostringsCinterfaceDemo package are NOT
+>  > > meant to be final or for use in other packages; they're here to
+>  > > demonstrate 'proof-of-concept' and to illustrate how users can access
+>  > > the Biostrings package from C code. I'll indicate which functions are
+>  > > from BiostringsCinterfaceDemo below. Expect a short-read 'base' 
+>  > > package
+>  > > to materialize in the devel branch of Bioconductor in the not too
+>  > > distant future.
+>  > >
+>  > > WARNING: The data used to illustrate functionality are not meant to be
+>  > > indiciative of the quality of data produced by Solexa; they are
+>  > > generally 'first runs' that present a number of interesting challenges
+>  > > for interpretation.
+>  > >
+>  > > HARDWARE AND SOFTWARE: The following include timing and object size
+>  > > measurements. The machine being used is fast, but we're not doing
+>  > > anything fancy to, e.g., exploit multiple processors. The machine 
+>  > > has a
+>  > > very large amount of memory; we used about 10 GB below, looking at 
+>  > > three
+>  > > different data sets. The following uses the R-2-7-branch (this is
+>  > > different from R-devel). The Biostrings and BiostringsCinterfaceDemo
+>  > > packages are updated very regularly, so be prepared for broken or
+>  > > outdated functions.
+>  > >
+>  > > Herve Pages is responsible for the clever code; I am just a scribe.
+>  > >
+>  > > Ok, first a convenience function to print out 'size' in megabytes,
+>  > > 'cause objects are large!
+>  > >
+>  > >> mb <- function(sz) noquote(sprintf("%.1f MB", sz / (1024^2)))
+>  > >
+>  > >
+>  > > * Starters...
+>  > >
+>  > > We load the BiostringsCinterfaceDemo, which requires Biostrings. 
+>  > > Both of
+>  > > these need to be from the 'development' branch of Bioconductor. Both 
+>  > > are
+>  > > changing rapidly, and should be obtained from svn and updated 
+>  > > regularly
+>  > > (http://wiki.fhcrc.org/bioc/DeveloperPage,
+>  > > http://wiki.fhcrc.org/bioc/SvnHowTo).
+>  > >
+>  > >> library(BiostringsCinterfaceDemo)
+>  > >
+>  > >
+>  > > * I/O, DNAStringSet, and alphabetFrequency
+>  > >
+>  > > We next read in a fasta file derived from a lane of solexa reads. 
+>  > > Here's
+>  > > what the data looks like:
+>  > >
+>  > >> readLines(fastaFile, 10)
+>  > >  [1] ">5_1_102_368"
+>  > >  [2] "TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT"
+>  > >  [3] ">5_1_120_254"
+>  > >  [4] "TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT"
+>  > >  [5] ">5_1_110_385"
+>  > >  [6] "GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC"
+>  > >  [7] ">5_1_118_88"
+>  > >  [8] "GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC"
+>  > >  [9] ">5_1_113_327"
+>  > > [10] "GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC"
+>  > >
+>  > > This is a single lane from a Solexa training run; the data are not
+>  > > filtered, and the run is not meant to be representative in terms of
+>  > > quality or other characteristics. The DNA used for the reads is from
+>  > > phage phiX-174. Here's how we read it in (countLines and 
+>  > > readSolexaFastA
+>  > > are in BiostringsCinterfaceDemo)
+>  > >
+>  > >> countLines(fastaFile)
+>  > > s_5.fasta
+>  > >  18955056
+>  > >> system.time({
+>  > > +     seqa <- readSolexaFastA(fastaFile)
+>  > > + }, gcFirst=TRUE)
+>  > >    user  system elapsed
+>  > >   67.48    2.08   69.68
+>  > >> mb(object.size(seqa))
+>  > > [1] 397.7 MB
+>  > >> seqa
+>  > >   A DNAStringSet instance of length 9477528
+>  > >           width seq
+>  > >       [1]    36 TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT
+>  > >       [2]    36 TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT
+>  > >       [3]    36 GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC
+>  > >       [4]    36 GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC
+>  > >       [5]    36 GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC
+>  > >       [6]    36 TGACCCTCAGCAATCTTAAACTTCTTAGACGAATCA
+>  > >       [7]    36 GCTGGTTCTCACTTCTGTTACTCCAGCTTCTTCGGC
+>  > >       [8]    36 TTTAGGTGTCTGTAAAACAGGTGCCGAAGAAGCTGG
+>  > >       [9]    36 GGTCTGTTGAACACGACCAGAAAACTGGCCTAACGA
+>  > >       ...   ... ...
+>  > > [9477520]    36 TACGCAGTTTTGCCGTATACTCGTTGTTCTGACTCT
+>  > > [9477521]    36 TATACCCCCCCTCCTACTTGTGCTGTTTCTCATGTT
+>  > > [9477522]    36 CAGGTTGTTTCTGTTGGTGCTGATATTTCTTTTTTT
+>  > > [9477523]    36 GTCTTCCTTGCTTGTCAGATTGGTCGTCTTATTACC
+>  > > [9477524]    36 ATACGAAAGACCAGGTATATGCACAAAATGAGTTGC
+>  > > [9477525]    36 ACCACAAACGCGCTCGTTTATGCTTGCCTCTATTAC
+>  > > [9477526]    36 ------------------------------------
+>  > > [9477527]    36 CCAGCAAGGAAGCCAAGATGGGAAAGGTCATGCGGC
+>  > > [9477528]    36 CATTGTTGACCACCTACATACCACAGACGAGCACCT
+>  > >
+>  > > It takes just over a minute to read in the nearly 9.5 million reads. 
+>  > > The
+>  > > reads are stored efficiently, without the overhead of R character
+>  > > strings. The data structure (a DNAStringSet, from Biostrings and
+>  > > therefore stable) will not copy the large data, but instead contains
+>  > > 'views' into it.
+>  > >
+>  > > A basic question is about the nucleotides present in the reads.
+>  > > alphabetFrequency (from Biostrings) scans all the sequences and 
+>  > > tallies
+>  > > nucleotides
+>  > >
+>  > >> system.time({
+>  > > +     alf1 <- alphabetFrequency(seqa, collapse=TRUE, freq=TRUE)
+>  > > + }, gcFirst=TRUE)
+>  > >    user  system elapsed
+>  > >   0.612   0.000   0.612
+>  > >> alf1
+>  > >      A      C      G      T      M      R      W      S      Y      K
+>  > > 0.2449 0.2119 0.2201 0.3030 0.0000 0.0000 0.0000 0.0000 0.0000 0.0000
+>  > >      V      H      D      B      N      -
+>  > > 0.0000 0.0000 0.0000 0.0000 0.0000 0.0201
+>  > >
+>  > > (bases are recored with IUPAC symbols, see ?IUPAC_CODE_MAP). This
+>  > > executes very efficiently. A variant produces a matrix with rows
+>  > > corresponding to reads and columns to bases.
+>  > >
+>  > >> alf <- alphabetFrequency(seqa, baseOnly=TRUE)
+>  > >> dim(alf)
+>  > > [1] 9477528       5
+>  > >> head(alf)
+>  > >       A  C  G  T other
+>  > > [1,]  9  4  6 17     0
+>  > > [2,] 11  6  5 14     0
+>  > > [3,] 10  9  4 13     0
+>  > > [4,]  4  9 12 11     0
+>  > > [5,]  6  6 11 13     0
+>  > > [6,] 12 10  4 10     0
+>  > >
+>  > > This can be remarkably useful. For instance, to select just the 
+>  > > 'clean'
+>  > > sequences (those without ambiguous base calls), one can
+>  > >
+>  > >> cleanSeqs <- seqa[alf[,"other"]==0]
+>  > >> length(seqa)
+>  > > [1] 9477528
+>  > >> length(cleanSeqs)
+>  > > [1] 9207292
+>  > >
+>  > > This creates a new DNAStringSet with just the clean sequences. It
+>  > > executes very quickly, because the DNAStringSet is a view into the
+>  > > original. The memory associated with the reads themselves is not 
+>  > > copied.
+>  > > here is the alphabetFrequency of the 'clean' reads.
+>  > >
+>  > >> cleanAlf <- alphabetFrequency(cleanSeqs, baseOnly=TRUE)
+>  > >
+>  > > Again this is very useful, for instance the distribution of GC content
+>  > > among clean reads is
+>  > >
+>  > >> plot(density(rowSums(cleanAlf[,c("G", "C")]) / rowSums(cleanAlf)))
+>  > >
+>  > >
+>  > > * PDict, countPDict, matchPDict
+>  > >
+>  > > A 'PDict' (defined in Biostrings) is a dictionary-like structure that
+>  > > can be used for very efficient exact- and partially-exact matching
+>  > > algorithms. To illustrate, we'll use data from about a million reads 
+>  > > of
+>  > > the Solexa BAC cloning vector. These reads again come from an early 
+>  > > run
+>  > > on the Solexa instrumentation here, and results should not be taken to
+>  > > be representative of performance.
+>  > >
+>  > > We read and clean the sequences as above, resulting in
+>  > >
+>  > >> length(cleanSeqs)
+>  > > [1] 923680
+>  > >
+>  > > We then create a PDict from our DNAStringSet with
+>  > >
+>  > >> system.time({
+>  > > +     pDict <- PDict(cleanSeqs)
+>  > > + }, gcFirst=TRUE)
+>  > >    user  system elapsed
+>  > >    1.09    0.00    1.10
+>  > >> pDict
+>  > > 923680-pattern constant width PDict object of width 25 (patterns 
+>  > > have no
+>  > > names)
+>  > >> mb(object.size(pDict))
+>  > > [1] 160.4 MB
+>  > >
+>  > > This is created quickly. It is a larger object, but the size allows 
+>  > > fast
+>  > > searches. Here we'll use Biostrings readFASTA to read in the 
+>  > > sequence to
+>  > > which the data are to be aligned.
+>  > >
+>  > >> bac <- read.DNAStringSet(bacFile, "fasta")[[1]]
+>  > > Read 2479 items
+>  > >> length(bac)
+>  > > [1] 173427
+>  > >
+>  > > This is a BAC clone. We'll match our pDict to the BAC subject, finding
+>  > > all EXACT matches;
+>  > >
+>  > >> system.time({
+>  > > +     counts <- countPDict(pDict, bac)
+>  > > + }, gcFirst=FALSE)
+>  > >    user  system elapsed
+>  > >   0.200   0.048   0.268
+>  > >> length(counts)
+>  > > [1] 923680
+>  > >> table(counts)[1:5]/sum(table(counts))
+>  > > counts
+>  > >       0       1       2       3       4
+>  > > 0.53954 0.42738 0.01136 0.00528 0.00334
+>  > >
+>  > > This is very fast, partly because the subject against which the 
+>  > > PDict is
+>  > > being matched is short. A more realistic use case is to match 
+>  > > against a
+>  > > genome. The integration with BSgenome packages is very smooth. To 
+>  > > match
+>  > > our pDict against human chromosome 6 (where the BAC cloning vector 
+>  > > comes
+>  > > from), we can load the appropriate BSgenome package and chromosome
+>  > >
+>  > >> library(BSgenome.Hsapiens.UCSC.hg18)
+>  > >
+>  > >> Hsapiens[["chr6"]]
+>  > >   170899992-letter "DNAString" instance
+>  > > seq:
+>  > > NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+>  > > ...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+>  > >
+>  > > (The N's represent the chromsome telomeres, whose seuqences is not
+>  > > available). We look for exact matches
+>  > >
+>  > >> system.time({
+>  > > +     hcount <- countPDict(pDict, Hsapiens[["chr6"]])
+>  > > + }, gcFirst=TRUE)
+>  > >    user  system elapsed
+>  > >    24.2     0.0    24.2
+>  > >> table(hcount)[1:5] / sum(table(hcount))
+>  > > hcount
+>  > >       0       1       2       3       4
+>  > > 0.50466 0.32996 0.02043 0.00959 0.00761
+>  > >
+>  > > About 1/2 the sequences exactly match one or more locations on
+>  > > chromosome 6. Some sequences match many times, though the reason (in
+>  > > this case, anyway) is not too surprising:
+>  > >
+>  > >> max(hcount)
+>  > > [1] 8286
+>  > >> maxIdx = which(hcount==max(hcount))
+>  > >> cleanSeqs[maxIdx]
+>  > >   A DNAStringSet instance of length 70
+>  > >      width seq
+>  > >  [1]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [2]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [3]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [4]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [5]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [6]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [7]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [8]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  [9]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >  ...   ... ...
+>  > > [62]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [63]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [64]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [65]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [66]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [67]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [68]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [69]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > > [70]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>  > >
+>  > > (that these are identical can be checked with
+>  > > unique(as.character(cleanSeqs[maxIdx])))
+>  > >
+>  > > The current implementation of PDict allows for a 'trusted band' of
+>  > > nucleotides that need to match exactly, allowing for approximate 
+>  > > matches
+>  > > in the remaining nucleotides. Here we trust the first 12 bases, and
+>  > > allow up to 3 mismatches. Also, we use the more informative 
+>  > > matchPDict,
+>  > > which allows us to find the positions of all matches
+>  > >
+>  > >> trusted <- PDict(cleanSeqs, tb.end=12)
+>  > >> system.time({
+>  > > +     mmMatch <- matchPDict(trusted, Hsapiens[[6]], max.mismatch=3)
+>  > > + }, gcFirst=TRUE)
+>  > >    user  system elapsed
+>  > >  195.58    3.85  199.44
+>  > >> table(cut(countIndex(mmMatch), c(0, 10^(0:5)), right=FALSE))
+>  > >
+>  > >         [0,1)        [1,10)      [10,100)   [100,1e+03) [1e+03,1e+04)
+>  > >        377233        337806         72983         66322         60818
+>  > > [1e+04,1e+05)
+>  > >          8518
+>  > >
+>  > > Execution time increases as the stringency of the match decreases. 
+>  > > PDict
+>  > > facilities do not yet incorporate quality scores, but filtering 
+>  > > results
+>  > > based on quality (qualities are discussed further below) represents a
+>  > > natural direction for development.
+>  > >
+>  > >
+>  > >
+>  > > * alphabetByCycle
+>  > >
+>  > > alphabetByCycle uses a small C function in BiostringsCinterfaceDemo,
+>  > > alphabet_by_cycle. It and the read* functions in this package 
+>  > > illustrate
+>  > > how to access DNAStringSet objects at the C level. alphabetByCycle 
+>  > > is a
+>  > > matrix that tallies nucleotide use per cycle
+>  > >
+>  > >> system.time({
+>  > > +     abc <- alphabetByCycle(seqa)
+>  > > + })
+>  > >    user  system elapsed
+>  > >    2.68    0.00    2.68
+>  > >
+>  > > Again this can be quite useful. For instance, we can find out the 
+>  > > number
+>  > > of bases that were not called, as a function of cycle
+>  > >
+>  > >> abc["-",]
+>  > >  [1]  22181 108829 123173 180382 225091 225055 216787 208538 208881
+>  > > [10] 213104 148936 142966 141030 148163 178747 204304 211538 211303
+>  > > [19] 213722 211167 208021 208715 165441 158359 147110 151462 204781
+>  > > [28] 221008 223922 221171 227622 226936 232232 236606 242387 241718
+>  > >
+>  > > and the number of 'T' nucleotides as a function of cycle
+>  > >
+>  > >> abc["T",] / colSums(abc[1:4,])
+>  > >  [1] 0.286 0.292 0.292 0.284 0.292 0.280 0.293 0.297 0.299 0.287 0.290
+>  > > [12] 0.294 0.294 0.299 0.300 0.301 0.304 0.305 0.306 0.309 0.310 0.311
+>  > > [23] 0.312 0.316 0.315 0.319 0.320 0.322 0.326 0.328 0.331 0.335 0.339
+>  > > [34] 0.342 0.346 0.358
+>  > >
+>  > > That's quite a striking increase after cycle 25!
+>  > >
+>  > >
+>  > > * Qualities
+>  > >
+>  > > Solexa reads have quality scores associated with each base call. These
+>  > > are summarized in files formatted like:
+>  > >
+>  > >> readLines(fastqFile, n=8)
+>  > > [1] "@HWI-EAS88_1_1_1_1001_499"
+>  > > [2] "GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT"
+>  > > [3] "+HWI-EAS88_1_1_1_1001_499"
+>  > > [4] "]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS"
+>  > > [5] "@HWI-EAS88_1_1_1_898_392"
+>  > > [6] "GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC"
+>  > > [7] "+HWI-EAS88_1_1_1_898_392"
+>  > > [8] "]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK"
+>  > >
+>  > > A record consists of four lines. The first and third lines are
+>  > > identifiers (repeated), the second line is the sequence, the fourth 
+>  > > line
+>  > > an ASCII character representing the score (']' is good, Z is better 
+>  > > than
+>  > > A). Here we read a quality file into a data structure defined in
+>  > > BiostringsCinterfaceDemo designed to coordinate the sequence, name, 
+>  > > and
+>  > > quality information.
+>  > >
+>  > >> system.time({
+>  > > +     seqq <- readSolexaFastQ(fastqFile)
+>  > > + }, gcFirst=TRUE)
+>  > >    user  system elapsed
+>  > >  17.533   0.417  17.969
+>  > >> mb(object.size(seqq))
+>  > > [1] 254.5 MB
+>  > >> seqq
+>  > > class: SolexaSequenceQ
+>  > > length: 2218237
+>  > >
+>  > >> sequences(seqq)[1:5]
+>  > >   A DNAStringSet instance of length 5
+>  > >     width seq
+>  > > [1]    36 GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT
+>  > > [2]    36 GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC
+>  > > [3]    36 GCGGTGGTCTATAGTGTTATTAATATCAATTTGGGT
+>  > > [4]    36 GTTACCATGATGTTATTTCTTCATTTGGAGGTAAAA
+>  > > [5]    36 GTATGTTTCTCCTGCTTATCACCTTCTTGAAGGCTT
+>  > >> names(seqq)[1:5]
+>  > >   A BStringSet instance of length 5
+>  > >     width seq
+>  > > [1]    24 HWI-EAS88_1_1_1_1001_499
+>  > > [2]    23 HWI-EAS88_1_1_1_898_392
+>  > > [3]    23 HWI-EAS88_1_1_1_922_465
+>  > > [4]    23 HWI-EAS88_1_1_1_895_493
+>  > > [5]    23 HWI-EAS88_1_1_1_953_493
+>  > >> scores(seqq)[1:5]
+>  > >   A BStringSet instance of length 5
+>  > >     width seq
+>  > > [1]    36 ]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS
+>  > > [2]    36 ]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK
+>  > > [3]    36 ]]]]Y]]]]]V]T]]]]]T]]]]]V]TMJEUXEFLA
+>  > > [4]    36 ]]]]]]]]]]]]]]]]]]]]]]T]]]]RJRZTQLOA
+>  > > [5]    36 ]]]]]]]]]]]]]]]]]T]]]]]]]]]]MJUJVLSS
+>  > >
+>  > > The object returned by readSolexaFastQ is an S4 object with three 
+>  > > slots.
+>  > > Each slot contains a XStringSet, where 'X' is DNA for sequences, and
+>  > > 'BString' for names and scores. This represents one way of structuring
+>  > > quality data; the S4 class coordinates subsetting, and provides
+>  > > (read-only) accessors to the underlying objects. A likely addition to
+>  > > this class as it matures is the inclusion of lane-specific phenotype
+>  > > (sample) information, much as an ExpressionSet coordinates sample and
+>  > > expression values.
+>  > >
+>  > > We can gain some basic insight into the sequences as before, e.g.,
+>  > >
+>  > >> abc <- alphabetByCycle(sequences(seqq))
+>  > >> abc["N",]
+>  > >  [1]     0     0     0     0     0     0     0     0     0     0     0
+>  > > [12]     0  1213  1631  1155  1240   721   418  8503   526  6493   703
+>  > > [23] 14999   718  1623   737   243 40704   811   590  1964   961   809
+>  > > [34]   910   477   208
+>  > >
+>  > > Solexa provides files with quality information after filtering reads
+>  > > based on 'purity', a measure that precludes uncertain bases (IUPAC 
+>  > > code
+>  > > 'N') from a user-specified region (the first 12 cycles, by default).
+>  > >
+>  > >> abc["T",] / colSums(abc[1:4,])
+>  > >  [1] 0.298 0.290 0.292 0.290 0.295 0.279 0.292 0.298 0.301 0.293 0.295
+>  > > [12] 0.299 0.296 0.293 0.294 0.294 0.293 0.295 0.294 0.297 0.297 0.299
+>  > > [23] 0.298 0.303 0.302 0.307 0.312 0.312 0.321 0.331 0.334 0.351 0.361
+>  > > [34] 0.374 0.380 0.423
+>  > >
+>  > > We can also summarize quality information by cycle, using an alphabet
+>  > > that reflects the encoded scores:
+>  > >
+>  > >> alphabet <- sapply(as.raw(32:93), rawToChar)
+>  > >> abcScore <- alphabetByCycle(scores(seqq), alphabet=alphabet)
+>  > >>
+>  > >> rowSums(abcScore)
+>  > >                 !        "        #        $        %        
+>  > > &        '
+>  > >        0        0        0        0        0        0        
+>  > > 0        0
+>  > >        (        )        *        +        ,        
+>  > > -        .        /
+>  > >        0        0        0        0        0        0        
+>  > > 0        0
+>  > >        0        1        2        3        4        5        
+>  > > 6        7
+>  > >        0        0        0        0        0        0        
+>  > > 0        0
+>  > >        8        9        :        ;        <        =        
+>  > > >        ?
+>  > >        0        0        0        0        0        0        
+>  > > 0        0
+>  > >        @        A        B        C        D        E        
+>  > > F        G
+>  > >        0  1367337        0  2035064        0  1006372   
+>  > > 819775        0
+>  > >        H        I        J        K        L        M        
+>  > > N        O
+>  > >  1926112   116395  1614109   356496   517731  1602298   578172  
+>  > > 2016009
+>  > >        P        Q        R        S        T        U        
+>  > > V        W
+>  > >  3043393   401196  2152160  1553511  2149231   254108  3896558   
+>  > > 232409
+>  > >        X        Y        Z        [       \\        ]
+>  > >   706452  4353706  1292309   732210        0 45133419
+>  > >> abcScore[34:62,c(1:4, 33:36)]
+>  > >       [,1]    [,2]    [,3]    [,4]   [,5]   [,6]   [,7]   [,8]
+>  > > A        1    1788    1798       8 260944 299631 332500 354717
+>  > > B        0       0       0       0      0      0      0      0
+>  > > C       59   36426   12705     227     39 131268 140461 154643
+>  > > D        0       0       0       0      0      0      0      0
+>  > > E      133   13391    4033     180 120135      0      0      0
+>  > > F        0       0       0       0      0 259549 272238 287988
+>  > > G        0       0       0       0      0      0      0      0
+>  > > H      272    8815    2933     357 242741 234088 239917 239157
+>  > > I        0       0       0       0 116395      0      0      0
+>  > > J      472    4678    1656     586      0 195991 198114 187535
+>  > > K        5      59      25      11 110052  84345  83744  77353
+>  > > L        0       0       0       0 102438 144459 142049 128785
+>  > > M       75     171     121      92  93945 119209 116492 103765
+>  > > N      653    2992    1232     769  85940  91924  89084  79246
+>  > > O     1227    2719    1754    1576 175403 187339 176997 160100
+>  > > P    65834   57830   60855   65863  61910      0      0      0
+>  > > Q        0       0       0       0 236290      0      0      0
+>  > > R     3211    4482    4321    4215      0      0      0      0
+>  > > S        0       0       0       0  68378 470434 426641 444948
+>  > > T     4444    5373    5868    5637      0      0      0      0
+>  > > U        0       0       0       0      0      0      0      0
+>  > > V     9146   10270   11922   11547 543627      0      0      0
+>  > > W        0       0       0       0      0      0      0      0
+>  > > X        0       0       0       0      0      0      0      0
+>  > > Y    28363   29080   34093   32873      0      0      0      0
+>  > > Z        0       0       0       0      0      0      0      0
+>  > > [        0       0       0       0      0      0      0      0
+>  > > \\       0       0       0       0      0      0      0      0
+>  > > ]  2104342 2040163 2074921 2094296      0      0      0      0
+>  > >
+>  > > Output from the last line shows how scores decrease from the first 
+>  > > four
+>  > > cycles to the last four. Standard R and Biostrings commands can be 
+>  > > used
+>  > > to ask many interesting questions, such as an overall quality score of
+>  > > reads (e.g., summing the scores of individual nucleotides) and the
+>  > > relationship between sequence characteristics (e.g., frequency of 'T')
+>  > > and read quality.
+>  > >
+>  > >> atgc <- alphabetFrequency(sequences(seqq), baseOnly=TRUE)
+>  > >> qscore <- alphabetFrequency(scores(seqq))
+>  > >> dim(qscore)
+>  > > [1] 2218237     256
+>  > >> mb(object.size(qscore))
+>  > > [1] 2166.2 MB
+>  > >
+>  > >> quality <- colSums(t(qscore) * 1:ncol(qscore))
+>  > >> plot(density(quality))   # small secondary peak at low quality
+>  > >> scores(seqq)[which(quality<2925)]
+>  > >   A BStringSet instance of length 87696
+>  > >         width seq
+>  > >     [1]    36 PPPPPPPPPPPPPEPPPPPOPPMOOPPOMMMPOOOJ
+>  > >     [2]    36 PPPPPPPPPPPPPPPPPPPPHPPPOPPMOPPPNKMA
+>  > >     [3]    36 PPPPPPPPPPPPPPPPPOPPPPPPEPMPPPMPOFAF
+>  > >     [4]    36 PPPPPPPPPPPPPPPPPPPPOPPPPPPPPPOPOOHK
+>  > >     [5]    36 PPPPPPPPPPPPPPPPPPPPPPPOPPOPOPPMKMLF
+>  > >     [6]    36 PPPPPPPPPPPPPPPPOPPPPPCPPPPHOOPPOOOO
+>  > >     [7]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOKO
+>  > >     [8]    36 PPPPPPPPPPPPPPPPPPPOPPPPPPPPJPOPOMAO
+>  > >     [9]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOL
+>  > >     ...   ... ...
+>  > > [87688]    36 PPPPPPPPMPOPCOOCOOJEOMMCCOEEHCCMAAAA
+>  > > [87689]    36 PTYOR]NTVVVJOHJCCPMEHCMHOJCECCCCAACA
+>  > > [87690]    36 Y]]]NTVYYT]TPNRPNRYHCTECOHCHHCECHAAC
+>  > > [87691]    36 YPRVNVYVPYHORCOCOPEPECJCCHCCJECHAAAA
+>  > > [87692]    36 PPPPPPPPPPPPPHPPOCPOPPOPCHMMPPPEKHOO
+>  > > [87693]    36 JJHPTTJYV]]]]JJCJCJJTCCOVCMHMCCOAAAA
+>  > > [87694]    36 PPPPPPPPPPPPPPPPPOPPPJPPPCPOHHCMOCAF
+>  > > [87695]    36 TYR]R]TN]YOEPTNERPPTVTCTVCCCRHOMIFAC
+>  > > [87696]    36 YRRYJVVTPHVPPECHPNCMCCJCEECOCCCCAAAA
+>  > >>
+>  > >> t <- atgc[,"T"] / rowSums(atgc[,1:4])
+>  > >> cor(t, quality)
+>  > > [1] 0.154
+>  > >
+>  > > All of these operations are quick enough to perform in an interactive
+>  > > session; the qscore is a large matrix (it can be made smaller by
+>  > > choosing bounds that reflect allowable scores, e.g., 32:127), and its
+>  > > transposition is relatively expensive.
+>  > >
+>  > > A final point to remember is that R stores a matrix m as a vector of
+>  > > length nrow(m) * ncol(m). R has an internal limit on the size of a
+>  > > vector equal to 2^32-1, so the maximum number of reads whose scores 
+>  > > can
+>  > > be represented by alphabetFrequency is less than 2^32 / 256, or 
+>  > > about 16
+>  > > million reads; this number of reads might be approached in a single
+>  > > Solexa lane; a simple solution is to divide the DNAStringSet into 
+>  > > pieces
+>  > > that are processed separately.
+>  > >
+>  > >
+>  > >
+>  > > I hope that the forgoing provides some indication of where we stand at
+>  > > the moment. Again, it would be great to have feedback, and to hear of
+>  > > other efforts. And again, the programming credit goes to Herve Pages.
+>  > >
+>  > > Martin
+>  > >
+>  > > The obligatory sessionInfo, plus some stats on processing this 
+>  > > document
+>  > > (referencing, in the end, three different data sets).
+>  > >
+>  > >> sessionInfo()
+>  > > R version 2.7.0 alpha (2008-03-28 r44972)
+>  > > x86_64-unknown-linux-gnu
+>  > >
+>  > > locale:
+>  > > LC_CTYPE
+>  > > =
+>  > > en_US
+>  > > .UTF
+>  > > -8
+>  > > ;LC_NUMERIC
+>  > > =
+>  > > C
+>  > > ;LC_TIME
+>  > > =
+>  > > en_US
+>  > > .UTF
+>  > > -8
+>  > > ;LC_COLLATE
+>  > > =
+>  > > en_US
+>  > > .UTF
+>  > > -8
+>  > > ;LC_MONETARY
+>  > > =
+>  > > C
+>  > > ;LC_MESSAGES
+>  > > =
+>  > > en_US
+>  > > .UTF
+>  > > -8
+>  > > ;LC_PAPER
+>  > > =
+>  > > en_US
+>  > > .UTF
+>  > > -8
+>  > > ;LC_NAME
+>  > > =
+>  > > C
+>  > > ;LC_ADDRESS
+>  > > =C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+>  > >
+>  > > attached base packages:
+>  > > [1] tools     stats     graphics  grDevices utils     datasets
+>  > > [7] methods   base
+>  > >
+>  > > other attached packages:
+>  > > [1] BiostringsCinterfaceDemo_0.1.2
+>  > > [2] BSgenome.Hsapiens.UCSC.hg18_1.3.2
+>  > > [3] BSgenome_1.7.4
+>  > > [4] Biostrings_2.7.41
+>  > > [5] Biobase_1.99.4
+>  > >> gc()
+>  > >            used   (Mb) gc trigger  (Mb) max used  (Mb)
+>  > > Ncells 9.37e+05   50.1   4.87e+06   260 1.93e+07  1033
+>  > > Vcells 6.88e+08 5252.6   1.31e+09 10031 1.31e+09  9998
+>  > >> proc.time()
+>  > >    user  system elapsed
+>  > >   356.7    16.6   378.5
+>  > >
+>  > > _______________________________________________
+>  > > Bioc-sig-sequencing mailing list
+>  > > Bioc-sig-sequencing at r-project.org
+>  > > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>  >
+>  > _______________________________________________
+>  > Bioc-sig-sequencing mailing list
+>  > Bioc-sig-sequencing at r-project.org
+>  > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>  >
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> **********************************************************************
+> 
+> This email and any files transmitted with it are confidential and
+> 
+> intended solely for the use of the individual or entity to whom they
+> 
+> are addressed. If you have received this email in error please notify
+> 
+> the system manager (it.support at wibr.ucl.ac.uk). All files are scanned 
+> for viruses.
+> 
+> **********************************************************************
+> 
+>  
+> 
+
+
+-- 
+Martin Morgan
+Computational Biology / Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N.
+PO Box 19024 Seattle, WA 98109
+
+Location: Arnold Building M2 B169
+Phone: (206) 667-2793
+
+
+From lgoff at rci.rutgers.edu  Wed Apr  2 18:07:16 2008
+From: lgoff at rci.rutgers.edu (Loyal Goff)
+Date: Wed, 2 Apr 2008 12:07:16 -0400
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <47F3AACF.4070807@fhcrc.org>
+References: <47F2FB69.4010105@fhcrc.org><0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+	<1207144171.47f38eeb06887@webmail.fhcrc.org>
+	<61B482B74D6EE443B90356E080476E3401895453@exc2.cruciform.wibr.ucl.ac.uk>
+	<47F3AACF.4070807@fhcrc.org>
+Message-ID: <ACAB5E49-99E3-4EA4-BE12-4F3550BA976D@rci.rutgers.edu>
+
+Just a small point but ideally the same sequence appearing multiple  
+times in a solexa run will align to the exact same locations (or  
+something is seriously off).  A count of the number of observations of  
+that sequence should have the exact information as the number of times  
+that unique sequence 'aligned' to a specific site in the reference  
+template.  There are a few applications where a 'number of  
+observations' metric for a unique read sequence may be useful (ie.  
+SAGE-like tags for mRNA, digital gene expression, small RNA  
+sequencing, etc).  I'm certainly not pushing the issue, just wondering  
+if anyone else would find this useful or for the sake of future  
+flexibility?
+
+Loyal
+
+On Apr 2, 2008, at 11:48 AM, Martin Morgan wrote:
+
+> Hi Stephen,
+>
+> Stephen Henderson wrote:
+>> Hi
+>> Sorry Im not at work so cant download
+>>
+>> I think for many applications such as ChIP-seq you want to have  
+>> multiple
+>> reads as you are effectively scoring the hits to a given location.  
+>> They
+>> are not duplicates as such but enrichment scores for that point.
+>
+> yep.
+>
+>> On a related point. Do you have some functionality that deals say  
+>> with
+>> reads that match multiple locations in the reference (ie repetitive
+>> regions)? Again this would help make sense of ChIP experiments.
+>
+> matchPDict returns information on all matches satisfying the criterion
+> implied by the trusted band and number of mismatches. Collating  
+> these in
+> a way that would be informative for ChIP-seq is probably 'easy' to  
+> do in
+> R (along the lines of table(cut(unlist(endIndex(matched)), ...)); I'm
+> not sure how efficient this would be (and one would want to be clever
+> about read & match quality, and probably directly describing ChIP-seq
+> data based on distribution of match locations rather than bins).
+>
+> ChIP-seq is definitely an area where R can provide some very powerful
+> tools, and I think there is effort already along those directions. It
+> would be great (for the list) to hear from those developing  
+> approaches...
+>
+> Martin
+>
+>> Stephen Henderson
+>> ------------------------------------------------------------------------
+>> *From:* bioc-sig-sequencing-bounces at r-project.org on behalf of
+>> mtmorgan at fhcrc.org
+>> *Sent:* Wed 02/04/2008 14:49
+>> *To:* Loyal Goff
+>> *Cc:* Bioc-sig-sequencing at r-project.org
+>> *Subject:* Re: [Bioc-sig-seq] Bioc short read directions
+>>
+>> Hi Loyal --
+>>
+>>
+>> Quoting Loyal Goff <lgoff at rci.rutgers.edu>:
+>>
+>>> This is a great start...thanks to both Martin and Herve. The speed  
+>>> is
+>>> indeed impressive! I do have one question.  Would it be advantageous
+>>> to reduce the data to a unique list of read sequences, and in  
+>>> doing so
+>>> both retain counts in a separate slot and reduce the matrix size? It
+>>> seems to me this would speed everything along as well. (ie. only
+>>> attempt to align a unique sequence once).  Does anyone have a need  
+>>> to
+>>> retain independent reads after a quality score cutoff?
+>>
+>> In terms of matching, PDict does the right thing and it makes  
+>> (little)
+>> difference in terms of performance whether the reads have been made  
+>> unique,
+>> while introducing a bookkeeping nightmare for the user. Hopefully  
+>> other
+>> algorithms will be implemented to cope with duplicates effectively,  
+>> if
+>> appropriate.
+>>
+>> I think the bookkeeping argument also weighs quite heavily in favor  
+>> of
+>> dealing
+>> with the data 'as-is'. I suspect also that quality scores will play  
+>> an
+>> increasingly important part in algorithms, so a simple cut-off will  
+>> not be a
+>> good solution. And probably the time / space 'savings' is only a
+>> fraction (10%
+>> duplicate reads?? Maybe someone on the list has experience with  
+>> this?)
+>> of the
+>> requirements, so doesn't really change things that much.
+>>
+>> My first inclination is to leave the data accessible in all its  
+>> glory.
+>>
+>> Martin
+>>
+>>>
+>>> Loyal
+>>>
+>>> Loyal A. Goff
+>>>
+>>> Rutgers Stem Cell Research Center
+>>> Rutgers: The State University of New Jersey
+>>> Nelson Biology Labs D-251
+>>> 604 Allison Rd,
+>>> Piscataway, NJ 08854
+>>> lgoff at rci.rutgers.edu
+>>>
+>>> On Apr 1, 2008, at 11:20 PM, Martin Morgan wrote:
+>>>
+>>>> Short-readers!
+>>>>
+>>>> I want to take this opportunity to provide an update on the  
+>>>> directions
+>>>> we've initiated for short reads. It would be great to get your
+>>>> feedback,
+>>>> and to hear of your own efforts.
+>>>>
+>>>> WARNING: This software is in development, and is far from final. In
+>>>> particular, functions in the BiostringsCinterfaceDemo package are  
+>>>> NOT
+>>>> meant to be final or for use in other packages; they're here to
+>>>> demonstrate 'proof-of-concept' and to illustrate how users can  
+>>>> access
+>>>> the Biostrings package from C code. I'll indicate which functions  
+>>>> are
+>>>> from BiostringsCinterfaceDemo below. Expect a short-read 'base'
+>>>> package
+>>>> to materialize in the devel branch of Bioconductor in the not too
+>>>> distant future.
+>>>>
+>>>> WARNING: The data used to illustrate functionality are not meant  
+>>>> to be
+>>>> indiciative of the quality of data produced by Solexa; they are
+>>>> generally 'first runs' that present a number of interesting  
+>>>> challenges
+>>>> for interpretation.
+>>>>
+>>>> HARDWARE AND SOFTWARE: The following include timing and object size
+>>>> measurements. The machine being used is fast, but we're not doing
+>>>> anything fancy to, e.g., exploit multiple processors. The machine
+>>>> has a
+>>>> very large amount of memory; we used about 10 GB below, looking at
+>>>> three
+>>>> different data sets. The following uses the R-2-7-branch (this is
+>>>> different from R-devel). The Biostrings and  
+>>>> BiostringsCinterfaceDemo
+>>>> packages are updated very regularly, so be prepared for broken or
+>>>> outdated functions.
+>>>>
+>>>> Herve Pages is responsible for the clever code; I am just a scribe.
+>>>>
+>>>> Ok, first a convenience function to print out 'size' in megabytes,
+>>>> 'cause objects are large!
+>>>>
+>>>>> mb <- function(sz) noquote(sprintf("%.1f MB", sz / (1024^2)))
+>>>>
+>>>>
+>>>> * Starters...
+>>>>
+>>>> We load the BiostringsCinterfaceDemo, which requires Biostrings.
+>>>> Both of
+>>>> these need to be from the 'development' branch of Bioconductor.  
+>>>> Both
+>>>> are
+>>>> changing rapidly, and should be obtained from svn and updated
+>>>> regularly
+>>>> (http://wiki.fhcrc.org/bioc/DeveloperPage,
+>>>> http://wiki.fhcrc.org/bioc/SvnHowTo).
+>>>>
+>>>>> library(BiostringsCinterfaceDemo)
+>>>>
+>>>>
+>>>> * I/O, DNAStringSet, and alphabetFrequency
+>>>>
+>>>> We next read in a fasta file derived from a lane of solexa reads.
+>>>> Here's
+>>>> what the data looks like:
+>>>>
+>>>>> readLines(fastaFile, 10)
+>>>> [1] ">5_1_102_368"
+>>>> [2] "TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT"
+>>>> [3] ">5_1_120_254"
+>>>> [4] "TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT"
+>>>> [5] ">5_1_110_385"
+>>>> [6] "GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC"
+>>>> [7] ">5_1_118_88"
+>>>> [8] "GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC"
+>>>> [9] ">5_1_113_327"
+>>>> [10] "GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC"
+>>>>
+>>>> This is a single lane from a Solexa training run; the data are not
+>>>> filtered, and the run is not meant to be representative in terms of
+>>>> quality or other characteristics. The DNA used for the reads is  
+>>>> from
+>>>> phage phiX-174. Here's how we read it in (countLines and
+>>>> readSolexaFastA
+>>>> are in BiostringsCinterfaceDemo)
+>>>>
+>>>>> countLines(fastaFile)
+>>>> s_5.fasta
+>>>> 18955056
+>>>>> system.time({
+>>>> +     seqa <- readSolexaFastA(fastaFile)
+>>>> + }, gcFirst=TRUE)
+>>>>   user  system elapsed
+>>>>  67.48    2.08   69.68
+>>>>> mb(object.size(seqa))
+>>>> [1] 397.7 MB
+>>>>> seqa
+>>>>  A DNAStringSet instance of length 9477528
+>>>>          width seq
+>>>>      [1]    36 TAAGAGGTTTAAATTTTCTTCAGGTCAGTATTCTTT
+>>>>      [2]    36 TTAATTCGTAAACAAGCAGTAGTAATTCCTGCTTTT
+>>>>      [3]    36 GCTAATTTGCCTACTAACCAAGAACTTGATTTCTTC
+>>>>      [4]    36 GTTTGGAGTGATACTGACCGCTCTCGTGGTCGTCGC
+>>>>      [5]    36 GCTTGCGTTTATGGTACGCTGGACTTTGTAGGATAC
+>>>>      [6]    36 TGACCCTCAGCAATCTTAAACTTCTTAGACGAATCA
+>>>>      [7]    36 GCTGGTTCTCACTTCTGTTACTCCAGCTTCTTCGGC
+>>>>      [8]    36 TTTAGGTGTCTGTAAAACAGGTGCCGAAGAAGCTGG
+>>>>      [9]    36 GGTCTGTTGAACACGACCAGAAAACTGGCCTAACGA
+>>>>      ...   ... ...
+>>>> [9477520]    36 TACGCAGTTTTGCCGTATACTCGTTGTTCTGACTCT
+>>>> [9477521]    36 TATACCCCCCCTCCTACTTGTGCTGTTTCTCATGTT
+>>>> [9477522]    36 CAGGTTGTTTCTGTTGGTGCTGATATTTCTTTTTTT
+>>>> [9477523]    36 GTCTTCCTTGCTTGTCAGATTGGTCGTCTTATTACC
+>>>> [9477524]    36 ATACGAAAGACCAGGTATATGCACAAAATGAGTTGC
+>>>> [9477525]    36 ACCACAAACGCGCTCGTTTATGCTTGCCTCTATTAC
+>>>> [9477526]    36 ------------------------------------
+>>>> [9477527]    36 CCAGCAAGGAAGCCAAGATGGGAAAGGTCATGCGGC
+>>>> [9477528]    36 CATTGTTGACCACCTACATACCACAGACGAGCACCT
+>>>>
+>>>> It takes just over a minute to read in the nearly 9.5 million  
+>>>> reads.
+>>>> The
+>>>> reads are stored efficiently, without the overhead of R character
+>>>> strings. The data structure (a DNAStringSet, from Biostrings and
+>>>> therefore stable) will not copy the large data, but instead  
+>>>> contains
+>>>> 'views' into it.
+>>>>
+>>>> A basic question is about the nucleotides present in the reads.
+>>>> alphabetFrequency (from Biostrings) scans all the sequences and
+>>>> tallies
+>>>> nucleotides
+>>>>
+>>>>> system.time({
+>>>> +     alf1 <- alphabetFrequency(seqa, collapse=TRUE, freq=TRUE)
+>>>> + }, gcFirst=TRUE)
+>>>>   user  system elapsed
+>>>>  0.612   0.000   0.612
+>>>>> alf1
+>>>>     A      C      G      T      M      R      W      S       
+>>>> Y      K
+>>>> 0.2449 0.2119 0.2201 0.3030 0.0000 0.0000 0.0000 0.0000 0.0000  
+>>>> 0.0000
+>>>>     V      H      D      B      N      -
+>>>> 0.0000 0.0000 0.0000 0.0000 0.0000 0.0201
+>>>>
+>>>> (bases are recored with IUPAC symbols, see ?IUPAC_CODE_MAP). This
+>>>> executes very efficiently. A variant produces a matrix with rows
+>>>> corresponding to reads and columns to bases.
+>>>>
+>>>>> alf <- alphabetFrequency(seqa, baseOnly=TRUE)
+>>>>> dim(alf)
+>>>> [1] 9477528       5
+>>>>> head(alf)
+>>>>      A  C  G  T other
+>>>> [1,]  9  4  6 17     0
+>>>> [2,] 11  6  5 14     0
+>>>> [3,] 10  9  4 13     0
+>>>> [4,]  4  9 12 11     0
+>>>> [5,]  6  6 11 13     0
+>>>> [6,] 12 10  4 10     0
+>>>>
+>>>> This can be remarkably useful. For instance, to select just the
+>>>> 'clean'
+>>>> sequences (those without ambiguous base calls), one can
+>>>>
+>>>>> cleanSeqs <- seqa[alf[,"other"]==0]
+>>>>> length(seqa)
+>>>> [1] 9477528
+>>>>> length(cleanSeqs)
+>>>> [1] 9207292
+>>>>
+>>>> This creates a new DNAStringSet with just the clean sequences. It
+>>>> executes very quickly, because the DNAStringSet is a view into the
+>>>> original. The memory associated with the reads themselves is not
+>>>> copied.
+>>>> here is the alphabetFrequency of the 'clean' reads.
+>>>>
+>>>>> cleanAlf <- alphabetFrequency(cleanSeqs, baseOnly=TRUE)
+>>>>
+>>>> Again this is very useful, for instance the distribution of GC  
+>>>> content
+>>>> among clean reads is
+>>>>
+>>>>> plot(density(rowSums(cleanAlf[,c("G", "C")]) / rowSums(cleanAlf)))
+>>>>
+>>>>
+>>>> * PDict, countPDict, matchPDict
+>>>>
+>>>> A 'PDict' (defined in Biostrings) is a dictionary-like structure  
+>>>> that
+>>>> can be used for very efficient exact- and partially-exact matching
+>>>> algorithms. To illustrate, we'll use data from about a million  
+>>>> reads
+>>>> of
+>>>> the Solexa BAC cloning vector. These reads again come from an early
+>>>> run
+>>>> on the Solexa instrumentation here, and results should not be  
+>>>> taken to
+>>>> be representative of performance.
+>>>>
+>>>> We read and clean the sequences as above, resulting in
+>>>>
+>>>>> length(cleanSeqs)
+>>>> [1] 923680
+>>>>
+>>>> We then create a PDict from our DNAStringSet with
+>>>>
+>>>>> system.time({
+>>>> +     pDict <- PDict(cleanSeqs)
+>>>> + }, gcFirst=TRUE)
+>>>>   user  system elapsed
+>>>>   1.09    0.00    1.10
+>>>>> pDict
+>>>> 923680-pattern constant width PDict object of width 25 (patterns
+>>>> have no
+>>>> names)
+>>>>> mb(object.size(pDict))
+>>>> [1] 160.4 MB
+>>>>
+>>>> This is created quickly. It is a larger object, but the size allows
+>>>> fast
+>>>> searches. Here we'll use Biostrings readFASTA to read in the
+>>>> sequence to
+>>>> which the data are to be aligned.
+>>>>
+>>>>> bac <- read.DNAStringSet(bacFile, "fasta")[[1]]
+>>>> Read 2479 items
+>>>>> length(bac)
+>>>> [1] 173427
+>>>>
+>>>> This is a BAC clone. We'll match our pDict to the BAC subject,  
+>>>> finding
+>>>> all EXACT matches;
+>>>>
+>>>>> system.time({
+>>>> +     counts <- countPDict(pDict, bac)
+>>>> + }, gcFirst=FALSE)
+>>>>   user  system elapsed
+>>>>  0.200   0.048   0.268
+>>>>> length(counts)
+>>>> [1] 923680
+>>>>> table(counts)[1:5]/sum(table(counts))
+>>>> counts
+>>>>      0       1       2       3       4
+>>>> 0.53954 0.42738 0.01136 0.00528 0.00334
+>>>>
+>>>> This is very fast, partly because the subject against which the
+>>>> PDict is
+>>>> being matched is short. A more realistic use case is to match
+>>>> against a
+>>>> genome. The integration with BSgenome packages is very smooth. To
+>>>> match
+>>>> our pDict against human chromosome 6 (where the BAC cloning vector
+>>>> comes
+>>>> from), we can load the appropriate BSgenome package and chromosome
+>>>>
+>>>>> library(BSgenome.Hsapiens.UCSC.hg18)
+>>>>
+>>>>> Hsapiens[["chr6"]]
+>>>>  170899992-letter "DNAString" instance
+>>>> seq:
+>>>> NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+>>>> ...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+>>>>
+>>>> (The N's represent the chromsome telomeres, whose seuqences is not
+>>>> available). We look for exact matches
+>>>>
+>>>>> system.time({
+>>>> +     hcount <- countPDict(pDict, Hsapiens[["chr6"]])
+>>>> + }, gcFirst=TRUE)
+>>>>   user  system elapsed
+>>>>   24.2     0.0    24.2
+>>>>> table(hcount)[1:5] / sum(table(hcount))
+>>>> hcount
+>>>>      0       1       2       3       4
+>>>> 0.50466 0.32996 0.02043 0.00959 0.00761
+>>>>
+>>>> About 1/2 the sequences exactly match one or more locations on
+>>>> chromosome 6. Some sequences match many times, though the reason  
+>>>> (in
+>>>> this case, anyway) is not too surprising:
+>>>>
+>>>>> max(hcount)
+>>>> [1] 8286
+>>>>> maxIdx = which(hcount==max(hcount))
+>>>>> cleanSeqs[maxIdx]
+>>>>  A DNAStringSet instance of length 70
+>>>>     width seq
+>>>> [1]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [2]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [3]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [4]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [5]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [6]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [7]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [8]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [9]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> ...   ... ...
+>>>> [62]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [63]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [64]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [65]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [66]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [67]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [68]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [69]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>> [70]    25 TTTTTTTTTTTTTTTTTTTTTTTTT
+>>>>
+>>>> (that these are identical can be checked with
+>>>> unique(as.character(cleanSeqs[maxIdx])))
+>>>>
+>>>> The current implementation of PDict allows for a 'trusted band' of
+>>>> nucleotides that need to match exactly, allowing for approximate
+>>>> matches
+>>>> in the remaining nucleotides. Here we trust the first 12 bases, and
+>>>> allow up to 3 mismatches. Also, we use the more informative
+>>>> matchPDict,
+>>>> which allows us to find the positions of all matches
+>>>>
+>>>>> trusted <- PDict(cleanSeqs, tb.end=12)
+>>>>> system.time({
+>>>> +     mmMatch <- matchPDict(trusted, Hsapiens[[6]], max.mismatch=3)
+>>>> + }, gcFirst=TRUE)
+>>>>   user  system elapsed
+>>>> 195.58    3.85  199.44
+>>>>> table(cut(countIndex(mmMatch), c(0, 10^(0:5)), right=FALSE))
+>>>>
+>>>>        [0,1)        [1,10)      [10,100)   [100,1e+03) [1e+03,1e 
+>>>> +04)
+>>>>       377233        337806         72983         66322          
+>>>> 60818
+>>>> [1e+04,1e+05)
+>>>>         8518
+>>>>
+>>>> Execution time increases as the stringency of the match decreases.
+>>>> PDict
+>>>> facilities do not yet incorporate quality scores, but filtering
+>>>> results
+>>>> based on quality (qualities are discussed further below)  
+>>>> represents a
+>>>> natural direction for development.
+>>>>
+>>>>
+>>>>
+>>>> * alphabetByCycle
+>>>>
+>>>> alphabetByCycle uses a small C function in  
+>>>> BiostringsCinterfaceDemo,
+>>>> alphabet_by_cycle. It and the read* functions in this package
+>>>> illustrate
+>>>> how to access DNAStringSet objects at the C level. alphabetByCycle
+>>>> is a
+>>>> matrix that tallies nucleotide use per cycle
+>>>>
+>>>>> system.time({
+>>>> +     abc <- alphabetByCycle(seqa)
+>>>> + })
+>>>>   user  system elapsed
+>>>>   2.68    0.00    2.68
+>>>>
+>>>> Again this can be quite useful. For instance, we can find out the
+>>>> number
+>>>> of bases that were not called, as a function of cycle
+>>>>
+>>>>> abc["-",]
+>>>> [1]  22181 108829 123173 180382 225091 225055 216787 208538 208881
+>>>> [10] 213104 148936 142966 141030 148163 178747 204304 211538 211303
+>>>> [19] 213722 211167 208021 208715 165441 158359 147110 151462 204781
+>>>> [28] 221008 223922 221171 227622 226936 232232 236606 242387 241718
+>>>>
+>>>> and the number of 'T' nucleotides as a function of cycle
+>>>>
+>>>>> abc["T",] / colSums(abc[1:4,])
+>>>> [1] 0.286 0.292 0.292 0.284 0.292 0.280 0.293 0.297 0.299 0.287  
+>>>> 0.290
+>>>> [12] 0.294 0.294 0.299 0.300 0.301 0.304 0.305 0.306 0.309 0.310  
+>>>> 0.311
+>>>> [23] 0.312 0.316 0.315 0.319 0.320 0.322 0.326 0.328 0.331 0.335  
+>>>> 0.339
+>>>> [34] 0.342 0.346 0.358
+>>>>
+>>>> That's quite a striking increase after cycle 25!
+>>>>
+>>>>
+>>>> * Qualities
+>>>>
+>>>> Solexa reads have quality scores associated with each base call.  
+>>>> These
+>>>> are summarized in files formatted like:
+>>>>
+>>>>> readLines(fastqFile, n=8)
+>>>> [1] "@HWI-EAS88_1_1_1_1001_499"
+>>>> [2] "GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT"
+>>>> [3] "+HWI-EAS88_1_1_1_1001_499"
+>>>> [4] "]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS"
+>>>> [5] "@HWI-EAS88_1_1_1_898_392"
+>>>> [6] "GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC"
+>>>> [7] "+HWI-EAS88_1_1_1_898_392"
+>>>> [8] "]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK"
+>>>>
+>>>> A record consists of four lines. The first and third lines are
+>>>> identifiers (repeated), the second line is the sequence, the fourth
+>>>> line
+>>>> an ASCII character representing the score (']' is good, Z is better
+>>>> than
+>>>> A). Here we read a quality file into a data structure defined in
+>>>> BiostringsCinterfaceDemo designed to coordinate the sequence, name,
+>>>> and
+>>>> quality information.
+>>>>
+>>>>> system.time({
+>>>> +     seqq <- readSolexaFastQ(fastqFile)
+>>>> + }, gcFirst=TRUE)
+>>>>   user  system elapsed
+>>>> 17.533   0.417  17.969
+>>>>> mb(object.size(seqq))
+>>>> [1] 254.5 MB
+>>>>> seqq
+>>>> class: SolexaSequenceQ
+>>>> length: 2218237
+>>>>
+>>>>> sequences(seqq)[1:5]
+>>>>  A DNAStringSet instance of length 5
+>>>>    width seq
+>>>> [1]    36 GGACTTTGTAGGATACCCTCGCTTTCCTTCTCCTGT
+>>>> [2]    36 GATTTCTTACCTATTAGTGGTTGAACAGCATCGGAC
+>>>> [3]    36 GCGGTGGTCTATAGTGTTATTAATATCAATTTGGGT
+>>>> [4]    36 GTTACCATGATGTTATTTCTTCATTTGGAGGTAAAA
+>>>> [5]    36 GTATGTTTCTCCTGCTTATCACCTTCTTGAAGGCTT
+>>>>> names(seqq)[1:5]
+>>>>  A BStringSet instance of length 5
+>>>>    width seq
+>>>> [1]    24 HWI-EAS88_1_1_1_1001_499
+>>>> [2]    23 HWI-EAS88_1_1_1_898_392
+>>>> [3]    23 HWI-EAS88_1_1_1_922_465
+>>>> [4]    23 HWI-EAS88_1_1_1_895_493
+>>>> [5]    23 HWI-EAS88_1_1_1_953_493
+>>>>> scores(seqq)[1:5]
+>>>>  A BStringSet instance of length 5
+>>>>    width seq
+>>>> [1]    36 ]]]]]]]]]]]]Y]Y]]]]]]]]]]]]VCHVMPLAS
+>>>> [2]    36 ]]]]]]]]]]]]Y]]]]]]]]]YPV]T][PZPICCK
+>>>> [3]    36 ]]]]Y]]]]]V]T]]]]]T]]]]]V]TMJEUXEFLA
+>>>> [4]    36 ]]]]]]]]]]]]]]]]]]]]]]T]]]]RJRZTQLOA
+>>>> [5]    36 ]]]]]]]]]]]]]]]]]T]]]]]]]]]]MJUJVLSS
+>>>>
+>>>> The object returned by readSolexaFastQ is an S4 object with three
+>>>> slots.
+>>>> Each slot contains a XStringSet, where 'X' is DNA for sequences,  
+>>>> and
+>>>> 'BString' for names and scores. This represents one way of  
+>>>> structuring
+>>>> quality data; the S4 class coordinates subsetting, and provides
+>>>> (read-only) accessors to the underlying objects. A likely  
+>>>> addition to
+>>>> this class as it matures is the inclusion of lane-specific  
+>>>> phenotype
+>>>> (sample) information, much as an ExpressionSet coordinates sample  
+>>>> and
+>>>> expression values.
+>>>>
+>>>> We can gain some basic insight into the sequences as before, e.g.,
+>>>>
+>>>>> abc <- alphabetByCycle(sequences(seqq))
+>>>>> abc["N",]
+>>>> [1]     0     0     0     0     0     0     0     0     0      
+>>>> 0     0
+>>>> [12]     0  1213  1631  1155  1240   721   418  8503   526   
+>>>> 6493   703
+>>>> [23] 14999   718  1623   737   243 40704   811   590  1964    
+>>>> 961   809
+>>>> [34]   910   477   208
+>>>>
+>>>> Solexa provides files with quality information after filtering  
+>>>> reads
+>>>> based on 'purity', a measure that precludes uncertain bases (IUPAC
+>>>> code
+>>>> 'N') from a user-specified region (the first 12 cycles, by  
+>>>> default).
+>>>>
+>>>>> abc["T",] / colSums(abc[1:4,])
+>>>> [1] 0.298 0.290 0.292 0.290 0.295 0.279 0.292 0.298 0.301 0.293  
+>>>> 0.295
+>>>> [12] 0.299 0.296 0.293 0.294 0.294 0.293 0.295 0.294 0.297 0.297  
+>>>> 0.299
+>>>> [23] 0.298 0.303 0.302 0.307 0.312 0.312 0.321 0.331 0.334 0.351  
+>>>> 0.361
+>>>> [34] 0.374 0.380 0.423
+>>>>
+>>>> We can also summarize quality information by cycle, using an  
+>>>> alphabet
+>>>> that reflects the encoded scores:
+>>>>
+>>>>> alphabet <- sapply(as.raw(32:93), rawToChar)
+>>>>> abcScore <- alphabetByCycle(scores(seqq), alphabet=alphabet)
+>>>>>
+>>>>> rowSums(abcScore)
+>>>>                !        "        #        $        %
+>>>> &        '
+>>>>       0        0        0        0        0        0
+>>>> 0        0
+>>>>       (        )        *        +        ,
+>>>> -        .        /
+>>>>       0        0        0        0        0        0
+>>>> 0        0
+>>>>       0        1        2        3        4        5
+>>>> 6        7
+>>>>       0        0        0        0        0        0
+>>>> 0        0
+>>>>       8        9        :        ;        <        =
+>>>>>       ?
+>>>>       0        0        0        0        0        0
+>>>> 0        0
+>>>>       @        A        B        C        D        E
+>>>> F        G
+>>>>       0  1367337        0  2035064        0  1006372
+>>>> 819775        0
+>>>>       H        I        J        K        L        M
+>>>> N        O
+>>>> 1926112   116395  1614109   356496   517731  1602298   578172
+>>>> 2016009
+>>>>       P        Q        R        S        T        U
+>>>> V        W
+>>>> 3043393   401196  2152160  1553511  2149231   254108  3896558
+>>>> 232409
+>>>>       X        Y        Z        [       \\        ]
+>>>>  706452  4353706  1292309   732210        0 45133419
+>>>>> abcScore[34:62,c(1:4, 33:36)]
+>>>>      [,1]    [,2]    [,3]    [,4]   [,5]   [,6]   [,7]   [,8]
+>>>> A        1    1788    1798       8 260944 299631 332500 354717
+>>>> B        0       0       0       0      0      0      0      0
+>>>> C       59   36426   12705     227     39 131268 140461 154643
+>>>> D        0       0       0       0      0      0      0      0
+>>>> E      133   13391    4033     180 120135      0      0      0
+>>>> F        0       0       0       0      0 259549 272238 287988
+>>>> G        0       0       0       0      0      0      0      0
+>>>> H      272    8815    2933     357 242741 234088 239917 239157
+>>>> I        0       0       0       0 116395      0      0      0
+>>>> J      472    4678    1656     586      0 195991 198114 187535
+>>>> K        5      59      25      11 110052  84345  83744  77353
+>>>> L        0       0       0       0 102438 144459 142049 128785
+>>>> M       75     171     121      92  93945 119209 116492 103765
+>>>> N      653    2992    1232     769  85940  91924  89084  79246
+>>>> O     1227    2719    1754    1576 175403 187339 176997 160100
+>>>> P    65834   57830   60855   65863  61910      0      0      0
+>>>> Q        0       0       0       0 236290      0      0      0
+>>>> R     3211    4482    4321    4215      0      0      0      0
+>>>> S        0       0       0       0  68378 470434 426641 444948
+>>>> T     4444    5373    5868    5637      0      0      0      0
+>>>> U        0       0       0       0      0      0      0      0
+>>>> V     9146   10270   11922   11547 543627      0      0      0
+>>>> W        0       0       0       0      0      0      0      0
+>>>> X        0       0       0       0      0      0      0      0
+>>>> Y    28363   29080   34093   32873      0      0      0      0
+>>>> Z        0       0       0       0      0      0      0      0
+>>>> [        0       0       0       0      0      0      0      0
+>>>> \\       0       0       0       0      0      0      0      0
+>>>> ]  2104342 2040163 2074921 2094296      0      0      0      0
+>>>>
+>>>> Output from the last line shows how scores decrease from the first
+>>>> four
+>>>> cycles to the last four. Standard R and Biostrings commands can be
+>>>> used
+>>>> to ask many interesting questions, such as an overall quality  
+>>>> score of
+>>>> reads (e.g., summing the scores of individual nucleotides) and the
+>>>> relationship between sequence characteristics (e.g., frequency of  
+>>>> 'T')
+>>>> and read quality.
+>>>>
+>>>>> atgc <- alphabetFrequency(sequences(seqq), baseOnly=TRUE)
+>>>>> qscore <- alphabetFrequency(scores(seqq))
+>>>>> dim(qscore)
+>>>> [1] 2218237     256
+>>>>> mb(object.size(qscore))
+>>>> [1] 2166.2 MB
+>>>>
+>>>>> quality <- colSums(t(qscore) * 1:ncol(qscore))
+>>>>> plot(density(quality))   # small secondary peak at low quality
+>>>>> scores(seqq)[which(quality<2925)]
+>>>>  A BStringSet instance of length 87696
+>>>>        width seq
+>>>>    [1]    36 PPPPPPPPPPPPPEPPPPPOPPMOOPPOMMMPOOOJ
+>>>>    [2]    36 PPPPPPPPPPPPPPPPPPPPHPPPOPPMOPPPNKMA
+>>>>    [3]    36 PPPPPPPPPPPPPPPPPOPPPPPPEPMPPPMPOFAF
+>>>>    [4]    36 PPPPPPPPPPPPPPPPPPPPOPPPPPPPPPOPOOHK
+>>>>    [5]    36 PPPPPPPPPPPPPPPPPPPPPPPOPPOPOPPMKMLF
+>>>>    [6]    36 PPPPPPPPPPPPPPPPOPPPPPCPPPPHOOPPOOOO
+>>>>    [7]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOKO
+>>>>    [8]    36 PPPPPPPPPPPPPPPPPPPOPPPPPPPPJPOPOMAO
+>>>>    [9]    36 PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOL
+>>>>    ...   ... ...
+>>>> [87688]    36 PPPPPPPPMPOPCOOCOOJEOMMCCOEEHCCMAAAA
+>>>> [87689]    36 PTYOR]NTVVVJOHJCCPMEHCMHOJCECCCCAACA
+>>>> [87690]    36 Y]]]NTVYYT]TPNRPNRYHCTECOHCHHCECHAAC
+>>>> [87691]    36 YPRVNVYVPYHORCOCOPEPECJCCHCCJECHAAAA
+>>>> [87692]    36 PPPPPPPPPPPPPHPPOCPOPPOPCHMMPPPEKHOO
+>>>> [87693]    36 JJHPTTJYV]]]]JJCJCJJTCCOVCMHMCCOAAAA
+>>>> [87694]    36 PPPPPPPPPPPPPPPPPOPPPJPPPCPOHHCMOCAF
+>>>> [87695]    36 TYR]R]TN]YOEPTNERPPTVTCTVCCCRHOMIFAC
+>>>> [87696]    36 YRRYJVVTPHVPPECHPNCMCCJCEECOCCCCAAAA
+>>>>>
+>>>>> t <- atgc[,"T"] / rowSums(atgc[,1:4])
+>>>>> cor(t, quality)
+>>>> [1] 0.154
+>>>>
+>>>> All of these operations are quick enough to perform in an  
+>>>> interactive
+>>>> session; the qscore is a large matrix (it can be made smaller by
+>>>> choosing bounds that reflect allowable scores, e.g., 32:127), and  
+>>>> its
+>>>> transposition is relatively expensive.
+>>>>
+>>>> A final point to remember is that R stores a matrix m as a vector  
+>>>> of
+>>>> length nrow(m) * ncol(m). R has an internal limit on the size of a
+>>>> vector equal to 2^32-1, so the maximum number of reads whose scores
+>>>> can
+>>>> be represented by alphabetFrequency is less than 2^32 / 256, or
+>>>> about 16
+>>>> million reads; this number of reads might be approached in a single
+>>>> Solexa lane; a simple solution is to divide the DNAStringSet into
+>>>> pieces
+>>>> that are processed separately.
+>>>>
+>>>>
+>>>>
+>>>> I hope that the forgoing provides some indication of where we  
+>>>> stand at
+>>>> the moment. Again, it would be great to have feedback, and to  
+>>>> hear of
+>>>> other efforts. And again, the programming credit goes to Herve  
+>>>> Pages.
+>>>>
+>>>> Martin
+>>>>
+>>>> The obligatory sessionInfo, plus some stats on processing this
+>>>> document
+>>>> (referencing, in the end, three different data sets).
+>>>>
+>>>>> sessionInfo()
+>>>> R version 2.7.0 alpha (2008-03-28 r44972)
+>>>> x86_64-unknown-linux-gnu
+>>>>
+>>>> locale:
+>>>> LC_CTYPE
+>>>> =
+>>>> en_US
+>>>> .UTF
+>>>> -8
+>>>> ;LC_NUMERIC
+>>>> =
+>>>> C
+>>>> ;LC_TIME
+>>>> =
+>>>> en_US
+>>>> .UTF
+>>>> -8
+>>>> ;LC_COLLATE
+>>>> =
+>>>> en_US
+>>>> .UTF
+>>>> -8
+>>>> ;LC_MONETARY
+>>>> =
+>>>> C
+>>>> ;LC_MESSAGES
+>>>> =
+>>>> en_US
+>>>> .UTF
+>>>> -8
+>>>> ;LC_PAPER
+>>>> =
+>>>> en_US
+>>>> .UTF
+>>>> -8
+>>>> ;LC_NAME
+>>>> =
+>>>> C
+>>>> ;LC_ADDRESS
+>>>> =C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C
+>>>>
+>>>> attached base packages:
+>>>> [1] tools     stats     graphics  grDevices utils     datasets
+>>>> [7] methods   base
+>>>>
+>>>> other attached packages:
+>>>> [1] BiostringsCinterfaceDemo_0.1.2
+>>>> [2] BSgenome.Hsapiens.UCSC.hg18_1.3.2
+>>>> [3] BSgenome_1.7.4
+>>>> [4] Biostrings_2.7.41
+>>>> [5] Biobase_1.99.4
+>>>>> gc()
+>>>>           used   (Mb) gc trigger  (Mb) max used  (Mb)
+>>>> Ncells 9.37e+05   50.1   4.87e+06   260 1.93e+07  1033
+>>>> Vcells 6.88e+08 5252.6   1.31e+09 10031 1.31e+09  9998
+>>>>> proc.time()
+>>>>   user  system elapsed
+>>>>  356.7    16.6   378.5
+>>>>
+>>>> _______________________________________________
+>>>> Bioc-sig-sequencing mailing list
+>>>> Bioc-sig-sequencing at r-project.org
+>>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>>
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>> **********************************************************************
+>>
+>> This email and any files transmitted with it are confidential and
+>>
+>> intended solely for the use of the individual or entity to whom they
+>>
+>> are addressed. If you have received this email in error please notify
+>>
+>> the system manager (it.support at wibr.ucl.ac.uk). All files are scanned
+>> for viruses.
+>>
+>> **********************************************************************
+>>
+>>
+>>
+>
+>
+> -- 
+> Martin Morgan
+> Computational Biology / Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N.
+> PO Box 19024 Seattle, WA 98109
+>
+> Location: Arnold Building M2 B169
+> Phone: (206) 667-2793
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+Loyal A. Goff
+
+Graduate Assistant
+Rutgers Stem Cell Research Center
+Rutgers: The State University of New Jersey
+Nelson Biology Labs D-251
+604 Allison Rd,
+Piscataway, NJ 08854
+lgoff at rci.rutgers.edu
+
+
+From hpages at fhcrc.org  Wed Apr  2 18:10:46 2008
+From: hpages at fhcrc.org (Herve Pages)
+Date: Wed, 02 Apr 2008 09:10:46 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+References: <47F2FB69.4010105@fhcrc.org>
+	<0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+Message-ID: <47F3B006.6000001@fhcrc.org>
+
+Hi Loyal,
+
+Loyal Goff wrote:
+> This is a great start...thanks to both Martin and Herve. The speed is  
+> indeed impressive! I do have one question.  Would it be advantageous  
+> to reduce the data to a unique list of read sequences, and in doing so  
+> both retain counts in a separate slot and reduce the matrix size? It  
+> seems to me this would speed everything along as well. (ie. only  
+> attempt to align a unique sequence once).
+
+PDict()/matchPDict() do this already. A PDict object has a @dups slot for
+storing the duplicate information. When the reads are preprocessed with PDict(),
+only unique reads are stored in the Aho-Corasick tree (@actree slot), and,
+for each duplicated read, a pointer to the first read that it duplicates is
+stored in the @dups slot. Then, when the PDict object is passed to matchPDict()
+(or countPDict()), the matches are searched only for the unique reads first,
+and then the @dups slot is used to also report the matches (or match count)
+for the duplicated reads. All this is transparent to the user.
+
+Cheers,
+H.
+
+
+>  Does anyone have a need to  
+> retain independent reads after a quality score cutoff?
+> 
+> Loyal
+> 
+> Loyal A. Goff
+>
+
+
+From hpages at fhcrc.org  Wed Apr  2 21:22:57 2008
+From: hpages at fhcrc.org (Herve Pages)
+Date: Wed, 02 Apr 2008 12:22:57 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <C7983F8C-0D9B-422D-882A-02B47068CCD2@jhu.edu>
+References: <47F2FB69.4010105@fhcrc.org>
+	<0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+	<1207144171.47f38eeb06887@webmail.fhcrc.org>
+	<C7983F8C-0D9B-422D-882A-02B47068CCD2@jhu.edu>
+Message-ID: <47F3DD11.2030208@fhcrc.org>
+
+Hi Harris,
+
+Hope you don't mind if I put this back to the list.
+
+Harris A. Jaffee wrote:
+>>>>
+> 
+> Thanks to both of you for all the work!
+> 
+> Maybe I missed some old discussion, but is there a facility to specify 
+> wild-cards in the reads,
+> say "." or "N"?  These should match any of A, C, G, or T.  In my mind, 
+> these are (exact) matches.
+
+Not yet. But wild-cards in the subject will be supported soon (I'm working
+on this and hopefully this will be ready before the end of the week).
+
+> I think the user should only have to mention the concept of mismatch (or 
+> better, fuzzy match), in
+> the call, if he uses "N".  A few percent of our data contain unknowns, 
+> like this.  (The Solexa
+> machine may actually output ".".  That's what I see.)  I could get 
+> better statistics if you want.
+> 
+> Also, can the user put a global upper limit on the number of 
+> (exact/fuzzy/mis-) matches, per read?
+> For example, he may feel that more than 10 matches is equivalent to 
+> matching an infinite number of
+> times.  I know that one can filter the result, but why make more trouble 
+> for the software?
+
+Nothing like that for now. If you are counting only (countPDict()), counting
+all the counts for everybody (even when some reads have an insane number
+of matches) is not more work for the current algo than stopping the count
+for the reads that have reached a given limit (actually stopping the count
+for those reads would actually be a little more work since you would need to
+compare the count with the global limit before you decide to increment it or
+not).
+With matchPDict(), reporting all the matches, even for reads that have an
+insane number of them, will of course require a lot of memory and slow down
+things so in this case some global upper limit would indeed make sense.
+Something that could be added later but not a priority.
+
+> 
+> Nobody seems to have mentioned it, but what about a "both strand" mode?  
+> If RC is reverse-complement,
+> this feature would basically automate the first statement here:
+> 
+>     Dict = PDict(c(patterns, RC(patterns)))
+>         matchPDict(Dict,Seq)
+> 
+> The user would just pass 'patterns' and have to say whether he wants 
+> forward and reverse matches
+> distinguished.  The result would be of length 2*length(patterns) as it 
+> is now, if they should be,
+> but of length length(patterns) if they can be combined.
+
+Instead of putting this at the PDict() level, I would rather build some
+higher level function _on top_ of PDict() that would handle this.
+
+> 
+> I wasn't watching closely, but you mentioned FASTA input.  Is pure text 
+> input allowed, without
+> the FASTA comment lines?  I wasn't aware of this file input, so I have 
+> been reading in from files
+> myself, which are usually the output of "sort | uniq -c" applied to the 
+> data.  So the bookkeeping
+> is not so painful for UNIX users.  :-)
+
+This should not prevent PDict()/matchPDict() to handle the duplicated reads
+properly. Then it's up to the user to remove or keep them before s/he
+builds the PDict object.
+
+Cheers,
+H.
+
+
+> 
+> Sorry for the dumb questions.  I have been off on other things.
+
+
+From mtmorgan at fhcrc.org  Wed Apr  2 21:44:29 2008
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 02 Apr 2008 12:44:29 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <47F3DD11.2030208@fhcrc.org>
+References: <47F2FB69.4010105@fhcrc.org>
+	<0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+	<1207144171.47f38eeb06887@webmail.fhcrc.org>
+	<C7983F8C-0D9B-422D-882A-02B47068CCD2@jhu.edu>
+	<47F3DD11.2030208@fhcrc.org>
+Message-ID: <47F3E21D.2090803@fhcrc.org>
+
+Herve Pages wrote:
+> Hi Harris,
+>> Nobody seems to have mentioned it, but what about a "both strand" 
+>> mode?  If RC is reverse-complement,
+>> this feature would basically automate the first statement here:
+>>
+>>     Dict = PDict(c(patterns, RC(patterns)))
+>>         matchPDict(Dict,Seq)
+>>
+>> The user would just pass 'patterns' and have to say whether he wants 
+>> forward and reverse matches
+>> distinguished.  The result would be of length 2*length(patterns) as it 
+>> is now, if they should be,
+>> but of length length(patterns) if they can be combined.
+> 
+> Instead of putting this at the PDict() level, I would rather build some
+> higher level function _on top_ of PDict() that would handle this.
+
+Also, for Solexa-style data and approximate matching, you wouldn't want 
+to reverseComplement the reads, because the start and end of the reads 
+are not equally trustworthy. reverseComplementing the subject is one 
+approach (though quite expensive if the subject is human chromosome 1, 
+for instance).
+
+Martin
+
+
+From hpages at fhcrc.org  Wed Apr  2 21:57:22 2008
+From: hpages at fhcrc.org (Herve Pages)
+Date: Wed, 02 Apr 2008 12:57:22 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <47F3E21D.2090803@fhcrc.org>
+References: <47F2FB69.4010105@fhcrc.org>
+	<0CB3EC40-8793-4C52-BD57-96051C0B60AA@rci.rutgers.edu>
+	<1207144171.47f38eeb06887@webmail.fhcrc.org>
+	<C7983F8C-0D9B-422D-882A-02B47068CCD2@jhu.edu>
+	<47F3DD11.2030208@fhcrc.org> <47F3E21D.2090803@fhcrc.org>
+Message-ID: <47F3E522.20408@fhcrc.org>
+
+Martin Morgan wrote:
+> Herve Pages wrote:
+>> Hi Harris,
+>>> Nobody seems to have mentioned it, but what about a "both strand" 
+>>> mode?  If RC is reverse-complement,
+>>> this feature would basically automate the first statement here:
+>>>
+>>>     Dict = PDict(c(patterns, RC(patterns)))
+>>>         matchPDict(Dict,Seq)
+>>>
+>>> The user would just pass 'patterns' and have to say whether he wants 
+>>> forward and reverse matches
+>>> distinguished.  The result would be of length 2*length(patterns) as 
+>>> it is now, if they should be,
+>>> but of length length(patterns) if they can be combined.
+>>
+>> Instead of putting this at the PDict() level, I would rather build some
+>> higher level function _on top_ of PDict() that would handle this.
+> 
+> Also, for Solexa-style data and approximate matching, you wouldn't want 
+> to reverseComplement the reads, because the start and end of the reads 
+> are not equally trustworthy. reverseComplementing the subject is one 
+> approach (though quite expensive if the subject is human chromosome 1, 
+> for instance).
+
+Another approach could be to flip the location of the trusted band:
+
+    dict1 = PDict(reads, tb.start=1, tb.end=12)        ## Trusted Prefix
+    dict2 = PDict(RC(reads), tb.start=-12, tb.end=-1)  ## Trusted Suffix
+
+but matchPDict() is not ready to handle PDict objects with a trusted suffix yet...
+
+This would be quite expensive too since it would require to reverse-complement
+the entire dictionary (might be more expensive than just reverse-complementing
+human chr1) and to build a second PDict object.
+
+H.
+
+
+From hpages at fhcrc.org  Thu Apr  3 21:46:31 2008
+From: hpages at fhcrc.org (Herve Pages)
+Date: Thu, 03 Apr 2008 12:46:31 -0700
+Subject: [Bioc-sig-seq] Bioc short read directions
+In-Reply-To: <61B482B74D6EE443B90356E080476E3402732EB3@exc2.cruciform.wibr.ucl.ac.uk>
+References: <61B482B74D6EE443B90356E080476E3402732EB3@exc2.cruciform.wibr.ucl.ac.uk>
+Message-ID: <47F53417.5090908@fhcrc.org>
+
+Hi Stephen,
+
+Can we please keep all this discussion on the list? Thanks!
+
+Stephen Henderson wrote:
+> Hi
+> I don't understand why you need to rebuild the trie??/suffix
+> tree??/aho-corasick structure-- which as you say is slow.
+> 
+> Can you not just reverse and reverse complement the reference and stream
+> it past the trie again (which is faster). Everything is then 5' to 3'
+> reads/trie, and reference and the trusted band is in the right place? Or
+> have I misunderstood this?
+
+I don't _need_ to rebuild the tree. Martin already suggested what you are
+suggesting. Rebuilding the tree is an alternative that, in some cases, could
+be faster (and more memory efficient) when the input dictionary is not too big
+compared to the subject. It also has the little advantage to preserve the
+chromosome locations, which will then be reported relatively to the plus strand
+with both PDict(reads) and PDict(RC(reads)).
+
+Hey, building the tree for 265400 25-mers takes about 1 second on my machine:
+
+ > length(dict0)
+[1] 265400
+ > unique(nchar(dict0))
+[1] 25
+ > dict0[1:5]
+[1] "CCTGAATCCTGGCAATGTCATCATC" "ATCCTGGCAATGTCATCATCAATGG"
+[3] "ATCAGTTGTCAACGGCTAATACGCG" "ATCAATGGCGATTGCCGCGTCTGCA"
+[5] "CCGCGTCTGCAATGTGAGGGCCTAA"
+ > system.time({pdict1 <- PDict(dict0, tb.start=1, tb.end=12)}, gcFirst=TRUE)
+    user  system elapsed
+   0.888   0.028   0.916
+ > object.size(pdict1)
+[1] 36334128
+
+and the size is way smaller than Human chr1!
+
+> 
+> Ps Is the whole reads in the trie? Or just the first 12?
+
+Just the first 12.
+
+> And what is
+> stored in the nodes of this 
+
+ From src/Biostrings.h in Biostrings:
+
+   #define MAX_CHILDREN_PER_ACNODE 4
+   typedef struct acnode {
+         int parent_id;
+         int depth;
+         int child_id[MAX_CHILDREN_PER_ACNODE];
+         int flink;
+         int P_id;
+   } ACNode;
+
+So the size of a node is 32 bytes.
+I'll add some comments in the file to explain a little bit what those slots are.
+
+You can see the nodes at the R level:
+
+ > pdict1 at actree
+743661-node 4-ary Aho-Corasick tree
+ > pdict1 at actree[0:4]
+   parent_id depth   84   71   67   65 flink P_id
+0         0     0    1   13   56  121    -1   -1
+1         0     1   78    2  100  246    -1   -1
+2         1     2 1033    3  111   46    -1   -1
+3         2     3 3199 3502    4  842    -1   -1
+4         3     4    5 6085 1540 5524    -1   -1
+
+84, 71, 67 and 65 are the ASCII codes for T, G, C and A.
+Note that the failure links (flink slot) are initialized with -1 and they are set
+with their real values on-the-fly when the PDict object is used. So the more the
+PDict object is used, the more failure links are known, and the fastest
+the PDict object will be.
+
+Cheers,
+H.
+
+

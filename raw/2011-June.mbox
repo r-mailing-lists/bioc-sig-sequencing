@@ -1,0 +1,3559 @@
+From lawrence.michael at gene.com  Wed Jun  1 00:42:38 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Tue, 31 May 2011 15:42:38 -0700
+Subject: [Bioc-sig-seq] rtracklayer BUG!? import.bed pastes/prefixes
+ 'chr' during import of SOME records
+In-Reply-To: <2C40E43D1F7A56408C4463FD245DDDF9114E7186@EXCHMB-02.stowers-institute.org>
+References: <2C40E43D1F7A56408C4463FD245DDDF9114E7173@EXCHMB-02.stowers-institute.org>
+	<BANLkTinzJP8o3ActGnPkEyXoj7-N8dz7uw@mail.gmail.com>
+	<2C40E43D1F7A56408C4463FD245DDDF9114E7186@EXCHMB-02.stowers-institute.org>
+Message-ID: <BANLkTi=mkufdToKj-s4LEWH2G-Cy6pGOAQ@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110531/825ac400/attachment.pl>
+
+From KQu at genomichealth.com  Wed Jun  1 01:13:58 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Tue, 31 May 2011 23:13:58 +0000
+Subject: [Bioc-sig-seq] re-ordering the sequence from ShortRead
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C61F0C1@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110531/f81ebe85/attachment.pl>
+
+From mtmorgan at fhcrc.org  Wed Jun  1 01:28:18 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 31 May 2011 16:28:18 -0700
+Subject: [Bioc-sig-seq] re-ordering the sequence from ShortRead
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C61F0C1@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C61F0C1@SRV321.genomichealth.com>
+Message-ID: <4DE57992.4080602@fhcrc.org>
+
+On 05/31/2011 04:13 PM, Kunbin Qu wrote:
+> Hi, I need to do some computation based on subset sampling from the
+> original fastq file. For example, the file I have from one lane has
+> 30 million reads, I'd like to sample 3 subsets from the 30 million
+> reads: 20, 10, 5 millions from the original 30 M reads. And the
+> bigger set contains the smaller sets, ie, all 5 million reads are
+> within the 10 and 20 million sets, and 10 M is in the 20 M set.
+>
+> It appears to me that I need to generate a series of random number
+> and re-order the original read file according to those random number
+> to ensure the enclosure. Could somebody tell me a way to re-ordering
+> the reads based a set of random numbers? Thanks.
+
+Hi Kunbin --
+
+after rfq = readFastq(...), do rfq[sample(length(rfq), 
+number_to_sample)]. You could also use FastqSampler (from ShortRead, 
+make sure to use v. 1.10.4) to generate the large sample, then subset. 
+Save with writeFastq.
+
+Martin
+
+>
+> -Kunbin
+>
+>
+>
+> ______________________________________________________________________
+>
+>
+The contents of this electronic message, including any attachments, are 
+intended only for the use of the individual or entity to which they are 
+addressed and may contain confidential information. If you are not the 
+intended recipient, you are hereby notified that any use, dissemination, 
+distribution, or copying of this message or any attachment is strictly 
+prohibited. If you have received this transmission in error, please send 
+an e-mail to postmaster at genomichealth.com and delete this message, along 
+with any attachments, from your computer.
+> [[alternative HTML version deleted]]
+>
+> _______________________________________________ Bioc-sig-sequencing
+> mailing list Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From mtmorgan at fhcrc.org  Wed Jun  1 02:12:22 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Tue, 31 May 2011 17:12:22 -0700
+Subject: [Bioc-sig-seq] transforming bam for TEQC
+In-Reply-To: <SNT116-W373AA8F6EC38059B53108BC67A0@phx.gbl>
+References: <SNT116-W373AA8F6EC38059B53108BC67A0@phx.gbl>
+Message-ID: <4DE583E6.3050001@fhcrc.org>
+
+On 05/31/2011 05:42 AM, David A. wrote:
+>
+> Hi, I would like to load my paired-end bam file for TEQC using the
+> TEQC library. In the manual it says that the bed file needed for
+> paired-end reads should contain read pair ID. How can I get this
+> format? Some bam2bed converters I know only give the three main
+> columns, and if I am not wrong the BEDPE format is too ample.
+
+Hi Dave -- I haven't used TEQC (looks good, though) but since its 
+get.reads function returns a RangedData object with mate pairs as 
+successive rows (from example(get.reads); reads) it seems like this 
+could be constructed directly from your bam file using 
+Rsamtools::scanBam and IRanges::RangedData. I think you'll start with 
+something like
+
+   param <- ScanBamParam(flag=scanBamFlag(isProperPair=TRUE),
+                         what=c("qname", "pos", "qwidth", "rname"))
+   aln = scanBam(fl, param=param)[[1]]
+   rd = with(aln, RangedData(IRanges(pos, width=qwidth), ID=qname,
+                             space=rname))
+
+   rd[order(rd$space, rd$ID)]
+
+  Martin
+
+>
+> Any help would be greatly appreciated
+>
+> Cheers,
+>
+> Dave  [[alternative HTML version deleted]]
+>
+> _______________________________________________ Bioc-sig-sequencing
+> mailing list Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From ivangreg at gmail.com  Wed Jun  1 18:06:16 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Wed, 1 Jun 2011 12:06:16 -0400
+Subject: [Bioc-sig-seq] Like subseq() but with the ability to accept a
+	vector of starts
+Message-ID: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+
+Hello IRanges connoisseurs,
+
+Is there a function like subseq() but with the ability to accept a
+vector of starts?
+
+
+For instance, if I want to chop the beginning of the murine
+mitochondrial DNA into 50 nucleotides, I'd do
+
+library(BSgenome.Mmusculus.UCSC.mm9)
+
+subseq(Mmusculus[["chrM"]], start=1,   width=50)
+subseq(Mmusculus[["chrM"]], start=51,  width=50)
+subseq(Mmusculus[["chrM"]], start=101, width=50)
+...
+
+however, it would be more convenient something like this
+
+subseq(Mmusculus[["chrM"]], start=c(1,51,101), width=50)
+
+Thank you
+
+Ivan
+
+
+From mtmorgan at fhcrc.org  Wed Jun  1 18:11:54 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 01 Jun 2011 09:11:54 -0700
+Subject: [Bioc-sig-seq] Like subseq() but with the ability to accept a
+ vector of starts
+In-Reply-To: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+References: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+Message-ID: <4DE664CA.6000206@fhcrc.org>
+
+On 06/01/2011 09:06 AM, Ivan Gregoretti wrote:
+> Hello IRanges connoisseurs,
+>
+> Is there a function like subseq() but with the ability to accept a
+> vector of starts?
+>
+>
+> For instance, if I want to chop the beginning of the murine
+> mitochondrial DNA into 50 nucleotides, I'd do
+>
+> library(BSgenome.Mmusculus.UCSC.mm9)
+>
+> subseq(Mmusculus[["chrM"]], start=1,   width=50)
+> subseq(Mmusculus[["chrM"]], start=51,  width=50)
+> subseq(Mmusculus[["chrM"]], start=101, width=50)
+
+> ...
+>
+> however, it would be more convenient something like this
+>
+> subseq(Mmusculus[["chrM"]], start=c(1,51,101), width=50)
+>
+> Thank you
+>
+> Ivan
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From mtmorgan at fhcrc.org  Wed Jun  1 18:21:01 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 01 Jun 2011 09:21:01 -0700
+Subject: [Bioc-sig-seq] Like subseq() but with the ability to accept a
+ vector of starts
+In-Reply-To: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+References: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+Message-ID: <4DE666ED.5030201@fhcrc.org>
+
+On 06/01/2011 09:06 AM, Ivan Gregoretti wrote:
+> Hello IRanges connoisseurs,
+>
+> Is there a function like subseq() but with the ability to accept a
+> vector of starts?
+>
+>
+> For instance, if I want to chop the beginning of the murine
+> mitochondrial DNA into 50 nucleotides, I'd do
+>
+> library(BSgenome.Mmusculus.UCSC.mm9)
+>
+> subseq(Mmusculus[["chrM"]], start=1,   width=50)
+> subseq(Mmusculus[["chrM"]], start=51,  width=50)
+> subseq(Mmusculus[["chrM"]], start=101, width=50)
+> ...
+
+Sorry, didn't mean to send a response just yet; it would seem like a bug 
+in subseq but maybe I'm misunderstanding (like you) what subseq is 
+supposed to do. A solution (probably better from a memory use / speed 
+perspective) is
+
+   v = Views(Mmusculus[["chrM"]], successiveIRanges(rep(50, 100)))
+
+which if necessary could be cast to a DNAStringSet
+
+   as(v, "DNAStringSet")
+
+Martin
+
+>
+> however, it would be more convenient something like this
+>
+> subseq(Mmusculus[["chrM"]], start=c(1,51,101), width=50)
+>
+> Thank you
+>
+> Ivan
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From lawrence.michael at gene.com  Wed Jun  1 18:25:13 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Wed, 1 Jun 2011 09:25:13 -0700
+Subject: [Bioc-sig-seq] Like subseq() but with the ability to accept a
+ vector of starts
+In-Reply-To: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+References: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+Message-ID: <BANLkTi=kBi75HK=FTy7ggQL8iJGYoc2k1g@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110601/53ab1ab6/attachment.pl>
+
+From niravs at bcm.edu  Wed Jun  1 18:26:08 2011
+From: niravs at bcm.edu (Shah, Nirav)
+Date: Wed, 1 Jun 2011 11:26:08 -0500
+Subject: [Bioc-sig-seq] Like subseq() but with the ability to accept a
+ vector of starts
+In-Reply-To: <BANLkTi=kBi75HK=FTy7ggQL8iJGYoc2k1g@mail.gmail.com>
+References: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+	<BANLkTi=kBi75HK=FTy7ggQL8iJGYoc2k1g@mail.gmail.com>
+Message-ID: <160512F9DE0B5F478413FB7608F25582688C24E38B@EXCMSMBX02.ad.bcm.edu>
+
+Please unsubscribe me from this list.
+
+Thanks,
+Nirav Shah
+
+-----Original Message-----
+From: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Michael Lawrence
+Sent: Wednesday, June 01, 2011 11:25 AM
+To: Ivan Gregoretti
+Cc: bioc-sig-sequencing at r-project.org
+Subject: Re: [Bioc-sig-seq] Like subseq() but with the ability to accept a vector of starts
+
+On Wed, Jun 1, 2011 at 9:06 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+
+> Hello IRanges connoisseurs,
+>
+> Is there a function like subseq() but with the ability to accept a
+> vector of starts?
+>
+>
+> For instance, if I want to chop the beginning of the murine
+> mitochondrial DNA into 50 nucleotides, I'd do
+>
+> library(BSgenome.Mmusculus.UCSC.mm9)
+>
+> subseq(Mmusculus[["chrM"]], start=1,   width=50)
+> subseq(Mmusculus[["chrM"]], start=51,  width=50)
+> subseq(Mmusculus[["chrM"]], start=101, width=50)
+> ...
+>
+> however, it would be more convenient something like this
+>
+> subseq(Mmusculus[["chrM"]], start=c(1,51,101), width=50)
+>
+>
+So you would expect a DNAStringSet back? That is a little strange:
+subsetting a DNAString into a DNAStringSet. Perhaps you really want some way
+to "split" the DNAString into pieces.
+
+In this case, I would suggest using Views. You can use breakIntoChunks in
+order to form the ranges component.
+
+Michael
+
+Thank you
+>
+> Ivan
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+	[[alternative HTML version deleted]]
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+From mtmorgan at fhcrc.org  Wed Jun  1 18:29:00 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 01 Jun 2011 09:29:00 -0700
+Subject: [Bioc-sig-seq] Like subseq() but with the ability to accept a
+ vector of starts
+In-Reply-To: <160512F9DE0B5F478413FB7608F25582688C24E38B@EXCMSMBX02.ad.bcm.edu>
+References: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>	<BANLkTi=kBi75HK=FTy7ggQL8iJGYoc2k1g@mail.gmail.com>
+	<160512F9DE0B5F478413FB7608F25582688C24E38B@EXCMSMBX02.ad.bcm.edu>
+Message-ID: <4DE668CC.5070205@fhcrc.org>
+
+On 06/01/2011 09:26 AM, Shah, Nirav wrote:
+> Please unsubscribe me from this list.
+
+done; you can do this yourself via the link at the bottom of each email 
+message. Martin
+
+>
+> Thanks,
+> Nirav Shah
+>
+> -----Original Message-----
+> From: bioc-sig-sequencing-bounces at r-project.org [mailto:bioc-sig-sequencing-bounces at r-project.org] On Behalf Of Michael Lawrence
+> Sent: Wednesday, June 01, 2011 11:25 AM
+> To: Ivan Gregoretti
+> Cc: bioc-sig-sequencing at r-project.org
+> Subject: Re: [Bioc-sig-seq] Like subseq() but with the ability to accept a vector of starts
+>
+> On Wed, Jun 1, 2011 at 9:06 AM, Ivan Gregoretti<ivangreg at gmail.com>  wrote:
+>
+>> Hello IRanges connoisseurs,
+>>
+>> Is there a function like subseq() but with the ability to accept a
+>> vector of starts?
+>>
+>>
+>> For instance, if I want to chop the beginning of the murine
+>> mitochondrial DNA into 50 nucleotides, I'd do
+>>
+>> library(BSgenome.Mmusculus.UCSC.mm9)
+>>
+>> subseq(Mmusculus[["chrM"]], start=1,   width=50)
+>> subseq(Mmusculus[["chrM"]], start=51,  width=50)
+>> subseq(Mmusculus[["chrM"]], start=101, width=50)
+>> ...
+>>
+>> however, it would be more convenient something like this
+>>
+>> subseq(Mmusculus[["chrM"]], start=c(1,51,101), width=50)
+>>
+>>
+> So you would expect a DNAStringSet back? That is a little strange:
+> subsetting a DNAString into a DNAStringSet. Perhaps you really want some way
+> to "split" the DNAString into pieces.
+>
+> In this case, I would suggest using Views. You can use breakIntoChunks in
+> order to form the ranges component.
+>
+> Michael
+>
+> Thank you
+>>
+>> Ivan
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From ivangreg at gmail.com  Wed Jun  1 19:04:29 2011
+From: ivangreg at gmail.com (Ivan Gregoretti)
+Date: Wed, 1 Jun 2011 13:04:29 -0400
+Subject: [Bioc-sig-seq] Like subseq() but with the ability to accept a
+ vector of starts
+In-Reply-To: <BANLkTi=kBi75HK=FTy7ggQL8iJGYoc2k1g@mail.gmail.com>
+References: <BANLkTinST0jFzJitwaG+BfTipoDcpJe+pQ@mail.gmail.com>
+	<BANLkTi=kBi75HK=FTy7ggQL8iJGYoc2k1g@mail.gmail.com>
+Message-ID: <BANLkTimwZWEo7B=0QkkUxqasPkmdnMfarg@mail.gmail.com>
+
+Hi Michael and Martin,
+
+Views() works great, specially for large chromosomes.
+
+Problem solved.
+
+Thank you,
+
+Ivan
+
+
+
+On Wed, Jun 1, 2011 at 12:25 PM, Michael Lawrence
+<lawrence.michael at gene.com> wrote:
+>
+>
+> On Wed, Jun 1, 2011 at 9:06 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:
+>>
+>> Hello IRanges connoisseurs,
+>>
+>> Is there a function like subseq() but with the ability to accept a
+>> vector of starts?
+>>
+>>
+>> For instance, if I want to chop the beginning of the murine
+>> mitochondrial DNA into 50 nucleotides, I'd do
+>>
+>> library(BSgenome.Mmusculus.UCSC.mm9)
+>>
+>> subseq(Mmusculus[["chrM"]], start=1, ? width=50)
+>> subseq(Mmusculus[["chrM"]], start=51, ?width=50)
+>> subseq(Mmusculus[["chrM"]], start=101, width=50)
+>> ...
+>>
+>> however, it would be more convenient something like this
+>>
+>> subseq(Mmusculus[["chrM"]], start=c(1,51,101), width=50)
+>>
+>
+> So you would expect a DNAStringSet back? That is a little strange:
+> subsetting a DNAString into a DNAStringSet. Perhaps you really want some way
+> to "split" the DNAString into pieces.
+>
+> In this case, I would suggest using Views. You can use breakIntoChunks in
+> order to form the ranges component.
+>
+> Michael
+>
+>> Thank you
+>>
+>> Ivan
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+
+
+From dasolexa at hotmail.com  Thu Jun  2 10:45:57 2011
+From: dasolexa at hotmail.com (David A.)
+Date: Thu, 2 Jun 2011 10:45:57 +0200
+Subject: [Bioc-sig-seq] transforming bam for TEQC
+In-Reply-To: <4DE583E6.3050001@fhcrc.org>
+References: <SNT116-W373AA8F6EC38059B53108BC67A0@phx.gbl>,
+	<4DE583E6.3050001@fhcrc.org>
+Message-ID: <SNT116-W180A0BDBE95C115FD0A785C67C0@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110602/c2b76d1f/attachment.pl>
+
+From mtmorgan at fhcrc.org  Thu Jun  2 14:18:35 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Thu, 02 Jun 2011 05:18:35 -0700
+Subject: [Bioc-sig-seq] transforming bam for TEQC
+In-Reply-To: <SNT116-W180A0BDBE95C115FD0A785C67C0@phx.gbl>
+References: <SNT116-W373AA8F6EC38059B53108BC67A0@phx.gbl>,
+	<4DE583E6.3050001@fhcrc.org>
+	<SNT116-W180A0BDBE95C115FD0A785C67C0@phx.gbl>
+Message-ID: <4DE77F9B.5010809@fhcrc.org>
+
+On 06/02/2011 01:45 AM, David A. wrote:
+> Dear Martin, thanks a lot for your suggestion, but I am getting an error
+> with one of the samples. The other sample seems to load fine, so it
+> could be that this one is too large. I haven't found information about
+> this error, can you suggest something?
+>
+>  > pars<-ScanBamParam(flag=scanBamFlag(isProperPair=TRUE),
+> what=c("rname","strand","pos","qwidth","seq","isize"))
+>  > data7<-scanBam('/Data/run5/aligned/s_7.bam',param=pars)[[1]]
+> Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param
+> = param) :
+> too many nucleotides, use 'param=ScanBamParam(which=<...>)'
+
+Hi Dave -- this is an issue with Rsamtools that is on my radar to 
+address. The problem is with the 'seq' argument, where the total number 
+of nucleotides exceeds the maximum integer R can represent (2^31 - 1). 
+The workaround is either to omit 'seq' or to read the data in chunks 
+(e.g., by chromosome, which="chr1") and concatenate (c(chr1rd, chr2rd); 
+probably you'd do listOfRangedData = lapply(chrs, function(chr, ...) { 
+<input chr to RangedData> }); rd = do.call(c, listOfRangedData).
+
+Martin
+
+>
+> It is prompting for using 'which' argument, I guess to select a part of
+> the file (alignment against hg19), but how can I deal with the BAM file
+> if I want to load it complete and then calculate the overall mean insert
+> size?
+>
+>
+>
+> Thanks,
+>
+> Dave
+>
+>  > Date: Tue, 31 May 2011 17:12:22 -0700
+>  > From: mtmorgan at fhcrc.org
+>  > To: dasolexa at hotmail.com
+>  > CC: bioc-sig-sequencing at r-project.org
+>  > Subject: Re: [Bioc-sig-seq] transforming bam for TEQC
+>  >
+>  > On 05/31/2011 05:42 AM, David A. wrote:
+>  > >
+>  > > Hi, I would like to load my paired-end bam file for TEQC using the
+>  > > TEQC library. In the manual it says that the bed file needed for
+>  > > paired-end reads should contain read pair ID. How can I get this
+>  > > format? Some bam2bed converters I know only give the three main
+>  > > columns, and if I am not wrong the BEDPE format is too ample.
+>  >
+>  > Hi Dave -- I haven't used TEQC (looks good, though) but since its
+>  > get.reads function returns a RangedData object with mate pairs as
+>  > successive rows (from example(get.reads); reads) it seems like this
+>  > could be constructed directly from your bam file using
+>  > Rsamtools::scanBam and IRanges::RangedData. I think you'll start with
+>  > something like
+>  >
+>  > param <- ScanBamParam(flag=scanBamFlag(isProperPair=TRUE),
+>  > what=c("qname", "pos", "qwidth", "rname"))
+>  > aln = scanBam(fl, param=param)[[1]]
+>  > rd = with(aln, RangedData(IRanges(pos, width=qwidth), ID=qname,
+>  > space=rname))
+>  >
+>  > rd[order(rd$space, rd$ID)]
+>  >
+>  > Martin
+>  >
+>  > >
+>  > > Any help would be greatly appreciated
+>  > >
+>  > > Cheers,
+>  > >
+>  > > Dave [[alternative HTML version deleted]]
+>  > >
+>  > > _______________________________________________ Bioc-sig-sequencing
+>  > > mailing list Bioc-sig-sequencing at r-project.org
+>  > > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>  >
+>  >
+>  > --
+>  > Computational Biology
+>  > Fred Hutchinson Cancer Research Center
+>  > 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+>  >
+>  > Location: M1-B861
+>  > Telephone: 206 667-2793
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From dmccarthy at wehi.EDU.AU  Fri Jun  3 03:33:47 2011
+From: dmccarthy at wehi.EDU.AU (Davis McCarthy)
+Date: Fri, 3 Jun 2011 11:33:47 +1000
+Subject: [Bioc-sig-seq] EdgeR Questions regarding prior.n tagwise
+	dispersion
+In-Reply-To: <837038514A1FAE498D690BE060539B530C513CAEFB@AD-MAILBOX01.aau.dk>
+References: <837038514A1FAE498D690BE060539B530C513CAEFB@AD-MAILBOX01.aau.dk>
+Message-ID: <33DFB878-FDB4-492E-81AB-BFC6A16D39C2@wehi.edu.au>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110603/f3b42058/attachment.pl>
+
+From MEC at stowers.org  Fri Jun  3 19:17:33 2011
+From: MEC at stowers.org (Cook, Malcolm)
+Date: Fri, 3 Jun 2011 12:17:33 -0500
+Subject: [Bioc-sig-seq] rtracklayer BUG!? import.bed pastes/prefixes
+ 'chr' during import of SOME records
+In-Reply-To: <CA0B367F.136DA%mec@stowers.org>
+References: <BANLkTi=mkufdToKj-s4LEWH2G-Cy6pGOAQ@mail.gmail.com>
+	<CA0B367F.136DA%mec@stowers.org>
+Message-ID: <2C40E43D1F7A56408C4463FD245DDDF9114E7271@EXCHMB-02.stowers-institute.org>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110603/6e945de0/attachment.pl>
+
+From lawrence.michael at gene.com  Fri Jun  3 20:30:35 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Fri, 3 Jun 2011 11:30:35 -0700
+Subject: [Bioc-sig-seq] rtracklayer BUG!? import.bed pastes/prefixes
+ 'chr' during import of SOME records
+In-Reply-To: <2C40E43D1F7A56408C4463FD245DDDF9114E7271@EXCHMB-02.stowers-institute.org>
+References: <BANLkTi=mkufdToKj-s4LEWH2G-Cy6pGOAQ@mail.gmail.com>
+	<CA0B367F.136DA%mec@stowers.org>
+	<2C40E43D1F7A56408C4463FD245DDDF9114E7271@EXCHMB-02.stowers-institute.org>
+Message-ID: <BANLkTi=_0pSXuotGjC1vfyke-3arSXYnyg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110603/be828b44/attachment.pl>
+
+From MEC at stowers.org  Tue Jun  7 18:15:56 2011
+From: MEC at stowers.org (Cook, Malcolm)
+Date: Tue, 7 Jun 2011 11:15:56 -0500
+Subject: [Bioc-sig-seq] BSgenome<-seqinfo undefined woes
+Message-ID: <2C40E43D1F7A56408C4463FD245DDDF9167C0B10@EXCHMB-02.stowers-institute.org>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110607/bb570237/attachment.pl>
+
+From MEC at stowers.org  Thu Jun  9 14:44:30 2011
+From: MEC at stowers.org (Cook, Malcolm)
+Date: Thu, 9 Jun 2011 07:44:30 -0500
+Subject: [Bioc-sig-seq] rtracklayer BUG!? import.bed pastes/prefixes
+ 'chr' during import of SOME records
+In-Reply-To: <BANLkTi=_0pSXuotGjC1vfyke-3arSXYnyg@mail.gmail.com>
+References: <BANLkTi=mkufdToKj-s4LEWH2G-Cy6pGOAQ@mail.gmail.com>
+	<CA0B367F.136DA%mec@stowers.org>
+	<2C40E43D1F7A56408C4463FD245DDDF9114E7271@EXCHMB-02.stowers-institute.org>
+	<BANLkTi=_0pSXuotGjC1vfyke-3arSXYnyg@mail.gmail.com>
+Message-ID: <2C40E43D1F7A56408C4463FD245DDDF93D172569@EXCHMB-02.stowers-institute.org>
+
+Michael,
+
+Thanks for those changes.  They work for me now as hoped/expected.  Great!  
+
+I am using R version 2.13.0, biocLite version 2.8.4 which installs Bioconductor version 2.8 packages, which of course does not include rtracklayer 1.13.3
+
+The following worked to install, but I wonder if you advise against it:
+
+> svn co https://hedgehog.fhcrc.org/bioconductor/trunk/madman/Rpacks/rtracklayer
+> export  _R_CHECK_FORCE_SUGGESTS_=false
+# so as to avoid: Packages required but not available:  humanStemCell BSgenome.Hsapiens.UCSC.hg19
+> R CMD CHECK rtracklayer
+> R CMD INSTALL rtracklayer
+
+Being new to R/Bioconductor, I am not (yet?) in the practice of running the development R to pick up changes to development Bioconductor packages such as this, and am a bit of a novice at R package management.
+
+Thanks for any advice, and again, thanks for rtracklayer.
+
+By the way, I noticed others on the mailing list who were stymied in trying to reproduce an older vignette.  Drat for them - I feel their pain.  However, I do think you made the right decision for the tool.  I hope you can stick to it!
+
+Cheers,
+
+~Malcolm
+
+
+
+
+
+From: Michael Lawrence [mailto:lawrence.michael at gene.com] 
+Sent: Friday, June 03, 2011 1:31 PM
+To: Cook, Malcolm
+Cc: Michael com>; bioc-sig-sequencing at r-project.org
+Subject: Re: rtracklayer BUG!? import.bed pastes/prefixes 'chr' during import of SOME records
+
+
+On Fri, Jun 3, 2011 at 10:17 AM, Cook, Malcolm <MEC at stowers.org> wrote:
+Michael,
+?
+Has this been fixed in devel (the removal of the renaming feature)?
+?
+
+Yes, I think I checked that in.
+?
+In general, can you recommend a "best way" of staying abreast with changes to your (and others) bioconductor . 
+?I've been playing around with cobbling an RSS feed of bioconductor submits (http://research.stowers.org/mec/bioc-changeLog/log-rss.xml) ?(not yet on cron).
+But the granularity and specificity don't feel quite right....
+
+It would be nice to have something like this. One like it used to exist. This one is looking good. Obvious things would be package-specific filtering, and showing only an abbreviated commit message at the top-level, allowing drill-down for details.
+
+?
+?
+Cheers,
+?
+~Malcolm
+?
+From: Cook, Malcolm 
+Sent: Wednesday, June 01, 2011 12:21 AM
+To: Michael com>
+
+Subject: Re: rtracklayer BUG!? import.bed pastes/prefixes 'chr' during import of SOME records
+?
+On Tue, May 31, 2011 at 2:33 PM, Cook, Malcolm <MEC at stowers.org> wrote:
+Hi Michael,
+?
+Regarding your workarounds:
+?
+I find that passing trackLine=FALSE does not work as you suggest when the file contains a track line.? I get this error
+Error in scan(file, what, nmax, sep, dec, quote, skip, nlines, na.strings,? : 
+??scan() expected 'an integer', got 'name=B52_merged.peak.ES <http://B52_merged.peak.ES> '
+?
+
+Thanks, fixed in devel.
+?
+However, I find that importing with asRangedData=FALSE does work.? I can convert to RangedData after the import.
+?
+Regarding the issue of the presence of track lines being UCSC specific:
+?
+I can give you one example where track lines are NOT specific to UCSC, namely IGV, which reads .bed files.? IGV also interprets the track lines (to some degree).? See http://www.broadinstitute.org/software/igv/TrackLine 
+?
+IGVmakes no requirements that the chromosome names follow the naming convention wherein the chromosomes must begin with 'chr'.
+?
+Does this convince you?
+?
+
+Yea, I guess. IGB is the same way. I just wish there were more formal definitions of the file formats.
+?
+How about this argument: There are genomes hosted at ucsc that are not assembled to the chromosome level, and whose identifiers don't begin with 'chr', such as elephant.? http://genome.ucsc.edu/cgi-bin/hgGateway?hgsid=196975635&clade=mammal&org=Elephant&db=0
+?
+
+This helps and would argue against any sort of coercion of the names. It seems reasonable to just leave it up to the user.
+?
+Regarding rtracklayer code:
+?
+I'm pretty sure I've been using import.bed with track files having tracklines and using asRangedData=TRUE without experiencing a renaming of chromosomes.? 
+?
+Can you please confirm my suspicion that renaming the chromosomes on import is a new behavior of rtracklayer since the new bioconductor release?? 
+?
+
+Maybe. The coercion of the names has been there forever when coercing to UCSCData (for upload to the UCSC browser). Maybe it has somehow come to apply to the import of tracks, as well, but I can't track down when that happened, due to the complexity of the code. The logic involved in importing a track is far more complex than one might imagine. Not sure how it got that way.
+?
+If the behavior is indeed new, would you consider recoding to be backward compatible by providing a new option, something like "recodeToUCSCStandards" (or something), with a default of FALSE.? 
+?
+I don't have allot of code that depends on backward compatibility and indeed your second workaround will work for all my cases.? But, I might not be alone, and it might save you some grief.
+?
+Also, I think you might argue yourself into agreeing with me that renaming like this should really by default be OFF (if done at all).
+?
+
+I think I'm convinced and will go ahead and disable the renaming in all cases. It's hard to think of situations where the user cannot simply perform the renaming (it's hardly ever necessary anyway), and making it optional would just increase the complexity further.
+?
+At the very least, the renaming should be documented somewhere.? Excuse me if I missed it.... I did look for it.
+?
+Thanks for everything!
+?
+I have a related issue regarding how to alter the seqnames in a BSgenome.... I swear I had a working approach for this that longer works with the recent bioC update, giving me "? unable to find an inherited method for function "seqinfo<-", for signature "BSgenome"" .? I'll open another thread....
+?
+~Malcolm
+?
+
+From: Michael Lawrence [mailto:lawrence.michael at gene.com] 
+Sent: Tuesday, May 31, 2011 3:54 PM
+To: Cook, Malcolm
+Cc: bioc-sig-sequencing at r-project.org; Michael Lawrence
+Subject: Re: rtracklayer BUG!? import.bed pastes/prefixes 'chr' during import of SOME records
+
+?
+Hi,
+
+Your BED file contains a "track line" which is something that is defined by the UCSC Genome Browser. I view (and others might disagree, in fact I often disagree with myself about this) that the track lines are specific to UCSC and not in the core BED format. Thus when rtracklayer sees a track line, it by default attempts to make the chromosomes conform to the UCSC convention. 
+
+This can be avoided in a number of ways. First, passing trackLine=FALSE will cause the track line to be ignored. Second, passing asRangedData=FALSE will cause the return value to be a GRanges, in which case it cannot hold the track line data (at least not in any formal way -- it could go into the metadata) and thus the track line is ignored.
+
+So those are workarounds. I could be convinced though that presence of a track line does NOT imply conformance to UCSC conventions. 
+
+I fixed the incomplete conversion in devel. Please let me know if it needs to be back-ported.
+
+Michael
+
+On Tue, May 31, 2011 at 12:53 PM, Cook, Malcolm <MEC at stowers.org> wrote:
+I find that rtracklayer's import.bed function is pasting the string 'chr' to SOME of my chromosome names in my bed file ( f, attached)
+
+It is as if it is trying to rename (some) of them to (partially) agree with ucsc's naming convention.
+
+I would expect import.bed ?to preserve column 1 as the name of the 'space', but it does not.
+
+But... some of the spaces have had a 'chr' prefix added!
+
+Look at the session transcipt below!
+
+I _think_ this behavior is NEW since I recently upgraded.
+
+I hope not to have to revert to previous version of R / bioconductor to address this issue.
+
+Any suggestions?
+
+Thanks!
+
+Malcolm Cook
+Computational Biology - Stowers Institute for Medical Research
+
+
+
+
+> library(rtracklayer)
+Loading required package: RCurl
+Loading required package: bitops
+> unique(read.table('f.bed',sep="\t",skip=1)[,1])
+?[1] YHet ? ? ? ? ? ? ? ? ? ? ?dmel_mitochondrion_genome
+?[3] 2L ? ? ? ? ? ? ? ? ? ? ? ?X
+?[5] 3L ? ? ? ? ? ? ? ? ? ? ? ?4
+?[7] 2R ? ? ? ? ? ? ? ? ? ? ? ?3R
+?[9] Uextra ? ? ? ? ? ? ? ? ? ?2RHet
+[11] 2LHet ? ? ? ? ? ? ? ? ? ? 3LHet
+[13] 3RHet ? ? ? ? ? ? ? ? ? ? U
+[15] XHet
+15 Levels: 2L 2LHet 2R 2RHet 3L 3LHet 3R 3RHet 4 U Uextra X XHet ... dmel_mitochondrion_genome
+> unique(space(import.bed ('f.bed')))
+?[1] chr2L ? ? ? ? ? ? ? ? ? ? 2LHet
+?[3] chr2R ? ? ? ? ? ? ? ? ? ? 2RHet
+?[5] chr3L ? ? ? ? ? ? ? ? ? ? 3LHet
+?[7] chr3R ? ? ? ? ? ? ? ? ? ? 3RHet
+?[9] chr4 ? ? ? ? ? ? ? ? ? ? ?chrU
+[11] Uextra ? ? ? ? ? ? ? ? ? ?chrX
+[13] XHet ? ? ? ? ? ? ? ? ? ? ?YHet
+[15] dmel_mitochondrion_genome
+15 Levels: chr2L 2LHet chr2R 2RHet chr3L 3LHet chr3R 3RHet chr4 chrU ... dmel_mitochondrion_genome
+> sessionInfo()
+R version 2.13.0 (2011-04-13)
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats ? ? graphics ?grDevices utils ? ? datasets ?methods ? base
+
+other attached packages:
+[1] rtracklayer_1.12.2 RCurl_1.5-0 ? ? ? ?bitops_1.0-4.1
+
+loaded via a namespace (and not attached):
+[1] BSgenome_1.20.0 ? ? Biostrings_2.20.1 ? GenomicRanges_1.4.6
+[4] IRanges_1.10.4 ? ? ?XML_3.4-0
+>
+
+
+?
+?
+
+
+From lawrence.michael at gene.com  Thu Jun  9 19:09:23 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Thu, 9 Jun 2011 10:09:23 -0700
+Subject: [Bioc-sig-seq] rtracklayer BUG!? import.bed pastes/prefixes
+ 'chr' during import of SOME records
+In-Reply-To: <2C40E43D1F7A56408C4463FD245DDDF93D172569@EXCHMB-02.stowers-institute.org>
+References: <BANLkTi=mkufdToKj-s4LEWH2G-Cy6pGOAQ@mail.gmail.com>
+	<CA0B367F.136DA%mec@stowers.org>
+	<2C40E43D1F7A56408C4463FD245DDDF9114E7271@EXCHMB-02.stowers-institute.org>
+	<BANLkTi=_0pSXuotGjC1vfyke-3arSXYnyg@mail.gmail.com>
+	<2C40E43D1F7A56408C4463FD245DDDF93D172569@EXCHMB-02.stowers-institute.org>
+Message-ID: <BANLkTi=z+Z0vYtXaO8ew+Xna89jAMU+cjQ@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110609/2b5d555f/attachment.pl>
+
+From mjl3p at virginia.edu  Thu Jun  9 20:19:42 2011
+From: mjl3p at virginia.edu (Lawson, Mark (mjl3p))
+Date: Thu, 9 Jun 2011 18:19:42 +0000
+Subject: [Bioc-sig-seq] Questions on doing EdgeR Analysis of Timeseries Data
+Message-ID: <E8EA742F-BB4C-4359-9FC7-864826A7CE9D@eservices.virginia.edu>
+
+(I apologize if this message was sent more than once)
+
+Dear Analysis Gurus
+
+I am currently performing a gene expression analysis on a plant parasite. I have mapped Illumina read counts for various stages in this parasites lifecycle. Of interest for us in this analysis are genes that are differentially expressed during these lifecycles. To determine this, I have focused on two types of differential expression: "peaks" and "cliffs." "Peaks" occur when a gene is differentially expressed in one time sample (either higher or lower than the remaining samples) and "cliffs" occur when a gene is differentially expressed between two groups of sample (for instance higher expression in the first three samples than the last three). 
+
+To determine these peaks and cliffs, I have been creating groups in which the desired peak/cliff is "case" and the remaining samples are "control." I then run common dispersion and/or tagwise dispersion and extract those reads with an FDR of less than 0.1. So, my questions:
+
+1.) How much filtering of data should I do? Right now I have a fair amount of genes that are expressed in 0, 1, 2 etc. samples. It seems logical that I would filter out genes that have no expression, but at what level should it stop? Also, should there be different filtering depending on the analysis (peak or cliff)?
+
+2.) When doing tagwise dispersion, what should I set my prior.n to (I currently have 7 samples)? Does it depend on the type of analysis?
+
+3.) Should I investigate using a more advanced glm based analysis? Any advice on crafting a design for this?
+
+4.) Any other ideas on analyses to perform on a set of timeseries data with EdgeR?
+
+I greatly appreciate any help/advice and thank you in advance!
+
+
+Mark J. Lawson, Ph.D.
+Bioinformatics Research Scientist
+Center for Public Health Genomics, UVA
+mlawson at virginia.edu
+
+
+From MEC at stowers.org  Fri Jun 10 21:56:41 2011
+From: MEC at stowers.org (Cook, Malcolm)
+Date: Fri, 10 Jun 2011 14:56:41 -0500
+Subject: [Bioc-sig-seq] graph package conflict with rtracklayer
+Message-ID: <2C40E43D1F7A56408C4463FD245DDDF970A03ABB@EXCHMB-02.stowers-institute.org>
+
+Michael & Robert,
+
+If I load the graph package prior to rtracklayer, import.bed generates an error and fails.  It otherwise succeeds if I don't load the graph package.
+
+It happens both with rtracklayer from svn and production.
+
+Look:
+
+In a fresh session:
+
+> library(graph)
+> library(rtracklayer)
+Loading required package: RCurl
+Loading required package: bitops
+> b <- import.bed('my.bed')
+Error in function (classes, fdef, mtable)  : 
+  unable to find an inherited method for function "import.ucsc", for signature "file"
+> sessionInfo()
+R version 2.13.0 (2011-04-13)
+Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)
+
+locale:
+[1] C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] rtracklayer_1.13.3 RCurl_1.5-0        bitops_1.0-4.1     graph_1.30.0      
+
+loaded via a namespace (and not attached):
+[1] BSgenome_1.20.0     Biostrings_2.20.1   GenomicRanges_1.4.6
+[4] IRanges_1.10.4      XML_3.4-0           tools_2.13.0       
+>
+
+
+From mjl3p at virginia.edu  Wed Jun  8 16:15:53 2011
+From: mjl3p at virginia.edu (Lawson, Mark (mjl3p))
+Date: Wed, 8 Jun 2011 14:15:53 +0000
+Subject: [Bioc-sig-seq] Questions on doing EdgeR Analysis of Timeseries Data
+Message-ID: <D2673A21-80D3-4F92-AFC4-7C36782A776C@eservices.virginia.edu>
+
+Dear Analysis Gurus
+
+I am currently performing a gene expression analysis on a plant parasite. I have mapped Illumina read counts for various stages in this parasites lifecycle. Of interest for us in this analysis are genes that are differentially expressed during these lifecycles. To determine this, I have focused on two types of differential expression: "peaks" and "cliffs." "Peaks" occur when a gene is differentially expressed in one time sample (either higher or lower than the remaining samples) and "cliffs" occur when a gene is differentially expressed between two groups of sample (for instance higher expression in the first three samples than the last three). 
+
+To determine these peaks and cliffs, I have been creating groups in which the desired peak/cliff is "case" and the remaining samples are "control." I then run common dispersion and/or tagwise dispersion and extract those reads with an FDR of less than 0.1. So, my questions:
+
+1.) How much filtering of data should I do? Right now I have a fair amount of genes that are expressed in 0, 1, 2 etc. samples. It seems logical that I would filter out genes that have no expression, but at what level should it stop? Also, should there be different filtering depending on the analysis (peak or cliff)?
+
+2.) When doing tagwise dispersion, what should I set my prior.n to (I currently have 7 samples)? Does it depend on the type of analysis?
+
+3.) Should I investigate using a more advanced glm based analysis? Any advice on crafting a design for this?
+
+4.) Any other ideas on analyses to perform on a set of timeseries data with EdgeR?
+
+I greatly appreciate any help/advice and thank you in advance!
+ 
+Mark J. Lawson, Ph.D.
+Bioinformatics Research Scientist
+Center for Public Health Genomics, UVA
+mlawson at virginia.edu
+
+
+From cei at ebi.ac.uk  Sat Jun 11 17:38:45 2011
+From: cei at ebi.ac.uk (Cei Abreu-Goodger)
+Date: Sat, 11 Jun 2011 10:38:45 -0500
+Subject: [Bioc-sig-seq] roast/romer for count data (edgeR)?
+In-Reply-To: <Pine.WNT.4.64.1105111437530.6116@PC765.wehi.edu.au>
+References: <mailman.4021.1305070382.4478.bioc-sig-sequencing@r-project.org>,
+	<Pine.WNT.4.64.1105110940080.6116@PC765.wehi.edu.au>	<F2283FCFDC611048BA6660D56533F7C9FC1D1FE3E4@ACES-EXCHANGE1.college.acesnet.uiuc.edu>
+	<Pine.WNT.4.64.1105111437530.6116@PC765.wehi.edu.au>
+Message-ID: <4DF38C05.3040204@ebi.ac.uk>
+
+Hello Davis, Gordon, et al.,
+
+Is it possible to perform focused or competitive gene-set analysis for 
+experiments with count data and linear models? Like what is available in 
+limma, with the roast and romer functions, but for edgeR?
+
+Any tips or suggestions would be great!
+
+Thanks,
+
+Cei
+
+
+From smyth at wehi.EDU.AU  Mon Jun 13 01:47:45 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Mon, 13 Jun 2011 09:47:45 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] roast/romer for count data (edgeR)?
+In-Reply-To: <mailman.7.1307872803.1882.bioc-sig-sequencing@r-project.org>
+References: <mailman.7.1307872803.1882.bioc-sig-sequencing@r-project.org>
+Message-ID: <Pine.WNT.4.64.1106130937340.4448@PC765.wehi.edu.au>
+
+Hi Cei,
+
+It is definitely on our to-do list but, no, we don't yet have any means to 
+do gene set analyses within the edgeR framework.
+
+At this stage, I think the best bet is simply to analyse the counts as 
+approximately normal and use limma.  For example, compute 
+log-counts-per-million,
+
+    y <- log2( 1e6* (counts+0.5) / (lib.size+0.5) )
+
+then quantile normalize, then analyse as usual in limma.  Note the use of 
+an offset of half-a-count to avoid infinite values.
+
+Alternatively, use the effective library sizes estimated by edgeR in place 
+of actual library sizes and skip the quantile normalization.
+
+This normal-based approach will work well for high variability human data. 
+If your RNA-Seq data is low variability, close to Poisson, then the 
+normal-based approach is a bit further from being optimal, although 
+probably still servicable.
+
+Best wishes
+Gordon
+
+---------------------------------------------
+Professor Gordon K Smyth,
+Bioinformatics Division,
+Walter and Eliza Hall Institute of Medical Research,
+1G Royal Parade, Parkville, Vic 3052, Australia.
+Tel: (03) 9345 2326, Fax (03) 9347 0852,
+smyth at wehi.edu.au
+http://www.wehi.edu.au
+http://www.statsci.org/smyth
+
+> Date: Sat, 11 Jun 2011 10:38:45 -0500
+> From: Cei Abreu-Goodger <cei at ebi.ac.uk>
+> To: bioc-sig-sequencing at r-project.org
+> Subject: [Bioc-sig-seq] roast/romer for count data (edgeR)?
+>
+> Hello Davis, Gordon, et al.,
+>
+> Is it possible to perform focused or competitive gene-set analysis for
+> experiments with count data and linear models? Like what is available in
+> limma, with the roast and romer functions, but for edgeR?
+>
+> Any tips or suggestions would be great!
+>
+> Thanks,
+>
+> Cei
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From cei at ebi.ac.uk  Mon Jun 13 04:24:18 2011
+From: cei at ebi.ac.uk (Cei Abreu-Goodger)
+Date: Sun, 12 Jun 2011 21:24:18 -0500
+Subject: [Bioc-sig-seq] roast/romer for count data (edgeR)?
+In-Reply-To: <Pine.WNT.4.64.1106130937340.4448@PC765.wehi.edu.au>
+References: <mailman.7.1307872803.1882.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1106130937340.4448@PC765.wehi.edu.au>
+Message-ID: <4DF574D2.5080408@ebi.ac.uk>
+
+Thanks Gordon for the suggestions...
+
+On 6/12/11 6:47 PM, Gordon K Smyth wrote:
+> Hi Cei,
+>
+> It is definitely on our to-do list but, no, we don't yet have any means
+> to do gene set analyses within the edgeR framework.
+>
+> At this stage, I think the best bet is simply to analyse the counts as
+> approximately normal and use limma. For example, compute
+> log-counts-per-million,
+>
+> y <- log2( 1e6* (counts+0.5) / (lib.size+0.5) )
+>
+> then quantile normalize, then analyse as usual in limma. Note the use of
+> an offset of half-a-count to avoid infinite values.
+>
+> Alternatively, use the effective library sizes estimated by edgeR in
+> place of actual library sizes and skip the quantile normalization.
+>
+> This normal-based approach will work well for high variability human
+> data. If your RNA-Seq data is low variability, close to Poisson, then
+> the normal-based approach is a bit further from being optimal, although
+> probably still servicable.
+>
+> Best wishes
+> Gordon
+>
+> ---------------------------------------------
+> Professor Gordon K Smyth,
+> Bioinformatics Division,
+> Walter and Eliza Hall Institute of Medical Research,
+> 1G Royal Parade, Parkville, Vic 3052, Australia.
+> Tel: (03) 9345 2326, Fax (03) 9347 0852,
+> smyth at wehi.edu.au
+> http://www.wehi.edu.au
+> http://www.statsci.org/smyth
+>
+>> Date: Sat, 11 Jun 2011 10:38:45 -0500
+>> From: Cei Abreu-Goodger <cei at ebi.ac.uk>
+>> To: bioc-sig-sequencing at r-project.org
+>> Subject: [Bioc-sig-seq] roast/romer for count data (edgeR)?
+>>
+>> Hello Davis, Gordon, et al.,
+>>
+>> Is it possible to perform focused or competitive gene-set analysis for
+>> experiments with count data and linear models? Like what is available in
+>> limma, with the roast and romer functions, but for edgeR?
+>>
+>> Any tips or suggestions would be great!
+>>
+>> Thanks,
+>>
+>> Cei
+>
+> ______________________________________________________________________
+> The information in this email is confidential and intend...{{dropped:4}}
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+
+
+From lawrence.michael at gene.com  Mon Jun 13 06:04:27 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Sun, 12 Jun 2011 21:04:27 -0700
+Subject: [Bioc-sig-seq] graph package conflict with rtracklayer
+In-Reply-To: <2C40E43D1F7A56408C4463FD245DDDF970A03ABB@EXCHMB-02.stowers-institute.org>
+References: <2C40E43D1F7A56408C4463FD245DDDF970A03ABB@EXCHMB-02.stowers-institute.org>
+Message-ID: <BANLkTikF1GS0+C+pRK8zyQq=84fwjMKyuw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110612/b4bf3d22/attachment.pl>
+
+From smyth at wehi.EDU.AU  Wed Jun 15 02:23:25 2011
+From: smyth at wehi.EDU.AU (Gordon K Smyth)
+Date: Wed, 15 Jun 2011 10:23:25 +1000 (AUS Eastern Standard Time)
+Subject: [Bioc-sig-seq] roast/romer for count data (edgeR)?
+In-Reply-To: <Pine.WNT.4.64.1106130937340.4448@PC765.wehi.edu.au>
+References: <mailman.7.1307872803.1882.bioc-sig-sequencing@r-project.org>
+	<Pine.WNT.4.64.1106130937340.4448@PC765.wehi.edu.au>
+Message-ID: <Pine.WNT.4.64.1106151021360.416@PC765.wehi.edu.au>
+
+I should have added, you can use the competitive gene set test wilcoxGST() 
+from the limma package on the edgeR output, although it doesn't take 
+account of inter-gene correlations.
+
+Best wishes
+Gordon
+
+On Mon, 13 Jun 2011, Gordon K Smyth wrote:
+
+> Hi Cei,
+>
+> It is definitely on our to-do list but, no, we don't yet have any means to do 
+> gene set analyses within the edgeR framework.
+>
+> At this stage, I think the best bet is simply to analyse the counts as 
+> approximately normal and use limma.  For example, compute 
+> log-counts-per-million,
+>
+>   y <- log2( 1e6* (counts+0.5) / (lib.size+0.5) )
+>
+> then quantile normalize, then analyse as usual in limma.  Note the use of an 
+> offset of half-a-count to avoid infinite values.
+>
+> Alternatively, use the effective library sizes estimated by edgeR in place of 
+> actual library sizes and skip the quantile normalization.
+>
+> This normal-based approach will work well for high variability human data. If 
+> your RNA-Seq data is low variability, close to Poisson, then the normal-based 
+> approach is a bit further from being optimal, although probably still 
+> servicable.
+>
+> Best wishes
+> Gordon
+>
+> ---------------------------------------------
+> Professor Gordon K Smyth,
+> Bioinformatics Division,
+> Walter and Eliza Hall Institute of Medical Research,
+> 1G Royal Parade, Parkville, Vic 3052, Australia.
+> Tel: (03) 9345 2326, Fax (03) 9347 0852,
+> smyth at wehi.edu.au
+> http://www.wehi.edu.au
+> http://www.statsci.org/smyth
+>
+>> Date: Sat, 11 Jun 2011 10:38:45 -0500
+>> From: Cei Abreu-Goodger <cei at ebi.ac.uk>
+>> To: bioc-sig-sequencing at r-project.org
+>> Subject: [Bioc-sig-seq] roast/romer for count data (edgeR)?
+>> 
+>> Hello Davis, Gordon, et al.,
+>> 
+>> Is it possible to perform focused or competitive gene-set analysis for
+>> experiments with count data and linear models? Like what is available in
+>> limma, with the roast and romer functions, but for edgeR?
+>> 
+>> Any tips or suggestions would be great!
+>> 
+>> Thanks,
+>> 
+>> Cei
+>
+
+______________________________________________________________________
+The information in this email is confidential and intend...{{dropped:4}}
+
+
+From jayoung at fhcrc.org  Wed Jun 15 03:58:01 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Tue, 14 Jun 2011 18:58:01 -0700
+Subject: [Bioc-sig-seq] "identical" on PhredQuality objects - I'm confused
+Message-ID: <8B643C57-2FBC-4C75-B487-9002792F0C28@fhcrc.org>
+
+Hi there,
+
+I'm investigating a mistake I made when running BWA (a little embarrassing, but it happens).  I had initially failed to use the -I flag on BWA to tell it to convert our Illumina ASCII-64 qualities appropriately.  Now I'm taking a look to see how much differnce it makes in our downstream analysis.
+
+Anyway, that's not why I'm writing - while delving into this I've found something unexpected about the "identical" function, and I'd love to understand that better if possible.
+
+I used scanBam to read in my two BWA output files - with and without the "-I" option when I ran BWA (same input seqs, everything else the same). As I expected, with the -I option BWA converted the qualities (my lane1read2_bwaWithI_bamscan object), and in the other it didn't (my lane1read2_bwaNotI_bamscan object).  That makes sense to me - here's how the quals look after reading BWA output in with scanBam.
+
+### when I use the -I option with BWA:
+> head(lane1read2_bwaWithI_bamscan[[1]][["qual"]])
+  A PhredQuality instance of length 6
+    width seq
+[1]    50 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHFHHHHFHFF
+[2]    36 GFFEEHHFHHHHHHHEFEEEHHHHHFHHHEEFEE at E
+[3]    50 ##################################################
+[4]    31 HHHHHHHHHHHHHHHHHHHHHHEHHHHFHFH
+[5]    24 HHHHHHHHHHHHHHDFHHHHHHHH
+[6]    50 FFFFCD=8BGEBHGHHHHEHGFGHHDHEHFHEHHHHGHHHHHHHHHGHHH
+
+### when I don't use the -I option with BWA:
+> head(lane1read2_bwaNotI_bamscan[[1]][["qual"]]) 
+  A PhredQuality instance of length 6
+    width seq
+[1]    50 gggggggggggggggggggggggggggggggggggggggggeggggegee
+[2]    36 feeddggegggggggdedddgggggegggddedd_d
+[3]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+[4]    31 ggggggggggggggggggggggdggggegeg
+[5]    24 ggggggggggggggcegggggggg
+[6]    50 eeeebc\Wafdagfggggdgfefggcgdgegdggggfgggggggggfggg
+
+
+The part I don't understand is when I use identical to test whether those two qual objects are the same, it says they are identical:
+
+> identical( lane1read2_bwaWithI_bamscan[[1]][["qual"]], lane1read2_bwaNotI_bamscan[[1]][["qual"]]) 
+[1] TRUE
+
+In one sense they're the same (if you convert from Illumina qualities to normal Phred qualities), but how did identical know to do that?  I might be misunderstanding identical - I thought that EVERYTHING about the object had to be identical.  
+
+I want to understand this as it seems like a dangerous misunderstanding - I use identical a fair amount to make sure I'm not screwing things up.
+
+Really I should probably have converted the "qual" item in my scamBam-generated list to a SolexaQuality object to keep track of the fact they're offset by 64 and not 33, but that's OK. At this point I just want to take a look at what's changed about the BWA output when I use that -I flag.
+
+Any thoughts?
+
+thanks,
+
+Janet
+
+
+From jayoung at fhcrc.org  Wed Jun 15 04:06:58 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Tue, 14 Jun 2011 19:06:58 -0700
+Subject: [Bioc-sig-seq] Fwd: "identical" on PhredQuality objects - I'm
+	confused
+References: <8B643C57-2FBC-4C75-B487-9002792F0C28@fhcrc.org>
+Message-ID: <9EF16956-F117-4E6A-AE83-CC73CB5E9368@fhcrc.org>
+
+maybe I should have included sessionInfo() output:
+
+R version 2.13.0 (2011-04-13)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] rtracklayer_1.12.4  RCurl_1.6-5         bitops_1.0-4.1     
+[4] ShortRead_1.10.4    Rsamtools_1.4.2     lattice_0.19-26    
+[7] Biostrings_2.20.1   GenomicRanges_1.4.6 IRanges_1.10.4     
+
+loaded via a namespace (and not attached):
+[1] Biobase_2.12.1  BSgenome_1.20.0 grid_2.13.0     hwriter_1.3    
+[5] XML_3.4-0      
+
+
+Begin forwarded message:
+
+> From: Janet Young <jayoung at fhcrc.org>
+> Date: June 14, 2011 6:58:01 PM PDT
+> To: Bioc-sig-sequencing at r-project.org
+> Subject: "identical" on PhredQuality objects - I'm confused
+> 
+> Hi there,
+> 
+> I'm investigating a mistake I made when running BWA (a little embarrassing, but it happens).  I had initially failed to use the -I flag on BWA to tell it to convert our Illumina ASCII-64 qualities appropriately.  Now I'm taking a look to see how much differnce it makes in our downstream analysis.
+> 
+> Anyway, that's not why I'm writing - while delving into this I've found something unexpected about the "identical" function, and I'd love to understand that better if possible.
+> 
+> I used scanBam to read in my two BWA output files - with and without the "-I" option when I ran BWA (same input seqs, everything else the same). As I expected, with the -I option BWA converted the qualities (my lane1read2_bwaWithI_bamscan object), and in the other it didn't (my lane1read2_bwaNotI_bamscan object).  That makes sense to me - here's how the quals look after reading BWA output in with scanBam.
+> 
+> ### when I use the -I option with BWA:
+>> head(lane1read2_bwaWithI_bamscan[[1]][["qual"]])
+>  A PhredQuality instance of length 6
+>    width seq
+> [1]    50 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHFHHHHFHFF
+> [2]    36 GFFEEHHFHHHHHHHEFEEEHHHHHFHHHEEFEE at E
+> [3]    50 ##################################################
+> [4]    31 HHHHHHHHHHHHHHHHHHHHHHEHHHHFHFH
+> [5]    24 HHHHHHHHHHHHHHDFHHHHHHHH
+> [6]    50 FFFFCD=8BGEBHGHHHHEHGFGHHDHEHFHEHHHHGHHHHHHHHHGHHH
+> 
+> ### when I don't use the -I option with BWA:
+>> head(lane1read2_bwaNotI_bamscan[[1]][["qual"]]) 
+>  A PhredQuality instance of length 6
+>    width seq
+> [1]    50 gggggggggggggggggggggggggggggggggggggggggeggggegee
+> [2]    36 feeddggegggggggdedddgggggegggddedd_d
+> [3]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [4]    31 ggggggggggggggggggggggdggggegeg
+> [5]    24 ggggggggggggggcegggggggg
+> [6]    50 eeeebc\Wafdagfggggdgfefggcgdgegdggggfgggggggggfggg
+> 
+> 
+> The part I don't understand is when I use identical to test whether those two qual objects are the same, it says they are identical:
+> 
+>> identical( lane1read2_bwaWithI_bamscan[[1]][["qual"]], lane1read2_bwaNotI_bamscan[[1]][["qual"]]) 
+> [1] TRUE
+> 
+> In one sense they're the same (if you convert from Illumina qualities to normal Phred qualities), but how did identical know to do that?  I might be misunderstanding identical - I thought that EVERYTHING about the object had to be identical.  
+> 
+> I want to understand this as it seems like a dangerous misunderstanding - I use identical a fair amount to make sure I'm not screwing things up.
+> 
+> Really I should probably have converted the "qual" item in my scamBam-generated list to a SolexaQuality object to keep track of the fact they're offset by 64 and not 33, but that's OK. At this point I just want to take a look at what's changed about the BWA output when I use that -I flag.
+> 
+> Any thoughts?
+> 
+> thanks,
+> 
+> Janet
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+
+
+From mdavy86 at gmail.com  Wed Jun 15 05:07:06 2011
+From: mdavy86 at gmail.com (Marcus Davy)
+Date: Wed, 15 Jun 2011 15:07:06 +1200
+Subject: [Bioc-sig-seq] Fwd: "identical" on PhredQuality objects - I'm
+	confused
+In-Reply-To: <9EF16956-F117-4E6A-AE83-CC73CB5E9368@fhcrc.org>
+References: <8B643C57-2FBC-4C75-B487-9002792F0C28@fhcrc.org>
+	<9EF16956-F117-4E6A-AE83-CC73CB5E9368@fhcrc.org>
+Message-ID: <BANLkTikxkySi8EQyU64wyw0+bnGewquAcA@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110615/1a8229f9/attachment.pl>
+
+From hpages at fhcrc.org  Wed Jun 15 19:45:00 2011
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Wed, 15 Jun 2011 10:45:00 -0700
+Subject: [Bioc-sig-seq] "identical" on PhredQuality objects - I'm
+	confused
+In-Reply-To: <8B643C57-2FBC-4C75-B487-9002792F0C28@fhcrc.org>
+References: <8B643C57-2FBC-4C75-B487-9002792F0C28@fhcrc.org>
+Message-ID: <4DF8EF9C.6090205@fhcrc.org>
+
+Hi Janet,
+
+This is because identical() is not the appropriate tool when comparing
+objects that contain external pointers. It will sometimes report that
+different objects are identical, and sometimes report that identical
+objects are different.
+
+With different objects:
+
+   > library(Biostrings)
+   > x <- DNAString("AC")
+   > y <- DNAString("GG")
+   > identical(x, y)
+   [1] TRUE
+
+With "identical" objects:
+
+   > z <- subseq(DNAString("TGG"), start=2)
+   > z
+     2-letter "DNAString" instance
+   seq: GG
+   > identical(y, z)
+   [1] FALSE
+
+The 2nd one (false negative) is a fair one: even if 'y' and 'z'
+represent the same object (conceptually), they actually have different
+internal representations:
+
+   > y at shared
+   SharedRaw of length 2 (data starting at address 0x4833bf0)
+   > y at offset
+   [1] 0
+   > z at shared
+   SharedRaw of length 3 (data starting at address 0x4780350)
+   > z at offset
+   [1] 1
+
+Since identical() performs low-level comparison, it will report that
+the objects are different.
+
+For the 1st one (false positive), you should blame identical() for
+reporting that 2 external pointers are *always* identical:
+
+   > xp1 <- .Call("externalptr_new", PACKAGE="IRanges")
+   > xp2 <- .Call("externalptr_new", PACKAGE="IRanges")
+   > IRanges:::address(xp1)
+   [1] "0x2e20178"
+   > IRanges:::address(xp2)
+   [1] "0x2e20530"
+   > identical(xp1, xp2)
+   [1] TRUE
+
+Actually, the addresses shouldn't matter. What should matter is the
+data that the 2 external pointers are pointing at. But identical()
+doesn't try to "follow" the pointers in order to get to the data
+they are pointing at. It just reports that 2 external pointers are
+identical! Like here, where the 2 external pointers are pointing to
+data that differ in *value*:
+
+   > identical(x at shared@xp, y at shared@xp)
+   [1] TRUE
+
+One could try to make a case on the R-devel mailing list to change
+the behavior of identical() on external pointers, but that wouldn't
+solve the 2nd issue (false positives). This one could be addressed
+by having a new generic e.g. equal() with methods for Vector objects
+and their derivations that would know how to reliably compare 2
+objects. Most of the time, it would just do the same as identical(),
+but for objects that contain external pointers (like DNAString,
+DNAStringSet, PhredQuality, etc...), it would use implement a
+specialized logic.
+
+Any suggestion on this would be appreciated.
+
+In the meantime, the ugly workaround that I often use is to apply
+as.character on the objects I want to compare:
+
+   > identical(as.character(x), as.character(y))
+   [1] FALSE
+   > identical(as.character(y), as.character(z))
+   [1] TRUE
+
+Cheers,
+H.
+
+On 11-06-14 06:58 PM, Janet Young wrote:
+> Hi there,
+>
+> I'm investigating a mistake I made when running BWA (a little embarrassing, but it happens).  I had initially failed to use the -I flag on BWA to tell it to convert our Illumina ASCII-64 qualities appropriately.  Now I'm taking a look to see how much differnce it makes in our downstream analysis.
+>
+> Anyway, that's not why I'm writing - while delving into this I've found something unexpected about the "identical" function, and I'd love to understand that better if possible.
+>
+> I used scanBam to read in my two BWA output files - with and without the "-I" option when I ran BWA (same input seqs, everything else the same). As I expected, with the -I option BWA converted the qualities (my lane1read2_bwaWithI_bamscan object), and in the other it didn't (my lane1read2_bwaNotI_bamscan object).  That makes sense to me - here's how the quals look after reading BWA output in with scanBam.
+>
+> ### when I use the -I option with BWA:
+>> head(lane1read2_bwaWithI_bamscan[[1]][["qual"]])
+>    A PhredQuality instance of length 6
+>      width seq
+> [1]    50 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHFHHHHFHFF
+> [2]    36 GFFEEHHFHHHHHHHEFEEEHHHHHFHHHEEFEE at E
+> [3]    50 ##################################################
+> [4]    31 HHHHHHHHHHHHHHHHHHHHHHEHHHHFHFH
+> [5]    24 HHHHHHHHHHHHHHDFHHHHHHHH
+> [6]    50 FFFFCD=8BGEBHGHHHHEHGFGHHDHEHFHEHHHHGHHHHHHHHHGHHH
+>
+> ### when I don't use the -I option with BWA:
+>> head(lane1read2_bwaNotI_bamscan[[1]][["qual"]])
+>    A PhredQuality instance of length 6
+>      width seq
+> [1]    50 gggggggggggggggggggggggggggggggggggggggggeggggegee
+> [2]    36 feeddggegggggggdedddgggggegggddedd_d
+> [3]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+> [4]    31 ggggggggggggggggggggggdggggegeg
+> [5]    24 ggggggggggggggcegggggggg
+> [6]    50 eeeebc\Wafdagfggggdgfefggcgdgegdggggfgggggggggfggg
+>
+>
+> The part I don't understand is when I use identical to test whether those two qual objects are the same, it says they are identical:
+>
+>> identical( lane1read2_bwaWithI_bamscan[[1]][["qual"]], lane1read2_bwaNotI_bamscan[[1]][["qual"]])
+> [1] TRUE
+>
+> In one sense they're the same (if you convert from Illumina qualities to normal Phred qualities), but how did identical know to do that?  I might be misunderstanding identical - I thought that EVERYTHING about the object had to be identical.
+>
+> I want to understand this as it seems like a dangerous misunderstanding - I use identical a fair amount to make sure I'm not screwing things up.
+>
+> Really I should probably have converted the "qual" item in my scamBam-generated list to a SolexaQuality object to keep track of the fact they're offset by 64 and not 33, but that's OK. At this point I just want to take a look at what's changed about the BWA output when I use that -I flag.
+>
+> Any thoughts?
+>
+> thanks,
+>
+> Janet
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M1-B514
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From jayoung at fhcrc.org  Wed Jun 15 21:23:45 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 15 Jun 2011 12:23:45 -0700
+Subject: [Bioc-sig-seq] "identical" on PhredQuality objects - I'm
+	confused
+In-Reply-To: <4DF8EF9C.6090205@fhcrc.org>
+References: <8B643C57-2FBC-4C75-B487-9002792F0C28@fhcrc.org>
+	<4DF8EF9C.6090205@fhcrc.org>
+Message-ID: <A588F2CA-39B4-4D37-A89C-EF66C4F4848C@fhcrc.org>
+
+Hi, 
+
+Marcus - thanks for the self-contained example. I probably should have included something like that too!
+
+and Herve - thank you VERY much - that's helpful. I'm beginning to understand this, but I have a little way to go still - I'm amazed at the subtleties there are this stuff.
+
+I'm glad you explained the false negatives too:   just this morning I saw one of those for the first time, and I would have spent a long time worrying about it if you hadn't explained...
+
+I'll go with your ugly workaround (nothing arong with ugly for a biologist like me).  That has brought up another question (as.data.frame on GRanges), but I'll send a separate email about that, as it's a separate issue.
+
+Janet
+
+
+
+
+On Jun 15, 2011, at 10:45 AM, Herv? Pag?s wrote:
+
+> Hi Janet,
+> 
+> This is because identical() is not the appropriate tool when comparing
+> objects that contain external pointers. It will sometimes report that
+> different objects are identical, and sometimes report that identical
+> objects are different.
+> 
+> With different objects:
+> 
+>  > library(Biostrings)
+>  > x <- DNAString("AC")
+>  > y <- DNAString("GG")
+>  > identical(x, y)
+>  [1] TRUE
+> 
+> With "identical" objects:
+> 
+>  > z <- subseq(DNAString("TGG"), start=2)
+>  > z
+>    2-letter "DNAString" instance
+>  seq: GG
+>  > identical(y, z)
+>  [1] FALSE
+> 
+> The 2nd one (false negative) is a fair one: even if 'y' and 'z'
+> represent the same object (conceptually), they actually have different
+> internal representations:
+> 
+>  > y at shared
+>  SharedRaw of length 2 (data starting at address 0x4833bf0)
+>  > y at offset
+>  [1] 0
+>  > z at shared
+>  SharedRaw of length 3 (data starting at address 0x4780350)
+>  > z at offset
+>  [1] 1
+> 
+> Since identical() performs low-level comparison, it will report that
+> the objects are different.
+> 
+> For the 1st one (false positive), you should blame identical() for
+> reporting that 2 external pointers are *always* identical:
+> 
+>  > xp1 <- .Call("externalptr_new", PACKAGE="IRanges")
+>  > xp2 <- .Call("externalptr_new", PACKAGE="IRanges")
+>  > IRanges:::address(xp1)
+>  [1] "0x2e20178"
+>  > IRanges:::address(xp2)
+>  [1] "0x2e20530"
+>  > identical(xp1, xp2)
+>  [1] TRUE
+> 
+> Actually, the addresses shouldn't matter. What should matter is the
+> data that the 2 external pointers are pointing at. But identical()
+> doesn't try to "follow" the pointers in order to get to the data
+> they are pointing at. It just reports that 2 external pointers are
+> identical! Like here, where the 2 external pointers are pointing to
+> data that differ in *value*:
+> 
+>  > identical(x at shared@xp, y at shared@xp)
+>  [1] TRUE
+> 
+> One could try to make a case on the R-devel mailing list to change
+> the behavior of identical() on external pointers, but that wouldn't
+> solve the 2nd issue (false positives). This one could be addressed
+> by having a new generic e.g. equal() with methods for Vector objects
+> and their derivations that would know how to reliably compare 2
+> objects. Most of the time, it would just do the same as identical(),
+> but for objects that contain external pointers (like DNAString,
+> DNAStringSet, PhredQuality, etc...), it would use implement a
+> specialized logic.
+> 
+> Any suggestion on this would be appreciated.
+> 
+> In the meantime, the ugly workaround that I often use is to apply
+> as.character on the objects I want to compare:
+> 
+>  > identical(as.character(x), as.character(y))
+>  [1] FALSE
+>  > identical(as.character(y), as.character(z))
+>  [1] TRUE
+> 
+> Cheers,
+> H.
+> 
+> On 11-06-14 06:58 PM, Janet Young wrote:
+>> Hi there,
+>> 
+>> I'm investigating a mistake I made when running BWA (a little embarrassing, but it happens).  I had initially failed to use the -I flag on BWA to tell it to convert our Illumina ASCII-64 qualities appropriately.  Now I'm taking a look to see how much differnce it makes in our downstream analysis.
+>> 
+>> Anyway, that's not why I'm writing - while delving into this I've found something unexpected about the "identical" function, and I'd love to understand that better if possible.
+>> 
+>> I used scanBam to read in my two BWA output files - with and without the "-I" option when I ran BWA (same input seqs, everything else the same). As I expected, with the -I option BWA converted the qualities (my lane1read2_bwaWithI_bamscan object), and in the other it didn't (my lane1read2_bwaNotI_bamscan object).  That makes sense to me - here's how the quals look after reading BWA output in with scanBam.
+>> 
+>> ### when I use the -I option with BWA:
+>>> head(lane1read2_bwaWithI_bamscan[[1]][["qual"]])
+>>   A PhredQuality instance of length 6
+>>     width seq
+>> [1]    50 HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHFHHHHFHFF
+>> [2]    36 GFFEEHHFHHHHHHHEFEEEHHHHHFHHHEEFEE at E
+>> [3]    50 ##################################################
+>> [4]    31 HHHHHHHHHHHHHHHHHHHHHHEHHHHFHFH
+>> [5]    24 HHHHHHHHHHHHHHDFHHHHHHHH
+>> [6]    50 FFFFCD=8BGEBHGHHHHEHGFGHHDHEHFHEHHHHGHHHHHHHHHGHHH
+>> 
+>> ### when I don't use the -I option with BWA:
+>>> head(lane1read2_bwaNotI_bamscan[[1]][["qual"]])
+>>   A PhredQuality instance of length 6
+>>     width seq
+>> [1]    50 gggggggggggggggggggggggggggggggggggggggggeggggegee
+>> [2]    36 feeddggegggggggdedddgggggegggddedd_d
+>> [3]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB
+>> [4]    31 ggggggggggggggggggggggdggggegeg
+>> [5]    24 ggggggggggggggcegggggggg
+>> [6]    50 eeeebc\Wafdagfggggdgfefggcgdgegdggggfgggggggggfggg
+>> 
+>> 
+>> The part I don't understand is when I use identical to test whether those two qual objects are the same, it says they are identical:
+>> 
+>>> identical( lane1read2_bwaWithI_bamscan[[1]][["qual"]], lane1read2_bwaNotI_bamscan[[1]][["qual"]])
+>> [1] TRUE
+>> 
+>> In one sense they're the same (if you convert from Illumina qualities to normal Phred qualities), but how did identical know to do that?  I might be misunderstanding identical - I thought that EVERYTHING about the object had to be identical.
+>> 
+>> I want to understand this as it seems like a dangerous misunderstanding - I use identical a fair amount to make sure I'm not screwing things up.
+>> 
+>> Really I should probably have converted the "qual" item in my scamBam-generated list to a SolexaQuality object to keep track of the fact they're offset by 64 and not 33, but that's OK. At this point I just want to take a look at what's changed about the BWA output when I use that -I flag.
+>> 
+>> Any thoughts?
+>> 
+>> thanks,
+>> 
+>> Janet
+>> 
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+> -- 
+> Herv? Pag?s
+> 
+> Program in Computational Biology
+> Division of Public Health Sciences
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N, M1-B514
+> P.O. Box 19024
+> Seattle, WA 98109-1024
+> 
+> E-mail: hpages at fhcrc.org
+> Phone:  (206) 667-5791
+> Fax:    (206) 667-1319
+
+
+From jayoung at fhcrc.org  Wed Jun 15 21:37:53 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 15 Jun 2011 12:37:53 -0700
+Subject: [Bioc-sig-seq] as.data.frame on GRanges object with DNAStringSet in
+	values
+Message-ID: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>
+
+Hi there,
+
+I'm trying to as as.data.frame on a GRanges object. On regular GRanges objects it works fine but I have some objects that contain a DNAStringSet in the values column, which isn't built in to the as.data.frame method.  Is it possible to add the ability to coerce the DNAStringSet too, please?
+
+Here's some code that demonstrates the issue:
+
+################
+library(GenomicRanges)
+library(Biostrings)
+
+gr1 <- GRanges(seqnames=rep("chr1",3),ranges=IRanges(start=c(1,101,201),width=50),strand=c("+","-","+"), genenames=c("seq1","seq2","seq3") )
+
+as.data.frame(gr1)
+# works
+
+gr2 <- gr1
+values(gr2)[,"myseqs"] <- DNAStringSet(c ("AACGTG", "ACGGTGGTGTT", "GAGGCTG"))
+
+as.data.frame(gr2)
+# Error in as.data.frame.default(y, optional = TRUE, ...) : 
+#   cannot coerce class 'structure("DNAStringSet", package = "Biostrings")' into a data.frame
+################
+
+and here's   sessionInfo() output:
+
+R version 2.13.0 (2011-04-13)
+Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] Biostrings_2.20.1   GenomicRanges_1.4.6 IRanges_1.10.4     
+
+################
+
+
+You might wonder why I'm storing sequences in the GRanges values - in my real data they're sequencing reads that have mapped back to that region, but I'm still curious to maintain the sequence itself (for the moment) because it's not always identical to the underlying genomic sequence of that region (investigating mapping issues).
+
+(and my desire to use as.data.frame relates to a suggestion from Herve to let me workaround some issues with the identical function)
+
+thanks,
+
+Janet
+
+
+From lawrence.michael at gene.com  Wed Jun 15 21:46:29 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Wed, 15 Jun 2011 12:46:29 -0700
+Subject: [Bioc-sig-seq] as.data.frame on GRanges object with
+ DNAStringSet in values
+In-Reply-To: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>
+References: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>
+Message-ID: <BANLkTikd1kT0QC+VTzcMKAZfxLX=Pxbqwg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110615/d9a03f9f/attachment.pl>
+
+From jayoung at fhcrc.org  Wed Jun 15 21:49:23 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 15 Jun 2011 12:49:23 -0700
+Subject: [Bioc-sig-seq] as.data.frame on GRanges object with
+	DNAStringSet in values
+In-Reply-To: <BANLkTikd1kT0QC+VTzcMKAZfxLX=Pxbqwg@mail.gmail.com>
+References: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>
+	<BANLkTikd1kT0QC+VTzcMKAZfxLX=Pxbqwg@mail.gmail.com>
+Message-ID: <01F8604F-D5A0-41DD-902B-D9448CDE7BAE@fhcrc.org>
+
+yes - as.character seems a good choice, I think
+
+thanks,
+
+Janet
+
+On Jun 15, 2011, at 12:46 PM, Michael Lawrence wrote:
+
+> So you would expect that the DNAStringSet is converted to a character vector? DNAStringSet (technically XStringSet) then just needs an as.vector method that delegates to as.character.
+> 
+> Michael
+> 
+> 
+> On Wed, Jun 15, 2011 at 12:37 PM, Janet Young <jayoung at fhcrc.org> wrote:
+> Hi there,
+> 
+> I'm trying to as as.data.frame on a GRanges object. On regular GRanges objects it works fine but I have some objects that contain a DNAStringSet in the values column, which isn't built in to the as.data.frame method.  Is it possible to add the ability to coerce the DNAStringSet too, please?
+> 
+> Here's some code that demonstrates the issue:
+> 
+> ################
+> library(GenomicRanges)
+> library(Biostrings)
+> 
+> gr1 <- GRanges(seqnames=rep("chr1",3),ranges=IRanges(start=c(1,101,201),width=50),strand=c("+","-","+"), genenames=c("seq1","seq2","seq3") )
+> 
+> as.data.frame(gr1)
+> # works
+> 
+> gr2 <- gr1
+> values(gr2)[,"myseqs"] <- DNAStringSet(c ("AACGTG", "ACGGTGGTGTT", "GAGGCTG"))
+> 
+> as.data.frame(gr2)
+> # Error in as.data.frame.default(y, optional = TRUE, ...) :
+> #   cannot coerce class 'structure("DNAStringSet", package = "Biostrings")' into a data.frame
+> ################
+> 
+> and here's   sessionInfo() output:
+> 
+> R version 2.13.0 (2011-04-13)
+> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base
+> 
+> other attached packages:
+> [1] Biostrings_2.20.1   GenomicRanges_1.4.6 IRanges_1.10.4
+> 
+> ################
+> 
+> 
+> You might wonder why I'm storing sequences in the GRanges values - in my real data they're sequencing reads that have mapped back to that region, but I'm still curious to maintain the sequence itself (for the moment) because it's not always identical to the underlying genomic sequence of that region (investigating mapping issues).
+> 
+> (and my desire to use as.data.frame relates to a suggestion from Herve to let me workaround some issues with the identical function)
+> 
+> thanks,
+> 
+> Janet
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+
+
+From hpages at fhcrc.org  Thu Jun 16 00:05:46 2011
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Wed, 15 Jun 2011 15:05:46 -0700
+Subject: [Bioc-sig-seq] as.data.frame on GRanges object
+ with	DNAStringSet in values
+In-Reply-To: <01F8604F-D5A0-41DD-902B-D9448CDE7BAE@fhcrc.org>
+References: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>	<BANLkTikd1kT0QC+VTzcMKAZfxLX=Pxbqwg@mail.gmail.com>
+	<01F8604F-D5A0-41DD-902B-D9448CDE7BAE@fhcrc.org>
+Message-ID: <4DF92CBA.9010900@fhcrc.org>
+
+Hi Michael, Janet,
+
+I just added an "as.vector" method for XStringSet objects to
+Biostrings 2.21.6:
+
+   > library(Biostrings)
+   > x <- DNAStringSet(c("aaatg", "gt"))
+   > as.vector(x)
+   [1] "AAATG" "GT"
+
+But that doesn't solve Janet's problem:
+
+   > df <- DataFrame(id=c("ID1", "ID2"), seqs=x)
+   > df
+   DataFrame with 2 rows and 2 columns
+              id           seqs
+     <character> <DNAStringSet>
+   1         ID1          AAATG
+   2         ID2             GT
+   > as.data.frame(df)
+   Error in as.data.frame.default(y, optional = TRUE, ...) :
+     cannot coerce class 'structure("DNAStringSet", package = 
+"Biostrings")' into a data.frame
+
+Michael?
+
+Thanks,
+H.
+
+
+ > sessionInfo()
+R version 2.14.0 Under development (unstable) (2011-05-30 r56024)
+Platform: x86_64-unknown-linux-gnu (64-bit)
+
+locale:
+  [1] LC_CTYPE=en_CA.UTF-8       LC_NUMERIC=C
+  [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8
+  [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8
+  [7] LC_PAPER=C                 LC_NAME=C
+  [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base
+
+other attached packages:
+[1] Biostrings_2.21.6 IRanges_1.11.10
+
+
+On 11-06-15 12:49 PM, Janet Young wrote:
+> yes - as.character seems a good choice, I think
+>
+> thanks,
+>
+> Janet
+>
+> On Jun 15, 2011, at 12:46 PM, Michael Lawrence wrote:
+>
+>> So you would expect that the DNAStringSet is converted to a character vector? DNAStringSet (technically XStringSet) then just needs an as.vector method that delegates to as.character.
+>>
+>> Michael
+>>
+>>
+>> On Wed, Jun 15, 2011 at 12:37 PM, Janet Young<jayoung at fhcrc.org>  wrote:
+>> Hi there,
+>>
+>> I'm trying to as as.data.frame on a GRanges object. On regular GRanges objects it works fine but I have some objects that contain a DNAStringSet in the values column, which isn't built in to the as.data.frame method.  Is it possible to add the ability to coerce the DNAStringSet too, please?
+>>
+>> Here's some code that demonstrates the issue:
+>>
+>> ################
+>> library(GenomicRanges)
+>> library(Biostrings)
+>>
+>> gr1<- GRanges(seqnames=rep("chr1",3),ranges=IRanges(start=c(1,101,201),width=50),strand=c("+","-","+"), genenames=c("seq1","seq2","seq3") )
+>>
+>> as.data.frame(gr1)
+>> # works
+>>
+>> gr2<- gr1
+>> values(gr2)[,"myseqs"]<- DNAStringSet(c ("AACGTG", "ACGGTGGTGTT", "GAGGCTG"))
+>>
+>> as.data.frame(gr2)
+>> # Error in as.data.frame.default(y, optional = TRUE, ...) :
+>> #   cannot coerce class 'structure("DNAStringSet", package = "Biostrings")' into a data.frame
+>> ################
+>>
+>> and here's   sessionInfo() output:
+>>
+>> R version 2.13.0 (2011-04-13)
+>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+>>
+>> locale:
+>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+>>
+>> attached base packages:
+>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>
+>> other attached packages:
+>> [1] Biostrings_2.20.1   GenomicRanges_1.4.6 IRanges_1.10.4
+>>
+>> ################
+>>
+>>
+>> You might wonder why I'm storing sequences in the GRanges values - in my real data they're sequencing reads that have mapped back to that region, but I'm still curious to maintain the sequence itself (for the moment) because it's not always identical to the underlying genomic sequence of that region (investigating mapping issues).
+>>
+>> (and my desire to use as.data.frame relates to a suggestion from Herve to let me workaround some issues with the identical function)
+>>
+>> thanks,
+>>
+>> Janet
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M1-B514
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From lawrence.michael at gene.com  Thu Jun 16 00:38:58 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Wed, 15 Jun 2011 15:38:58 -0700
+Subject: [Bioc-sig-seq] as.data.frame on GRanges object with
+ DNAStringSet in values
+In-Reply-To: <4DF92CBA.9010900@fhcrc.org>
+References: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>
+	<BANLkTikd1kT0QC+VTzcMKAZfxLX=Pxbqwg@mail.gmail.com>
+	<01F8604F-D5A0-41DD-902B-D9448CDE7BAE@fhcrc.org>
+	<4DF92CBA.9010900@fhcrc.org>
+Message-ID: <BANLkTi=LdDVaufJ1e9FHy_YGenqosx=QLQ@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110615/b1078c46/attachment.pl>
+
+From hpages at fhcrc.org  Thu Jun 16 01:26:40 2011
+From: hpages at fhcrc.org (=?ISO-8859-1?Q?Herv=E9_Pag=E8s?=)
+Date: Wed, 15 Jun 2011 16:26:40 -0700
+Subject: [Bioc-sig-seq] as.data.frame on GRanges object with
+ DNAStringSet in values
+In-Reply-To: <BANLkTi=LdDVaufJ1e9FHy_YGenqosx=QLQ@mail.gmail.com>
+References: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>	<BANLkTikd1kT0QC+VTzcMKAZfxLX=Pxbqwg@mail.gmail.com>	<01F8604F-D5A0-41DD-902B-D9448CDE7BAE@fhcrc.org>	<4DF92CBA.9010900@fhcrc.org>
+	<BANLkTi=LdDVaufJ1e9FHy_YGenqosx=QLQ@mail.gmail.com>
+Message-ID: <4DF93FB0.7080307@fhcrc.org>
+
+On 11-06-15 03:38 PM, Michael Lawrence wrote:
+>
+>
+> 2011/6/15 Herv? Pag?s <hpages at fhcrc.org <mailto:hpages at fhcrc.org>>
+>
+>     Hi Michael, Janet,
+>
+>     I just added an "as.vector" method for XStringSet objects to
+>     Biostrings 2.21.6:
+>
+>      > library(Biostrings)
+>      > x <- DNAStringSet(c("aaatg", "gt"))
+>      > as.vector(x)
+>       [1] "AAATG" "GT"
+>
+>     But that doesn't solve Janet's problem:
+>
+>      > df <- DataFrame(id=c("ID1", "ID2"), seqs=x)
+>      > df
+>       DataFrame with 2 rows and 2 columns
+>                  id           seqs
+>     <character> <DNAStringSet>
+>       1         ID1          AAATG
+>       2         ID2             GT
+>      > as.data.frame(df)
+>
+>       Error in as.data.frame.default(y, optional = TRUE, ...) :
+>         cannot coerce class 'structure("DNAStringSet", package =
+>     "Biostrings")' into a data.frame
+>
+>     Michael?
+>
+>
+> Well, sorry for that. I just added a coercion from Vector to data.frame
+> through as.vector, so this works.
+
+Thanks!
+
+> But someone might add a coercion from
+> List to data.frame that would treat the elements as columns. Would this
+> make sense?
+
+Hard to tell. Maybe sometimes it would make sense, but sometimes it
+definitely does not (e.g. DNAStringSet).
+
+> AtomicList to data.frame does something even stranger: it
+> creates a two column data frame with the unlisted values and
+> names/indices rep'd out as a factor. Actually, that's kind of cool,
+> since usually one does not have a list with equal element lengths, but
+> it's somewhat unintuitive. But why does it apply only to AtomicList?
+
+Glad you bring this on the table.
+
+For the record, "as.vector" also unrolls an AtomicList:
+
+   > as.vector(IntegerList(1:4, 0:-2))
+   [1]  1  2  3  4  0 -1 -2
+
+IMO, we should not do things like that. Because:
+
+   1) The same can be achieved with unlist():
+
+     > unlist(IntegerList(1:4, 0:-2))
+     [1]  1  2  3  4  0 -1 -2
+
+   2) It's totally unintuitive to use as.vector for unlisting
+      a list (as.vector on a standard list does not do that).
+
+   3) There is a strong expectation that as.vector() will preserve
+      the length of its input.
+
+So I propose to deprecate those "as.vector" and "as.data.frame"
+methods for AtomicList objects.
+
+H.
+
+
+> Anyway, given the special correspondence between a XStringSet and a
+> character vector, we could always add an as.data.frame method for
+> XStringSet, just to make sure stuff behaves as expected.
+>
+>     Thanks,
+>     H.
+>
+>
+>      > sessionInfo()
+>     R version 2.14.0 Under development (unstable) (2011-05-30 r56024)
+>     Platform: x86_64-unknown-linux-gnu (64-bit)
+>
+>     locale:
+>       [1] LC_CTYPE=en_CA.UTF-8       LC_NUMERIC=C
+>       [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8
+>       [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8
+>       [7] LC_PAPER=C                 LC_NAME=C
+>       [9] LC_ADDRESS=C               LC_TELEPHONE=C
+>     [11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C
+>
+>
+>     attached base packages:
+>     [1] stats     graphics  grDevices utils     datasets  methods   base
+>
+>     other attached packages:
+>     [1] Biostrings_2.21.6 IRanges_1.11.10
+>
+>
+>
+>     On 11-06-15 12:49 PM, Janet Young wrote:
+>
+>         yes - as.character seems a good choice, I think
+>
+>         thanks,
+>
+>         Janet
+>
+>         On Jun 15, 2011, at 12:46 PM, Michael Lawrence wrote:
+>
+>             So you would expect that the DNAStringSet is converted to a
+>             character vector? DNAStringSet (technically XStringSet) then
+>             just needs an as.vector method that delegates to as.character.
+>
+>             Michael
+>
+>
+>             On Wed, Jun 15, 2011 at 12:37 PM, Janet
+>             Young<jayoung at fhcrc.org <mailto:jayoung at fhcrc.org>>  wrote:
+>             Hi there,
+>
+>             I'm trying to as as.data.frame on a GRanges object. On
+>             regular GRanges objects it works fine but I have some
+>             objects that contain a DNAStringSet in the values column,
+>             which isn't built in to the as.data.frame method.  Is it
+>             possible to add the ability to coerce the DNAStringSet too,
+>             please?
+>
+>             Here's some code that demonstrates the issue:
+>
+>             ################
+>             library(GenomicRanges)
+>             library(Biostrings)
+>
+>             gr1<-
+>             GRanges(seqnames=rep("chr1",3),ranges=IRanges(start=c(1,101,201),width=50),strand=c("+","-","+"),
+>             genenames=c("seq1","seq2","seq3") )
+>
+>             as.data.frame(gr1)
+>             # works
+>
+>             gr2<- gr1
+>             values(gr2)[,"myseqs"]<- DNAStringSet(c ("AACGTG",
+>             "ACGGTGGTGTT", "GAGGCTG"))
+>
+>             as.data.frame(gr2)
+>             # Error in as.data.frame.default(y, optional = TRUE, ...) :
+>             #   cannot coerce class 'structure("DNAStringSet", package =
+>             "Biostrings")' into a data.frame
+>             ################
+>
+>             and here's   sessionInfo() output:
+>
+>             R version 2.13.0 (2011-04-13)
+>             Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+>
+>             locale:
+>             [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+>
+>             attached base packages:
+>             [1] stats     graphics  grDevices utils     datasets
+>               methods   base
+>
+>             other attached packages:
+>             [1] Biostrings_2.20.1   GenomicRanges_1.4.6 IRanges_1.10.4
+>
+>             ################
+>
+>
+>             You might wonder why I'm storing sequences in the GRanges
+>             values - in my real data they're sequencing reads that have
+>             mapped back to that region, but I'm still curious to
+>             maintain the sequence itself (for the moment) because it's
+>             not always identical to the underlying genomic sequence of
+>             that region (investigating mapping issues).
+>
+>             (and my desire to use as.data.frame relates to a suggestion
+>             from Herve to let me workaround some issues with the
+>             identical function)
+>
+>             thanks,
+>
+>             Janet
+>
+>             _______________________________________________
+>             Bioc-sig-sequencing mailing list
+>             Bioc-sig-sequencing at r-project.org
+>             <mailto:Bioc-sig-sequencing at r-project.org>
+>             https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+>         _______________________________________________
+>         Bioc-sig-sequencing mailing list
+>         Bioc-sig-sequencing at r-project.org
+>         <mailto:Bioc-sig-sequencing at r-project.org>
+>         https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>
+>
+>
+>     --
+>     Herv? Pag?s
+>
+>     Program in Computational Biology
+>     Division of Public Health Sciences
+>     Fred Hutchinson Cancer Research Center
+>     1100 Fairview Ave. N, M1-B514
+>     P.O. Box 19024
+>     Seattle, WA 98109-1024
+>
+>     E-mail: hpages at fhcrc.org <mailto:hpages at fhcrc.org>
+>     Phone:  (206) 667-5791
+>     Fax:    (206) 667-1319
+>
+>
+
+
+-- 
+Herv? Pag?s
+
+Program in Computational Biology
+Division of Public Health Sciences
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N, M1-B514
+P.O. Box 19024
+Seattle, WA 98109-1024
+
+E-mail: hpages at fhcrc.org
+Phone:  (206) 667-5791
+Fax:    (206) 667-1319
+
+
+From lawrence.michael at gene.com  Thu Jun 16 02:55:44 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Wed, 15 Jun 2011 17:55:44 -0700
+Subject: [Bioc-sig-seq] as.data.frame on GRanges object with
+ DNAStringSet in values
+In-Reply-To: <4DF93FB0.7080307@fhcrc.org>
+References: <3BF16363-8E58-4EA3-9438-20267806757E@fhcrc.org>
+	<BANLkTikd1kT0QC+VTzcMKAZfxLX=Pxbqwg@mail.gmail.com>
+	<01F8604F-D5A0-41DD-902B-D9448CDE7BAE@fhcrc.org>
+	<4DF92CBA.9010900@fhcrc.org>
+	<BANLkTi=LdDVaufJ1e9FHy_YGenqosx=QLQ@mail.gmail.com>
+	<4DF93FB0.7080307@fhcrc.org>
+Message-ID: <BANLkTin2mkvX_rn04yHPZq=ZQ9ZOq1fMdg@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110615/fe694b20/attachment.pl>
+
+From lcollado at lcg.unam.mx  Mon Jun 20 18:24:47 2011
+From: lcollado at lcg.unam.mx (Leonardo Collado Torres)
+Date: Mon, 20 Jun 2011 11:24:47 -0500
+Subject: [Bioc-sig-seq] Cannot use Views on a DNAString object on R
+	2.14.0devel
+Message-ID: <BANLkTikPPZRYK-h-5Wpbe_Wcqn7rbBNbyQ@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110620/bf9a351d/attachment.pl>
+
+From lcollado at lcg.unam.mx  Mon Jun 20 18:38:58 2011
+From: lcollado at lcg.unam.mx (Leonardo Collado Torres)
+Date: Mon, 20 Jun 2011 11:38:58 -0500
+Subject: [Bioc-sig-seq] Cannot use Views on a DNAString object on R
+	2.14.0devel
+In-Reply-To: <BANLkTikPPZRYK-h-5Wpbe_Wcqn7rbBNbyQ@mail.gmail.com>
+References: <BANLkTikPPZRYK-h-5Wpbe_Wcqn7rbBNbyQ@mail.gmail.com>
+Message-ID: <BANLkTinG-P8qb9ELgf9huXSn1hkuU_RDiw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110620/2a3e7957/attachment.pl>
+
+From yifangt at hotmail.com  Mon Jun 20 22:39:44 2011
+From: yifangt at hotmail.com (yifang tan)
+Date: Mon, 20 Jun 2011 15:39:44 -0500
+Subject: [Bioc-sig-seq] EdgeR
+Message-ID: <BAY145-w53614D46201CCE01517B30A56E0@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110620/e08ddaec/attachment.pl>
+
+From yifangt at hotmail.com  Tue Jun 21 23:50:50 2011
+From: yifangt at hotmail.com (yifang tan)
+Date: Tue, 21 Jun 2011 16:50:50 -0500
+Subject: [Bioc-sig-seq] edgeR common library size question.
+Message-ID: <BAY145-w54B12F8097F3B67EFD997CA5510@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110621/8ad7c5d2/attachment.pl>
+
+From dmccarthy at wehi.EDU.AU  Wed Jun 22 04:28:56 2011
+From: dmccarthy at wehi.EDU.AU (Davis McCarthy)
+Date: Wed, 22 Jun 2011 12:28:56 +1000
+Subject: [Bioc-sig-seq] edgeR common library size question.
+In-Reply-To: <BAY145-w54B12F8097F3B67EFD997CA5510@phx.gbl>
+References: <BAY145-w54B12F8097F3B67EFD997CA5510@phx.gbl>
+Message-ID: <99EB3520-4F7D-42D3-9DF6-ADEE03D0E259@wehi.edu.au>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110622/4c7179c2/attachment.pl>
+
+From jayoung at fhcrc.org  Thu Jun 23 01:01:03 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 22 Jun 2011 16:01:03 -0700
+Subject: [Bioc-sig-seq] seqselect using GRanges object on multiple
+	chromosomes
+Message-ID: <E721F1D6-AD20-4335-AB0C-3C08CCCCBEA1@fhcrc.org>
+
+Hi there,
+
+I'm updating some of my older code - I was previously storing regions of interest as RangedData but now I'm switching to GRanges.  I'm running into a little trouble with seqselect - I've found a workaround but wanted to suggest extending seqselect so it can work with GRanges objects directly.
+
+I have some scores for each base-pair I've stored as a SimpleRleList object.  I want to use GRanges object with seqselect to pull out scores from my regions of interest, but to make that work I first have to do an odd (and slightly wrong-looking, to me) coercion of my GRanges object to a CompressedIRangesList.
+
+I think the code below explains all (?).
+
+thanks very much,
+
+Janet
+
+
+
+
+
+> library(GenomicRanges)
+Loading required package: IRanges
+
+Attaching package: 'IRanges'
+
+The following object(s) are masked from 'package:base':
+
+    cbind, eval, intersect, Map, mapply, order, paste, pmax, pmax.int, pmin,
+    pmin.int, rbind, rep.int, setdiff, table, union
+
+> 
+> ### make some scores objects, for single chromosomes, or across several chrs
+> tempscores <- Rle(1:20)
+> tempscores2 <- Rle(101:120)
+> allscores <- RleList(chr1=tempscores,chr2=tempscores2) # yields a SimpleRleList
+> 
+> ## make some ranges objects
+> myIR <- IRanges(start=3,end=5)
+> myGR <- GRanges(seqnames=c("chr1","chr2"),ranges=IRanges(start=3,end=5))
+> myRD <- RangedData(space=c("chr1","chr2"),IRanges(start=c(3,3),end=c(5,5)) )
+> 
+> 
+> ### test seqselect:
+> seqselect(tempscores,myIR) #works
+'integer' Rle of length 3 with 3 runs
+  Lengths: 1 1 1
+  Values : 3 4 5
+> seqselect(allscores,myGR) # doesn't work
+Error in seqselect(allscores, myGR) : unrecognized 'start' type
+> seqselect(allscores,myRD) # doesn't work
+Error in seqselect(allscores, myRD) : unrecognized 'start' type
+> 
+> seqselect(allscores,ranges(myRD)) # works. ranges(myRD) is a CompressedIRangesList
+SimpleRleList of length 2
+$chr1
+'integer' Rle of length 3 with 3 runs
+  Lengths: 1 1 1
+  Values : 3 4 5
+
+$chr2
+'integer' Rle of length 3 with 3 runs
+  Lengths:   1   1   1
+  Values : 103 104 105
+
+> 
+> seqselect(allscores,ranges(myGR)) # doesn't work
+Error in .bracket.Index(start, length(x), names(x), asRanges = TRUE) : 
+  range index out of bounds
+> seqselect(allscores,split(myGR)) # doesn't work
+Error in seqselect(allscores, split(myGR)) : unrecognized 'start' type
+> 
+> #### coerce myGR to something that looks a bit like a CompressedIRangesList
+> myGR_convert <- split(myGR)
+> names(myGR_convert) <- names(seqlengths(myGR_convert))
+> myGR_convert <- lapply(myGR_convert, ranges )
+> class(myGR_convert) <- "CompressedIRangesList"
+> 
+> 
+> seqselect(allscores,myGR_convert) # works
+SimpleRleList of length 2
+$chr1
+'integer' Rle of length 3 with 3 runs
+  Lengths: 1 1 1
+  Values : 3 4 5
+
+$chr2
+'integer' Rle of length 3 with 3 runs
+  Lengths:   1   1   1
+  Values : 103 104 105
+
+> 
+> sessionInfo()
+R version 2.13.0 (2011-04-13)
+Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] GenomicRanges_1.4.6 IRanges_1.10.4     
+
+
+From jayoung at fhcrc.org  Thu Jun 23 01:15:41 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 22 Jun 2011 16:15:41 -0700
+Subject: [Bioc-sig-seq] Fwd: seqselect using GRanges object on multiple
+	chromosomes
+References: <E721F1D6-AD20-4335-AB0C-3C08CCCCBEA1@fhcrc.org>
+Message-ID: <A5825299-6A03-4630-9113-2B976FE5E4A6@fhcrc.org>
+
+Hi again,
+
+A further note - the workaround I first emailed only works when there's one range per chromosome.   I have a better workaround now - the coercion looks like this instead:
+
+convertGRangesToCompressedIRangesList <- function (myGRobject) {
+    myGR_convert <- split(myGRobject, seqnames(myGRobject) )
+    names(myGR_convert) <- unlist(lapply(myGR_convert, function(x) { as.character(seqnames(x))[1] }))
+    
+    myGR_convert <- lapply(myGR_convert, ranges )
+    class(myGR_convert) <- "CompressedIRangesList"
+    myGR_convert
+}
+
+Janet
+
+
+
+Begin forwarded message:
+
+> From: Janet Young <jayoung at fhcrc.org>
+> Date: June 22, 2011 4:01:03 PM PDT
+> To: Bioc-sig-sequencing at r-project.org
+> Subject: seqselect using GRanges object on multiple chromosomes 
+> 
+> Hi there,
+> 
+> I'm updating some of my older code - I was previously storing regions of interest as RangedData but now I'm switching to GRanges.  I'm running into a little trouble with seqselect - I've found a workaround but wanted to suggest extending seqselect so it can work with GRanges objects directly.
+> 
+> I have some scores for each base-pair I've stored as a SimpleRleList object.  I want to use GRanges object with seqselect to pull out scores from my regions of interest, but to make that work I first have to do an odd (and slightly wrong-looking, to me) coercion of my GRanges object to a CompressedIRangesList.
+> 
+> I think the code below explains all (?).
+> 
+> thanks very much,
+> 
+> Janet
+> 
+> 
+> 
+> 
+> 
+>> library(GenomicRanges)
+> Loading required package: IRanges
+> 
+> Attaching package: 'IRanges'
+> 
+> The following object(s) are masked from 'package:base':
+> 
+>    cbind, eval, intersect, Map, mapply, order, paste, pmax, pmax.int, pmin,
+>    pmin.int, rbind, rep.int, setdiff, table, union
+> 
+>> 
+>> ### make some scores objects, for single chromosomes, or across several chrs
+>> tempscores <- Rle(1:20)
+>> tempscores2 <- Rle(101:120)
+>> allscores <- RleList(chr1=tempscores,chr2=tempscores2) # yields a SimpleRleList
+>> 
+>> ## make some ranges objects
+>> myIR <- IRanges(start=3,end=5)
+>> myGR <- GRanges(seqnames=c("chr1","chr2"),ranges=IRanges(start=3,end=5))
+>> myRD <- RangedData(space=c("chr1","chr2"),IRanges(start=c(3,3),end=c(5,5)) )
+>> 
+>> 
+>> ### test seqselect:
+>> seqselect(tempscores,myIR) #works
+> 'integer' Rle of length 3 with 3 runs
+>  Lengths: 1 1 1
+>  Values : 3 4 5
+>> seqselect(allscores,myGR) # doesn't work
+> Error in seqselect(allscores, myGR) : unrecognized 'start' type
+>> seqselect(allscores,myRD) # doesn't work
+> Error in seqselect(allscores, myRD) : unrecognized 'start' type
+>> 
+>> seqselect(allscores,ranges(myRD)) # works. ranges(myRD) is a CompressedIRangesList
+> SimpleRleList of length 2
+> $chr1
+> 'integer' Rle of length 3 with 3 runs
+>  Lengths: 1 1 1
+>  Values : 3 4 5
+> 
+> $chr2
+> 'integer' Rle of length 3 with 3 runs
+>  Lengths:   1   1   1
+>  Values : 103 104 105
+> 
+>> 
+>> seqselect(allscores,ranges(myGR)) # doesn't work
+> Error in .bracket.Index(start, length(x), names(x), asRanges = TRUE) : 
+>  range index out of bounds
+>> seqselect(allscores,split(myGR)) # doesn't work
+> Error in seqselect(allscores, split(myGR)) : unrecognized 'start' type
+>> 
+>> #### coerce myGR to something that looks a bit like a CompressedIRangesList
+>> myGR_convert <- split(myGR)
+>> names(myGR_convert) <- names(seqlengths(myGR_convert))
+>> myGR_convert <- lapply(myGR_convert, ranges )
+>> class(myGR_convert) <- "CompressedIRangesList"
+>> 
+>> 
+>> seqselect(allscores,myGR_convert) # works
+> SimpleRleList of length 2
+> $chr1
+> 'integer' Rle of length 3 with 3 runs
+>  Lengths: 1 1 1
+>  Values : 3 4 5
+> 
+> $chr2
+> 'integer' Rle of length 3 with 3 runs
+>  Lengths:   1   1   1
+>  Values : 103 104 105
+> 
+>> 
+>> sessionInfo()
+> R version 2.13.0 (2011-04-13)
+> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+> 
+> locale:
+> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+> 
+> attached base packages:
+> [1] stats     graphics  grDevices utils     datasets  methods   base     
+> 
+> other attached packages:
+> [1] GenomicRanges_1.4.6 IRanges_1.10.4     
+> 
+> 
+
+
+From lawrence.michael at gene.com  Thu Jun 23 01:19:55 2011
+From: lawrence.michael at gene.com (Michael Lawrence)
+Date: Wed, 22 Jun 2011 16:19:55 -0700
+Subject: [Bioc-sig-seq] Fwd: seqselect using GRanges object on multiple
+	chromosomes
+In-Reply-To: <A5825299-6A03-4630-9113-2B976FE5E4A6@fhcrc.org>
+References: <E721F1D6-AD20-4335-AB0C-3C08CCCCBEA1@fhcrc.org>
+	<A5825299-6A03-4630-9113-2B976FE5E4A6@fhcrc.org>
+Message-ID: <BANLkTi=wnouVR_JABex9UgM=HFOK_D4muw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110622/a5ba4c4f/attachment.pl>
+
+From jayoung at fhcrc.org  Thu Jun 23 02:33:08 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Wed, 22 Jun 2011 17:33:08 -0700
+Subject: [Bioc-sig-seq] Fwd: seqselect using GRanges object on multiple
+	chromosomes
+In-Reply-To: <BANLkTi=wnouVR_JABex9UgM=HFOK_D4muw@mail.gmail.com>
+References: <E721F1D6-AD20-4335-AB0C-3C08CCCCBEA1@fhcrc.org>
+	<A5825299-6A03-4630-9113-2B976FE5E4A6@fhcrc.org>
+	<BANLkTi=wnouVR_JABex9UgM=HFOK_D4muw@mail.gmail.com>
+Message-ID: <7207C32D-CB1C-4070-A40E-B1FDE2FDBD3C@fhcrc.org>
+
+Hi again,
+
+Thanks, Michael - looking forward to seqselect on GRanges being implemented, if possible. Getting a little further through my old code, brings up another related request.
+
+Here are some slightly different example ranges:
+	myGR <- GRanges(seqnames=c("chr1","chr2","chr2"),ranges=IRanges(start=c(25,40,60),end=c(35,45,65)) ) 
+	myRD <- RangedData(space=c("chr1","chr2","chr2"),IRanges(start=c(25,40,60),end=c(35,45,65)) ) 
+
+And I had previously been using this command:
+	restrict(ranges(myRD), 30,50)
+I'm doing that because I'm interested in ranges within the same region on every single "chromosome". With my real data, they spaces/seqnames are not chromosomes, they're promoter regions centered around the transcription start site, and I want to take various equivalent sub-portions of the whole set of promoters)
+
+I can't get "restrict" to work on the GRanges object at the moment (even if I try that same coercion first):
+	restrict( myGR , 30,50)
+	 Error in function (classes, fdef, mtable)  : 
+	   unable to find an inherited method for function "restrict", for signature "GRanges"
+
+	restrict( as(myGR,"RangesList") , 30,50)
+	 Error in sapply(listData, function(Xi) extends(class(Xi), elementTypeX)) : 
+	  error in evaluating the argument 'X' in selecting a method for function 'sapply': Error in .CompressedList.list.subscript(X = X,   INDEX = seq_len(length(X)),  : 
+	  invalid output element of class "IRanges"
+
+It would be great if restrict could work directly in the same way as it did for RangedData.  In the meantime I can probably figure out a way to do it with lapply.
+
+thanks,
+
+Janet
+
+
+
+On Jun 22, 2011, at 4:19 PM, Michael Lawrence wrote:
+
+> Hi, 
+> 
+> There is already a coercion from GRanges to RangesList, i.e., as(gr, "RangesList"). That said, seqselect() should have a method for GRanges, if possible.
+> 
+> Michael
+> 
+> On Wed, Jun 22, 2011 at 4:15 PM, Janet Young <jayoung at fhcrc.org> wrote:
+> Hi again,
+> 
+> A further note - the workaround I first emailed only works when there's one range per chromosome.   I have a better workaround now - the coercion looks like this instead:
+> 
+> convertGRangesToCompressedIRangesList <- function (myGRobject) {
+>    myGR_convert <- split(myGRobject, seqnames(myGRobject) )
+>    names(myGR_convert) <- unlist(lapply(myGR_convert, function(x) { as.character(seqnames(x))[1] }))
+> 
+>    myGR_convert <- lapply(myGR_convert, ranges )
+>    class(myGR_convert) <- "CompressedIRangesList"
+>    myGR_convert
+> }
+> 
+> Janet
+> 
+> 
+> 
+> Begin forwarded message:
+> 
+> > From: Janet Young <jayoung at fhcrc.org>
+> > Date: June 22, 2011 4:01:03 PM PDT
+> > To: Bioc-sig-sequencing at r-project.org
+> > Subject: seqselect using GRanges object on multiple chromosomes
+> >
+> > Hi there,
+> >
+> > I'm updating some of my older code - I was previously storing regions of interest as RangedData but now I'm switching to GRanges.  I'm running into a little trouble with seqselect - I've found a workaround but wanted to suggest extending seqselect so it can work with GRanges objects directly.
+> >
+> > I have some scores for each base-pair I've stored as a SimpleRleList object.  I want to use GRanges object with seqselect to pull out scores from my regions of interest, but to make that work I first have to do an odd (and slightly wrong-looking, to me) coercion of my GRanges object to a CompressedIRangesList.
+> >
+> > I think the code below explains all (?).
+> >
+> > thanks very much,
+> >
+> > Janet
+> >
+> >
+> >
+> >
+> >
+> >> library(GenomicRanges)
+> > Loading required package: IRanges
+> >
+> > Attaching package: 'IRanges'
+> >
+> > The following object(s) are masked from 'package:base':
+> >
+> >    cbind, eval, intersect, Map, mapply, order, paste, pmax, pmax.int, pmin,
+> >    pmin.int, rbind, rep.int, setdiff, table, union
+> >
+> >>
+> >> ### make some scores objects, for single chromosomes, or across several chrs
+> >> tempscores <- Rle(1:20)
+> >> tempscores2 <- Rle(101:120)
+> >> allscores <- RleList(chr1=tempscores,chr2=tempscores2) # yields a SimpleRleList
+> >>
+> >> ## make some ranges objects
+> >> myIR <- IRanges(start=3,end=5)
+> >> myGR <- GRanges(seqnames=c("chr1","chr2"),ranges=IRanges(start=3,end=5))
+> >> myRD <- RangedData(space=c("chr1","chr2"),IRanges(start=c(3,3),end=c(5,5)) )
+> >>
+> >>
+> >> ### test seqselect:
+> >> seqselect(tempscores,myIR) #works
+> > 'integer' Rle of length 3 with 3 runs
+> >  Lengths: 1 1 1
+> >  Values : 3 4 5
+> >> seqselect(allscores,myGR) # doesn't work
+> > Error in seqselect(allscores, myGR) : unrecognized 'start' type
+> >> seqselect(allscores,myRD) # doesn't work
+> > Error in seqselect(allscores, myRD) : unrecognized 'start' type
+> >>
+> >> seqselect(allscores,ranges(myRD)) # works. ranges(myRD) is a CompressedIRangesList
+> > SimpleRleList of length 2
+> > $chr1
+> > 'integer' Rle of length 3 with 3 runs
+> >  Lengths: 1 1 1
+> >  Values : 3 4 5
+> >
+> > $chr2
+> > 'integer' Rle of length 3 with 3 runs
+> >  Lengths:   1   1   1
+> >  Values : 103 104 105
+> >
+> >>
+> >> seqselect(allscores,ranges(myGR)) # doesn't work
+> > Error in .bracket.Index(start, length(x), names(x), asRanges = TRUE) :
+> >  range index out of bounds
+> >> seqselect(allscores,split(myGR)) # doesn't work
+> > Error in seqselect(allscores, split(myGR)) : unrecognized 'start' type
+> >>
+> >> #### coerce myGR to something that looks a bit like a CompressedIRangesList
+> >> myGR_convert <- split(myGR)
+> >> names(myGR_convert) <- names(seqlengths(myGR_convert))
+> >> myGR_convert <- lapply(myGR_convert, ranges )
+> >> class(myGR_convert) <- "CompressedIRangesList"
+> >>
+> >>
+> >> seqselect(allscores,myGR_convert) # works
+> > SimpleRleList of length 2
+> > $chr1
+> > 'integer' Rle of length 3 with 3 runs
+> >  Lengths: 1 1 1
+> >  Values : 3 4 5
+> >
+> > $chr2
+> > 'integer' Rle of length 3 with 3 runs
+> >  Lengths:   1   1   1
+> >  Values : 103 104 105
+> >
+> >>
+> >> sessionInfo()
+> > R version 2.13.0 (2011-04-13)
+> > Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+> >
+> > locale:
+> > [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+> >
+> > attached base packages:
+> > [1] stats     graphics  grDevices utils     datasets  methods   base
+> >
+> > other attached packages:
+> > [1] GenomicRanges_1.4.6 IRanges_1.10.4
+> >
+> >
+> 
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+
+
+From mtmorgan at fhcrc.org  Thu Jun 23 11:08:57 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Thu, 23 Jun 2011 02:08:57 -0700
+Subject: [Bioc-sig-seq] Fwd: seqselect using GRanges object on multiple
+ chromosomes
+In-Reply-To: <7207C32D-CB1C-4070-A40E-B1FDE2FDBD3C@fhcrc.org>
+References: <E721F1D6-AD20-4335-AB0C-3C08CCCCBEA1@fhcrc.org>	<A5825299-6A03-4630-9113-2B976FE5E4A6@fhcrc.org>	<BANLkTi=wnouVR_JABex9UgM=HFOK_D4muw@mail.gmail.com>
+	<7207C32D-CB1C-4070-A40E-B1FDE2FDBD3C@fhcrc.org>
+Message-ID: <4E0302A9.9050708@fhcrc.org>
+
+On 06/22/2011 05:33 PM, Janet Young wrote:
+> Hi again,
+>
+> Thanks, Michael - looking forward to seqselect on GRanges being implemented, if possible. Getting a little further through my old code, brings up another related request.
+>
+> Here are some slightly different example ranges:
+> 	myGR<- GRanges(seqnames=c("chr1","chr2","chr2"),ranges=IRanges(start=c(25,40,60),end=c(35,45,65)) )
+> 	myRD<- RangedData(space=c("chr1","chr2","chr2"),IRanges(start=c(25,40,60),end=c(35,45,65)) )
+>
+> And I had previously been using this command:
+> 	restrict(ranges(myRD), 30,50)
+> I'm doing that because I'm interested in ranges within the same region on every single "chromosome". With my real data, they spaces/seqnames are not chromosomes, they're promoter regions centered around the transcription start site, and I want to take various equivalent sub-portions of the whole set of promoters)
+>
+> I can't get "restrict" to work on the GRanges object at the moment (even if I try that same coercion first):
+> 	restrict( myGR , 30,50)
+> 	 Error in function (classes, fdef, mtable)  :
+> 	   unable to find an inherited method for function "restrict", for signature "GRanges"
+>
+> 	restrict( as(myGR,"RangesList") , 30,50)
+> 	 Error in sapply(listData, function(Xi) extends(class(Xi), elementTypeX)) :
+> 	  error in evaluating the argument 'X' in selecting a method for function 'sapply': Error in .CompressedList.list.subscript(X = X,   INDEX = seq_len(length(X)),  :
+> 	  invalid output element of class "IRanges"
+>
+> It would be great if restrict could work directly in the same way as it did for RangedData.  In the meantime I can probably figure out a way to do it with lapply.
+
+
+or
+
+   rng <- restrict(ranges(gr), 30, 50, keep.all.ranges=TRUE)
+   ranges(gr) <- rng
+   gr[width(gr) != 0]
+
+(and similarly for GRangesList).
+
+Martin
+
+> thanks,
+>
+> Janet
+>
+>
+>
+> On Jun 22, 2011, at 4:19 PM, Michael Lawrence wrote:
+>
+>> Hi,
+>>
+>> There is already a coercion from GRanges to RangesList, i.e., as(gr, "RangesList"). That said, seqselect() should have a method for GRanges, if possible.
+>>
+>> Michael
+>>
+>> On Wed, Jun 22, 2011 at 4:15 PM, Janet Young<jayoung at fhcrc.org>  wrote:
+>> Hi again,
+>>
+>> A further note - the workaround I first emailed only works when there's one range per chromosome.   I have a better workaround now - the coercion looks like this instead:
+>>
+>> convertGRangesToCompressedIRangesList<- function (myGRobject) {
+>>     myGR_convert<- split(myGRobject, seqnames(myGRobject) )
+>>     names(myGR_convert)<- unlist(lapply(myGR_convert, function(x) { as.character(seqnames(x))[1] }))
+>>
+>>     myGR_convert<- lapply(myGR_convert, ranges )
+>>     class(myGR_convert)<- "CompressedIRangesList"
+>>     myGR_convert
+>> }
+>>
+>> Janet
+>>
+>>
+>>
+>> Begin forwarded message:
+>>
+>>> From: Janet Young<jayoung at fhcrc.org>
+>>> Date: June 22, 2011 4:01:03 PM PDT
+>>> To: Bioc-sig-sequencing at r-project.org
+>>> Subject: seqselect using GRanges object on multiple chromosomes
+>>>
+>>> Hi there,
+>>>
+>>> I'm updating some of my older code - I was previously storing regions of interest as RangedData but now I'm switching to GRanges.  I'm running into a little trouble with seqselect - I've found a workaround but wanted to suggest extending seqselect so it can work with GRanges objects directly.
+>>>
+>>> I have some scores for each base-pair I've stored as a SimpleRleList object.  I want to use GRanges object with seqselect to pull out scores from my regions of interest, but to make that work I first have to do an odd (and slightly wrong-looking, to me) coercion of my GRanges object to a CompressedIRangesList.
+>>>
+>>> I think the code below explains all (?).
+>>>
+>>> thanks very much,
+>>>
+>>> Janet
+>>>
+>>>
+>>>
+>>>
+>>>
+>>>> library(GenomicRanges)
+>>> Loading required package: IRanges
+>>>
+>>> Attaching package: 'IRanges'
+>>>
+>>> The following object(s) are masked from 'package:base':
+>>>
+>>>     cbind, eval, intersect, Map, mapply, order, paste, pmax, pmax.int, pmin,
+>>>     pmin.int, rbind, rep.int, setdiff, table, union
+>>>
+>>>>
+>>>> ### make some scores objects, for single chromosomes, or across several chrs
+>>>> tempscores<- Rle(1:20)
+>>>> tempscores2<- Rle(101:120)
+>>>> allscores<- RleList(chr1=tempscores,chr2=tempscores2) # yields a SimpleRleList
+>>>>
+>>>> ## make some ranges objects
+>>>> myIR<- IRanges(start=3,end=5)
+>>>> myGR<- GRanges(seqnames=c("chr1","chr2"),ranges=IRanges(start=3,end=5))
+>>>> myRD<- RangedData(space=c("chr1","chr2"),IRanges(start=c(3,3),end=c(5,5)) )
+>>>>
+>>>>
+>>>> ### test seqselect:
+>>>> seqselect(tempscores,myIR) #works
+>>> 'integer' Rle of length 3 with 3 runs
+>>>   Lengths: 1 1 1
+>>>   Values : 3 4 5
+>>>> seqselect(allscores,myGR) # doesn't work
+>>> Error in seqselect(allscores, myGR) : unrecognized 'start' type
+>>>> seqselect(allscores,myRD) # doesn't work
+>>> Error in seqselect(allscores, myRD) : unrecognized 'start' type
+>>>>
+>>>> seqselect(allscores,ranges(myRD)) # works. ranges(myRD) is a CompressedIRangesList
+>>> SimpleRleList of length 2
+>>> $chr1
+>>> 'integer' Rle of length 3 with 3 runs
+>>>   Lengths: 1 1 1
+>>>   Values : 3 4 5
+>>>
+>>> $chr2
+>>> 'integer' Rle of length 3 with 3 runs
+>>>   Lengths:   1   1   1
+>>>   Values : 103 104 105
+>>>
+>>>>
+>>>> seqselect(allscores,ranges(myGR)) # doesn't work
+>>> Error in .bracket.Index(start, length(x), names(x), asRanges = TRUE) :
+>>>   range index out of bounds
+>>>> seqselect(allscores,split(myGR)) # doesn't work
+>>> Error in seqselect(allscores, split(myGR)) : unrecognized 'start' type
+>>>>
+>>>> #### coerce myGR to something that looks a bit like a CompressedIRangesList
+>>>> myGR_convert<- split(myGR)
+>>>> names(myGR_convert)<- names(seqlengths(myGR_convert))
+>>>> myGR_convert<- lapply(myGR_convert, ranges )
+>>>> class(myGR_convert)<- "CompressedIRangesList"
+>>>>
+>>>>
+>>>> seqselect(allscores,myGR_convert) # works
+>>> SimpleRleList of length 2
+>>> $chr1
+>>> 'integer' Rle of length 3 with 3 runs
+>>>   Lengths: 1 1 1
+>>>   Values : 3 4 5
+>>>
+>>> $chr2
+>>> 'integer' Rle of length 3 with 3 runs
+>>>   Lengths:   1   1   1
+>>>   Values : 103 104 105
+>>>
+>>>>
+>>>> sessionInfo()
+>>> R version 2.13.0 (2011-04-13)
+>>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+>>>
+>>> locale:
+>>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+>>>
+>>> attached base packages:
+>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>
+>>> other attached packages:
+>>> [1] GenomicRanges_1.4.6 IRanges_1.10.4
+>>>
+>>>
+>>
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From jayoung at fhcrc.org  Thu Jun 23 20:10:44 2011
+From: jayoung at fhcrc.org (Janet Young)
+Date: Thu, 23 Jun 2011 11:10:44 -0700
+Subject: [Bioc-sig-seq] Fwd: seqselect using GRanges object on multiple
+	chromosomes
+In-Reply-To: <4E0302A9.9050708@fhcrc.org>
+References: <E721F1D6-AD20-4335-AB0C-3C08CCCCBEA1@fhcrc.org>	<A5825299-6A03-4630-9113-2B976FE5E4A6@fhcrc.org>	<BANLkTi=wnouVR_JABex9UgM=HFOK_D4muw@mail.gmail.com>
+	<7207C32D-CB1C-4070-A40E-B1FDE2FDBD3C@fhcrc.org>
+	<4E0302A9.9050708@fhcrc.org>
+Message-ID: <FDD0AF4B-4298-4AD2-A8AE-65CBCC88326E@fhcrc.org>
+
+thanks - much tidier than my way.
+
+Janet
+
+
+On Jun 23, 2011, at 2:08 AM, Martin Morgan wrote:
+
+> On 06/22/2011 05:33 PM, Janet Young wrote:
+>> Hi again,
+>> 
+>> Thanks, Michael - looking forward to seqselect on GRanges being implemented, if possible. Getting a little further through my old code, brings up another related request.
+>> 
+>> Here are some slightly different example ranges:
+>> 	myGR<- GRanges(seqnames=c("chr1","chr2","chr2"),ranges=IRanges(start=c(25,40,60),end=c(35,45,65)) )
+>> 	myRD<- RangedData(space=c("chr1","chr2","chr2"),IRanges(start=c(25,40,60),end=c(35,45,65)) )
+>> 
+>> And I had previously been using this command:
+>> 	restrict(ranges(myRD), 30,50)
+>> I'm doing that because I'm interested in ranges within the same region on every single "chromosome". With my real data, they spaces/seqnames are not chromosomes, they're promoter regions centered around the transcription start site, and I want to take various equivalent sub-portions of the whole set of promoters)
+>> 
+>> I can't get "restrict" to work on the GRanges object at the moment (even if I try that same coercion first):
+>> 	restrict( myGR , 30,50)
+>> 	 Error in function (classes, fdef, mtable)  :
+>> 	   unable to find an inherited method for function "restrict", for signature "GRanges"
+>> 
+>> 	restrict( as(myGR,"RangesList") , 30,50)
+>> 	 Error in sapply(listData, function(Xi) extends(class(Xi), elementTypeX)) :
+>> 	  error in evaluating the argument 'X' in selecting a method for function 'sapply': Error in .CompressedList.list.subscript(X = X,   INDEX = seq_len(length(X)),  :
+>> 	  invalid output element of class "IRanges"
+>> 
+>> It would be great if restrict could work directly in the same way as it did for RangedData.  In the meantime I can probably figure out a way to do it with lapply.
+> 
+> 
+> or
+> 
+>  rng <- restrict(ranges(gr), 30, 50, keep.all.ranges=TRUE)
+>  ranges(gr) <- rng
+>  gr[width(gr) != 0]
+> 
+> (and similarly for GRangesList).
+> 
+> Martin
+> 
+>> thanks,
+>> 
+>> Janet
+>> 
+>> 
+>> 
+>> On Jun 22, 2011, at 4:19 PM, Michael Lawrence wrote:
+>> 
+>>> Hi,
+>>> 
+>>> There is already a coercion from GRanges to RangesList, i.e., as(gr, "RangesList"). That said, seqselect() should have a method for GRanges, if possible.
+>>> 
+>>> Michael
+>>> 
+>>> On Wed, Jun 22, 2011 at 4:15 PM, Janet Young<jayoung at fhcrc.org>  wrote:
+>>> Hi again,
+>>> 
+>>> A further note - the workaround I first emailed only works when there's one range per chromosome.   I have a better workaround now - the coercion looks like this instead:
+>>> 
+>>> convertGRangesToCompressedIRangesList<- function (myGRobject) {
+>>>    myGR_convert<- split(myGRobject, seqnames(myGRobject) )
+>>>    names(myGR_convert)<- unlist(lapply(myGR_convert, function(x) { as.character(seqnames(x))[1] }))
+>>> 
+>>>    myGR_convert<- lapply(myGR_convert, ranges )
+>>>    class(myGR_convert)<- "CompressedIRangesList"
+>>>    myGR_convert
+>>> }
+>>> 
+>>> Janet
+>>> 
+>>> 
+>>> 
+>>> Begin forwarded message:
+>>> 
+>>>> From: Janet Young<jayoung at fhcrc.org>
+>>>> Date: June 22, 2011 4:01:03 PM PDT
+>>>> To: Bioc-sig-sequencing at r-project.org
+>>>> Subject: seqselect using GRanges object on multiple chromosomes
+>>>> 
+>>>> Hi there,
+>>>> 
+>>>> I'm updating some of my older code - I was previously storing regions of interest as RangedData but now I'm switching to GRanges.  I'm running into a little trouble with seqselect - I've found a workaround but wanted to suggest extending seqselect so it can work with GRanges objects directly.
+>>>> 
+>>>> I have some scores for each base-pair I've stored as a SimpleRleList object.  I want to use GRanges object with seqselect to pull out scores from my regions of interest, but to make that work I first have to do an odd (and slightly wrong-looking, to me) coercion of my GRanges object to a CompressedIRangesList.
+>>>> 
+>>>> I think the code below explains all (?).
+>>>> 
+>>>> thanks very much,
+>>>> 
+>>>> Janet
+>>>> 
+>>>> 
+>>>> 
+>>>> 
+>>>> 
+>>>>> library(GenomicRanges)
+>>>> Loading required package: IRanges
+>>>> 
+>>>> Attaching package: 'IRanges'
+>>>> 
+>>>> The following object(s) are masked from 'package:base':
+>>>> 
+>>>>    cbind, eval, intersect, Map, mapply, order, paste, pmax, pmax.int, pmin,
+>>>>    pmin.int, rbind, rep.int, setdiff, table, union
+>>>> 
+>>>>> 
+>>>>> ### make some scores objects, for single chromosomes, or across several chrs
+>>>>> tempscores<- Rle(1:20)
+>>>>> tempscores2<- Rle(101:120)
+>>>>> allscores<- RleList(chr1=tempscores,chr2=tempscores2) # yields a SimpleRleList
+>>>>> 
+>>>>> ## make some ranges objects
+>>>>> myIR<- IRanges(start=3,end=5)
+>>>>> myGR<- GRanges(seqnames=c("chr1","chr2"),ranges=IRanges(start=3,end=5))
+>>>>> myRD<- RangedData(space=c("chr1","chr2"),IRanges(start=c(3,3),end=c(5,5)) )
+>>>>> 
+>>>>> 
+>>>>> ### test seqselect:
+>>>>> seqselect(tempscores,myIR) #works
+>>>> 'integer' Rle of length 3 with 3 runs
+>>>>  Lengths: 1 1 1
+>>>>  Values : 3 4 5
+>>>>> seqselect(allscores,myGR) # doesn't work
+>>>> Error in seqselect(allscores, myGR) : unrecognized 'start' type
+>>>>> seqselect(allscores,myRD) # doesn't work
+>>>> Error in seqselect(allscores, myRD) : unrecognized 'start' type
+>>>>> 
+>>>>> seqselect(allscores,ranges(myRD)) # works. ranges(myRD) is a CompressedIRangesList
+>>>> SimpleRleList of length 2
+>>>> $chr1
+>>>> 'integer' Rle of length 3 with 3 runs
+>>>>  Lengths: 1 1 1
+>>>>  Values : 3 4 5
+>>>> 
+>>>> $chr2
+>>>> 'integer' Rle of length 3 with 3 runs
+>>>>  Lengths:   1   1   1
+>>>>  Values : 103 104 105
+>>>> 
+>>>>> 
+>>>>> seqselect(allscores,ranges(myGR)) # doesn't work
+>>>> Error in .bracket.Index(start, length(x), names(x), asRanges = TRUE) :
+>>>>  range index out of bounds
+>>>>> seqselect(allscores,split(myGR)) # doesn't work
+>>>> Error in seqselect(allscores, split(myGR)) : unrecognized 'start' type
+>>>>> 
+>>>>> #### coerce myGR to something that looks a bit like a CompressedIRangesList
+>>>>> myGR_convert<- split(myGR)
+>>>>> names(myGR_convert)<- names(seqlengths(myGR_convert))
+>>>>> myGR_convert<- lapply(myGR_convert, ranges )
+>>>>> class(myGR_convert)<- "CompressedIRangesList"
+>>>>> 
+>>>>> 
+>>>>> seqselect(allscores,myGR_convert) # works
+>>>> SimpleRleList of length 2
+>>>> $chr1
+>>>> 'integer' Rle of length 3 with 3 runs
+>>>>  Lengths: 1 1 1
+>>>>  Values : 3 4 5
+>>>> 
+>>>> $chr2
+>>>> 'integer' Rle of length 3 with 3 runs
+>>>>  Lengths:   1   1   1
+>>>>  Values : 103 104 105
+>>>> 
+>>>>> 
+>>>>> sessionInfo()
+>>>> R version 2.13.0 (2011-04-13)
+>>>> Platform: i386-apple-darwin9.8.0/i386 (32-bit)
+>>>> 
+>>>> locale:
+>>>> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8
+>>>> 
+>>>> attached base packages:
+>>>> [1] stats     graphics  grDevices utils     datasets  methods   base
+>>>> 
+>>>> other attached packages:
+>>>> [1] GenomicRanges_1.4.6 IRanges_1.10.4
+>>>> 
+>>>> 
+>>> 
+>>> _______________________________________________
+>>> Bioc-sig-sequencing mailing list
+>>> Bioc-sig-sequencing at r-project.org
+>>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+>>> 
+>> 
+>> _______________________________________________
+>> Bioc-sig-sequencing mailing list
+>> Bioc-sig-sequencing at r-project.org
+>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+> 
+> 
+> -- 
+> Computational Biology
+> Fred Hutchinson Cancer Research Center
+> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+> 
+> Location: M1-B861
+> Telephone: 206 667-2793
+
+
+From yifangt at hotmail.com  Thu Jun 23 22:34:02 2011
+From: yifangt at hotmail.com (yifang tan)
+Date: Thu, 23 Jun 2011 15:34:02 -0500
+Subject: [Bioc-sig-seq] FW:  edgeR common library size question.
+In-Reply-To: <BAY145-w191F6687F382E9D76E4AA5A5530@phx.gbl>
+References: <BAY145-w54B12F8097F3B67EFD997CA5510@phx.gbl>,
+	<99EB3520-4F7D-42D3-9DF6-ADEE03D0E259@wehi.edu.au>,
+	<BAY145-w191F6687F382E9D76E4AA5A5530@phx.gbl>
+Message-ID: <BAY145-w13BA8232B1A62DE0C50E51A5530@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110623/750fa60e/attachment.pl>
+
+From yifangt at hotmail.com  Thu Jun 23 22:46:10 2011
+From: yifangt at hotmail.com (yifang tan)
+Date: Thu, 23 Jun 2011 15:46:10 -0500
+Subject: [Bioc-sig-seq] Correction: EdgeR common libary size and normalized
+	counts.
+Message-ID: <BAY145-w16E4EBC36831040EC5549CA5530@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110623/b6835b56/attachment.pl>
+
+From yifangt at hotmail.com  Sat Jun 25 00:13:07 2011
+From: yifangt at hotmail.com (yifang tan)
+Date: Fri, 24 Jun 2011 17:13:07 -0500
+Subject: [Bioc-sig-seq] edgeR common library size question.
+In-Reply-To: <94AA1075-812F-4C7E-8B5B-097D61EA7AFB@wehi.edu.au>
+References: <BAY145-w54B12F8097F3B67EFD997CA5510@phx.gbl>,
+	<99EB3520-4F7D-42D3-9DF6-ADEE03D0E259@wehi.edu.au>
+	<BAY145-w191F6687F382E9D76E4AA5A5530@phx.gbl>,
+	<94AA1075-812F-4C7E-8B5B-097D61EA7AFB@wehi.edu.au>
+Message-ID: <BAY145-w5452CD0747E71DE6CB8177A5520@phx.gbl>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110624/11aba089/attachment.pl>
+
+From dmccarthy at wehi.EDU.AU  Mon Jun 27 09:36:18 2011
+From: dmccarthy at wehi.EDU.AU (Davis McCarthy)
+Date: Mon, 27 Jun 2011 17:36:18 +1000
+Subject: [Bioc-sig-seq] edgeR common library size question.
+In-Reply-To: <BAY145-w5452CD0747E71DE6CB8177A5520@phx.gbl>
+References: <BAY145-w54B12F8097F3B67EFD997CA5510@phx.gbl>,
+	<99EB3520-4F7D-42D3-9DF6-ADEE03D0E259@wehi.edu.au>
+	<BAY145-w191F6687F382E9D76E4AA5A5530@phx.gbl>,
+	<94AA1075-812F-4C7E-8B5B-097D61EA7AFB@wehi.edu.au>
+	<BAY145-w5452CD0747E71DE6CB8177A5520@phx.gbl>
+Message-ID: <3B8C953B-392E-4D92-8C71-76B60CE8DF24@wehi.edu.au>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110627/1f5d880d/attachment.pl>
+
+From KQu at genomichealth.com  Thu Jun 30 01:18:13 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Wed, 29 Jun 2011 23:18:13 +0000
+Subject: [Bioc-sig-seq] questions about GenomicFeatures
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62C3CF@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110629/a2aef910/attachment.pl>
+
+From D.Strbenac at garvan.org.au  Thu Jun 30 02:00:08 2011
+From: D.Strbenac at garvan.org.au (Dario Strbenac)
+Date: Thu, 30 Jun 2011 10:00:08 +1000 (EST)
+Subject: [Bioc-sig-seq] questions about GenomicFeatures
+Message-ID: <20110630100008.BMC79932@gimr.garvan.unsw.edu.au>
+
+Those numbers are Entrez IDs. You can get their gene symbols from one of the Bioconductor databases.
+
+library(org.Hs.eg.db)
+entrezToSymbols <- as.list(org.Hs.egSYMBOL)
+> head(entrezToSymbols)
+$`1`
+[1] "A1BG"
+
+$`10`
+[1] "NAT2"
+
+$`100`
+[1] "ADA"
+
+$`1000`
+[1] "CDH2"
+
+$`10000`
+[1] "AKT3"
+
+$`100008586`
+[1] "GAGE12F"
+
+--------------------------------------
+Dario Strbenac
+Research Assistant
+Cancer Epigenetics
+Garvan Institute of Medical Research
+Darlinghurst NSW 2010
+Australia
+
+
+From KQu at genomichealth.com  Thu Jun 30 02:07:03 2011
+From: KQu at genomichealth.com (Kunbin Qu)
+Date: Thu, 30 Jun 2011 00:07:03 +0000
+Subject: [Bioc-sig-seq] counting reads for refseq genes
+Message-ID: <806E483E7E5A1E4CA78AC236E1F3324F3C62C3EA@SRV321.genomichealth.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110630/10a837c6/attachment.pl>
+
+From apratap at lbl.gov  Thu Jun 30 02:22:47 2011
+From: apratap at lbl.gov (Abhishek Pratap)
+Date: Wed, 29 Jun 2011 17:22:47 -0700
+Subject: [Bioc-sig-seq] counting reads for refseq genes
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62C3EA@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62C3EA@SRV321.genomichealth.com>
+Message-ID: <BANLkTikGipJceymo4u4fymZe2C6yozdQsw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110629/1a1cd62f/attachment.pl>
+
+From mtmorgan at fhcrc.org  Thu Jun 30 08:13:44 2011
+From: mtmorgan at fhcrc.org (Martin Morgan)
+Date: Wed, 29 Jun 2011 23:13:44 -0700
+Subject: [Bioc-sig-seq] questions about GenomicFeatures
+In-Reply-To: <806E483E7E5A1E4CA78AC236E1F3324F3C62C3CF@SRV321.genomichealth.com>
+References: <806E483E7E5A1E4CA78AC236E1F3324F3C62C3CF@SRV321.genomichealth.com>
+Message-ID: <4E0C1418.2010309@fhcrc.org>
+
+On 06/29/2011 04:18 PM, Kunbin Qu wrote:
+> Hi,
+>
+> When I tried to use GenomicFeatures, how could I get the gene symbol from the transcripts built from hg19? I had the following commands, and I expected to see names like "TP53", "MMP11", "UBE2E" etc, but instead, I only had the numbers (which did not add much value) when I used the names().
+>
+> -Kunbin
+>
+>
+>> hg19kg<-makeTranscriptDbFromUCSC(genome="hg19", tablename="knownGene")
+>> GR<-transcripts(hg19kg, vals<-list(tx_chrom="chr1", tx_strand="+"))
+>> GRList<-transcriptsBy(hg19kg, by="gene")
+>> names(GRList)[1:20]
+>   [1] "1"         "10"        "100"       "1000"      "10000"     "100008586"
+>   [7] "100008587" "100009676" "10001"     "10002"     "10003"     "100033413"
+> [13] "100033414" "100033415" "100033416" "100033417" "100033420" "100033422"
+> [19] "100033423" "100033424"
+
+Hi Kunbin
+
+These are ENTREZ gene ids, and you're after (the much more ambiguous) 
+SYMBOL identifiers. Use
+
+   nms <- GRList[1:20]
+   library(org.Hs.eg.db)
+   map <- org.Hs.egSYMBOL
+   toTable(map[nms])
+
+or maybe mget(nms, map, ifnotfound=MA) and processing
+
+Martin
+
+>> sessionInfo()
+> R version 2.11.0 (2010-04-22)
+> x86_64-unknown-linux-gnu
+>
+> locale:
+>   [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C
+>   [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8
+>   [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8
+>   [7] LC_PAPER=en_US.UTF-8       LC_NAME=C
+>   [9] LC_ADDRESS=C               LC_TELEPHONE=C
+> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C
+>
+> attached base packages:
+> [1] tcltk     stats     graphics  grDevices utils     datasets  methods
+> [8] base
+>
+> other attached packages:
+>   [1] GenomicFeatures_1.0.4 DEGseq_2.0.0          samr_1.28
+>   [4] impute_1.24.0         ShortRead_1.6.2       Rsamtools_1.0.1
+>   [7] lattice_0.19-11       Biostrings_2.16.7     GenomicRanges_1.0.1
+> [10] IRanges_1.6.8         qvalue_1.22.0
+>
+> loaded via a namespace (and not attached):
+>   [1] Biobase_2.8.0     biomaRt_2.4.0     BSgenome_1.17.1   DBI_0.2-5
+>   [5] grid_2.11.0       hwriter_1.3       RCurl_1.4-3       RSQLite_0.9-2
+>   [9] rtracklayer_1.8.1 tools_2.11.0      XML_3.1-1
+>>
+>
+>
+> ______________________________________________________________________
+> The contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.
+> 	[[alternative HTML version deleted]]
+>
+> _______________________________________________
+> Bioc-sig-sequencing mailing list
+> Bioc-sig-sequencing at r-project.org
+> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+
+-- 
+Computational Biology
+Fred Hutchinson Cancer Research Center
+1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109
+
+Location: M1-B861
+Telephone: 206 667-2793
+
+
+From sarahanson5 at gmail.com  Thu Jun 30 21:22:44 2011
+From: sarahanson5 at gmail.com (Sara Hanson)
+Date: Thu, 30 Jun 2011 14:22:44 -0500
+Subject: [Bioc-sig-seq] Adjusted p values in edgeR
+Message-ID: <BANLkTi=MzqYGXB5x8=Ob+rR925eMyBVoVw@mail.gmail.com>
+
+An embedded and charset-unspecified text was scrubbed...
+Name: not available
+URL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110630/ba43000f/attachment.pl>
+
+From kgarg at fhcrc.org  Thu Jun 30 21:34:18 2011
+From: kgarg at fhcrc.org (Garg, Kavita)
+Date: Thu, 30 Jun 2011 12:34:18 -0700 (PDT)
+Subject: [Bioc-sig-seq] Adjusted p values in edgeR
+In-Reply-To: <BANLkTi=MzqYGXB5x8=Ob+rR925eMyBVoVw@mail.gmail.com>
+Message-ID: <1376015272.132935.1309462458645.JavaMail.root@zimbra1.fhcrc.org>
+
+
+The output of topTags has that information
+top = topTags(d, n = 500)
+top$table has a adj.P.Val column
+
+----- Original Message -----
+From: "Sara Hanson" <sarahanson5 at gmail.com>
+To: bioc-sig-sequencing at r-project.org
+Sent: Thursday, June 30, 2011 12:22:44 PM
+Subject: [Bioc-sig-seq] Adjusted p values in edgeR
+
+I am analyzing differential expression with next gen sequencing data. I have
+successfully gotten an output from the program containing the p-values
+calculated for each gene, but I am not sure how to output the p-values
+adjusted using the FDR method. From the edgeR manual, I can get a summary of
+the number of genes that are significantly differentially expressed based on
+adjusted p-values, but I do not know how to output the actual list of
+adjusted p-values for my dataset. Can anyone help me with this?
+
+I apologize if this question is naive, but I am a novice with R. Thanks in
+advance!
+
+	[[alternative HTML version deleted]]
+
+_______________________________________________
+Bioc-sig-sequencing mailing list
+Bioc-sig-sequencing at r-project.org
+https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing
+
+

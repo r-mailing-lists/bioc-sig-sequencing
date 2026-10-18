@@ -1,0 +1,484 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2008-11",
+  "messages": [
+    {
+      "id": "msg-350d13aea272",
+      "message_id": "<490EF012.7090103@titus.u-strasbg.fr>",
+      "from_name": "Wolfgang Raffelsberger",
+      "from_email_hash": "e89b3e6d62462602c60743302b0db83cb1ade12a841b8bdd5c92497cc0205468",
+      "date": "2008-11-03T12:35:30Z",
+      "subject": "[Bioc-sig-seq] SNP counting (Biostrings ?) question",
+      "subject_clean": "[Bioc-sig-seq] SNP counting (Biostrings ?) question",
+      "in_reply_to": "<490B40EC.3060100@fhcrc.org>",
+      "references": [
+        "<4900B360.3040906@titus.u-strasbg.fr>",
+        "<490220D9.1070005@fhcrc.org>",
+        "<4909D3B5.8020603@titus.u-strasbg.fr>",
+        "<490B40EC.3060100@fhcrc.org>"
+      ],
+      "body_plain": "Dear Patrick,\n\nthank's for your response. After looking in the nice functions that you \npointed out now I have three new questions:\n\n1) Using commands like mismatchTable or consensusMatrix, is there a way \nto I tell/recall which of my sample-sequences has given alterations in \nthe pairwise alignments. This might correspond to a list for each line \nof mismatchSummary(alignments)$subject  tells which of the \nsample-sequence contributed to the effect counted in  \nmismatchSummary(alignments)$subject$Count .  Or are there some other \nways/commands allowing to do so ?\n\n2) I noticed that I get the same paire-wise alignment results (even same \nscore) when using +5 insted of -5 for gapOpening etc.  Why bother about \nwriting values as negative if they're taken as abs() ?\n\n3) I don't see insertions displayed with consensusMatrix(), ie the \"+\" \nlines stays empty while deletions (\"-\") are counted correctly (and I \ndidn't get insertion() to work). My example sample-sequences no 5 & 6 \nhave insertions.\n\nThank's in advance,\nWolfgang\n\n\nlibrary(Biostrings)\n\nmat <- matrix(-3,nc=5,nr=5)\n diag(mat) <- 1\n mat[,5] <- 0\n mat[5,] <- 0\n rownames(mat) <- colnames(mat) <- c(\"A\",\"C\",\"G\",\"T\",\"N\")\n\nref <- DNAString(\"ACTTCACCAGCTCCCTGGCGGTAAGTTGATCAAA\")\nsamp <- \nDNAStringSet(c(\"CTTCtCCAGCTCCCTGGCGGTAAGTTGA\",\"ACTTCtCCAGCTagCTGnnGGTAAGTTGA\", \n\n \"TTCACCAGCTCCCTGCGGGTAAGTT\",\"TTCACGCTcCTGGGTAAGGATCA\",\n \n\"cACTTCACCAGCTCCCTGGCGGTAAGT\",\"nnnnTTCtCCAGCTCCCccTGGCGatngGTAAGTTGATCtcgt\")) \n\n # samp: no1: single mut, no2: mult mut, no3: just shorter, no4: \ndeletions, no5: insertion, no6: mult insertions\n\nalignments <- pairwiseAlignment(samp, ref, substitutionMatrix=mat,\n  gapOpening= -5, gapExtension= -2, scoreOnly=FALSE, type=\"global\")\n\n# test if abs() values for gapOpening change anything\nalignments2 <- pairwiseAlignment(samp, ref, substitutionMatrix=mat,\n  gapOpening= 5, gapExtension= 2, scoreOnly=FALSE, type=\"global\")\nidentical(alignments,alignments2)     # is TRUE\n\n# check for deletions\nconsensusMatrix(alignments, baseOnly = F)[c(1:4,15:17),]\n# the last line \"+\" doesn't show/count any insertions while deletions \n\"-\" are counted OK\n\n\n\n\n > sessionInfo()\nR version 2.8.0 (2008-10-20)\ni386-pc-mingw32\n\nlocale:\nLC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 \n\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base   \nother attached packages:\n[1] Biostrings_2.10.0 IRanges_1.0.1  \nloaded via a namespace (and not attached):\n[1] grid_2.8.0         lattice_0.17-15    Matrix_0.999375-16\n\n\n\n\nPatrick Aboyoun a ?crit :\n> Wolfgang,\n> I'm glad to hear you are finding the Biostrings package to be useful. \n> The pairwiseAlignment function has some helper functions that would be \n> useful to a SNP analysis. In particular, you may want to take a look \n> at the mismatchTable, mismatchSummary, summary, and consensusMatrix \n> functions to see if they provide the summaries you are looking for. I \n> also recommend you leverage the vectorized capabilities of the \n> pairwiseAlignment function since it will be easier to maintain your \n> code, provide faster execution time, and make it easier to summarize \n> your results. I have modified your code slightly to show you what you \n> can get \"out of the box\" from the Biostrings package without writing \n> too much code:\n>\n>\n> library(Biostrings)\n> # the substitution matrix\n> mat <- matrix(-3, nrow = 5, ncol = 5)\n> diag(mat) <- 1\n> mat[,5] <- 0; mat[5,] <- 0\n> rownames(mat) <- colnames(mat) <- DNA_ALPHABET[c(1:4,15)]\n>\n> # the consensus reference sequence\n> ref <- DNAString(\"ACTTCACCAGCTCCCTGGC\")\n> # the sample sequences; the 3rd one has no mutations, it's simply \n> shorter ...\n> samp <-\n>  \n> DNAStringSet(c(\"CTTCTCCAGCTCCCTGG\",\"ACTTCTCCAGCTACCTGG\",\"TTCACCAGCTCCCTG\")) \n>\n>\n> # vectorized alignments using the ref as the \"subject\"\n> alignments <-\n>  pairwiseAlignment(samp, ref, substitutionMatrix=mat,\n>    gapOpening= -5, gapExtension= -2, scoreOnly=FALSE,\n>    type=\"global\")\n>\n> # summaries useful for SNP analysis\n> summary(alignments)\n> mismatchSummary(alignments)\n> mismatchTable(alignments)\n> consensusMatrix(alignments, baseOnly = TRUE)\n>\n>\n>\n> Patrick\n>\n>\n> Wolfgang Raffelsberger wrote:\n>> Hi Herve,\n>>\n>> thank you for your helpful answer.\n>> Initially I was wondering if there are already some functions/packages\n>> directly for my tasks available, as Bioconducter and CRAN are very\n>> strong resources.\n>>\n>> Since your Biostrings package provides all the basic functionalities,\n>> I've built a few (additional) functions (on top of Biostrings) doing the\n>> job.\n>> To be more precise, yes, I'm interested in detecting all alterations\n>> (mutations+ insertions + deletions). However, within the project's\n>> biological context mutations are the prime focus. Right now I'm rather\n>> in an exploratory/pilot phase for the nucleotide-alteration/SNP\n>> counting, so I'll probably improve & expand some of my quickly \n>> written code.\n>>\n>> For the sequence alignments I prefer global, since I'd rather want the\n>> 'best' match possible (ie the default setting with pairwiseAlignment()\n>> ).  Concerning the choice of (custom) substitution matrices I'm not very\n>> decided.  Right now I'm using very generic ones (like in the Biostrings\n>> vignette). Recently I've learned that there are several 'versions' of\n>> the Needleman-Wunsch algorithm (ie various improvements to the original\n>> one), so I'm not any more surprised of seeing different scores from\n>> different implementations...\n>> Anyway, once it's clear which sample/target (ie sequencer output) should\n>> be compared with which reference sequence (ie the consenus genomic\n>> sequence of the very region to be tested) I don't use the score any more\n>> and luckily my test-data contain few completely unexpected 'alien'\n>> sequences.  For this initial step now I use matchPattern() - thank's for\n>> your hint- where I primarily need to test if sequences have to be read\n>> as inverse/complement.\n>> Again, after a bit more digging I found the corresponding functions and\n>> I'm quite happy with the performance !\n>>\n>> At the core of SNP/alterations counting I dissect the pairwise alignment\n>> and record what kind of changes have happened (at this level I noted\n>> some changes to the new BioC 2.3 implementation ...see also code below).\n>> Here I use (so far) strsplit() to make two vectors with individual\n>> nucleotides (and gaps) to extract the positions&changes from each of the\n>> lines of the pairwise alignment (see code below). I guess there may be\n>> other more elegant/faster ways to do this...\n>> As I'm primarily interested in 'simple mutations', so far I took a\n>> shortcut consisting in simply looking at the first of inserted\n>> nucleotide in cases of insertions (some additional lines not part of the\n>> code below). Maybe later I'll get back to expand this ... After all I\n>> end up with a simple matrix where each row corresponds to a position of\n>> the reference sequence and the columns contain counts of the\n>> events/alterations observed (where at least I'm able to tell if any\n>> insertions have happened at all) where I can run classical statistical\n>> tests.\n>>\n>> Cheers,\n>> Wolfgang\n>>\n>> # here the way I 'parse' pairwise alignments :\n>>\n>> library(Biostrings)\n>> mat <- matrix(-3, nrow = 5, ncol = 5)\n>> diag(mat) <- 1\n>> mat[,5] <- 0; mat[5,] <- 0\n>> rownames(mat) <- colnames(mat) <- DNA_ALPHABET[c(1:4,15)]\n>>\n>> ref <- DNAString(\"ACTTCACCAGCTCCCTGGC\")                # the consensus\n>> reference sequence\n>> samp <-\n>> DNAStringSet(c(\"CTTCTCCAGCTCCCTGG\",\"ACTTCTCCAGCTACCTGG\",\"TTCACCAGCTCCCTG\")) \n>>\n>> # the 3rd one has no mutations, it's simply shorter ...\n>> # here (simplified) I already know that my sequence is oriented \n>> correctly\n>> alignRes <- matrix(nr=nchar(ref),nc=length(samp))\n>> for(i in 1:length(samp)) {\n>>   x <- pairwiseAlignment(as.character(ref), samp[[i]],\n>> substitutionMatrix= mat, gapOpening= -5, gapExtension= -2,scoreOnly=F,\n>> type=\"global\")\n>>   cutsamp <- unlist(strsplit(as.character(x at subject),\"\"))\n>>   cutref <- unlist(strsplit(as.character(x at pattern),\"\"))\n>>   if(nchar(ref) != length(cutref)) {\n>>     origRefNt <- unlist(strsplit(as.character(ref),\"\"))\n>>     offS <- 1\n>>     while(origRefNt[1+offS] != cutref[1]) offS <- offS+1\n>>   }\n>>   out <- rep(\"Z\",nchar(ref))                                    # use\n>> \"Z\" for (default) constant\n>>   if( !identical(cutsamp,cutref)) {\n>>     mutPos <- !(cutref== cutsamp)\n>>     out[mutPos+offS] <- cutsamp[mutPos+offS]\n>>     if(sum(cutref==\"-\")>0) out <- out[-which(cutref==\"-\")]    # remove\n>> gaps in reference\n>>     # gaps could/can be retained at this stage only to a limited degree\n>> by additional subsitutions\n>>   }\n>>  alignRes[,i] <- out\n>> }\n>>\n>>> sessionInfo()\n>> R version 2.8.0 (2008-10-20)\n>> i386-pc-mingw32\n>>\n>> locale:\n>> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 \n>>\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base\n>>\n>> other attached packages:\n>> [1] Biostrings_2.10.0 IRanges_1.0.1\n>>\n>> loaded via a namespace (and not attached):\n>> [1] grid_2.8.0         lattice_0.17-15    Matrix_0.999375-16\n>>\n>>\n>>\n>> Herve Pages a ?crit :\n>>> Hi Wolfgang,\n>>>\n>>> If I understand correctly you want to compare a collection of \"sample\"\n>>> sequences against a \"reference\" sequence.\n>>>\n>>> There are many ways to \"compare\" 2 sequences and to get a score from \n>>> this\n>>> comparison: Do you want to allow indels or just substitutions (aka \n>>> replacements)?\n>>> Do you want the alignment to be global or local? Do you want the \n>>> score to be\n>>> determined by a custom substitution matrix or just to reflect the \"edit\n>>> distance\" between the 2 sequences (i.e. the minimum number of \n>>> replacements\n>>> + insertions + deletions required to transform sequence 1 into \n>>> sequence 2).\n>>>\n>>> If you are trying to get the edit distance between the sample sequences\n>>> and the reference sequence then you might want to look at this post:\n>>>\n>>>   \n>>> https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2008-July/000067.html \n>>>\n>>>\n>>> Note that the 'type' argument is omitted in this post so \n>>> pairwiseAlignment()\n>>> is used to perform \"global\" alignments, that is, the score that is \n>>> returned\n>>> indicates the min nb of edit operations needed to transform the \n>>> *complete*\n>>> sequences in 'pattern' (your \"sample\" sequences) into the *complete* \n>>> 'subject'\n>>> (your \"reference\" sequence).\n>>> One nice property of \"global\" alignment is that it is a symetric \n>>> operation on\n>>> the 2 sequences to align. You can take advantage of this by \n>>> inverting the roles\n>>> of the \"sample\" and the \"reference\" sequences so 'samp' can be the \n>>> pattern\n>>> and 'ref' the subject. Then you can benefit from the fact that\n>>> pairwiseAlignment() is vectorized on the pattern.\n>>>\n>>> But then you say that you would primarily be interested in finding \n>>> where\n>>> a given nucleotide differs from the query. This suggests that you \n>>> are in fact\n>>> looking for a much simpler form of alignment where only mismatches \n>>> (i.e.\n>>> replacements) are allowed but no indels. Also you say that your\n>>> sample-sequences may start or end slightly later/earlier.\n>>> This means that you can use the matchPattern() function for your \n>>> problem.\n>>>\n>>>   > m2 <- matchPattern(samp[[2]], ref, max.mismatch=3)\n>>>   > m2\n>>>     Views on a 19-letter DNAString subject\n>>>   subject: ACTTCACCAGCTCCCTGGC\n>>>   views:\n>>>       start end width\n>>>   [1]     1  18    18 [ACTTCACCAGCTCCCTGG]\n>>>\n>>> Then use the mismatch() function to get the position(s) of the \n>>> mismatche(s):\n>>>\n>>>   > mismatch(samp[[2]], m2)[[1]]\n>>>   [1]  6 13\n>>>\n>>> Cheers,\n>>> H.\n>>>\n>>>\n>>> Wolfgang Raffelsberger wrote:\n>>>  \n>>>> Dear list,\n>>>>\n>>>> I would like to count the occurrence of (mostly single) nucleotide\n>>>> polymorphisms from nucleotide sequences.\n>>>> I got across the Biostrings package and pairwiseAlignment() that \n>>>> allows\n>>>> me to get closer to what I want but\n>>>> 1) I noticed that the score produced from pairwiseAlignment() is quite\n>>>> different to other implementations of the Needlaman-Wunsch alogorithm\n>>>> (eg in EMBOSS)\n>>>> 2) the score is not directly the information I 'm looking for since \n>>>> it's\n>>>> a mixture of the gaps & mismatches (and I don't see if/how one could\n>>>> modify that).\n>>>>\n>>>> However, I would primarily be interested in finding where a given\n>>>> nucleotide differs from the query (from a pairwise alignment) to some\n>>>> statistics on them, ie at which position I get which other element\n>>>> instead. Note, that my sample-sequences may start or end slightly\n>>>> later/earlier.\n>>>> Any suggestions ?\n>>>>\n>>>> Sample code might look like (of course, my real sequences are \n>>>> longer ...):\n>>>>\n>>>> ref <- DNAString(\"ACTTCACCAGCTCCCTGGC\")\n>>>> samp <-\n>>>> DNAStringSet(c(\"CTTCTCCAGCTCCCTGG\",\"ACTTCTCCAGCTACCTGG\",\"TTCACCAGCTCCCTG\"))  \n>>>> # the 3rd one has no mutations, it's simply shorter ...\n>>>>  pairwiseAlignment(ref, samp[[1]], substitutionMatrix = mat, \n>>>> gapOpening\n>>>> = -5, gapExtension = -2)\n>>>> alignScores <- numeric()\n>>>> for(i in 1:3) alignScores[i] <- pairwiseAlignment(ref, samp[[i]],\n>>>> substitutionMatrix = mat, gapOpening = -5, gapExtension = -2, \n>>>> scoreOnly=T)\n>>>> alignScores     # the 3rd sequence without mismatches gets worst score\n>>>>\n>>>>\n>>>> (Based on a previous post on BioC) I just subscribed to\n>>>> bioc-sig-sequencing at r-project.org, but I don't know if I don't \n>>>> mange to\n>>>> search the previous mail archives (on http://search.gmane.org/) \n>>>> since I\n>>>> keep getting (general) Bioconductor messages.\n>>>>\n>>>> Thank's in advance,\n>>>> Wolfgang\n>>>>\n>>>>\n>>>> By the way, if that matters, I'm (still) running R-2.7.2\n>>>>   \n>>>>> sessionInfo()\n>>>>>       \n>>>> R version 2.7.2 (2008-08-25)\n>>>> i386-pc-mingw32\n>>>>\n>>>> locale:\n>>>> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 \n>>>>\n>>>>\n>>>>\n>>>> attached base packages:\n>>>> [1] stats     graphics  grDevices datasets  tcltk     utils    \n>>>> methods   base   other attached packages:\n>>>> [1] Biostrings_2.8.18 svSocket_0.9-5    svIO_0.9-5       \n>>>> R2HTML_1.59       svMisc_0.9-5      svIDE_0.9-5    loaded via a \n>>>> namespace (and not attached):\n>>>> [1] tools_2.7.2\n>>>>     \n\n\n \n. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\nWolfgang Raffelsberger, PhD\nLaboratoire de BioInformatique et G?nomique Int?gratives\nCNRS UMR7104, IGBMC \n1 rue Laurent Fries,  67404 Illkirch  Strasbourg,  France\nTel (+33) 388 65 3300         Fax (+33) 388 65 3276\nwolfgang.raffelsberger at igbmc.fr",
+      "body_snippet": "Dear Patrick,\n\nthank's for your response. After looking in the nice functions that you \npointed out now I have three new questions:\n\n1) Using commands like mismatchTable or consensusMatrix, is there a",
+      "thread_id": "thread-350d13aea272",
+      "thread_depth": 0,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-a9496de11acb",
+      "message_id": "<49103916.2050605@ebi.ac.uk>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "8481a5f74e0203c0e279b0cd7f952f11ea65fcad4bf054f5268c275ad236a2d9",
+      "date": "2008-11-04T11:59:18Z",
+      "subject": "[Bioc-sig-seq] BMC Bioinf paper: probabilistic base calling of Solexa sequencing data, Rougemont et al.",
+      "subject_clean": "[Bioc-sig-seq] BMC Bioinf paper: probabilistic base calling of Solexa sequencing data, Rougemont et al.",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "perhaps of interest to some:\nhttp://www.biomedcentral.com/1471-2105/9/431\n-- \nBest wishes\n Wolfgang\n\n------------------------------------------------------------------\nWolfgang Huber  EBI/EMBL  Cambridge UK  http://www.ebi.ac.uk/huber",
+      "body_snippet": "perhaps of interest to some:\nhttp://www.biomedcentral.com/1471-2105/9/431\n-- \nBest wishes\n Wolfgang\n\n------------------------------------------------------------------\nWolfgang Huber  EBI/EMBL  Cambri",
+      "thread_id": "thread-a9496de11acb",
+      "thread_depth": 0,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-f16835fc587d",
+      "message_id": "<22B4870E7B957846BD20439F7FD79DD59B0347D22F@ISIS.ciml.cnrs>",
+      "from_name": "Romain FENOUIL",
+      "from_email_hash": "75f55c1911c0b205a3b2c3a5925bb8f10135049e2e1bb5b68d76309bbb869a71",
+      "date": "2008-11-04T16:31:39Z",
+      "subject": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "subject_clean": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi all,\n\nI'm quiet new to this mailing list system so I would firstly like to introduce myself.\n\nMy name is Romain Fenouil and I'm working as bioinformatician in the Immunology Center of Marseille Luminy.\nUntil now, we were mainly working on assessing transcription factor binding sites with ChIP-on-Chip experiments and we recently tried some ChIPseq runs.\nFirstly, we wanted to assess the differences between these two techniques and we are now interested in going further with this method.\n\nWe are working in collaboration with another lab that gives us the Eland aligned files and the Raw data (tag sequences) files.\nI managed (with some trouble) to load these aligned data and to have a look at the enrichment profiles for the TF of interest. It's amazing !\nI'm also working on using maq alignment software to make a comparison between the eland and maq alignments.\n\nI'm using the ShortRead R package to load the aligned data and play with it. And after some time to understand how it works, I have to say that it's really convenient.\n(Thank you to Martin Morgan and Simon Anders who helped me for eland and maq data loading).\n\n\nSo after this big introduction, here is my question :\n\nWe are now able to have enrichment profiles for all the genome except repeated regions.\nSince we are never satisfied, we began to be interested in some repeated regions (snRNAs for instance).\nWe already have some ideas on how to assess binding events in case of repeated regions but we need some informations on these regions.\n\nSpecially, I would like to know if there is a way to get the list of tags that were implied in multiple match in the genome.\nWhat we would like to have is the number of match of a tag in the genome and the locations of these matches.\nI heard that one can have access to different informations on these tags depending on which alignment software he is using.\n\nFor instance i have been said that eland doesn't give you much information on tags that have multimatches. What about maq ?\nmaybe SOAP ? Will I have to deal with bioStrings and try to remap it manually ?\n\nSo if you have any general information or ideas about how to deal with it, I would be interested.\nOf course, I can give you a lot more information if needed and I hope that this message will be a good introduction for a long discussion.\n\nThank you very much.\n\nBest regards,\n\nRomain.\n\n\nPS : I hope I didn't do a mistake in my posting process :-) I you have a basic tutorial on how to correctly use this mailing list (specially answering procedure) I can be interested.\n\n\nRomain Fenouil / Laboratoire Pierre Ferrier\nCentre d'Immunologie de Marseille-Luminy - CIML\nParc Scientifique et technologique de Luminy\nCase 906\n13288 MARSEILLE CEDEX 9\nt?l : 04.91.26.94.46 - fax : 04.91.26.94.30\nhttp://www.ciml.univ-mrs.fr",
+      "body_snippet": "Hi all,\n\nI'm quiet new to this mailing list system so I would firstly like to introduce myself.\n\nMy name is Romain Fenouil and I'm working as bioinformatician in the Immunology Center of Marseille Lum",
+      "thread_id": "thread-f16835fc587d",
+      "thread_depth": 0,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-fc3b2585c1b0",
+      "message_id": "<264855a00811040857v10a7d575qd7f0a0fe57b74467@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2008-11-04T16:57:15Z",
+      "subject": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "subject_clean": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "in_reply_to": "<22B4870E7B957846BD20439F7FD79DD59B0347D22F@ISIS.ciml.cnrs>",
+      "references": [
+        "<AQHJPprQyrfYkPzEvEuKHeVfaK/pjQ==>",
+        "<22B4870E7B957846BD20439F7FD79DD59B0347D22F@ISIS.ciml.cnrs>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/80f68995/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/80f68995/attachment.pl>",
+      "thread_id": "thread-f16835fc587d",
+      "thread_depth": 1,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-6226ef9c1ffe",
+      "message_id": "<491082C9.1050702@ebi.ac.uk>",
+      "from_name": "Simon Anders",
+      "from_email_hash": "cb9ed5459dcad29e255922ad48d9608b23c8cda027eda1f5406b5cfbc347a7f9",
+      "date": "2008-11-04T17:13:45Z",
+      "subject": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "subject_clean": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "in_reply_to": "<264855a00811040857v10a7d575qd7f0a0fe57b74467@mail.gmail.com>",
+      "references": [
+        "<AQHJPprQyrfYkPzEvEuKHeVfaK/pjQ==>",
+        "<22B4870E7B957846BD20439F7FD79DD59B0347D22F@ISIS.ciml.cnrs>",
+        "<264855a00811040857v10a7d575qd7f0a0fe57b74467@mail.gmail.com>"
+      ],
+      "body_plain": "Hi,\n\nSean Davis wrote:\n> MAQ, gmap, blat, and bowtie (and maybe SOAP--we do not use it) will output\n> multiple hits if you like.  The manuals for these alignment algorithms will\n> give you details.\n\nA minor correction: As far as I understood from reading many posts about\nthe subject on the Maq-help mailing list, Maq cannot output multiple\nhits. If it encounters a read that maps well to multiple locations it\nwill give one of the possible alignments, chosen at random. The\nalignment quality is then set to a low value. Furthermore, one of the\noutput column counts how often the first 24 bp of the read could be\naligned to the reference. (That this information applies only to the\nfirst 24bp and not to the whole read has technical reasons; Maq would be\nway less efficient otherwise.)\n\n  Simon\n\n\n+---\n| Dr. Simon Anders, Dipl. Phys.\n| European Bioinformatics Institute, Hinxton, Cambridgeshire, UK\n| office phone +44-1223-494478, mobile phone +44-7505-841692\n| preferred (permanent) e-mail: sanders at fs.tum.de",
+      "body_snippet": "Hi,\n\nSean Davis wrote:\n> MAQ, gmap, blat, and bowtie (and maybe SOAP--we do not use it) will output\n> multiple hits if you like.  The manuals for these alignment algorithms will\n> give you details.\n\nA",
+      "thread_id": "thread-f16835fc587d",
+      "thread_depth": 2,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-9b6e845b2661",
+      "message_id": "<264855a00811040936v7115ab07h2a6fa5c30893b27d@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2008-11-04T17:36:39Z",
+      "subject": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "subject_clean": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "in_reply_to": "<491082C9.1050702@ebi.ac.uk>",
+      "references": [
+        "<22B4870E7B957846BD20439F7FD79DD59B0347D22F@ISIS.ciml.cnrs>",
+        "<264855a00811040857v10a7d575qd7f0a0fe57b74467@mail.gmail.com>",
+        "<491082C9.1050702@ebi.ac.uk>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/a35b7831/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/a35b7831/attachment.pl>",
+      "thread_id": "thread-f16835fc587d",
+      "thread_depth": 3,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-dd521e07ee83",
+      "message_id": "<4910B4C3.9090701@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-11-04T20:46:59Z",
+      "subject": "[Bioc-sig-seq] ShortRead and calibrated qualities",
+      "subject_clean": "[Bioc-sig-seq] ShortRead and calibrated qualities",
+      "in_reply_to": "<23EE80DD-3937-4E7E-964C-09307B429212@wisc.edu>",
+      "references": [
+        "<23EE80DD-3937-4E7E-964C-09307B429212@wisc.edu>"
+      ],
+      "body_plain": "Hi Victor --\n\nI cc'd the bioc-sig-sequencing list, in case this is interesting to \nother people.\n\nVictor Ruotti wrote:\n> Hello Martin,\n> We are using ShortRead and are very happy with it.\n> I was just looking at the graph in the QA report \"per-cycle quality \n> score\" given by ShortRead. I noticed that the quality scores are \n> \"calibrated\" using the alignment information. How easy it is to plot the \n> same graph using raw qualities scores, i.e. uncalibrated quality scores?\n> \n> Is there a way to do this using ShortReads?\n\nThere is not automatic way, but here's what you can do.\n\nThe uncalibrated scores are in _prb.txt files, and can be read with\n\n > prb = readPrb(dirPath, regex)\n\nwhere regex is a regular expression defining which _prb files you want \nto read in to a single 'prb' object. E.g., the first two tiles of lane 1 \nof a solexa run\n\n > prb <- readPrb(sp, \"s_1_000[1:2]_prb.txt\")\n > prb\nclass: SFastqQuality\nquality:\n   A BStringSet instance of length 58018\n         width seq\n     [1]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n     [2]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n     [3]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhSh\n     [4]    36 hhhhh]ChUhhhhhhhhhhBhhhhG`Jhh_hhWhMN\n     [5]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhM\n     [6]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n     [7]    36 hhhhhhhhhhhhhhhhhhhhhRhhhhhhhhhMXhSA\n     [8]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n     [9]    36 hhhEhhhhhhhahhhhhOhEIAAKChhhhhhhUGhH\n     ...   ... ...\n[58010]    36 hhhhhhhhhhPhch`hhRQhWKCGP?BGPIDPSNJL\n[58011]    36 GVQhE_E at U`VULMFKIUHPQ>KFH>ACGGH??BH=\n[58012]    36 JNeSPWTJI]NUPHIEJMMEHHTECJNIHIKFB>HA\n[58013]    36 I;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n[58014]    36 IGJLEG?GO@?AJ?L>??KIBBIBAI?D?>=F@?BE\n[58015]    36 hheJShSh_cThhh[ghh\\MZKQJI@[SPLC at REJJ\n[58016]    36 Bhc^eAR>a>hhLY@=EDDCCVEJM=HT?@D>BF>R\n[58017]    36 Shh at hFQhhKhhh`ZJhhhh]hbRh[hfh]dIhhAh\n[58018]    36 [hhhhhhh[hhhhhh`hghNbh[=hd?I`hheHhTP\n\n From here you can, for instance,\n\n > m = as(prb, \"matrix\")\n > colMeans(m)\n\n > dim(m)\n[1] 58018    36\n > colMeans(m)\n  [1] 36.68253 34.77074 34.76543 33.89381 33.70597 33.06138 32.16550 \n32.02453\n  [9] 32.00359 31.28284 31.17655 30.73650 30.98292 30.23918 29.65099 \n28.58637\n[17] 27.54683 27.70426 27.19865 25.85327 25.37835 24.94302 24.83817 23.99030\n[25] 23.41432 23.42025 22.13992 21.79825 20.64564 19.83484 19.90560 18.64320\n[33] 17.63711 17.35210 16.81506 16.62260\n\nMartin\n\n> Thanks in advance.\n> Victor Ruotti\n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Hi Victor --\n\nI cc'd the bioc-sig-sequencing list, in case this is interesting to \nother people.\n\nVictor Ruotti wrote:\n> Hello Martin,\n> We are using ShortRead and are very happy with it.\n> I was just",
+      "thread_id": "thread-dd521e07ee83",
+      "thread_depth": 0,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-9f27179ab4a9",
+      "message_id": "<87BDC062-7B4D-4AF8-80AC-721246447CC9@wisc.edu>",
+      "from_name": "Victor Ruotti",
+      "from_email_hash": "0a612a2760b6972ef2465ed2500e71c29e23c4e65041a64f1fe041eb122deecb",
+      "date": "2008-11-04T21:31:18Z",
+      "subject": "[Bioc-sig-seq] ShortRead and calibrated qualities",
+      "subject_clean": "[Bioc-sig-seq] ShortRead and calibrated qualities",
+      "in_reply_to": "<4910B4C3.9090701@fhcrc.org>",
+      "references": [
+        "<23EE80DD-3937-4E7E-964C-09307B429212@wisc.edu>",
+        "<4910B4C3.9090701@fhcrc.org>"
+      ],
+      "body_plain": "Yes! Thank you.\nThat is exactly what I was looking for.\nI'd like to compare the calibrated versus the raw quality scores.\n\nGreat help.\nVictor\n\nOn Nov 4, 2008, at 2:46 PM, Martin Morgan wrote:\n\n> Hi Victor --\n>\n> I cc'd the bioc-sig-sequencing list, in case this is interesting to  \n> other people.\n>\n> Victor Ruotti wrote:\n>> Hello Martin,\n>> We are using ShortRead and are very happy with it.\n>> I was just looking at the graph in the QA report \"per-cycle quality  \n>> score\" given by ShortRead. I noticed that the quality scores are  \n>> \"calibrated\" using the alignment information. How easy it is to  \n>> plot the same graph using raw qualities scores, i.e. uncalibrated  \n>> quality scores?\n>> Is there a way to do this using ShortReads?\n>\n> There is not automatic way, but here's what you can do.\n>\n> The uncalibrated scores are in _prb.txt files, and can be read with\n>\n> > prb = readPrb(dirPath, regex)\n>\n> where regex is a regular expression defining which _prb files you  \n> want to read in to a single 'prb' object. E.g., the first two tiles  \n> of lane 1 of a solexa run\n>\n> > prb <- readPrb(sp, \"s_1_000[1:2]_prb.txt\")\n> > prb\n> class: SFastqQuality\n> quality:\n>  A BStringSet instance of length 58018\n>        width seq\n>    [1]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n>    [2]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n>    [3]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhSh\n>    [4]    36 hhhhh]ChUhhhhhhhhhhBhhhhG`Jhh_hhWhMN\n>    [5]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhM\n>    [6]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n>    [7]    36 hhhhhhhhhhhhhhhhhhhhhRhhhhhhhhhMXhSA\n>    [8]    36 hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh\n>    [9]    36 hhhEhhhhhhhahhhhhOhEIAAKChhhhhhhUGhH\n>    ...   ... ...\n> [58010]    36 hhhhhhhhhhPhch`hhRQhWKCGP?BGPIDPSNJL\n> [58011]    36 GVQhE_E at U`VULMFKIUHPQ>KFH>ACGGH??BH=\n> [58012]    36 JNeSPWTJI]NUPHIEJMMEHHTECJNIHIKFB>HA\n> [58013]    36 I;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;\n> [58014]    36 IGJLEG?GO@?AJ?L>??KIBBIBAI?D?>=F@?BE\n> [58015]    36 hheJShSh_cThhh[ghh\\MZKQJI@[SPLC at REJJ\n> [58016]    36 Bhc^eAR>a>hhLY@=EDDCCVEJM=HT?@D>BF>R\n> [58017]    36 Shh at hFQhhKhhh`ZJhhhh]hbRh[hfh]dIhhAh\n> [58018]    36 [hhhhhhh[hhhhhh`hghNbh[=hd?I`hheHhTP\n>\n> From here you can, for instance,\n>\n> > m = as(prb, \"matrix\")\n> > colMeans(m)\n>\n> > dim(m)\n> [1] 58018    36\n> > colMeans(m)\n> [1] 36.68253 34.77074 34.76543 33.89381 33.70597 33.06138 32.16550  \n> 32.02453\n> [9] 32.00359 31.28284 31.17655 30.73650 30.98292 30.23918 29.65099  \n> 28.58637\n> [17] 27.54683 27.70426 27.19865 25.85327 25.37835 24.94302 24.83817  \n> 23.99030\n> [25] 23.41432 23.42025 22.13992 21.79825 20.64564 19.83484 19.90560  \n> 18.64320\n> [33] 17.63711 17.35210 16.81506 16.62260\n>\n> Martin\n>\n>> Thanks in advance.\n>> Victor Ruotti\n>\n>\n> -- \n> Martin Morgan\n> Computational Biology / Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N.\n> PO Box 19024 Seattle, WA 98109\n>\n> Location: Arnold Building M2 B169\n> Phone: (206) 667-2793",
+      "body_snippet": "Yes! Thank you.\nThat is exactly what I was looking for.\nI'd like to compare the calibrated versus the raw quality scores.\n\nGreat help.\nVictor\n\nOn Nov 4, 2008, at 2:46 PM, Martin Morgan wrote:\n\n> Hi Vi",
+      "thread_id": "thread-dd521e07ee83",
+      "thread_depth": 1,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-337df1cd5aac",
+      "message_id": "<3B6E7743-62CE-4B40-BB30-A48FD8EA9BC3@wisc.edu>",
+      "from_name": "Victor Ruotti",
+      "from_email_hash": "0a612a2760b6972ef2465ed2500e71c29e23c4e65041a64f1fe041eb122deecb",
+      "date": "2008-11-06T16:25:57Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<6phmym9w7cj.fsf@gopher4.fhcrc.org>",
+      "references": [
+        "<6phmym9w7cj.fsf@gopher4.fhcrc.org>"
+      ],
+      "body_plain": ">\nHi Martin\nI'm having trouble interpreting the Scatter Plot Matrix listed in the  \nShortRead pdf file.\nCan you comment on this?\nTHanks,\nVictor\n\n-------------- next part --------------\nA non-text attachment was scrubbed...\nName: Picture 12.png\nType: image/png\nSize: 68433 bytes\nDesc: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081106/64330593/attachment-0001.png>\n-------------- next part --------------",
+      "body_snippet": ">\nHi Martin\nI'm having trouble interpreting the Scatter Plot Matrix listed in the  \nShortRead pdf file.\nCan you comment on this?\nTHanks,\nVictor\n\n-------------- next part --------------\nA non-text atta",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 0,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-dd0627d7b126",
+      "message_id": "<491338BC.7030205@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-11-06T18:34:36Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<3B6E7743-62CE-4B40-BB30-A48FD8EA9BC3@wisc.edu>",
+      "references": [
+        "<6phmym9w7cj.fsf@gopher4.fhcrc.org>",
+        "<3B6E7743-62CE-4B40-BB30-A48FD8EA9BC3@wisc.edu>"
+      ],
+      "body_plain": "Victor Ruotti wrote:\n>>\n> Hi Martin\n> I'm having trouble interpreting the Scatter Plot Matrix listed in the \n> ShortRead pdf file.\n> Can you comment on this?\n\nHi Victor --\n\nNot sure that the figure made it through the mailing list; it's on p. \n13, just before section 2.2, of the 'Overview' vignette.\n\nThe figure was meant to be a 'teaser' to encourage people to explore and \nunderstand the way the data is collected. It shows the intensities \nrecorded at an early stage in the eland pipeline, after image \nacquisition but before base calling. The axes are the intensities \nreported by Firecrest. Each panel represents a pairwise comparison \nbetween two bases. Each point in a panel represents a single cluster; \nall clusters are represented in each panel. The displayed figure is at \ncycle 2. The suggestion in the text is to compare this to a later cycle \n(e.g., 30); it's fun to make a little animation of this, e.g., by \nlooping over cycles.\n\nAs I understand it, there are two (not four, as one might think) \nflorescent nucleotides ('dATP', 'dCTP'), and each is measured on two \ndifferent wavelengths ('red', 'green'). This is from here\n\nhttp://dx.doi.org/10.1016/S0003-2697(03)00291-4\n\nRoughly, there are four different intensities ('dATP, red', 'dATP, \ngreen', 'dCTP, red', 'dCTP, green'). The mapping between intensity and \nunderlying base is orthogonal along one dimension (the panels comparing \nA or C with G or T) but not along the other (the panels comparing A and \nC, and G and T).\n\nIdeally, one would like to see discrete groups of points, like in any \ndiscriminant analysis. Even early in the cycle we see that this is not \nclear 'by eye'. Points differ in amplitude (distance from origin, \nrelated to number of DNA strands per cluster?) and deviate from the \nhorizontal, vertical, or diagonal ('phasing' or dye bleed, where each \ncluster has florescence in all four dimensions resulting from the some \nDNA strands being sequenced at the wrong location, or residual \nflourescent bases from earlier reactions, for instance).\n\nA picture from a later cycle shows that points collapse toward the \norigin (lower intensity, e.g., because of depleted reagents or lost DNA \nstrands) and become less orthogonal (strands within a cluster \nincreasingly out of phase, dye build-up from previous reactions, etc).\n\nMostly the figure shows the challenges faced by base calling algorithms, \nand the challenges for the technology (making the clusters fall out more \ndiscretely, for more cycles).\n\nThis is my understanding of the chemistry involved; perhaps others will \ncontribute more authoritatively.\n\nMartin\n\n> THanks,\n> Victor\n> \n> \n> ------------------------------------------------------------------------\n> \n> \n> \n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Victor Ruotti wrote:\n>>\n> Hi Martin\n> I'm having trouble interpreting the Scatter Plot Matrix listed in the \n> ShortRead pdf file.\n> Can you comment on this?\n\nHi Victor --\n\nNot sure that the figure ma",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 1,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-e1e615d91a86",
+      "message_id": "<491454F2.2000303@med.umich.edu>",
+      "from_name": "James W. MacDonald",
+      "from_email_hash": "51e0486782bd6ed6ad0d8d179dbc9204aca523620b6842837909c743527fce1d",
+      "date": "2008-11-07T14:47:14Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<491338BC.7030205@fhcrc.org>",
+      "references": [
+        "<6phmym9w7cj.fsf@gopher4.fhcrc.org>",
+        "<3B6E7743-62CE-4B40-BB30-A48FD8EA9BC3@wisc.edu>",
+        "<491338BC.7030205@fhcrc.org>"
+      ],
+      "body_plain": "Martin Morgan wrote:\n> As I understand it, there are two (not four, as one might think) \n> florescent nucleotides ('dATP', 'dCTP'), and each is measured on two \n> different wavelengths ('red', 'green'). This is from here\n> \n> http://dx.doi.org/10.1016/S0003-2697(03)00291-4\n\nAccording to this demo on Illumina's site, they use four labeled \nnucleotides.\n\nhttp://www.illumina.com/media.ilmn?Title=Sequencing-By-Synthesis%20Demo&Cap=&Img=spacer.gif&PageName=illumina%20sequencing%20technology&PageURL=203&Media=1\n\nBut as you note in the scatterplot (and as well in this paper by Naef \nhttp://www.biomedcentral.com/1471-2105/9/431), the A and C channels and \nT and G channels are highly correlated.\n\nBest,\n\nJim\n\n\n\n-- \nJames W. MacDonald, M.S.\nBiostatistician\nHildebrandt Lab\n8220D MSRB III\n1150 W. Medical Center Drive\nAnn Arbor MI 48109-0646\n734-936-8662",
+      "body_snippet": "Martin Morgan wrote:\n> As I understand it, there are two (not four, as one might think) \n> florescent nucleotides ('dATP', 'dCTP'), and each is measured on two \n> different wavelengths ('red', 'green'",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 2,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-03171ba141f7",
+      "message_id": "<C53A05F5.578C%clive.brown@nanoporetech.com>",
+      "from_name": "Clive G. Brown",
+      "from_email_hash": "ef497fe7a186052dc2d5ceb9969f1b38d9edb599b89818d868bacb900fff79a7",
+      "date": "2008-11-07T14:49:25Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<491454F2.2000303@med.umich.edu>",
+      "references": [],
+      "body_plain": "4 nucs - 2 lasers.\n\n\nOn 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n\n> Martin Morgan wrote:\n>> As I understand it, there are two (not four, as one might think)\n>> florescent nucleotides ('dATP', 'dCTP'), and each is measured on two\n>> different wavelengths ('red', 'green'). This is from here\n>> \n>> http://dx.doi.org/10.1016/S0003-2697(03)00291-4\n> \n> According to this demo on Illumina's site, they use four labeled\n> nucleotides.\n> \n> http://www.illumina.com/media.ilmn?Title=Sequencing-By-Synthesis%20Demo&Cap=&I\n> mg=spacer.gif&PageName=illumina%20sequencing%20technology&PageURL=203&Media=1\n> \n> But as you note in the scatterplot (and as well in this paper by Naef\n> http://www.biomedcentral.com/1471-2105/9/431), the A and C channels and\n> T and G channels are highly correlated.\n> \n> Best,\n> \n> Jim\n> \n> \n\n--\nClive G. Brown\nDirector, Bioinformatics & I.T.\n---------------------------------------------------------------\nOxford Nanopore Technologies Ltd.\nBegbroke Science Park, Sandy Lane,\nKidlington, OX5 1PF. United Kingdom.\n\nTel:         +44 (0) 870 486 1969\nDirect     +44 (0) 1865 854 835\nMobile    +44 (0) 7827 344 753\nFax:        +44 (0) 1865 854 830\nWeb:       www.nanoporetech.com",
+      "body_snippet": "4 nucs - 2 lasers.\n\n\nOn 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n\n> Martin Morgan wrote:\n>> As I understand it, there are two (not four, as one might think)\n>> floresce",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 3,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-6f71d33b439c",
+      "message_id": "<C53A07A7.578F%clive.brown@nanoporetech.com>",
+      "from_name": "Clive G. Brown",
+      "from_email_hash": "ef497fe7a186052dc2d5ceb9969f1b38d9edb599b89818d868bacb900fff79a7",
+      "date": "2008-11-07T14:56:39Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<491454F2.2000303@med.umich.edu>",
+      "references": [],
+      "body_plain": "The paper you are citing has absolutely nothing to do with the Solexa\n(Illumina) technology.\n\n\nOn 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n\n>  http://dx.doi.org/10.1016/S0003-2697(03)00291-4\n\n--\nClive G. Brown\nDirector, Bioinformatics & I.T.\n---------------------------------------------------------------\nOxford Nanopore Technologies Ltd.\nBegbroke Science Park, Sandy Lane,\nKidlington, OX5 1PF. United Kingdom.\n\nTel:         +44 (0) 870 486 1969\nDirect     +44 (0) 1865 854 835\nMobile    +44 (0) 7827 344 753\nFax:        +44 (0) 1865 854 830\nWeb:       www.nanoporetech.com",
+      "body_snippet": "The paper you are citing has absolutely nothing to do with the Solexa\n(Illumina) technology.\n\n\nOn 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n\n>  http://dx.doi.org/10.1016",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 3,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-6624e03bc39a",
+      "message_id": "<4914616D.1090600@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-11-07T15:40:29Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<C53A07A7.578F%clive.brown@nanoporetech.com>",
+      "references": [
+        "<C53A07A7.578F%clive.brown@nanoporetech.com>"
+      ],
+      "body_plain": "Clive G. Brown wrote:\n> The paper you are citing has absolutely nothing to do with the Solexa\n> (Illumina) technology.\n\noops's that's my mis-citation, not Jim's.\n\n'absolutely nothing' is a bit strong as, in an academic and non-patent \nkind of way, Solexa tech is a derivative of this methodology.\n\nWhat's the authoritative source for your 4 nucs 2 lasers?\n\nThanks,\n\nMartin\n\n> \n> On 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n> \n>>  http://dx.doi.org/10.1016/S0003-2697(03)00291-4\n> \n> --\n> Clive G. Brown\n> Director, Bioinformatics & I.T.\n> ---------------------------------------------------------------\n> Oxford Nanopore Technologies Ltd.\n> Begbroke Science Park, Sandy Lane,\n> Kidlington, OX5 1PF. United Kingdom.\n> \n> Tel:         +44 (0) 870 486 1969\n> Direct     +44 (0) 1865 854 835\n> Mobile    +44 (0) 7827 344 753\n> Fax:        +44 (0) 1865 854 830\n> Web:       www.nanoporetech.com\n> ---------------------------------------------------------------\n> \n>",
+      "body_snippet": "Clive G. Brown wrote:\n> The paper you are citing has absolutely nothing to do with the Solexa\n> (Illumina) technology.\n\noops's that's my mis-citation, not Jim's.\n\n'absolutely nothing' is a bit strong ",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 4,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-677cf56e2eef",
+      "message_id": "<C53A127C.57B0%clive.brown@nanoporetech.com>",
+      "from_name": "Clive G. Brown",
+      "from_email_hash": "ef497fe7a186052dc2d5ceb9969f1b38d9edb599b89818d868bacb900fff79a7",
+      "date": "2008-11-07T15:42:52Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<4914616D.1090600@fhcrc.org>",
+      "references": [],
+      "body_plain": "I worked at Solexa.\n\nNo - its not derived from this at all ! The clusters technology came from\nManteia and was patented in 1999 by Turcatti et al. The chemistry is\ncompletely novel and is also patented under Milton (et al) and Smith (et\nal). Most of that work predates the church polony work and paper. For\nfurther and more accurate attributions take a gander at the weeks Nature.\n\nC.\n\n\n\nOn 07/11/2008 15:40, \"Martin Morgan\" <mtmorgan at fhcrc.org> wrote:\n\n> Clive G. Brown wrote:\n>> The paper you are citing has absolutely nothing to do with the Solexa\n>> (Illumina) technology.\n> \n> oops's that's my mis-citation, not Jim's.\n> \n> 'absolutely nothing' is a bit strong as, in an academic and non-patent\n> kind of way, Solexa tech is a derivative of this methodology.\n> \n> What's the authoritative source for your 4 nucs 2 lasers?\n> \n> Thanks,\n> \n> Martin\n> \n>> \n>> On 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n>> \n>>>  http://dx.doi.org/10.1016/S0003-2697(03)00291-4\n>> \n>> --\n>> Clive G. Brown\n>> Director, Bioinformatics & I.T.\n>> ---------------------------------------------------------------\n>> Oxford Nanopore Technologies Ltd.\n>> Begbroke Science Park, Sandy Lane,\n>> Kidlington, OX5 1PF. United Kingdom.\n>> \n>> Tel:         +44 (0) 870 486 1969\n>> Direct     +44 (0) 1865 854 835\n>> Mobile    +44 (0) 7827 344 753\n>> Fax:        +44 (0) 1865 854 830\n>> Web:       www.nanoporetech.com\n>> ---------------------------------------------------------------\n>> \n>> \n> \n> \n\n--\nClive G. Brown\nDirector, Bioinformatics & I.T.\n---------------------------------------------------------------\nOxford Nanopore Technologies Ltd.\nBegbroke Science Park, Sandy Lane,\nKidlington, OX5 1PF. United Kingdom.\n\nTel:         +44 (0) 870 486 1969\nDirect     +44 (0) 1865 854 835\nMobile    +44 (0) 7827 344 753\nFax:        +44 (0) 1865 854 830\nWeb:       www.nanoporetech.com",
+      "body_snippet": "I worked at Solexa.\n\nNo - its not derived from this at all ! The clusters technology came from\nManteia and was patented in 1999 by Turcatti et al. The chemistry is\ncompletely novel and is also patente",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 5,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-77b93155a30b",
+      "message_id": "<49146D71.1080300@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2008-11-07T16:31:45Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<C53A127C.57B0%clive.brown@nanoporetech.com>",
+      "references": [
+        "<C53A127C.57B0%clive.brown@nanoporetech.com>"
+      ],
+      "body_plain": "Clive G. Brown wrote:\n> I worked at Solexa.\n> \n> No - its not derived from this at all ! The clusters technology came from\n> Manteia and was patented in 1999 by Turcatti et al. The chemistry is\n> completely novel and is also patented under Milton (et al) and Smith (et\n> al). Most of that work predates the church polony work and paper. For\n> further and more accurate attributions take a gander at the weeks Nature.\n> \n> C.\n\nThanks Clive, this\n\nhttp://www.nature.com/nature/journal/v456/n7218/abs/nature07517.html\n\nseems to be exactly what is required.\n\nMartin\n\n> \n> \n> \n> On 07/11/2008 15:40, \"Martin Morgan\" <mtmorgan at fhcrc.org> wrote:\n> \n>> Clive G. Brown wrote:\n>>> The paper you are citing has absolutely nothing to do with the Solexa\n>>> (Illumina) technology.\n>> oops's that's my mis-citation, not Jim's.\n>>\n>> 'absolutely nothing' is a bit strong as, in an academic and non-patent\n>> kind of way, Solexa tech is a derivative of this methodology.\n>>\n>> What's the authoritative source for your 4 nucs 2 lasers?\n>>\n>> Thanks,\n>>\n>> Martin\n>>\n>>> On 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n>>>\n>>>>  http://dx.doi.org/10.1016/S0003-2697(03)00291-4\n>>> --\n>>> Clive G. Brown\n>>> Director, Bioinformatics & I.T.\n>>> ---------------------------------------------------------------\n>>> Oxford Nanopore Technologies Ltd.\n>>> Begbroke Science Park, Sandy Lane,\n>>> Kidlington, OX5 1PF. United Kingdom.\n>>>\n>>> Tel:         +44 (0) 870 486 1969\n>>> Direct     +44 (0) 1865 854 835\n>>> Mobile    +44 (0) 7827 344 753\n>>> Fax:        +44 (0) 1865 854 830\n>>> Web:       www.nanoporetech.com\n>>> ---------------------------------------------------------------\n>>>\n>>>\n>>\n> \n> --\n> Clive G. Brown\n> Director, Bioinformatics & I.T.\n> ---------------------------------------------------------------\n> Oxford Nanopore Technologies Ltd.\n> Begbroke Science Park, Sandy Lane,\n> Kidlington, OX5 1PF. United Kingdom.\n> \n> Tel:         +44 (0) 870 486 1969\n> Direct     +44 (0) 1865 854 835\n> Mobile    +44 (0) 7827 344 753\n> Fax:        +44 (0) 1865 854 830\n> Web:       www.nanoporetech.com\n> ---------------------------------------------------------------\n> \n> \n\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793",
+      "body_snippet": "Clive G. Brown wrote:\n> I worked at Solexa.\n> \n> No - its not derived from this at all ! The clusters technology came from\n> Manteia and was patented in 1999 by Turcatti et al. The chemistry is\n> comp",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 6,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-85863eed00c2",
+      "message_id": "<C53A1E61.57C1%clive.brown@nanoporetech.com>",
+      "from_name": "Clive G. Brown",
+      "from_email_hash": "ef497fe7a186052dc2d5ceb9969f1b38d9edb599b89818d868bacb900fff79a7",
+      "date": "2008-11-07T16:33:37Z",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "subject_clean": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "in_reply_to": "<49146D71.1080300@fhcrc.org>",
+      "references": [],
+      "body_plain": "You might find some useful info here\n\nWww.genographia.org\n\nAlthough the sites popularity is withering in favour of www.seqanswers.com\n\nC.\n\n\n\n\nOn 07/11/2008 16:31, \"Martin Morgan\" <mtmorgan at fhcrc.org> wrote:\n\n> Clive G. Brown wrote:\n>> I worked at Solexa.\n>> \n>> No - its not derived from this at all ! The clusters technology came from\n>> Manteia and was patented in 1999 by Turcatti et al. The chemistry is\n>> completely novel and is also patented under Milton (et al) and Smith (et\n>> al). Most of that work predates the church polony work and paper. For\n>> further and more accurate attributions take a gander at the weeks Nature.\n>> \n>> C.\n> \n> Thanks Clive, this\n> \n> http://www.nature.com/nature/journal/v456/n7218/abs/nature07517.html\n> \n> seems to be exactly what is required.\n> \n> Martin\n> \n>> \n>> \n>> \n>> On 07/11/2008 15:40, \"Martin Morgan\" <mtmorgan at fhcrc.org> wrote:\n>> \n>>> Clive G. Brown wrote:\n>>>> The paper you are citing has absolutely nothing to do with the Solexa\n>>>> (Illumina) technology.\n>>> oops's that's my mis-citation, not Jim's.\n>>> \n>>> 'absolutely nothing' is a bit strong as, in an academic and non-patent\n>>> kind of way, Solexa tech is a derivative of this methodology.\n>>> \n>>> What's the authoritative source for your 4 nucs 2 lasers?\n>>> \n>>> Thanks,\n>>> \n>>> Martin\n>>> \n>>>> On 07/11/2008 14:47, \"James W. MacDonald\" <jmacdon at med.umich.edu> wrote:\n>>>> \n>>>>>  http://dx.doi.org/10.1016/S0003-2697(03)00291-4\n>>>> --\n>>>> Clive G. Brown\n>>>> Director, Bioinformatics & I.T.\n>>>> ---------------------------------------------------------------\n>>>> Oxford Nanopore Technologies Ltd.\n>>>> Begbroke Science Park, Sandy Lane,\n>>>> Kidlington, OX5 1PF. United Kingdom.\n>>>> \n>>>> Tel:         +44 (0) 870 486 1969\n>>>> Direct     +44 (0) 1865 854 835\n>>>> Mobile    +44 (0) 7827 344 753\n>>>> Fax:        +44 (0) 1865 854 830\n>>>> Web:       www.nanoporetech.com\n>>>> ---------------------------------------------------------------\n>>>> \n>>>> \n>>> \n>> \n>> --\n>> Clive G. Brown\n>> Director, Bioinformatics & I.T.\n>> ---------------------------------------------------------------\n>> Oxford Nanopore Technologies Ltd.\n>> Begbroke Science Park, Sandy Lane,\n>> Kidlington, OX5 1PF. United Kingdom.\n>> \n>> Tel:         +44 (0) 870 486 1969\n>> Direct     +44 (0) 1865 854 835\n>> Mobile    +44 (0) 7827 344 753\n>> Fax:        +44 (0) 1865 854 830\n>> Web:       www.nanoporetech.com\n>> ---------------------------------------------------------------\n>> \n>> \n> \n\n--\nClive G. Brown\nDirector, Bioinformatics & I.T.\n---------------------------------------------------------------\nOxford Nanopore Technologies Ltd.\nBegbroke Science Park, Sandy Lane,\nKidlington, OX5 1PF. United Kingdom.\n\nTel:         +44 (0) 870 486 1969\nDirect     +44 (0) 1865 854 835\nMobile    +44 (0) 7827 344 753\nFax:        +44 (0) 1865 854 830\nWeb:       www.nanoporetech.com",
+      "body_snippet": "You might find some useful info here\n\nWww.genographia.org\n\nAlthough the sites popularity is withering in favour of www.seqanswers.com\n\nC.\n\n\n\n\nOn 07/11/2008 16:31, \"Martin Morgan\" <mtmorgan at fhcrc.or",
+      "thread_id": "thread-337df1cd5aac",
+      "thread_depth": 7,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-84df859cdb6e",
+      "message_id": "<4925D6B6.9090503@fhcrc.org>",
+      "from_name": "Patrick Aboyoun",
+      "from_email_hash": "dc50c3c245d3952d5b85da1e198abf49dacd056ac9649061263764cf7191a8de",
+      "date": "2008-11-20T21:29:26Z",
+      "subject": "[Bioc-sig-seq] Course material for \"Using Bioconductor for ChIP-seq experiments\"",
+      "subject_clean": "[Bioc-sig-seq] Course material for \"Using Bioconductor for ChIP-seq experiments\"",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "The course material for \"Using Bioconductor for ChIP-seq experiments\", \nwhich was held at the Fred Hutchinson Cancer Research Center from 12-14 \nNov 2008, is now available on-line at\n\nhttp://bioconductor.org/workshops/2008/SeattleNov08/\n\nTopics for this course include:\n\n   1. Overview of Bioconductor and high-throughput sequence data\n   2. Sequence Data I/O and QA using ShortRead\n   3. Sequence Data Exploration using rtracklayer\n   4. Sequence Data Annotations from org.* packages and biomaRt package\n   5. Biostrings and BSgenome Basics\n   6. Sequence Matching and Aligning using Biostrings\n   7. Ambiguous Motif Resolution\n   8. Example ChIP-seq Analysis Workflow\n   9. RNA-seq\n\nThis course was designed to highlight what BioC 2.3, along with R 2.8, \nhas to offer experimenters working with high-throughput sequence data. \nCourse participants used laptop computers to read, examine, annotate, \nalign, and analyze high-throughput sequence data on the BioC 2.3 \nShortRead/Biostrings/BSgenome/IRanges/rtracklayer/biomaRt backbone. \nMembers of the Bioconductor Core Team that attended the course are \nthankful for all the feedback they received from these participants and \nthey are actively converting this feedback into enhancements within the \nBioC 2.4 code line. Please direct all comments on this course material \nas well as BioC 2.4 enhancement requests in the sequencing realm to the \nBioc-sig-sequencing group \n(https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing) since it \nprovides a forum for more detailed discussion by interested parties.\n\n\nSincerely,\nThe Bioconductor Core Team",
+      "body_snippet": "The course material for \"Using Bioconductor for ChIP-seq experiments\", \nwhich was held at the Fred Hutchinson Cancer Research Center from 12-14 \nNov 2008, is now available on-line at\n\nhttp://bioconduc",
+      "thread_id": "thread-84df859cdb6e",
+      "thread_depth": 0,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-4640c54a88c7",
+      "message_id": "<4925DB01.4010003@sigtrans.org>",
+      "from_name": "Werner Van Belle",
+      "from_email_hash": "cda978be767488f34dd7b6d6e0d1846f6a35dd42e4c28ec83ea166d02b8de62e",
+      "date": "2008-11-20T21:47:45Z",
+      "subject": "[Bioc-sig-seq]   Alignments timings",
+      "subject_clean": "[Bioc-sig-seq]   Alignments timings",
+      "in_reply_to": "<4925D6B6.9090503@fhcrc.org>",
+      "references": [
+        "<4925D6B6.9090503@fhcrc.org>"
+      ],
+      "body_plain": "Hello,\n\nJust out of pure curiosity. If I have around 60'000'000 short\nfragmnents. A typical output of an Illumina GAII experiment. Can your\npackage align these to a reference genome, such as the Human genome and\nif so, how much memory is required to complete this process. How much\ntime is necessary on a typical GAII server ? That is 16 Gb memory and 4\nintel quadcores.\n\nCould you compare the speed of your processing against something like\nfor instance Eland ?\n\nWkr,\n\nWerner,-\n\n-- \nDr. Werner Van Belle\nhttp://werner.sigtrans.org/",
+      "body_snippet": "Hello,\n\nJust out of pure curiosity. If I have around 60'000'000 short\nfragmnents. A typical output of an Illumina GAII experiment. Can your\npackage align these to a reference genome, such as the Human",
+      "thread_id": "thread-84df859cdb6e",
+      "thread_depth": 1,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-931961070d85",
+      "message_id": "<49270931.1080505@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2008-11-21T19:17:05Z",
+      "subject": "[Bioc-sig-seq] [BioC]   Alignments timings",
+      "subject_clean": "[Bioc-sig-seq] [BioC]   Alignments timings",
+      "in_reply_to": "<4925DB01.4010003@sigtrans.org>",
+      "references": [
+        "<4925D6B6.9090503@fhcrc.org>",
+        "<4925DB01.4010003@sigtrans.org>"
+      ],
+      "body_plain": "Hi Werner,\n\nWerner Van Belle wrote:\n> Hello,\n> \n> Just out of pure curiosity. If I have around 60'000'000 short\n> fragmnents. A typical output of an Illumina GAII experiment. Can your\n> package align these to a reference genome, such as the Human genome and\n> if so, how much memory is required to complete this process. How much\n> time is necessary on a typical GAII server ? That is 16 Gb memory and 4\n> intel quadcores.\n\nWhat is the length of your fragments?\n\nThe PDict/matchPDict tool in the Biostrings package uses an approach \nthat consists in preprocessing the short fragments. The result of this\npreprocessing is a PDict object that is currently taking a lot of\nmemory: around 7GB for 10 millions 36-mers. Also 10M 36-mers / 15M\n25-mers is close to the maximum number of short fragments that you\ncan store in a PDict object so you'll have to split your original set\nof 60M fragments.\n\nUsing the PDict object to match the 10M (or 15M) fragments against\nthe Human genome (+ and - strand) should take about 1 hour on a Linux\nserver with 16GB of RAM. That's for exact matching. PDict/matchPDict\nalso supports inexact matching (a small number of mismatches per read,\nlet's say 1 or 2) but this will increase the time by a factor 12x\nfor 1 mismatch and a factor 240x for 2 mismatches!\n\n> \n> Could you compare the speed of your processing against something like\n> for instance Eland ?\n\nPDict/matchPDict is very fast for exact matching. If you want to allow\nup to 2 mismatches, a tool like bowtie will be much faster. The speed\nof PDict/matchPDict will be comparable to that of MAQ but\nPDict/matchPDict uses more memory. I'm not sure how it compares with\nEland but I think MAQ is faster than Eland.\n\nNote that bowtie, MAQ and Eland do quality-based alignments.\nPDict/matchPDict doesn't use the quality at all.\nAnother difference is that PDict/matchPDict will return all the matches\nfor all the reads. bowtie, MAQ and Eland return at most 1 match\nper read. With PDict/matchPDict it's up to you to decide what to do with\nthe reads that have multiple matches. Also for now, we offer no\nfacilities to write the output of matchPDict() to a file (this will\nbe added soon).\n\nPDict/matchPDict is still a very young tool and there is still room for\nimprovements like making the PDict object more compact in memory,\nallow it to store 50M or more short reads, support indels, limiting\nthe number of matches per read that is returned by matchPDict(),\nprovide IO facilities, etc... User feedback will help us to set\npriorities.\n\nCheers,\nH.\n\n> \n> Wkr,\n> \n> Werner,-\n> \n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M2-B876\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Werner,\n\nWerner Van Belle wrote:\n> Hello,\n> \n> Just out of pure curiosity. If I have around 60'000'000 short\n> fragmnents. A typical output of an Illumina GAII experiment. Can your\n> package align ",
+      "thread_id": "thread-84df859cdb6e",
+      "thread_depth": 2,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-261a20046e0b",
+      "message_id": "<492713F2.7000909@med.umich.edu>",
+      "from_name": "James W. MacDonald",
+      "from_email_hash": "51e0486782bd6ed6ad0d8d179dbc9204aca523620b6842837909c743527fce1d",
+      "date": "2008-11-21T20:02:58Z",
+      "subject": "[Bioc-sig-seq] [BioC]   Alignments timings",
+      "subject_clean": "[Bioc-sig-seq] [BioC]   Alignments timings",
+      "in_reply_to": "<49270931.1080505@fhcrc.org>",
+      "references": [
+        "<4925D6B6.9090503@fhcrc.org>",
+        "<4925DB01.4010003@sigtrans.org>",
+        "<49270931.1080505@fhcrc.org>"
+      ],
+      "body_plain": "Hi Herve,\n\nHerv? Pag?s wrote:\n<snip>\n> bowtie, MAQ and Eland return at most 1 match\n> per read. \n\nThis isn't true. The default is one, but you can have as many as you \nwant for any of these tools. Of course there is a penalty for more matches.\n\nBest,\n\nJim\n\n\n-- \nJames W. MacDonald, M.S.\nBiostatistician\nHildebrandt Lab\n8220D MSRB III\n1150 W. Medical Center Drive\nAnn Arbor MI 48109-0646\n734-936-8662",
+      "body_snippet": "Hi Herve,\n\nHerv? Pag?s wrote:\n<snip>\n> bowtie, MAQ and Eland return at most 1 match\n> per read. \n\nThis isn't true. The default is one, but you can have as many as you \nwant for any of these tools. Of ",
+      "thread_id": "thread-84df859cdb6e",
+      "thread_depth": 3,
+      "month": "2008-11"
+    },
+    {
+      "id": "msg-6cdb9743ba64",
+      "message_id": "<264855a00811211324g4b840307j19c60475712e428c@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2008-11-21T21:24:20Z",
+      "subject": "[Bioc-sig-seq] [BioC]  Alignments timings",
+      "subject_clean": "[Bioc-sig-seq] [BioC]  Alignments timings",
+      "in_reply_to": "<49270931.1080505@fhcrc.org>",
+      "references": [
+        "<4925D6B6.9090503@fhcrc.org>",
+        "<4925DB01.4010003@sigtrans.org>",
+        "<49270931.1080505@fhcrc.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081121/61434f31/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081121/61434f31/attachment.pl>",
+      "thread_id": "thread-84df859cdb6e",
+      "thread_depth": 3,
+      "month": "2008-11"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-350d13aea272",
+      "subject": "[Bioc-sig-seq] SNP counting (Biostrings ?) question",
+      "message_count": 1,
+      "participants": [
+        "Wolfgang Raffelsberger"
+      ],
+      "started": "2008-11-03T12:35:30Z",
+      "last_reply": "2008-11-03T12:35:30Z",
+      "root_message_id": "msg-350d13aea272"
+    },
+    {
+      "id": "thread-a9496de11acb",
+      "subject": "[Bioc-sig-seq] BMC Bioinf paper: probabilistic base calling of Solexa sequencing data, Rougemont et al.",
+      "message_count": 1,
+      "participants": [
+        "Wolfgang Huber"
+      ],
+      "started": "2008-11-04T11:59:18Z",
+      "last_reply": "2008-11-04T11:59:18Z",
+      "root_message_id": "msg-a9496de11acb"
+    },
+    {
+      "id": "thread-f16835fc587d",
+      "subject": "[Bioc-sig-seq] ChIPseq, repeated regions and multiple matched tags",
+      "message_count": 4,
+      "participants": [
+        "Romain FENOUIL",
+        "Sean Davis",
+        "Simon Anders"
+      ],
+      "started": "2008-11-04T16:31:39Z",
+      "last_reply": "2008-11-04T17:36:39Z",
+      "root_message_id": "msg-f16835fc587d"
+    },
+    {
+      "id": "thread-dd521e07ee83",
+      "subject": "[Bioc-sig-seq] ShortRead and calibrated qualities",
+      "message_count": 2,
+      "participants": [
+        "Martin Morgan",
+        "Victor Ruotti"
+      ],
+      "started": "2008-11-04T20:46:59Z",
+      "last_reply": "2008-11-04T21:31:18Z",
+      "root_message_id": "msg-dd521e07ee83"
+    },
+    {
+      "id": "thread-337df1cd5aac",
+      "subject": "[Bioc-sig-seq] Scatter Plot Matrix",
+      "message_count": 9,
+      "participants": [
+        "Clive G. Brown",
+        "James W. MacDonald",
+        "Martin Morgan",
+        "Victor Ruotti"
+      ],
+      "started": "2008-11-06T16:25:57Z",
+      "last_reply": "2008-11-07T16:33:37Z",
+      "root_message_id": "msg-337df1cd5aac"
+    },
+    {
+      "id": "thread-84df859cdb6e",
+      "subject": "[Bioc-sig-seq] Course material for \"Using Bioconductor for ChIP-seq experiments\"",
+      "message_count": 5,
+      "participants": [
+        "Hervé Pagès",
+        "James W. MacDonald",
+        "Patrick Aboyoun",
+        "Sean Davis",
+        "Werner Van Belle"
+      ],
+      "started": "2008-11-20T21:29:26Z",
+      "last_reply": "2008-11-21T21:24:20Z",
+      "root_message_id": "msg-84df859cdb6e"
+    }
+  ]
+}

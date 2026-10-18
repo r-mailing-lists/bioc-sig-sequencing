@@ -1,0 +1,2716 @@
+[
+  {
+    "name": "Martin Morgan",
+    "slug": "martin-morgan",
+    "emailHash": "74d663b355f4dbbe297c50d961e87ec113c9e69b5fd43fc3c26bc5dc7e5b75b4",
+    "messageCount": 310,
+    "firstDate": "2008-02-29T17:13:51Z",
+    "lastDate": "2011-09-30T16:11:12Z",
+    "yearlyActivity": {
+      "2008": 22,
+      "2009": 94,
+      "2010": 119,
+      "2011": 75
+    }
+  },
+  {
+    "name": "Michael Lawrence",
+    "slug": "michael-lawrence",
+    "emailHash": "1a5ee30e8b6d6fd023f9cd066f9903301f0b75e038949a90eeb1aac28c844171",
+    "messageCount": 217,
+    "firstDate": "2008-05-31T11:25:07Z",
+    "lastDate": "2011-09-29T21:17:30Z",
+    "yearlyActivity": {
+      "2008": 3,
+      "2009": 58,
+      "2010": 110,
+      "2011": 46
+    }
+  },
+  {
+    "name": "Ivan Gregoretti",
+    "slug": "ivan-gregoretti",
+    "emailHash": "19d27e7469cd987ef4df8935fe387a81a8cd0e1af753c5e3cf70e1ee108e3d5e",
+    "messageCount": 139,
+    "firstDate": "2009-05-06T19:40:27Z",
+    "lastDate": "2011-09-30T17:14:10Z",
+    "yearlyActivity": {
+      "2009": 30,
+      "2010": 59,
+      "2011": 50
+    }
+  },
+  {
+    "name": "Patrick Aboyoun",
+    "slug": "patrick-aboyoun",
+    "emailHash": "14868cb8cedf33fc8a5ee3d5806ddf282f37a60c0cbddf69df700e5b24a16f54",
+    "messageCount": 110,
+    "firstDate": "2008-07-17T19:38:57Z",
+    "lastDate": "2011-02-14T22:17:03Z",
+    "yearlyActivity": {
+      "2008": 6,
+      "2009": 54,
+      "2010": 49,
+      "2011": 1
+    }
+  },
+  {
+    "name": "Hervé Pagès",
+    "slug": "herv-pag-s",
+    "emailHash": "3adbe49ac1267296ec6e97410f7ab72179d72b6e877662039a13da08325c17c0",
+    "messageCount": 92,
+    "firstDate": "2008-04-02T16:10:46Z",
+    "lastDate": "2011-09-26T21:02:33Z",
+    "yearlyActivity": {
+      "2008": 13,
+      "2009": 18,
+      "2010": 40,
+      "2011": 21
+    }
+  },
+  {
+    "name": "Steve Lianoglou",
+    "slug": "steve-lianoglou",
+    "emailHash": "65bbed6d3f5a5c67840e1a8d8d82a54afcd8e5cfa80563594de1bbc0121bb2f0",
+    "messageCount": 90,
+    "firstDate": "2009-01-15T15:52:00Z",
+    "lastDate": "2011-09-12T18:11:54Z",
+    "yearlyActivity": {
+      "2009": 14,
+      "2010": 58,
+      "2011": 18
+    }
+  },
+  {
+    "name": "Dario Strbenac",
+    "slug": "dario-strbenac",
+    "emailHash": "0d272309e2552a733cf34645f0e220259697f4065c1e3bfc9672933b887da7bc",
+    "messageCount": 57,
+    "firstDate": "2009-09-10T01:18:09Z",
+    "lastDate": "2011-08-31T00:00:33Z",
+    "yearlyActivity": {
+      "2009": 3,
+      "2010": 33,
+      "2011": 21
+    }
+  },
+  {
+    "name": "Sean Davis",
+    "slug": "sean-davis",
+    "emailHash": "109b9a34086cf76701f2b8d9829b34ab79f50658b0fbd49b00fae8e1665544ec",
+    "messageCount": 46,
+    "firstDate": "2008-06-04T16:25:23Z",
+    "lastDate": "2011-09-02T13:41:51Z",
+    "yearlyActivity": {
+      "2008": 9,
+      "2009": 19,
+      "2010": 11,
+      "2011": 7
+    }
+  },
+  {
+    "name": "Kunbin Qu",
+    "slug": "kunbin-qu",
+    "emailHash": "dd2563c28824bc3e2c72aae6a45a538e8fb306a1025709b9168ccb7057e28bbc",
+    "messageCount": 41,
+    "firstDate": "2010-04-01T16:53:01Z",
+    "lastDate": "2011-08-11T16:50:24Z",
+    "yearlyActivity": {
+      "2010": 27,
+      "2011": 14
+    }
+  },
+  {
+    "name": "Kasper Daniel Hansen",
+    "slug": "kasper-daniel-hansen",
+    "emailHash": "118534c5e6677cb8c10dd2e490b80160485aae15fec1957bdeecc70f24d04e5e",
+    "messageCount": 39,
+    "firstDate": "2009-01-19T00:23:27Z",
+    "lastDate": "2011-07-26T16:53:16Z",
+    "yearlyActivity": {
+      "2009": 14,
+      "2010": 20,
+      "2011": 5
+    }
+  },
+  {
+    "name": "Harris A. Jaffee",
+    "slug": "harris-a-jaffee",
+    "emailHash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+    "messageCount": 35,
+    "firstDate": "2008-07-17T14:59:37Z",
+    "lastDate": "2011-09-28T21:45:19Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2009": 3,
+      "2010": 17,
+      "2011": 14
+    }
+  },
+  {
+    "name": "Janet Young",
+    "slug": "janet-young",
+    "emailHash": "b612d92af90a9818f7841b6384ae12053ce37bd9c09676cc60daa4ddbe797921",
+    "messageCount": 35,
+    "firstDate": "2010-06-09T00:10:36Z",
+    "lastDate": "2011-09-30T00:26:24Z",
+    "yearlyActivity": {
+      "2010": 11,
+      "2011": 24
+    }
+  },
+  {
+    "name": "joseph",
+    "slug": "joseph",
+    "emailHash": "8e151c9abc2cfcc762f760091519f85e9b3d6858f7d51f61f9737a1f1d3ec6a7",
+    "messageCount": 34,
+    "firstDate": "2009-03-08T18:33:23Z",
+    "lastDate": "2011-03-24T18:23:36Z",
+    "yearlyActivity": {
+      "2009": 11,
+      "2010": 18,
+      "2011": 5
+    }
+  },
+  {
+    "name": "Vincent Carey",
+    "slug": "vincent-carey",
+    "emailHash": "1f30b100cde9943e1e1ddf5cbc4bfa9be4dd0799b0874f12e42d19f46a8f3d2e",
+    "messageCount": 33,
+    "firstDate": "2009-04-13T20:33:02Z",
+    "lastDate": "2011-09-14T02:09:01Z",
+    "yearlyActivity": {
+      "2009": 5,
+      "2010": 25,
+      "2011": 3
+    }
+  },
+  {
+    "name": "wang peter",
+    "slug": "wang-peter",
+    "emailHash": "b2902ac5bd1bd473a0a8c22f2f9f00c2b2b5870d6530a8169155e12bcfc822b1",
+    "messageCount": 33,
+    "firstDate": "2011-08-30T20:42:51Z",
+    "lastDate": "2011-09-28T20:14:24Z",
+    "yearlyActivity": {
+      "2011": 33
+    }
+  },
+  {
+    "name": "Nicolas Delhomme",
+    "slug": "nicolas-delhomme",
+    "emailHash": "17bdc060e8b6bbc4f10a2bda0c498e3312da40a8ad2097c6249df2e80aff35af",
+    "messageCount": 32,
+    "firstDate": "2009-01-20T13:17:04Z",
+    "lastDate": "2011-07-26T20:38:18Z",
+    "yearlyActivity": {
+      "2009": 20,
+      "2010": 7,
+      "2011": 5
+    }
+  },
+  {
+    "name": "pterry at huskers.unl.edu",
+    "slug": "pterry-at-huskers-unl-edu",
+    "emailHash": "451b60417347881d1411be90e0dc48b9af1cc31e0974d2d23e738160d3b043e7",
+    "messageCount": 32,
+    "firstDate": "2009-09-07T03:48:11Z",
+    "lastDate": "2010-11-01T01:14:28Z",
+    "yearlyActivity": {
+      "2009": 9,
+      "2010": 23
+    }
+  },
+  {
+    "name": "Zhu, Lihua (Julie)",
+    "slug": "zhu-lihua-julie",
+    "emailHash": "586a1cc121daa6c710a09ab5e98a06366851a60afc8b50ff208bd88dadc78533",
+    "messageCount": 28,
+    "firstDate": "2010-03-09T15:02:30Z",
+    "lastDate": "2011-09-06T15:04:46Z",
+    "yearlyActivity": {
+      "2010": 25,
+      "2011": 3
+    }
+  },
+  {
+    "name": "Pratap, Abhishek",
+    "slug": "pratap-abhishek",
+    "emailHash": "fad4dfd7a61d610e16cba5d775b56a546cda8b0d170ffbec5bcf53b50974edc2",
+    "messageCount": 27,
+    "firstDate": "2009-07-10T15:00:46Z",
+    "lastDate": "2010-07-31T06:22:21Z",
+    "yearlyActivity": {
+      "2009": 22,
+      "2010": 5
+    }
+  },
+  {
+    "name": "Simon Anders",
+    "slug": "simon-anders",
+    "emailHash": "254975616c1a3e9660f72572d35d6371c77fa456a19421d40de9c4b7b368791a",
+    "messageCount": 25,
+    "firstDate": "2008-11-04T17:13:45Z",
+    "lastDate": "2011-08-08T12:51:35Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2009": 18,
+      "2010": 1,
+      "2011": 5
+    }
+  },
+  {
+    "name": "Gordon K Smyth",
+    "slug": "gordon-k-smyth",
+    "emailHash": "003273aea5139964ec7a63edc20384e76bfae6a8c6206e95b3f56f722d94afea",
+    "messageCount": 22,
+    "firstDate": "2010-01-22T02:09:22Z",
+    "lastDate": "2011-09-17T00:47:21Z",
+    "yearlyActivity": {
+      "2010": 3,
+      "2011": 19
+    }
+  },
+  {
+    "name": "Wolfgang Huber",
+    "slug": "wolfgang-huber",
+    "emailHash": "39452235403f08a1841cc37c4c1ae302decd3e2c22a7d690f01e901b6fad500b",
+    "messageCount": 22,
+    "firstDate": "2008-08-03T20:20:59Z",
+    "lastDate": "2011-08-08T12:45:41Z",
+    "yearlyActivity": {
+      "2008": 3,
+      "2009": 9,
+      "2010": 7,
+      "2011": 3
+    }
+  },
+  {
+    "name": "Thomas Girke",
+    "slug": "thomas-girke",
+    "emailHash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+    "messageCount": 22,
+    "firstDate": "2009-04-24T16:21:01Z",
+    "lastDate": "2011-08-22T21:36:43Z",
+    "yearlyActivity": {
+      "2009": 12,
+      "2010": 6,
+      "2011": 4
+    }
+  },
+  {
+    "name": "ig2ar-saf2 at yahoo.co.uk",
+    "slug": "ig2ar-saf2-at-yahoo-co-uk",
+    "emailHash": "aeb959b9fc31c6f65585e2ff54c236f16c61f1126dbaafd73a43508ab10d9ff1",
+    "messageCount": 20,
+    "firstDate": "2009-03-13T16:08:57Z",
+    "lastDate": "2009-04-29T21:47:47Z",
+    "yearlyActivity": {
+      "2009": 20
+    }
+  },
+  {
+    "name": "Ramzi TEMANNI",
+    "slug": "ramzi-temanni",
+    "emailHash": "1912f0fbe954da369d5e65ad05eea83c372c11bd2e47acece49b260df84dac6c",
+    "messageCount": 17,
+    "firstDate": "2009-11-30T14:27:41Z",
+    "lastDate": "2010-02-19T20:02:48Z",
+    "yearlyActivity": {
+      "2009": 9,
+      "2010": 8
+    }
+  },
+  {
+    "name": "James W. MacDonald",
+    "slug": "james-w-macdonald",
+    "emailHash": "51adc7219ba14ffb040e839c792f68f77fe8c9e4e95b260499c3cfe16440cae8",
+    "messageCount": 17,
+    "firstDate": "2008-11-07T14:47:14Z",
+    "lastDate": "2011-05-10T23:30:42Z",
+    "yearlyActivity": {
+      "2008": 2,
+      "2009": 7,
+      "2010": 7,
+      "2011": 1
+    }
+  },
+  {
+    "name": "Marcus Davy",
+    "slug": "marcus-davy",
+    "emailHash": "b666a1539cdf5ecec7cea6e9e4af29102cbb45d1e5b4b0d0af4cfad68024d8dc",
+    "messageCount": 17,
+    "firstDate": "2010-01-26T02:54:09Z",
+    "lastDate": "2011-06-15T03:07:06Z",
+    "yearlyActivity": {
+      "2010": 12,
+      "2011": 5
+    }
+  },
+  {
+    "name": "Andrew Yee",
+    "slug": "andrew-yee",
+    "emailHash": "02221aeec4b0ddbaa6631f28ca1fe9caeef0bad8724d68f2682c1807f636e69b",
+    "messageCount": 16,
+    "firstDate": "2010-04-29T00:07:51Z",
+    "lastDate": "2010-09-22T19:06:12Z",
+    "yearlyActivity": {
+      "2010": 16
+    }
+  },
+  {
+    "name": "Bogdan Tanasa",
+    "slug": "bogdan-tanasa",
+    "emailHash": "031c94675cf018195dd836e8ddcb8332cb243b399f3edfdd94a19429c3b16ec5",
+    "messageCount": 16,
+    "firstDate": "2008-06-11T04:39:56Z",
+    "lastDate": "2011-07-26T20:16:58Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2009": 11,
+      "2010": 1,
+      "2011": 3
+    }
+  },
+  {
+    "name": "Dan Bolser",
+    "slug": "dan-bolser",
+    "emailHash": "67a9076c733a86ea6e6c9bc7ba8c0b60fbdecc5e9e6a4791158310dfba72fe51",
+    "messageCount": 15,
+    "firstDate": "2008-08-26T11:49:08Z",
+    "lastDate": "2009-08-19T17:05:53Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2009": 14
+    }
+  },
+  {
+    "name": "Deepayan Sarkar",
+    "slug": "deepayan-sarkar",
+    "emailHash": "020e17c245cd36adafe1b38bf8b2d966df21273089c8563116946ee62e4652bf",
+    "messageCount": 13,
+    "firstDate": "2009-03-22T14:30:34Z",
+    "lastDate": "2010-03-02T04:59:13Z",
+    "yearlyActivity": {
+      "2009": 11,
+      "2010": 2
+    }
+  },
+  {
+    "name": "Cei Abreu-Goodger",
+    "slug": "cei-abreu-goodger",
+    "emailHash": "2c48b57221d8aaa1af94a6b4bee7472d90026e6f91f8181a68e464b09d7d667e",
+    "messageCount": 13,
+    "firstDate": "2009-01-14T17:19:55Z",
+    "lastDate": "2011-06-13T02:24:18Z",
+    "yearlyActivity": {
+      "2009": 6,
+      "2010": 5,
+      "2011": 2
+    }
+  },
+  {
+    "name": "Michael Muratet",
+    "slug": "michael-muratet",
+    "emailHash": "48bac786a235f44cd42e5218bda2f814180b57439c56f3761df885bf4d5338e2",
+    "messageCount": 13,
+    "firstDate": "2009-09-10T18:32:44Z",
+    "lastDate": "2010-01-05T21:31:04Z",
+    "yearlyActivity": {
+      "2009": 12,
+      "2010": 1
+    }
+  },
+  {
+    "name": "Johannes Rainer",
+    "slug": "johannes-rainer",
+    "emailHash": "93f9ad954317756e1b7c5553d81e483ca426f0cbf6db9351a470dd404e4a95e5",
+    "messageCount": 13,
+    "firstDate": "2010-02-05T06:20:12Z",
+    "lastDate": "2010-03-05T13:22:06Z",
+    "yearlyActivity": {
+      "2010": 13
+    }
+  },
+  {
+    "name": "Paul Leo",
+    "slug": "paul-leo",
+    "emailHash": "aaa21c7d025c2c08c01c971e988f6d6069f94230c80a3ee163b22efbdb4c81df",
+    "messageCount": 13,
+    "firstDate": "2008-06-06T00:55:35Z",
+    "lastDate": "2011-02-11T02:31:16Z",
+    "yearlyActivity": {
+      "2008": 2,
+      "2009": 5,
+      "2010": 3,
+      "2011": 3
+    }
+  },
+  {
+    "name": "David Winsemius",
+    "slug": "david-winsemius",
+    "emailHash": "0692edf60e8d1adf61ddd1cce6d39166b800c408ac7e4d0133a157550d38480d",
+    "messageCount": 12,
+    "firstDate": "2009-01-08T15:41:20Z",
+    "lastDate": "2011-06-02T08:45:57Z",
+    "yearlyActivity": {
+      "2009": 6,
+      "2011": 6
+    }
+  },
+  {
+    "name": "kirti prakash",
+    "slug": "kirti-prakash",
+    "emailHash": "49f40a40b53b98021e63078ef7fdfc6590533edf0235f56766e4b7f5a7adedf4",
+    "messageCount": 12,
+    "firstDate": "2010-08-17T15:10:53Z",
+    "lastDate": "2011-03-04T20:16:03Z",
+    "yearlyActivity": {
+      "2010": 9,
+      "2011": 3
+    }
+  },
+  {
+    "name": "Cook, Malcolm",
+    "slug": "cook-malcolm",
+    "emailHash": "5890e0141f7841ec4ddb575a5651a04f47c9475b8ff6c87cc0a7d17da0270ce8",
+    "messageCount": 12,
+    "firstDate": "2011-03-31T15:32:13Z",
+    "lastDate": "2011-08-30T20:36:26Z",
+    "yearlyActivity": {
+      "2011": 12
+    }
+  },
+  {
+    "name": "Seth Falcon",
+    "slug": "seth-falcon",
+    "emailHash": "11c6971bcb88df56e639b6a132437a8a73d7e421ce61eb5feaa3d85efef832df",
+    "messageCount": 11,
+    "firstDate": "2009-11-02T05:47:08Z",
+    "lastDate": "2010-03-10T15:40:35Z",
+    "yearlyActivity": {
+      "2009": 5,
+      "2010": 6
+    }
+  },
+  {
+    "name": "Leonardo Collado Torres",
+    "slug": "leonardo-collado-torres",
+    "emailHash": "b87acec20d5a39fa09dc19fb4c79fb378f5a2e1583724c41714b09eb6a9b011d",
+    "messageCount": 11,
+    "firstDate": "2009-08-26T06:10:00Z",
+    "lastDate": "2011-06-20T16:38:58Z",
+    "yearlyActivity": {
+      "2009": 3,
+      "2010": 6,
+      "2011": 2
+    }
+  },
+  {
+    "name": "Muino, Jose",
+    "slug": "muino-jose",
+    "emailHash": "b29405c8da5d981a5a5191e5886758e3b72ccc5d2931e6c6e7651a334e32159a",
+    "messageCount": 10,
+    "firstDate": "2010-02-09T13:07:17Z",
+    "lastDate": "2010-06-11T12:09:59Z",
+    "yearlyActivity": {
+      "2010": 10
+    }
+  },
+  {
+    "name": "Laurent Gautier",
+    "slug": "laurent-gautier",
+    "emailHash": "02e2040eede17e7c50ab0701d42bb115faf28a941ba5af1845072549f75ba8c2",
+    "messageCount": 9,
+    "firstDate": "2009-04-28T17:13:49Z",
+    "lastDate": "2011-03-01T09:25:31Z",
+    "yearlyActivity": {
+      "2009": 2,
+      "2010": 2,
+      "2011": 5
+    }
+  },
+  {
+    "name": "Wolfgang Raffelsberger",
+    "slug": "wolfgang-raffelsberger",
+    "emailHash": "1ad25ab5893f0bfc1d75d930d232a8a206d7e940f775073691ca99f6d740a1f7",
+    "messageCount": 9,
+    "firstDate": "2008-10-23T17:24:48Z",
+    "lastDate": "2009-07-24T14:35:40Z",
+    "yearlyActivity": {
+      "2008": 3,
+      "2009": 6
+    }
+  },
+  {
+    "name": "Wu, Xiwei",
+    "slug": "wu-xiwei",
+    "emailHash": "39a393b06b737d3d4c897d7034802e29ffa8f3bca067e5db1e3360c812382fa3",
+    "messageCount": 9,
+    "firstDate": "2009-04-23T15:03:15Z",
+    "lastDate": "2010-03-09T21:23:11Z",
+    "yearlyActivity": {
+      "2009": 7,
+      "2010": 2
+    }
+  },
+  {
+    "name": "Valerie Obenchain",
+    "slug": "valerie-obenchain",
+    "emailHash": "3cec09a81a2cbddc50b7b1185dc6ac2bf5c519d061a87cd6101abb36715ac466",
+    "messageCount": 9,
+    "firstDate": "2010-08-26T20:35:11Z",
+    "lastDate": "2011-09-29T02:56:34Z",
+    "yearlyActivity": {
+      "2010": 2,
+      "2011": 7
+    }
+  },
+  {
+    "name": "joseph franklin",
+    "slug": "joseph-franklin",
+    "emailHash": "90f9549fc0fab45ed261df25457fa6f07a1f15d2b19f55bb3e6b0376813f2aed",
+    "messageCount": 9,
+    "firstDate": "2009-01-17T20:04:14Z",
+    "lastDate": "2010-08-26T22:22:42Z",
+    "yearlyActivity": {
+      "2009": 3,
+      "2010": 6
+    }
+  },
+  {
+    "name": "Droit Arnaud",
+    "slug": "droit-arnaud",
+    "emailHash": "c5b709e53467de0f22baefc2fbb53acb48badda0c1636ef801371d41a70104ea",
+    "messageCount": 9,
+    "firstDate": "2009-12-23T00:14:40Z",
+    "lastDate": "2010-05-04T13:52:05Z",
+    "yearlyActivity": {
+      "2009": 1,
+      "2010": 8
+    }
+  },
+  {
+    "name": "Sean Ruddy",
+    "slug": "sean-ruddy",
+    "emailHash": "d5c0fc378621609c1bf74055120ecc6bbba1fca4bc002be842ed2cbdd6347410",
+    "messageCount": 9,
+    "firstDate": "2011-07-14T19:54:49Z",
+    "lastDate": "2011-09-17T03:28:18Z",
+    "yearlyActivity": {
+      "2011": 9
+    }
+  },
+  {
+    "name": "Chris Seidel",
+    "slug": "chris-seidel",
+    "emailHash": "021f6f5624656d1863097736e3b57ef70cbe334ac3d2ce10331e53ada73b3c59",
+    "messageCount": 8,
+    "firstDate": "2009-09-30T18:20:30Z",
+    "lastDate": "2010-10-06T21:10:44Z",
+    "yearlyActivity": {
+      "2009": 4,
+      "2010": 4
+    }
+  },
+  {
+    "name": "Davis McCarthy",
+    "slug": "davis-mccarthy",
+    "emailHash": "24af389e273d293ca0cc0d3bf11c3a8415d240800ea8cba3d2ee44bb8c0c12c2",
+    "messageCount": 8,
+    "firstDate": "2010-11-04T23:33:12Z",
+    "lastDate": "2011-06-30T23:46:28Z",
+    "yearlyActivity": {
+      "2010": 1,
+      "2011": 7
+    }
+  },
+  {
+    "name": "Jason Lu",
+    "slug": "jason-lu",
+    "emailHash": "ac8b20aef82cdde6bfdfd4e28dae434610791670138e62d0ae0a590fe4e9806d",
+    "messageCount": 8,
+    "firstDate": "2010-02-05T19:30:01Z",
+    "lastDate": "2011-07-14T16:05:10Z",
+    "yearlyActivity": {
+      "2010": 4,
+      "2011": 4
+    }
+  },
+  {
+    "name": "Jane Merlevede",
+    "slug": "jane-merlevede",
+    "emailHash": "b002cbe2c43a6877ff577619a15a9e02ddbb767930f06f6d2e8d295ba2779099",
+    "messageCount": 8,
+    "firstDate": "2011-07-22T14:40:05Z",
+    "lastDate": "2011-09-01T18:19:19Z",
+    "yearlyActivity": {
+      "2011": 8
+    }
+  },
+  {
+    "name": "Hans-Ulrich Klein",
+    "slug": "hans-ulrich-klein",
+    "emailHash": "f5e3c255ba8c591ba34ebbe9a6c82dcd7b8dc1d03cdc7a1a100a5e6c8cd9cb87",
+    "messageCount": 8,
+    "firstDate": "2008-12-13T21:40:54Z",
+    "lastDate": "2011-02-18T09:03:28Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2010": 5,
+      "2011": 2
+    }
+  },
+  {
+    "name": "Neel Aluru",
+    "slug": "neel-aluru",
+    "emailHash": "082569eb7bf4f305c12a40d5d9729a1b6936a8f785c59e779f0d0f553aa1019e",
+    "messageCount": 7,
+    "firstDate": "2010-09-17T13:28:15Z",
+    "lastDate": "2010-12-12T19:14:01Z",
+    "yearlyActivity": {
+      "2010": 7
+    }
+  },
+  {
+    "name": "James Bullard",
+    "slug": "james-bullard",
+    "emailHash": "0d91082dfdae8d259e552b47d27ba31f1b02b4e0b45d255b61f95ed20d189aa5",
+    "messageCount": 7,
+    "firstDate": "2009-08-05T19:14:49Z",
+    "lastDate": "2010-06-21T23:56:42Z",
+    "yearlyActivity": {
+      "2009": 3,
+      "2010": 4
+    }
+  },
+  {
+    "name": "Lana Schaffer",
+    "slug": "lana-schaffer",
+    "emailHash": "1c22dc3ecba6511939a24e3dfab93586e7bc133d5e28fc5ea1ac837b22543b14",
+    "messageCount": 7,
+    "firstDate": "2009-03-26T19:03:44Z",
+    "lastDate": "2010-07-07T00:56:34Z",
+    "yearlyActivity": {
+      "2009": 4,
+      "2010": 3
+    }
+  },
+  {
+    "name": "Purnachander",
+    "slug": "purnachander",
+    "emailHash": "360291261f086a9f2c8c7324d707f3ffc78489c52d6af222681fdf622b5bc88e",
+    "messageCount": 7,
+    "firstDate": "2009-07-15T04:21:10Z",
+    "lastDate": "2010-09-07T05:24:04Z",
+    "yearlyActivity": {
+      "2009": 5,
+      "2010": 2
+    }
+  },
+  {
+    "name": "Stephen Henderson",
+    "slug": "stephen-henderson",
+    "emailHash": "846d881430ade316243531d192b758e414c7445b84afe371156a3adf78167110",
+    "messageCount": 7,
+    "firstDate": "2008-02-29T09:41:06Z",
+    "lastDate": "2008-06-03T19:12:38Z",
+    "yearlyActivity": {
+      "2008": 7
+    }
+  },
+  {
+    "name": "Fuad Gwadry",
+    "slug": "fuad-gwadry",
+    "emailHash": "a29be2d141cb52560214915e3ed686e42fb3bd1ccfe8b78acb2e819c8bdbb51e",
+    "messageCount": 7,
+    "firstDate": "2009-08-04T15:06:56Z",
+    "lastDate": "2010-02-23T19:18:19Z",
+    "yearlyActivity": {
+      "2009": 6,
+      "2010": 1
+    }
+  },
+  {
+    "name": "Aaron Statham",
+    "slug": "aaron-statham",
+    "emailHash": "bb8213b0fbef1aff03de217e9704c0d12e68d86bab28f0c4d2748c3e4f8daf56",
+    "messageCount": 7,
+    "firstDate": "2010-03-08T09:30:26Z",
+    "lastDate": "2010-09-06T07:41:27Z",
+    "yearlyActivity": {
+      "2010": 7
+    }
+  },
+  {
+    "name": "burak kutlu",
+    "slug": "burak-kutlu",
+    "emailHash": "c42f8c90a604bd94c1bc19558fd36cf8858ef29f299230e6916fb3d739084958",
+    "messageCount": 7,
+    "firstDate": "2009-02-27T18:26:25Z",
+    "lastDate": "2010-04-12T20:43:32Z",
+    "yearlyActivity": {
+      "2009": 3,
+      "2010": 4
+    }
+  },
+  {
+    "name": "Charles C. Berry",
+    "slug": "charles-c-berry",
+    "emailHash": "040f58714a1a23cffd8d86129cec6e24102a1cbee3dbb4a52a86c71eeac41f26",
+    "messageCount": 6,
+    "firstDate": "2008-08-24T23:42:09Z",
+    "lastDate": "2010-10-11T18:33:53Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2010": 5
+    }
+  },
+  {
+    "name": "Joern Toedling",
+    "slug": "joern-toedling",
+    "emailHash": "179331a143ca2f14693718b605784ee55ba4c0361b76d937bb1ef82b52b58ee3",
+    "messageCount": 6,
+    "firstDate": "2009-05-25T17:09:01Z",
+    "lastDate": "2010-08-26T13:29:52Z",
+    "yearlyActivity": {
+      "2009": 4,
+      "2010": 2
+    }
+  },
+  {
+    "name": "Ludo Pagie",
+    "slug": "ludo-pagie",
+    "emailHash": "2a2b83ff90b1622993a099eb9e73fccd4f042feab34fdf2d379560238926695b",
+    "messageCount": 6,
+    "firstDate": "2009-08-24T09:24:45Z",
+    "lastDate": "2011-02-16T13:12:25Z",
+    "yearlyActivity": {
+      "2009": 1,
+      "2010": 4,
+      "2011": 1
+    }
+  },
+  {
+    "name": "João Fadista",
+    "slug": "jo-o-fadista",
+    "emailHash": "8db2d3c050bafdf137687fb380238bdbe5e4d844a9125872df3076652d3b0a1b",
+    "messageCount": 6,
+    "firstDate": "2009-01-22T09:50:02Z",
+    "lastDate": "2009-05-11T09:12:45Z",
+    "yearlyActivity": {
+      "2009": 6
+    }
+  },
+  {
+    "name": "Mark Robinson",
+    "slug": "mark-robinson",
+    "emailHash": "acbef4359804cd94338b09a62f410eb3884f75299503e7cbdef2774b13a7e7a3",
+    "messageCount": 6,
+    "firstDate": "2010-10-18T22:43:10Z",
+    "lastDate": "2011-07-25T03:50:36Z",
+    "yearlyActivity": {
+      "2010": 4,
+      "2011": 2
+    }
+  },
+  {
+    "name": "xuxiang086",
+    "slug": "xuxiang086",
+    "emailHash": "c614fcb37f5ea2a5f15923c6b76f9598d23ec01d1ccd73928777e7cf2632dedc",
+    "messageCount": 6,
+    "firstDate": "2009-04-27T04:47:52Z",
+    "lastDate": "2010-07-19T08:45:35Z",
+    "yearlyActivity": {
+      "2009": 2,
+      "2010": 4
+    }
+  },
+  {
+    "name": "Johannes Waage",
+    "slug": "johannes-waage",
+    "emailHash": "c8eab0ed7bd09019cdc6e544852d5448155ca0df6de47c5d5c83578616998b6f",
+    "messageCount": 6,
+    "firstDate": "2009-05-28T21:42:45Z",
+    "lastDate": "2010-08-12T09:14:27Z",
+    "yearlyActivity": {
+      "2009": 5,
+      "2010": 1
+    }
+  },
+  {
+    "name": "Julie Zhu",
+    "slug": "julie-zhu",
+    "emailHash": "d6f73336059c5c55d4db91c0294f8674a52ef21e95684df99d72c17c2c50bedc",
+    "messageCount": 6,
+    "firstDate": "2010-02-09T17:22:03Z",
+    "lastDate": "2010-02-11T14:38:26Z",
+    "yearlyActivity": {
+      "2010": 6
+    }
+  },
+  {
+    "name": "Joseph Dhahbi, P.h.D.",
+    "slug": "joseph-dhahbi-p-h-d",
+    "emailHash": "eec9583a5dc693521f378cb51ccde7ebc71494d5150ae5e493ef2f78aed1d91b",
+    "messageCount": 6,
+    "firstDate": "2008-06-03T15:21:56Z",
+    "lastDate": "2008-06-04T20:59:59Z",
+    "yearlyActivity": {
+      "2008": 6
+    }
+  },
+  {
+    "name": "Rene Paradis",
+    "slug": "rene-paradis",
+    "emailHash": "42243eb68a7b4cacbbb3a95b4c43f28574245cc91cb3dab2e3071447fed1956e",
+    "messageCount": 5,
+    "firstDate": "2011-09-16T13:17:39Z",
+    "lastDate": "2011-09-21T15:33:10Z",
+    "yearlyActivity": {
+      "2011": 5
+    }
+  },
+  {
+    "name": "Dan Tenenbaum",
+    "slug": "dan-tenenbaum",
+    "emailHash": "588191179e1473316acba74fd9f9fb7b6024bc1e0dcdc5cb81f8f2c35fa8200c",
+    "messageCount": 5,
+    "firstDate": "2010-09-17T17:00:19Z",
+    "lastDate": "2011-09-30T19:51:11Z",
+    "yearlyActivity": {
+      "2010": 1,
+      "2011": 4
+    }
+  },
+  {
+    "name": "David Rossell",
+    "slug": "david-rossell",
+    "emailHash": "93124bb0b31a8f1ed9a58e3a63fb833d6b1107a88fdba90a8247e71336c3b57f",
+    "messageCount": 5,
+    "firstDate": "2009-11-10T16:54:16Z",
+    "lastDate": "2010-03-31T13:20:22Z",
+    "yearlyActivity": {
+      "2009": 2,
+      "2010": 3
+    }
+  },
+  {
+    "name": "yifang tan",
+    "slug": "yifang-tan",
+    "emailHash": "b809a4dfc68096e61ed29f69e5cc144ad55e8ba7ec404b5c3f4afef23f671fac",
+    "messageCount": 5,
+    "firstDate": "2011-06-20T20:39:44Z",
+    "lastDate": "2011-06-24T22:13:07Z",
+    "yearlyActivity": {
+      "2011": 5
+    }
+  },
+  {
+    "name": "ivan.borozan at utoronto.ca",
+    "slug": "ivan-borozan-at-utoronto-ca",
+    "emailHash": "c36299a6149ee4d966da1d9fec0bd6fcbc4382f958c0d79a2a5e8b1c8088ac0c",
+    "messageCount": 5,
+    "firstDate": "2010-11-11T16:25:38Z",
+    "lastDate": "2010-11-15T18:51:41Z",
+    "yearlyActivity": {
+      "2010": 5
+    }
+  },
+  {
+    "name": "Sirisha Sunkara",
+    "slug": "sirisha-sunkara",
+    "emailHash": "d3b9316ba387bf57326f5daa6166fc208edd89f78cf429d6e7a31303b2e8f9ad",
+    "messageCount": 5,
+    "firstDate": "2009-08-24T22:23:30Z",
+    "lastDate": "2010-04-13T18:39:03Z",
+    "yearlyActivity": {
+      "2009": 1,
+      "2010": 4
+    }
+  },
+  {
+    "name": "kristen.dang at syngenta.com",
+    "slug": "kristen-dang-at-syngenta-com",
+    "emailHash": "d3f68eac7a1942429b9ea19ba51db1c72f210c86c986caebb4dc2b0da160b880",
+    "messageCount": 5,
+    "firstDate": "2010-09-01T14:55:21Z",
+    "lastDate": "2011-01-07T19:49:57Z",
+    "yearlyActivity": {
+      "2010": 3,
+      "2011": 2
+    }
+  },
+  {
+    "name": "Raphael Gottardo",
+    "slug": "raphael-gottardo",
+    "emailHash": "0056463695f9377b9835db165ee06521b3c0da5a4ad81f50be38c839e7fc7ece",
+    "messageCount": 4,
+    "firstDate": "2008-06-03T15:39:15Z",
+    "lastDate": "2010-03-29T22:00:26Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2010": 3
+    }
+  },
+  {
+    "name": "Robert Gentleman",
+    "slug": "robert-gentleman",
+    "emailHash": "123d8a37b4c33764383aec6209d5a3d3e15f649311f260d043f9839e1d8aeacc",
+    "messageCount": 4,
+    "firstDate": "2008-06-03T16:39:38Z",
+    "lastDate": "2011-03-25T16:41:24Z",
+    "yearlyActivity": {
+      "2008": 1,
+      "2009": 2,
+      "2011": 1
+    }
+  },
+  {
+    "name": "Christos Hatzis",
+    "slug": "christos-hatzis",
+    "emailHash": "295528b3824d36f1213cc71c0fd3f72f938e13415dcf661627328f23c9d693ec",
+    "messageCount": 4,
+    "firstDate": "2011-03-02T16:49:06Z",
+    "lastDate": "2011-03-04T18:58:28Z",
+    "yearlyActivity": {
+      "2011": 4
+    }
+  },
+  {
+    "name": "Anna Terry",
+    "slug": "anna-terry",
+    "emailHash": "2c0150a1257fc086ff10a5a84edc16de9a24d437b4484c7231644bd362fb9451",
+    "messageCount": 4,
+    "firstDate": "2010-11-30T14:43:00Z",
+    "lastDate": "2010-12-06T11:03:14Z",
+    "yearlyActivity": {
+      "2010": 4
+    }
+  },
+  {
+    "name": "rohan bareja",
+    "slug": "rohan-bareja",
+    "emailHash": "3852e67ea8b85b2b3f956b75b94d0c4751a0fa7a2a2b5b3be6cbe87ef01b9b33",
+    "messageCount": 4,
+    "firstDate": "2011-09-20T19:13:28Z",
+    "lastDate": "2011-09-29T02:46:36Z",
+    "yearlyActivity": {
+      "2011": 4
+    }
+  },
+  {
+    "name": "Abhishek Pratap",
+    "slug": "abhishek-pratap",
+    "emailHash": "41b9249ccc7add2fde1349e1bd428da836b5e1b578fa3afc339dbf8ef9ccb645",
+    "messageCount": 4,
+    "firstDate": "2009-08-12T21:59:38Z",
+    "lastDate": "2009-08-17T19:07:45Z",
+    "yearlyActivity": {
+      "2009": 4
+    }
+  },
+  {
+    "name": "Marc Carlson",
+    "slug": "marc-carlson",
+    "emailHash": "63182bae9b15df223407341203cb8ed095d4cf2c8e9f0f84a8b7320bd591907d",
+    "messageCount": 4,
+    "firstDate": "2009-09-18T23:52:33Z",
+    "lastDate": "2010-08-04T17:39:19Z",
+    "yearlyActivity": {
+      "2009": 2,
+      "2010": 2
+    }
+  },
+  {
+    "name": "Chen-Yi Chen",
+    "slug": "chen-yi-chen",
+    "emailHash": "cf19c0f456b033e2ee0e62f152fdf356b98847bba5ace46d07c068fb84685e2f",
+    "messageCount": 4,
+    "firstDate": "2010-03-23T23:46:41Z",
+    "lastDate": "2010-03-29T21:52:06Z",
+    "yearlyActivity": {
+      "2010": 4
+    }
+  },
+  {
+    "name": "Mayte Suarez-Farinas",
+    "slug": "mayte-suarez-farinas",
+    "emailHash": "d774eab0d8fdf72d29691954c266c158729fe7c2073331e346c36c6f7b96d029",
+    "messageCount": 4,
+    "firstDate": "2010-11-03T14:56:42Z",
+    "lastDate": "2010-11-29T21:18:50Z",
+    "yearlyActivity": {
+      "2010": 4
+    }
+  },
+  {
+    "name": "Nora Rieber",
+    "slug": "nora-rieber",
+    "emailHash": "ebb05177c443f57b25cf0db61a48ff36d24386c53b428efefaeb6e5647937515",
+    "messageCount": 4,
+    "firstDate": "2010-02-08T12:54:08Z",
+    "lastDate": "2010-10-26T12:17:00Z",
+    "yearlyActivity": {
+      "2010": 4
+    }
+  },
+  {
+    "name": "Clive G. Brown",
+    "slug": "clive-g-brown",
+    "emailHash": "ef497fe7a186052dc2d5ceb9969f1b38d9edb599b89818d868bacb900fff79a7",
+    "messageCount": 4,
+    "firstDate": "2008-11-07T14:49:25Z",
+    "lastDate": "2008-11-07T16:33:37Z",
+    "yearlyActivity": {
+      "2008": 4
+    }
+  },
+  {
+    "name": "JASREET HUNDAL",
+    "slug": "jasreet-hundal",
+    "emailHash": "f004e71fc32f03d5b850361b4e3073f3aaa04c1cb63821a5bfd908a726aad48d",
+    "messageCount": 4,
+    "firstDate": "2010-08-16T22:42:00Z",
+    "lastDate": "2010-08-18T15:04:47Z",
+    "yearlyActivity": {
+      "2010": 4
+    }
+  },
+  {
+    "name": "Benilton Carvalho",
+    "slug": "benilton-carvalho",
+    "emailHash": "09b7345958a4fbdf9b4622789a6342291a466f1e8d4cba800408ac4d1e344c2b",
+    "messageCount": 3,
+    "firstDate": "2010-09-28T13:28:51Z",
+    "lastDate": "2010-09-28T14:50:56Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "Victor Ruotti",
+    "slug": "victor-ruotti",
+    "emailHash": "0a612a2760b6972ef2465ed2500e71c29e23c4e65041a64f1fe041eb122deecb",
+    "messageCount": 3,
+    "firstDate": "2008-11-04T21:31:18Z",
+    "lastDate": "2009-01-30T23:57:34Z",
+    "yearlyActivity": {
+      "2008": 2,
+      "2009": 1
+    }
+  },
+  {
+    "name": "Dykema, Karl",
+    "slug": "dykema-karl",
+    "emailHash": "0d10a4d131fa84821c4069fb77a1fb9f6fb98ee5682dbf8e09b676fc666a50d1",
+    "messageCount": 3,
+    "firstDate": "2009-10-09T20:55:53Z",
+    "lastDate": "2010-01-28T21:50:34Z",
+    "yearlyActivity": {
+      "2009": 1,
+      "2010": 2
+    }
+  },
+  {
+    "name": "Heidi Dvinge",
+    "slug": "heidi-dvinge",
+    "emailHash": "26cb0cf94e3807414cdf9575e4137a1f3608a468695f23f76f812266ead6a773",
+    "messageCount": 3,
+    "firstDate": "2010-03-01T15:04:36Z",
+    "lastDate": "2011-02-28T12:52:26Z",
+    "yearlyActivity": {
+      "2010": 2,
+      "2011": 1
+    }
+  },
+  {
+    "name": "Loyal Goff",
+    "slug": "loyal-goff",
+    "emailHash": "3925788d1c0da0b0ac64931da780d1ceff43cdf3096779ef6b3a04b372bbb566",
+    "messageCount": 3,
+    "firstDate": "2008-02-29T13:10:02Z",
+    "lastDate": "2008-04-02T16:07:16Z",
+    "yearlyActivity": {
+      "2008": 3
+    }
+  },
+  {
+    "name": "Simon Lin",
+    "slug": "simon-lin",
+    "emailHash": "43abf90d34e0ae636bc66f9a59e0514c1d8f7824bb39448cdc3b49679cd03a37",
+    "messageCount": 3,
+    "firstDate": "2008-02-29T18:41:40Z",
+    "lastDate": "2008-03-06T00:03:17Z",
+    "yearlyActivity": {
+      "2008": 3
+    }
+  },
+  {
+    "name": "Joseph Scandura",
+    "slug": "joseph-scandura",
+    "emailHash": "5450f63e7d65c58d48cd3f68239031ca48e5040cff76be05ad119dcaa8cb9029",
+    "messageCount": 3,
+    "firstDate": "2011-01-18T00:05:53Z",
+    "lastDate": "2011-09-02T18:00:13Z",
+    "yearlyActivity": {
+      "2011": 3
+    }
+  },
+  {
+    "name": "Hans-Rudolf Hotz",
+    "slug": "hans-rudolf-hotz",
+    "emailHash": "5cd1389fdfb6045a86e33d9d18807b97470646c672b39b8287852500e71da16f",
+    "messageCount": 3,
+    "firstDate": "2010-04-13T13:02:23Z",
+    "lastDate": "2011-01-12T11:57:05Z",
+    "yearlyActivity": {
+      "2010": 2,
+      "2011": 1
+    }
+  },
+  {
+    "name": "Gottardo Raphaël",
+    "slug": "gottardo-rapha-l",
+    "emailHash": "62f61f061c55e65ef2bff6561462f5722d8ba8016c37392b325e1c6e05d4b756",
+    "messageCount": 3,
+    "firstDate": "2010-05-21T13:06:46Z",
+    "lastDate": "2010-06-11T12:13:32Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "Krys Kelly",
+    "slug": "krys-kelly",
+    "emailHash": "726ec508d51e96b1ed85c928e2cd17b307359211c2bf7d9d2eb3728e5115df5c",
+    "messageCount": 3,
+    "firstDate": "2008-07-17T13:47:27Z",
+    "lastDate": "2011-07-04T14:58:06Z",
+    "yearlyActivity": {
+      "2008": 2,
+      "2011": 1
+    }
+  },
+  {
+    "name": "Michael Dondrup",
+    "slug": "michael-dondrup",
+    "emailHash": "802d21e21b38daedbcdec0e36300247ddbe0d3cce64f7414517dc7af6dc6362d",
+    "messageCount": 3,
+    "firstDate": "2010-10-25T09:58:42Z",
+    "lastDate": "2010-12-02T15:23:58Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "Alper Yilmaz",
+    "slug": "alper-yilmaz",
+    "emailHash": "81f8c877455e8e9ff909baf3ee6f448e05fb2728617cbe782dcd4004f5bc982a",
+    "messageCount": 3,
+    "firstDate": "2010-05-02T15:28:30Z",
+    "lastDate": "2010-10-14T18:24:31Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "LU Zen",
+    "slug": "lu-zen",
+    "emailHash": "8f8d4a669e9b3b8c7cfef764910b368e728e445e4d8085e9fbb6e51f99aef44f",
+    "messageCount": 3,
+    "firstDate": "2010-08-12T16:20:03Z",
+    "lastDate": "2010-08-13T11:03:34Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "Tyler Backman",
+    "slug": "tyler-backman",
+    "emailHash": "967406a133fcb448bf736db91f16abc78e3eb8e8f1f701f4e8334cc2b4337f82",
+    "messageCount": 3,
+    "firstDate": "2010-01-20T18:13:56Z",
+    "lastDate": "2010-09-01T18:57:46Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "Estefania Mancini",
+    "slug": "estefania-mancini",
+    "emailHash": "a379e052068a48e86f159d9b3157883133c7c6e031223bf86baf79f7322fd15b",
+    "messageCount": 3,
+    "firstDate": "2011-08-09T19:51:40Z",
+    "lastDate": "2011-08-29T13:42:12Z",
+    "yearlyActivity": {
+      "2011": 3
+    }
+  },
+  {
+    "name": "Stefan Bentink",
+    "slug": "stefan-bentink",
+    "emailHash": "b129d571c175c935ac8439a896fee1c009f5f59317f299b095b1d816f5c31142",
+    "messageCount": 3,
+    "firstDate": "2010-08-04T15:04:59Z",
+    "lastDate": "2010-08-04T16:31:08Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "Jakob Hedegaard",
+    "slug": "jakob-hedegaard",
+    "emailHash": "b8c4c12b57b551688251e0794d4505f14fef1ca09e6a2ca5ca82edf46867a36a",
+    "messageCount": 3,
+    "firstDate": "2010-11-17T14:32:47Z",
+    "lastDate": "2010-11-30T20:46:18Z",
+    "yearlyActivity": {
+      "2010": 3
+    }
+  },
+  {
+    "name": "Lakshmanan Iyer",
+    "slug": "lakshmanan-iyer",
+    "emailHash": "c1b9f1431beed3398f114cc373d41158503fc837d5f4a10f17ccfdc83e46efcc",
+    "messageCount": 3,
+    "firstDate": "2011-04-10T15:13:39Z",
+    "lastDate": "2011-04-14T15:02:48Z",
+    "yearlyActivity": {
+      "2011": 3
+    }
+  },
+  {
+    "name": "João Moura",
+    "slug": "jo-o-moura",
+    "emailHash": "c6ddadb0670d25ab399f0ff00f951d37d925a7b8e0e136258a5adddfc32c9285",
+    "messageCount": 3,
+    "firstDate": "2011-03-25T01:21:44Z",
+    "lastDate": "2011-04-15T16:18:28Z",
+    "yearlyActivity": {
+      "2011": 3
+    }
+  },
+  {
+    "name": "Ali Mohamadian",
+    "slug": "ali-mohamadian",
+    "emailHash": "e43f8aa7dee253c537876fc62d304943dd498e58716498af79ade0a50bfaff27",
+    "messageCount": 3,
+    "firstDate": "2009-08-11T10:17:33Z",
+    "lastDate": "2009-08-27T11:04:00Z",
+    "yearlyActivity": {
+      "2009": 3
+    }
+  },
+  {
+    "name": "Gordon Robertson",
+    "slug": "gordon-robertson",
+    "emailHash": "ea459d42215bf8d59f10f3441b71bf30ab8f5cc556cda1946588ea0dc94cba59",
+    "messageCount": 3,
+    "firstDate": "2009-04-30T16:40:58Z",
+    "lastDate": "2009-04-30T18:56:31Z",
+    "yearlyActivity": {
+      "2009": 3
+    }
+  },
+  {
+    "name": "Jane Landolin",
+    "slug": "jane-landolin",
+    "emailHash": "082c4d25d74143e3934701c01d61129e9ca2ac56112f604f4db5740f0043e455",
+    "messageCount": 2,
+    "firstDate": "2010-04-19T23:40:54Z",
+    "lastDate": "2010-04-20T17:12:27Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Terry Therneau",
+    "slug": "terry-therneau",
+    "emailHash": "0df4ba795db07bfdd67dfdaa3c30ef6456663a5b0a916d95386922fedbe8ddbd",
+    "messageCount": 2,
+    "firstDate": "2008-08-22T15:40:57Z",
+    "lastDate": "2008-08-25T18:48:39Z",
+    "yearlyActivity": {
+      "2008": 2
+    }
+  },
+  {
+    "name": "Daniel Brewer",
+    "slug": "daniel-brewer",
+    "emailHash": "1193259434f6a62c85965cacd028661a6b41fefb82d860c360bfc11ca90a291a",
+    "messageCount": 2,
+    "firstDate": "2009-01-15T10:39:51Z",
+    "lastDate": "2009-06-02T10:14:49Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Duke",
+    "slug": "duke",
+    "emailHash": "12abb8f236ee61bd42fc30b0c51b47a356b715fb3f1e20dad967d6d8f8b956bf",
+    "messageCount": 2,
+    "firstDate": "2010-04-28T15:14:37Z",
+    "lastDate": "2010-04-28T18:09:51Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Matthew Young",
+    "slug": "matthew-young",
+    "emailHash": "1588b67e390b41e16dbc8b81924e29b95d370e8dd238c830923a6abb060442cd",
+    "messageCount": 2,
+    "firstDate": "2010-04-20T00:30:48Z",
+    "lastDate": "2010-04-20T02:06:52Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "sun",
+    "slug": "sun",
+    "emailHash": "163571fe761dc1677db8efb851055a8523d2255fb03f64945accd355d550e6b8",
+    "messageCount": 2,
+    "firstDate": "2009-06-03T23:40:11Z",
+    "lastDate": "2009-06-04T00:14:04Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Wong, Chao-Jen",
+    "slug": "wong-chao-jen",
+    "emailHash": "1a4bd74b183a4fbe073a64afdcc10d1322d4d0149992b55b6d1309e8456ac250",
+    "messageCount": 2,
+    "firstDate": "2011-01-03T19:13:08Z",
+    "lastDate": "2011-03-11T22:37:24Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Neumann, Steffen",
+    "slug": "neumann-steffen",
+    "emailHash": "1abe20c45e5e65d6c00b172f4fa0b48c3aa415349c7b49a3b3a2fb186ff67e10",
+    "messageCount": 2,
+    "firstDate": "2010-04-16T13:17:16Z",
+    "lastDate": "2010-04-16T18:48:28Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Lawson, Mark (mjl3p)",
+    "slug": "lawson-mark-mjl3p",
+    "emailHash": "1bced05d5b8a7cca16f3e0bbae5ebd2489a388c71dcb1d6dd72927def9099bfe",
+    "messageCount": 2,
+    "firstDate": "2011-06-08T14:15:53Z",
+    "lastDate": "2011-06-09T18:19:42Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Di, Xiaojun",
+    "slug": "di-xiaojun",
+    "emailHash": "1d8ac2ec6192424c215d19e4e1309f9505651acf7815df5850cfb63b515ac728",
+    "messageCount": 2,
+    "firstDate": "2010-06-18T22:04:20Z",
+    "lastDate": "2010-06-18T22:22:28Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Sini Junttila",
+    "slug": "sini-junttila",
+    "emailHash": "1f6494bcd1599c2c77beb8424250d3f9704fbbad435528ef4d87c21a8a6c0d85",
+    "messageCount": 2,
+    "firstDate": "2009-09-04T10:10:36Z",
+    "lastDate": "2009-09-04T10:14:10Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "kanika arora",
+    "slug": "kanika-arora",
+    "emailHash": "263869d2c2b2f9fecf6d17ea0f7fdadc9cee6e94be20e14b3fe985726d40075a",
+    "messageCount": 2,
+    "firstDate": "2010-06-02T12:48:50Z",
+    "lastDate": "2010-06-03T12:46:52Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Yanwei Tan",
+    "slug": "yanwei-tan",
+    "emailHash": "30a2fc45042c65d48a31249af778580a5e7561cd5bccedbc6b7b6056f9fa8840",
+    "messageCount": 2,
+    "firstDate": "2010-04-04T18:55:47Z",
+    "lastDate": "2010-04-04T21:07:29Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Kauer Max",
+    "slug": "kauer-max",
+    "emailHash": "3b580d10ab3732bff88885ec15f893b6a156e190c93398bd896e8e604e77f6c8",
+    "messageCount": 2,
+    "firstDate": "2009-02-18T15:18:54Z",
+    "lastDate": "2009-02-20T12:21:48Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Jiang, Lichun (NIH/NIDDK) [F]",
+    "slug": "jiang-lichun-nih-niddk-f",
+    "emailHash": "403fdcf9de928eaa8d06b260729018ff77de1284395439f9706a4548a9c1f565",
+    "messageCount": 2,
+    "firstDate": "2010-08-23T20:14:40Z",
+    "lastDate": "2010-08-23T21:03:52Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Lescai, Francesco",
+    "slug": "lescai-francesco",
+    "emailHash": "4b041fca7432fc97863cd7e36ddc3e4b15fa4dfc406fa164277669a1cede7b0d",
+    "messageCount": 2,
+    "firstDate": "2011-07-20T11:28:07Z",
+    "lastDate": "2011-09-27T19:53:45Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Sirisha Sunkara",
+    "slug": "sirisha-sunkara",
+    "emailHash": "4ff6a8d17b7bb159727f0c460b8f4e08809aa35cf818bf99a5f1fd93c4dbb369",
+    "messageCount": 2,
+    "firstDate": "2009-08-27T02:02:47Z",
+    "lastDate": "2010-03-02T20:00:18Z",
+    "yearlyActivity": {
+      "2009": 1,
+      "2010": 1
+    }
+  },
+  {
+    "name": "rcaloger",
+    "slug": "rcaloger",
+    "emailHash": "50fb8afd9683f42bcc98012315fcbad4ecc7c3c1dc1631b60a45ae41ce0b2c7f",
+    "messageCount": 2,
+    "firstDate": "2009-02-05T13:49:54Z",
+    "lastDate": "2010-12-12T17:48:11Z",
+    "yearlyActivity": {
+      "2009": 1,
+      "2010": 1
+    }
+  },
+  {
+    "name": "Mads Sønderkær",
+    "slug": "mads-s-nderk-r",
+    "emailHash": "51024857718f251ac8eaaae9280cbffbc73c6a87dacba832903aa5e7da4acf89",
+    "messageCount": 2,
+    "firstDate": "2009-05-28T20:20:16Z",
+    "lastDate": "2011-05-30T06:56:21Z",
+    "yearlyActivity": {
+      "2009": 1,
+      "2011": 1
+    }
+  },
+  {
+    "name": "Ying Ye",
+    "slug": "ying-ye",
+    "emailHash": "53522f470d271163f69210ca5436526e87bf75b9dd33ede0ca8dd1fa6a186e5d",
+    "messageCount": 2,
+    "firstDate": "2010-10-15T13:39:55Z",
+    "lastDate": "2010-10-18T11:22:20Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Davis McCarthy",
+    "slug": "davis-mccarthy",
+    "emailHash": "5e771b22c032781812da23bc34965e62809e73b2e20dda06987fffdaf1f6f5fa",
+    "messageCount": 2,
+    "firstDate": "2011-08-10T01:24:41Z",
+    "lastDate": "2011-08-12T07:44:53Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Ou, Jianhong",
+    "slug": "ou-jianhong",
+    "emailHash": "615f55bd959014e91f9efe8e1401f5ea59cbeb3012cd3867da310fbfb951b8bb",
+    "messageCount": 2,
+    "firstDate": "2011-09-01T14:09:54Z",
+    "lastDate": "2011-09-01T20:02:55Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Jenny Drnevich",
+    "slug": "jenny-drnevich",
+    "emailHash": "670feb721ed691dddb6506aecd63467a8a622e659eb1cf765a3b56b44209d818",
+    "messageCount": 2,
+    "firstDate": "2009-05-28T19:45:01Z",
+    "lastDate": "2009-08-11T19:42:11Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Chu Zhang",
+    "slug": "chu-zhang",
+    "emailHash": "72e8c6402fe9bc693baf316e5a4ddbc472c8c26a7649b117a042f1d8b9d376f6",
+    "messageCount": 2,
+    "firstDate": "2011-02-10T23:48:39Z",
+    "lastDate": "2011-02-12T01:54:39Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Leonardo Collado Torres",
+    "slug": "leonardo-collado-torres",
+    "emailHash": "84e96a461cf2614758d1b4562b8d30040b6877fad41077801570ecc01629230d",
+    "messageCount": 2,
+    "firstDate": "2010-09-14T15:36:38Z",
+    "lastDate": "2010-09-20T17:21:19Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "margherita mutarelli",
+    "slug": "margherita-mutarelli",
+    "emailHash": "8c4d9ba5137f8cb67a064e28987dc0c87bce3310352301459a87d2815fd444b3",
+    "messageCount": 2,
+    "firstDate": "2010-04-13T10:35:42Z",
+    "lastDate": "2010-04-13T13:26:54Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Stalteri, Maria A",
+    "slug": "stalteri-maria-a",
+    "emailHash": "90b64b99450f30a2fc03068e388979af8582e2535f8586a7f8b95c74720384c4",
+    "messageCount": 2,
+    "firstDate": "2011-03-03T11:40:17Z",
+    "lastDate": "2011-03-03T13:17:29Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "simon andrews (BI)",
+    "slug": "simon-andrews-bi",
+    "emailHash": "a2fcb2b2d0bcdb821e16bc8836a43428300ce4612e0959f7e5efc553557105d5",
+    "messageCount": 2,
+    "firstDate": "2009-05-11T08:50:42Z",
+    "lastDate": "2009-05-11T09:34:27Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Carl Yeoman",
+    "slug": "carl-yeoman",
+    "emailHash": "b80bb9ba4b7c10d1c89d3a51eb88d03e237d08e083458f30827bd40d47e84a43",
+    "messageCount": 2,
+    "firstDate": "2009-03-03T23:43:24Z",
+    "lastDate": "2009-03-11T21:40:50Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Tobias Straub",
+    "slug": "tobias-straub",
+    "emailHash": "ba9b96976af336036669198ba64d743785fc0db8ad5b01a98022a8408667c32d",
+    "messageCount": 2,
+    "firstDate": "2009-01-15T12:36:31Z",
+    "lastDate": "2009-05-14T14:50:42Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Florence Cavalli",
+    "slug": "florence-cavalli",
+    "emailHash": "bd7bd1ae851f31c79360e8458eaaa42066c4a569aa2013fb99e6a3db0dcc1565",
+    "messageCount": 2,
+    "firstDate": "2009-10-22T10:38:03Z",
+    "lastDate": "2009-10-23T22:03:59Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Sonia Leach",
+    "slug": "sonia-leach",
+    "emailHash": "beff4e44950eff8903d56c9eb7722712e8cf46c9945304400fd8957f8479d47b",
+    "messageCount": 2,
+    "firstDate": "2011-08-31T19:52:43Z",
+    "lastDate": "2011-09-01T15:12:42Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Anita Lerch",
+    "slug": "anita-lerch",
+    "emailHash": "c0b5a999099ff9dba9c41a7d58497875c65caf199c2d5923b59082de4bf67085",
+    "messageCount": 2,
+    "firstDate": "2011-09-27T09:39:05Z",
+    "lastDate": "2011-09-27T14:17:21Z",
+    "yearlyActivity": {
+      "2011": 2
+    }
+  },
+  {
+    "name": "Servant Nicolas",
+    "slug": "servant-nicolas",
+    "emailHash": "c5cb3450b6afd21e3a405c9caff525422ac1268810ae2c7c5f91c9e12f7cc9c4",
+    "messageCount": 2,
+    "firstDate": "2009-02-04T14:49:10Z",
+    "lastDate": "2009-02-05T11:12:23Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Stuart Andrews",
+    "slug": "stuart-andrews",
+    "emailHash": "ca57e31913f767f69312b655289067f22ff35db7ab87b004794ab3004d1c8a7f",
+    "messageCount": 2,
+    "firstDate": "2010-06-05T04:32:15Z",
+    "lastDate": "2010-06-05T07:02:05Z",
+    "yearlyActivity": {
+      "2010": 2
+    }
+  },
+  {
+    "name": "Ingunn Berget",
+    "slug": "ingunn-berget",
+    "emailHash": "dad4554ae55e1f1ec3710a476584a6943adb0fa6fb629808b2ded6386d37408e",
+    "messageCount": 2,
+    "firstDate": "2009-08-04T11:25:35Z",
+    "lastDate": "2009-08-05T06:54:46Z",
+    "yearlyActivity": {
+      "2009": 2
+    }
+  },
+  {
+    "name": "Cei Abreu-Goodger",
+    "slug": "cei-abreu-goodger",
+    "emailHash": "e43fc5b8bd684f632fc02a95d92053e32a5794e7fcc87a3f501e3ad7aa1f786b",
+    "messageCount": 2,
+    "firstDate": "2008-02-29T13:11:22Z",
+    "lastDate": "2008-07-17T16:08:59Z",
+    "yearlyActivity": {
+      "2008": 2
+    }
+  },
+  {
+    "name": "Henrik Bengtsson",
+    "slug": "henrik-bengtsson",
+    "emailHash": "0195b5651ca66f1d0738d42877cd4b486183f620a64c4eafdfc8840f05d4ecd1",
+    "messageCount": 1,
+    "firstDate": "2009-06-17T05:27:01Z",
+    "lastDate": "2009-06-17T05:27:01Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Elizabeth Purdom",
+    "slug": "elizabeth-purdom",
+    "emailHash": "063187f14b405a23db115faa5f2189f8f9c74df6367f4298bfb151bdf29b482e",
+    "messageCount": 1,
+    "firstDate": "2010-09-13T18:18:23Z",
+    "lastDate": "2010-09-13T18:18:23Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Bruno Zeitouni",
+    "slug": "bruno-zeitouni",
+    "emailHash": "09acbd10b1ae90599348fb99f0f73d46016a0b05d5cebdfa8f63a99f3ff492f9",
+    "messageCount": 1,
+    "firstDate": "2011-07-04T13:48:42Z",
+    "lastDate": "2011-07-04T13:48:42Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Matthew",
+    "slug": "matthew",
+    "emailHash": "0df7ebadd28ffe4ca607a92ae86bfb18da0ed52db4c73e0c4363cc3aafff2276",
+    "messageCount": 1,
+    "firstDate": "2009-09-30T18:31:57Z",
+    "lastDate": "2009-09-30T18:31:57Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Jonathan Cairns",
+    "slug": "jonathan-cairns",
+    "emailHash": "0f60951235ba44af97d949660394d59455b719b7da274349486e1ad6b3d74f6e",
+    "messageCount": 1,
+    "firstDate": "2011-03-10T14:08:44Z",
+    "lastDate": "2011-03-10T14:08:44Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Davis McCarthy",
+    "slug": "davis-mccarthy",
+    "emailHash": "0fd94e25e5c030ee166ce4b825d890f96c2b085edf53fbcbea7f02a8d6bf4e3f",
+    "messageCount": 1,
+    "firstDate": "2011-08-27T03:53:16Z",
+    "lastDate": "2011-08-27T03:53:16Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Sulev Kõks",
+    "slug": "sulev-k-ks",
+    "emailHash": "140b1c536a588f24e4cf98d3f3d868a71b5682d51aea40383a7e1a333556b2e1",
+    "messageCount": 1,
+    "firstDate": "2009-12-23T07:16:22Z",
+    "lastDate": "2009-12-23T07:16:22Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Eyad Almasri",
+    "slug": "eyad-almasri",
+    "emailHash": "156fcf9f0d02633b8c126bcd92ee3c2e01f06af190180d26b4d180e5e51c33e1",
+    "messageCount": 1,
+    "firstDate": "2009-05-06T05:30:22Z",
+    "lastDate": "2009-05-06T05:30:22Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Seidel, Christopher",
+    "slug": "seidel-christopher",
+    "emailHash": "171c87a92a4de6cf3e4052b21ddf1b666ce33059f8d37be64b3933596ed3f98a",
+    "messageCount": 1,
+    "firstDate": "2009-09-29T23:28:24Z",
+    "lastDate": "2009-09-29T23:28:24Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Darlene Goldstein",
+    "slug": "darlene-goldstein",
+    "emailHash": "17580dcb70c87d547740572499904bf016039c4c7ac6b3bda03d7202ef31bcef",
+    "messageCount": 1,
+    "firstDate": "2010-11-04T19:48:19Z",
+    "lastDate": "2010-11-04T19:48:19Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Markus Schmidberger",
+    "slug": "markus-schmidberger",
+    "emailHash": "1ea5f5d30651750e1f30ac1df19398321dd65c4ba97483f516db4d6f02d138d4",
+    "messageCount": 1,
+    "firstDate": "2011-07-13T12:25:40Z",
+    "lastDate": "2011-07-13T12:25:40Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "gbucci",
+    "slug": "gbucci",
+    "emailHash": "1ec67125c8ef966193aab1ac31bf4187779a508f04b8dc5647302a3e45d8d787",
+    "messageCount": 1,
+    "firstDate": "2009-08-26T09:36:02Z",
+    "lastDate": "2009-08-26T09:36:02Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Mike Smith",
+    "slug": "mike-smith",
+    "emailHash": "209ccebc69e2336edc6e55108c9345fd8e3d81f0a9f15ecd638f7a960e0ce062",
+    "messageCount": 1,
+    "firstDate": "2011-03-04T13:57:23Z",
+    "lastDate": "2011-03-04T13:57:23Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Thiago Yukio Kikuchi Oliveira",
+    "slug": "thiago-yukio-kikuchi-oliveira",
+    "emailHash": "2200ac37e7a4ab59d74c6c015a4f2631260f61a7a6f852642754d44e489b915b",
+    "messageCount": 1,
+    "firstDate": "2011-03-09T00:55:54Z",
+    "lastDate": "2011-03-09T00:55:54Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Laurent Gatto",
+    "slug": "laurent-gatto",
+    "emailHash": "29ff19476c9f5248ff393219e9f13241a709bc5481a5494006321d551aa80ebd",
+    "messageCount": 1,
+    "firstDate": "2009-02-18T16:54:10Z",
+    "lastDate": "2009-02-18T16:54:10Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Garg, Kavita",
+    "slug": "garg-kavita",
+    "emailHash": "32bb8a784d3e84573c1fb977f05145d7e5cc470696169159b0e31fe453f4db36",
+    "messageCount": 1,
+    "firstDate": "2011-06-30T19:34:18Z",
+    "lastDate": "2011-06-30T19:34:18Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "nqueralt at clinic.ub.es",
+    "slug": "nqueralt-at-clinic-ub-es",
+    "emailHash": "35e0dca4d5be8e974fe1bc1ad0728e14a10eb3844f7c8956abe8ad33c9b27573",
+    "messageCount": 1,
+    "firstDate": "2010-12-03T08:49:30Z",
+    "lastDate": "2010-12-03T08:49:30Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "John Lande",
+    "slug": "john-lande",
+    "emailHash": "382f1a31d6143a641c4f5e13a5d9ad3c8cff169307ffd1b4472a3a3c598dc964",
+    "messageCount": 1,
+    "firstDate": "2009-08-18T12:57:17Z",
+    "lastDate": "2009-08-18T12:57:17Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Lapointe, David",
+    "slug": "lapointe-david",
+    "emailHash": "3fef183b1b636f1eb6cc099adae99e0b07f01570e4debee1313c2ed931d101d9",
+    "messageCount": 1,
+    "firstDate": "2010-08-10T21:25:29Z",
+    "lastDate": "2010-08-10T21:25:29Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Ana Conesa",
+    "slug": "ana-conesa",
+    "emailHash": "40e3fa64325f207beefc12912b88bbb7ad2855431692ebe61afc3b10dc548cb9",
+    "messageCount": 1,
+    "firstDate": "2010-01-08T12:22:17Z",
+    "lastDate": "2010-01-08T12:22:17Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Jennifer Wernegreen",
+    "slug": "jennifer-wernegreen",
+    "emailHash": "450bfd4c014d0ea1cc2799f6fc598c36bac51de701efc5b799810322641c9fa4",
+    "messageCount": 1,
+    "firstDate": "2009-10-28T20:00:56Z",
+    "lastDate": "2009-10-28T20:00:56Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Ziping Zhang",
+    "slug": "ziping-zhang",
+    "emailHash": "478332ab2b7bb9582d5592d4d4db3df80fc5799c78e933816bbd1763a1aed4a8",
+    "messageCount": 1,
+    "firstDate": "2008-07-29T16:25:53Z",
+    "lastDate": "2008-07-29T16:25:53Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Mark Robinson",
+    "slug": "mark-robinson",
+    "emailHash": "4b2573434de2bfc529103a49ff8665d5fad6af2a0e02ac88d2da698b132b6a76",
+    "messageCount": 1,
+    "firstDate": "2011-08-09T21:35:55Z",
+    "lastDate": "2011-08-09T21:35:55Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Eric Bremer",
+    "slug": "eric-bremer",
+    "emailHash": "4e7bd1ee50299f997188a49d681412f6dc6b1bc776265125eee5d7c2cccf30c7",
+    "messageCount": 1,
+    "firstDate": "2010-03-25T14:54:56Z",
+    "lastDate": "2010-03-25T14:54:56Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "supat thongjuea",
+    "slug": "supat-thongjuea",
+    "emailHash": "54b6ee62e942768e4fc1d7a7dbc582d3941907448e445195abaaa84defc13698",
+    "messageCount": 1,
+    "firstDate": "2011-02-16T01:01:26Z",
+    "lastDate": "2011-02-16T01:01:26Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Lionel (Lee) Brooks 3rd",
+    "slug": "lionel-lee-brooks-3rd",
+    "emailHash": "56a3eb5d886b2deabad0cc9db459ad73725d83239e69760c48e67a6de0541df1",
+    "messageCount": 1,
+    "firstDate": "2010-12-03T15:16:24Z",
+    "lastDate": "2010-12-03T15:16:24Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "20907099",
+    "slug": "20907099",
+    "emailHash": "5c9af5cc73feab3e0d89fd2d8f9f3197a47656a25aa8f8ca93fa953e7a1d6b3b",
+    "messageCount": 1,
+    "firstDate": "2011-07-10T02:24:47Z",
+    "lastDate": "2011-07-10T02:24:47Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Joe Jones",
+    "slug": "joe-jones",
+    "emailHash": "5d5b1db27be15d0637235bea057fb82046b154523607c0fc7218acbf9aac8216",
+    "messageCount": 1,
+    "firstDate": "2008-02-29T16:36:04Z",
+    "lastDate": "2008-02-29T16:36:04Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Wilhelm Brian",
+    "slug": "wilhelm-brian",
+    "emailHash": "61fedb11327b2d58720f50ef3299e05f08ead9cdf93df7e2860a2ef197389345",
+    "messageCount": 1,
+    "firstDate": "2010-01-04T15:17:59Z",
+    "lastDate": "2010-01-04T15:17:59Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Sunny Srivastava",
+    "slug": "sunny-srivastava",
+    "emailHash": "63ddeb2ebec9e29354be5fe2293cc761fae127348e9a5c243384b084181d32cb",
+    "messageCount": 1,
+    "firstDate": "2010-12-01T21:46:26Z",
+    "lastDate": "2010-12-01T21:46:26Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Mark Kimpel",
+    "slug": "mark-kimpel",
+    "emailHash": "65173e3ce5ef1df0c4ea86f7a1d58fca4361b63a6d56b019a5e2b66e7388efaa",
+    "messageCount": 1,
+    "firstDate": "2008-03-03T23:30:47Z",
+    "lastDate": "2008-03-03T23:30:47Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Michael Mueller",
+    "slug": "michael-mueller",
+    "emailHash": "678b44ac8b238936b373e4b77fe70b6fefc53b0b45ffba1974a27c872e562138",
+    "messageCount": 1,
+    "firstDate": "2009-07-17T15:37:50Z",
+    "lastDate": "2009-07-17T15:37:50Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Chen-Yi (Charlie) Chen",
+    "slug": "chen-yi-charlie-chen",
+    "emailHash": "685e2d8214453fd1ac4b26f8ee5ee65a1805f5dfd0dde93688540ed1e4c06dfe",
+    "messageCount": 1,
+    "firstDate": "2010-03-23T22:55:07Z",
+    "lastDate": "2010-03-23T22:55:07Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Aurelie Laugraud",
+    "slug": "aurelie-laugraud",
+    "emailHash": "6a2e79146f287f4a1606e051db0d24b4418b0e92d7048366ddacfac2a4366935",
+    "messageCount": 1,
+    "firstDate": "2010-01-26T14:41:21Z",
+    "lastDate": "2010-01-26T14:41:21Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Arici Pogonici",
+    "slug": "arici-pogonici",
+    "emailHash": "6b084db1af2f51e46f871291ddb625a11a6d23ad5efbd8fdd0f52b031bbab23c",
+    "messageCount": 1,
+    "firstDate": "2009-12-05T22:28:24Z",
+    "lastDate": "2009-12-05T22:28:24Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Guffanti Alessandro",
+    "slug": "guffanti-alessandro",
+    "emailHash": "6c85fd6740f4b04131b36e49e70394a6197df556f042ef230ba863e08c209fd5",
+    "messageCount": 1,
+    "firstDate": "2011-08-11T22:14:33Z",
+    "lastDate": "2011-08-11T22:14:33Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Giancarlo Castellano",
+    "slug": "giancarlo-castellano",
+    "emailHash": "6dab3911c497c94f51ea0fa0defff89537033718759363d90c40fdedf9fff8f6",
+    "messageCount": 1,
+    "firstDate": "2011-01-12T11:45:51Z",
+    "lastDate": "2011-01-12T11:45:51Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Christian Ruckert",
+    "slug": "christian-ruckert",
+    "emailHash": "6e17700cc892a84608227f6226b3d85cae98a8694dac45e88f16ff01ff22ae96",
+    "messageCount": 1,
+    "firstDate": "2009-09-24T13:28:34Z",
+    "lastDate": "2009-09-24T13:28:34Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Jim Silverton",
+    "slug": "jim-silverton",
+    "emailHash": "70b97172847bea4c4d9ecef9a20ae6eb6cb5d186aade22902fc31df08b022f8b",
+    "messageCount": 1,
+    "firstDate": "2010-12-03T22:05:49Z",
+    "lastDate": "2010-12-03T22:05:49Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Mads Sønderkær",
+    "slug": "mads-s-nderk-r",
+    "emailHash": "70fc3ff1af2dc24ee228ba8179b745291cadf466c12bec9aaf13bc863de61f99",
+    "messageCount": 1,
+    "firstDate": "2011-02-21T14:58:52Z",
+    "lastDate": "2011-02-21T14:58:52Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Anastasia Gioti",
+    "slug": "anastasia-gioti",
+    "emailHash": "71053c4849c133d0a783d62b51ab352a57bd62116d23cb56f33496b3a4f907aa",
+    "messageCount": 1,
+    "firstDate": "2009-06-24T18:37:33Z",
+    "lastDate": "2009-06-24T18:37:33Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "John Burke",
+    "slug": "john-burke",
+    "emailHash": "7233f7728715afb3a9987571ed722582cb3083684a33a133d3fc017c50c3fb28",
+    "messageCount": 1,
+    "firstDate": "2009-01-11T22:36:00Z",
+    "lastDate": "2009-01-11T22:36:00Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Hongtao Hu",
+    "slug": "hongtao-hu",
+    "emailHash": "7513fae86bc64b7052be01fc49ec0c9c9ed72a27ae96018b4805e55e29605981",
+    "messageCount": 1,
+    "firstDate": "2010-01-27T20:45:07Z",
+    "lastDate": "2010-01-27T20:45:07Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Romain FENOUIL",
+    "slug": "romain-fenouil",
+    "emailHash": "75f55c1911c0b205a3b2c3a5925bb8f10135049e2e1bb5b68d76309bbb869a71",
+    "messageCount": 1,
+    "firstDate": "2008-11-04T16:31:39Z",
+    "lastDate": "2008-11-04T16:31:39Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Xuekui Zhang",
+    "slug": "xuekui-zhang",
+    "emailHash": "7adbccdfbf4a552bbc316e3dc9a9d5e89f984f28a8a258a88fe2c0e6e68ee845",
+    "messageCount": 1,
+    "firstDate": "2010-05-18T18:55:07Z",
+    "lastDate": "2010-05-18T18:55:07Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Belmont, John W",
+    "slug": "belmont-john-w",
+    "emailHash": "81160a2aa53d731a5ab94e081b3f9738df68a6b2db462e760be987f656f26a24",
+    "messageCount": 1,
+    "firstDate": "2008-02-29T15:42:49Z",
+    "lastDate": "2008-02-29T15:42:49Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Luke Zappia",
+    "slug": "luke-zappia",
+    "emailHash": "859c4734209290e1921211ef47b38b7c285d7b640d5a23055af648685ed31de2",
+    "messageCount": 1,
+    "firstDate": "2011-01-25T00:41:12Z",
+    "lastDate": "2011-01-25T00:41:12Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Jake Lin",
+    "slug": "jake-lin",
+    "emailHash": "8731fa8c9b22625cee47565c6061b76b57e82a85f3aa7bb8252bcd8785c40644",
+    "messageCount": 1,
+    "firstDate": "2009-05-06T22:22:02Z",
+    "lastDate": "2009-05-06T22:22:02Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Steffen Durinck",
+    "slug": "steffen-durinck",
+    "emailHash": "889aa060caeccfbcb9475bbcffbc825694a8c6a56c269afb5c62d6c151fd2de3",
+    "messageCount": 1,
+    "firstDate": "2008-02-29T16:13:11Z",
+    "lastDate": "2008-02-29T16:13:11Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Steffen Durinck",
+    "slug": "steffen-durinck",
+    "emailHash": "8a9d1b4ea1dd3becb994713fe070ac8d5cbdccc9ca244a5ee12098b932c2a82b",
+    "messageCount": 1,
+    "firstDate": "2010-03-18T05:49:41Z",
+    "lastDate": "2010-03-18T05:49:41Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Craig Johnson",
+    "slug": "craig-johnson",
+    "emailHash": "8b963fe3b51fb0376b3f362f830c28dd21950e36263a26abc7fcf79576706de9",
+    "messageCount": 1,
+    "firstDate": "2010-05-27T22:29:15Z",
+    "lastDate": "2010-05-27T22:29:15Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Jack Zhu",
+    "slug": "jack-zhu",
+    "emailHash": "8c1b1f14b123874ef323aa60deb476c5274595d8e94ee714d7fd4cca5eb39ffd",
+    "messageCount": 1,
+    "firstDate": "2011-03-07T15:12:47Z",
+    "lastDate": "2011-03-07T15:12:47Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Cook, Malcolm",
+    "slug": "cook-malcolm",
+    "emailHash": "8cf057bde0f4ca9785750d35bf3fbde68423ecb6d4ba5558203761a367d40a26",
+    "messageCount": 1,
+    "firstDate": "2008-08-04T14:28:16Z",
+    "lastDate": "2008-08-04T14:28:16Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Shah, Nirav",
+    "slug": "shah-nirav",
+    "emailHash": "8ea27eb17fe69b9f14dad6490267e11ec8fb8b8120982b20985669f07e383e2f",
+    "messageCount": 1,
+    "firstDate": "2011-06-01T16:26:08Z",
+    "lastDate": "2011-06-01T16:26:08Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Julien Gagneur",
+    "slug": "julien-gagneur",
+    "emailHash": "92e061931dcbf00a2e950209d192c734ac2c1f39f5fcf1e9d7bd732d157df2bd",
+    "messageCount": 1,
+    "firstDate": "2011-03-28T12:11:50Z",
+    "lastDate": "2011-03-28T12:11:50Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "R. T. Sweeney",
+    "slug": "r-t-sweeney",
+    "emailHash": "9b8ec0b4574be26f1f4b50a0ae7afea80b5d17bcb2153467c9999d94aec3a8f7",
+    "messageCount": 1,
+    "firstDate": "2010-12-14T18:43:12Z",
+    "lastDate": "2010-12-14T18:43:12Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Davis, Wade",
+    "slug": "davis-wade",
+    "emailHash": "a3b0b35d03bfbaa9404154b306e2857d241c559c7918e6d84a06007a5854bb6f",
+    "messageCount": 1,
+    "firstDate": "2008-02-29T12:59:22Z",
+    "lastDate": "2008-02-29T12:59:22Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Abhishek Pratap",
+    "slug": "abhishek-pratap",
+    "emailHash": "a751f6fad962f3795f88f6a3b3484f8fbedd1ce036409693f134f4279ccf0716",
+    "messageCount": 1,
+    "firstDate": "2011-06-30T00:22:47Z",
+    "lastDate": "2011-06-30T00:22:47Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "xiaoa",
+    "slug": "xiaoa",
+    "emailHash": "a97481bac9e88ecfca900700408f50646a4aba6c16779b4ec4890232f148b485",
+    "messageCount": 1,
+    "firstDate": "2009-09-01T16:29:10Z",
+    "lastDate": "2009-09-01T16:29:10Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Lauro Sumoy",
+    "slug": "lauro-sumoy",
+    "emailHash": "ad9eb4287a4adcef7ea755b1e28de83194e9b651127b9defa554c8fae5d694ad",
+    "messageCount": 1,
+    "firstDate": "2010-10-26T10:40:36Z",
+    "lastDate": "2010-10-26T10:40:36Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Gabriella Rustici",
+    "slug": "gabriella-rustici",
+    "emailHash": "ae387ca554df1bd9a65410c32123b75a222367f26ec40f3c340662ceca803428",
+    "messageCount": 1,
+    "firstDate": "2010-11-03T09:42:14Z",
+    "lastDate": "2010-11-03T09:42:14Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Meier, Samuel",
+    "slug": "meier-samuel",
+    "emailHash": "b1a5676c250426d121bf7d6d158cc9fb33407e1d4cb51eb274b29dcd66b52baf",
+    "messageCount": 1,
+    "firstDate": "2010-12-08T22:00:13Z",
+    "lastDate": "2010-12-08T22:00:13Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Nenad Bartonicek",
+    "slug": "nenad-bartonicek",
+    "emailHash": "b610de0bfaaa3d7b31115b08272f115032d6752d9b369909b178cdcd72900f12",
+    "messageCount": 1,
+    "firstDate": "2009-08-27T10:36:36Z",
+    "lastDate": "2009-08-27T10:36:36Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Hattem, Gaye",
+    "slug": "hattem-gaye",
+    "emailHash": "b759fe72fe3ca469f98520084dc819cd2c6450d12cbc48b589e61c00babb93ff",
+    "messageCount": 1,
+    "firstDate": "2009-07-24T16:18:16Z",
+    "lastDate": "2009-07-24T16:18:16Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Daniela Drechsel",
+    "slug": "daniela-drechsel",
+    "emailHash": "bb2ce7f10a7846092ebbaa40d1b3c58bbbe69a10d0d72bfa8fa1e201ae23aaf7",
+    "messageCount": 1,
+    "firstDate": "2010-06-29T12:58:56Z",
+    "lastDate": "2010-06-29T12:58:56Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Michael Krogh Jensen",
+    "slug": "michael-krogh-jensen",
+    "emailHash": "bd3769bb7dd1310c94e839e470df523ec8acf793482f91fe03378d7e4ddcb7d7",
+    "messageCount": 1,
+    "firstDate": "2010-02-26T07:42:07Z",
+    "lastDate": "2010-02-26T07:42:07Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Kyunghee Park",
+    "slug": "kyunghee-park",
+    "emailHash": "bf891f23541a0b2b4031567025daf1110f185b2c26fe7434464bfbadaad349d8",
+    "messageCount": 1,
+    "firstDate": "2011-03-30T03:02:29Z",
+    "lastDate": "2011-03-30T03:02:29Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Lukas Chavez Wurm",
+    "slug": "lukas-chavez-wurm",
+    "emailHash": "bfc6cd8047593e05e03724b59cc1f8ee2b1d5cb00edcce9c729d292e3c905f9b",
+    "messageCount": 1,
+    "firstDate": "2010-10-25T10:17:28Z",
+    "lastDate": "2010-10-25T10:17:28Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Daniel Klevebring",
+    "slug": "daniel-klevebring",
+    "emailHash": "c3bb119560468dab211db9e63ca341c3223fa40aba64f504cd8dc8349ff18d30",
+    "messageCount": 1,
+    "firstDate": "2009-02-05T07:33:09Z",
+    "lastDate": "2009-02-05T07:33:09Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Karin Bjerre",
+    "slug": "karin-bjerre",
+    "emailHash": "c6ff2193e1a8ea91354ec52defa2bd81d56c55347613a5d7e532f5233d40a634",
+    "messageCount": 1,
+    "firstDate": "2009-09-17T06:43:06Z",
+    "lastDate": "2009-09-17T06:43:06Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Werner Van Belle",
+    "slug": "werner-van-belle",
+    "emailHash": "cda978be767488f34dd7b6d6e0d1846f6a35dd42e4c28ec83ea166d02b8de62e",
+    "messageCount": 1,
+    "firstDate": "2008-11-20T21:47:45Z",
+    "lastDate": "2008-11-20T21:47:45Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Jérôme Laroche",
+    "slug": "j-r-me-laroche",
+    "emailHash": "cef9e15c2c4116d2fb615297f537dc1815313d1f2cc1da9ba9b8c47a18ae90ac",
+    "messageCount": 1,
+    "firstDate": "2011-08-11T18:17:06Z",
+    "lastDate": "2011-08-11T18:17:06Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "J.delasHeras at ed.ac.uk",
+    "slug": "j-delasheras-at-ed-ac-uk",
+    "emailHash": "cf81846eb9cca43de8a98f3784adbbe2dafe5d3f842c9ab0f2b672ada9798285",
+    "messageCount": 1,
+    "firstDate": "2008-02-29T15:27:38Z",
+    "lastDate": "2008-02-29T15:27:38Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Michal Okoniewski",
+    "slug": "michal-okoniewski",
+    "emailHash": "cfb8caf1d6b0da36a2543fe46ec3fdb882707bade3c422a7208d324409ee758b",
+    "messageCount": 1,
+    "firstDate": "2010-10-25T15:05:59Z",
+    "lastDate": "2010-10-25T15:05:59Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Middha, Sumit",
+    "slug": "middha-sumit",
+    "emailHash": "d178c40c8a5f1041bd15cfe38b0664e07d395935d16581afa71efe5c5bee5f1b",
+    "messageCount": 1,
+    "firstDate": "2009-03-12T15:50:10Z",
+    "lastDate": "2009-03-12T15:50:10Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Michael Dondrup",
+    "slug": "michael-dondrup",
+    "emailHash": "d19a195531e5a52d4b07d8a7d4038723352094641b2346baa125cca17b35cf78",
+    "messageCount": 1,
+    "firstDate": "2009-08-18T14:44:09Z",
+    "lastDate": "2009-08-18T14:44:09Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Boris Lenhard",
+    "slug": "boris-lenhard",
+    "emailHash": "d1e8e2d785482d004eab708f66dee09be71fef5c6643d378c8cfd1e0fa30c3d7",
+    "messageCount": 1,
+    "firstDate": "2011-01-22T03:42:00Z",
+    "lastDate": "2011-01-22T03:42:00Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Daniel Klevebring",
+    "slug": "daniel-klevebring",
+    "emailHash": "d27f2865b6178310edf4d0c391926e80e890a32d776f3d452122d4882030a309",
+    "messageCount": 1,
+    "firstDate": "2009-11-07T09:16:10Z",
+    "lastDate": "2009-11-07T09:16:10Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Robert Morris",
+    "slug": "robert-morris",
+    "emailHash": "df9ebf9e32883c230966534aa9f904dbbc07dbfa6182c14e70ae621fba56ae2a",
+    "messageCount": 1,
+    "firstDate": "2010-07-22T16:19:22Z",
+    "lastDate": "2010-07-22T16:19:22Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Amy Molesworth",
+    "slug": "amy-molesworth",
+    "emailHash": "e2e1e5b52d7d00931c013a87fe058619acbffac8bfede5fe7294678ab1897804",
+    "messageCount": 1,
+    "firstDate": "2010-03-09T11:23:33Z",
+    "lastDate": "2010-03-09T11:23:33Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Steve Goldstein",
+    "slug": "steve-goldstein",
+    "emailHash": "e4892d6ecf7f50bee96b5484350716dcc1d0eb5ebacb6379517f54a09c7f4646",
+    "messageCount": 1,
+    "firstDate": "2009-05-07T14:53:16Z",
+    "lastDate": "2009-05-07T14:53:16Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "casioqv at usermail.com",
+    "slug": "casioqv-at-usermail-com",
+    "emailHash": "e55106ef574eaaeaad99a40583859d5cc44f826edac9f6ec1d000f1a8f28fb47",
+    "messageCount": 1,
+    "firstDate": "2009-01-08T23:12:01Z",
+    "lastDate": "2009-01-08T23:12:01Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "gregory voisin",
+    "slug": "gregory-voisin",
+    "emailHash": "e62464b3591b425aebda1c8f35f988399da2474d64ac6beae3df3481231021e5",
+    "messageCount": 1,
+    "firstDate": "2011-05-24T16:44:47Z",
+    "lastDate": "2011-05-24T16:44:47Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Wu Wei",
+    "slug": "wu-wei",
+    "emailHash": "e6d62556777f8970ce7055706267de81cb32d6e56dd5722ed522fddaf228a7f9",
+    "messageCount": 1,
+    "firstDate": "2009-11-02T13:47:57Z",
+    "lastDate": "2009-11-02T13:47:57Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Eric Bonnet",
+    "slug": "eric-bonnet",
+    "emailHash": "eabeca81dc707fdab8c992b4861f8623bc285797b2319f09a9c86a6f517cc0bb",
+    "messageCount": 1,
+    "firstDate": "2009-07-06T19:17:55Z",
+    "lastDate": "2009-07-06T19:17:55Z",
+    "yearlyActivity": {
+      "2009": 1
+    }
+  },
+  {
+    "name": "Ulrike Goebel",
+    "slug": "ulrike-goebel",
+    "emailHash": "ecdc7d92c5de0de159ff4d4386f4d7a7555d0b2b3dfc301ad7b7a839ed5b1b5f",
+    "messageCount": 1,
+    "firstDate": "2010-11-25T08:10:55Z",
+    "lastDate": "2010-11-25T08:10:55Z",
+    "yearlyActivity": {
+      "2010": 1
+    }
+  },
+  {
+    "name": "Biase, Fernando",
+    "slug": "biase-fernando",
+    "emailHash": "f365828958146d05e390d3205f196c010a5bab34a552e69c25242527c79953c5",
+    "messageCount": 1,
+    "firstDate": "2011-05-10T18:40:23Z",
+    "lastDate": "2011-05-10T18:40:23Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Sara Hanson",
+    "slug": "sara-hanson",
+    "emailHash": "f52524f799f2bcd2237740d16f48c614814e6c0542d2b906d46d037a636fc10e",
+    "messageCount": 1,
+    "firstDate": "2011-06-30T19:22:44Z",
+    "lastDate": "2011-06-30T19:22:44Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  },
+  {
+    "name": "Dan Swan",
+    "slug": "dan-swan",
+    "emailHash": "fb512585006362bcd5220cb6656dd1c2a5f5a8bcf11caee583356412459e0892",
+    "messageCount": 1,
+    "firstDate": "2008-02-29T21:05:33Z",
+    "lastDate": "2008-02-29T21:05:33Z",
+    "yearlyActivity": {
+      "2008": 1
+    }
+  },
+  {
+    "name": "Jean-Paul Bouchet",
+    "slug": "jean-paul-bouchet",
+    "emailHash": "fd982a727e059114467ce72398aae41bee688e9de9a82f6704ea755cd06af8ac",
+    "messageCount": 1,
+    "firstDate": "2011-03-09T14:55:09Z",
+    "lastDate": "2011-03-09T14:55:09Z",
+    "yearlyActivity": {
+      "2011": 1
+    }
+  }
+]

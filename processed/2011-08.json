@@ -1,0 +1,815 @@
+{
+  "list": "bioc-sig-sequencing",
+  "description": "",
+  "month": "2011-08",
+  "messages": [
+    {
+      "id": "msg-79aa30306d3e",
+      "message_id": "<2C40E43D1F7A56408C4463FD245DDDF976F71A60@EXCHMB-02.stowers-institute.org>",
+      "from_name": "Cook, Malcolm",
+      "from_email_hash": "b3b67197cbeb46fec00d3658f6d757970f1e222f3af546d20cc9262ba3d51df5",
+      "date": "2011-08-03T16:23:44Z",
+      "subject": "[Bioc-sig-seq] GRangesList with duplicate names - WORKAROUND",
+      "subject_clean": "[Bioc-sig-seq] GRangesList with duplicate names - WORKAROUND",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nre: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2011-February/001867.html\n\nIt appears that the requirement that names of a GRangesList must be unique has won the day.\n\nI'm not sure I agree with this result, as there are many operations that are optimized for GRangesList that have use cases that do not depend upon such uniqueness.\n\nHowever, I find that such operations can proceed after setting the names to NULL,, as is demonstrated in the R session following my signature, in which I am creating a GRanges list with entirely duplicate (unnamed) elements.\n\nI hope this workaround proves useful to others...\n\nMalcolm Cook\nComputational Biology - Stowers Institute for Medical Research\n\n\n\nExample:\n\n> grl=GRangesList(a=GRanges(c(10,20,30),c(15,25,35)),b=GRanges(c(100,200,300),c(150,250,350)))\n> grl\nGRangesList of length 2\n$a \nGRanges with 3 ranges and 0 elementMetadata values\n    seqnames    ranges strand |\n       <Rle> <IRanges>  <Rle> |\n[1]       10  [15, 15]      * |\n[2]       20  [25, 25]      * |\n[3]       30  [35, 35]      * |\n\n$b \nGRanges with 3 ranges and 0 elementMetadata values\n    seqnames     ranges strand |\n       <Rle>  <IRanges>  <Rle> |\n[1]      100 [150, 150]      * |\n[2]      200 [250, 250]      * |\n[3]      300 [350, 350]      * |\n\n\nseqlengths\n  10  20  30 100 200 300\n  NA  NA  NA  NA  NA  NA\n> grl[rep(1,2)]\nError in `rownames<-`(`*tmp*`, value = c(\"a\", \"a\")) : \n  duplicate rownames not allowed\n> names(grl)=NULL\n> grl[rep(1,2)]\nGRangesList of length 2\n[[1]] \nGRanges with 3 ranges and 0 elementMetadata values\n    seqnames    ranges strand |\n       <Rle> <IRanges>  <Rle> |\n[1]       10  [15, 15]      * |\n[2]       20  [25, 25]      * |\n[3]       30  [35, 35]      * |\n\n[[2]] \nGRanges with 3 ranges and 0 elementMetadata values\n    seqnames    ranges strand |\n       <Rle> <IRanges>  <Rle> |\n[1]       10  [15, 15]      * |\n[2]       20  [25, 25]      * |\n[3]       30  [35, 35]      * |\n\n\nseqlengths\n  10  20  30 100 200 300\n  NA  NA  NA  NA  NA  NA\n>",
+      "body_snippet": "Hi,\n\nre: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2011-February/001867.html\n\nIt appears that the requirement that names of a GRangesList must be unique has won the day.\n\nI'm not sure I agree",
+      "thread_id": "thread-79aa30306d3e",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-e5b34afb6fc9",
+      "message_id": "<4E39A5B3.90108@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2011-08-03T19:46:59Z",
+      "subject": "[Bioc-sig-seq] GRangesList with duplicate names - WORKAROUND",
+      "subject_clean": "[Bioc-sig-seq] GRangesList with duplicate names - WORKAROUND",
+      "in_reply_to": "<2C40E43D1F7A56408C4463FD245DDDF976F71A60@EXCHMB-02.stowers-institute.org>",
+      "references": [
+        "<2C40E43D1F7A56408C4463FD245DDDF976F71A60@EXCHMB-02.stowers-institute.org>"
+      ],
+      "body_plain": "Hi Malcolm,\n\nThe requirement that names of a GRangesList must be unique has actually\nbeen dropped in BioC 2.9 (current devel):\n\n   > library(GenomicRanges)\n   > grl <- GRangesList(a=GRanges(), a=GRanges())\n   > validObject(grl)\n   [1] TRUE\n\nNote that before BioC 2.9 this requirement was not only for GRangesList\nbut also for GRanges objects. In BioC 2.9, this requirement has been\ndropped for both containers:\n\n   > gr <- GRanges(c(\"chr1\", \"chr1\"), IRanges(1:2, 4:5, names=c(\"a\", \"a\")))\n   > validObject(gr)\n   [1] TRUE\n\nCheers,\nH.\n\n > sessionInfo()\nR Under development (unstable) (2011-07-31 r56578)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n  [1] LC_CTYPE=en_CA.UTF-8       LC_NUMERIC=C\n  [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8\n  [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8\n  [7] LC_PAPER=C                 LC_NAME=C\n  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] GenomicFeatures_1.5.16 GenomicRanges_1.5.21   IRanges_1.11.17\n\nloaded via a namespace (and not attached):\n  [1] Biobase_2.13.7      biomaRt_2.9.2       Biostrings_2.21.7\n  [4] BSgenome_1.21.3     DBI_0.2-5           RCurl_1.6-6\n  [7] RSQLite_0.9-4       rtracklayer_1.13.10 XML_3.4-0\n[10] zlibbioc_0.1.7\n\n\nOn 11-08-03 09:23 AM, Cook, Malcolm wrote:\n> Hi,\n>\n> re: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2011-February/001867.html\n>\n> It appears that the requirement that names of a GRangesList must be unique has won the day.\n>\n> I'm not sure I agree with this result, as there are many operations that are optimized for GRangesList that have use cases that do not depend upon such uniqueness.\n>\n> However, I find that such operations can proceed after setting the names to NULL,, as is demonstrated in the R session following my signature, in which I am creating a GRanges list with entirely duplicate (unnamed) elements.\n>\n> I hope this workaround proves useful to others...\n>\n> Malcolm Cook\n> Computational Biology - Stowers Institute for Medical Research\n>\n>\n>\n> Example:\n>\n>> grl=GRangesList(a=GRanges(c(10,20,30),c(15,25,35)),b=GRanges(c(100,200,300),c(150,250,350)))\n>> grl\n> GRangesList of length 2\n> $a\n> GRanges with 3 ranges and 0 elementMetadata values\n>      seqnames    ranges strand |\n>         <Rle>  <IRanges>   <Rle>  |\n> [1]       10  [15, 15]      * |\n> [2]       20  [25, 25]      * |\n> [3]       30  [35, 35]      * |\n>\n> $b\n> GRanges with 3 ranges and 0 elementMetadata values\n>      seqnames     ranges strand |\n>         <Rle>   <IRanges>   <Rle>  |\n> [1]      100 [150, 150]      * |\n> [2]      200 [250, 250]      * |\n> [3]      300 [350, 350]      * |\n>\n>\n> seqlengths\n>    10  20  30 100 200 300\n>    NA  NA  NA  NA  NA  NA\n>> grl[rep(1,2)]\n> Error in `rownames<-`(`*tmp*`, value = c(\"a\", \"a\")) :\n>    duplicate rownames not allowed\n>> names(grl)=NULL\n>> grl[rep(1,2)]\n> GRangesList of length 2\n> [[1]]\n> GRanges with 3 ranges and 0 elementMetadata values\n>      seqnames    ranges strand |\n>         <Rle>  <IRanges>   <Rle>  |\n> [1]       10  [15, 15]      * |\n> [2]       20  [25, 25]      * |\n> [3]       30  [35, 35]      * |\n>\n> [[2]]\n> GRanges with 3 ranges and 0 elementMetadata values\n>      seqnames    ranges strand |\n>         <Rle>  <IRanges>   <Rle>  |\n> [1]       10  [15, 15]      * |\n> [2]       20  [25, 25]      * |\n> [3]       30  [35, 35]      * |\n>\n>\n> seqlengths\n>    10  20  30 100 200 300\n>    NA  NA  NA  NA  NA  NA\n>>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M1-B514\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Malcolm,\n\nThe requirement that names of a GRangesList must be unique has actually\nbeen dropped in BioC 2.9 (current devel):\n\n   > library(GenomicRanges)\n   > grl <- GRangesList(a=GRanges(), a=GRang",
+      "thread_id": "thread-79aa30306d3e",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-9fc992dd1d35",
+      "message_id": "<2C40E43D1F7A56408C4463FD245DDDF976F71AC9@EXCHMB-02.stowers-institute.org>",
+      "from_name": "Cook, Malcolm",
+      "from_email_hash": "b3b67197cbeb46fec00d3658f6d757970f1e222f3af546d20cc9262ba3d51df5",
+      "date": "2011-08-03T20:08:01Z",
+      "subject": "[Bioc-sig-seq] GRangesList with duplicate names - WORKAROUND",
+      "subject_clean": "[Bioc-sig-seq] GRangesList with duplicate names - WORKAROUND",
+      "in_reply_to": "<4E39A5B3.90108@fhcrc.org>",
+      "references": [
+        "<2C40E43D1F7A56408C4463FD245DDDF976F71A60@EXCHMB-02.stowers-institute.org>",
+        "<4E39A5B3.90108@fhcrc.org>"
+      ],
+      "body_plain": "Good to hear, thanks for the update, it makes best sense to me, and is most consistent with names elsewhere in R.\n\n~Malcolm\n\n\n> -----Original Message-----\n> From: Herv? Pag?s [mailto:hpages at fhcrc.org]\n> Sent: Wednesday, August 03, 2011 2:47 PM\n> To: Cook, Malcolm\n> Cc: 'bioc-sig-sequencing at r-project.org'\n> Subject: Re: [Bioc-sig-seq] GRangesList with duplicate names -\n> WORKAROUND\n> \n> Hi Malcolm,\n> \n> The requirement that names of a GRangesList must be unique has actually\n> been dropped in BioC 2.9 (current devel):\n> \n>    > library(GenomicRanges)\n>    > grl <- GRangesList(a=GRanges(), a=GRanges())\n>    > validObject(grl)\n>    [1] TRUE\n> \n> Note that before BioC 2.9 this requirement was not only for GRangesList\n> but also for GRanges objects. In BioC 2.9, this requirement has been\n> dropped for both containers:\n> \n>    > gr <- GRanges(c(\"chr1\", \"chr1\"), IRanges(1:2, 4:5, names=c(\"a\", \"a\")))\n>    > validObject(gr)\n>    [1] TRUE\n> \n> Cheers,\n> H.\n> \n>  > sessionInfo()\n> R Under development (unstable) (2011-07-31 r56578)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n> \n> locale:\n>   [1] LC_CTYPE=en_CA.UTF-8       LC_NUMERIC=C\n>   [3] LC_TIME=en_CA.UTF-8        LC_COLLATE=en_CA.UTF-8\n>   [5] LC_MONETARY=en_CA.UTF-8    LC_MESSAGES=en_CA.UTF-8\n>   [7] LC_PAPER=C                 LC_NAME=C\n>   [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_CA.UTF-8 LC_IDENTIFICATION=C\n> \n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n> \n> other attached packages:\n> [1] GenomicFeatures_1.5.16 GenomicRanges_1.5.21   IRanges_1.11.17\n> \n> loaded via a namespace (and not attached):\n>   [1] Biobase_2.13.7      biomaRt_2.9.2       Biostrings_2.21.7\n>   [4] BSgenome_1.21.3     DBI_0.2-5           RCurl_1.6-6\n>   [7] RSQLite_0.9-4       rtracklayer_1.13.10 XML_3.4-0\n> [10] zlibbioc_0.1.7\n> \n> \n> On 11-08-03 09:23 AM, Cook, Malcolm wrote:\n> > Hi,\n> >\n> > re: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/2011-\n> February/001867.html\n> >\n> > It appears that the requirement that names of a GRangesList must be\n> unique has won the day.\n> >\n> > I'm not sure I agree with this result, as there are many operations that are\n> optimized for GRangesList that have use cases that do not depend upon such\n> uniqueness.\n> >\n> > However, I find that such operations can proceed after setting the names\n> to NULL,, as is demonstrated in the R session following my signature, in which\n> I am creating a GRanges list with entirely duplicate (unnamed) elements.\n> >\n> > I hope this workaround proves useful to others...\n> >\n> > Malcolm Cook\n> > Computational Biology - Stowers Institute for Medical Research\n> >\n> >\n> >\n> > Example:\n> >\n> >>\n> grl=GRangesList(a=GRanges(c(10,20,30),c(15,25,35)),b=GRanges(c(100,200,3\n> 00),c(150,250,350)))\n> >> grl\n> > GRangesList of length 2\n> > $a\n> > GRanges with 3 ranges and 0 elementMetadata values\n> >      seqnames    ranges strand |\n> >         <Rle>  <IRanges>   <Rle>  |\n> > [1]       10  [15, 15]      * |\n> > [2]       20  [25, 25]      * |\n> > [3]       30  [35, 35]      * |\n> >\n> > $b\n> > GRanges with 3 ranges and 0 elementMetadata values\n> >      seqnames     ranges strand |\n> >         <Rle>   <IRanges>   <Rle>  |\n> > [1]      100 [150, 150]      * |\n> > [2]      200 [250, 250]      * |\n> > [3]      300 [350, 350]      * |\n> >\n> >\n> > seqlengths\n> >    10  20  30 100 200 300\n> >    NA  NA  NA  NA  NA  NA\n> >> grl[rep(1,2)]\n> > Error in `rownames<-`(`*tmp*`, value = c(\"a\", \"a\")) :\n> >    duplicate rownames not allowed\n> >> names(grl)=NULL\n> >> grl[rep(1,2)]\n> > GRangesList of length 2\n> > [[1]]\n> > GRanges with 3 ranges and 0 elementMetadata values\n> >      seqnames    ranges strand |\n> >         <Rle>  <IRanges>   <Rle>  |\n> > [1]       10  [15, 15]      * |\n> > [2]       20  [25, 25]      * |\n> > [3]       30  [35, 35]      * |\n> >\n> > [[2]]\n> > GRanges with 3 ranges and 0 elementMetadata values\n> >      seqnames    ranges strand |\n> >         <Rle>  <IRanges>   <Rle>  |\n> > [1]       10  [15, 15]      * |\n> > [2]       20  [25, 25]      * |\n> > [3]       30  [35, 35]      * |\n> >\n> >\n> > seqlengths\n> >    10  20  30 100 200 300\n> >    NA  NA  NA  NA  NA  NA\n> >>\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> \n> --\n> Herv? Pag?s\n> \n> Program in Computational Biology\n> Division of Public Health Sciences\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N, M1-B514\n> P.O. Box 19024\n> Seattle, WA 98109-1024\n> \n> E-mail: hpages at fhcrc.org\n> Phone:  (206) 667-5791\n> Fax:    (206) 667-1319",
+      "body_snippet": "Good to hear, thanks for the update, it makes best sense to me, and is most consistent with names elsewhere in R.\n\n~Malcolm\n\n\n> -----Original Message-----\n> From: Herv? Pag?s [mailto:hpages at fhcrc.o",
+      "thread_id": "thread-79aa30306d3e",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-8c54b2a919ad",
+      "message_id": "<4E3F3944.5000708@embl.de>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "d1a63444f5f832df785367f2b3a99cf6f993043c1f7d4ce60ed61efc9547a2b1",
+      "date": "2011-08-08T01:17:56Z",
+      "subject": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "subject_clean": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "in_reply_to": "<CADE5-OQbFrb_qHsoW+cPY=uR+oQs+KD79pqRwt6oSCmwWxy0AA@mail.gmail.com>",
+      "references": [
+        "<CADE5-OQbFrb_qHsoW+cPY=uR+oQs+KD79pqRwt6oSCmwWxy0AA@mail.gmail.com>"
+      ],
+      "body_plain": "Dear Jane\n\nthank you for your suggestion on improving the output of DEXSeq, which \nwe will take on board.\n\nTo fix your immediate problem, I suggest you use the plot functions \n(Section 5 of the vignette) and the 'DEXSeqHTML' in order to create the \nHTML report, from which you can read off the information that you need.\n\nCurrently, this is not yet automated, and there is a reason for that: \nspeaking of \"an exon being up- or down-regulated\" only really makes \nsense if a single (or very few) exons change within a transcript of many \nother exons, since that statement in DEXSeq is relative to the average \nof the other exons.\n\nOTOH, if you want to simply know whether exons go up and down, \nirrespective of what the other exons (i.e. \"the gene\") does, then simply \nuse DESeq.\n\n\tBest wishes\n\tWolfgang\n\n\n\n\nJul/29/11 11:39 AM, Jane Merlevede scripsit::\n> Hello,\n>\n> I am using DEXseq for differential analysis. I have posted some e-mails\n> about it already on this list, but I have more questions !\n> My dataset has 2 conditions with 3 biological replicates per condition:\n>\n> pData(ecs)\n>          sizeFactor condition replicate       type\n> Raman_1  0.9638822    nonvir         1 paired-end\n> HM1_1    1.4000715       vir         1 paired-end\n> Raman_2  1.0314049    nonvir         2 paired-end\n> Raman_3  1.0734133    nonvir         3 paired-end\n> HM1_2    0.7801269       vir         2 paired-end\n> HM1_3    0.9488409       vir         3 paired-end\n>\n>\n> I found the number of differentially expressed exons. I would like to know\n> also which are down and which are up regulated. This information is given by\n> foldChange, which is not provided in DEXSeq (res1).\n>\n> res1<- DEUresultTable(ecs)\n> head(res1)\n>                     geneID exonID dispersion_CR_est dispersion    pvalue\n> EHI_000010:001 EHI_000010   E001                NA 0.02377712        NA\n> EHI_000130:001 EHI_000130   E001        0.07466945 0.07466945 0.4867354\n> EHI_000130:002 EHI_000130   E002        0.12897281 0.12897281 0.9427953\n> EHI_000130:003 EHI_000130   E003        0.01960222 0.02031871 0.8432791\n> EHI_000130:004 EHI_000130   E004        0.06733720 0.06733720 0.7042977\n> EHI_000240:001 EHI_000240   E001        0.04375400 0.04375400 0.7493987\n>                   padjust\n> EHI_000010:001        NA\n> EHI_000130:001 0.8639624\n> EHI_000130:002 0.9927663\n> EHI_000130:003 0.9756197\n> EHI_000130:004 0.9503086\n> EHI_000240:001 0.9611397\n>\n> So I would like to know, if it could be possible to have baseMean,\n> baseMeanA, baseMeanB, foldChange, log2FoldCHange, resVarA and resVarB as in\n> DESeq?\n>\n> Since this does not seem to be implemented in DEXSeq, I should start with\n> the read counts per exon table to get it, but I can't find it neither. I\n> think it is use in the estimateSizeFactors function, but I don't manage to\n> access it. It's a pity, I will have to reconstruct the table...\n>\n>\n> Thank you for your help,\n> Jane Merlev?de\n>\n> \t[[alternative HTML version deleted]]\n>\n>\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \n\n\nWolfgang Huber\nEMBL\nhttp://www.embl.de/research/units/genome_biology/huber",
+      "body_snippet": "Dear Jane\n\nthank you for your suggestion on improving the output of DEXSeq, which \nwe will take on board.\n\nTo fix your immediate problem, I suggest you use the plot functions \n(Section 5 of the vignet",
+      "thread_id": "thread-8c54b2a919ad",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-a31af5463f33",
+      "message_id": "<4E3FDA75.2030405@embl.de>",
+      "from_name": "Wolfgang Huber",
+      "from_email_hash": "d1a63444f5f832df785367f2b3a99cf6f993043c1f7d4ce60ed61efc9547a2b1",
+      "date": "2011-08-08T12:45:41Z",
+      "subject": "[Bioc-sig-seq] problem when using DEXSeq on genes with 1 exon only",
+      "subject_clean": "[Bioc-sig-seq] problem when using DEXSeq on genes with 1 exon only",
+      "in_reply_to": "<CADE5-ORCSOApaQYO-0Vq9wVDDLediA50wGkS7VdH7nMOOrSEnA@mail.gmail.com>",
+      "references": [
+        "<CADE5-ORCSOApaQYO-0Vq9wVDDLediA50wGkS7VdH7nMOOrSEnA@mail.gmail.com>"
+      ],
+      "body_plain": "Dear Jane,\n\nin the case of genes (or better term: loci) with only one exon, DEXSeq's \ntestGeneForDEU does not make sense - it is looking for exons within the \nlocus that behave differently from the average of all the others: there \nare no others! Hence the parameters are unidentifiable, and the software \nshould not even look at them. We'll robustify the software for this case \nin future versions (note that the package is still actively being \ndeveloped).\n\nThe case of the NA values that are not explained by there only being one \nexon is more interesting. Can you send us the code to reproduce your \nproblem (this also requires the data, which you can send offline, and in \nwhich you can for instance anonymize the gene and sample annotations).\n\n\tBest wishes\n\tWolfgang\n\nJul/28/11 4:23 PM, Jane Merlevede scripsit::\n> Hello,\n>\n> I am using DEXseq for exon differential analysis. The analysis seems to work\n> well on genes with several exons, but I have a problem with genes with only\n> one exon.\n> Let me present you my dataset:\n>\n> pData(ecs)\n>          sizeFactor condition replicate       type\n> Raman_1  0.9638822    nonvir         1 paired-end\n> HM1_1    1.4000715       vir         1 paired-end\n> Raman_2  1.0314049    nonvir         2 paired-end\n> Raman_3  1.0734133    nonvir         3 paired-end\n> HM1_2    0.7801269       vir         2 paired-end\n> HM1_3    0.9488409       vir         3 paired-end\n>\n>\n> table( table (geneIDs(ecs)))\n>     1    2    3    4    5    6    7    8\n> 3149  893  874  206  100   42   18    4\n>\n> As you can see, I have 3149 genes (out of 5286) which have only 1 exon.\n> There are 9291 exons.\n>\n> res1<- DEUresultTable(ecs)\n>\n>> summary(res1)\n>                       geneID         exonID     dispersion_CR_est\n>   EHI_051420             :   8   E001   :5286   Min.   :0.000e+00\n>   EHI_070690             :   8   E002   :2137   1st Qu.:7.176e-03\n>   EHI_169670             :   8   E003   :1244   Median :1.693e-02\n>   EHI_175010+EHI_175000.1:   8   E004   : 370   Mean   :5.546e-02\n>   EHI_005010             :   7   E005   : 164   3rd Qu.:3.641e-02\n>   EHI_042710             :   7   E006   :  64   Max.   :1.300e+01\n>   (Other)                :9245   (Other):  26   NA's   :3.153e+03\n>     dispersion            pvalue             padjust\n>   Min.   :2.010e-02   Min.   :   0.0000   Min.   :   0.0000\n>   1st Qu.:2.202e-02   1st Qu.:   0.1150   1st Qu.:   0.4597\n>   Median :2.628e-02   Median :   0.4054   Median :   0.8086\n>   Mean   :3.229e+04   Mean   :   0.4269   Mean   :   0.6775\n>   3rd Qu.:4.214e-02   3rd Qu.:   0.7133   3rd Qu.:   0.9510\n>   Max.   :1.000e+08   Max.   :   1.0000   Max.   :   1.0000\n>                       NA's   :3153.0000   NA's   :3153.0000\n>\n> There are 3153 NA's values. When checking out what were those NA's values, I\n> realized that they were all the genes with only one exon (and only 4 more\n> genes in the other cases). I doubt that it is by chance... And they don't\n> have weird read counts. Check for example EHI_000010, EHI_000410,\n> EHI_000420, EHI_000430, EHI_000440:\n>\n> geneCountTable(ecs)[1:21,]\n>               Raman_1 HM1_1 Raman_2 Raman_3 HM1_2 HM1_3\n> EHI_000010       391  1364     464     449   457   560\n> EHI_000130     18806  8116   21890   24994  6509 14067\n> EHI_000240     24057 21825   15365   26903 21101 27841\n> EHI_000250      3374  2689    3938    4854  2310  3556\n> EHI_000290       458  3721     437     550  1716  1054\n> EHI_000410       896  1041    1086     978   905   745\n> EHI_000420       140   220     244     117   140    78\n> EHI_000430       583  2043     304     634  1398  1197\n> EHI_000440      3103 15309    5358    3619  9152 10392\n> EHI_000450       358   559     991     516   281   564\n> EHI_000460.1     357   118     449     425    43   746\n> EHI_000470.1     408  2657     297     397   946   909\n> EHI_000480       842  1702     858     778   841   847\n> EHI_000490       187   648     221     239   370   249\n> EHI_000500       329   506     454     402   244   555\n> EHI_000520       482  1615     883     440   925   751\n> EHI_000530      1794  1588    1751    1966  1099  1860\n> EHI_000540      2857  2504    3706    4152  1479  2547\n> EHI_000550      1967  3999    1241    1904  2505  2448\n> EHI_000560       152   434     239     165   273   175\n> EHI_000570      1209  2142    2183    1213  1905  2662\n>\n>\n> res1[1:20,]\n>                         geneID exonID dispersion_CR_est dispersion     pvalue\n> EHI_000010:001     EHI_000010   E001                NA 0.02377712         NA\n> EHI_000130:001     EHI_000130   E001       0.074669451 0.07466945 0.48673539\n> EHI_000130:002     EHI_000130   E002       0.128972813 0.12897281 0.94279527\n> EHI_000130:003     EHI_000130   E003       0.019602219 0.02031871 0.84327914\n> EHI_000130:004     EHI_000130   E004       0.067337196 0.06733720 0.70429765\n> EHI_000240:001     EHI_000240   E001       0.043753997 0.04375400 0.74939865\n> EHI_000240:002     EHI_000240   E002       0.058562700 0.05856270 0.74939865\n> EHI_000250:001     EHI_000250   E001       0.031440630 0.03144063 0.70444841\n> EHI_000250:002     EHI_000250   E002       0.037457450 0.03745745 0.70444841\n> EHI_000290:001     EHI_000290   E001       0.021113888 0.02396819 0.05100089\n> EHI_000290:002     EHI_000290   E002       0.007626346 0.03471905 0.95676220\n> EHI_000290:003     EHI_000290   E003       0.036889359 0.03688936 0.03057067\n> EHI_000410:001     EHI_000410   E001                NA 0.02235347         NA\n> EHI_000420:001     EHI_000420   E001                NA 0.03395573         NA\n> EHI_000430:001     EHI_000430   E001                NA 0.02219522         NA\n> EHI_000440:001     EHI_000440   E001                NA 0.02037263         NA\n> EHI_000450:001     EHI_000450   E001       0.024495906 0.04492663 0.64717121\n> EHI_000450:002     EHI_000450   E002       0.020356260 0.02483641 0.64717121\n> EHI_000460.1:001 EHI_000460.1   E001                NA 0.02602179         NA\n> EHI_000470.1:001 EHI_000470.1   E001                NA 0.02254333         NA\n>                     padjust\n> EHI_000010:001          NA\n> EHI_000130:001   0.8639624\n> EHI_000130:002   0.9927663\n> EHI_000130:003   0.9756197\n> EHI_000130:004   0.9503086\n> EHI_000240:001   0.9611397\n> EHI_000240:002   0.9611397\n> EHI_000250:001   0.9503086\n> EHI_000250:002   0.9503086\n> EHI_000290:001   0.2890521\n> EHI_000290:002   0.9962043\n> EHI_000290:003   0.2087239\n> EHI_000410:001          NA\n> EHI_000420:001          NA\n> EHI_000430:001          NA\n> EHI_000440:001          NA\n> EHI_000450:001   0.9278993\n> EHI_000450:002   0.9278993\n> EHI_000460.1:001        NA\n> EHI_000470.1:001        NA\n>\n> I checked the model in the documentation and I don't see why the test does\n> not give a result in this case. Has anyone get the same problem?\n>\n> Thanks for your help,\n> Jane Merlev?de\n>\n> \t[[alternative HTML version deleted]]\n>\n>\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \n\n\nWolfgang Huber\nEMBL\nhttp://www.embl.de/research/units/genome_biology/huber",
+      "body_snippet": "Dear Jane,\n\nin the case of genes (or better term: loci) with only one exon, DEXSeq's \ntestGeneForDEU does not make sense - it is looking for exons within the \nlocus that behave differently from the av",
+      "thread_id": "thread-a31af5463f33",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-510484a8b580",
+      "message_id": "<4E3FDBD7.1060907@embl.de>",
+      "from_name": "Simon Anders",
+      "from_email_hash": "a562cbd3d379c352b48a6e84cecd03d42b3678176c440ecfd0418df8d565e20a",
+      "date": "2011-08-08T12:51:35Z",
+      "subject": "[Bioc-sig-seq] problem when using DEXSeq on genes with 1 exon only",
+      "subject_clean": "[Bioc-sig-seq] problem when using DEXSeq on genes with 1 exon only",
+      "in_reply_to": "<4E3FDA75.2030405@embl.de>",
+      "references": [
+        "<CADE5-ORCSOApaQYO-0Vq9wVDDLediA50wGkS7VdH7nMOOrSEnA@mail.gmail.com>",
+        "<4E3FDA75.2030405@embl.de>"
+      ],
+      "body_plain": "Hi Jane\n\nOn 08/08/2011 02:45 PM, Wolfgang Huber wrote:\n> in the case of genes (or better term: loci) with only one exon, DEXSeq's\n> testGeneForDEU does not make sense - it is looking for exons within the\n> locus that behave differently from the average of all the others: there\n> are no others! Hence the parameters are unidentifiable, and the software\n> should not even look at them.\n\nActually, it doesn't. This is why the p value is NA. Also note the \ncolumn 'testable' in the fData data frame: it is set to FALSE in such \ncases to indicate that a test was not attempted. You will also find \ntestable=FALSE occasionally in genes with more than one exons, namely \nwhenever all exons or all exons but one have zero counts in all samples.\n\nCheers\n   Simon",
+      "body_snippet": "Hi Jane\n\nOn 08/08/2011 02:45 PM, Wolfgang Huber wrote:\n> in the case of genes (or better term: loci) with only one exon, DEXSeq's\n> testGeneForDEU does not make sense - it is looking for exons within ",
+      "thread_id": "thread-a31af5463f33",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-b0f7a627ec3d",
+      "message_id": "<098b2cb7-9152-4245-a43c-ce8745559530@helium.bioceresgroup.local>",
+      "from_name": "Estefania Mancini",
+      "from_email_hash": "a379e052068a48e86f159d9b3157883133c7c6e031223bf86baf79f7322fd15b",
+      "date": "2011-08-09T19:51:40Z",
+      "subject": "[Bioc-sig-seq] edgeR/454",
+      "subject_clean": "[Bioc-sig-seq] edgeR/454",
+      "in_reply_to": "<mailman.5.1311415202.28518.bioc-sig-sequencing@r-project.org>",
+      "references": [],
+      "body_plain": "Dear All\nI am trying to analyse 2 454 RNA-seq dataset.\nI have only 2 condition, control and stress-\nIt is possible to use edgeR? I have prepared the file with the columns tags->reads.\nI can load the files and build the \"object of class \"DGEList\", which looks like this:\n\n> RG\nAn object of class \"DGEList\"\n$samples\n                    files lib.size norm.factors\nallcontrol allcontrol.txt   318020            1\nallstress   allstress.txt   306479            1\n\n$counts\n                allcontrol allstress \nGen11900.1      50872     51431      \nGen12050.1      39874     40052       \nGen24780.1      33951     32149       \nGen12070.1      26733     29256       \nGen11930.1      23858     28396       \n18213 more rows ...\n\nbut when I try to apply:\n> d = estimateCommonDisp(RG)\nI have the following error:\nError in `$<-.data.frame`(`*tmp*`, \"group\", value = integer(0)) : \n  replacement has 0 rows, data has 2\n\nSo I cannot continue analysing the data.\nAny suggestion will be helpful\nThanks in advance\nEstefania",
+      "body_snippet": "Dear All\nI am trying to analyse 2 454 RNA-seq dataset.\nI have only 2 condition, control and stress-\nIt is possible to use edgeR? I have prepared the file with the columns tags->reads.\nI can load the f",
+      "thread_id": "thread-b0f7a627ec3d",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-6e4eb8e0e58c",
+      "message_id": "<43DAF8FA-B77A-4B9D-9B48-7FD8ED5EF457@imls.uzh.ch>",
+      "from_name": "Mark Robinson",
+      "from_email_hash": "f9dba7e0418322334b1000281207a324dcb0c529e5bed94e8a67b495b72258bd",
+      "date": "2011-08-09T21:35:55Z",
+      "subject": "[Bioc-sig-seq] edgeR/454",
+      "subject_clean": "[Bioc-sig-seq] edgeR/454",
+      "in_reply_to": "<098b2cb7-9152-4245-a43c-ce8745559530@helium.bioceresgroup.local>",
+      "references": [
+        "<098b2cb7-9152-4245-a43c-ce8745559530@helium.bioceresgroup.local>"
+      ],
+      "body_plain": "Hi Estefania,\n\nIn your $samples data.frame, you don't have a \"group\" variable listed (it doesn't recognize \"files\").  Perhaps you made this yourself instead of using the DGEList() constructor?\n\nYou could reconstruct this with:\n\nRG1 <- DGEList(counts=RG$counts, group=c(\"allcontrol\",\"allstress\"))\nd <- estimateCommonDisp(RG)\n\nHope that helps,\nMark\n\nOn Aug 10, 2011, at 5:51 AM, Estefania Mancini wrote:\n\n> Dear All\n> I am trying to analyse 2 454 RNA-seq dataset.\n> I have only 2 condition, control and stress-\n> It is possible to use edgeR? I have prepared the file with the columns tags->reads.\n> I can load the files and build the \"object of class \"DGEList\", which looks like this:\n> \n>> RG\n> An object of class \"DGEList\"\n> $samples\n>                    files lib.size norm.factors\n> allcontrol allcontrol.txt   318020            1\n> allstress   allstress.txt   306479            1\n> \n> $counts\n>                allcontrol allstress \n> Gen11900.1      50872     51431      \n> Gen12050.1      39874     40052       \n> Gen24780.1      33951     32149       \n> Gen12070.1      26733     29256       \n> Gen11930.1      23858     28396       \n> 18213 more rows ...\n> \n> but when I try to apply:\n>> d = estimateCommonDisp(RG)\n> I have the following error:\n> Error in `$<-.data.frame`(`*tmp*`, \"group\", value = integer(0)) : \n>  replacement has 0 rows, data has 2\n> \n> So I cannot continue analysing the data.\n> Any suggestion will be helpful\n> Thanks in advance\n> Estefania\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "Hi Estefania,\n\nIn your $samples data.frame, you don't have a \"group\" variable listed (it doesn't recognize \"files\").  Perhaps you made this yourself instead of using the DGEList() constructor?\n\nYou co",
+      "thread_id": "thread-b0f7a627ec3d",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-751a387d9c57",
+      "message_id": "<CAJRAmMrz-URV-8Vy0afvGRy8ZMzFq9QeZoR+6tTAHA_5Dv_sqQ@mail.gmail.com>",
+      "from_name": "Davis McCarthy",
+      "from_email_hash": "5e771b22c032781812da23bc34965e62809e73b2e20dda06987fffdaf1f6f5fa",
+      "date": "2011-08-10T01:24:41Z",
+      "subject": "[Bioc-sig-seq] edgeR/454",
+      "subject_clean": "[Bioc-sig-seq] edgeR/454",
+      "in_reply_to": "<43DAF8FA-B77A-4B9D-9B48-7FD8ED5EF457@imls.uzh.ch>",
+      "references": [
+        "<098b2cb7-9152-4245-a43c-ce8745559530@helium.bioceresgroup.local>",
+        "<43DAF8FA-B77A-4B9D-9B48-7FD8ED5EF457@imls.uzh.ch>"
+      ],
+      "body_plain": "Hi Estefania\n\nOne more thing: since you have no replicates among your samples you\nmight like to read Section 11 of the edgeR Users Guide \"What to do if\nyou have no replicates\", which has some ideas about how you might go\nabout accounting for biological variability when you cannot estimate\nit in the usual way.\n\nBest wishes\n\nDavis\n\n\nOn 10 August 2011 07:35, Mark Robinson <mark.robinson at imls.uzh.ch> wrote:\n> Hi Estefania,\n>\n> In your $samples data.frame, you don't have a \"group\" variable listed (it doesn't recognize \"files\"). ?Perhaps you made this yourself instead of using the DGEList() constructor?\n>\n> You could reconstruct this with:\n>\n> RG1 <- DGEList(counts=RG$counts, group=c(\"allcontrol\",\"allstress\"))\n> d <- estimateCommonDisp(RG)\n>\n> Hope that helps,\n> Mark\n>\n> On Aug 10, 2011, at 5:51 AM, Estefania Mancini wrote:\n>\n>> Dear All\n>> I am trying to analyse 2 454 RNA-seq dataset.\n>> I have only 2 condition, control and stress-\n>> It is possible to use edgeR? I have prepared the file with the columns tags->reads.\n>> I can load the files and build the \"object of class \"DGEList\", which looks like this:\n>>\n>>> RG\n>> An object of class \"DGEList\"\n>> $samples\n>> ? ? ? ? ? ? ? ? ? ?files lib.size norm.factors\n>> allcontrol allcontrol.txt ? 318020 ? ? ? ? ? ?1\n>> allstress ? allstress.txt ? 306479 ? ? ? ? ? ?1\n>>\n>> $counts\n>> ? ? ? ? ? ? ? ?allcontrol allstress\n>> Gen11900.1 ? ? ?50872 ? ? 51431\n>> Gen12050.1 ? ? ?39874 ? ? 40052\n>> Gen24780.1 ? ? ?33951 ? ? 32149\n>> Gen12070.1 ? ? ?26733 ? ? 29256\n>> Gen11930.1 ? ? ?23858 ? ? 28396\n>> 18213 more rows ...\n>>\n>> but when I try to apply:\n>>> d = estimateCommonDisp(RG)\n>> I have the following error:\n>> Error in `$<-.data.frame`(`*tmp*`, \"group\", value = integer(0)) :\n>> ?replacement has 0 rows, data has 2\n>>\n>> So I cannot continue analysing the data.\n>> Any suggestion will be helpful\n>> Thanks in advance\n>> Estefania\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\n\n-- \n---------------------------------------------------------------------------\nDavis J McCarthy\nResearch Technician\nBioinformatics Division\nWalter and Eliza Hall Institute of Medical Research\n1G Royal Parade, Parkville, Vic 3052, Australia\ndmccarthy at wehi.edu.au\nhttp://www.wehi.edu.au",
+      "body_snippet": "Hi Estefania\n\nOne more thing: since you have no replicates among your samples you\nmight like to read Section 11 of the edgeR Users Guide \"What to do if\nyou have no replicates\", which has some ideas ab",
+      "thread_id": "thread-b0f7a627ec3d",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-a3fd6d879454",
+      "message_id": "<4E436876.4040001@fhcrc.org>",
+      "from_name": "Hervé Pagès",
+      "from_email_hash": "abd4d7962a2dd3556242b7fdb915eb6ce60306e7a252463c9851a927b845bee3",
+      "date": "2011-08-11T05:28:22Z",
+      "subject": "[Bioc-sig-seq] psetdiff on GRangesLists Error",
+      "subject_clean": "[Bioc-sig-seq] psetdiff on GRangesLists Error",
+      "in_reply_to": "<20110721130014.BMG65638@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20110721130014.BMG65638@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "Hi Dario,\n\nThanks for catching this one and sorry for the delay, I just \"found\"\nyour email today. The problem was that, deep in the code, sort.list()\nwas used with method=\"radix\", which is a very fast algo, but it does\nnot support factors with too many levels. In your case the factor\npassed to sort.list() had more than 100000 levels which is more than\nwhat method=\"radix\" can handle. Hence the complain:\n\n   too large a range of values in 'x'\n\nThis should be fixed in IRanges release (1.10.5) and devel (1.11.20).\n\nCheers,\nH.\n\n\nOn 11-07-20 08:00 PM, Dario Strbenac wrote: the\n> Hello,\n>\n> I'm encountering some strange behaviour. If I do psetdiff with 2 GRangesLists that I have, it gives an error, but if I split the GRangesLists into 2 parts I can't get the error to happen. Any ideas ?\n>\n>>      length(gene.juncts)\n> [1] 36693\n>>      length(gene.exons)\n> [1] 36693\n>>      intronics<- psetdiff(gene.juncts, gene.exons)\n>\n> Error in gaps(union(gaps(x, end = seqlengths), y, ignore.strand = ignore.strand),  :\n>    error in evaluating the argument 'x' in selecting a method for function 'gaps': Error in sort.list(runValue(x), na.last = na.last, decreasing = decreasing,  :\n>    too large a range of values in 'x'\n>>      intronics<- psetdiff(gene.juncts[1:20000], gene.exons[1:20000])\n>>      intronics<- psetdiff(gene.juncts[20001:length(gene.juncts)], gene.exons[20001:length(gene.exons)])\n>>\n>\n> To help with troubleshooting, the two GRangesLists are available for download.\n> http://129.94.136.7/file_dump/dario/testPsetDiff.RData (3.7 MB)\n>\n>> sessionInfo()\n> R version 2.13.0 (2011-04-13)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n>   [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C\n>   [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8\n>   [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8\n>   [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C\n>   [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] GenomicFeatures_1.4.1 GenomicRanges_1.4.6   IRanges_1.10.4\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.11.10     biomaRt_2.7.2       Biostrings_2.19.18\n> [4] BSgenome_1.19.6     DBI_0.2-5           RCurl_1.6-1\n> [7] RSQLite_0.9-4       rtracklayer_1.11.12 XML_3.4-0\n>\n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHerv? Pag?s\n\nProgram in Computational Biology\nDivision of Public Health Sciences\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N, M1-B514\nP.O. Box 19024\nSeattle, WA 98109-1024\n\nE-mail: hpages at fhcrc.org\nPhone:  (206) 667-5791\nFax:    (206) 667-1319",
+      "body_snippet": "Hi Dario,\n\nThanks for catching this one and sorry for the delay, I just \"found\"\nyour email today. The problem was that, deep in the code, sort.list()\nwas used with method=\"radix\", which is a very fast",
+      "thread_id": "thread-a3fd6d879454",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-f891d94589fd",
+      "message_id": "<806E483E7E5A1E4CA78AC236E1F3324F3C63D97F@SRV321.genomichealth.com>",
+      "from_name": "Kunbin Qu",
+      "from_email_hash": "dd2563c28824bc3e2c72aae6a45a538e8fb306a1025709b9168ccb7057e28bbc",
+      "date": "2011-08-11T16:50:24Z",
+      "subject": "[Bioc-sig-seq] assess how many duplicated reads",
+      "subject_clean": "[Bioc-sig-seq] assess how many duplicated reads",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110811/4d8508bb/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110811/4d8508bb/attachment.pl>",
+      "thread_id": "thread-f891d94589fd",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-5254ebf510b0",
+      "message_id": "<CANeAVBkpWRprrJDQ=Ue3R=NqWEFM-A6CxuXSjQ5ALuVm2zAzWg@mail.gmail.com>",
+      "from_name": "Sean Davis",
+      "from_email_hash": "5a8e0e6abee8db2f7eeaea6df4cbae4d8713a79b51ddc5ef74e7c509c4b05f87",
+      "date": "2011-08-11T17:34:50Z",
+      "subject": "[Bioc-sig-seq] assess how many duplicated reads",
+      "subject_clean": "[Bioc-sig-seq] assess how many duplicated reads",
+      "in_reply_to": "<806E483E7E5A1E4CA78AC236E1F3324F3C63D97F@SRV321.genomichealth.com>",
+      "references": [
+        "<806E483E7E5A1E4CA78AC236E1F3324F3C63D97F@SRV321.genomichealth.com>"
+      ],
+      "body_plain": "The picard library (java-based) is a very useful library for doing\nthis type of thing.  This can be done in R, but the picard folks have\nput a lot of thought into how to find and mark duplicates including\noptical duplicates.  This is particularly true if you have paired-end\ndata.\n\nSean\n\n\nOn Thu, Aug 11, 2011 at 12:50 PM, Kunbin Qu <KQu at genomichealth.com> wrote:\n> Hi, I have some human single end RNA-seq runs on HiSeq. Can I have some suggestions on how to assess how many duplicated reads out of these libraries? I looked around srFilter() in ShortRead, but have not had a clear thought on how to implement it? Should I use IRanges as an alternative to assess the unique starting site after the mapping? If so, what function do you suggest? I'd like to count reads which map to the same location (even with some mismatches) as duplicates. Thanks.\n>\n> -Kunbin\n>\n>\n>\n> ______________________________________________________________________\n> The contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.\n> ? ? ? ?[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "The picard library (java-based) is a very useful library for doing\nthis type of thing.  This can be done in R, but the picard folks have\nput a lot of thought into how to find and mark duplicates inclu",
+      "thread_id": "thread-f891d94589fd",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-81d4cad2e561",
+      "message_id": "<F9406132-52EF-4390-91D6-399D2A22EF21@ibis.ulaval.ca>",
+      "from_name": "Jérôme Laroche",
+      "from_email_hash": "cef9e15c2c4116d2fb615297f537dc1815313d1f2cc1da9ba9b8c47a18ae90ac",
+      "date": "2011-08-11T18:17:06Z",
+      "subject": "[Bioc-sig-seq] edgeR datasets",
+      "subject_clean": "[Bioc-sig-seq] edgeR datasets",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi,\n\nI try to replicate the analysis \"Case study of SAGE data\" presented on page 9 of edgeR document. I wonder if the mentioned datasets of Zhang et al. 1997 are available somewhere? The datasets are: GSM728.txt, GSM729.txt, GSM755.txt, GSM756.txt and particularly Targets.txt.\nI looked at the page http://sites.google.com/site/davismcc/useful-documents, but they do not seem to be there.\n\nI tried to work with the files that accompany the package (NC1.txt, NC2.txt, and Tu98.txt Tu102.txt) but I get an error message when I run the command:\n> d <- calcNormFactors (d)\n(Error in calcNormFactors (d) 'data matrix' Need to Be a matrix).\n\nAll the files are in the form:\n\nTag_Sequence    Count\nAAAAAAAAAA      17\nAAAAAAAAGA      1\nAAAAAAACCC      1\nAAAAAAAGCA      1\nAAAAAAATCA      4\n\nand the Targets.txt file is:\nfiles\tgroup    description\nNC1.txt\tNC\tNormal colon\nNC2.txt\tNC\tNormal colon\nTu98.txt\tTu\tPrimary colonrectal tumour\nTu102.txt\tTu\tPrimary colonrectal tumour\n\n\nIn fact, after running the commands:\n> targets <-read.delim (file = \"Targets.txt\" stringsAsFactors = FALSE)\n> d <- readDGE (targets, skip = 5, comment.char =\"!\")\nI do not get a column showing the normalization factors (1 for all files) as shown in the document.\n\nAlso, when I run the command\n> dim(d)\nI get \"NULL\" as a result.\n\n\nThank you for your help.\n\nJerome\nUniversite Laval, Quebec, Canada",
+      "body_snippet": "Hi,\n\nI try to replicate the analysis \"Case study of SAGE data\" presented on page 9 of edgeR document. I wonder if the mentioned datasets of Zhang et al. 1997 are available somewhere? The datasets are:",
+      "thread_id": "thread-81d4cad2e561",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-45f88762d3db",
+      "message_id": "<WC20110811221433.010175@genomnia.com>",
+      "from_name": "Guffanti Alessandro",
+      "from_email_hash": "6c85fd6740f4b04131b36e49e70394a6197df556f042ef230ba863e08c209fd5",
+      "date": "2011-08-11T22:14:33Z",
+      "subject": "[Bioc-sig-seq] edgeR datasets",
+      "subject_clean": "[Bioc-sig-seq] edgeR datasets",
+      "in_reply_to": "<F9406132-52EF-4390-91D6-399D2A22EF21@ibis.ulaval.ca>",
+      "references": [
+        "<F9406132-52EF-4390-91D6-399D2A22EF21@ibis.ulaval.ca>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110812/d881192d/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110812/d881192d/attachment.pl>",
+      "thread_id": "thread-81d4cad2e561",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-b9e3c47d07c0",
+      "message_id": "<4E449F2B.3000307@fhcrc.org>",
+      "from_name": "Martin Morgan",
+      "from_email_hash": "9f5a643078023be7f11cfed10069ce2b31d0a2cc98705fa84c2ae0e157a1fb93",
+      "date": "2011-08-12T03:34:03Z",
+      "subject": "[Bioc-sig-seq] assess how many duplicated reads",
+      "subject_clean": "[Bioc-sig-seq] assess how many duplicated reads",
+      "in_reply_to": "<806E483E7E5A1E4CA78AC236E1F3324F3C63D97F@SRV321.genomichealth.com>",
+      "references": [
+        "<806E483E7E5A1E4CA78AC236E1F3324F3C63D97F@SRV321.genomichealth.com>"
+      ],
+      "body_plain": "On 08/11/2011 09:50 AM, Kunbin Qu wrote:\n> Hi, I have some human single end RNA-seq runs on HiSeq. Can I have\n> some suggestions on how to assess how many duplicated reads out of\n> these libraries? I looked around srFilter() in ShortRead, but have\n> not had a clear thought on how to implement it? Should I use IRanges\n> as an alternative to assess the unique starting site after the\n> mapping? If so, what function do you suggest? I'd like to count reads\n> which map to the same location (even with some mismatches) as\n> duplicates. Thanks.\n\nShortRead::tables() could be used for exactly identical unaligned reads. \nShortRead::occurrenceFilter is an implementation for non-gapped, aligned \nreads. For aligned reads with gaps I think you're on your own, but maybe \nGRanges::readGappedAlignments or Rsamtools::scanBam + the logic of \nShortRead::occurrenceFilter would be a starting point. Perhaps your \naligner has already flagged duplicate reads, in which case the 'flag' \nfield available in scanBamParam and scanBam would be helpful.\n\nHope that is of some help.\n\nMartin\n\n\n>\n> -Kunbin\n>\n>\n>\n> ______________________________________________________________________\n>\n>\nThe contents of this electronic message, including any attachments, are \nintended only for the use of the individual or entity to which they are \naddressed and may contain confidential information. If you are not the \nintended recipient, you are hereby notified that any use, dissemination, \ndistribution, or copying of this message or any attachment is strictly \nprohibited. If you have received this transmission in error, please send \nan e-mail to postmaster at genomichealth.com and delete this message, along \nwith any attachments, from your computer.\n> [[alternative HTML version deleted]]\n>\n> _______________________________________________ Bioc-sig-sequencing\n> mailing list Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nComputational Biology\nFred Hutchinson Cancer Research Center\n1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n\nLocation: M1-B861\nTelephone: 206 667-2793",
+      "body_snippet": "On 08/11/2011 09:50 AM, Kunbin Qu wrote:\n> Hi, I have some human single end RNA-seq runs on HiSeq. Can I have\n> some suggestions on how to assess how many duplicated reads out of\n> these libraries? I ",
+      "thread_id": "thread-f891d94589fd",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-d5d7a29d456e",
+      "message_id": "<20110812045941.GA1226@Thomas-Girkes-MacBook-Pro.local>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2011-08-12T04:59:41Z",
+      "subject": "[Bioc-sig-seq] assess how many duplicated reads",
+      "subject_clean": "[Bioc-sig-seq] assess how many duplicated reads",
+      "in_reply_to": "<4E449F2B.3000307@fhcrc.org>",
+      "references": [
+        "<806E483E7E5A1E4CA78AC236E1F3324F3C63D97F@SRV321.genomichealth.com>",
+        "<4E449F2B.3000307@fhcrc.org>"
+      ],
+      "body_plain": "In addition to Martin's suggestions, you could also consider clustering\nyour reads by similarity with UCLUST or SEED. The latter was developed\nfor removing redundancies in NGS samples, diagnosing PCR bias in RNA-Seq\nexperiments and some other applications. At this point it has not been\nintegrated into an R package yet.\n\nSEED\nhttp://bioinformatics.oxfordjournals.org/content/early/2011/08/02/bioinformatics.btr447.abstract\n\nUCLUST\nhttp://bioinformatics.oxfordjournals.org/content/early/2010/08/12/bioinformatics.btq461.abstract\n\nThomas\n\nOn Thu, Aug 11, 2011 at 08:34:03PM -0700, Martin Morgan wrote:\n> On 08/11/2011 09:50 AM, Kunbin Qu wrote:\n> >Hi, I have some human single end RNA-seq runs on HiSeq. Can I have\n> >some suggestions on how to assess how many duplicated reads out of\n> >these libraries? I looked around srFilter() in ShortRead, but have\n> >not had a clear thought on how to implement it? Should I use IRanges\n> >as an alternative to assess the unique starting site after the\n> >mapping? If so, what function do you suggest? I'd like to count reads\n> >which map to the same location (even with some mismatches) as\n> >duplicates. Thanks.\n> \n> ShortRead::tables() could be used for exactly identical unaligned\n> reads. ShortRead::occurrenceFilter is an implementation for\n> non-gapped, aligned reads. For aligned reads with gaps I think\n> you're on your own, but maybe GRanges::readGappedAlignments or\n> Rsamtools::scanBam + the logic of ShortRead::occurrenceFilter would\n> be a starting point. Perhaps your aligner has already flagged\n> duplicate reads, in which case the 'flag' field available in\n> scanBamParam and scanBam would be helpful.\n> \n> Hope that is of some help.\n> \n> Martin\n> \n> \n> >\n> >-Kunbin\n> >\n> >\n> >\n> >______________________________________________________________________\n> >\n> >\n> The contents of this electronic message, including any attachments,\n> are intended only for the use of the individual or entity to which\n> they are addressed and may contain confidential information. If you\n> are not the intended recipient, you are hereby notified that any\n> use, dissemination, distribution, or copying of this message or any\n> attachment is strictly prohibited. If you have received this\n> transmission in error, please send an e-mail to\n> postmaster at genomichealth.com and delete this message, along with any\n> attachments, from your computer.\n> >[[alternative HTML version deleted]]\n> >\n> >_______________________________________________ Bioc-sig-sequencing\n> >mailing list Bioc-sig-sequencing at r-project.org\n> >https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> \n> \n> -- \n> Computational Biology\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n> \n> Location: M1-B861\n> Telephone: 206 667-2793\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "In addition to Martin's suggestions, you could also consider clustering\nyour reads by similarity with UCLUST or SEED. The latter was developed\nfor removing redundancies in NGS samples, diagnosing PCR ",
+      "thread_id": "thread-f891d94589fd",
+      "thread_depth": 2,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-154b0e277a0c",
+      "message_id": "<CAJRAmMq07-cLb3PuiipLWDy96DL6YpyiSXcmWo==NSr8U7T-Sw@mail.gmail.com>",
+      "from_name": "Davis McCarthy",
+      "from_email_hash": "5e771b22c032781812da23bc34965e62809e73b2e20dda06987fffdaf1f6f5fa",
+      "date": "2011-08-12T07:44:53Z",
+      "subject": "[Bioc-sig-seq] edgeR datasets",
+      "subject_clean": "[Bioc-sig-seq] edgeR datasets",
+      "in_reply_to": "<F9406132-52EF-4390-91D6-399D2A22EF21@ibis.ulaval.ca>",
+      "references": [
+        "<F9406132-52EF-4390-91D6-399D2A22EF21@ibis.ulaval.ca>"
+      ],
+      "body_plain": "Hi Jerome\n\nI decided not to put these datasets up on my personal website as the\ndata are already distributed with the package. The files I used for\nthe analysis in the edgeR Users Guide were originally from GEO, but a\nsearch today of those sample IDs returned no results (which is a\nconcern, but I'm no expert on GEO).\n\nIn any case, the data are distributed with the edgeR package, so the\nonly trick is manipulating the data into a form suitable for following\nthe analysis in the Users Guide. Example code for how to do this from\na fresh R session is shown below. I actually just hacked some the code\nfrom readDGE() to do this.\n\nThis should work generally, but I must point out that you have not\nprovided the output of sessionInfo() or told us what versions of\nR/Bioconductor/edgeR you are using, so any advice that anyone\n(including me) provides cannot be as precise as it might be if we had\nall of the information. For instance, I don't know where any of those\n.txt files are on your system, so can't really diagnose why readDGE\ndidn't work for you in this circumstance. readDGE() relies on in-built\nfunctions like read.delim(), so it might be worth boning up on how\nsuch R functions work to help you trouble-shoot such problems with\nimporting data.\n\nBest wishes\n\nDavis\n\nExample code\n==================\nlibrary(edgeR)\ndata(NC1, NC2, Tu102, Tu98)\nx <- list()\nsets <- c(\"NC1\",\"NC2\",\"Tu102\",\"Tu98\")\nx$samples <- data.frame(files=as.character(sets),stringsAsFactors=FALSE)\nx$samples$group <- factor(rep(c(\"Normal\",\"Tumour\"),each=2))\nd <- taglist <- list()\nd[[1]] <- NC1\nd[[2]] <- NC2\nd[[3]] <- Tu102\nd[[4]] <- Tu98\nfor(i in 1:4) {\n    taglist[[i]] <- as.character(d[[i]][,1])\n    if(any(duplicated(taglist[[i]]))) {\n        stop(paste(\"Repeated tag sequences in\",fn))\n    }\n}\ntags <- unique(unlist(taglist))\nntags <- length(tags)\nnfiles <- length(sets)\nx$counts <- matrix(0,ntags,nfiles)\nrownames(x$counts) <- tags\ncolnames(x$counts) <- sets\nfor (i in 1:nfiles) {\n    aa <- match(taglist[[i]],tags)\n    x$counts[aa,i] <- d[[i]][,2]\n}\nx$samples$lib.size <- colSums(x$counts)\nx$samples$norm.factors <- 1\nrow.names(x$samples) <- colnames(x$counts)\nx$genes <- NULL\nd <- new(\"DGEList\",x)\nd <- calcNormFactors(d)\nd$samples\n===================\n\n\n\nOn 12 August 2011 04:17, J?r?me Laroche <jerome.laroche at ibis.ulaval.ca> wrote:\n> Hi,\n>\n> I try to replicate the analysis \"Case study of SAGE data\" presented on page 9 of edgeR document. I wonder if the mentioned datasets of Zhang et al. 1997 are available somewhere? The datasets are: GSM728.txt, GSM729.txt, GSM755.txt, GSM756.txt and particularly Targets.txt.\n> I looked at the page http://sites.google.com/site/davismcc/useful-documents, but they do not seem to be there.\n>\n> I tried to work with the files that accompany the package (NC1.txt, NC2.txt, and Tu98.txt Tu102.txt) but I get an error message when I run the command:\n>> d <- calcNormFactors (d)\n> (Error in calcNormFactors (d) 'data matrix' Need to Be a matrix).\n>\n> All the files are in the form:\n>\n> Tag_Sequence ? ?Count\n> AAAAAAAAAA ? ? ?17\n> AAAAAAAAGA ? ? ?1\n> AAAAAAACCC ? ? ?1\n> AAAAAAAGCA ? ? ?1\n> AAAAAAATCA ? ? ?4\n>\n> and the Targets.txt file is:\n> files ? group ? ?description\n> NC1.txt NC ? ? ?Normal colon\n> NC2.txt NC ? ? ?Normal colon\n> Tu98.txt ? ? ? ?Tu ? ? ?Primary colonrectal tumour\n> Tu102.txt ? ? ? Tu ? ? ?Primary colonrectal tumour\n>\n>\n> In fact, after running the commands:\n>> targets <-read.delim (file = \"Targets.txt\" stringsAsFactors = FALSE)\n>> d <- readDGE (targets, skip = 5, comment.char =\"!\")\n> I do not get a column showing the normalization factors (1 for all files) as shown in the document.\n>\n> Also, when I run the command\n>> dim(d)\n> I get \"NULL\" as a result.\n>\n>\n> Thank you for your help.\n>\n> Jerome\n> Universite Laval, Quebec, Canada\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\n\n-- \n---------------------------------------------------------------------------\nDavis J McCarthy\nResearch Technician\nBioinformatics Division\nWalter and Eliza Hall Institute of Medical Research\n1G Royal Parade, Parkville, Vic 3052, Australia\ndmccarthy at wehi.edu.au\nhttp://www.wehi.edu.au",
+      "body_snippet": "Hi Jerome\n\nI decided not to put these datasets up on my personal website as the\ndata are already distributed with the package. The files I used for\nthe analysis in the edgeR Users Guide were originall",
+      "thread_id": "thread-81d4cad2e561",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-82a2bf6d7d83",
+      "message_id": "<CADE5-OQXA1T8QraNDNZ1Xot330j1M71BEPMB4jYYtUXRKQ=onQ@mail.gmail.com>",
+      "from_name": "Jane Merlevede",
+      "from_email_hash": "b002cbe2c43a6877ff577619a15a9e02ddbb767930f06f6d2e8d295ba2779099",
+      "date": "2011-08-17T15:12:03Z",
+      "subject": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "subject_clean": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "in_reply_to": "<CADE5-OQbFrb_qHsoW+cPY=uR+oQs+KD79pqRwt6oSCmwWxy0AA@mail.gmail.com>",
+      "references": [
+        "<CADE5-OQbFrb_qHsoW+cPY=uR+oQs+KD79pqRwt6oSCmwWxy0AA@mail.gmail.com>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110817/2b28aac6/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110817/2b28aac6/attachment.pl>",
+      "thread_id": "thread-82a2bf6d7d83",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-09b7a69341c3",
+      "message_id": "<20110818090014.BMO42671@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2011-08-17T23:00:14Z",
+      "subject": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "subject_clean": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "in_reply_to": "<CADE5-OQXA1T8QraNDNZ1Xot330j1M71BEPMB4jYYtUXRKQ=onQ@mail.gmail.com>",
+      "references": [
+        "<CADE5-OQbFrb_qHsoW+cPY=uR+oQs+KD79pqRwt6oSCmwWxy0AA@mail.gmail.com>",
+        "<CADE5-OQXA1T8QraNDNZ1Xot330j1M71BEPMB4jYYtUXRKQ=onQ@mail.gmail.com>"
+      ],
+      "body_plain": "Because you only have one exon that is expressed by the samples, the two exons can't be tested for different proportions of usage.\n\n---- Original message ----\n>Date: Wed, 17 Aug 2011 17:12:03 +0200\n>From: bioc-sig-sequencing-bounces at r-project.org (on behalf of Jane Merlevede <jane.merlevede at gmail.com>)\n>Subject: Re: [Bioc-sig-seq] using DEXSeq for up and down regulated exons  \n>To: bioc-sig-sequencing at r-project.org\n>\n>Dear Wolfgang, dear Simon,\n>\n>Thanks for the explanation, I did not have understand well the purpose\n>of DEXSeq.\n>If you are interested, here are the cases in my dataset where genes\n>have more than 1 exon, but testGeneForDEU did not give a result:\n>\n>*The simplest case:*\n>res1[1449:1451,]\n>                   geneID exonID dispersion_CR_est   dispersion   pvalue\n>EHI_031280:001 EHI_031280   E001        0.25177357 2.517736e-01 0.837492\n>EHI_031280:002 EHI_031280   E002        0.03580064 3.580064e-02 0.837492\n>EHI_031280:003 EHI_031280   E003                NA 1.000000e+08       NA\n>                 padjust\n>EHI_031280:001 0.9746982\n>EHI_031280:002 0.9746982\n>EHI_031280:003        NA\n>\n>And the read counts per exon are:\n>exon_counts[1449:1451,]\n>            exon_ID  FKKM1_1 FPKM1_2 FPKM1_3 FPKM2_1 FPKM2_2 FPKM2_3\n>1449 EHI_031280:001    9      9      5       33      7    2\n>1450 EHI_031280:002  155    192    220      453    133  176\n>1451 EHI_031280:003    0      0      0        0      0    0\n>\n>One exon in the gene has 0 for all FPKM => 10^8 dispersion and no\n>result for the test. I am not surprised, contrary to *this second\n>case*:\n> res1[1227:1228,]\n>                   geneID exonID dispersion_CR_est  dispersion pvalue padjust\n>EHI_025270:001 EHI_025270   E001                NA 1.00000e+08     NA      NA\n>EHI_025270:002 EHI_025270   E002                NA 2.03465e-02     NA      NA\n>\n>And the read counts per exon are:\n> exon_counts[1227:1228,]\n>            exon_ID  FKKM1_1 FPKM1_2 FPKM1_3 FPKM2_1 FPKM2_2 FPKM2_3\n>1227 EHI_025270:001     0      0      0        0      0    0\n>1228 EHI_025270:002 11900   3012  12136    10971   7387 5923\n>\n>Why is there no result for the second exon?\n>\n>Thanks,\n>Jane\n>\n>\n>\"Dear Jane,\n>\n>in the case of genes (or better term: loci) with only one exon, DEXSeq's\n>testGeneForDEU does not make sense - it is looking for exons within the\n>locus that behave differently from the average of all the others: there\n>are no others! Hence the parameters are unidentifiable, and the software\n>should not even look at them. We'll robustify the software for this case\n>in future versions (note that the package is still actively being\n>developed).\n>\n>The case of the NA values that are not explained by there only being one\n>exon is more interesting. Can you send us the code to reproduce your\n>problem (this also requires the data, which you can send offline, and in\n>which you can for instance anonymize the gene and sample annotations).\n>\n>\tBest wishes\n>\tWolfgang\n>\n>Hi Jane\n>\n>On 08/08/2011 02:45 PM, Wolfgang Huber wrote:\n>>* in the case of genes (or better term: loci) with only one exon, DEXSeq's\n>*>* testGeneForDEU does not make sense - it is looking for exons within the\n>*>* locus that behave differently from the average of all the others: there\n>*>* are no others! Hence the parameters are unidentifiable, and the software\n>*>* should not even look at them.\n>*\n>Actually, it doesn't. This is why the p value is NA. Also note the\n>column 'testable' in the fData data frame: it is set to FALSE in such\n>cases to indicate that a test was not attempted. You will also find\n>testable=FALSE occasionally in genes with more than one exons, namely\n>whenever all exons or all exons but one have zero counts in all samples.\n>\n>Cheers\n>   Simon\"\n>\n>\n>\n>2011/7/29 Jane Merlevede <jane.merlevede at gmail.com>\n>\n>> Hello,\n>>\n>> I am using DEXseq for differential analysis. I have posted some e-mails\n>> about it already on this list, but I have more questions !\n>> My dataset has 2 conditions with 3 biological replicates per condition:\n>>\n>> pData(ecs)\n>>         sizeFactor condition replicate       type\n>> Raman_1  0.9638822    nonvir         1 paired-end\n>> HM1_1    1.4000715       vir         1 paired-end\n>> Raman_2  1.0314049    nonvir         2 paired-end\n>> Raman_3  1.0734133    nonvir         3 paired-end\n>> HM1_2    0.7801269       vir         2 paired-end\n>> HM1_3    0.9488409       vir         3 paired-end\n>>\n>>\n>> I found the number of differentially expressed exons. I would like to know\n>> also which are down and which are up regulated. This information is given by\n>> foldChange, which is not provided in DEXSeq (res1).\n>>\n>> res1 <- DEUresultTable(ecs)\n>> head(res1)\n>>                    geneID exonID dispersion_CR_est dispersion    pvalue\n>> EHI_000010:001 EHI_000010   E001                NA 0.02377712        NA\n>> EHI_000130:001 EHI_000130   E001        0.07466945 0.07466945 0.4867354\n>> EHI_000130:002 EHI_000130   E002        0.12897281 0.12897281 0.9427953\n>> EHI_000130:003 EHI_000130   E003        0.01960222 0.02031871 0.8432791\n>> EHI_000130:004 EHI_000130   E004        0.06733720 0.06733720 0.7042977\n>> EHI_000240:001 EHI_000240   E001        0.04375400 0.04375400 0.7493987\n>>                  padjust\n>> EHI_000010:001        NA\n>> EHI_000130:001 0.8639624\n>> EHI_000130:002 0.9927663\n>> EHI_000130:003 0.9756197\n>> EHI_000130:004 0.9503086\n>> EHI_000240:001 0.9611397\n>>\n>> So I would like to know, if it could be possible to have baseMean,\n>> baseMeanA, baseMeanB, foldChange, log2FoldCHange, resVarA and resVarB as in\n>> DESeq?\n>>\n>> Since this does not seem to be implemented in DEXSeq, I should start with\n>> the read counts per exon table to get it, but I can't find it neither. I\n>> think it is use in the estimateSizeFactors function, but I don't manage to\n>> access it. It's a pity, I will have to reconstruct the table...\n>>\n>>\n>> Thank you for your help,\n>> Jane Merlev?de\n>>\n>\n>\t[[alternative HTML version deleted]]\n>\n>________________\n>_______________________________________________\n>Bioc-sig-sequencing mailing list\n>Bioc-sig-sequencing at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Because you only have one exon that is expressed by the samples, the two exons can't be tested for different proportions of usage.\n\n---- Original message ----\n>Date: Wed, 17 Aug 2011 17:12:03 +0200\n>F",
+      "thread_id": "thread-82a2bf6d7d83",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-d79c22d39a66",
+      "message_id": "<20110822213643.GA1031@genomics-59-95.bulk.ucr.edu>",
+      "from_name": "Thomas Girke",
+      "from_email_hash": "4c3de6b1c6c673bec7e2fa62a789873198535f0335a9bbc72f3834ca8da64d5f",
+      "date": "2011-08-22T21:36:43Z",
+      "subject": "[Bioc-sig-seq] HPC/Linux Systems Administrator Position",
+      "subject_clean": "[Bioc-sig-seq] HPC/Linux Systems Administrator Position",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Dear List Members,\n\nThe Institute for Integrative Genome Biology at UC Riverside is looking\nfor a talented HPC/Linux Systems Administrator to join our\nbioinformatics facility in managing several high-performance compute\nsystems for NG sequence analysis and other high-throughput technologies.\nThis career position will be responsible for the maintenance and\nupgrades of a large Linux cluster along with a centralized data storage\nsystem holding hundreds of terabytes of scientific data. It also\ninvolves the optimization of data analysis routines to improve their\nperformance and scalability on distributed compute and data storage\nsystems.\n \nA minimum of three years of professional experience with the\ninstallation and systems administration of Linux-based parallel compute\nsystems is required for this position. Experience with several\nprogramming languages, including C/C++, Perl, Python and R, is a strong\nplus. \n\nMore details including instructions how to apply, can be found on UCR's \nJobs page: \nhttp://irecruitportal.ucr.edu/irecruit/!Controller?action=jobs_webui.show_page&page=jobs_detail&requisition_id=201107281017&profile_id=&module=jobs\n\n\nThomas                                                       \n                                                              \n--                                                            \nThomas Girke                                                  \nAssociate Professor of Bioinformatics                                                                   \nDirector, IIGB Bioinformatic Facility                                             \nInstitute for Integrative Genome Biology (IIGB)         \n1207F Genomics Building                       \nUniversity of California                      \nRiverside, CA 92521                               \n                                                  \nE-mail: thomas.girke at ucr.edu                                  \nPersonal Site: http://girke.bioinformatics.ucr.edu              \nPh: 951-905-5232                                                                                        \nFax: 951-827-5155",
+      "body_snippet": "Dear List Members,\n\nThe Institute for Integrative Genome Biology at UC Riverside is looking\nfor a talented HPC/Linux Systems Administrator to join our\nbioinformatics facility in managing several high-",
+      "thread_id": "thread-d79c22d39a66",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-3595f69de812",
+      "message_id": "<c9032441-55c7-48eb-a7bb-cbf64a769cac@helium.bioceresgroup.local>",
+      "from_name": "Estefania Mancini",
+      "from_email_hash": "a379e052068a48e86f159d9b3157883133c7c6e031223bf86baf79f7322fd15b",
+      "date": "2011-08-25T14:39:03Z",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "subject_clean": "[Bioc-sig-seq] extract non-zero rows",
+      "in_reply_to": "<mailman.11.1313143203.18701.bioc-sig-sequencing@r-project.org>",
+      "references": [],
+      "body_plain": "Dear all\nI have loaded and analyzed properly 4 454 dataset, corresponding to control and stress samples with their biological replicates.\nI would like to know if is possible to filter, in my DGEList  object\n\n-which tags dont have zero in any column,\n-which of these tags could be consider \"housekeeping\" (at least with logFC near 0)\n \nThe object  DGEList  looks like this:\n\n>dup.data\nAn object of class \"DGEList\"\n$samples\n             group lib.size norm.factors\nA8_control control    77953            1\nA8_stress   stress   176860            1\nmq_control control    98109            1\nmq_stress   stress   145839            1\npi_control control   132479            1\npi_stress   stress   142484            1\ntj_control control    65827            1\ntj_stress   stress   144278            1\n\nI have tried to filter using the suggested function:\n>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 0, ]\nor with\n>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 1, ] \nbut have no changes at all. I have many rows which 0 and 1 read in some column which should be excluded.\n\nAlso:\ndup.de.com\nAn object of class \"DGEExact\"\n$table\n                  logConc       logFC   p.value\nGlyma13g11940.8 -2.588833  0.26176050 0.7348221\nGlyma13g11900.1 -2.875548  0.03020441 0.9688072\nGlyma09g24780.1 -3.501041 -0.12108619 0.8754371\nGlyma13g12050.1 -3.224648  0.03036675 0.9691009\nGlyma13g12070.1 -3.743064  0.14416487 0.8521188\n19860 more rows ...\n\n$comparison\n[1] \"control\" \"stress\" \n$genes\nNULL\n\nThanks in advance,\nEstefania",
+      "body_snippet": "Dear all\nI have loaded and analyzed properly 4 454 dataset, corresponding to control and stress samples with their biological replicates.\nI would like to know if is possible to filter, in my DGEList  ",
+      "thread_id": "thread-3595f69de812",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-e0b248478512",
+      "message_id": "<20110826100015.BMQ99940@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2011-08-26T00:00:15Z",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "subject_clean": "[Bioc-sig-seq] extract non-zero rows",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Hi Estefania,\n\nIf you want both columns to be non-zero, you should do \n\nrow.positive.counts <- apply(dup.data$counts, 1, function(a.row) sum(a.row > 0))\nfiltered <- dup.data[row.positive.counts == ncol(dup.data$counts), ]\n\nIt makes a boolean vector for each row, then sums it, because TRUE is the same as 1, so the sum gives you how many columns are greater than zero. Then, the rows that have as many positive numbers as there are columns in the data frame are kept.\n\nTo find unchanged genes, you might do \n\nunchanged <- dup.de.com$table[dup.de.com$table[, \"logFC\"] > -0.2 & dup.de.com$table[, \"logFC\"] < 0.2, ]\n\nreplacing 0.2 with what you think the biggest fold change that unchanged genes might have.\n\n---- Original message ----\n>Date: Thu, 25 Aug 2011 11:39:03 -0300 (ART)\n>From: bioc-sig-sequencing-bounces at r-project.org (on behalf of Estefania Mancini <estefania.mancini at indear.com>)\n>Subject: [Bioc-sig-seq] extract non-zero rows  \n>To: bioc-sig-sequencing at r-project.org\n>\n>Dear all\n>I have loaded and analyzed properly 4 454 dataset, corresponding to control and stress samples with their biological replicates.\n>I would like to know if is possible to filter, in my DGEList  object\n>\n>-which tags dont have zero in any column,\n>-which of these tags could be consider \"housekeeping\" (at least with logFC near 0)\n> \n>The object  DGEList  looks like this:\n>\n>>dup.data\n>An object of class \"DGEList\"\n>$samples\n>             group lib.size norm.factors\n>A8_control control    77953            1\n>A8_stress   stress   176860            1\n>mq_control control    98109            1\n>mq_stress   stress   145839            1\n>pi_control control   132479            1\n>pi_stress   stress   142484            1\n>tj_control control    65827            1\n>tj_stress   stress   144278            1\n>\n>I have tried to filter using the suggested function:\n>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 0, ]\n>or with\n>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 1, ] \n>but have no changes at all. I have many rows which 0 and 1 read in some column which should be excluded.\n>\n>Also:\n>dup.de.com\n>An object of class \"DGEExact\"\n>$table\n>                  logConc       logFC   p.value\n>Glyma13g11940.8 -2.588833  0.26176050 0.7348221\n>Glyma13g11900.1 -2.875548  0.03020441 0.9688072\n>Glyma09g24780.1 -3.501041 -0.12108619 0.8754371\n>Glyma13g12050.1 -3.224648  0.03036675 0.9691009\n>Glyma13g12070.1 -3.743064  0.14416487 0.8521188\n>19860 more rows ...\n>\n>$comparison\n>[1] \"control\" \"stress\" \n>$genes\n>NULL\n>\n>Thanks in advance,\n>Estefania\n>\n>_______________________________________________\n>Bioc-sig-sequencing mailing list\n>Bioc-sig-sequencing at r-project.org\n>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Hi Estefania,\n\nIf you want both columns to be non-zero, you should do \n\nrow.positive.counts <- apply(dup.data$counts, 1, function(a.row) sum(a.row > 0))\nfiltered <- dup.data[row.positive.counts == nco",
+      "thread_id": "thread-e0b248478512",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-debfa25ae06d",
+      "message_id": "<CAJRAmMpdyLaM+VgP1Y1VXcd2tr=+HUhvK-wPQm2MEoieG_XucQ@mail.gmail.com>",
+      "from_name": "Davis McCarthy",
+      "from_email_hash": "0fd94e25e5c030ee166ce4b825d890f96c2b085edf53fbcbea7f02a8d6bf4e3f",
+      "date": "2011-08-27T03:53:16Z",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "subject_clean": "[Bioc-sig-seq] extract non-zero rows",
+      "in_reply_to": "<20110826100015.BMQ99940@gimr.garvan.unsw.edu.au>",
+      "references": [
+        "<20110826100015.BMQ99940@gimr.garvan.unsw.edu.au>"
+      ],
+      "body_plain": "Estefania and Dario\n\nA more efficient way to do this:\n> row.positive.counts <- apply(dup.data$counts, 1, function(a.row) sum(a.row > 0))\n\nwould be this:\nrow.positive.counts <- rowSums( dup.data$counts > 0 )\n\nYou might prefer to use the functions rowSums(), rowMeans(),\ncolSums(), colMeans() instead of apply(), where you can. They are much\nfaster.\n\nBest wishes\nDavis\n\n\n\nOn 26 August 2011 10:00, Dario Strbenac <D.Strbenac at garvan.org.au> wrote:\n> Hi Estefania,\n>\n> If you want both columns to be non-zero, you should do\n>\n\n> filtered <- dup.data[row.positive.counts == ncol(dup.data$counts), ]\n>\n> It makes a boolean vector for each row, then sums it, because TRUE is the same as 1, so the sum gives you how many columns are greater than zero. Then, the rows that have as many positive numbers as there are columns in the data frame are kept.\n>\n> To find unchanged genes, you might do\n>\n> unchanged <- dup.de.com$table[dup.de.com$table[, \"logFC\"] > -0.2 & dup.de.com$table[, \"logFC\"] < 0.2, ]\n>\n> replacing 0.2 with what you think the biggest fold change that unchanged genes might have.\n>\n> ---- Original message ----\n>>Date: Thu, 25 Aug 2011 11:39:03 -0300 (ART)\n>>From: bioc-sig-sequencing-bounces at r-project.org (on behalf of Estefania Mancini <estefania.mancini at indear.com>)\n>>Subject: [Bioc-sig-seq] extract non-zero rows\n>>To: bioc-sig-sequencing at r-project.org\n>>\n>>Dear all\n>>I have loaded and analyzed properly 4 454 dataset, corresponding to control and stress samples with their biological replicates.\n>>I would like to know if is possible to filter, in my DGEList ?object\n>>\n>>-which tags dont have zero in any column,\n>>-which of these tags could be consider \"housekeeping\" (at least with logFC near 0)\n>>\n>>The object ?DGEList ?looks like this:\n>>\n>>>dup.data\n>>An object of class \"DGEList\"\n>>$samples\n>> ? ? ? ? ? ? group lib.size norm.factors\n>>A8_control control ? ?77953 ? ? ? ? ? ?1\n>>A8_stress ? stress ? 176860 ? ? ? ? ? ?1\n>>mq_control control ? ?98109 ? ? ? ? ? ?1\n>>mq_stress ? stress ? 145839 ? ? ? ? ? ?1\n>>pi_control control ? 132479 ? ? ? ? ? ?1\n>>pi_stress ? stress ? 142484 ? ? ? ? ? ?1\n>>tj_control control ? ?65827 ? ? ? ? ? ?1\n>>tj_stress ? stress ? 144278 ? ? ? ? ? ?1\n>>\n>>I have tried to filter using the suggested function:\n>>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 0, ]\n>>or with\n>>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 1, ]\n>>but have no changes at all. I have many rows which 0 and 1 read in some column which should be excluded.\n>>\n>>Also:\n>>dup.de.com\n>>An object of class \"DGEExact\"\n>>$table\n>> ? ? ? ? ? ? ? ? ?logConc ? ? ? logFC ? p.value\n>>Glyma13g11940.8 -2.588833 ?0.26176050 0.7348221\n>>Glyma13g11900.1 -2.875548 ?0.03020441 0.9688072\n>>Glyma09g24780.1 -3.501041 -0.12108619 0.8754371\n>>Glyma13g12050.1 -3.224648 ?0.03036675 0.9691009\n>>Glyma13g12070.1 -3.743064 ?0.14416487 0.8521188\n>>19860 more rows ...\n>>\n>>$comparison\n>>[1] \"control\" \"stress\"\n>>$genes\n>>NULL\n>>\n>>Thanks in advance,\n>>Estefania\n>>\n>>_______________________________________________\n>>Bioc-sig-sequencing mailing list\n>>Bioc-sig-sequencing at r-project.org\n>>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>",
+      "body_snippet": "Estefania and Dario\n\nA more efficient way to do this:\n> row.positive.counts <- apply(dup.data$counts, 1, function(a.row) sum(a.row > 0))\n\nwould be this:\nrow.positive.counts <- rowSums( dup.data$counts",
+      "thread_id": "thread-e0b248478512",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-ca109e3a7c58",
+      "message_id": "<20110828170022.BMR49151@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2011-08-28T07:00:22Z",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "subject_clean": "[Bioc-sig-seq] extract non-zero rows",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Ah, yes, that method is better. I forgot to use it my example.\n\n- Dario.\n\n---- Original message ----\n>Date: Sat, 27 Aug 2011 13:53:16 +1000\n>From: davismcc at googlemail.com (on behalf of Davis McCarthy <davis.mccarthy at balliol.ox.ac.uk>)\n>Subject: Re: [Bioc-sig-seq] extract non-zero rows  \n>To: D.Strbenac at garvan.org.au\n>Cc: Estefania Mancini <estefania.mancini at indear.com>, bioc-sig-sequencing at r-project.org\n>\n>Estefania and Dario\n>\n>A more efficient way to do this:\n>> row.positive.counts <- apply(dup.data$counts, 1, function(a.row) sum(a.row > 0))\n>\n>would be this:\n>row.positive.counts <- rowSums( dup.data$counts > 0 )\n>\n>You might prefer to use the functions rowSums(), rowMeans(),\n>colSums(), colMeans() instead of apply(), where you can. They are much\n>faster.\n>\n>Best wishes\n>Davis\n>\n>\n>\n>On 26 August 2011 10:00, Dario Strbenac <D.Strbenac at garvan.org.au> wrote:\n>> Hi Estefania,\n>>\n>> If you want both columns to be non-zero, you should do\n>>\n>\n>> filtered <- dup.data[row.positive.counts == ncol(dup.data$counts), ]\n>>\n>> It makes a boolean vector for each row, then sums it, because TRUE is the same as 1, so the sum gives you how many columns are greater than zero. Then, the rows that have as many positive numbers as there are columns in the data frame are kept.\n>>\n>> To find unchanged genes, you might do\n>>\n>> unchanged <- dup.de.com$table[dup.de.com$table[, \"logFC\"] > -0.2 & dup.de.com$table[, \"logFC\"] < 0.2, ]\n>>\n>> replacing 0.2 with what you think the biggest fold change that unchanged genes might have.\n>>\n>> ---- Original message ----\n>>>Date: Thu, 25 Aug 2011 11:39:03 -0300 (ART)\n>>>From: bioc-sig-sequencing-bounces at r-project.org (on behalf of Estefania Mancini <estefania.mancini at indear.com>)\n>>>Subject: [Bioc-sig-seq] extract non-zero rows\n>>>To: bioc-sig-sequencing at r-project.org\n>>>\n>>>Dear all\n>>>I have loaded and analyzed properly 4 454 dataset, corresponding to control and stress samples with their biological replicates.\n>>>I would like to know if is possible to filter, in my DGEList ?object\n>>>\n>>>-which tags dont have zero in any column,\n>>>-which of these tags could be consider \"housekeeping\" (at least with logFC near 0)\n>>>\n>>>The object ?DGEList ?looks like this:\n>>>\n>>>>dup.data\n>>>An object of class \"DGEList\"\n>>>$samples\n>>> ? ? ? ? ? ? group lib.size norm.factors\n>>>A8_control control ? ?77953 ? ? ? ? ? ?1\n>>>A8_stress ? stress ? 176860 ? ? ? ? ? ?1\n>>>mq_control control ? ?98109 ? ? ? ? ? ?1\n>>>mq_stress ? stress ? 145839 ? ? ? ? ? ?1\n>>>pi_control control ? 132479 ? ? ? ? ? ?1\n>>>pi_stress ? stress ? 142484 ? ? ? ? ? ?1\n>>>tj_control control ? ?65827 ? ? ? ? ? ?1\n>>>tj_stress ? stress ? 144278 ? ? ? ? ? ?1\n>>>\n>>>I have tried to filter using the suggested function:\n>>>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 0, ]\n>>>or with\n>>>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 1, ]\n>>>but have no changes at all. I have many rows which 0 and 1 read in some column which should be excluded.\n>>>\n>>>Also:\n>>>dup.de.com\n>>>An object of class \"DGEExact\"\n>>>$table\n>>> ? ? ? ? ? ? ? ? ?logConc ? ? ? logFC ? p.value\n>>>Glyma13g11940.8 -2.588833 ?0.26176050 0.7348221\n>>>Glyma13g11900.1 -2.875548 ?0.03020441 0.9688072\n>>>Glyma09g24780.1 -3.501041 -0.12108619 0.8754371\n>>>Glyma13g12050.1 -3.224648 ?0.03036675 0.9691009\n>>>Glyma13g12070.1 -3.743064 ?0.14416487 0.8521188\n>>>19860 more rows ...\n>>>\n>>>$comparison\n>>>[1] \"control\" \"stress\"\n>>>$genes\n>>>NULL\n>>>\n>>>Thanks in advance,\n>>>Estefania\n>>>\n>>>_______________________________________________\n>>>Bioc-sig-sequencing mailing list\n>>>Bioc-sig-sequencing at r-project.org\n>>>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>>\n>> --------------------------------------\n>> Dario Strbenac\n>> Research Assistant\n>> Cancer Epigenetics\n>> Garvan Institute of Medical Research\n>> Darlinghurst NSW 2010\n>> Australia\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Ah, yes, that method is better. I forgot to use it my example.\n\n- Dario.\n\n---- Original message ----\n>Date: Sat, 27 Aug 2011 13:53:16 +1000\n>From: davismcc at googlemail.com (on behalf of Davis McCart",
+      "thread_id": "thread-ca109e3a7c58",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-c68131f8f9e7",
+      "message_id": "<d47917c0-542e-4311-980d-35d1a224b592@helium.bioceresgroup.local>",
+      "from_name": "Estefania Mancini",
+      "from_email_hash": "a379e052068a48e86f159d9b3157883133c7c6e031223bf86baf79f7322fd15b",
+      "date": "2011-08-29T13:42:12Z",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "subject_clean": "[Bioc-sig-seq] extract non-zero rows",
+      "in_reply_to": "<mailman.11.1314525604.22584.bioc-sig-sequencing@r-project.org>",
+      "references": [],
+      "body_plain": "Dear all,\n\nThank you for your prompt reply.\n\nI wonder if it is better filter the data before do exact test and only analyse this few rows or analyze with all data and filter after exact test.\n\nIn my case I have a difference of 19000 rows without filter and only 300 filtering non zero rows\n\nThe aim of the filter is to see which genes are mapped in all samples. \n\nThanks in advance\n\nEstefania\n\n----- Mensaje original -----\nDe: bioc-sig-sequencing-request at r-project.org\nPara: bioc-sig-sequencing at r-project.org\nEnviados: Domingo, 28 de Agosto 2011 7:00:04\nAsunto: Bioc-sig-sequencing Digest, Vol 42, Issue 11\n\nSend Bioc-sig-sequencing mailing list submissions to\n\tbioc-sig-sequencing at r-project.org\n\nTo subscribe or unsubscribe via the World Wide Web, visit\n\thttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\nor, via email, send a message with subject or body 'help' to\n\tbioc-sig-sequencing-request at r-project.org\n\nYou can reach the person managing the list at\n\tbioc-sig-sequencing-owner at r-project.org\n\nWhen replying, please edit your Subject line so it is more specific\nthan \"Re: Contents of Bioc-sig-sequencing digest...\"\n\n\nToday's Topics:\n\n   1. Re: extract non-zero rows (Dario Strbenac)\n\n\n----------------------------------------------------------------------\n\nMessage: 1\nDate: Sun, 28 Aug 2011 17:00:22 +1000 (EST)\nFrom: Dario Strbenac <D.Strbenac at garvan.org.au>\nTo: \"Davis McCarthy\" <davis.mccarthy at balliol.ox.ac.uk>\nCc: Estefania Mancini <estefania.mancini at indear.com>,\n\tbioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] extract non-zero rows\nMessage-ID: <20110828170022.BMR49151 at gimr.garvan.unsw.edu.au>\nContent-Type: text/plain; charset=iso-8859-1\n\nAh, yes, that method is better. I forgot to use it my example.\n\n- Dario.\n\n---- Original message ----\n>Date: Sat, 27 Aug 2011 13:53:16 +1000\n>From: davismcc at googlemail.com (on behalf of Davis McCarthy <davis.mccarthy at balliol.ox.ac.uk>)\n>Subject: Re: [Bioc-sig-seq] extract non-zero rows  \n>To: D.Strbenac at garvan.org.au\n>Cc: Estefania Mancini <estefania.mancini at indear.com>, bioc-sig-sequencing at r-project.org\n>\n>Estefania and Dario\n>\n>A more efficient way to do this:\n>> row.positive.counts <- apply(dup.data$counts, 1, function(a.row) sum(a.row > 0))\n>\n>would be this:\n>row.positive.counts <- rowSums( dup.data$counts > 0 )\n>\n>You might prefer to use the functions rowSums(), rowMeans(),\n>colSums(), colMeans() instead of apply(), where you can. They are much\n>faster.\n>\n>Best wishes\n>Davis\n>\n>\n>\n>On 26 August 2011 10:00, Dario Strbenac <D.Strbenac at garvan.org.au> wrote:\n>> Hi Estefania,\n>>\n>> If you want both columns to be non-zero, you should do\n>>\n>\n>> filtered <- dup.data[row.positive.counts == ncol(dup.data$counts), ]\n>>\n>> It makes a boolean vector for each row, then sums it, because TRUE is the same as 1, so the sum gives you how many columns are greater than zero. Then, the rows that have as many positive numbers as there are columns in the data frame are kept.\n>>\n>> To find unchanged genes, you might do\n>>\n>> unchanged <- dup.de.com$table[dup.de.com$table[, \"logFC\"] > -0.2 & dup.de.com$table[, \"logFC\"] < 0.2, ]\n>>\n>> replacing 0.2 with what you think the biggest fold change that unchanged genes might have.\n>>\n>> ---- Original message ----\n>>>Date: Thu, 25 Aug 2011 11:39:03 -0300 (ART)\n>>>From: bioc-sig-sequencing-bounces at r-project.org (on behalf of Estefania Mancini <estefania.mancini at indear.com>)\n>>>Subject: [Bioc-sig-seq] extract non-zero rows\n>>>To: bioc-sig-sequencing at r-project.org\n>>>\n>>>Dear all\n>>>I have loaded and analyzed properly 4 454 dataset, corresponding to control and stress samples with their biological replicates.\n>>>I would like to know if is possible to filter, in my DGEList ?object\n>>>\n>>>-which tags dont have zero in any column,\n>>>-which of these tags could be consider \"housekeeping\" (at least with logFC near 0)\n>>>\n>>>The object ?DGEList ?looks like this:\n>>>\n>>>>dup.data\n>>>An object of class \"DGEList\"\n>>>$samples\n>>> ? ? ? ? ? ? group lib.size norm.factors\n>>>A8_control control ? ?77953 ? ? ? ? ? ?1\n>>>A8_stress ? stress ? 176860 ? ? ? ? ? ?1\n>>>mq_control control ? ?98109 ? ? ? ? ? ?1\n>>>mq_stress ? stress ? 145839 ? ? ? ? ? ?1\n>>>pi_control control ? 132479 ? ? ? ? ? ?1\n>>>pi_stress ? stress ? 142484 ? ? ? ? ? ?1\n>>>tj_control control ? ?65827 ? ? ? ? ? ?1\n>>>tj_stress ? stress ? 144278 ? ? ? ? ? ?1\n>>>\n>>>I have tried to filter using the suggested function:\n>>>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 0, ]\n>>>or with\n>>>>dup.de.filter <- dup.data[rowSums(dup.data$counts) >= 1, ]\n>>>but have no changes at all. I have many rows which 0 and 1 read in some column which should be excluded.\n>>>\n>>>Also:\n>>>dup.de.com\n>>>An object of class \"DGEExact\"\n>>>$table\n>>> ? ? ? ? ? ? ? ? ?logConc ? ? ? logFC ? p.value\n>>>Glyma13g11940.8 -2.588833 ?0.26176050 0.7348221\n>>>Glyma13g11900.1 -2.875548 ?0.03020441 0.9688072\n>>>Glyma09g24780.1 -3.501041 -0.12108619 0.8754371\n>>>Glyma13g12050.1 -3.224648 ?0.03036675 0.9691009\n>>>Glyma13g12070.1 -3.743064 ?0.14416487 0.8521188\n>>>19860 more rows ...\n>>>\n>>>$comparison\n>>>[1] \"control\" \"stress\"\n>>>$genes\n>>>NULL\n>>>\n>>>Thanks in advance,\n>>>Estefania\n>>>\n>>>_______________________________________________\n>>>Bioc-sig-sequencing mailing list\n>>>Bioc-sig-sequencing at r-project.org\n>>>https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>>\n>> --------------------------------------\n>> Dario Strbenac\n>> Research Assistant\n>> Cancer Epigenetics\n>> Garvan Institute of Medical Research\n>> Darlinghurst NSW 2010\n>> Australia\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia\n\n\n\n------------------------------\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\nEnd of Bioc-sig-sequencing Digest, Vol 42, Issue 11",
+      "body_snippet": "Dear all,\n\nThank you for your prompt reply.\n\nI wonder if it is better filter the data before do exact test and only analyse this few rows or analyze with all data and filter after exact test.\n\nIn my c",
+      "thread_id": "thread-c68131f8f9e7",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-cb5cf37be8f4",
+      "message_id": "<2C40E43D1F7A56408C4463FD245DDDF97E0BC06E@EXCHMB-02.stowers-institute.org>",
+      "from_name": "Cook, Malcolm",
+      "from_email_hash": "b3b67197cbeb46fec00d3658f6d757970f1e222f3af546d20cc9262ba3d51df5",
+      "date": "2011-08-30T20:36:26Z",
+      "subject": "[Bioc-sig-seq] import.bw to Rle? [re-opened]",
+      "subject_clean": "[Bioc-sig-seq] import.bw to Rle? [re-opened]",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Janet, Michael, and fellow Bioconductors,\n\nI am trying to follow the helpful suggestion Michael made to Janet, found here  https://stat.ethz.ch/pipermail/bioconductor/2011-August/040729.html\n\nfor obtaining a Rle encoding of the contents of a bigWig file.\n\nBut instead get an error: \"  'weight' must be a non-empty list of integers\"\n\nAs per the following session.\n\nI would appreciate any advice/hints.\n\nThanks,\n\n-Malcolm Cook\nComputational Biology - Stowers Institute for Medical Research\n\n\n\n> library(IRanges)\n> library(rtracklayer)\n> bw <- import(test.bw.file, ranges = GenomicRanges::GRanges(\"chr19\", IRanges(1, 6e7)))\n> coverage(bw,weight=\"score\")\nError in .local(x, shift, width, weight, ...) : \n  'weight' must be a non-empty list of integers\n\n\n> sessionInfo()\nR version 2.13.1 (2011-07-08)\nPlatform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n\nlocale:\n[1] C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] IRanges_1.10.6     rtracklayer_1.13.3 RCurl_1.5-0        bitops_1.0-4.1    \n\nloaded via a namespace (and not attached):\n[1] BSgenome_1.20.0     Biostrings_2.20.3   GenomicRanges_1.4.8\n[4] XML_3.4-0          \n>",
+      "body_snippet": "Janet, Michael, and fellow Bioconductors,\n\nI am trying to follow the helpful suggestion Michael made to Janet, found here  https://stat.ethz.ch/pipermail/bioconductor/2011-August/040729.html\n\nfor obta",
+      "thread_id": "thread-cb5cf37be8f4",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-9fbe2fb7fa5c",
+      "message_id": "<CAKH7RFBLtG7fnX=K0+FsnyxZx4-4p9QKL7O07ak5K2A4qqkFpg@mail.gmail.com>",
+      "from_name": "wang peter",
+      "from_email_hash": "b2902ac5bd1bd473a0a8c22f2f9f00c2b2b5870d6530a8169155e12bcfc822b1",
+      "date": "2011-08-30T20:42:51Z",
+      "subject": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "subject_clean": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/47a13ed3/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/47a13ed3/attachment.pl>",
+      "thread_id": "thread-9fbe2fb7fa5c",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-bf236127c46b",
+      "message_id": "<CAOQ5NyfRNamMtZnNq6ek3Ff+FzhkX5n-4+iaYkr3N7tUdU7tMQ@mail.gmail.com>",
+      "from_name": "Michael Lawrence",
+      "from_email_hash": "bfe89466f88aa4e170d0a66a4e53638a9e527ae59f6b2639e8267ad3421950bf",
+      "date": "2011-08-30T21:02:31Z",
+      "subject": "[Bioc-sig-seq] import.bw to Rle? [re-opened]",
+      "subject_clean": "[Bioc-sig-seq] import.bw to Rle? [re-opened]",
+      "in_reply_to": "<2C40E43D1F7A56408C4463FD245DDDF97E0BC06E@EXCHMB-02.stowers-institute.org>",
+      "references": [
+        "<2C40E43D1F7A56408C4463FD245DDDF97E0BC06E@EXCHMB-02.stowers-institute.org>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/418966f8/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/418966f8/attachment.pl>",
+      "thread_id": "thread-cb5cf37be8f4",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-5a5eba212b42",
+      "message_id": "<7FA17449-9F6C-4119-B494-DB5A3B762CB5@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2011-08-30T22:46:41Z",
+      "subject": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "subject_clean": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "in_reply_to": "<CAKH7RFBLtG7fnX=K0+FsnyxZx4-4p9QKL7O07ak5K2A4qqkFpg@mail.gmail.com>",
+      "references": [
+        "<CAKH7RFBLtG7fnX=K0+FsnyxZx4-4p9QKL7O07ak5K2A4qqkFpg@mail.gmail.com>"
+      ],
+      "body_plain": "On Aug 30, 2011, at 4:42 PM, wang peter wrote:\n> hi every one:\n>     i am still confused by parameters in function trimLRPatterns\n> if i set\n> Lpattern <- \"AAAAAAAATTCTGCT\"\n> Rpattern <- \"GATCGGATTTTTTTT\"\n> subject <- DNAString(\"TTCTGCTTGACGTGATCGGA\")\n> trimLRPatterns(Lpattern = Lpattern, subject = subject)#\n> the results are\n>\n> 13-letter \"DNAString\" instance\n> seq: TGACGTGATCGGA\n>\n> trimLRPatterns(Rpattern = Rpattern, subject = subject)#\n>\n> the results are\n> 13-letter \"DNAString\" instance\n> seq: TTCTGCTTGACGT\n>\n> i think with.Rindels = F with.Lindels = F\n>\n> AAAAAAAA and TTTTTTTT are insertions\n\nTo reduce any possible confusion, let's just take this case:\n\n\tLpattern <- \"AAAAAAAATTCTGCT\"\n\tsubject <-          \"TTCTGCT\"\n\n > trimLRPatterns(Lpattern = Lpattern, subject = subject)\n[1] \"\"\n\n# and just to be clear about the defaults\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,\n\tmax.Lmismatch=0, with.Lindels=FALSE)\n[1] \"\"\n\nSince there are no A's in subject, and max.Lmismatch=0, I think you\nare saying that the substring \"AAAAAAAA\" of Lpattern appears to match\nfreely, as if it was being treated as an in/del, without any penalty.\nThat is not what is happening.\n\nThe function takes max.Lmismatch=0 as\n\n\tmax.Lmismatch = rep(0, nchar(Lpattern))\n\nSo, *all* suffixes of the Lpattern are candidates for trimming at\nthe beginning of the subject, so long as they exact-match, and the\nlongest wins.  By the suffixes of the Lpattern I mean, in order,\n\n\tsubstr(Lpattern, i, nchar(Lpattern)), i = 1:nchar(Lpattern)\n\nThe first one to match is \"TTCTGCT\" (i = 9), which actually equals\nthe subject.  This is why the function returns \"\".  It has nothing\nto do with indels.\n\nMaybe a better example for indels is:\n\n >  subject = \"TTTACGT\"\n > Lpattern = \"TTTAACGT\"\t\t# pattern has an extra 'A'\n\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=3)\n[1] \"TTTACGT\"\n\n# need to allow for 4 errors because of the extra A\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=4)\n[1] \"\"\n\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=0,\n\twith.Lindels=TRUE)\n[1] \"TTACGT\"\n\n# need to allow for 1 \"edit\", to remove the extra A\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=1,\n\twith.Lindels=TRUE)\n[1] \"\"\n\n\nLet me know if I didn't get your point.\n\n> thank you\n>\n> \t[[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing",
+      "body_snippet": "On Aug 30, 2011, at 4:42 PM, wang peter wrote:\n> hi every one:\n>     i am still confused by parameters in function trimLRPatterns\n> if i set\n> Lpattern <- \"AAAAAAAATTCTGCT\"\n> Rpattern <- \"GATCGGATTTTT",
+      "thread_id": "thread-9fbe2fb7fa5c",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-465cc3239005",
+      "message_id": "<20110831100033.BMS26888@gimr.garvan.unsw.edu.au>",
+      "from_name": "Dario Strbenac",
+      "from_email_hash": "1ff6cfcd76323ba75ace8cdf9d5b8ac965f1f9cbb1bab1cb261721d5d98ec67e",
+      "date": "2011-08-31T00:00:33Z",
+      "subject": "[Bioc-sig-seq] edgeR glmLRT contrast Argument",
+      "subject_clean": "[Bioc-sig-seq] edgeR glmLRT contrast Argument",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "Good morning,\n\nI'm looking for examples of what types of use cases the contrast argument is used for. I'm not sure what are the cases when the argument coef will not be enough, and when I will need to use it.\n\nThank you.\n\n--------------------------------------\nDario Strbenac\nResearch Assistant\nCancer Epigenetics\nGarvan Institute of Medical Research\nDarlinghurst NSW 2010\nAustralia",
+      "body_snippet": "Good morning,\n\nI'm looking for examples of what types of use cases the contrast argument is used for. I'm not sure what are the cases when the argument coef will not be enough, and when I will need to",
+      "thread_id": "thread-465cc3239005",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-53808b050b4d",
+      "message_id": "<B035E433-ECA7-4AAE-9E23-19AD6810D3AD@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2011-08-31T16:50:16Z",
+      "subject": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "subject_clean": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "in_reply_to": "<CAKH7RFD9zwT=uc7WRSi+jdASDDDw-OMZuJLX9_7L9F0mmFAUag@mail.gmail.com>",
+      "references": [
+        "<CAKH7RFD9zwT=uc7WRSi+jdASDDDw-OMZuJLX9_7L9F0mmFAUag@mail.gmail.com>"
+      ],
+      "body_plain": "Sending back to the list, since others may be confused also.\n\nOn Aug 31, 2011, at 11:48 AM, wang peter wrote:\n> DEAR HARRIS:\n>            I am shan, thank you very much for your kindly help.\n> but i am still confused about the function of trimLRPatterns.\n> like the example\n> if i set\n> > subject = \"TTTACGT\"\n> > Lpattern = \"TTTAACGT\"\n> the result is :\n> > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \n> max.Lmismatch=1,with.Lindels=TRUE)\n> [1] \"\"\n>\n> but if i set\n> > subject = \"TTTACGT\"\n> > Lpattern = \"AAATTTAACGT\"\n> the result is :\n> > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \n> max.Lmismatch=1,with.Lindels=TRUE)\n> [1] \"TTTACGT\"\n> how to explain it?\n\nThe problem is that max.Lmismatch is a vector that specifies one's  \nmismatch tolerances for the\nsuccessive match tests of the Lpattern suffixes, at the beginning of  \nthe subject.  The vector\nis expected to be of length nchar(Lpattern), with the element  \nmax.Lmismatch[i] controlling the\ntest for the suffix of length i.  If a shorter vector is supplied, as  \nyou did here (you give a\nvector of length 1), the function expands that to a vector of length  \nnchar(Lpattern) by filling\nwith -1's at the *low end*.  Your 1 becomes the last element of this  \nvector in both cases above.\nThis 1 is sufficient for \"TTTAACGT\" to match \"TTTACGT\" in the context  \nof with.Lindels=TRUE, but\nit is not enough for \"AAATTTAACGT\" to match the same subject.  You  \nwould need 4 edits (deletions\nof A) for that:\n\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=3, with.Lindels=T)\n[1] \"TTTACGT\"\n\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=4, with.Lindels=T)\n[1] \"\"\n\nOn the other hand, you can trim the entire subject a different way,  \nallowing for only 1 edit,\nby employing the 4_th longest suffix of Lpattern, namely \"TTTAACGT\".   \nThe commands below show\nthat 1 edit is not enough to trim the whole subject using the *3_rd  \nlongest* Lpattern suffix,\nnamely \"ATTTAACGT\" (for which you would need 2 edits!):\n\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=rep(1,3), with.Lindels=TRUE)\n[1] \"TTTACGT\"\n\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=rep(1,4), with.Lindels=TRUE)\n[1] \"\"\n\n# allows for 2 edits, for the 3 longest pattern suffixes:\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=rep(2,3), with.Lindels=TRUE)\n[1] \"\"\n\n# shows exactly where the 2 is needed (for the 3_rd longest suffix):\n > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \nmax.Lmismatch=c(2,0,0), with.Lindels=TRUE)\n[1] \"\"\n\nTo see the R code for trimLRPatterns, do\n\n > showMethods(\"trimLRPatterns\", includeDefs=TRUE)\n\nand\n\n > Biostrings:::.XStringSet.trimLRPatterns\n\nand (for Lpattern)\n\n > Biostrings:::.computeTrimStart\n\nAlso see  ?which.isMatchingStartingAt\n\n> and do you know how to read the c source code of trimLRPatterns\n\nStart with the function XString_match_pattern_at() on\n\n\tBiostrings/src/lowlevel_matching.c\n\nThis is called by .matchPatternAt() on R/lowlevel-matching.R.\n\n> thank u very much\n> shan gao",
+      "body_snippet": "Sending back to the list, since others may be confused also.\n\nOn Aug 31, 2011, at 11:48 AM, wang peter wrote:\n> DEAR HARRIS:\n>            I am shan, thank you very much for your kindly help.\n> but i a",
+      "thread_id": "thread-53808b050b4d",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-b2dd5dec2663",
+      "message_id": "<CAKH7RFCSQLCXp6zWoiXBPHihSN50RuY3v6ORTd5gKF-N+Oty4g@mail.gmail.com>",
+      "from_name": "wang peter",
+      "from_email_hash": "b2902ac5bd1bd473a0a8c22f2f9f00c2b2b5870d6530a8169155e12bcfc822b1",
+      "date": "2011-08-31T19:20:46Z",
+      "subject": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "subject_clean": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "in_reply_to": "<B035E433-ECA7-4AAE-9E23-19AD6810D3AD@jhu.edu>",
+      "references": [
+        "<CAKH7RFD9zwT=uc7WRSi+jdASDDDw-OMZuJLX9_7L9F0mmFAUag@mail.gmail.com>",
+        "<B035E433-ECA7-4AAE-9E23-19AD6810D3AD@jhu.edu>"
+      ],
+      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110831/b35a44c9/attachment.pl>",
+      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110831/b35a44c9/attachment.pl>",
+      "thread_id": "thread-53808b050b4d",
+      "thread_depth": 1,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-b7b7473233ca",
+      "message_id": "<CABZEP_LPLH7c4btftZ2ORHqGrVhnM5-yK3YGAcCjEtE2jdZsBA@mail.gmail.com>",
+      "from_name": "Sonia Leach",
+      "from_email_hash": "beff4e44950eff8903d56c9eb7722712e8cf46c9945304400fd8957f8479d47b",
+      "date": "2011-08-31T19:52:43Z",
+      "subject": "[Bioc-sig-seq] ChIPpeakAnno annotatePeakInBatch problems in R2.13/ChIPpeakAnno_1.8.0 and R2.13/ChIPpeakAnno_2.0.2",
+      "subject_clean": "[Bioc-sig-seq] ChIPpeakAnno annotatePeakInBatch problems in R2.13/ChIPpeakAnno_1.8.0 and R2.13/ChIPpeakAnno_2.0.2",
+      "in_reply_to": null,
+      "references": [],
+      "body_plain": "I had a problem with the original ChIPpeakAnno distribution\nChIPpeakAnno_1.8.0 for R2.13 where depending on the number of spaces\nin the RangedData Annotation object sent to annotatePeakInBatch, I\nwould get the error:\n         Error in FUN(1L[[1L]], ...) : object 'r' not found\n(see Problem 1 below) which went away when I downloaded the\ndevelopment version R2.13/ChIPpeakAnno_2.0.2\n\nHowever, then I had the problem that calling annotatePeakInBatch(...,\noutput=\"overlapping\", multiple=FALSE) returned the same number of\nanswers as annotatePeakInBatch(..., output=\"overlapping\",\nmultiple=TRUE) (see Problem 2 below). Obviously, the work around is to\ntake one hit from among the multiples returned but this should be\nfixed.\n\nThe annotation file I used is just a bed6 dump from UCSC goldenpath.\n\n============ problem 1:\nlibrary(ChIPpeakAnno)\n\nmyPeak = RangedData(IRanges(start = c(17208381), end = c(17208381), names = c(\"S\nite1\")),space = c(\"chr1\"),strand = c('+'))\n\n## This object has 25 spaces for chr1..22,X,Y,M\nUCSC = read.delim('Annots/UCSC_knownGene.hg19.bed',header=FALSE)\nUCSC_rangeD = RangedData(IRanges(start= UCSC[,2], end= UCSC[,3], names=UCSC[,4])\n, space=as.character(UCSC[,1]),strand=UCSC[,6])\n\n## This object has just 1 space but the same data as UCSC_rangedD[868,]\nfeature = RangedData(IRanges(start = c(17066767), end = c(17267729), names = c(\"\nSite1\")),space = c(\"chr1\"),strand = c('+'))\n\n## with UCSC_rangeD[868,], gives error in R2.13/ChIPpeakAnno_1.8.0\n##         Error in FUN(1L[[1L]], ...) : object 'r' not found\nannotation = annotatePeakInBatch(myPeak, AnnotationData=UCSC_rangeD[868,], outpu\nt=\"overlapping\", maxgap=0, multiple=FALSE)\n\n## with 1-space feature, no error\nannotation = annotatePeakInBatch(myPeak, AnnotationData=feature, output=\"overlap\nping\", maxgap=0, multiple=FALSE)\n\n<sorry, I no longer have the session info for this run - but it is the\nbasic R2.13 install plus biocLite(ChIPpeakAnno), and should have the\nsame versions as the session info shown for problem 2 below, minus the\nnew dev version for ChIPpeakAnno (i.e. everything the same as below,\nexcept ChIPpeakAnno_2.0.2.tar.gz, gplots_2.8.0.tar.gz,\ncaTools_1.12.tar.gz, gdata_2.8.2.tar.gz, gtools_2.6.2.tar.gz)\n>\n\n======== Problem 2\nR version 2.13.0 (2011-04-13)\nCopyright (C) 2011 The R Foundation for Statistical Computing\nISBN 3-900051-07-0\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\n> library(ChIPpeakAnno)\nWarning message:\nreplacing previous import 'space' when loading 'IRanges'\n> UCSC = read.delim('Annots/UCSC_knownGene.hg19.bed',header=FALSE)\n> UCSC_rangeD = RangedData(IRanges(start= UCSC[,2], end= UCSC[,3], names=UCSC[,4]), space=as.character(UCSC[,1]),strand=UCSC[,6])\n> data = unique(read.table(file[i], sep=\"\\t\", header=FALSE))\n> ids = sub(\"ID=(\\\\d+);.+\", \"ID\\\\1\", data[,9], perl=TRUE)\n> data_rangeD = RangedData(IRanges(start=data$V4, end=data$V5, names=paste(ids,data$V3, sep=\"_\")), space=data$V1, strand=\"+\")\n> dim(data_rangeD)\n[1] 19501     1\n> annotationU = annotatePeakInBatch(data_rangeD, AnnotationData=UCSC_rangeD, out\nput=\"overlapping\", maxgap=0, multiple=FALSE)\n> dim(annotationU)\n[1] 16777     9\n> annotationU = annotatePeakInBatch(data_rangeD, AnnotationData=UCSC_rangeD, out\nput=\"overlapping\", maxgap=0, multiple=TRUE)\n> dim(annotationU)\n[1] 16777     9\n> sessionInfo()\nR version 2.13.0 (2011-04-13)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] grid      stats     graphics  grDevices utils     datasets  methods\n[8] base\n\nother attached packages:\n [1] ChIPpeakAnno_2.0.2                  gplots_2.8.0\n [3] caTools_1.12                        bitops_1.0-4.1\n [5] gdata_2.8.2                         gtools_2.6.2\n [7] limma_3.8.3                         org.Hs.eg.db_2.5.0\n [9] GO.db_2.5.0                         RSQLite_0.9-4\n[11] DBI_0.2-5                           AnnotationDbi_1.14.1\n[13] BSgenome.Ecoli.NCBI.20080805_1.3.17 BSgenome_1.20.0\n[15] GenomicRanges_1.4.8                 Biostrings_2.20.2\n[17] IRanges_1.10.6                      multtest_2.8.0\n[19] Biobase_2.12.2                      biomaRt_2.8.1\n\nloaded via a namespace (and not attached):\n[1] MASS_7.3-12     RCurl_1.6-9     splines_2.13.0  survival_2.36-5\n[5] XML_3.4-2\n>",
+      "body_snippet": "I had a problem with the original ChIPpeakAnno distribution\nChIPpeakAnno_1.8.0 for R2.13 where depending on the number of spaces\nin the RangedData Annotation object sent to annotatePeakInBatch, I\nwoul",
+      "thread_id": "thread-b7b7473233ca",
+      "thread_depth": 0,
+      "month": "2011-08"
+    },
+    {
+      "id": "msg-8de53027b00e",
+      "message_id": "<9313DB9B-8706-47F2-837A-923FE41091E5@jhu.edu>",
+      "from_name": "Harris A. Jaffee",
+      "from_email_hash": "4405918bb591674dbc24f261a2a78ef00212f6f2a2cfe2b57720880e8f9986d8",
+      "date": "2011-08-31T20:44:59Z",
+      "subject": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "subject_clean": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "in_reply_to": "<CAKH7RFCSQLCXp6zWoiXBPHihSN50RuY3v6ORTd5gKF-N+Oty4g@mail.gmail.com>",
+      "references": [
+        "<CAKH7RFD9zwT=uc7WRSi+jdASDDDw-OMZuJLX9_7L9F0mmFAUag@mail.gmail.com>",
+        "<B035E433-ECA7-4AAE-9E23-19AD6810D3AD@jhu.edu>",
+        "<CAKH7RFCSQLCXp6zWoiXBPHihSN50RuY3v6ORTd5gKF-N+Oty4g@mail.gmail.com>"
+      ],
+      "body_plain": "On Aug 31, 2011, at 3:20 PM, wang peter wrote:\ndear Harris A. Jaffee,\n> hj at jhu.edu\n>\n> thank u very much for your explaination.\n> but i am still confused because of not knowing its algorithm\n> could u tell me if i can read them from lowlevel_matching.c\n>\n> let me try to concluded what u have told me:\n>\n>    1. the algorithm will change every max.Rmismatch to a vector.\n> by adding -1 if it is not 0.\n>       e.g.\n>    if max.Lmismatch=0 it will do : max.Lmismatch = rep(0, nchar \n> (Lpattern))\n>    if max.Lmismatch=c(2,2)   it will get 2 2 -1 -1 -1\n>     how does the algorithm use -1 or 0 to control the alignment??\n>\nSee ?trimLRPatterns.  Yes, 0 is a special value, as is any scalar in  \n[0,1).\nThese are interpreted as \"rates\", relative to the length of the  \nsubstring\nof the pattern to be tested.  (See ?agrep)  For Lpattern, such a  \nscalar s\nis converted internally to\n\n\tas.integer(s * 1:nchar(Lpattern))\n\nThe order of this vector of max.mismatch limits is counter-intuitive  \n(and\nwasn't my idea).  A sanity check is that it should be monotone  \nincreasing,\nnot necessarily strictly, as with the above construction using the  \nrate s.\nThe suffixes of the Lpattern are tested in the order longest first, with\nthe first match winning.  [They originally were tested shortest  \nfirst, and\nthis explains the ordering of the vector, at least from the  \nimplementation\nperspective.  But in this scenario, you cannot know when you are  \ndone, so\nyou inevitably waste time.]  As I said, the mismatch limit for the  \ntest of\nthe pattern suffix of length i is max.Lmismatch[i], hence the  \nelements of\nthe vector max.Lmismatch are used from the top down.\n\nAs I said, max.Lmismatch values shorter than nchar(Lpattern) are padded\nwith -1's at the low end.  E.g., contrary to what you wrote above, c \n(2,2)\nwill be expanded into -1, -1, .... 2, 2.\n\nSee ?isMatchingAt -- especially the Details section.  0 as a  \nmax.mismatch\nlimit means that only perfect matches are acceptable (which rules out\nmatches involving edits of indels); -1 as a max.mismatch limit  \n*prevents*\nany match, since any edit distance is non-negative.\n>    2. the algorithm will try any suffix segment on  Lmismatch by\n>    substr(Lpattern, i, nchar(Lpattern)), i = 1:nchar(Lpattern)\n>       e.g. Lpattern = \"TTTAACGT\"\n>    it will try \"T\",\"GT\",......\n>\nYes, but in the opposite order: \"TTTAACGT\", \"TTAACGT\", .... \"GT\", \"T\".\n>\n>    3. during each try, if the length of segment is equal to the  \n> lenght of\n>    subject, the algoritm will stop, except it can allow indel.\n>\nI'm not sure what you mean with the stopping.\n>    4. and indel should be counted as a mismatch\n>\nIf indels are permitted and used, each letter added or removed is  \ncounted\nas 1 toward the edit distance.  See the examples on ?isMatchingAt .\n\n\n\n >  subject = \"TTTACGT\"\n > Lpattern = \"TTTAACGT\"         # pattern has an extra 'A'\n>\n> # need to allow for 1 \"edit\", to remove the extra A\n> > trimLRPatterns(Lpattern = Lpattern, subject = subject,  \n> max.Lmismatch=1,\n>         with.Lindels=TRUE)\n> [1] \"\"\n>\n>  trimLRPatterns(Lpattern = Lpattern, subject = subject,  \n> max.Lmismatch=4)\n> [1] \"\"\n> i think when the algorithm take \"TTAACGT\", never try \"TTTAACGT\",\n> because no indel allowed.\n>\n>",
+      "body_snippet": "On Aug 31, 2011, at 3:20 PM, wang peter wrote:\ndear Harris A. Jaffee,\n> hj at jhu.edu\n>\n> thank u very much for your explaination.\n> but i am still confused because of not knowing its algorithm\n> coul",
+      "thread_id": "thread-53808b050b4d",
+      "thread_depth": 2,
+      "month": "2011-08"
+    }
+  ],
+  "threads": [
+    {
+      "id": "thread-79aa30306d3e",
+      "subject": "[Bioc-sig-seq] GRangesList with duplicate names - WORKAROUND",
+      "message_count": 3,
+      "participants": [
+        "Cook, Malcolm",
+        "Hervé Pagès"
+      ],
+      "started": "2011-08-03T16:23:44Z",
+      "last_reply": "2011-08-03T20:08:01Z",
+      "root_message_id": "msg-79aa30306d3e"
+    },
+    {
+      "id": "thread-8c54b2a919ad",
+      "subject": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "message_count": 1,
+      "participants": [
+        "Wolfgang Huber"
+      ],
+      "started": "2011-08-08T01:17:56Z",
+      "last_reply": "2011-08-08T01:17:56Z",
+      "root_message_id": "msg-8c54b2a919ad"
+    },
+    {
+      "id": "thread-a31af5463f33",
+      "subject": "[Bioc-sig-seq] problem when using DEXSeq on genes with 1 exon only",
+      "message_count": 2,
+      "participants": [
+        "Simon Anders",
+        "Wolfgang Huber"
+      ],
+      "started": "2011-08-08T12:45:41Z",
+      "last_reply": "2011-08-08T12:51:35Z",
+      "root_message_id": "msg-a31af5463f33"
+    },
+    {
+      "id": "thread-b0f7a627ec3d",
+      "subject": "[Bioc-sig-seq] edgeR/454",
+      "message_count": 3,
+      "participants": [
+        "Davis McCarthy",
+        "Estefania Mancini",
+        "Mark Robinson"
+      ],
+      "started": "2011-08-09T19:51:40Z",
+      "last_reply": "2011-08-10T01:24:41Z",
+      "root_message_id": "msg-b0f7a627ec3d"
+    },
+    {
+      "id": "thread-a3fd6d879454",
+      "subject": "[Bioc-sig-seq] psetdiff on GRangesLists Error",
+      "message_count": 1,
+      "participants": [
+        "Hervé Pagès"
+      ],
+      "started": "2011-08-11T05:28:22Z",
+      "last_reply": "2011-08-11T05:28:22Z",
+      "root_message_id": "msg-a3fd6d879454"
+    },
+    {
+      "id": "thread-f891d94589fd",
+      "subject": "[Bioc-sig-seq] assess how many duplicated reads",
+      "message_count": 4,
+      "participants": [
+        "Kunbin Qu",
+        "Martin Morgan",
+        "Sean Davis",
+        "Thomas Girke"
+      ],
+      "started": "2011-08-11T16:50:24Z",
+      "last_reply": "2011-08-12T04:59:41Z",
+      "root_message_id": "msg-f891d94589fd"
+    },
+    {
+      "id": "thread-81d4cad2e561",
+      "subject": "[Bioc-sig-seq] edgeR datasets",
+      "message_count": 3,
+      "participants": [
+        "Davis McCarthy",
+        "Guffanti Alessandro",
+        "Jérôme Laroche"
+      ],
+      "started": "2011-08-11T18:17:06Z",
+      "last_reply": "2011-08-12T07:44:53Z",
+      "root_message_id": "msg-81d4cad2e561"
+    },
+    {
+      "id": "thread-82a2bf6d7d83",
+      "subject": "[Bioc-sig-seq] using DEXSeq for up and down regulated exons",
+      "message_count": 2,
+      "participants": [
+        "Dario Strbenac",
+        "Jane Merlevede"
+      ],
+      "started": "2011-08-17T15:12:03Z",
+      "last_reply": "2011-08-17T23:00:14Z",
+      "root_message_id": "msg-82a2bf6d7d83"
+    },
+    {
+      "id": "thread-d79c22d39a66",
+      "subject": "[Bioc-sig-seq] HPC/Linux Systems Administrator Position",
+      "message_count": 1,
+      "participants": [
+        "Thomas Girke"
+      ],
+      "started": "2011-08-22T21:36:43Z",
+      "last_reply": "2011-08-22T21:36:43Z",
+      "root_message_id": "msg-d79c22d39a66"
+    },
+    {
+      "id": "thread-3595f69de812",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "message_count": 1,
+      "participants": [
+        "Estefania Mancini"
+      ],
+      "started": "2011-08-25T14:39:03Z",
+      "last_reply": "2011-08-25T14:39:03Z",
+      "root_message_id": "msg-3595f69de812"
+    },
+    {
+      "id": "thread-e0b248478512",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "message_count": 2,
+      "participants": [
+        "Dario Strbenac",
+        "Davis McCarthy"
+      ],
+      "started": "2011-08-26T00:00:15Z",
+      "last_reply": "2011-08-27T03:53:16Z",
+      "root_message_id": "msg-e0b248478512"
+    },
+    {
+      "id": "thread-ca109e3a7c58",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "message_count": 1,
+      "participants": [
+        "Dario Strbenac"
+      ],
+      "started": "2011-08-28T07:00:22Z",
+      "last_reply": "2011-08-28T07:00:22Z",
+      "root_message_id": "msg-ca109e3a7c58"
+    },
+    {
+      "id": "thread-c68131f8f9e7",
+      "subject": "[Bioc-sig-seq] extract non-zero rows",
+      "message_count": 1,
+      "participants": [
+        "Estefania Mancini"
+      ],
+      "started": "2011-08-29T13:42:12Z",
+      "last_reply": "2011-08-29T13:42:12Z",
+      "root_message_id": "msg-c68131f8f9e7"
+    },
+    {
+      "id": "thread-cb5cf37be8f4",
+      "subject": "[Bioc-sig-seq] import.bw to Rle? [re-opened]",
+      "message_count": 2,
+      "participants": [
+        "Cook, Malcolm",
+        "Michael Lawrence"
+      ],
+      "started": "2011-08-30T20:36:26Z",
+      "last_reply": "2011-08-30T21:02:31Z",
+      "root_message_id": "msg-cb5cf37be8f4"
+    },
+    {
+      "id": "thread-9fbe2fb7fa5c",
+      "subject": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "message_count": 2,
+      "participants": [
+        "Harris A. Jaffee",
+        "wang peter"
+      ],
+      "started": "2011-08-30T20:42:51Z",
+      "last_reply": "2011-08-30T22:46:41Z",
+      "root_message_id": "msg-9fbe2fb7fa5c"
+    },
+    {
+      "id": "thread-465cc3239005",
+      "subject": "[Bioc-sig-seq] edgeR glmLRT contrast Argument",
+      "message_count": 1,
+      "participants": [
+        "Dario Strbenac"
+      ],
+      "started": "2011-08-31T00:00:33Z",
+      "last_reply": "2011-08-31T00:00:33Z",
+      "root_message_id": "msg-465cc3239005"
+    },
+    {
+      "id": "thread-53808b050b4d",
+      "subject": "[Bioc-sig-seq] a question about trimLRPatterns",
+      "message_count": 3,
+      "participants": [
+        "Harris A. Jaffee",
+        "wang peter"
+      ],
+      "started": "2011-08-31T16:50:16Z",
+      "last_reply": "2011-08-31T20:44:59Z",
+      "root_message_id": "msg-53808b050b4d"
+    },
+    {
+      "id": "thread-b7b7473233ca",
+      "subject": "[Bioc-sig-seq] ChIPpeakAnno annotatePeakInBatch problems in R2.13/ChIPpeakAnno_1.8.0 and R2.13/ChIPpeakAnno_2.0.2",
+      "message_count": 1,
+      "participants": [
+        "Sonia Leach"
+      ],
+      "started": "2011-08-31T19:52:43Z",
+      "last_reply": "2011-08-31T19:52:43Z",
+      "root_message_id": "msg-b7b7473233ca"
+    }
+  ]
+}
