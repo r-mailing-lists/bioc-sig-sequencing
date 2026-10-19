@@ -185,11 +185,14 @@
       "subject_clean": "[Bioc-sig-seq] question about bowtie",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090706/53e3444f/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090706/53e3444f/attachment.pl>",
+      "body_plain": "Hi everyone.\n\nI would appreciate to have your comments on the following : when aligning\nthe solexa reads with bowtie,\nif a read aligns to multiple genomic regions, is the highest-scored location\npicked up in the final report\n(i.e. when using --best option) ? And if a read aligns with the same score\nto multiple regions, would it\nbe possible to see the score of the alignment and the differences in the\nscore among multiple regions ?\nIn this last scenario, a randomly picked location among the equally scored\ngenomic locations is reported ?\n\nthanks very much,\n\nbogdan\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi everyone.\n\nI would appreciate to have your comments on the following : when aligning\nthe solexa reads with bowtie,\nif a read aligns to multiple genomic regions, is the highest-scored location\npicke",
       "thread_id": "thread-ba0ebeee5f09",
       "thread_depth": 0,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090706/53e3444f/attachment.pl"
+      ]
     },
     {
       "id": "msg-391cb0c8432f",
@@ -279,11 +282,14 @@
         "<47d9979f0907061417h1025f0f0q95409cf7b3273126@mail.gmail.com>",
         "<20090707083739.M89017@curie.fr>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090708/cc426c73/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090708/cc426c73/attachment.pl>",
+      "body_plain": "Hi Joern,\n\nthanks for your email. You were right : I have extensively explored the\nbowtie manual, and I have been doing most of the analyses by using\n-- best option. My apologies to the bioc-sig subscribers 'cause my email is\nnot 100% related to R/ShortRead, although I would appreciate\nany comments on any of these 2 questions :\n\n-  on a statistical ground, if read1 aligns to 5 places, any place is\nselected with 0.2 probability. and if a read 2 aligns to 3 places, any place\nis\nchosen with 0.3 probability. therefore, having read1 and read2 in the same\nplace X would have the probability 0.3 * 0.2 . and if read3 ... read 7\nare also included, the probability would be 0.3 * 0.2. * prob(read3) * ... *\nprobab(read7). if this is the case, would it be legitimate to assign a\nChIP-seq peak to the place X ?\n\n- if bowtie outputs the reads that align to repetitive regions (and\narbitrarily selects one of these regions), could it be a good approximation\nfor\nPET-seq data (that is intended to map the peaks on these repetitive regions,\nbut it is much more expensive) ?\n\nthanks very much,\n\nbogdan\n\n\nOn Tue, Jul 7, 2009 at 1:46 AM, Joern Toedling <Joern.Toedling at curie.fr>wrote:\n\n> Hello,\n>\n> I think you should better ask questions of this kind to the developers of\n> Bowtie rather than on this mailing list. However, I believe all of your\n> questions are answered in the manual of bowtie. Basically you can customize\n> the report output by supplying additional arguments to the bowtie call.\n> \"-k\"\n> specifies the maximum number of valid match postions for each read in the\n> output. If you set \"-k 1\" (the default) I think a random position is\n> returned.\n> To my mind, the score is not directly given but the output column gives you\n> details which bases do not match and since you also have the quality\n> information of each base you can easily calculate the sum of mismatching\n> base\n> qualities.\n> The tab-delimited output format (non-binary) can be read in by function\n> readAligned(..., type=\"bowtie\")\n> and the resulting object of class AlignedRead also stores the mismatch\n> information (at least in the current development version of package\n> ShortRead).\n>\n> Best regards,\n> Joern\n>\n> On Mon, 6 Jul 2009 14:17:34 -0700, Bogdan Tanasa wrote\n> > Hi everyone.\n> >\n> > I would appreciate to have your comments on the following : when aligning\n> > the solexa reads with bowtie,\n> > if a read aligns to multiple genomic regions, is the highest-scored\n> location\n> > picked up in the final report\n> >\n> > (i.e. when using --best option) ? And if a read aligns with the same\n> > score to multiple regions, would it be possible to see the score of\n> > the alignment and the differences in the score among multiple\n> > regions ? In this last scenario, a randomly picked location among\n> > the equally scored genomic locations is reported ?\n> >\n> > thanks very much,\n> >\n> > bogdan\n>\n> ---\n> Joern Toedling\n> Institut Curie -- U900\n> 26 rue d'Ulm, 75005 Paris, FRANCE\n> Tel. +33 (0)156246926\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Joern,\n\nthanks for your email. You were right : I have extensively explored the\nbowtie manual, and I have been doing most of the analyses by using\n-- best option. My apologies to the bioc-sig subsc",
       "thread_id": "thread-ba0ebeee5f09",
       "thread_depth": 2,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090708/cc426c73/attachment.pl"
+      ]
     },
     {
       "id": "msg-5af92367856d",
@@ -295,11 +301,14 @@
       "subject_clean": "[Bioc-sig-seq] About ShortRead Package",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090710/d9e8f721/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090710/d9e8f721/attachment.pl>",
+      "body_plain": "Hi All\n\n \n\nI have recently started to acquaint my self with new R packages for NGS\ndata processing/analysis.  I think the community has done a great work\nin developing these packages. I must say I am amazingly surprised to see\nsome of the capabilities. \n\n \n\nI have a quick comment.  While playing  with ShortRead package I am not\nable to successfully load the export file even one for that matter. I am\nusing a single PC to do this .  I belv it has It has sufficient memory\n(4 GB) to handle one lane of data.  I waited for 15-18 minutes before my\npc started to show sign of sickness. I eventually had to kill the\nprocess.\n\n \n\nHere is wat I did.\n\n \n\nLibrary(ShortRead)\n\nsp=SolexaPath(\"/local/seq_archive/solexa/090309_HWI-EAS397_0006\")\n\npath=analysisPath(sp)[4]  ### I just wanted to look at one GERALD\nfolder.\n\naln=readAligned(path,type=\"SolexaExport\",\"s_6_export.txt\")\n\nGOT STUCK HERE\n\n \n\nIs there anything I am doing the wrong way. Please let me know.  \n\n \n\nCheers,\n\n-Abhi\n\n----------------------------- \nAbhishek Pratap \nBioinformatics Software Engineer \nInstitute for Genome Sciences <http://www.igs.umaryland.edu/>  \nSchool of Medicine, Univ of Maryland \n801, W. Baltimore Street, Baltimore, MD 21209 \nPh: (+1)-410-706-2296 \n\n\n\n\n\n\n\n \n\n \n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi All\n\n \n\nI have recently started to acquaint my self with new R packages for NGS\ndata processing/analysis.  I think the community has done a great work\nin developing these packages. I must say I am ",
       "thread_id": "thread-5af92367856d",
       "thread_depth": 0,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090710/d9e8f721/attachment.pl"
+      ]
     },
     {
       "id": "msg-f332cc2f32b5",
@@ -478,11 +487,14 @@
       "references": [
         "<4A5B6751.3000808@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090713/2a0207e0/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090713/2a0207e0/attachment.pl>",
+      "body_plain": "On Mon, Jul 13, 2009 at 9:56 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi,\n>\n> I've got RNA-Seq data in a wiggle file and exon coordinates in a GFF file.\n> Reading this in with rtracklayer's import function, I get the wiggle file as\n> UCSCData object and the GFF file as RangedData object.\n>\n> I would now like to get the integral of the coverage for each exon.\n>\n> So I extract the RangedData inside the UCSCData by coercion and get\n>\n\nThere is no need to perform this coercion... UCSCData extends RangedData.\n\n\n>  > cvg.bl1 <- as( import( \"igb/10-BL1-coverage.wig\" ), \"RangedData\" )\n>  > cvg.bl1\n>  RangedData: 253256 ranges by 1 column on 1 sequence\n>  colnames(1): score\n>  names(1): chr10\n>\n> and have an IRanges object with the exon boundaries here:\n>\n>  > exons <- import( \"igb/10.gff\" )\n>  > exons <- exons[ exons$type == \"exon\", ]\n>  > ranges(exons)[[\"10\"]]\n>  IRanges instance:\n>              start       end width\n>  [1]         83769     83877   109\n>  [2]        190766    190883   118\n>  ...           ...       ...   ...\n>  [27083] 135347172 135347681   510\n>\n> Now, I would like to go through each exon interval and sum up the coverage,\n> i.e., do something like\n>\n>  aggregate( cvg.bl1, ranges(exons), sum )\n>\n> This, however, does not work, as aggregate seems to be unable to deal with\n> a RangedData object as first parameter. This here, in contrast, does give a\n> result\n>\n>  aggregate( Rle( 1, 1000000000 ), ranges(exons), sum )\n>\n> namely a vector of length 27083.\n>\n> Now, I have three questions:\n>\n> 1. How can I get the vector referring to chr10 in cvg.bl1? Is there a way\n> to coerce to Rle or numeric? Supposedly, this only make sense if I subset\n> the RangedData object to only contain one chromosome.\n>\n\nscore(cvg.bl1)\nor for any arbitrary column:\ncvg.bl1$score\n\n\n> 2. How can I aggregate over the RangedData object? As it contains only one\n> chromosome, it should be possible to coerce it to an Rle vector, but there\n> is no coercion method, and, it should be possible anyway to avoid this.\n>\n\nJust use Views.\nLike:\nv <- Views(score(cvg.bl1), ranges(exons)[[1]])\nviewSums(v)\n\n\n> 3. In the present case, 'ranges(exons)' contains a CompressedIRangesList\n> with 1 element, and not a simple IRanges object. If it contains more than\n> one element, it seems that aggregate calculates the aggregate vector for\n> each element and just concatenated them. Does this really make sense?\n>\n> Cheers\n>  Simon\n>\n>\n> > sessionInfo()\n> R version 2.10.0 Under development (unstable) (2009-06-26 r48838)\n> x86_64-unknown-linux-gnu\n>\n> locale:\n>  [1] LC_CTYPE=en_GB.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_GB.UTF-8        LC_COLLATE=en_GB.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_GB.UTF-8\n>  [7] LC_PAPER=en_GB.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] IRanges_1.3.33    rtracklayer_1.5.7 RCurl_0.98-1      bitops_1.0-4.1\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.5.4      Biostrings_2.13.24 BSgenome_1.13.10   tools_2.10.0\n> [5] XML_2.5-3\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Mon, Jul 13, 2009 at 9:56 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi,\n>\n> I've got RNA-Seq data in a wiggle file and exon coordinates in a GFF file.\n> Reading this in with rtracklayer's im",
       "thread_id": "thread-4125cd61cff8",
       "thread_depth": 1,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090713/2a0207e0/attachment.pl"
+      ]
     },
     {
       "id": "msg-2419e2413c4b",
@@ -594,11 +606,14 @@
       "references": [
         "<4A5D5936.9070206@atc.tcs.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090715/32f1e255/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090715/32f1e255/attachment.pl>",
+      "body_plain": "On Wed, Jul 15, 2009 at 12:21 AM, Purnachander <purna at atc.tcs.com> wrote:\n\n> Dear R-users,\n>\n> I'm working on assembly of DNA fragments. I'd like to know which \"R\n> packages\" contribute towards assembly of fragments being sequenced.\n>\n\nHi, Purna.\n\nI don't think there are any specifically for that purpose.  You might want\nto look here for a relatively complete list of other software that might\nsuit your needs:\n\nhttp://seqanswers.com/forums/showthread.php?t=43\n\nSean\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Wed, Jul 15, 2009 at 12:21 AM, Purnachander <purna at atc.tcs.com> wrote:\n\n> Dear R-users,\n>\n> I'm working on assembly of DNA fragments. I'd like to know which \"R\n> packages\" contribute towards ass",
       "thread_id": "thread-1f1ed6fa4988",
       "thread_depth": 1,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090715/32f1e255/attachment.pl"
+      ]
     },
     {
       "id": "msg-7fe6c40fb1e2",
@@ -858,11 +873,14 @@
         "<4A609ACE.1000406@imperial.ac.uk>",
         "<4A60B67B.9010209@titus.u-strasbg.fr>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090717/b2dcd46c/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090717/b2dcd46c/attachment.pl>",
+      "body_plain": "Hi \n\nIn that case based on my short experience I think you could specify a pattern while reading files from a directory.\n\npattern-<\"regex-pattern-here\"\n\nreads <- read454(RochePath(experimentPath=experimentPath,readPath=readPath, qualPath=qualPath), pattern)\n\nI think should work. \n\nThanks\n-A\n\n\n-----Original Message-----\nFrom: bioc-sig-sequencing-bounces at r-project.org on behalf of Wolfgang Raffelsberger\nSent: Fri 7/17/2009 1:35 PM\nCc: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] reading 454 data with ShortRead\n \nDear Michael,\n\nThank's a lot, it works now ...\nIf I understand right, I may not have more than one single pair of \nsequence-reads (.fna) and quality-scores (.qual) in a given directory, \nsince you don't specify the file-names.\n\nWolfgang\n\nMichael Mueller a écrit :\n> Dear Wolfgang,\n>\n> readPath and qualPath specify the paths to the directory containing the\n> .fna and .qual files rather than the paths to the files themselves.\n>\n> Try:\n>\n> experimentPath <- \"/path/to/directory/containing/fna/and/qual/files\"\n> readPath <- experimentPath\n> qualPath <- experimentPath\n>\n> reads <- read454(RochePath(experimentPath=experimentPath,\n> readPath=readPath, qualPath=qualPath))\n>\n> If only experimentPath is specified all sub-directories of\n> <experimentPath> matching run are searched for read/quality files.\n>\n> Regards,\n> Michael\n>\n> ----------------------------\n> Michael Mueller\n> Bioinformatician\n>\n> Imperial College London\n> MRC Clinical Sciences Centre\n> Du Cane Road\n> London, W12 0NN\n> United Kingdom\n>\n> phone +44 (0)20 8383 8537\n> fax   +44 (0)20 8383 8577\n>\n>\n> Wolfgang Raffelsberger wrote:\n>> Dear list,\n>> I'm trying to read some 454 data into ShortRead, but I'm having some \n>> difficulties. Basically I have a FASTA concatenated file with all the \n>> sequence reads and a FASTA-like file with the Phred-quailty scores, \n>> the identifyiers for each read from both files match. Here I'm \n>> testing a small sub-set of the reads, so memory etc shouldn't be an \n>> issue.\n>> Based on the ShortRead Vignette I thought could do the job and then I \n>> realized that there are 454-dedicated functions. But so far I didn't \n>> get either of them of them to work.\n>>\n>>  > library(ShortRead)\n>>  > Sfile1 <- \"01Reads.fna\"\n>>  > Qfile1 <- \"01Reads.qual\"\n>>  > tmp <- read454(\".\", readPath=Sfile1, qualPath=Qfile1)    # I'm \n>> already in the proper path where both files are located ...\n>> Error in function (classes, fdef, mtable)  :\n>>   unable to find an inherited method for function \"read454\", for \n>> signature \"character\"\n>>  >\n>>  > # the I tried ...\n>>  >  tmp <- readXStringColumns(\".\",pattern=Sfile1, \n>> colClasses=list(\"DNAString\"))\n>> Error: Input/Output\n>>   while reading files 'test16seq.fna':\n>>     key 62 not in lookup table\n>>  >\n>>  > # for completeness :\n>>  > sessionInfo()\n>> R version 2.9.1 (2009-06-26)\n>> i386-pc-mingw32\n>>\n>> locale:\n>> LC_COLLATE=French_France.1252;LC_CTYPE=French_France.1252;LC_MONETARY=French_France.1252;LC_NUMERIC=C;LC_TIME=French_France.1252 \n>>\n>>\n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base   \n>> other attached packages:\n>> [1] ShortRead_1.2.1   lattice_0.17-25   BSgenome_1.12.3   \n>> Biostrings_2.12.7 IRanges_1.2.3  \n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.4.1 grid_2.9.1    hwriter_1.1   tools_2.9.1\n>>\n>>\n>> Thanks in advance,\n>> Wolfgang\n>>\n>>  \n>> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .\n>> Wolfgang Raffelsberger, PhD\n>> Laboratoire de BioInformatique et Génomique Intégratives\n>> CNRS UMR7104, IGBMC,  1 rue Laurent Fries,  67404 Illkirch  \n>> Strasbourg,  France\n>> Tel (+33) 388 65 3300         Fax (+33) 388 65 3276\n>> wolfgang.raffelsberger (at) igbmc.fr\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi \n\nIn that case based on my short experience I think you could specify a pattern while reading files from a directory.\n\npattern-<\"regex-pattern-here\"\n\nreads <- read454(RochePath(experimentPath=exper",
       "thread_id": "thread-22840f15c3d9",
       "thread_depth": 3,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090717/b2dcd46c/attachment.pl"
+      ]
     },
     {
       "id": "msg-1693b51383d2",
@@ -929,11 +947,14 @@
       "references": [
         "<4A6405D8.80907@atc.tcs.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090720/112c1744/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090720/112c1744/attachment.pl>",
+      "body_plain": "There's the Rlibstree package:\n\nhttp://www.bioconductor.org/packages/2.5/extra/html/Rlibstree.html\n\nOn Sun, Jul 19, 2009 at 10:51 PM, Purnachander <purna at atc.tcs.com> wrote:\n\n> Dear R-users,\n>\n> Given a string, is it possible to build suffix tree of it using any R\n> packages\n>\n> Regards,\n> purna\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "There's the Rlibstree package:\n\nhttp://www.bioconductor.org/packages/2.5/extra/html/Rlibstree.html\n\nOn Sun, Jul 19, 2009 at 10:51 PM, Purnachander <purna at atc.tcs.com> wrote:\n\n> Dear R-users,\n>\n> Gi",
       "thread_id": "thread-442bfcd10e78",
       "thread_depth": 1,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090720/112c1744/attachment.pl"
+      ]
     },
     {
       "id": "msg-9681905be339",
@@ -1036,11 +1057,14 @@
       "references": [
         "<a394a9180907231020p65a2bb1fs6b08781e3b88d178@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/c9456783/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/c9456783/attachment.pl>",
+      "body_plain": "On Thu, Jul 23, 2009 at 10:20 AM, Ivan Gregoretti <ivangreg at gmail.com>wrote:\n\n> I would appreciate any pointer to answer this question:\n>\n> How do you smooth a wig file?\n\n\nWell, to get the scores:\n\ntrack <- import(\"foo.wig\")\nscores <- score(track)\n\nNow you are free to use any of the functions in R for smoothing a numeric\nvector. Like loess(), runmed(), etc.\n\nMichael\n\n\n>\n> By smooting I mean average scores over a user defined window size.\n>\n> Thanks,\n>\n> Ivan\n>\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Thu, Jul 23, 2009 at 10:20 AM, Ivan Gregoretti <ivangreg at gmail.com>wrote:\n\n> I would appreciate any pointer to answer this question:\n>\n> How do you smooth a wig file?\n\n\nWell, to get the scores:\n",
       "thread_id": "thread-5156f1d992d9",
       "thread_depth": 1,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/c9456783/attachment.pl"
+      ]
     },
     {
       "id": "msg-5dacd26975c5",
@@ -1075,11 +1099,14 @@
         "<509e0620907231028n4bb017bao9690ea994bf59d5e@mail.gmail.com>",
         "<4A68A1B3.3020506@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/1724eebb/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/1724eebb/attachment.pl>",
+      "body_plain": "On Thu, Jul 23, 2009 at 10:45 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi Michael\n>\n> Michael Lawrence wrote:\n> > Well, to get the scores:\n> >\n> > track <- import(\"foo.wig\")\n> > scores <- score(track)\n> >\n> > Now you are free to use any of the functions in R for smoothing a numeric\n> > vector. Like loess(), runmed(), etc.\n>\n> Careful! This does not work, as you ignore the ranges.\n>\n\nThanks for pointing that out. One easy way is to just get the 'x' variable,\nas in:\n\nchr1 <- track[\"chr1\"] # limit to single chromosome\ny <- score(chr1)\nx <- as.integer(unlist(ranges(chr1)))\nlo <- loess(y ~ x)\n\nMichael\n\n\n> Take, for example, this wiggle file here, which starts with:\n>\n> track type=wiggle_0 name=\"coverage 06-GL3\"\n> 06      1       40128   0\n> 06      40128   40164   0.881\n> 06      40164   40245   0\n> 06      40245   40257   0.881\n> 06      40257   40281   1.444\n> [...]\n>\n> Observe:\n>\n> > w <- import( \"igb/06-GL3-coverage.wig\" )\n> > s <- score( w )\n> > str(s)\n>  num [1:338864] 0 0.881 0 0.881 1.444 ...\n>\n> The score vector 's' should start with 40127 times a '0' but we have\n> only a single 0.\n>\n>\n>  Simon\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Thu, Jul 23, 2009 at 10:45 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi Michael\n>\n> Michael Lawrence wrote:\n> > Well, to get the scores:\n> >\n> > track <- import(\"foo.wig\")\n> > scores <- scor",
       "thread_id": "thread-5156f1d992d9",
       "thread_depth": 3,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/1724eebb/attachment.pl"
+      ]
     },
     {
       "id": "msg-2976597494c4",
@@ -1096,11 +1123,14 @@
         "<4A68A1B3.3020506@ebi.ac.uk>",
         "<509e0620907231059q1b3eb432t7d81f735f021c6f8@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/99cb5d0b/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/99cb5d0b/attachment.pl>",
+      "body_plain": "On Thu, Jul 23, 2009 at 10:59 AM, Michael Lawrence <mflawren at fhcrc.org>wrote:\n\n>\n>\n> On Thu, Jul 23, 2009 at 10:45 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n>\n>> Hi Michael\n>>\n>> Michael Lawrence wrote:\n>> > Well, to get the scores:\n>> >\n>> > track <- import(\"foo.wig\")\n>> > scores <- score(track)\n>> >\n>> > Now you are free to use any of the functions in R for smoothing a\n>> numeric\n>> > vector. Like loess(), runmed(), etc.\n>>\n>> Careful! This does not work, as you ignore the ranges.\n>>\n>\n> Thanks for pointing that out. One easy way is to just get the 'x' variable,\n> as in:\n>\n> chr1 <- track[\"chr1\"] # limit to single chromosome\n> y <- score(chr1)\n>\n\nOops, I meant:\ny <- rep(score(chr1), width(chr1))\n\n\n>\n> x <- as.integer(unlist(ranges(chr1)))\n> lo <- loess(y ~ x)\n>\n> Michael\n>\n>\n>> Take, for example, this wiggle file here, which starts with:\n>>\n>> track type=wiggle_0 name=\"coverage 06-GL3\"\n>> 06      1       40128   0\n>> 06      40128   40164   0.881\n>> 06      40164   40245   0\n>> 06      40245   40257   0.881\n>> 06      40257   40281   1.444\n>> [...]\n>>\n>> Observe:\n>>\n>> > w <- import( \"igb/06-GL3-coverage.wig\" )\n>> > s <- score( w )\n>> > str(s)\n>>  num [1:338864] 0 0.881 0 0.881 1.444 ...\n>>\n>> The score vector 's' should start with 40127 times a '0' but we have\n>> only a single 0.\n>>\n>>\n>>  Simon\n>>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Thu, Jul 23, 2009 at 10:59 AM, Michael Lawrence <mflawren at fhcrc.org>wrote:\n\n>\n>\n> On Thu, Jul 23, 2009 at 10:45 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n>\n>> Hi Michael\n>>\n>> Michael Lawren",
       "thread_id": "thread-5156f1d992d9",
       "thread_depth": 4,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/99cb5d0b/attachment.pl"
+      ]
     },
     {
       "id": "msg-0630fbde6597",
@@ -1141,11 +1171,14 @@
         "<509e0620907231101i6f990481pe275ee7b109dc9d8@mail.gmail.com>",
         "<4A68A6A5.1080807@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/46ce2937/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/46ce2937/attachment.pl>",
+      "body_plain": "On Thu, Jul 23, 2009 at 11:06 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Michael Lawrence wrote:\n> > Oops, I meant:\n> > y <- rep(score(chr1), width(chr1))\n> >\n> >\n> >> x <- as.integer(unlist(ranges(chr1)))\n> >> lo <- loess(y ~ x)\n>\n>\n> But what if the intervals in the wiggle file contain gaps? That's\n> perfectly legal, after all.\n>\n\nThis is what the as.integer(...) is handling. 'x' will contain the actual\nposition of each value in 'y'.\n\n\n>\n> I also fail to see what the effect of as.integer on IRanges is supposed\n> to be. For my wiggle file, I simply get\n>\n> > head( as.integer( unlist( ranges(w) ) ) )\n> [1] 2 3 4 5 6 7\n>\n\nIt's like calling seq(start, end) on each range in the IRanges and\nconcatenating the result.\n\nIt could be implemented as:\ndo.call(\"c\", lapply(seq_along(chr1), function(i) seq(start(chr1)[i],\nend(chr1)[i])))\n\nBut it's actually implemented in compiled code and is very fast.\n\n> ir <- IRanges(c(5, 12), c(10, 15))\n> as.integer(ir)\n [1]  5  6  7  8  9 10 12 13 14 15\n\n\n>\n>\n>  Simon\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Thu, Jul 23, 2009 at 11:06 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Michael Lawrence wrote:\n> > Oops, I meant:\n> > y <- rep(score(chr1), width(chr1))\n> >\n> >\n> >> x <- as.integer(unlist(ran",
       "thread_id": "thread-5156f1d992d9",
       "thread_depth": 6,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090723/46ce2937/attachment.pl"
+      ]
     },
     {
       "id": "msg-4cdab904851a",
@@ -1227,11 +1260,14 @@
       "subject_clean": "[Bioc-sig-seq] Short read overlap function",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/7ed52cab/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/7ed52cab/attachment.pl>",
+      "body_plain": "Hi all,\n\nIn assigning RNA-seq data to exon-models, I'm looking for a proper overlap\nfunction. Both IRanges and genomeIntervals have overlap functions, but as\nfar as I can see, these don't have options for contained overlaps, example:\n\n\n|-------Range 1-------]\n     [----Range 2----]\n\nIRanges, genomeIntervals: TRUE\nWanted: TRUE\n\n\n|-------Range 1-------]\n                 [----Range 2----]\n\n\nIRanges, genomeIntervals: TRUE\nWanted: FALSE\n\nAny suggestions are appreciated!\n\nRegards,\nJohannes Waage,\nUni. of Copenhagen\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\nIn assigning RNA-seq data to exon-models, I'm looking for a proper overlap\nfunction. Both IRanges and genomeIntervals have overlap functions, but as\nfar as I can see, these don't have options",
       "thread_id": "thread-ecc49d3ddadc",
       "thread_depth": 0,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/7ed52cab/attachment.pl"
+      ]
     },
     {
       "id": "msg-b04a15218522",
@@ -1267,11 +1303,14 @@
       "references": [
         "<72da5c240907240747ke5eab06x9f08d7453d63887f@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/32d678ff/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/32d678ff/attachment.pl>",
+      "body_plain": "On Fri, Jul 24, 2009 at 7:47 AM, Johannes Waage <johannes.waage at bric.dk>wrote:\n\n> Hi all,\n>\n> In assigning RNA-seq data to exon-models, I'm looking for a proper overlap\n> function. Both IRanges and genomeIntervals have overlap functions, but as\n> far as I can see, these don't have options for contained overlaps, example:\n>\n>\n> |-------Range 1-------]\n>     [----Range 2----]\n>\n> IRanges, genomeIntervals: TRUE\n> Wanted: TRUE\n>\n>\n> |-------Range 1-------]\n>                 [----Range 2----]\n>\n>\n> IRanges, genomeIntervals: TRUE\n> Wanted: FALSE\n>\n> Any suggestions are appreciated!\n>\n\nIt's fairly easy to filter the overlaps for this condition. To find where an\nentire query range (in b) overlaps a subject range (in a):\n\nol <- overlap(a, b)\nwidth(ranges(ol, a, b)) == width(b)\n\nIs this what you wanted?\n\nMichael\n\n\n\n>\n> Regards,\n> Johannes Waage,\n> Uni. of Copenhagen\n>\n>        [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Fri, Jul 24, 2009 at 7:47 AM, Johannes Waage <johannes.waage at bric.dk>wrote:\n\n> Hi all,\n>\n> In assigning RNA-seq data to exon-models, I'm looking for a proper overlap\n> function. Both IRanges and",
       "thread_id": "thread-ecc49d3ddadc",
       "thread_depth": 1,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/32d678ff/attachment.pl"
+      ]
     },
     {
       "id": "msg-8f665eb9f549",
@@ -1286,11 +1325,14 @@
         "<72da5c240907240747ke5eab06x9f08d7453d63887f@mail.gmail.com>",
         "<509e0620907240803t34a0c1dcx57ab15af4b1f2d45@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/82d20e90/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/82d20e90/attachment.pl>",
+      "body_plain": "On Fri, Jul 24, 2009 at 8:03 AM, Michael Lawrence <mflawren at fhcrc.org>wrote:\n\n>\n>\n> On Fri, Jul 24, 2009 at 7:47 AM, Johannes Waage <johannes.waage at bric.dk>wrote:\n>\n>> Hi all,\n>>\n>> In assigning RNA-seq data to exon-models, I'm looking for a proper overlap\n>> function. Both IRanges and genomeIntervals have overlap functions, but as\n>> far as I can see, these don't have options for contained overlaps,\n>> example:\n>>\n>>\n>> |-------Range 1-------]\n>>     [----Range 2----]\n>>\n>> IRanges, genomeIntervals: TRUE\n>> Wanted: TRUE\n>>\n>>\n>> |-------Range 1-------]\n>>                 [----Range 2----]\n>>\n>>\n>> IRanges, genomeIntervals: TRUE\n>> Wanted: FALSE\n>>\n>> Any suggestions are appreciated!\n>>\n>\n> It's fairly easy to filter the overlaps for this condition. To find where\n> an entire query range (in b) overlaps a subject range (in a):\n>\n> ol <- overlap(a, b)\n> width(ranges(ol, a, b)) == width(b)\n>\n\nSorry that should be:\nwidth(ranges(ol, b, a)) == width(b)\n\n\n> Is this what you wanted?\n>\n> Michael\n>\n>\n>\n>>\n>> Regards,\n>> Johannes Waage,\n>> Uni. of Copenhagen\n>>\n>>        [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Fri, Jul 24, 2009 at 8:03 AM, Michael Lawrence <mflawren at fhcrc.org>wrote:\n\n>\n>\n> On Fri, Jul 24, 2009 at 7:47 AM, Johannes Waage <johannes.waage at bric.dk>wrote:\n>\n>> Hi all,\n>>\n>> In assigning",
       "thread_id": "thread-ecc49d3ddadc",
       "thread_depth": 2,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/82d20e90/attachment.pl"
+      ]
     },
     {
       "id": "msg-50bb0f53b657",
@@ -1323,11 +1365,14 @@
         "<72da5c240907240747ke5eab06x9f08d7453d63887f@mail.gmail.com>",
         "<20090724152133.M42032@curie.fr>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/0eee5b2c/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/0eee5b2c/attachment.pl>",
+      "body_plain": "On Fri, Jul 24, 2009 at 8:28 AM, Joern Toedling <Joern.Toedling at curie.fr>wrote:\n\n> Hello,\n>\n> I guess the mentioned functions certainly qualify as 'proper' overlap\n> functions. What you probably want is a relatively straightforward\n> post-processing of the result. Below is a function that I have written to\n> restrict overlapping pairs to those pairs that overlap by at least a\n> specified\n> fraction of the smaller interval's length. Setting this fraction to 1.0\n> will\n> only give you pairs in which one of the intervals is contained in the other\n> one. This function uses genomeIntervals, but I am sure that post-processing\n> the IRanges is equally straightforward.\n\n\n> Hope this helps,\n> Joern\n>\n>\n> fracOverlap <- function(I1, I2, min.frac=1.0){\n>  require(\"genomeIntervals\")\n>  stopifnot(inherits(I1,\"Genome_intervals\"),\n>            inherits(I1,\"Genome_intervals\"))\n>  ov <- interval_overlap(I1,I2)\n>  # get base pair overlap\n>  lens <- sapply(ov, length)\n>  overlap1 <- rep(1:length(ov), lens)\n>  overlap2 <- unlist(ov, use.names=FALSE)\n>  left <- pmax(I1[overlap1,1], I2[overlap2,1])\n>  right <- pmin(I1[overlap1,2], I2[overlap2,2])\n>  stopifnot(all(right >= left))\n>  bases <- right-left+1\n>  min.len <- pmin(I1[overlap1,2]- I1[overlap1,1]+1,\n>                  I2[overlap2,2]- I2[overlap2,1]+1)\n>  frac <- round(bases/min.len, digits=2)\n>  res <- data.frame(\"Index1\"=overlap1, \"Index2\"=overlap2,\n>                    \"n\"=bases, \"fraction\"=frac)\n>  res <- subset(res, fraction >= min.frac)\n>  return(res)\n> }# fracOverlap\n>\n\nApproximate IRanges equivalent:\nol <- overlap(a, b)\nas.matrix(ol)[width(ranges(ol, b, a)) >= min.frac*width(b),]\n\n\n>\n> On Fri, 24 Jul 2009 16:47:04 +0200, Johannes Waage wrote\n> > Hi all,\n> >\n> > In assigning RNA-seq data to exon-models, I'm looking for a proper\n> overlap\n> > function. Both IRanges and genomeIntervals have overlap functions,\n> > but as far as I can see, these don't have options for contained\n> > overlaps, example:\n> >\n> > |-------Range 1-------]\n> >      [----Range 2----]\n> >\n> > IRanges, genomeIntervals: TRUE\n> > Wanted: TRUE\n> >\n> > |-------Range 1-------]\n> >                  [----Range 2----]\n> >\n> > IRanges, genomeIntervals: TRUE\n> > Wanted: FALSE\n> >\n> > Any suggestions are appreciated!\n> >\n> > Regards,\n> > Johannes Waage,\n> > Uni. of Copenhagen\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n> ---\n> Joern Toedling\n> Institut Curie -- U900\n> 26 rue d'Ulm, 75005 Paris, FRANCE\n> Tel. +33 (0)156246926\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Fri, Jul 24, 2009 at 8:28 AM, Joern Toedling <Joern.Toedling at curie.fr>wrote:\n\n> Hello,\n>\n> I guess the mentioned functions certainly qualify as 'proper' overlap\n> functions. What you probably wa",
       "thread_id": "thread-ecc49d3ddadc",
       "thread_depth": 2,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/0eee5b2c/attachment.pl"
+      ]
     },
     {
       "id": "msg-db7d25eca821",
@@ -1339,11 +1384,14 @@
       "subject_clean": "[Bioc-sig-seq] readAligned and SAM format",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/3a4fd59f/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/3a4fd59f/attachment.pl>",
+      "body_plain": "Does the readAligned function in ShortRead currently support the SAM format? The vignette mentions that Short Read has been extended to include several formats and lists the SAM format but I don't see this option documented anywhere.\n\nGaye Hattem\nStowers Institute for Medical Research\nglh at stowers dot org\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Does the readAligned function in ShortRead currently support the SAM format? The vignette mentions that Short Read has been extended to include several formats and lists the SAM format but I don't see",
       "thread_id": "thread-db7d25eca821",
       "thread_depth": 0,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090724/3a4fd59f/attachment.pl"
+      ]
     },
     {
       "id": "msg-aed92b56e115",
@@ -1416,11 +1464,14 @@
         "<20090724152133.M42032@curie.fr>",
         "<509e0620907240850g7f10f52ela4500718696a8b14@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090726/27e0fb14/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090726/27e0fb14/attachment.pl>",
+      "body_plain": "Thank you both, that elegantly solved my problem!\n\nRegards,\nJohannes\n\nOn Fri, Jul 24, 2009 at 5:50 PM, Michael Lawrence <mflawren at fhcrc.org>wrote:\n\n>\n>\n> On Fri, Jul 24, 2009 at 8:28 AM, Joern Toedling <Joern.Toedling at curie.fr>wrote:\n>\n>> Hello,\n>>\n>> I guess the mentioned functions certainly qualify as 'proper' overlap\n>> functions. What you probably want is a relatively straightforward\n>> post-processing of the result. Below is a function that I have written to\n>> restrict overlapping pairs to those pairs that overlap by at least a\n>> specified\n>> fraction of the smaller interval's length. Setting this fraction to 1.0\n>> will\n>> only give you pairs in which one of the intervals is contained in the\n>> other\n>> one. This function uses genomeIntervals, but I am sure that\n>> post-processing\n>> the IRanges is equally straightforward.\n>\n>\n>> Hope this helps,\n>> Joern\n>>\n>>\n>> fracOverlap <- function(I1, I2, min.frac=1.0){\n>>  require(\"genomeIntervals\")\n>>  stopifnot(inherits(I1,\"Genome_intervals\"),\n>>            inherits(I1,\"Genome_intervals\"))\n>>  ov <- interval_overlap(I1,I2)\n>>  # get base pair overlap\n>>  lens <- sapply(ov, length)\n>>  overlap1 <- rep(1:length(ov), lens)\n>>  overlap2 <- unlist(ov, use.names=FALSE)\n>>  left <- pmax(I1[overlap1,1], I2[overlap2,1])\n>>  right <- pmin(I1[overlap1,2], I2[overlap2,2])\n>>  stopifnot(all(right >= left))\n>>  bases <- right-left+1\n>>  min.len <- pmin(I1[overlap1,2]- I1[overlap1,1]+1,\n>>                  I2[overlap2,2]- I2[overlap2,1]+1)\n>>  frac <- round(bases/min.len, digits=2)\n>>  res <- data.frame(\"Index1\"=overlap1, \"Index2\"=overlap2,\n>>                    \"n\"=bases, \"fraction\"=frac)\n>>  res <- subset(res, fraction >= min.frac)\n>>  return(res)\n>> }# fracOverlap\n>>\n>\n> Approximate IRanges equivalent:\n> ol <- overlap(a, b)\n> as.matrix(ol)[width(ranges(ol, b, a)) >= min.frac*width(b),]\n>\n>\n>>\n>> On Fri, 24 Jul 2009 16:47:04 +0200, Johannes Waage wrote\n>> > Hi all,\n>> >\n>> > In assigning RNA-seq data to exon-models, I'm looking for a proper\n>> overlap\n>> > function. Both IRanges and genomeIntervals have overlap functions,\n>> > but as far as I can see, these don't have options for contained\n>> > overlaps, example:\n>> >\n>> > |-------Range 1-------]\n>> >      [----Range 2----]\n>> >\n>> > IRanges, genomeIntervals: TRUE\n>> > Wanted: TRUE\n>> >\n>> > |-------Range 1-------]\n>> >                  [----Range 2----]\n>> >\n>> > IRanges, genomeIntervals: TRUE\n>> > Wanted: FALSE\n>> >\n>> > Any suggestions are appreciated!\n>> >\n>> > Regards,\n>> > Johannes Waage,\n>> > Uni. of Copenhagen\n>> >\n>> >       [[alternative HTML version deleted]]\n>> >\n>> > _______________________________________________\n>> > Bioc-sig-sequencing mailing list\n>> > Bioc-sig-sequencing at r-project.org\n>> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>>\n>> ---\n>> Joern Toedling\n>> Institut Curie -- U900\n>> 26 rue d'Ulm, 75005 Paris, FRANCE\n>> Tel. +33 (0)156246926\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank you both, that elegantly solved my problem!\n\nRegards,\nJohannes\n\nOn Fri, Jul 24, 2009 at 5:50 PM, Michael Lawrence <mflawren at fhcrc.org>wrote:\n\n>\n>\n> On Fri, Jul 24, 2009 at 8:28 AM, Joern Toed",
       "thread_id": "thread-ecc49d3ddadc",
       "thread_depth": 3,
-      "month": "2009-07"
+      "month": "2009-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090726/27e0fb14/attachment.pl"
+      ]
     }
   ],
   "threads": [

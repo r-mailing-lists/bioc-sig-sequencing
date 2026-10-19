@@ -35,11 +35,14 @@
       "references": [
         "<20101130160017.BKA80548@gimr.garvan.unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/e310a496/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/e310a496/attachment.pl>",
+      "body_plain": "On Mon, Nov 29, 2010 at 9:00 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I have a GRangesList and some of the GRanges elements of it are replicates\n> that I'd like to pool together. I can't get the c() to work with GRanges\n> that are in a GRangesList.\n>\n> > summary(IPlist)\n>     Length       Class        Mode\n>          8 GRangesList          S4\n> > tmp <- do.call(c, IPlist[1:2])\n> Error in do.call(c, IPlist[1:2]) : second argument must be a list\n>\n> Is there a smarter way of achieving my use case than using c() ? I've got\n> GenomicRanges 1.2.1.\n>\n> Note that it also doesn't work if I have a standard list of GRanges.\n>\n> > tmpList <- as.list(IPlist)\n> > tmp <- do.call(c, tmpList[1:2])\n> > length(tmp)\n> [1] 2\n>\n>\nI think a do.call method would make sense for Sequence. Steve's work around\nis fine. You could also just call unlist() in this case and likely get what\nyou want.\n\n\n> Thanks,\n>       Dario.\n>\n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Mon, Nov 29, 2010 at 9:00 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I have a GRangesList and some of the GRanges elements of it are replicates\n> that I'd like to pool tog",
       "thread_id": "thread-b6d13791b436",
       "thread_depth": 0,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/e310a496/attachment.pl"
+      ]
     },
     {
       "id": "msg-245575a0748e",
@@ -69,11 +72,14 @@
       "references": [
         "<AANLkTinZoVFTxc9yEmfC43S2nKybgoOT9nLcmZV7gDMU@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/dfc900ca/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/dfc900ca/attachment.pl>",
+      "body_plain": "Hello Ivan:\n\nThis is (I guess) what you want\n\nlibrary(Biobase)\ncitation(\"Biobase\")\n\n\nOn Wed, Dec 1, 2010 at 4:43 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n\n> Hello Bioconductor hard workers,\n>\n> Citing R is trivial with citation() but I'd like to recognise in\n> particular the Bioc people.\n>\n> What is the best way to cite the Bioc effort without citing individual\n> packages?\n>\n> I can't find an answer in bioconductor.org.\n>\n> Thank you,\n>\n> Ivan\n>\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1016 and 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello Ivan:\n\nThis is (I guess) what you want\n\nlibrary(Biobase)\ncitation(\"Biobase\")\n\n\nOn Wed, Dec 1, 2010 at 4:43 PM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n\n> Hello Bioconductor hard workers,\n",
       "thread_id": "thread-245575a0748e",
       "thread_depth": 1,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/dfc900ca/attachment.pl"
+      ]
     },
     {
       "id": "msg-b116584866d4",
@@ -122,11 +128,14 @@
       "references": [
         "<20101202170034.BKB67554@gimr.garvan.unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/704e082b/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/704e082b/attachment.pl>",
+      "body_plain": "On Wed, Dec 1, 2010 at 10:00 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I have a snippet of code that takes a GRangesList (in my case, of length 8,\n> around about 10 million reads in each GRanges object) and a vector the same\n> length which explains what type of experiment each element is. The snippet\n> combines elements that are of the same type.\n>\n> Initially, once the GRangesList is loaded in, R is using 2 GB of RAM but\n> then when I run my snippet, R's RAM usage hovers at 22GB - 24GB for many\n> minutes. When I gc(), it drops back to 12GB.\n>\n> Could I be doing something more efficiently ?\n>\n> # readsIPs : the GRangesList\n> # exptTypes : a vector like c(\"MeDIP\", \"MeDIP\", \"H3K27\", \"H3K27\") that is\n> the same length as readsIP.\n>\n> typeCounts <- table(exptTypes)\n> if(any(typeCounts > 1))\n> {\n>        oldOrder <- unique(exptTypes)\n>        repTypes <- names(typeCounts)[typeCounts > 1]\n>        pooledIPs <- lapply(repTypes, function(repType)\n>        {\n>                whichReps <- which(exptTypes == repType)\n>                unlist(readsIPs[whichReps])\n>        })\n>        names(pooledIPs) <- repTypes\n>        uniqueIdxs <- exptTypes %in% names(typeCounts)[typeCounts == 1]\n>        uniqueIPs <- readsIPs[uniqueIdxs]\n>        names(uniqueIPs) <- exptTypes[uniqueIdxs]\n>        readsIPs <- c(GRangesList(pooledIPs), uniqueIPs)[oldOrder]\n> }\n>\n>\nSomething like:\n\nsplit(unlist(readsIP), rep(exptTypes, elementLengths(readsIP))\n\nShould do all that in a single line. It's also going to be fairly efficient,\ngiven the internal compressed representation of GRangesList. Excess copying\nis unavoidable with S4 though. At least this line leaves you with less to\nclean up.\n\n--------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Wed, Dec 1, 2010 at 10:00 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I have a snippet of code that takes a GRangesList (in my case, of length 8,\n> around about 10 million ",
       "thread_id": "thread-7a4ca1678401",
       "thread_depth": 1,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101201/704e082b/attachment.pl"
+      ]
     },
     {
       "id": "msg-d350f8430374",
@@ -172,11 +181,14 @@
       "subject_clean": "[Bioc-sig-seq] Normalization of metabolomic data",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/af0de9da/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/af0de9da/attachment.pl>",
+      "body_plain": "Hi everybody,\n \n \nI am a beginner in the steps of pre-processing and data analysis of non-targeted metabolomic profiling experiments. \nAnyone knows if there exists some tool for normalizing this type of data (raw data or XCMS matrix data) \non the repositories? Many thanks in advance.\n \n \n \nBest regards,\n \n \n \nNúria\n\n \n\n \n\n \n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi everybody,\n \n \nI am a beginner in the steps of pre-processing and data analysis of non-targeted metabolomic profiling experiments. \nAnyone knows if there exists some tool for normalizing this type ",
       "thread_id": "thread-367e36ccd41f",
       "thread_depth": 0,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/af0de9da/attachment.pl"
+      ]
     },
     {
       "id": "msg-799a6e6236d5",
@@ -204,11 +216,14 @@
       "subject_clean": "[Bioc-sig-seq] Simulating data",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/56f57931/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/56f57931/attachment.pl>",
+      "body_plain": "Hello,\nI want to simulate some RNA seq data and use fisher's exact test. Is there\ncode available for this? Secondly do you have the code for Tarone's Test and\nGilbert's discrete FDR?\n\n-- \nThanks,\nJim.\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\nI want to simulate some RNA seq data and use fisher's exact test. Is there\ncode available for this? Secondly do you have the code for Tarone's Test and\nGilbert's discrete FDR?\n\n-- \nThanks,\nJim.",
       "thread_id": "thread-12326bae8cc2",
       "thread_depth": 0,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101203/56f57931/attachment.pl"
+      ]
     },
     {
       "id": "msg-1a779b612f6c",
@@ -349,11 +364,14 @@
       "references": [
         "<C9255C0D.312B%srm@stowers.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101209/f68bd2fd/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101209/f68bd2fd/attachment.pl>",
+      "body_plain": "Please try 1.10.6, when it comes out.\n\nThanks,\nMichael\n\nOn Wed, Dec 8, 2010 at 2:00 PM, Meier, Samuel <srm at stowers.org> wrote:\n\n> Hello,\n>\n> I am trying to use the liftOver function from the rtracklayer package, but\n> I receive the following error message when attempting to import the chain\n> file downloaded from UCSC.\n>\n> > import.chain(\"dm3ToDp3.over.chain\")\n> Error in getClass(\"Alignment\") : \"Alignment\" is not a defined class\n>\n> > sessionInfo()\n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n> [1] C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n>  [1] rtracklayer_1.10.3\n>  [2] RCurl_1.4-3\n>  [3] bitops_1.0-4.1\n>  [4] BSgenome.Dyakuba.UCSC.droYak2_1.0.0\n>  [5] BSgenome.Dsimulans.UCSC.droSim1_1.0.0\n>  [6] BSgenome.Dpseudoobscura.UCSC.dp3_1.0.0\n>  [7] BSgenome.Derecta.UCSC.droEre1_1.0.0\n>  [8] BSgenome.Dananassae.UCSC.droAna2_1.0.0\n>  [9] BSgenome.Dmelanogaster.UCSC.dm3_1.3.16\n> [10] BSgenome_1.18.0\n> [11] Biostrings_2.18.0\n> [12] GenomicRanges_1.2.1\n> [13] IRanges_1.8.2\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.10.0 XML_3.2-0      tools_2.12.0\n>\n> Thanks,\n> Sam Meier\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Please try 1.10.6, when it comes out.\n\nThanks,\nMichael\n\nOn Wed, Dec 8, 2010 at 2:00 PM, Meier, Samuel <srm at stowers.org> wrote:\n\n> Hello,\n>\n> I am trying to use the liftOver function from the rtrack",
       "thread_id": "thread-84de05985992",
       "thread_depth": 1,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101209/f68bd2fd/attachment.pl"
+      ]
     },
     {
       "id": "msg-7bc62baddc35",
@@ -383,11 +401,14 @@
       "references": [
         "<AANLkTinFxH+zcCmtXR1G0J=ts2z0pLsSNWa-mogvAwDx@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101210/da55504b/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101210/da55504b/attachment.pl>",
+      "body_plain": "This overlap is strand specific, I think.  You'll need to have '*' as strand\nin one of them.\n\nMichael\n\nOn Fri, Dec 10, 2010 at 11:56 AM, Jason Lu <jasonlu68 at gmail.com> wrote:\n\n> Hi,\n>\n> First thank developers for building so many cool tools for HTS.\n> I have a question which I would like to have someone give me an hint\n> or two. Thanks.\n>\n> Here I have ,\n> > countOverlaps(cds[1],aln)\n> 2\n>\n> I kind of expect the answer should be 6. Any idea?\n>\n> > aln\n> GappedAlignments of length 6\n>    rname strand cigar qwidth    start      end width ngap\n> [1] chr19      +   33M     33 58858743 58858775    33    0\n> [2] chr19      -   33M     33 58858812 58858844    33    0\n> [3] chr19      +   33M     33 58858912 58858944    33    0\n> [4] chr19      -   33M     33 58858921 58858953    33    0\n> [5] chr19      +   33M     33 58858934 58858966    33    0\n> [6] chr19      +   33M     33 58858940 58858972    33    0\n>\n> > cds[1]\n> GRangesList of length 1\n> $1\n> GRanges with 8 ranges and 2 elementMetadata values\n>    seqnames               ranges strand |    cds_id    cds_name\n>       <Rle>            <IRanges>  <Rle> | <integer> <character>\n> [1]    chr19 [58858388, 58858395]      - |    185127          NA\n> [2]    chr19 [58858719, 58859006]      - |    185128          NA\n> [3]    chr19 [58861736, 58862017]      - |    185129          NA\n> [4]    chr19 [58862757, 58863053]      - |    185130          NA\n> [5]    chr19 [58863649, 58863921]      - |    185131          NA\n> [6]    chr19 [58864294, 58864563]      - |    185132          NA\n> [7]    chr19 [58864658, 58864693]      - |    185133          NA\n> [8]    chr19 [58864770, 58864803]      - |    185134          NA\n>\n>\n> seqlengths\n>                  chr1                  chr2 ... chr18_gl000207_random\n>             249250621             243199373 ...                  4262\n>\n> > sessionInfo()\n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices datasets  utils     methods   base\n>\n> other attached packages:\n> [1] GenomicFeatures_1.2.0 Rsamtools_1.2.1       Biostrings_2.17.48\n> [4] GenomicRanges_1.1.38  IRanges_1.7.40\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.9.2      biomaRt_2.6.0      BSgenome_1.17.7    DBI_0.2-5\n> [5] RCurl_1.4-4        RSQLite_0.9-2      rtracklayer_1.10.1 tools_2.12.0\n> [9] XML_3.2-0\n>\n> Many thanks!\n>\n> Jason\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "This overlap is strand specific, I think.  You'll need to have '*' as strand\nin one of them.\n\nMichael\n\nOn Fri, Dec 10, 2010 at 11:56 AM, Jason Lu <jasonlu68 at gmail.com> wrote:\n\n> Hi,\n>\n> First thank",
       "thread_id": "thread-7bc62baddc35",
       "thread_depth": 1,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101210/da55504b/attachment.pl"
+      ]
     },
     {
       "id": "msg-26dae219878d",
@@ -647,11 +668,14 @@
         "<4D05A82B.9020805@fhcrc.org>",
         "<20101213171538.BKF43929@gimr.garvan.unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101213/7e1e8511/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101213/7e1e8511/attachment.pl>",
+      "body_plain": "Do you need all the sequence data at once? \n\nInstead of using a smaller bam file can you read in a smaller portion of\nyour large bamfile ?\n\ndata.gr<-GRanges(seqnames =paste(\"chr\",13,sep=\"\"),ranges =\nIRanges(start=as.numeric(28608234),end=as.numeric(28608363)),strand=\"+\")\n\n\nwhich<-  data.gr\nparams<-ScanBamParam(which=which,flag=scanBamFlag(isUnmappedQuery=FALSE,isDuplicate=NA,isValidVendorRead=TRUE),simpleCigar = FALSE,reverseComplement = FALSE,what=c(\"qname\",\"flag\",\"rname\",\"seq\",\"strand\",\"pos\",\"mpos\",\"qwidth\",\"cigar\",\"qual\",\"mapq\",\"isize\", \"mrnm\" ),tag=\"RG\" ) # change to what you want\naln1 <- scanBam(\"HS1808.bam\",param=params)\n\naln1[[1]]\n\nThat should work fine?\n\n\n\n\n-- \nDr Paul Leo\nBioinformatician\nUQ Diamantina Institute for Cancer, Immunology and Metabolic Medicine \n---------------------------------------------------------------------\nLevel 4, R Wing \nPrincess Alexandra Hospital \nIpswich Rd \nWoolloongabba QLD 4102 \nTel: +61 7 3240 7740  Mob: 041 303 8691  Fax: +61 7 3240 5946 \nEmail: p.leo at uq.edu.au   Web: http://www.di.uq.edu.au\n\n\n\n\n-----Original Message-----\nFrom: Dario Strbenac <D.Strbenac at garvan.org.au>\nReply-to: D.Strbenac at garvan.org.au\nTo: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] scanBam Error\nDate: Mon, 13 Dec 2010 17:15:38 +1100\n\n\nI tried it out by making a smaller bam file with only reads from one chromosome, and it worked fine. The full bam file is 4 GB and has 75 million reads in it. Could the size be a problem ? Could you test out a bam file of this size on your end, without me sending you one that big ? Also, the error is different after I put the scamBamParam in the right spot :\n\nError in .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...) : \n  negative length vectors are not allowed\n\nInteger overflow somewhere, maybe ?\n\n- Dario.\n\n---- Original message ----\n>Date: Sun, 12 Dec 2010 20:59:23 -0800\n>From: Martin Morgan <mtmorgan at fhcrc.org>  \n>Subject: Re: [Bioc-sig-seq] scanBam Error  \n>To: D.Strbenac at garvan.org.au\n>Cc: bioc-sig-sequencing at r-project.org\n>\n>On 12/12/2010 08:00 PM, Dario Strbenac wrote:\n>> Hello,\n>> \n>\n>> I'm having trouble reading in a BAM file when \"seq\" is one of the\n>strings passed to the what argument of ScanBamParam. If it's not, then\n>the the reading completes successfully. I don't understand what the\n>error means. It is :\n>> \n>> Error in .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param) : \n>>   INTEGER() can only be applied to a 'integer', not a 'closure'\n>> \n>> The traceback is :\n>> \n>>> traceback()\n>> 4: .Call(func, file, index, \"rb\", NULL, flag, simpleCigar, ...)\n>> 3: .io_bam(.scan_bam, file, index, reverseComplement, tmpl, param = param)\n>> 2: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n>>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n>>            \"strand\", \"pos\", \"seq\")))\n>> 1: scanBam(\"HS1808.bam\", flag = ScanBamFlag(isDuplicate = FALSE), \n>>        param = ScanBamParam(reverseComplement = TRUE, what = c(\"rname\", \n>>            \"strand\", \"pos\", \"seq\")))\n>> \n>> and the environment is :\n>> \n>> R version 2.12.0 (2010-10-15)\n>> Platform: x86_64-pc-mingw32/x64 (64-bit)\n>> \n>> locale:\n>> [1] LC_COLLATE=English_Australia.1252  LC_CTYPE=English_Australia.1252    LC_MONETARY=English_Australia.1252 LC_NUMERIC=C                       LC_TIME=English_Australia.1252    \n>> \n>> attached base packages:\n>> [1] stats     graphics  grDevices utils     datasets  methods   base     \n>> \n>> other attached packages:\n>> [1] Rsamtools_1.2.1     Biostrings_2.18.0   GenomicRanges_1.2.0 IRanges_1.8.2      \n>> \n>> loaded via a namespace (and not attached):\n>> [1] Biobase_2.8.0\n>\n>Hi Dario -- this is some kind of error in Rsamtools' C code, but I'm not\n>able to reproduce it on my end so can't track it down. Is there any way\n>of producing and sharing with me an example file that has this problem?\n>\n>One thing (not causing the bug) in your traceback is that 'flag' should\n>be an argument to ScanBamParam; as it is I think it is being silently\n>ignored.\n>\n>Martin\n>\n>> \n>> --------------------------------------\n>> Dario Strbenac\n>> Research Assistant\n>> Cancer Epigenetics\n>> Garvan Institute of Medical Research\n>> Darlinghurst NSW 2010\n>> Australia\n>> \n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n>-- \n>Computational Biology\n>Fred Hutchinson Cancer Research Center\n>1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>\n>Location: M1-B861\n>Telephone: 206 667-2793\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Do you need all the sequence data at once? \n\nInstead of using a smaller bam file can you read in a smaller portion of\nyour large bamfile ?\n\ndata.gr<-GRanges(seqnames =paste(\"chr\",13,sep=\"\"),ranges =\nI",
       "thread_id": "thread-3c85cbcd1214",
       "thread_depth": 3,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101213/7e1e8511/attachment.pl"
+      ]
     },
     {
       "id": "msg-76877ec24a7c",
@@ -684,11 +708,14 @@
       "subject_clean": "[Bioc-sig-seq] ShortRead/srFilter custom \"chromosome filter\"",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101214/5e835d13/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101214/5e835d13/attachment.pl>",
+      "body_plain": "Hi,\nI am new to bioconductor and working with unannotated viral genomes and\nusing some gene prediction algorithms to find\ngene-like regions in the genomes.\n\nIn ShortRead, I am interesting in using the \"Filtering input\" modality\n(below) much like chromosome filtering but for gene filtering (all reads to\nspecific gene region).\nBelow, there is cfilt <- chromosomeFilter(\"chr5.fa\").\nWith the viral gene regions in individual fasta files, would if work to\ndefine cfilt <- chromosomeFilter (\"Path/to/viralgene1.fa\")\nand then viralgene1 <-readAligned(sp, \"alignment_data.txt\" filter=cfilt)?\n\nI tried to read about sfFilter, to customize a filter, but I don't see how\nyou can add a path to fasta file to serve as the filter reference.\n\nThanks for any advice on how to create custom filter with fasta files as the\nreference for that filter.\n*\n1.2.3 Filtering input\nDownstream analysis may often want to use a well-deﬁned subset of reads.\nThese\ncan be selected with the filter argument of readAligned. There are built-in\nﬁlters, for instance to remove all reads containing an N nucleotide, to\nselect just\nthose reads that map to the genome ﬁle chr5.fa, to select reads on the +\nstrand,\nor to ‘level the playing ﬁeld’ by selecting only a single read for any\nchromosome,\nposition and strand:\n> nfilt <- nFilter()\n> cfilt <- chromosomeFilter(\"chr5.fa\")\n> sfilt <- strandFilter(\"+\")\n> ofilt <- occurrenceFilter(withSread = FALSE)\nHere we select only those reads that map to chr5.fa:\n> chr5 <- readAligned(sp, \"s_2_export.txt\", filter = cfilt)\n\n\n# custom filter: minimum calibrated base call quality >20\ngoodq <- srFilter(function(x) {\n    apply(as(quality(x), \"matrix\"), 1, min) > 20\n}, name=\"GoodQualityBases\")\ngoodq\naln[goodq(aln)]*\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\nI am new to bioconductor and working with unannotated viral genomes and\nusing some gene prediction algorithms to find\ngene-like regions in the genomes.\n\nIn ShortRead, I am interesting in using the",
       "thread_id": "thread-19549c18a76a",
       "thread_depth": 0,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101214/5e835d13/attachment.pl"
+      ]
     },
     {
       "id": "msg-578a1e406391",
@@ -724,11 +751,14 @@
       "references": [
         "<AANLkTi=8uJJQ_DKsVgwP4vPPRTZQ3nAJ5p6kJC4DyAoj@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101220/ab5a3b56/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101220/ab5a3b56/attachment.pl>",
+      "body_plain": "On Tue, Dec 14, 2010 at 1:43 PM, R. T. Sweeney <rtswee2 at stanford.edu> wrote:\n\n> Hi,\n> I am new to bioconductor and working with unannotated viral genomes and\n> using some gene prediction algorithms to find\n> gene-like regions in the genomes.\n>\n> In ShortRead, I am interesting in using the \"Filtering input\" modality\n> (below) much like chromosome filtering but for gene filtering (all reads to\n> specific gene region).\n> Below, there is cfilt <- chromosomeFilter(\"chr5.fa\").\n> With the viral gene regions in individual fasta files, would if work to\n> define cfilt <- chromosomeFilter (\"Path/to/viralgene1.fa\")\n> and then viralgene1 <-readAligned(sp, \"alignment_data.txt\" filter=cfilt)?\n>\n> I tried to read about sfFilter, to customize a filter, but I don't see how\n> you can add a path to fasta file to serve as the filter reference.\n>\n>\nHi, and welcome to Bioconductor.\n\nThe filtering is done based on the name of the reference sequence *in the\nalignment file*.  It has nothing to do with a file path.  If your alignment\nfile has a reference sequence named FOO, then you would use that as the\nfilter string.  Make sense?\n\nSean\n\n\n\n> Thanks for any advice on how to create custom filter with fasta files as\n> the\n> reference for that filter.\n> *\n> 1.2.3 Filtering input\n> Downstream analysis may often want to use a well-deﬁned subset of reads.\n> These\n> can be selected with the filter argument of readAligned. There are built-in\n> ﬁlters, for instance to remove all reads containing an N nucleotide, to\n> select just\n> those reads that map to the genome ﬁle chr5.fa, to select reads on the +\n> strand,\n> or to ‘level the playing ﬁeld’ by selecting only a single read for any\n> chromosome,\n> position and strand:\n> > nfilt <- nFilter()\n> > cfilt <- chromosomeFilter(\"chr5.fa\")\n> > sfilt <- strandFilter(\"+\")\n> > ofilt <- occurrenceFilter(withSread = FALSE)\n> Here we select only those reads that map to chr5.fa:\n> > chr5 <- readAligned(sp, \"s_2_export.txt\", filter = cfilt)\n>\n>\n> # custom filter: minimum calibrated base call quality >20\n> goodq <- srFilter(function(x) {\n>    apply(as(quality(x), \"matrix\"), 1, min) > 20\n> }, name=\"GoodQualityBases\")\n> goodq\n> aln[goodq(aln)]*\n>\n>        [[alternative HTML version deleted]]\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Dec 14, 2010 at 1:43 PM, R. T. Sweeney <rtswee2 at stanford.edu> wrote:\n\n> Hi,\n> I am new to bioconductor and working with unannotated viral genomes and\n> using some gene prediction algorithms",
       "thread_id": "thread-19549c18a76a",
       "thread_depth": 1,
-      "month": "2010-12"
+      "month": "2010-12",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20101220/ab5a3b56/attachment.pl"
+      ]
     },
     {
       "id": "msg-2690932829bf",

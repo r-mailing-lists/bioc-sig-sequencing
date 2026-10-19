@@ -50,11 +50,14 @@
         "<4989AAE6.7060302@curie.fr>",
         "<6phzlh167k7.fsf@gopher4.fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090205/5be4be4e/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090205/5be4be4e/attachment.pl>",
+      "body_plain": "Hi all,\n\nIn the SOLiD system, read are mapped a color-space encoded version of  \nthe reference sequence in question, after which start and end  \ncoordinates are reported. Base-space sequence can then (if needed) be  \nextracted from the reference sequence using the given coordinates.\n\nThere is a \"double encoding\"-system, where the colors (0, 1, 2, 3) are  \nchanged to letters (A, C, G, T) to trick certain software to work with  \nSOLiD data. This does not correspond to the actual base-space  \nsequence, it's only a representation of the color-space sequence. I  \nguess it would be possible to use this trick to make BioStrings and  \nShortRead work with SOLiD data.\n\nHowever, one very important feature of the SOLiD system, is that the  \nreverse complement sequence corresponds to the reverse color-space  \nsequence (there is no \"complement\" in color-space). This means that  \nthe algorithm for returning the rev-comp sequence when prior to  \nmatching on the (-)-strand need to be re-written to report the reverse  \nsequence instead of the rev-comp.\n\nDid all this make sense...? Basically, I think it would be possible to  \nmake it work if the colors are \"double-encoded\" and the internal  \nfunction that rev-comps a sequence is modified to report the reverse.\n\nBest\nDaniel Klevebring\n\n\nOn 5 feb 2009, at 01.39, Martin Morgan wrote:\n\n> , once reads are represented\n> as traditional nucleotide sequences (which I guess they must be at\n> some point?).\n\n--\n\nContact information:\n\nDaniel Klevebring\nM. Sc. Eng., Ph.D. Student\nDept of Gene Technology\nRoyal Institute of Technology, KTH\nSE-106 91 Stockholm, Sweden\n\nVisiting address: Roslagstullsbacken 21, B3\nDelivery address: Roslagsvägen 30B, 104 06, Stockholm\nInvoice address: KTH Fakturaserice, Ref DAKL KTHBIO, Box 24075,  \nSE-10450 Stockholm\nE-mail: daniel at biotech.kth.se\nE-mail: daniel at arrayadvice.se\nPhone: +46 8 5537 8337 (Office)\nPhone: +46 704 71 65 91 (Mobile)\nWeb: http://www.biotech.kth.se/genetech/index.html\nWeb: http://www.arrayadvice.se/\nFax: +46 8 5537 8481\nMSN messenger: klevebring at msn.com\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\nIn the SOLiD system, read are mapped a color-space encoded version of  \nthe reference sequence in question, after which start and end  \ncoordinates are reported. Base-space sequence can then ",
       "thread_id": "thread-99f3aa826dab",
       "thread_depth": 2,
-      "month": "2009-02"
+      "month": "2009-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090205/5be4be4e/attachment.pl"
+      ]
     },
     {
       "id": "msg-560fe20d36e2",
@@ -104,11 +107,14 @@
       "subject_clean": "[Bioc-sig-seq] adaptors",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/3f161cb7/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/3f161cb7/attachment.pl>",
+      "body_plain": "Hi all,\n\nwould be glad to have your answer to a question (that is probably very\nsimple):\n\nwe do have a set of small RNA solexa sequences, where the length of the read\nis 36.\nwe suspect that the adaptors sequences are present in the solexa reads, at\nvarious\npositions and for various lengths. is there a quick way to mask the adaptors\nsequences\nin the reads before doing the alignment process ? thanks very much,\n\n-- bogdan\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\nwould be glad to have your answer to a question (that is probably very\nsimple):\n\nwe do have a set of small RNA solexa sequences, where the length of the read\nis 36.\nwe suspect that the adapto",
       "thread_id": "thread-b280cb8f22bd",
       "thread_depth": 0,
-      "month": "2009-02"
+      "month": "2009-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/3f161cb7/attachment.pl"
+      ]
     },
     {
       "id": "msg-1cf95e179bf1",
@@ -122,11 +128,14 @@
       "references": [
         "<47d9979f0902091939l5b14d1f2u2551491bf74e323c@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/e1b85d7c/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/e1b85d7c/attachment.pl>",
+      "body_plain": "You might want to make a quick search of the archives.  There was just a\ndiscussion about this topic a week or so ago.\n\nSean\n\nOn Mon, Feb 9, 2009 at 10:39 PM, Bogdan Tanasa <tanasa at gmail.com> wrote:\n\n> Hi all,\n>\n> would be glad to have your answer to a question (that is probably very\n> simple):\n>\n> we do have a set of small RNA solexa sequences, where the length of the\n> read\n> is 36.\n> we suspect that the adaptors sequences are present in the solexa reads, at\n> various\n> positions and for various lengths. is there a quick way to mask the\n> adaptors\n> sequences\n> in the reads before doing the alignment process ? thanks very much,\n>\n> -- bogdan\n>\n>        [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "You might want to make a quick search of the archives.  There was just a\ndiscussion about this topic a week or so ago.\n\nSean\n\nOn Mon, Feb 9, 2009 at 10:39 PM, Bogdan Tanasa <tanasa at gmail.com> wrote",
       "thread_id": "thread-b280cb8f22bd",
       "thread_depth": 1,
-      "month": "2009-02"
+      "month": "2009-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090209/e1b85d7c/attachment.pl"
+      ]
     },
     {
       "id": "msg-2ecf2eb365a4",
@@ -227,11 +236,14 @@
       "references": [
         "<499C538B.8000202@titus.u-strasbg.fr>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090218/2cfa65e8/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090218/2cfa65e8/attachment.pl>",
+      "body_plain": "On Wed, Feb 18, 2009 at 1:29 PM, Wolfgang Raffelsberger <\nwraff at titus.u-strasbg.fr> wrote:\n\n> Dear List,\n>\n> here I have a more general question :\n> Has anyone compared (directly?) Affy 500kSNP arrays with deep sequencing\n> (here I'm rather thinking of Solexa/Illumina) ?\n> How much sequencing coverage should allow a 'decent' SNP calling ? (Maybe I\n> need to add that heterozygous SNPs should be detected, too)\n> At which level (of coverage) would you expect to get equivalent or better\n> results as Affy SNP arrays ? (Of course I know that a few (specific) SNPs\n> may be lost due to the random distribution of the reads...)\n>\n\nYou could look at the 1000 genomes pilot data available at SRA.  They have\nsequenced some of the individuals (I think a trio or two) from hapmap at 10x\ncoverage (approximately), if I recall.  You could look for mendelian\ninheritance errors and for concordance with the SNP data.\n\n\n>\n> Or a variant of the question, if one sequenced a given zone of high\n> interest (possibly with multiplexing) what would be current advice in terms\n> of size of the zone (and number of multiplexed patients) to get suffient\n> coverage to detect heterozygous SNPs.\n>\n\nThese questions depend on the error characteristics of the sequencing\nplatform.  However, I think a number of 20-30x coverage is probably not too\nfar off, at least for solexa.  And, of course, the uniformity of any\nselection technology has to be taken into account when figuring out the\nactual coverage obtained.\n\nHope that helps.\n\nSean\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Wed, Feb 18, 2009 at 1:29 PM, Wolfgang Raffelsberger <\nwraff at titus.u-strasbg.fr> wrote:\n\n> Dear List,\n>\n> here I have a more general question :\n> Has anyone compared (directly?) Affy 500kSNP arr",
       "thread_id": "thread-9bd834e46907",
       "thread_depth": 1,
-      "month": "2009-02"
+      "month": "2009-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090218/2cfa65e8/attachment.pl"
+      ]
     },
     {
       "id": "msg-6195ba335b65",

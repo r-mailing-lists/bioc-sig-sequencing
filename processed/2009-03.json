@@ -47,11 +47,14 @@
       "subject_clean": "[Bioc-sig-seq] a general question",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090306/fabdd399/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090306/fabdd399/attachment.pl>",
+      "body_plain": "Hi everyone,\n\nAlthough this question is more related to ChIP and ChIP-seq, it could be\nprobably anchored in a more general statistical context.\n\nThe question is : what method is better  to assess the significance of the\nchange  in a signal (the signal can be DNA binding, for instance) given the\nbackground and 2 conditions.\n\n<. condition1 (eg no treatment) :  background = 1;\n                                                signal = 5;\n\n<. condition2 (eg hormonal treatment) : background = 3;\n                                           signal = 6.\n\nThe methods can be :\n\na. substract the background : i.e. (signal_treatment - background_treatment)\n/ (signal_no_treatment - background_no_treatment)\n\nb. calculate the fold change: i.e. (signal_treatment / background_treatment)\n/ (signal_no_treatment / background_no_treatment)\n\nc. any other method ? i.e. (signal_treatment - signal_no_treatment)  / (\nbackground_treatment - background_no_treatment)\n\nThank you very much.\n\nBogdan\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi everyone,\n\nAlthough this question is more related to ChIP and ChIP-seq, it could be\nprobably anchored in a more general statistical context.\n\nThe question is : what method is better  to assess the ",
       "thread_id": "thread-4aa6d0c0a953",
       "thread_depth": 0,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090306/fabdd399/attachment.pl"
+      ]
     },
     {
       "id": "msg-0cf86ed0e2b1",
@@ -81,11 +84,14 @@
       "subject_clean": "[Bioc-sig-seq] report error",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090308/1db9d616/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090308/1db9d616/attachment.pl>",
+      "body_plain": "Hi\n\nI need help with the error reported below; I got it when I\ntried to generate a report from the qaSummary in the vignette “An Introduction\nto ShortRead, 25 July, 2008”.\nThanks\n \n \n> exptPath <- system.file(\"extdata\", package\n= \"ShortRead\")\n> sp <- SolexaPath(exptPath)\n> aln <- readAligned(sp, \"s_2_export.txt\")\n> qaSummary <- qa(sp)\n> report(qaSummary, dest = \"qa_report.pdf\")\nWriting to file qa_solexa.tex\nProcessing code chunks ...\n 1 : term verbatim\n(label=setup)\n 2 : term verbatim\n(label=utilities)\n 3 : term verbatim\n(label=qa-run)\n 4 : echo (label=code)\n 5 : echo term\nverbatim (label=read-counts)\n 6 : echo term\nverbatim (label=base-calls)\n 7 : echo term\nverbatim eps pdf (label=read-quality-raw)\n 8 : echo term\nverbatim eps pdf (label=read-distribution-occurrence)\n 9 : echo term\nverbatim (label=common-duplicate-reads)\n10 : echo term verbatim\n(label=common-duplicate-mapped-reads)\n11 : echo term verbatim eps pdf (label=per-cycle-base-call)\n12 : echo term verbatim eps pdf (label=per-cycle-quality)\n13 : echo term verbatim eps pdf (label=counts-histo)\n14 : echo term verbatim eps pdf (label=read-counts-per-tile)\n15 : echo term verbatim eps pdf (label=read-score-per-tile)\n16 : echo term verbatim eps pdf\n(label=mapped-alignment-score)\n17 : echo keep.source term verbatim (label=appendix)\n \nYou can now run LaTeX on 'qa_solexa.tex'\nError in tools::texi2dvi(texFile, pdf = TRUE) : \n  unable to run\npdflatex on 'qa_solexa.tex'\nIn addition: Warning message:\nIn system(paste(shQuote(latex),\n\"-interaction=nonstopmode\", texfile)) :\n  \"pdflatex\"\nnot found\n \n \n> sessionInfo()\nR version 2.8.1 Patched (2009-01-24 r47717) \ni386-pc-mingw32 \nlocale:\nLC_COLLATE=English_United\nStates.1252;LC_CTYPE=English_United States.1252;LC_MONETARY=English_United\nStates.1252;LC_NUMERIC=C;LC_TIME=English_United States.1252\nattached base packages:\n[1] tools     stats     graphics  grDevices utils     datasets  methods   base     \nother attached packages:\n[1] ShortRead_1.0.6    lattice_0.17-20    Biobase_2.2.1      Biostrings_2.10.15\n[5] IRanges_1.0.9     \nloaded via a namespace (and not attached):\n[1] grid_2.8.1         Matrix_0.999375-18\n>\n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi\n\nI need help with the error reported below; I got it when I\ntried to generate a report from the qaSummary in the vignette “An Introduction\nto ShortRead, 25 July, 2008”.\nThanks\n \n \n> exptPath <- sys",
       "thread_id": "thread-c91b35508193",
       "thread_depth": 0,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090308/1db9d616/attachment.pl"
+      ]
     },
     {
       "id": "msg-4512686d21bc",
@@ -137,11 +143,14 @@
         "<527585.13975.qm@web36907.mail.mud.yahoo.com>",
         "<49B41EA6.7040902@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090308/bcc928e0/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090308/bcc928e0/attachment.pl>",
+      "body_plain": "Thank you. That fixed the problem.\n\n\n\n\n________________________________\nFrom: Wolfgang Huber <huber at ebi.ac.uk>\n\nCc: bioc-sig-sequencing at r-project.org\nSent: Sunday, March 8, 2009 12:38:14 PM\nSubject: Re: [Bioc-sig-seq] report error\n\n\n\n\nHi Joseph\n\nhave you checked that LaTeX is installed on your computer?\n\nBest wishes\n    Wolfgang\n\n> Hi\n> \n> I need help with the error reported below; I got it when I\n> tried to generate a report from the qaSummary in the vignette “An Introduction\n> to ShortRead, 25 July, 2008”.\n> Thanks\n>  \n>> exptPath <- system.file(\"extdata\", package\n> = \"ShortRead\")\n>> sp <- SolexaPath(exptPath)\n>> aln <- readAligned(sp, \"s_2_export.txt\")\n>> qaSummary <- qa(sp)\n>> report(qaSummary, dest = \"qa_report.pdf\")\n> Writing to file qa_solexa.tex\n> Processing code chunks ...\n>  1 : term verbatim\n> (label=setup)\n>  2 : term verbatim\n> (label=utilities)\n>  3 : term verbatim\n> (label=qa-run)\n>  4 : echo (label=code)\n>  5 : echo term\n> verbatim (label=read-counts)\n>  6 : echo term\n> verbatim (label=base-calls)\n>  7 : echo term\n> verbatim eps pdf (label=read-quality-raw)\n>  8 : echo term\n> verbatim eps pdf (label=read-distribution-occurrence)\n>  9 : echo term\n> verbatim (label=common-duplicate-reads)\n> 10 : echo term verbatim\n> (label=common-duplicate-mapped-reads)\n> 11 : echo term verbatim eps pdf (label=per-cycle-base-call)\n> 12 : echo term verbatim eps pdf (label=per-cycle-quality)\n> 13 : echo term verbatim eps pdf (label=counts-histo)\n> 14 : echo term verbatim eps pdf (label=read-counts-per-tile)\n> 15 : echo term verbatim eps pdf (label=read-score-per-tile)\n> 16 : echo term verbatim eps pdf\n> (label=mapped-alignment-score)\n> 17 : echo keep.source term verbatim (label=appendix)\n>  You can now run LaTeX on 'qa_solexa.tex'\n> Error in tools::texi2dvi(texFile, pdf = TRUE) :   unable to run\n> pdflatex on 'qa_solexa.tex'\n> In addition: Warning message:\n> In system(paste(shQuote(latex),\n> \"-interaction=nonstopmode\", texfile)) :\n>   \"pdflatex\"\n> not found\n>  \n>> sessionInfo()\n> R version 2.8.1 Patched (2009-01-24 r47717) i386-pc-mingw32 locale:\n> LC_COLLATE=English_United\n> States.1252;LC_CTYPE=English_United States.1252;LC_MONETARY=English_United\n> States.1252;LC_NUMERIC=C;LC_TIME=English_United States.1252\n> attached base packages:\n> [1] tools     stats     graphics  grDevices utils     datasets  methods   base     other attached packages:\n> [1] ShortRead_1.0.6    lattice_0.17-20    Biobase_2.2.1      Biostrings_2.10.15\n> [5] IRanges_1.0.9     loaded via a namespace (and not attached):\n> [1] grid_2.8.1         Matrix_0.999375-18\n> \n> \n>           [[alternative HTML version deleted]]\n> \n> \n> \n> ------------------------------------------------------------------------\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- ----------------------------------------------------\nWolfgang Huber  EMBL-EBI  http://www.ebi.ac.uk/huber\n\n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank you. That fixed the problem.\n\n\n\n\n________________________________\nFrom: Wolfgang Huber <huber at ebi.ac.uk>\n\nCc: bioc-sig-sequencing at r-project.org\nSent: Sunday, March 8, 2009 12:38:14 PM\nSubj",
       "thread_id": "thread-c91b35508193",
       "thread_depth": 2,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090308/bcc928e0/attachment.pl"
+      ]
     },
     {
       "id": "msg-267414672c0b",
@@ -153,11 +162,14 @@
       "subject_clean": "[Bioc-sig-seq] readAligned error: negative length vectors are not allowed",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090309/0f1bcf68/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090309/0f1bcf68/attachment.pl>",
+      "body_plain": "Hi\nI have 4 data files generated from 2 lanes of a Solexa paired-end run. \nThe qa function worked fine, but the readAligned gave me an error:\n>qaSummary = qa(\"/../data\", type=\"SolexaExport\")\n> qaSummary\nclass: SolexaExportQA(9)\nQA elements (access with qa[[\"elt\"]]):\n  readCounts: data.frame(4 3)\n  baseCalls: data.frame(4 5)\n  readQualityScore: data.frame(6144 4)\n  baseQuality: data.frame(376 3)\n  alignQuality: data.frame(279 3)\n  frequentSequences: data.frame(600 4)\n  sequenceDistribution: data.frame(4928 4)\n  perCycle: list(2)\n    baseCall: data.frame(800 4)\n    quality: data.frame(3830 5)\n  perTile: list(2)\n    readCounts: data.frame(1200 4)\n    medianReadQualityScore: data.frame(1200 4)\n\n> qaSummary[[\"readCounts\"]]\n                     read filtered aligned\ns_2_1_export.txt 12915438  7665822 7080343\ns_2_2_export.txt 12915438  7665822 7277877\ns_3_1_export.txt 17296866  7452595 7892453\ns_3_2_export.txt 17296866  7452595 8086091\n> \n\nWhen I tried to read all 4 files, I got the error below:\n>aln = readAligned(\"/../data\", type=\"SolexaExport\")\nError: Input/Output\n  'readAligned' failed to parse files\n  dirPath: '/../data'\n  pattern: ''\n  type: 'SolexaExport'\n  error: negative length vectors are not allowed\n>  \n\n> sessioInfo()\nR version 2.8.1 Patched (2009-03-03 r48046) \ni386-apple-darwin9.6.0 \nlocale:\nen_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\nattached base packages:\n[1] tools     stats     graphics  grDevices utils     datasets  methods  \n[8] base     \nother attached packages:\n[1] ShortRead_1.0.6    lattice_0.17-20    Biobase_2.2.2      Biostrings_2.10.16\n[5] IRanges_1.0.13    \n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi\nI have 4 data files generated from 2 lanes of a Solexa paired-end run. \nThe qa function worked fine, but the readAligned gave me an error:\n>qaSummary = qa(\"/../data\", type=\"SolexaExport\")\n> qaSumma",
       "thread_id": "thread-267414672c0b",
       "thread_depth": 0,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090309/0f1bcf68/attachment.pl"
+      ]
     },
     {
       "id": "msg-fedaae0368b4",
@@ -190,11 +202,14 @@
         "<128427.54279.qm@web36901.mail.mud.yahoo.com>",
         "<6phd4cq1u5o.fsf@gopher4.fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090309/a3d2b311/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090309/a3d2b311/attachment.pl>",
+      "body_plain": "________________________________\nHi Martin\n  \n\"/../data\" says \"start at the root directory of the file system and go\none level up, then down to the 'data' directory\". Is this what you\nmean, or perhaps \"./../data\"?\n\nThe actual whole path is:\n\"/Users/jdhahbi/JosephDhahbi/SOLEXA/ShortRead/mono/data\"\n\"/../data\" is my way of shorteneing it for the e-mail\nthe 4 files are in the subdirectory \"data\"\n\nreadAligned as invoked above has no 'pattern' argument, and so will\nmatch all files in the directory '/../data'. Likely what you want is\nto add an argument pattern=\".*_export.*\" or similar; using\nlist.files(\"/../data\") is a good way to see what you're trying to read\nin, for instance list.files(\"/../data\", \".*_export.*\")\n\nthe subdirectory 'data' contains only the 4 \".*_export.*\" files; I meant to read in all 4.\n\nThe error itself likely comes from trying to allocate a very large\nobject. In general at least for the initial stages of an analysis a\ngood work flow might read a 'large' file, perform some processing to\nresult in a 'small' object, read the next, etc., and finally combine\nthe small objects. This is what qa() does (visit an _export file,\nsummarize, visit the next, combine results into the object that you\nrefer to as qaSummary); a simple (and too naive) start to a ChIP-seq\nanalysis might generate a list of files containing aligned reads and\nthen summarize where in the genome the reads align to using\nShortRead::coverage (I did not test the following code),\n\nfiles <- list.files(dirPath, \".*_export.*\", full=TRUE)\ncvg <- lapply(files, function(file) {\n  aln <- readAligned(dirname(file), basename(file), type=\"SolexaExport\")\n  coverage(aln)\n})\n\nthe results of coverage() are quite small and manageable, and the cvg\nobject contains data from all 'files'; using srapply rather than\nlapply would allow this to be distrbuted across processors.\nI got a different error when I tried the code you suggested:\n> files <- list.files(\"/Users/jdhahbi/JosephDhahbi/SOLEXA/ShortRead/mono/data\", \".*_export.*\", full=TRUE)\n> files\n[1] \"/Users/jdhahbi/JosephDhahbi/SOLEXA/ShortRead/mono/data/s_2_1_export.txt\"\n[2] \"/Users/jdhahbi/JosephDhahbi/SOLEXA/ShortRead/mono/data/s_2_2_export.txt\"\n[3] \"/Users/jdhahbi/JosephDhahbi/SOLEXA/ShortRead/mono/data/s_3_1_export.txt\"\n[4] \"/Users/jdhahbi/JosephDhahbi/SOLEXA/ShortRead/mono/data/s_3_2_export.txt\"\n> \n> cvg <- lapply(files, function(file) {\n+   aln <- readAligned(dirname(file), basename(file), type=\"SolexaExport\")\n+   coverage(aln)\n+ })\nError in stop(\"'\", argname, , \"' cannot contain NAs\") : \n  argument is missing, with no default\nError in coverage(IRanges(rstart, rend), start, end, ...) : \n  error in evaluating the argument 'x' in selecting a method for function 'coverage'\n> \n\nThank you for help\n\n>\n>> sessioInfo()\n> R version 2.8.1 Patched (2009-03-03 r48046) \n> i386-apple-darwin9.6.0 \n> locale:\n> en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n> attached base packages:\n> [1] tools     stats     graphics  grDevices utils     datasets  methods  \n> [8] base    \n> other attached packages:\n> [1] ShortRead_1.0.6    lattice_0.17-20    Biobase_2.2.2      Biostrings_2.10.16\n> [5] IRanges_1.0.13    \n>\n>\n>      \n>     [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n-- \nMartin Morgan\nComputational Biology / Fred Hutchinson Cancer Research Center\n1100 Fairview Ave. N.\nPO Box 19024 Seattle, WA 98109\n\nLocation: Arnold Building M2 B169\nPhone: (206) 667-2793\n\n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "________________________________\nHi Martin\n  \n\"/../data\" says \"start at the root directory of the file system and go\none level up, then down to the 'data' directory\". Is this what you\nmean, or perhaps",
       "thread_id": "thread-267414672c0b",
       "thread_depth": 2,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090309/a3d2b311/attachment.pl"
+      ]
     },
     {
       "id": "msg-f7514e490512",
@@ -297,11 +312,14 @@
       "references": [
         "<881385.52032.qm@web24001.mail.ird.yahoo.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090313/1e61a79c/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090313/1e61a79c/attachment.pl>",
+      "body_plain": "Hi,\n\nThe GenomicData class does not exist right now. Please try as(cov,\n\"RangedData\").\n\nMichael\n\n\nOn Fri, Mar 13, 2009 at 9:08 AM, <ig2ar-saf2 at yahoo.co.uk> wrote:\n\n>\n> Hello everybody,\n>\n> I am trying to somehow visualize how my reads overlap (or cover) mouse\n> chr1. A simple concept.\n>\n> I create a readAlign object like this\n>\n> aln <- readAlign(sp, myfile, filter = blah)\n>\n> fine.\n>\n> Then I compute the coverage like this\n>\n> cov <- coverage(aln, start=1)[[1]]\n>\n> fine.\n>\n> The problem arises when when I try to construct from the coverage:\n>\n> > gd <- as(cov, \"GenomicData\")\n> Error in as(cov, \"GenomicData\") :\n>  no method or default for coercing \"Rle\" to \"GenomicData\"\n>\n>\n> So, basically, I am following Michael's tutorial\n>\n> http://www.bioconductor.org/workshops/2008/SeattleNov08/rtracklayer/rtracklayer.pdf\n>\n> Can anybody give me a pointer to figure out why it does not work for me?\n>\n> Thank you,\n>\n> Ivan\n>\n>\n>\n> > sessionInfo()\n> R version 2.9.0 Under development (unstable) (2009-03-10 r48103)\n> x86_64-unknown-linux-gnu\n>\n> locale:\n>\n> LC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] tools     stats     graphics  grDevices utils     datasets  methods\n> [8] base\n>\n> other attached packages:\n>  [1] rtracklayer_1.3.9                  RCurl_0.94-1\n>  [3] org.Mm.eg.db_2.2.6                 RSQLite_0.7-1\n>  [5] DBI_0.2-4                          AnnotationDbi_1.5.18\n>  [7] Biobase_2.3.10                     BSgenome.Mmusculus.UCSC.mm9_1.3.11\n>  [9] ShortRead_1.1.43                   lattice_0.17-20\n> [11] BSgenome_1.11.13                   Biostrings_2.11.40\n> [13] IRanges_1.1.48\n>\n> loaded via a namespace (and not attached):\n> [1] grid_2.9.0  hwriter_1.1 XML_2.3-0\n>\n>\n>\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\nThe GenomicData class does not exist right now. Please try as(cov,\n\"RangedData\").\n\nMichael\n\n\nOn Fri, Mar 13, 2009 at 9:08 AM, <ig2ar-saf2 at yahoo.co.uk> wrote:\n\n>\n> Hello everybody,\n>\n> I am try",
       "thread_id": "thread-6cae50cc35eb",
       "thread_depth": 1,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090313/1e61a79c/attachment.pl"
+      ]
     },
     {
       "id": "msg-b341da652165",
@@ -614,11 +632,14 @@
       "subject_clean": "[Bioc-sig-seq] analyze Bowtie output with qa()",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090331/196f7335/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090331/196f7335/attachment.pl>",
+      "body_plain": "Hi\nwhat do you use for the 'type' argument to analyze Bowtie output with qa()?\nthe types in ShortRead_1.1.51 are 'SolexaExport', 'MAQMapShort' and 'fastq.\nThanks\nJoseph\n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi\nwhat do you use for the 'type' argument to analyze Bowtie output with qa()?\nthe types in ShortRead_1.1.51 are 'SolexaExport', 'MAQMapShort' and 'fastq.\nThanks\nJoseph\n\n\n      \n\t[[alternative HTML ve",
       "thread_id": "thread-be3e98c3a6e6",
       "thread_depth": 0,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090331/196f7335/attachment.pl"
+      ]
     },
     {
       "id": "msg-35f475c71f9b",
@@ -648,11 +669,14 @@
       "subject_clean": "[Bioc-sig-seq] alignQuality gives  NA",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090331/8c95166d/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090331/8c95166d/attachment.pl>",
+      "body_plain": "why alignQuality is NA after readAligned() of a bowtie alignment file? \n\n>aln1 = readAligned(\"~/data\", pattern=\"s_2.map\", type=\"Bowtie\")\n\n> aln1\nclass: AlignedRead\nlength: 4072324 reads; width: 34..34 cycles\nchromosome: gi|89161210|ref|NC_000006.10|NC_000006 gi|89161210|ref|NC_000006.10|NC_000006 ... gi|89161205|ref|NC_000003.10|NC_000003 gi|89161205|ref|NC_000003.10|NC_000003 \nposition: 20601560 20601583 ... 185508441 185508446 \nstrand: + - ... + - \nalignQuality: NumericQuality \nalignData varLabels: mismatch \n> \n> head(id(aln1))\n  A BStringSet instance of length 6\n    width seq\n[1]    18 GAII:2:1:3:174#0/1\n[2]    18 GAII:2:1:3:174#0/2\n[3]    18 GAII:2:1:3:170#0/2\n[4]    18 GAII:2:1:3:170#0/1\n[5]    18 GAII:2:1:4:148#0/1\n[6]    18 GAII:2:1:4:148#0/2\n> head(sread(aln1))\n  A DNAStringSet instance of length 6\n    width seq\n[1]    34 CGTGTGTATGAGAAGGAGGGATATGAAGGAAGAT\n[2]    34 CCACCCGACTTACTCTGCAATCCATCTTCCTTCA\n[3]    34 AGCAGGTGCTGAGGTGGGAGGATCTAGCACCACC\n[4]    34 CTGGTGCCTGGTGGTGCTAGCTCCTCCCACCTCA\n[5]    34 TTTTCAAAACCATTCCTCAGTATCTTCAGGCATT\n[6]    34 GGGCCAAGCACATTCAGGAGGTCAAATGCCTGAA\n> head(quality(aln1)) \nclass: SFastqQuality\nquality:\n  A BStringSet instance of length 6\n    width seq\n[1]    34 ababa`aa`X_^``VYX_W][^\\a]\\W[MWV^V\\\n[2]    34 aababbaa\\GG\\[G^GJVb[I[\\BBBBBBBBBBB\n[3]    34 a`aa`WFRZMW]J[MWUL]TM[LWMTW\\`U`_YR\n[4]    34 a`a`aaaaaa_``[_V_`_]_____\\_]N][_]]\n[5]    34 abbb_aaaa`aaaa`aaa`Z[aaaaa__QWZZaa\n[6]    34 ababbbabbab^MM^bbb_][M^bbZG^_^GR_b\n> head(alignQuality(aln1))\nclass: NumericQuality\nquality: NA NA ... NA NA (6 total)\n> head(strand(aln1))\n[1] + - + - + -\nLevels: - + *\n> head(alignData(aln1))\nAn object of class \"AlignedDataFrame\"\n  readName: 1\n  varLabels and varMetadata description:\n    mismatch: Comma-separated mismatch positions\n> \n> \n\n\n\n> sessionInfo()\nR version 2.8.1 Patched (2009-03-03 r48046) \ni386-apple-darwin9.6.0 \nlocale:\nen_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \nother attached packages:\n[1] ShortRead_1.1.51   lattice_0.17-20    BSgenome_1.11.13   Biostrings_2.11.44\n[5] IRanges_1.1.55    \nloaded via a namespace (and not attached):\nError in x[[\"Version\"]] : subscript out of bounds\nIn addition: Warning message:\nIn FUN(c(\"Biobase\", \"grid\", \"hwriter\")[[3L]], ...) :\n  no package 'hwriter' was found\n> \n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "why alignQuality is NA after readAligned() of a bowtie alignment file? \n\n>aln1 = readAligned(\"~/data\", pattern=\"s_2.map\", type=\"Bowtie\")\n\n> aln1\nclass: AlignedRead\nlength: 4072324 reads; width: 34..34",
       "thread_id": "thread-998622bbe69c",
       "thread_depth": 0,
-      "month": "2009-03"
+      "month": "2009-03",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090331/8c95166d/attachment.pl"
+      ]
     },
     {
       "id": "msg-eb26708f7a82",

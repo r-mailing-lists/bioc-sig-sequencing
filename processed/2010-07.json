@@ -13,11 +13,14 @@
       "subject_clean": "[Bioc-sig-seq] findOverlaps fails when querying a RangedData/RangesList against itself",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/2218c863/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/2218c863/attachment.pl>",
+      "body_plain": "Tested in both R 2.11 & R-devel (IRanges 1.7.7) - see below\n\n> library(IRanges)\n\nAttaching package: 'IRanges'\n\nThe following object(s) are masked from 'package:base':\n\n    cbind, Map, mapply, order, paste, pmax, pmax.int, pmin, pmin.int,\n    rbind, rep.int, table\n\n> showMethods(\"matchMatrix\")\nFunction: matchMatrix (package IRanges)\nx=\"RangesMatching\"\n\n> temp <- RangedData(IRanges(1:10, width=2),\nspace=sample(c(\"chr1\",\"chr2\"),10, replace=TRUE))\n> temp\nRangedData with 10 rows and 0 value columns across 2 spaces\n         space    ranges |\n   <character> <IRanges> |\n1         chr1  [ 1,  2] |\n2         chr1  [ 4,  5] |\n3         chr1  [ 5,  6] |\n4         chr1  [ 6,  7] |\n5         chr1  [ 7,  8] |\n6         chr1  [ 8,  9] |\n7         chr2  [ 2,  3] |\n8         chr2  [ 3,  4] |\n9         chr2  [ 9, 10] |\n10        chr2  [10, 11] |\n> findOverlaps(temp)\nError in function (classes, fdef, mtable)  :\n  unable to find an inherited method for function \"matchMatrix\", for\nsignature \"RangesMatchingList\"\n> findOverlaps(temp, temp)\nRangesMatchingList of length 2\nnames(2): chr1 chr2\n> sessionInfo()\nR version 2.11.0 (2010-04-22)\nx86_64-unknown-linux-gnu\n\nlocale:\n [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8\n [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] IRanges_1.6.8\n\nloaded via a namespace (and not attached):\n[1] tools_2.11.0\n\nAt the moment I'm working around it but it would be nice to be able to use\nthe ignoreSelf options available when doing self-queries.\nThanks,\nAaron\n\n-- \nAaron Statham\nPostgraduate Scholar, Cancer Epigenetics\nGarvan Institute of Medical Research   Tel: (02) 9295 8393\n384 Victoria St Darlinghurst 2010   Fax: (02) 9295 8316\nNSW Australia         email: a.statham at garvan.org.au\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Tested in both R 2.11 & R-devel (IRanges 1.7.7) - see below\n\n> library(IRanges)\n\nAttaching package: 'IRanges'\n\nThe following object(s) are masked from 'package:base':\n\n    cbind, Map, mapply, order, p",
       "thread_id": "thread-e1d8fe9e9fe9",
       "thread_depth": 0,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/2218c863/attachment.pl"
+      ]
     },
     {
       "id": "msg-333b973d0d1a",
@@ -31,11 +34,14 @@
       "references": [
         "<AANLkTikrJ3VZjGFDAzl20XZXNzjU5rsu-qDrwxnBVyZl@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/72599ba7/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/72599ba7/attachment.pl>",
+      "body_plain": "I'm not really sure what I was thinking when I made the self-self\nfindOverlaps accept a RangesList. Anyway, it should work now in svn.\n\nMichael\n\nOn Tue, Jul 6, 2010 at 4:50 AM, Aaron Statham <a.statham at garvan.org.au>wrote:\n\n> Tested in both R 2.11 & R-devel (IRanges 1.7.7) - see below\n>\n> > library(IRanges)\n>\n> Attaching package: 'IRanges'\n>\n> The following object(s) are masked from 'package:base':\n>\n>    cbind, Map, mapply, order, paste, pmax, pmax.int, pmin, pmin.int,\n>    rbind, rep.int, table\n>\n> > showMethods(\"matchMatrix\")\n> Function: matchMatrix (package IRanges)\n> x=\"RangesMatching\"\n>\n> > temp <- RangedData(IRanges(1:10, width=2),\n> space=sample(c(\"chr1\",\"chr2\"),10, replace=TRUE))\n> > temp\n> RangedData with 10 rows and 0 value columns across 2 spaces\n>         space    ranges |\n>   <character> <IRanges> |\n> 1         chr1  [ 1,  2] |\n> 2         chr1  [ 4,  5] |\n> 3         chr1  [ 5,  6] |\n> 4         chr1  [ 6,  7] |\n> 5         chr1  [ 7,  8] |\n> 6         chr1  [ 8,  9] |\n> 7         chr2  [ 2,  3] |\n> 8         chr2  [ 3,  4] |\n> 9         chr2  [ 9, 10] |\n> 10        chr2  [10, 11] |\n> > findOverlaps(temp)\n> Error in function (classes, fdef, mtable)  :\n>  unable to find an inherited method for function \"matchMatrix\", for\n> signature \"RangesMatchingList\"\n> > findOverlaps(temp, temp)\n> RangesMatchingList of length 2\n> names(2): chr1 chr2\n> > sessionInfo()\n> R version 2.11.0 (2010-04-22)\n> x86_64-unknown-linux-gnu\n>\n> locale:\n>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8\n>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] IRanges_1.6.8\n>\n> loaded via a namespace (and not attached):\n> [1] tools_2.11.0\n>\n> At the moment I'm working around it but it would be nice to be able to use\n> the ignoreSelf options available when doing self-queries.\n> Thanks,\n> Aaron\n>\n> --\n> Aaron Statham\n> Postgraduate Scholar, Cancer Epigenetics\n> Garvan Institute of Medical Research   Tel: (02) 9295 8393\n> 384 Victoria St Darlinghurst 2010   Fax: (02) 9295 8316\n> NSW Australia         email: a.statham at garvan.org.au\n>\n>        [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I'm not really sure what I was thinking when I made the self-self\nfindOverlaps accept a RangesList. Anyway, it should work now in svn.\n\nMichael\n\nOn Tue, Jul 6, 2010 at 4:50 AM, Aaron Statham <a.statha",
       "thread_id": "thread-e1d8fe9e9fe9",
       "thread_depth": 1,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100706/72599ba7/attachment.pl"
+      ]
     },
     {
       "id": "msg-bfcb6a59e879",
@@ -187,11 +193,14 @@
       "subject_clean": "[Bioc-sig-seq] Equalize number reads before chipseq analysis",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100708/a509a794/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100708/a509a794/attachment.pl>",
+      "body_plain": "Dear bioc-sig-sequencing,\n\nFollowing up from my question from last month, I would like to determine an FDR cutoff for a chipseq experiment.  But first, would like to equalize/normalize the number of reads between treatment & control aligned read input files (BasicChipSeq.pdf, http://www.bioconductor.org/workshops/2009/SeattleNov09/ChIP-seq/BasicChipSeq.pdf).\n\nIt was previously suggested to use laneSubsample() from chipseq package.  This would require conversion to GenomeData objects.\n\n> load(\"ctcf.rda\")\n> load(\"gfp.rda\")\n> ctcf\nclass: AlignedRead\nlength: 484957 reads; width: 24 cycles\n...\n> gfp\nclass: AlignedRead\nlength: 316176 reads; width: 24 cycles\n> ctcf_GD <- as(ctcf, \"GenomeData\")\n> gfp_GD <- as(gfp, \"GenomeData\")\n> laneSubsample(ctcf_GD, gfp_GD, fudge = 0.05)\n\nHow to test result of \"laneSubsample()\" (to check on the new number of reads in the previously smaller file)?\n\nFinally, it was suggested FDR cutoff can be determined using GenomeData objects (or GRanges).  How to do this?\n\nFor example, in \"BasicChipSeq.pdf\", after import into AlignedRead objects, ctcf & gfp, then\n\n> library(BSgenome.Mmusculus.UCSC.mm9)\n> mouse.chromlens <- seqlengths(Mmusculus)\n> > cov.ctcf <- coverage(ctcf, width = mouse.chromlens, extend = 126L)\n> ...\n\nHow to determine a cutoff starting with GenomeData or GRanges objects rather than AlignedRead?\n\n\nThanks,\nP. Terry\npterry at huskers.unl.edu\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear bioc-sig-sequencing,\n\nFollowing up from my question from last month, I would like to determine an FDR cutoff for a chipseq experiment.  But first, would like to equalize/normalize the number of r",
       "thread_id": "thread-37ef3f0665f7",
       "thread_depth": 0,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100708/a509a794/attachment.pl"
+      ]
     },
     {
       "id": "msg-761a8d152854",
@@ -262,11 +271,14 @@
         "<AANLkTikIUSjDDOhdqyFtmCJoQxA0zx_076ooDkr8W3SF@mail.gmail.com>",
         "<AANLkTilv4FVKQFNND39oxdzepAwhXRft3CeqGfqKWZWF@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/73350111/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/73350111/attachment.pl>",
+      "body_plain": "Hi all,\n\nCould you tell me which function in R is for changing letter case? Thanks.\n\nBest,\n\nXiang\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\nCould you tell me which function in R is for changing letter case? Thanks.\n\nBest,\n\nXiang\n\n\t[[alternative HTML version deleted]]",
       "thread_id": "thread-9a6dd06ad7dd",
       "thread_depth": 2,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/73350111/attachment.pl"
+      ]
     },
     {
       "id": "msg-081f35ddbaac",
@@ -303,11 +315,14 @@
         "<201007191631238596973@gmail.com>",
         "<4C440E60.2020204@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/03331f48/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/03331f48/attachment.pl>",
+      "body_plain": "Hi Cei, thanks a lot.\n\n\n2010-07-19 \n\n\n\nxuxiang086 \n\n\n\n发件人： Cei Abreu-Goodger \n发送时间： 2010-07-19  16:35:46 \n收件人： xuxiang086 \n抄送： bioc-sig-sequencing \n主题： Re: [Bioc-sig-seq] How to convert upper case strings to lower case \n \nHi Xiang,\nThis set of functions should help... But you could probably have found \nthem  by using google.\nchartr\ntoupper\ntolower\ncasefold\nCheers,\nCei\nxuxiang086 wrote:\n> Hi all,\n> \n> Could you tell me which function in R is for changing letter case? Thanks.\n> \n> Best,\n> \n> Xiang\n> \n>  [[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Cei, thanks a lot.\n\n\n2010-07-19 \n\n\n\nxuxiang086 \n\n\n\n发件人： Cei Abreu-Goodger \n发送时间： 2010-07-19  16:35:46 \n收件人： xuxiang086 \n抄送： bioc-sig-sequencing \n主题： Re: [Bioc-sig-seq] How to convert upper case str",
       "thread_id": "thread-9a6dd06ad7dd",
       "thread_depth": 4,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/03331f48/attachment.pl"
+      ]
     },
     {
       "id": "msg-ba7149610a12",
@@ -412,11 +427,14 @@
       "subject_clean": "[Bioc-sig-seq] using subseq() in Biostrings to insert bases",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/8150eeef/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/8150eeef/attachment.pl>",
+      "body_plain": "Is there a way to use subseq() to insert nucleotides?\n\nTake for example foo:\n\nfoo <- DNAStringSet('ACTTA')\n\nI'd like to insert e.g. a G between positions 2 and 3 so that foo looks like\n'ACGTTA'  Is there a way to do this using subseq()?  Or is an alternative\nfunction recommended?\n\nThanks,\nAndrew\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Is there a way to use subseq() to insert nucleotides?\n\nTake for example foo:\n\nfoo <- DNAStringSet('ACTTA')\n\nI'd like to insert e.g. a G between positions 2 and 3 so that foo looks like\n'ACGTTA'  Is th",
       "thread_id": "thread-0744bdfb004d",
       "thread_depth": 0,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/8150eeef/attachment.pl"
+      ]
     },
     {
       "id": "msg-a6b73e29cecd",
@@ -430,11 +448,14 @@
       "references": [
         "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/34bbb968/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/34bbb968/attachment.pl>",
+      "body_plain": "It's certainly possible to use subseq and append to insert sequences. I've\nfound it much faster to coerce to character and use substring and paste\nthough.\n\nOn Mon, Jul 19, 2010 at 8:11 PM, Andrew Yee <yee at post.harvard.edu> wrote:\n\n> Is there a way to use subseq() to insert nucleotides?\n>\n> Take for example foo:\n>\n> foo <- DNAStringSet('ACTTA')\n>\n> I'd like to insert e.g. a G between positions 2 and 3 so that foo looks\n> like\n> 'ACGTTA'  Is there a way to do this using subseq()?  Or is an alternative\n> function recommended?\n>\n> Thanks,\n> Andrew\n>\n>        [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "It's certainly possible to use subseq and append to insert sequences. I've\nfound it much faster to coerce to character and use substring and paste\nthough.\n\nOn Mon, Jul 19, 2010 at 8:11 PM, Andrew Yee ",
       "thread_id": "thread-0744bdfb004d",
       "thread_depth": 1,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100719/34bbb968/attachment.pl"
+      ]
     },
     {
       "id": "msg-3f4b685235e8",
@@ -467,11 +488,14 @@
         "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
         "<AANLkTilGKNKdYkhMFeyMdm-ylp_1_a-sgtDjh9rElAZr@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/83f3b1d8/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/83f3b1d8/attachment.pl>",
+      "body_plain": "Thanks everyone for your suggestions.\n\nThis approach also works:\n\nfoo <- DNAStringSet('ACTTA')\n\nfoo <- as.character(foo)\n\nDNAStringSet(paste(substr(foo, 1,2), 'G', substr(foo, 3, nchar(foo)),\nsep='', col=''))\n\nThanks,\nAndrew\n\nOn Tue, Jul 20, 2010 at 12:23 AM, Vincent Carey\n<stvjc at channing.harvard.edu>wrote:\n\n> This particular task might be solved with gsub():\n>\n> > foo <- DNAStringSet('ACTTA')\n> > gsub(\"^(..)(.)\", \"\\\\1G\\\\2\", foo)\n> [1] \"ACGTTA\"\n>\n> There is of course a more concise solution than the one given here.\n>\n> On Mon, Jul 19, 2010 at 11:11 PM, Andrew Yee <yee at post.harvard.edu> wrote:\n> > Is there a way to use subseq() to insert nucleotides?\n> >\n> > Take for example foo:\n> >\n> > foo <- DNAStringSet('ACTTA')\n> >\n> > I'd like to insert e.g. a G between positions 2 and 3 so that foo looks\n> like\n> > 'ACGTTA'  Is there a way to do this using subseq()?  Or is an alternative\n> > function recommended?\n> >\n> > Thanks,\n> > Andrew\n> >\n> >        [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks everyone for your suggestions.\n\nThis approach also works:\n\nfoo <- DNAStringSet('ACTTA')\n\nfoo <- as.character(foo)\n\nDNAStringSet(paste(substr(foo, 1,2), 'G', substr(foo, 3, nchar(foo)),\nsep='', ",
       "thread_id": "thread-0744bdfb004d",
       "thread_depth": 2,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/83f3b1d8/attachment.pl"
+      ]
     },
     {
       "id": "msg-6faf8e42815f",
@@ -523,11 +547,14 @@
         "<AANLkTincY-tmckbvnzFeRC_eXI3OkQirN6bwyceCHTRe@mail.gmail.com>",
         "<4C460AEE.1010706@fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/bf0806fc/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/bf0806fc/attachment.pl>",
+      "body_plain": "Thanks, that's very helpful.\n\nAndrew\n\n2010/7/20 Hervé Pagès <hpages at fhcrc.org>\n\n> Hi Andrew,\n>\n>\n> On 07/19/2010 08:11 PM, Andrew Yee wrote:\n>\n>> Is there a way to use subseq() to insert nucleotides?\n>>\n>> Take for example foo:\n>>\n>> foo<- DNAStringSet('ACTTA')\n>>\n>> I'd like to insert e.g. a G between positions 2 and 3 so that foo looks\n>> like\n>> 'ACGTTA'  Is there a way to do this using subseq()?  Or is an alternative\n>> function recommended?\n>>\n>\n> Just do:\n>\n>  > foo <- DNAString('ACTTA')\n>  > subseq(foo, start=3, end=2) <- DNAString(\"G\")\n>  > foo\n>    6-letter \"DNAString\" instance\n>  seq: ACGTTA\n>\n> Generally speaking, if performance is important, you should get better\n> results by *not* switching back and forth between DNAString/DNAStringSet\n> objects and regular character vectors. For example, if you want to\n> replace the nucleotides starting at pos 101 in Human chrY by those in\n> chrM:\n>\n>  o Using subseq<-():\n>\n>    > library(BSgenome.Hsapiens.UCSC.hg19)\n>    > chrY <- unmasked(Hsapiens$chrY)\n>    > chrM <- unmasked(Hsapiens$chrM)\n>    > system.time(subseq(chrY, start=101, width=length(chrM)) <- chrM)\n>       user  system elapsed\n>      0.190   0.010   0.193\n>    > gc()\n>               used  (Mb) gc trigger  (Mb) max used  (Mb)\n>    Ncells  1158959  61.9    1835812  98.1  1394696  74.5\n>    Vcells 15445470 117.9   17364147 132.5 15568274 118.8\n>\n>  o Using substr():\n>\n>    > library(BSgenome.Hsapiens.UCSC.hg19)\n>    > chrY <- unmasked(Hsapiens$chrY)\n>    > chrM <- unmasked(Hsapiens$chrM)\n>    > system.time({tmp <- as.character(chrY);\n>                   tmp2 <- paste(substr(tmp, start=1, stop=100),\n>                                 as.character(chrM),\n>                                 substr(tmp, start=101+length(chrM),\n>                                             stop=length(chrY)),\n>                                 sep=\"\");\n>                   chrY <- DNAString(tmp2)})\n>       user  system elapsed\n>      1.860   0.230   2.088\n>    > gc()\n>               used  (Mb) gc trigger  (Mb) max used  (Mb)\n>    Ncells  1128874  60.3    1835812  98.1  1368491  73.1\n>    Vcells 30276832 231.0   35483245 270.8 30284765 231.1\n>\n> Using subseq<-() is faster and more memory efficient. It's also\n> more convenient.\n>\n> Cheers,\n> H.\n>\n>\n>\n>\n>> Thanks,\n>> Andrew\n>>\n>>        [[alternative HTML version deleted]]\n>>\n>> _______________________________________________\n>> Bioc-sig-sequencing mailing list\n>> Bioc-sig-sequencing at r-project.org\n>> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>>\n>\n>\n> --\n> Hervé Pagès\n>\n> Program in Computational Biology\n> Division of Public Health Sciences\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N, M2-B876\n> P.O. Box 19024\n> Seattle, WA 98109-1024\n>\n> E-mail: hpages at fhcrc.org\n> Phone:  (206) 667-5791\n> Fax:    (206) 667-1319\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks, that's very helpful.\n\nAndrew\n\n2010/7/20 Hervé Pagès <hpages at fhcrc.org>\n\n> Hi Andrew,\n>\n>\n> On 07/19/2010 08:11 PM, Andrew Yee wrote:\n>\n>> Is there a way to use subseq() to insert nucleotide",
       "thread_id": "thread-0744bdfb004d",
       "thread_depth": 2,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100720/bf0806fc/attachment.pl"
+      ]
     },
     {
       "id": "msg-afea9f8b4519",
@@ -557,11 +584,14 @@
       "references": [
         "<20100722113037.BHU30697@gimr.garvan.unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100721/ddc33428/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100721/ddc33428/attachment.pl>",
+      "body_plain": "GenomeData is a generic container. It looks like you're using it with the\nchipseq package, which for each chromosome stores a list of integer vectors,\nwith an element for each strand. The RangedData coercion method tries to\ncoerce each element of GenomeData (i.e., each chromosome) to a RangedData\nand then concatenates them. This simple logic will fail in this case.\n\nI would recommend only using GenomeData when there is no appropriate\nexisting container type. For chipseq data, there usually is a good one (like\nGRanges). Thus, the use of GenomeData is being phased out of the chipseq\npackage.\n\nMichael\n\nOn Wed, Jul 21, 2010 at 6:30 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> It seems simple, but it is not working for me. Could it be that it is not\n> implemented yet ?\n>\n> > asRD <- as(rs, \"RangedData\")\n> Error in FUN(X[[1L]], ...) :\n>  no method or default for coercing \"list\" to \"RangedData\"\n> > summary(rs)\n>    Length      Class       Mode\n>        25 GenomeData         S4\n>\n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "GenomeData is a generic container. It looks like you're using it with the\nchipseq package, which for each chromosome stores a list of integer vectors,\nwith an element for each strand. The RangedData c",
       "thread_id": "thread-afea9f8b4519",
       "thread_depth": 1,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100721/ddc33428/attachment.pl"
+      ]
     },
     {
       "id": "msg-3d589d2b97d0",
@@ -573,11 +603,14 @@
       "subject_clean": "[Bioc-sig-seq] ChIPseqR question",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100722/7e6b2c88/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100722/7e6b2c88/attachment.pl>",
+      "body_plain": "Hello,\n      I am interested in using the ChIPseqR package to\npredict nucleosome positions from MNase-seq data. I have loaded the\nread positions, length and strand data into a data frame following the\npackage introduction pdf provided. However, when I try to construct the counts\nobject using the strandPileup function I get the following error:\n\n\n\n> Chr1counts<-strandPileup(reads, chrLen=30427671, extend=1, plot=FALSE)\n\n\n\nError in solveUserSEW0(start = start, end = end, width = width) :\n\n  solving row 1: range cannot be determined from the supplied arguments (too many NAs)\n\nError in coverage(IRanges(start = start1, width = extend), ...) :\n\n  error in evaluating the argument 'x' in selecting a method for function 'coverage'\n\n\n\nHere is the traceback results:\n\n\n\n> traceback()\n\n4: coverage(IRanges(start = start1, width = extend), ...)\n\n3: .local(aligned, chrLen, ...)\n\n2: strandPileup(reads, chrLen = 30427671, extend = 1, plot = FALSE)\n\n1: strandPileup(reads, chrLen = 30427671, extend = 1, plot = FALSE)\n\n\n\nI would appreciate any insight into a solution for this problem.\n\n\n\nCheers,\n\n        Robert Morris\n\n\n\n\n\nRobert Morris\n\nResearch Associate\n\nWyrick lab\n\nWashington State University\n\nPullman, WA\n\nUSA \t\t \t   \t\t  \n_________________________________________________________________\nLearn more ways to connect with your buddies now\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello,\n      I am interested in using the ChIPseqR package to\npredict nucleosome positions from MNase-seq data. I have loaded the\nread positions, length and strand data into a data frame following the",
       "thread_id": "thread-3d589d2b97d0",
       "thread_depth": 0,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100722/7e6b2c88/attachment.pl"
+      ]
     },
     {
       "id": "msg-44cf1cc93aab",
@@ -841,11 +874,14 @@
       "subject_clean": "[Bioc-sig-seq] Thanks for organizing BioC2010",
       "in_reply_to": "<4C4F797D.2000704@fhcrc.org>",
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100731/cddcdaf9/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100731/cddcdaf9/attachment.pl>",
+      "body_plain": "Hi All\n\nThanks to everyone who organized a wonderful BioC2010 meeting. It was fantastic to meet people from the similar background and learn more about their work and experience using Bioconductor. The choice of speakers was excellent. I enjoyed all the morning talks and found the information given very thought provoking and latest in the field.  It would be really nice if the slides from the speakers could be shared. It will help me at least follow up on my visual memory a lot more efficiently.\n\nOnce again Kudos to the Bioconductor team.\n\n\nCheers!\n-Abhi\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi All\n\nThanks to everyone who organized a wonderful BioC2010 meeting. It was fantastic to meet people from the similar background and learn more about their work and experience using Bioconductor. Th",
       "thread_id": "thread-c2da0c226acd",
       "thread_depth": 2,
-      "month": "2010-07"
+      "month": "2010-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100731/cddcdaf9/attachment.pl"
+      ]
     }
   ],
   "threads": [

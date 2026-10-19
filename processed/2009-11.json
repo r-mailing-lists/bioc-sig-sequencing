@@ -264,11 +264,14 @@
       "subject_clean": "[Bioc-sig-seq] Creating IRangesList from a list of IRanges",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091110/cb5cbf84/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091110/cb5cbf84/attachment.pl>",
+      "body_plain": "Hi, I'm frequently faced with the need to convert a regular list of IRanges\nobjects to an IRangesList object. However, there doesn't seem to be an\nas(x,\"IRangesList\") coercer when x is a list.\n\nI know I can use the constructor IRanges(x[[1]],x[[2]],x[[3]]) but this is\nnot very convenient when x is a long list. I searched around but I couldn't\nfind anything about this topic. Am I missing something obvious? Help anyone?\n\nDavid\n\n-- \nDavid Rossell, PhD\nManager, Bioinformatics and Biostatistics unit\nIRB Barcelona\nTel (+34) 93 402 0217\nFax (+34) 93 402 0257\nhttp://www.irbbarcelona.org/bioinformatics\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi, I'm frequently faced with the need to convert a regular list of IRanges\nobjects to an IRangesList object. However, there doesn't seem to be an\nas(x,\"IRangesList\") coercer when x is a list.\n\nI know",
       "thread_id": "thread-65155abd5eb4",
       "thread_depth": 0,
-      "month": "2009-11"
+      "month": "2009-11",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091110/cb5cbf84/attachment.pl"
+      ]
     },
     {
       "id": "msg-ca6c0acab40a",
@@ -301,11 +304,14 @@
         "<a1ba17ba0911100854vd4f8f72t93cfeca40fb394a5@mail.gmail.com>",
         "<06ED9EAD-4B56-400D-BB33-6D63E910DA14@gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091111/a379fed5/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091111/a379fed5/attachment.pl>",
+      "body_plain": "Thanks for the quick reply, this works perfectly, I was working with an\nolder IRanges version.\n\nTake care,\n\nDavid\n\n\nOn Tue, Nov 10, 2009 at 6:53 PM, Steve Lianoglou <\nmailinglist.honeypot at gmail.com> wrote:\n\n> Hi,\n>\n>\n> On Nov 10, 2009, at 11:54 AM, David Rossell wrote:\n>\n>  Hi, I'm frequently faced with the need to convert a regular list of\n>> IRanges\n>> objects to an IRangesList object. However, there doesn't seem to be an\n>> as(x,\"IRangesList\") coercer when x is a list.\n>>\n>> I know I can use the constructor IRanges(x[[1]],x[[2]],x[[3]]) but this is\n>> not very convenient when x is a long list. I searched around but I\n>> couldn't\n>> find anything about this topic. Am I missing something obvious? Help\n>> anyone?\n>>\n>\n> What version of IRanges are you using? I have v.1.5.4 installed right now\n> and this works for me:\n>\n> R> il <- list(IRanges(start=c(1, 5, 30), end=c(20, 30, 50)),\n>             IRanges(start=c(100, 200, 300), end=c(110, 210, 310)))\n>\n> R> IRangesList(il)\n> CompressedIRangesList of length 2\n> [[1]]\n> IRanges of length 3\n>    start end width\n> [1]     1  20    20\n> [2]     5  30    26\n> [3]    30  50    21\n>\n> [[2]]\n> IRanges of length 3\n>    start end width\n> [1]   100 110    11\n> [2]   200 210    11\n> [3]   300 310    11\n>\n> Isn't that what you're after?\n>\n> -steve\n>\n> --\n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n>  |  Memorial Sloan-Kettering Cancer Center\n>  |  Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact<http://cbio.mskcc.org/%7Elianos/contact>\n>\n>\n\n\n-- \nDavid Rossell, PhD\nManager, Bioinformatics and Biostatistics unit\nIRB Barcelona\nTel (+34) 93 402 0217\nFax (+34) 93 402 0257\nhttp://www.irbbarcelona.org/bioinformatics\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks for the quick reply, this works perfectly, I was working with an\nolder IRanges version.\n\nTake care,\n\nDavid\n\n\nOn Tue, Nov 10, 2009 at 6:53 PM, Steve Lianoglou <\nmailinglist.honeypot at gmail.com",
       "thread_id": "thread-65155abd5eb4",
       "thread_depth": 2,
-      "month": "2009-11"
+      "month": "2009-11",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091111/a379fed5/attachment.pl"
+      ]
     },
     {
       "id": "msg-ee4a9e8c98ad",
@@ -404,11 +410,14 @@
       "references": [
         "<20091118163220.BCL49802@gimr.garvan.unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091122/04a38a7c/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091122/04a38a7c/attachment.pl>",
+      "body_plain": "On Tue, Nov 17, 2009 at 9:32 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> Does anyone have suggestions as to why this never finishes running ?\n>\n>\nPerhaps network issues? It seems to work here... can you download other\ntracks or is it just this one?\n\nMichael\n\n\n> session <- browserSession(\"UCSC\")\n>  ...            ...\n> q2 <- ucscTableQuery(session, \"all_mrna\", GenomicRanges(genome = \"hg18\"))\n> mrna <- getTable(q2)\n>\n> The sessionInfo() is\n> R version 2.10.0 (2009-10-26)\n> x86_64-pc-linux-gnu\n>\n> locale:\n>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8\n>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] rtracklayer_1.6.0 RCurl_1.3-0       bitops_1.0-4.1\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.6.0     Biostrings_2.14.5 BSgenome_1.14.1   IRanges_1.4.6\n> [5] tools_2.10.0      XML_2.6-0\n>\n> Thanks,\n>       Dario.\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Nov 17, 2009 at 9:32 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> Does anyone have suggestions as to why this never finishes running ?\n>\n>\nPerhaps network issues? It se",
       "thread_id": "thread-93dda372740c",
       "thread_depth": 1,
-      "month": "2009-11"
+      "month": "2009-11",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091122/04a38a7c/attachment.pl"
+      ]
     },
     {
       "id": "msg-73b90d245740",
@@ -569,11 +578,14 @@
       "subject_clean": "[Bioc-sig-seq] extract id from ShortRead",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091130/c19d09c0/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091130/c19d09c0/attachment.pl>",
+      "body_plain": "Hi,\nI have a sequence loaded from bowtie alignment\naln <- readAligned(\"./S1\", pattern=\"S1_1.hg19.bowtie.align\", type=\"Bowtie\")\nI would like to to extract the id to select specific reads\nI run id(aln) and I get:\nid(aln)\n  A BStringSet instance of length 4340867\n          width seq\n      [1]    28 HWI-EA332_8_1_3_659#GGGGNN/1\n      [2]    29 HWI-EA332_8_1_3_1738#CCCCNN/1\n      [3]    29 HWI-EA332_8_1_3_1094#AGGANN/1\n      [4]    28 HWI-EA332_8_1_3_558#TTTCNN/1\n      [5]    29 HWI-EA332_8_1_3_1920#AAAANN/1\n      [6]    28 HWI-EA332_8_1_3_228#GGGGNN/1\n      [7]    29 HWI-EA332_8_1_3_1261#AGGGNN/1\n      [8]    28 HWI-EA332_8_1_3_908#ACTTNN/1\n      [9]    27 HWI-EA332_8_1_3_53#CTGCNN/1\n      ...   ... ...\n[4340859]    33 HWI-EA332_8_120_1596_499#TTGANA/1\n[4340860]    34 HWI-EA332_8_120_1599_1161#CCACNT/1\n[4340861]    33 HWI-EA332_8_120_1601_255#CTCTNA/1\n[4340862]    33 HWI-EA332_8_120_1601_504#CCATNC/1\n[4340863]    33 HWI-EA332_8_120_1624_899#CTCTNT/1\n[4340864]    33 HWI-EA332_8_120_1487_658#ACCCNA/1\n[4340865]    32 HWI-EA332_8_120_1533_28#CACANG/1\n[4340866]    33 HWI-EA332_8_120_1564_807#CCCGNG/1\n[4340867]    34 HWI-EA332_8_120_1474_1350#CCTGNC/1\n\nThis BStringSet instance has 'width' and 'seq'\nruning str(id(aln)) i got this\n\nFormal class 'BStringSet' [package \"Biostrings\"] with 5 slots\n  ..@ pool           :Formal class 'SharedRaw_Pool' [package \"IRanges\"] with\n2 slots\n  .. .. ..@ xp_list                    :List of 1\n  .. .. .. ..$ :<externalptr>\n  .. .. ..@ .link_to_cached_object_list:List of 1\n  .. .. .. ..$ :<environment: 0x2af6400>\n  ..@ ranges         :Formal class 'GroupedIRanges' [package \"IRanges\"] with\n7 slots\n  .. .. ..@ group          : int [1:4340867] 1 1 1 1 1 1 1 1 1 1 ...\n  .. .. ..@ start          : int [1:4340867] 1 29 58 87 115 144 172 201 229\n256 ...\n  .. .. ..@ width          : int [1:4340867] 28 29 29 28 29 28 29 28 27 29\n...\n  .. .. ..@ NAMES          : NULL\n  .. .. ..@ elementMetadata: NULL\n  .. .. ..@ elementType    : chr \"integer\"\n  .. .. ..@ metadata       : list()\n  ..@ elementMetadata: NULL\n  ..@ elementType    : chr \"BString\"\n  ..@ metadata       : list()\n\nBut i'm wondering how to extract only the 'seq' from all that and store\nresult in a table ?\n\nThanks in advance for your help.\n\nBest Regards,\nMohamed-Ramzi Temanni,\nLeiden, The Netherlands\n----------------------------------------------------------------\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\nI have a sequence loaded from bowtie alignment\naln <- readAligned(\"./S1\", pattern=\"S1_1.hg19.bowtie.align\", type=\"Bowtie\")\nI would like to to extract the id to select specific reads\nI run id(aln) ",
       "thread_id": "thread-e195d28bd3a1",
       "thread_depth": 0,
-      "month": "2009-11"
+      "month": "2009-11",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20091130/c19d09c0/attachment.pl"
+      ]
     },
     {
       "id": "msg-a41427f6096f",

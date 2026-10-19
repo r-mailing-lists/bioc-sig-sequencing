@@ -192,11 +192,14 @@
       "subject_clean": "[Bioc-sig-seq] assess how many duplicated reads",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110811/4d8508bb/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110811/4d8508bb/attachment.pl>",
+      "body_plain": "Hi, I have some human single end RNA-seq runs on HiSeq. Can I have some suggestions on how to assess how many duplicated reads out of these libraries? I looked around srFilter() in ShortRead, but have not had a clear thought on how to implement it? Should I use IRanges as an alternative to assess the unique starting site after the mapping? If so, what function do you suggest? I'd like to count reads which map to the same location (even with some mismatches) as duplicates. Thanks.\n\n-Kunbin\n\n\n\n______________________________________________________________________\nThe contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi, I have some human single end RNA-seq runs on HiSeq. Can I have some suggestions on how to assess how many duplicated reads out of these libraries? I looked around srFilter() in ShortRead, but have",
       "thread_id": "thread-f891d94589fd",
       "thread_depth": 0,
-      "month": "2011-08"
+      "month": "2011-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110811/4d8508bb/attachment.pl"
+      ]
     },
     {
       "id": "msg-5254ebf510b0",
@@ -244,11 +247,14 @@
       "references": [
         "<F9406132-52EF-4390-91D6-399D2A22EF21@ibis.ulaval.ca>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110812/d881192d/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110812/d881192d/attachment.pl>",
+      "body_plain": "My simplest explanation: did you check if the carriage return of the files  \nis UNIX\nwhile you are using R on windows ? you can convert these with the Context \ntext editor.\nIt is a subtle - and common - problem when downloading files from the web.\n\nHTH,\n\nAlessandro\n-----------------------------------------------------\nAlessandro Guffanti - Bioinformatics, Genomnia srl\nVia Nerviano, 31 - 20020 Lainate, Milano, Italy\nPh: +39-0293305.700 Fax: +39-0293305.777\nhttp://www.genomnia.com\n\"If you can dream it, you can do it\" (Walt Disney)\n\n-----Original Message-----\n From: Jérôme Laroche <jerome.laroche at ibis.ulaval.ca>\n To: \"bioc-sig-sequencing at r-project.org\" <bioc-sig-sequencing at r-project.org>\n Date: Thu, 11 Aug 2011 14:17:06 -0400\n Subject: [Bioc-sig-seq] edgeR datasets\n\n\nHi,\n\n I try to replicate the analysis \"Case study of SAGE data\" presented on page \n9 of edgeR document. I wonder if the mentioned datasets of Zhang et al. 1997 \nare available somewhere? The datasets are: GSM728.txt, GSM729.txt, \nGSM755.txt, GSM756.txt and particularly Targets.txt.\n I looked at the page http://sites.google.com/site/davismcc/useful-documents \n[http://sites.google.com/site/davismcc/useful-documents], but they do not \nseem to be there.\n\n I tried to work with the files that accompany the package (NC1.txt, \nNC2.txt, and Tu98.txt Tu102.txt) but I get an error message when I run the \ncommand:\n > d <- calcNormFactors (d)\n (Error in calcNormFactors (d) 'data matrix' Need to Be a matrix).\n\n All the files are in the form:\n\n Tag_Sequence    Count\n AAAAAAAAAA      17\n AAAAAAAAGA      1\n AAAAAAACCC      1\n AAAAAAAGCA      1\n AAAAAAATCA      4\n\n and the Targets.txt file is:\n files   group    description\n NC1.txt   NC   Normal colon\n NC2.txt   NC   Normal colon\n Tu98.txt   Tu   Primary colonrectal tumour\n Tu102.txt   Tu   Primary colonrectal tumour\n\n\n In fact, after running the commands:\n > targets <-read.delim (file = \"Targets.txt\" stringsAsFactors = FALSE)\n > d <- readDGE (targets, skip = 5, comment.char =\"!\")\n I do not get a column showing the normalization factors (1 for all files) \nas shown in the document.\n\n Also, when I run the command\n > dim(d)\n I get \"NULL\" as a result.\n\n\n Thank you for your help.\n\n Jerome\n Universite Laval, Quebec, Canada\n\n _______________________________________________\n Bioc-sig-sequencing mailing list\n Bioc-sig-sequencing at r-project.org\n https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing \n[https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing]\n\n\n-----------------------------------------------------------\nIl Contenuto del presente messaggio potrebbe contenere informazioni confidenziali a favore dei\nsoli destinatari del messaggio stesso. Qualora riceviate per errore questo messaggio siete pregati \ndi cancellarlo dalla memoria del computer e di contattare i numeri sopra indicati. Ogni utilizzo o \nritrasmissione dei contenuti del messaggio da parte di soggetti diversi dai destinatari è da \nconsiderarsi vietato ed abusivo.\n\nThe information transmitted is intended only for the per...{{dropped:10}}",
+      "body_snippet": "My simplest explanation: did you check if the carriage return of the files  \nis UNIX\nwhile you are using R on windows ? you can convert these with the Context \ntext editor.\nIt is a subtle - and common",
       "thread_id": "thread-81d4cad2e561",
       "thread_depth": 1,
-      "month": "2011-08"
+      "month": "2011-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110812/d881192d/attachment.pl"
+      ]
     },
     {
       "id": "msg-b9e3c47d07c0",
@@ -317,11 +323,14 @@
       "references": [
         "<CADE5-OQbFrb_qHsoW+cPY=uR+oQs+KD79pqRwt6oSCmwWxy0AA@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110817/2b28aac6/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110817/2b28aac6/attachment.pl>",
+      "body_plain": "Dear Wolfgang, dear Simon,\n\nThanks for the explanation, I did not have understand well the purpose\nof DEXSeq.\nIf you are interested, here are the cases in my dataset where genes\nhave more than 1 exon, but testGeneForDEU did not give a result:\n\n*The simplest case:*\nres1[1449:1451,]\n                   geneID exonID dispersion_CR_est   dispersion   pvalue\nEHI_031280:001 EHI_031280   E001        0.25177357 2.517736e-01 0.837492\nEHI_031280:002 EHI_031280   E002        0.03580064 3.580064e-02 0.837492\nEHI_031280:003 EHI_031280   E003                NA 1.000000e+08       NA\n                 padjust\nEHI_031280:001 0.9746982\nEHI_031280:002 0.9746982\nEHI_031280:003        NA\n\nAnd the read counts per exon are:\nexon_counts[1449:1451,]\n            exon_ID  FKKM1_1 FPKM1_2 FPKM1_3 FPKM2_1 FPKM2_2 FPKM2_3\n1449 EHI_031280:001    9      9      5       33      7    2\n1450 EHI_031280:002  155    192    220      453    133  176\n1451 EHI_031280:003    0      0      0        0      0    0\n\nOne exon in the gene has 0 for all FPKM => 10^8 dispersion and no\nresult for the test. I am not surprised, contrary to *this second\ncase*:\n res1[1227:1228,]\n                   geneID exonID dispersion_CR_est  dispersion pvalue padjust\nEHI_025270:001 EHI_025270   E001                NA 1.00000e+08     NA      NA\nEHI_025270:002 EHI_025270   E002                NA 2.03465e-02     NA      NA\n\nAnd the read counts per exon are:\n exon_counts[1227:1228,]\n            exon_ID  FKKM1_1 FPKM1_2 FPKM1_3 FPKM2_1 FPKM2_2 FPKM2_3\n1227 EHI_025270:001     0      0      0        0      0    0\n1228 EHI_025270:002 11900   3012  12136    10971   7387 5923\n\nWhy is there no result for the second exon?\n\nThanks,\nJane\n\n\n\"Dear Jane,\n\nin the case of genes (or better term: loci) with only one exon, DEXSeq's\ntestGeneForDEU does not make sense - it is looking for exons within the\nlocus that behave differently from the average of all the others: there\nare no others! Hence the parameters are unidentifiable, and the software\nshould not even look at them. We'll robustify the software for this case\nin future versions (note that the package is still actively being\ndeveloped).\n\nThe case of the NA values that are not explained by there only being one\nexon is more interesting. Can you send us the code to reproduce your\nproblem (this also requires the data, which you can send offline, and in\nwhich you can for instance anonymize the gene and sample annotations).\n\n\tBest wishes\n\tWolfgang\n\nHi Jane\n\nOn 08/08/2011 02:45 PM, Wolfgang Huber wrote:\n>* in the case of genes (or better term: loci) with only one exon, DEXSeq's\n*>* testGeneForDEU does not make sense - it is looking for exons within the\n*>* locus that behave differently from the average of all the others: there\n*>* are no others! Hence the parameters are unidentifiable, and the software\n*>* should not even look at them.\n*\nActually, it doesn't. This is why the p value is NA. Also note the\ncolumn 'testable' in the fData data frame: it is set to FALSE in such\ncases to indicate that a test was not attempted. You will also find\ntestable=FALSE occasionally in genes with more than one exons, namely\nwhenever all exons or all exons but one have zero counts in all samples.\n\nCheers\n   Simon\"\n\n\n\n2011/7/29 Jane Merlevede <jane.merlevede at gmail.com>\n\n> Hello,\n>\n> I am using DEXseq for differential analysis. I have posted some e-mails\n> about it already on this list, but I have more questions !\n> My dataset has 2 conditions with 3 biological replicates per condition:\n>\n> pData(ecs)\n>         sizeFactor condition replicate       type\n> Raman_1  0.9638822    nonvir         1 paired-end\n> HM1_1    1.4000715       vir         1 paired-end\n> Raman_2  1.0314049    nonvir         2 paired-end\n> Raman_3  1.0734133    nonvir         3 paired-end\n> HM1_2    0.7801269       vir         2 paired-end\n> HM1_3    0.9488409       vir         3 paired-end\n>\n>\n> I found the number of differentially expressed exons. I would like to know\n> also which are down and which are up regulated. This information is given by\n> foldChange, which is not provided in DEXSeq (res1).\n>\n> res1 <- DEUresultTable(ecs)\n> head(res1)\n>                    geneID exonID dispersion_CR_est dispersion    pvalue\n> EHI_000010:001 EHI_000010   E001                NA 0.02377712        NA\n> EHI_000130:001 EHI_000130   E001        0.07466945 0.07466945 0.4867354\n> EHI_000130:002 EHI_000130   E002        0.12897281 0.12897281 0.9427953\n> EHI_000130:003 EHI_000130   E003        0.01960222 0.02031871 0.8432791\n> EHI_000130:004 EHI_000130   E004        0.06733720 0.06733720 0.7042977\n> EHI_000240:001 EHI_000240   E001        0.04375400 0.04375400 0.7493987\n>                  padjust\n> EHI_000010:001        NA\n> EHI_000130:001 0.8639624\n> EHI_000130:002 0.9927663\n> EHI_000130:003 0.9756197\n> EHI_000130:004 0.9503086\n> EHI_000240:001 0.9611397\n>\n> So I would like to know, if it could be possible to have baseMean,\n> baseMeanA, baseMeanB, foldChange, log2FoldCHange, resVarA and resVarB as in\n> DESeq?\n>\n> Since this does not seem to be implemented in DEXSeq, I should start with\n> the read counts per exon table to get it, but I can't find it neither. I\n> think it is use in the estimateSizeFactors function, but I don't manage to\n> access it. It's a pity, I will have to reconstruct the table...\n>\n>\n> Thank you for your help,\n> Jane Merlevède\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear Wolfgang, dear Simon,\n\nThanks for the explanation, I did not have understand well the purpose\nof DEXSeq.\nIf you are interested, here are the cases in my dataset where genes\nhave more than 1 exon,",
       "thread_id": "thread-82a2bf6d7d83",
       "thread_depth": 0,
-      "month": "2011-08"
+      "month": "2011-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110817/2b28aac6/attachment.pl"
+      ]
     },
     {
       "id": "msg-09b7a69341c3",
@@ -466,11 +475,14 @@
       "subject_clean": "[Bioc-sig-seq] a question about trimLRPatterns",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/47a13ed3/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/47a13ed3/attachment.pl>",
+      "body_plain": "hi every one:\n    i am still confused by parameters in function trimLRPatterns\nif i set\nLpattern <- \"AAAAAAAATTCTGCT\"\nRpattern <- \"GATCGGATTTTTTTT\"\nsubject <- DNAString(\"TTCTGCTTGACGTGATCGGA\")\ntrimLRPatterns(Lpattern = Lpattern, subject = subject)#\nthe results are\n\n13-letter \"DNAString\" instance\nseq: TGACGTGATCGGA\n\ntrimLRPatterns(Rpattern = Rpattern, subject = subject)#\n\nthe results are\n13-letter \"DNAString\" instance\nseq: TTCTGCTTGACGT\n\ni think with.Rindels = F with.Lindels = F\n\nAAAAAAAA and TTTTTTTT are insertions\n\n\nthank you\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "hi every one:\n    i am still confused by parameters in function trimLRPatterns\nif i set\nLpattern <- \"AAAAAAAATTCTGCT\"\nRpattern <- \"GATCGGATTTTTTTT\"\nsubject <- DNAString(\"TTCTGCTTGACGTGATCGGA\")\ntrimLRP",
       "thread_id": "thread-9fbe2fb7fa5c",
       "thread_depth": 0,
-      "month": "2011-08"
+      "month": "2011-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/47a13ed3/attachment.pl"
+      ]
     },
     {
       "id": "msg-bf236127c46b",
@@ -484,11 +496,14 @@
       "references": [
         "<2C40E43D1F7A56408C4463FD245DDDF97E0BC06E@EXCHMB-02.stowers-institute.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/418966f8/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/418966f8/attachment.pl>",
+      "body_plain": "On Tue, Aug 30, 2011 at 1:36 PM, Cook, Malcolm <MEC at stowers.org> wrote:\n\n> Janet, Michael, and fellow Bioconductors,\n>\n> I am trying to follow the helpful suggestion Michael made to Janet, found\n> here  https://stat.ethz.ch/pipermail/bioconductor/2011-August/040729.html\n>\n> for obtaining a Rle encoding of the contents of a bigWig file.\n>\n> But instead get an error: \"  'weight' must be a non-empty list of integers\"\n>\n>\nThe scores in that file are numeric, not integers. The coverage() function\nonly supports integer weights. In general though, the score column will\nalways come back as numeric (because bigwig stores it as doubles). One could\nargue that coverage,RangesList is being too strict about requiring an\nIntegerList but not a NumericList (coverage,IRanges coerces a numeric vector\nto an integer vector).\n\nI'll leave this up to people with stronger opinions about this type of thing\nbut he might be on vacation.... so I just made that change.\n\nMichael\n\n\n> As per the following session.\n>\n> I would appreciate any advice/hints.\n>\n> Thanks,\n>\n> -Malcolm Cook\n> Computational Biology - Stowers Institute for Medical Research\n>\n>\n>\n> > library(IRanges)\n> > library(rtracklayer)\n> > bw <- import(test.bw.file, ranges = GenomicRanges::GRanges(\"chr19\",\n> IRanges(1, 6e7)))\n> > coverage(bw,weight=\"score\")\n> Error in .local(x, shift, width, weight, ...) :\n>  'weight' must be a non-empty list of integers\n>\n>\n> > sessionInfo()\n> R version 2.13.1 (2011-07-08)\n> Platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit)\n>\n> locale:\n> [1] C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] IRanges_1.10.6     rtracklayer_1.13.3 RCurl_1.5-0        bitops_1.0-4.1\n>\n> loaded via a namespace (and not attached):\n> [1] BSgenome_1.20.0     Biostrings_2.20.3   GenomicRanges_1.4.8\n> [4] XML_3.4-0\n> >\n>\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Aug 30, 2011 at 1:36 PM, Cook, Malcolm <MEC at stowers.org> wrote:\n\n> Janet, Michael, and fellow Bioconductors,\n>\n> I am trying to follow the helpful suggestion Michael made to Janet, found\n> ",
       "thread_id": "thread-cb5cf37be8f4",
       "thread_depth": 1,
-      "month": "2011-08"
+      "month": "2011-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110830/418966f8/attachment.pl"
+      ]
     },
     {
       "id": "msg-5a5eba212b42",
@@ -555,11 +570,14 @@
         "<CAKH7RFD9zwT=uc7WRSi+jdASDDDw-OMZuJLX9_7L9F0mmFAUag@mail.gmail.com>",
         "<B035E433-ECA7-4AAE-9E23-19AD6810D3AD@jhu.edu>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110831/b35a44c9/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110831/b35a44c9/attachment.pl>",
+      "body_plain": "dear Harris A. Jaffee,\nhj at jhu.edu\n\nthank u very much for your explaination.\nbut i am still confused because of not knowing its algorithm\ncould u tell me if i can read them from lowlevel_matching.c\n\nlet me try to concluded what u have told me:\n\n   1. the algorithm will change every max.Rmismatch to a vector.\nby adding -1 if it is not 0.\n      e.g.\n   if max.Lmismatch=0 it will do : max.Lmismatch = rep(0, nchar(Lpattern))\n   if max.Lmismatch=c(2,2)   it will get 2 2 -1 -1 -1\n    how does the algorithm use -1 or 0 to control the alignment??\n\n   2. the algorithm will try any suffix segment on  Lmismatch by\n   substr(Lpattern, i, nchar(Lpattern)), i = 1:nchar(Lpattern)\n      e.g. Lpattern = \"TTTAACGT\"\n   it will try \"T\",\"GT\",......\n\n   3. during each try, if the length of segment is equal to the lenght of\n   subject, the algoritm will stop, except it can allow indel.\n\n   4. and indel should be counted as a mismatch\nso it is :\n>  subject = \"TTTACGT\"\n> Lpattern = \"TTTAACGT\"         # pattern has an extra 'A'\n\n# need to allow for 1 \"edit\", to remove the extra A\n> trimLRPatterns(Lpattern = Lpattern, subject = subject, max.Lmismatch=1,\n        with.Lindels=TRUE)\n[1] \"\"\n\n trimLRPatterns(Lpattern = Lpattern, subject = subject, max.Lmismatch=4)\n[1] \"\"\ni think when the algorithm take \"TTAACGT\", never try \"TTTAACGT\",\nbecause no indel allowed.\n\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "dear Harris A. Jaffee,\nhj at jhu.edu\n\nthank u very much for your explaination.\nbut i am still confused because of not knowing its algorithm\ncould u tell me if i can read them from lowlevel_matching.c\n",
       "thread_id": "thread-53808b050b4d",
       "thread_depth": 1,
-      "month": "2011-08"
+      "month": "2011-08",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110831/b35a44c9/attachment.pl"
+      ]
     },
     {
       "id": "msg-b7b7473233ca",

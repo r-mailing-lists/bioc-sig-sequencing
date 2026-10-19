@@ -45,11 +45,14 @@
       "subject_clean": "[Bioc-sig-seq] TileQC",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080531/7f6a0f73/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080531/7f6a0f73/attachment.pl>",
+      "body_plain": "Just saw this about an R package for Solexa QC called TileQC. Maybe everyone\nelse knows about it, but if not,\nhttp://www.biomedcentral.com/1471-2105/9/250\n\nMichael\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Just saw this about an R package for Solexa QC called TileQC. Maybe everyone\nelse knows about it, but if not,\nhttp://www.biomedcentral.com/1471-2105/9/250\n\nMichael\n\n\t[[alternative HTML version deleted",
       "thread_id": "thread-eb42ddff2489",
       "thread_depth": 0,
-      "month": "2008-05"
+      "month": "2008-05",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080531/7f6a0f73/attachment.pl"
+      ]
     }
   ],
   "threads": [

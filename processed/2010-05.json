@@ -65,11 +65,14 @@
       "subject_clean": "[Bioc-sig-seq] quantile normalization for RNA-seq",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100503/55f296ba/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100503/55f296ba/attachment.pl>",
+      "body_plain": "Dear all, could anybody tell me if there is a package or some\nestablished methods to do quantile normalization for RNA-seq? I have\nmultiple lanes from a single flow cell run on Illumina's platform.\nThanks.\n\n-Kunbin\n\n\n______________________________________________________________________\nThe contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear all, could anybody tell me if there is a package or some\nestablished methods to do quantile normalization for RNA-seq? I have\nmultiple lanes from a single flow cell run on Illumina's platform.\nTh",
       "thread_id": "thread-6febdbcc3757",
       "thread_depth": 0,
-      "month": "2010-05"
+      "month": "2010-05",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100503/55f296ba/attachment.pl"
+      ]
     },
     {
       "id": "msg-706b74680caf",
@@ -231,11 +234,14 @@
       "subject_clean": "[Bioc-sig-seq] Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100518/149286dd/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100518/149286dd/attachment.pl>",
+      "body_plain": "Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?\n\nThanks,\nXuekui\n-- \nXuekui Zhang, PhD student\nDepartment of Statistics\n333-6356 Agricultural Road\nUniversity of British Columbia\nVancouver, BC, V6T 1Z2\nPhone: 604-822-1299 ext 528\nFax: 604-822-6960\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Could anyone suggest a good software for nucleosome positioning using ChIP-seq data?\n\nThanks,\nXuekui\n-- \nXuekui Zhang, PhD student\nDepartment of Statistics\n333-6356 Agricultural Road\nUniversity of Bri",
       "thread_id": "thread-2f37895b6d6f",
       "thread_depth": 0,
-      "month": "2010-05"
+      "month": "2010-05",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100518/149286dd/attachment.pl"
+      ]
     },
     {
       "id": "msg-e0d6c0408963",
@@ -315,11 +321,14 @@
       "subject_clean": "[Bioc-sig-seq] using subseq() on a DNAStringSet",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/b9d56571/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/b9d56571/attachment.pl>",
+      "body_plain": "I'm a complete novice in Biostrings and am starting to learn about\nDNAStringSet.  I was wondering how do you do a subseq operation on just one\nof the DNAStrings in the set.\n\nlibrary('Biostrings')\n\na <- DNAStringSet('TTGGAACT')\nsubseq(a, start=2, end=3) <- NULL # works fine\n\n\nx <- c(DNAStringSet('TTGGAACT'), DNAStringSet('AAGGTT'))\nnames(x) <- c('a', 'b')\n\n# now I'm interested in doing this operation on just the a string and not b\n\nsubseq(x[['a']], start=2, end=3) <- NULL # doesn't work\n\na1 <- x[['a']]\nsubseq(a1, start=2, end=3) <- NULL # does work\n\nWelcome any thoughts or suggestions!\n\nThanks,\nAndrew\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I'm a complete novice in Biostrings and am starting to learn about\nDNAStringSet.  I was wondering how do you do a subseq operation on just one\nof the DNAStrings in the set.\n\nlibrary('Biostrings')\n\na <",
       "thread_id": "thread-5ed0ebe9738a",
       "thread_depth": 0,
-      "month": "2010-05"
+      "month": "2010-05",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/b9d56571/attachment.pl"
+      ]
     },
     {
       "id": "msg-35886e2de54d",
@@ -372,11 +381,14 @@
         "<AANLkTinmMkHyxvzEYQYpQqaXH5HgCCAQqitGJz7LIoux@mail.gmail.com>",
         "<AANLkTil9NibbPsSOfC6afC96rRoRjP2ZGzhNQpAvto11@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/da4a6f93/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/da4a6f93/attachment.pl>",
+      "body_plain": "Thanks so much for clarifying this behavior and how this subseq() operation\nwill work when you use x[1] instead of x[[1]].  I was at a loss for why it\nwas behaving this way until you pointed this out!\n\nAndrew\n\nOn Wed, May 26, 2010 at 2:35 PM, Steve Lianoglou <\nmailinglist.honeypot at gmail.com> wrote:\n\n> Woops, small type in my example:\n>\n> ## assigning `<-` into a DNAString in *this* context will fail\n> R> subseq(x[1], 2, 3) <- NULL\n> Error in `[[<-`(`*tmp*`, 1, value = <S4 object of class \"DNAString\">) :\n>  no method for assigning subsets of this S4 class\n>\n> Should have been:\n> R> subseq(x[[1]], 2, 3) <- NULL\n>\n> Not sure how that slipped through like that, sorry.\n>\n> Btw:\n>\n> sessionInfo()\n> R version 2.11.0 Patched (2010-05-05 r51909)\n> x86_64-apple-darwin9.8.0\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices datasets  utils     methods   base\n>\n> other attached packages:\n> [1] Biostrings_2.16.0 IRanges_1.7.1\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.8.0\n>\n> --\n> Steve Lianoglou\n> Graduate Student: Computational Systems Biology\n>  | Memorial Sloan-Kettering Cancer Center\n>  | Weill Medical College of Cornell University\n> Contact Info: http://cbio.mskcc.org/~lianos/contact\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks so much for clarifying this behavior and how this subseq() operation\nwill work when you use x[1] instead of x[[1]].  I was at a loss for why it\nwas behaving this way until you pointed this out!",
       "thread_id": "thread-5ed0ebe9738a",
       "thread_depth": 3,
-      "month": "2010-05"
+      "month": "2010-05",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100526/da4a6f93/attachment.pl"
+      ]
     },
     {
       "id": "msg-ddeb02202c3d",
@@ -406,11 +418,14 @@
       "references": [
         "<4BFE8000.6020507@uni-muenster.de>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100527/883502e3/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100527/883502e3/attachment.pl>",
+      "body_plain": "see the information on compact() method in XStringSet-class\npackage:Biostrings           R Documentation\n\nto rationalize this you need to think about the difference between a view\nand a concrete instance.  typically you do not want a copy to be made on\neach view\n\nOn Thu, May 27, 2010 at 10:21 AM, Hans-Ulrich Klein <h.klein at uni-muenster.de\n> wrote:\n\n> Hi all,\n>\n> I observed that some DNAStrings (and also DNAStringSets) objects are to\n> large after subsetting:\n>\n> > library(\"Rsamtools\")\n> > parameters = ScanBamParam()\n> > bam = scanBam(\"data/N01.bam\", param=parameters)\n> > ss = bam[[1]]$seq\n> > ss\n>  A DNAStringSet instance of length 230980\n>  [...]\n> > print(object.size(ss), units=\"Mb\")\n> 83.3 Mb\n> > dnaS = ss[[5]]\n> > dnaS\n>  128-letter \"DNAString\" instance\n> seq:\n> TAGCGTGGATACAGAGGGACATCTATTGACCAGCTA...AAAGTTGTGCTTTATTTGATGAATAAGTATTGAACA\n> > print(object.size(dnaS), units=\"Mb\")\n> 80.7 Mb\n> > print(object.size(as.character(dnaS)), units=\"Kb\")\n> 0.2 Kb\n>\n> When I write the 128-letter DNAString to disk, it remains quite large (~\n> 20Mb).\n>\n> Best wishes,\n> Hans-Ulrich\n>\n>\n>\n>\n> > sessionInfo()\n> R version 2.11.0 (2010-04-22)\n> x86_64-pc-linux-gnu\n>\n> locale:\n> [1] C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] Rsamtools_1.0.1     Biostrings_2.16.2   GenomicRanges_1.0.1\n> [4] IRanges_1.6.4\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.8.0\n>\n>\n> --\n> Hans-Ulrich Klein\n> Department of Medical Informatics and Biomathematics\n> University of Münster\n> Domagkstrasse 9\n> 48149 Münster, Germany\n> Tel.: +49 (0)251 83-58405\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "see the information on compact() method in XStringSet-class\npackage:Biostrings           R Documentation\n\nto rationalize this you need to think about the difference between a view\nand a concrete insta",
       "thread_id": "thread-ddeb02202c3d",
       "thread_depth": 1,
-      "month": "2010-05"
+      "month": "2010-05",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100527/883502e3/attachment.pl"
+      ]
     },
     {
       "id": "msg-aad23e400603",
@@ -475,11 +490,14 @@
       "references": [
         "<20100531111536.BGW17964@gimr.garvan.unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100530/399a5adb/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100530/399a5adb/attachment.pl>",
+      "body_plain": "On Sun, May 30, 2010 at 6:15 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I'd like to keep my RangedData object in the same order as I constructed\n> it. I can't find any options in the documentation about this. Anyone know\n> how to do this ?\n>\n> e.g.\n>\n> > peaksRangedData <- RangedData(space = c(\"chr1\", \"chr2\", \"chr3\", \"chr20\"),\n> ranges = IRanges(start = c(1000, 2000, 3000, 4000), end =  c(5000, 6000,\n> 7000, 8000)))\n> > peaksRangedData\n> RangedData with 4 rows and 0 value columns across 4 spaces\n>        space       ranges |\n>  <character>    <IRanges> |\n> 1        chr1 [1000, 5000] |\n> 2        chr2 [2000, 6000] |\n> 3       chr20 [4000, 8000] |\n> 4        chr3 [3000, 7000] |\n>\n> i. e. The object was automatically sorted based on the ASCII ordering of\n> 'space'.\n>\n> Can this be done ?\n>\n>\nNo. But if you want it in order of the chromosomes, you can pass a factor to\nthe 'space' argument, with the levels in the correct order. e.g.\nRangedData(space = factor(chr, paste(\"chr\", 1:22, sep = \"\")), ...)\n\n\n\n\n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Sun, May 30, 2010 at 6:15 PM, Dario Strbenac <D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I'd like to keep my RangedData object in the same order as I constructed\n> it. I can't find any option",
       "thread_id": "thread-caeb8e735544",
       "thread_depth": 1,
-      "month": "2010-05"
+      "month": "2010-05",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20100530/399a5adb/attachment.pl"
+      ]
     }
   ],
   "threads": [

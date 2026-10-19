@@ -69,11 +69,14 @@
         "<AQHJPprQyrfYkPzEvEuKHeVfaK/pjQ==>",
         "<22B4870E7B957846BD20439F7FD79DD59B0347D22F@ISIS.ciml.cnrs>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/80f68995/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/80f68995/attachment.pl>",
+      "body_plain": "On Tue, Nov 4, 2008 at 11:31 AM, Romain FENOUIL <fenouil at ciml.univ-mrs.fr>wrote:\n\n> Hi all,\n>\n> I'm quiet new to this mailing list system so I would firstly like to\n> introduce myself.\n>\n> My name is Romain Fenouil and I'm working as bioinformatician in the\n> Immunology Center of Marseille Luminy.\n> Until now, we were mainly working on assessing transcription factor binding\n> sites with ChIP-on-Chip experiments and we recently tried some ChIPseq runs.\n> Firstly, we wanted to assess the differences between these two techniques\n> and we are now interested in going further with this method.\n>\n> We are working in collaboration with another lab that gives us the Eland\n> aligned files and the Raw data (tag sequences) files.\n> I managed (with some trouble) to load these aligned data and to have a look\n> at the enrichment profiles for the TF of interest. It's amazing !\n> I'm also working on using maq alignment software to make a comparison\n> between the eland and maq alignments.\n>\n> I'm using the ShortRead R package to load the aligned data and play with\n> it. And after some time to understand how it works, I have to say that it's\n> really convenient.\n> (Thank you to Martin Morgan and Simon Anders who helped me for eland and\n> maq data loading).\n>\n>\n> So after this big introduction, here is my question :\n>\n> We are now able to have enrichment profiles for all the genome except\n> repeated regions.\n> Since we are never satisfied, we began to be interested in some repeated\n> regions (snRNAs for instance).\n> We already have some ideas on how to assess binding events in case of\n> repeated regions but we need some informations on these regions.\n>\n> Specially, I would like to know if there is a way to get the list of tags\n> that were implied in multiple match in the genome.\n> What we would like to have is the number of match of a tag in the genome\n> and the locations of these matches.\n> I heard that one can have access to different informations on these tags\n> depending on which alignment software he is using.\n>\n> For instance i have been said that eland doesn't give you much information\n> on tags that have multimatches. What about maq ?\n> maybe SOAP ? Will I have to deal with bioStrings and try to remap it\n> manually ?\n>\n\nMAQ, gmap, blat, and bowtie (and maybe SOAP--we do not use it) will output\nmultiple hits if you like.  The manuals for these alignment algorithms will\ngive you details.\n\n\n>\n> So if you have any general information or ideas about how to deal with it,\n> I would be interested.\n>\n\nWhile I like your idea, there are, unfortunately, regions of the genome that\nare not accessible to sequencing (the repeat regions).  While it is possible\nto align to these regions, all you can say is that you have aligned to a\nrepeated region.  You are still missing localization and enrichment\ninformation.\n\nThat said, if you have specific targets, like snoRNA for example, I would\nsuggest that you align to those directly rather than aligning to the\ngenome.  However, this will only make sense in some experimental contexts.\nMany folks are of the opinion that aligning to the genome gets you all the\ninformation in one swoop.  I do not agree with that and think that the best\nbet is to tailor your target sequences to the experiment at hand.\n\nSean\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Nov 4, 2008 at 11:31 AM, Romain FENOUIL <fenouil at ciml.univ-mrs.fr>wrote:\n\n> Hi all,\n>\n> I'm quiet new to this mailing list system so I would firstly like to\n> introduce myself.\n>\n> My name ",
       "thread_id": "thread-f16835fc587d",
       "thread_depth": 1,
-      "month": "2008-11"
+      "month": "2008-11",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/80f68995/attachment.pl"
+      ]
     },
     {
       "id": "msg-6226ef9c1ffe",
@@ -109,11 +112,14 @@
         "<264855a00811040857v10a7d575qd7f0a0fe57b74467@mail.gmail.com>",
         "<491082C9.1050702@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/a35b7831/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/a35b7831/attachment.pl>",
+      "body_plain": "On Tue, Nov 4, 2008 at 12:13 PM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi,\n>\n> Sean Davis wrote:\n> > MAQ, gmap, blat, and bowtie (and maybe SOAP--we do not use it) will\n> output\n> > multiple hits if you like.  The manuals for these alignment algorithms\n> will\n> > give you details.\n>\n> A minor correction: As far as I understood from reading many posts about\n> the subject on the Maq-help mailing list, Maq cannot output multiple\n> hits. If it encounters a read that maps well to multiple locations it\n> will give one of the possible alignments, chosen at random. The\n> alignment quality is then set to a low value. Furthermore, one of the\n> output column counts how often the first 24 bp of the read could be\n> aligned to the reference. (That this information applies only to the\n> first 24bp and not to the whole read has technical reasons; Maq would be\n> way less efficient otherwise.)\n>\n\nThat used to be true, but I think things have changed (correct me if I am\nwrong on this).\n\nhttp://sourceforge.net/project/shownotes.php?group_id=191815&release_id=595346\n\nSean\n\n\n>\n> +---\n> | Dr. Simon Anders, Dipl. Phys.\n> | European Bioinformatics Institute, Hinxton, Cambridgeshire, UK\n> | office phone +44-1223-494478, mobile phone +44-7505-841692\n> | preferred (permanent) e-mail: sanders at fs.tum.de\n>\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Nov 4, 2008 at 12:13 PM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi,\n>\n> Sean Davis wrote:\n> > MAQ, gmap, blat, and bowtie (and maybe SOAP--we do not use it) will\n> output\n> > multiple hi",
       "thread_id": "thread-f16835fc587d",
       "thread_depth": 3,
-      "month": "2008-11"
+      "month": "2008-11",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081104/a35b7831/attachment.pl"
+      ]
     },
     {
       "id": "msg-dd521e07ee83",
@@ -396,11 +402,14 @@
         "<4925DB01.4010003@sigtrans.org>",
         "<49270931.1080505@fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081121/61434f31/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081121/61434f31/attachment.pl>",
+      "body_plain": "On Fri, Nov 21, 2008 at 2:17 PM, Hervé Pagès <hpages at fhcrc.org> wrote:\n\n>\n> PDict/matchPDict uses more memory. I'm not sure how it compares with\n> Eland but I think MAQ is faster than Eland.\n>\n\nActually, Eland is generally faster.\n\nSean\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Fri, Nov 21, 2008 at 2:17 PM, Hervé Pagès <hpages at fhcrc.org> wrote:\n\n>\n> PDict/matchPDict uses more memory. I'm not sure how it compares with\n> Eland but I think MAQ is faster than Eland.\n>\n\nAct",
       "thread_id": "thread-84df859cdb6e",
       "thread_depth": 3,
-      "month": "2008-11"
+      "month": "2008-11",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20081121/61434f31/attachment.pl"
+      ]
     }
   ],
   "threads": [

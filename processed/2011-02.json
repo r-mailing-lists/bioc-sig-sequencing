@@ -13,11 +13,14 @@
       "subject_clean": "[Bioc-sig-seq] short read quality score summary in ShortRead error",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110201/cbc8db0d/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110201/cbc8db0d/attachment.pl>",
+      "body_plain": "Hi, all:\n\nI am trying to assess the read quality score for each lane (mean and median etc.) from a Hi-Seq run which has about 70-90 million reads per lane. When I used as(quality(readFastQ), \"numeric\"), it gave an error \"allocMatrix: too many elements specified\". Is there a way to get around this? Thanks.\n\n-Kunbin\n\n\n> seqQ\nclass: ShortReadQ\nlength: 76115764 reads; width: 50 cycles\n> s1q<-quality(seqQ)\n> s1q\nclass: SFastqQuality\nquality:\n  A BStringSet instance of length 76115764\n           width seq\n       [1]    50 aa``_BcccccccccddddddadJdQTTTB]]SZY[\\_PZbc_bbddad\\\n       [2]    50 ]\\SUTB_[[][]]]]dfecfef^cddffcedbd^ddeed`cd`dedeef`\n       [3]    50 aa```Bcccb\\ccccggggggggegegefgggege^abbdeeabedgade\n       [4]    50 ^VZXWB_YN]TMUTYddadd_dcda[[R[T\\``Wc^bc\\bacaddd`a\\d\n       [5]    50 cccccBc]cacbb]cgggdfggegegaggeeggggaeegggbecgefcZ\\\n       [6]    50 ddccdbeeea_]]`Z\\cc`c]SZ_]]S[K]ccbbWaTL_``V]^_cddWV\n       [7]    50 XYWWYB[]_]]]^\\]cddddbfedfdddbacacacfff_edTd`aU[XYX\n       [8]    50 bbb`bBcccccddddgggggggggggegggfggdgggggegeggdggggg\n       [9]    50 bba`bBcccccddddgeggegggggdggffggcfe`edeegae`geddd`\n       ...   ... ...\n[76115756]    50 e`eeeBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n[76115757]    50 aaVa`BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n[76115758]    50 ]ZXRERHZZFUZ[XDKKDDRHLPUQa```^XZ^HQ`]]T[WDXRH^YSWW\n[76115759]    50 eeededd_dcBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n[76115760]    50 c[^BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n[76115761]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n[76115762]    50 __BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n[76115763]    50 _^X_BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n[76115764]    50 BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n> summary(as(s1q, \"numeric\"))\nError in asMethod(object) : allocMatrix: too many elements specified\n> sessionInfo()\nR version 2.11.0 (2010-04-22)\nx86_64-unknown-linux-gnu\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n [9] LC_ADDRESS=C               LC_TELEPHONE=C\n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] ShortRead_1.6.2     Rsamtools_1.0.1     lattice_0.19-11\n[4] Biostrings_2.16.7   GenomicRanges_1.0.1 IRanges_1.6.8\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.8.0 grid_2.11.0   hwriter_1.3   tools_2.11.0\n>\n\n\n______________________________________________________________________\nThe contents of this electronic message, including any attachments, are intended only for the use of the individual or entity to which they are addressed and may contain confidential information. If you are not the intended recipient, you are hereby notified that any use, dissemination, distribution, or copying of this message or any attachment is strictly prohibited. If you have received this transmission in error, please send an e-mail to postmaster at genomichealth.com and delete this message, along with any attachments, from your computer.\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi, all:\n\nI am trying to assess the read quality score for each lane (mean and median etc.) from a Hi-Seq run which has about 70-90 million reads per lane. When I used as(quality(readFastQ), \"numeric\"",
       "thread_id": "thread-e8f8ba5f4e9f",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110201/cbc8db0d/attachment.pl"
+      ]
     },
     {
       "id": "msg-3882e18d41d2",
@@ -47,11 +50,14 @@
       "subject_clean": "[Bioc-sig-seq] goseq for Arabidopsis",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/69ea3328/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/69ea3328/attachment.pl>",
+      "body_plain": "Hi list,\n\nI am analyzing A.thaliana RNAseq experiment and wanted to do GO testing using goseq package. Arabidopsis is not included in the native goseq database and the manual says that the category mappings are needed. I downloaded Arabidopsis data from Biomart including information on start end positions and GO terms in tab format. But can anyone tell me how I need to format and load these data into my R session?\n\nThanks in advance,\n\nDave\n \t\t \t   \t\t  \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi list,\n\nI am analyzing A.thaliana RNAseq experiment and wanted to do GO testing using goseq package. Arabidopsis is not included in the native goseq database and the manual says that the category ma",
       "thread_id": "thread-c8e49c3bcd87",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/69ea3328/attachment.pl"
+      ]
     },
     {
       "id": "msg-5349fccab745",
@@ -65,11 +71,14 @@
       "references": [
         "<SNT116-W54C26FCDA1A91A785E0197C6E60@phx.gbl>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/30232d9c/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/30232d9c/attachment.pl>",
+      "body_plain": "OK, silly me. It is also mentioned in the documentation.\n\nSorry about that\n\nD.\n\n> From: dasolexa at hotmail.com\n> To: bioc-sig-sequencing at r-project.org\n> Date: Fri, 4 Feb 2011 11:36:18 +0100\n> Subject: [Bioc-sig-seq] goseq for Arabidopsis\n> \n> \n> Hi list,\n> \n> I am analyzing A.thaliana RNAseq experiment and wanted to do GO testing using goseq package. Arabidopsis is not included in the native goseq database and the manual says that the category mappings are needed. I downloaded Arabidopsis data from Biomart including information on start end positions and GO terms in tab format. But can anyone tell me how I need to format and load these data into my R session?\n> \n> Thanks in advance,\n> \n> Dave\n>  \t\t \t   \t\t  \n> \t[[alternative HTML version deleted]]\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n \t\t \t   \t\t  \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "OK, silly me. It is also mentioned in the documentation.\n\nSorry about that\n\nD.\n\n> From: dasolexa at hotmail.com\n> To: bioc-sig-sequencing at r-project.org\n> Date: Fri, 4 Feb 2011 11:36:18 +0100\n> Subj",
       "thread_id": "thread-c8e49c3bcd87",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110204/30232d9c/attachment.pl"
+      ]
     },
     {
       "id": "msg-5c5e6183c8d0",
@@ -115,11 +124,14 @@
       "subject_clean": "[Bioc-sig-seq] processing alignments",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110210/8eb83736/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110210/8eb83736/attachment.pl>",
+      "body_plain": "Hi Guys,\n\nI have Bowtied (aligned) sequences against a local database having few sequences \nof length between 70-300bp. Now lets take SeqA  of length 120bp from my target \ndatabase. Since the RNA-Seq reads are of length 38bp i guess, how do i ascertain \nthat for instance 3 different reads aligned perfectly to cover the SeqA.  \n\n\nmany thanks in advance,\nChu\n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Guys,\n\nI have Bowtied (aligned) sequences against a local database having few sequences \nof length between 70-300bp. Now lets take SeqA  of length 120bp from my target \ndatabase. Since the RNA-Seq ",
       "thread_id": "thread-d3dfa63f1f14",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110210/8eb83736/attachment.pl"
+      ]
     },
     {
       "id": "msg-96c78a64e4cd",
@@ -152,11 +164,14 @@
         "<314492.4285.qm@web132305.mail.ird.yahoo.com>",
         "<AANLkTi=E_o_d2mNe2QaN11ceEmpNUJ8kp=naPt=k-7Xv@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/9653b19e/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/9653b19e/attachment.pl>",
+      "body_plain": "Also if your alignments are in BAM format , so can use Rsamtools to\nextract that region. Inspection of the cigar will tell you which reads\naligned perfectly. That would be an extremely fast calculation.\n\nCheers\nPaul\n\n\n\n\n-----Original Message-----\nFrom: Steve Lianoglou <mailinglist.honeypot at gmail.com>\nTo: Chu Zhang <chuzhang at ymail.com>\nCc: bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] processing alignments\nDate: Thu, 10 Feb 2011 20:21:49 -0500\n\n\nHi,\n\nOn Thu, Feb 10, 2011 at 6:48 PM, Chu Zhang <chuzhang at ymail.com> wrote:\n> Hi Guys,\n>\n> I have Bowtied (aligned) sequences against a local database having few sequences\n> of length between 70-300bp. Now lets take SeqA  of length 120bp from my target\n> database. Since the RNA-Seq reads are of length 38bp i guess, how do i ascertain\n> that for instance 3 different reads aligned perfectly to cover the SeqA.\n\nI'm not sure what you mean by \"aligned perfectly to cover SeqA\", but\n-- I'd load your reads into a GRanges object which is easy to\nmanipulate.\n\nYou can look at the `coverage` function to then see how much of (and\nto what dept) your SeqA is covered. Be aware the \"strandedness\" of\nreads can be issue. You should be aware if your rna-seq data keeps\n\"strand\" info or not and deal with your data accordingly.\n\nAlso, the I/GRange findOverlaps functionality will be your friend, too.\n\n-steve\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Also if your alignments are in BAM format , so can use Rsamtools to\nextract that region. Inspection of the cigar will tell you which reads\naligned perfectly. That would be an extremely fast calculatio",
       "thread_id": "thread-d3dfa63f1f14",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/9653b19e/attachment.pl"
+      ]
     },
     {
       "id": "msg-44e83db35203",
@@ -193,11 +208,14 @@
         "<1297388924.16076.326.camel@bioinform01-ubuntu>",
         "<AANLkTi=Z9r377N3t5RrgbezVzGE+FwxhmYpioDbxhede@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/fb652fe2/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/fb652fe2/attachment.pl>",
+      "body_plain": "Hi Steve ,\nYes good point!, you would also need to check NM. You probably could not\nuse straight ##M tags either as softclips and hardclips may appear in\nthe tag but the sequence may still align perfectly.  Chu- the NM  tags\n(as well all other components you might need) are in BAM (or SAM) and\ncan be accessed with Rsamtools if you decide to go that way.\n\nCheers\nPaul \n\n\n\n\n\n-----Original Message-----\nFrom: Steve Lianoglou <mailinglist.honeypot at gmail.com>\nTo: Paul Leo <p.leo at uq.edu.au>\nCc: Chu Zhang <chuzhang at ymail.com>, bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] processing alignments\nDate: Thu, 10 Feb 2011 20:58:51 -0500\n\n\nHi,\n\nOn Thu, Feb 10, 2011 at 8:48 PM, Paul Leo <p.leo at uq.edu.au> wrote:\n>\n> Also if your alignments are in BAM format , so can use Rsamtools to\n> extract that region. Inspection of the cigar will tell you which reads\n> aligned perfectly. That would be an extremely fast calculation.\n\nActually, I'm not sure that that's true, is it? Don't cigar strings\nonly really tell you about indels?\n\nSay you have two reads, both 38bp long.\n\nIf one aligns perfectly, its cigar is 38M\nIf the other aligns with 1 mismatch, its still 38M.\n\nYou can use the NM tag if you're after 'perfect matches', though ...\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Steve ,\nYes good point!, you would also need to check NM. You probably could not\nuse straight ##M tags either as softclips and hardclips may appear in\nthe tag but the sequence may still align perfe",
       "thread_id": "thread-d3dfa63f1f14",
       "thread_depth": 4,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110211/fb652fe2/attachment.pl"
+      ]
     },
     {
       "id": "msg-bae8e88f3f9b",
@@ -215,11 +233,14 @@
         "<AANLkTi=Z9r377N3t5RrgbezVzGE+FwxhmYpioDbxhede@mail.gmail.com>",
         "<1297391476.16076.339.camel@bioinform01-ubuntu>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110212/4435954b/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110212/4435954b/attachment.pl>",
+      "body_plain": "Thanks a lot Paul and Steve for your help. I see that i have a little bit of \nground to cover and RSamtools seems like a good place to start.\n\nCheers\nChu\n\n\n\n\n________________________________\nFrom: Paul Leo <p.leo at uq.edu.au>\nTo: Steve Lianoglou <mailinglist.honeypot at gmail.com>\nCc: Chu Zhang <chuzhang at ymail.com>; bioc-sig-sequencing at r-project.org\nSent: Fri, 11 February, 2011 2:31:16\nSubject: Re: [Bioc-sig-seq] processing alignments\n\n Hi Steve ,\nYes good point!, you would also need to check NM. You probably could not use \nstraight ##M tags either as softclips and hardclips may appear in the tag but \nthe sequence may still align perfectly.  Chu- the NM  tags (as well all other \ncomponents you might need) are in BAM (or SAM) and can be accessed with \nRsamtools if you decide to go that way.\n\nCheers\nPaul \n\n\n\n\n-----Original Message-----\nFrom: Steve Lianoglou <mailinglist.honeypot at gmail.com>\nTo: Paul Leo <p.leo at uq.edu.au>\nCc: Chu Zhang <chuzhang at ymail.com>, bioc-sig-sequencing at r-project.org\nSubject: Re: [Bioc-sig-seq] processing alignments\nDate: Thu, 10 Feb 2011 20:58:51 -0500\n\n\nHi,\n\nOn Thu, Feb 10, 2011 at 8:48 PM, Paul Leo <p.leo at uq.edu.au> wrote:\n>\n> Also if your alignments are in BAM format , so can use Rsamtools to\n> extract that region. Inspection of the cigar will tell you which reads\n> aligned perfectly. That would be an extremely fast calculation.\n\nActually, I'm not sure that that's true, is it? Don't cigar strings\nonly really tell you about indels?\n\nSay you have two reads, both 38bp long.\n\nIf one aligns perfectly, its cigar is 38M\nIf the other aligns with 1 mismatch, its still 38M.\n\nYou can use the NM tag if you're after 'perfect matches', though ...\n\n\n      \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks a lot Paul and Steve for your help. I see that i have a little bit of \nground to cover and RSamtools seems like a good place to start.\n\nCheers\nChu\n\n\n\n\n________________________________\nFrom: Pau",
       "thread_id": "thread-d3dfa63f1f14",
       "thread_depth": 5,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110212/4435954b/attachment.pl"
+      ]
     },
     {
       "id": "msg-75e1a26625f8",
@@ -387,11 +408,14 @@
       "subject_clean": "[Bioc-sig-seq] iteration on two Rle Views",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/b5a6d794/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/b5a6d794/attachment.pl>",
+      "body_plain": "Hi,\n\nI have two Rle views call chip.views and contr.views. I would like to speed\nup the iteration for getting the coefficient values from the linear\nregression model.\nI used sapply for those two Views but it is quite slow to get  coefficient\nvalue from around 10,000 Views. Do you have any suggestion how to speed up\nthis?.\n\n                    chip.cov <-coverage(chip.GRanges.uniq)\n                    contr.cov<-coverage(contr.GRanges.uniq)\n                    window.size=100000\n                    step.size = window.size\n                    ends <- seq(from=window.size,to=chr.size,by=step.size)\n                    starts <-\nseq(from=1,to=chr.size-window.size,by=step.size)\n                    chip.views<-Views(chip.cov[[1]],starts,ends)\n                    contr.views<-Views(contr.cov[[1]],starts,ends)\n\n                    factor<-sapply(1:length(chip.views),function(x)\nlsfit(as.integer(chip.views[[x]]),as.integer(contr.views[[x]]))$coefficients[[2]])\n\nBest regards,\nSupat Thongjuea\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi,\n\nI have two Rle views call chip.views and contr.views. I would like to speed\nup the iteration for getting the coefficient values from the linear\nregression model.\nI used sapply for those two Views",
       "thread_id": "thread-a717e3230b4a",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/b5a6d794/attachment.pl"
+      ]
     },
     {
       "id": "msg-e70660934c3c",
@@ -403,11 +427,14 @@
       "subject_clean": "[Bioc-sig-seq] R453Plus1Toolbox",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/5810f751/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/5810f751/attachment.pl>",
+      "body_plain": "Hi, I have found a package called R453Plus1Toolbox for analysis of Roche's sequencing data. As far as I know, using AVA, 1bp indels are filtered off fro mthe results to avoid false positives. They can be seen by going to the flowgrams of the region, but they are not part of the output table. Does anyone know if R453Plus1Toolbox can detect them?\n\nThanks,\n\nDave\n \t\t \t   \t\t  \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi, I have found a package called R453Plus1Toolbox for analysis of Roche's sequencing data. As far as I know, using AVA, 1bp indels are filtered off fro mthe results to avoid false positives. They can",
       "thread_id": "thread-e70660934c3c",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/5810f751/attachment.pl"
+      ]
     },
     {
       "id": "msg-a13e6ef52771",
@@ -437,11 +464,14 @@
       "references": [
         "<AANLkTikiQiDYc1fkov9misF9aMvSWnsRjuiWMR4RfF_R@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/ffb6df79/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/ffb6df79/attachment.pl>",
+      "body_plain": "On Tue, Feb 15, 2011 at 5:01 PM, supat thongjuea\n<supat.thongjuea at gmail.com>wrote:\n\n> Hi,\n>\n> I have two Rle views call chip.views and contr.views. I would like to speed\n> up the iteration for getting the coefficient values from the linear\n> regression model.\n> I used sapply for those two Views but it is quite slow to get  coefficient\n> value from around 10,000 Views. Do you have any suggestion how to speed up\n> this?.\n>\n>                    chip.cov <-coverage(chip.GRanges.uniq)\n>                    contr.cov<-coverage(contr.GRanges.uniq)\n>                    window.size=100000\n>                    step.size = window.size\n>                    ends <- seq(from=window.size,to=chr.size,by=step.size)\n>                    starts <-\n> seq(from=1,to=chr.size-window.size,by=step.size)\n>                    chip.views<-Views(chip.cov[[1]],starts,ends)\n>                    contr.views<-Views(contr.cov[[1]],starts,ends)\n>\n>                    factor<-sapply(1:length(chip.views),function(x)\n>\n> lsfit(as.integer(chip.views[[x]]),as.integer(contr.views[[x]]))$coefficients[[2]])\n>\n>\nNot sure about speeding this up, but for the sake of clarity anyway, you\nmight want to use the viewApply() function instead of sapply here.\n\nMichael\n\nBest regards,\n> Supat Thongjuea\n>\n>        [[alternative HTML version deleted]]\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Feb 15, 2011 at 5:01 PM, supat thongjuea\n<supat.thongjuea at gmail.com>wrote:\n\n> Hi,\n>\n> I have two Rle views call chip.views and contr.views. I would like to speed\n> up the iteration for gett",
       "thread_id": "thread-a717e3230b4a",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/ffb6df79/attachment.pl"
+      ]
     },
     {
       "id": "msg-bab6a2a091ea",
@@ -493,11 +523,14 @@
         "<SNT116-W10D1073B12E6D38003F98AC6D20@phx.gbl>",
         "<4D5C031A.6010201@uni-muenster.de>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/18b6c074/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/18b6c074/attachment.pl>",
+      "body_plain": "Hi Hans-Ulrich,\n\nthanks for your prompt answer. Any chance you could give an approximate timeshift for this upgrade? I am very interested in that, I wonder if you could keep me posted. I will also keep an eye on the package webpage for any updates.\n\nBest,\n\nDave\n\n> Date: Wed, 16 Feb 2011 18:02:18 +0100\n> From: h.klein at uni-muenster.de\n> To: bioc-sig-sequencing at r-project.org\n> Subject: Re: [Bioc-sig-seq] R453Plus1Toolbox\n> \n> Hi Dave,\n> \n> that is right. The manual of Roche's AVA software says: \"The automatic \n> Variant detection does not currently report insertions or monomer \n> deletions shorter than 3 bases.\" At this time, the R453Plus1Toolbox does \n> not implement an indel calling algorithm but relies on the results \n> reported by the AVA software.\n> Since it seems that Roche is not going to solve this issue, we have this \n> topic on our to-do list for our package.\n> \n> Best,\n> Hans-Ulrich\n> \n> \n> On 16/02/11 13:43, David A. wrote:\n> > Hi, I have found a package called R453Plus1Toolbox for analysis of Roche's sequencing data. As far as I know, using AVA, 1bp indels are filtered off fro mthe results to avoid false positives. They can be seen by going to the flowgrams of the region, but they are not part of the output table. Does anyone know if R453Plus1Toolbox can detect them?\n> >\n> > Thanks,\n> >\n> > Dave\n> >   \t\t \t   \t\t\n> > \t[[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >    \n> \n> \n> -- \n> Hans-Ulrich Klein\n> Institute of Medical Informatics\n> University of Münster\n> Domagkstraße 9\n> 48149 Münster, Germany\n> Tel.: +49 (0)251 83-58405\n> \n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n \t\t \t   \t\t  \n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Hans-Ulrich,\n\nthanks for your prompt answer. Any chance you could give an approximate timeshift for this upgrade? I am very interested in that, I wonder if you could keep me posted. I will also kee",
       "thread_id": "thread-e70660934c3c",
       "thread_depth": 2,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110216/18b6c074/attachment.pl"
+      ]
     },
     {
       "id": "msg-7654e0a2d5b5",
@@ -550,11 +583,14 @@
         "<4D5C031A.6010201@uni-muenster.de>",
         "<SNT116-W40D4B605CEF07351C57EEDC6D20@phx.gbl>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110218/31f802ce/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110218/31f802ce/attachment.pl>",
+      "body_plain": "Hi Dave,\n\nwe just started implementing methods for reading the binary .sff files \nand creating a basic quality report similar to the functionalities \nprovided by the GS Run Browser. Then, we want to implement Variant \ncalling for amplicon projects. That will probably last a few (2-4) months.\n\nBest,\nHans-Ulrich\n\n\n\nOn 16/02/11 18:31, David A. wrote:\n> Hi Hans-Ulrich,\n>\n> thanks for your prompt answer. Any chance you could give an \n> approximate timeshift for this upgrade? I am very interested in that, \n> I wonder if you could keep me posted. I will also keep an eye on the \n> package webpage for any updates.\n>\n> Best,\n>\n> Dave\n>\n> > Date: Wed, 16 Feb 2011 18:02:18 +0100\n> > From: h.klein at uni-muenster.de\n> > To: bioc-sig-sequencing at r-project.org\n> > Subject: Re: [Bioc-sig-seq] R453Plus1Toolbox\n> >\n> > Hi Dave,\n> >\n> > that is right. The manual of Roche's AVA software says: \"The automatic\n> > Variant detection does not currently report insertions or monomer\n> > deletions shorter than 3 bases.\" At this time, the R453Plus1Toolbox \n> does\n> > not implement an indel calling algorithm but relies on the results\n> > reported by the AVA software.\n> > Since it seems that Roche is not going to solve this issue, we have \n> this\n> > topic on our to-do list for our package.\n> >\n> > Best,\n> > Hans-Ulrich\n> >\n> >\n> > On 16/02/11 13:43, David A. wrote:\n> > > Hi, I have found a package called R453Plus1Toolbox for analysis of \n> Roche's sequencing data. As far as I know, using AVA, 1bp indels are \n> filtered off fro mthe results to avoid false positives. They can be \n> seen by going to the flowgrams of the region, but they are not part of \n> the output table. Does anyone know if R453Plus1Toolbox can detect them?\n> > >\n> > > Thanks,\n> > >\n> > > Dave\n> > >\n> > > [[alternative HTML version deleted]]\n> > >\n> > > _______________________________________________\n> > > Bioc-sig-sequencing mailing list\n> > > Bioc-sig-sequencing at r-project.org\n> > > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> > >\n> >\n> >\n> > --\n> > Hans-Ulrich Klein\n> > Institute of Medical Informatics\n> > University of Münster\n> > Domagkstraße 9\n> > 48149 Münster, Germany\n> > Tel.: +49 (0)251 83-58405\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n-- \nHans-Ulrich Klein\nInstitute of Medical Informatics\nUniversity of Münster\nDomagkstraße 9\n48149 Münster, Germany\nTel.: +49 (0)251 83-58405\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi Dave,\n\nwe just started implementing methods for reading the binary .sff files \nand creating a basic quality report similar to the functionalities \nprovided by the GS Run Browser. Then, we want to i",
       "thread_id": "thread-e70660934c3c",
       "thread_depth": 3,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110218/31f802ce/attachment.pl"
+      ]
     },
     {
       "id": "msg-2513bb11c5b9",
@@ -566,11 +602,14 @@
       "subject_clean": "[Bioc-sig-seq] ShortRead + GappedAlignments -> QualityAlignedXStringSet?",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/fef871db/attachment.ksh>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/fef871db/attachment.ksh>",
+      "body_plain": "Right now, AlignedRead only contains the position for a mapped read and\nleaves off any indel information. GappedAlignments has this. Would it be\npossible to combine GappedAlignments and a QualityScaledXStringSet (i.e.,\nfrom a ShortRead object) to get a QualityAlignedXStringSet? It would be nice\nto merge the sequence-based alignment infrastructure in Biostrings with the\nrange-based alignment representation in GenomicRanges.\n\nThoughts?\n\nMichael\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Right now, AlignedRead only contains the position for a mapped read and\nleaves off any indel information. GappedAlignments has this. Would it be\npossible to combine GappedAlignments and a QualityScale",
       "thread_id": "thread-2513bb11c5b9",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/fef871db/attachment.ksh"
+      ]
     },
     {
       "id": "msg-d54c8493ce14",
@@ -584,11 +623,14 @@
       "references": [
         "<AANLkTim5NHWz7sL3eUwzqU8jbu62rW2UG7KJhA7PV6Np@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/69fe484a/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/69fe484a/attachment.pl>",
+      "body_plain": "Looked into this a little and found that QualityAlignedXStringSet can only\nrepresent insertions or deletions, not both. To represent both, you would\nneed two such objects, one for the read, one for the reference. Something\nlike a PairwiseAlignedFixedSubject, but without all the pairwise alignment\nstuff.\n\nAnyway, such a thing would be nice to have. For example, consensusMatrix\nwould give us a pileup.\n\nMichael\n\nOn Sun, Feb 20, 2011 at 6:32 AM, Michael Lawrence <michafla at gene.com> wrote:\n\n> Right now, AlignedRead only contains the position for a mapped read and\n> leaves off any indel information. GappedAlignments has this. Would it be\n> possible to combine GappedAlignments and a QualityScaledXStringSet (i.e.,\n> from a ShortRead object) to get a QualityAlignedXStringSet? It would be nice\n> to merge the sequence-based alignment infrastructure in Biostrings with the\n> range-based alignment representation in GenomicRanges.\n>\n> Thoughts?\n>\n> Michael\n>\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Looked into this a little and found that QualityAlignedXStringSet can only\nrepresent insertions or deletions, not both. To represent both, you would\nneed two such objects, one for the read, one for th",
       "thread_id": "thread-2513bb11c5b9",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/69fe484a/attachment.pl"
+      ]
     },
     {
       "id": "msg-f4646b14e0c8",
@@ -623,11 +665,14 @@
         "<AANLkTi=KpGpO6KpoM0XuvtVFh36oYVxjy2XPay1ONYjA@mail.gmail.com>",
         "<4D617F8D.20803@fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/6f82491d/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/6f82491d/attachment.pl>",
+      "body_plain": "On Sun, Feb 20, 2011 at 12:54 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:\n\n> On 02/20/2011 06:47 AM, Michael Lawrence wrote:\n> > Looked into this a little and found that QualityAlignedXStringSet can\n> only\n> > represent insertions or deletions, not both. To represent both, you would\n> > need two such objects, one for the read, one for the reference. Something\n> > like a PairwiseAlignedFixedSubject, but without all the pairwise\n> alignment\n> > stuff.\n>\n> A class would be good, yes. Perhaps the cigar is sufficient for\n> describing indels, with sequence / quality information as\n> elementMetadata on the GappedAlignments object plus functions in\n> ?\"cigar-utils\" enough to get consensusMatrix, etc.? Martin\n>\n>\nThere's definitely a good amount of functionality surrounding cigar strings\nand aligned sequences. It just seems like it's one step away.\n\nMichael\n\n\n> > Anyway, such a thing would be nice to have. For example, consensusMatrix\n> > would give us a pileup.\n> >\n> > Michael\n> >\n> > On Sun, Feb 20, 2011 at 6:32 AM, Michael Lawrence <michafla at gene.com>\n> wrote:\n> >\n> >> Right now, AlignedRead only contains the position for a mapped read and\n> >> leaves off any indel information. GappedAlignments has this. Would it be\n> >> possible to combine GappedAlignments and a QualityScaledXStringSet\n> (i.e.,\n> >> from a ShortRead object) to get a QualityAlignedXStringSet? It would be\n> nice\n> >> to merge the sequence-based alignment infrastructure in Biostrings with\n> the\n> >> range-based alignment representation in GenomicRanges.\n> >>\n> >> Thoughts?\n> >>\n> >> Michael\n> >>\n> >>\n> >>\n> >>\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n> --\n> Computational Biology\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Ave. N. PO Box 19024 Seattle, WA 98109\n>\n> Location: M1-B861\n> Telephone: 206 667-2793\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Sun, Feb 20, 2011 at 12:54 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:\n\n> On 02/20/2011 06:47 AM, Michael Lawrence wrote:\n> > Looked into this a little and found that QualityAlignedXStringSet ",
       "thread_id": "thread-2513bb11c5b9",
       "thread_depth": 3,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110220/6f82491d/attachment.pl"
+      ]
     },
     {
       "id": "msg-9b025885f350",
@@ -858,11 +903,14 @@
       "references": [
         "<A7D2C81A-3306-4940-BBFC-234809A0C2FF@fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/8556f320/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/8556f320/attachment.pl>",
+      "body_plain": "Thanks. Seems to be fixed already in devel.\n\nOn Wed, Feb 23, 2011 at 12:15 PM, Janet Young <jayoung at fhcrc.org> wrote:\n\n> Hi again,\n>\n> I noticed that \"reduce\" gives an error on RangedData objects if there are\n> space names that contain no ranges:\n>        Error in endoapply(x[, by], FUN) : 'FUN' did not produce an\n> endomorphism\n>\n> I can work around it, but it'd great not to need to do that.  All the\n> details are below.\n>\n> thanks very much,\n>\n> Janet\n>\n> -------------------------------------------------------------------\n>\n> Dr. Janet Young (Trask lab)\n>\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Avenue N., C3-168,\n> P.O. Box 19024, Seattle, WA 98109-1024, USA.\n>\n> tel: (206) 667 1471 fax: (206) 667 6524\n> email: jayoung  ...at...  fhcrc.org\n>\n> http://www.fhcrc.org/labs/trask/\n>\n> -------------------------------------------------------------------\n>\n>\n>\n> > library(IRanges,warn.conflicts=F)\n>\n> > myregions_RD <-\n> RangedData(IRanges(start=c(101L,201L,101L,101L),end=c(250L,300L,220L,501L)),space=c(\"chr1\",\"chr1\",\"chr1\",\"chr2\"),strand=c(\"+\",\"+\",\"+\",\"+\")\n>   )\n>\n> > #### this works\n> > reduce(myregions_RD)\n> RangedData with 2 rows and 1 value column across 2 spaces\n>        space     ranges |      strand\n>  <character>  <IRanges> | <character>\n> 1        chr1 [101, 300] |           +\n> 2        chr2 [101, 501] |           +\n>\n> > ### drop regions that are bigger than 300bp (now there's nothing left on\n> chr2)\n> > myregions_RD <- myregions_RD[which(width(myregions_RD)<=300),]\n>\n> > ### this doesn't work - reduce doesn't like a space without any elements\n> > reduce(myregions_RD)\n> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism\n>\n> > ### workaround - drop the unused space names\n> > myregions_RD <-\n> RangedData(IRanges(start=start(myregions_RD),end=end(myregions_RD)),space=as.character(space(myregions_RD)),strand=myregions_RD$strand\n>   )\n>\n> > ### now it works\n> > reduce(myregions_RD)\n> RangedData with 1 row and 1 value column across 1 space\n>        space     ranges |      strand\n>  <character>  <IRanges> | <character>\n> 1        chr1 [101, 300] |           +\n>\n> > sessionInfo()\n> R version 2.12.1 (2010-12-16)\n> Platform: i386-apple-darwin9.8.0/i386 (32-bit)\n>\n> locale:\n> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] IRanges_1.8.9\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks. Seems to be fixed already in devel.\n\nOn Wed, Feb 23, 2011 at 12:15 PM, Janet Young <jayoung at fhcrc.org> wrote:\n\n> Hi again,\n>\n> I noticed that \"reduce\" gives an error on RangedData objects i",
       "thread_id": "thread-514d7f923438",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/8556f320/attachment.pl"
+      ]
     },
     {
       "id": "msg-5465d1e1ebc0",
@@ -876,11 +924,14 @@
       "references": [
         "<11619F04-6634-4F7C-8BD1-1CE9B8BCAF08@fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/e102075d/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/e102075d/attachment.pl>",
+      "body_plain": "I think this has been fixed in devel already. See:\n\nhttps://stat.ethz.ch/pipermail/bioconductor/2010-October/035985.html\n\nThanks,\nMichael\n\nOn Wed, Feb 23, 2011 at 4:06 PM, Janet Young <jayoung at fhcrc.org> wrote:\n\n> Hi again,\n>\n> (sorry, you're probably tired of hearing from me now).\n>\n> I have just started to play with ChIPpeakAnno - it looks like it might be\n> very useful for me.  However, once I load it I get an error from BSgenome's\n> getSeq function.  Here's the error alone (myregions_RD is a RangedData\n> object), and below is my full code.\n>\n> getSeq(Cfamiliaris,myregions_RD)\n> Error in x[[name, exact = FALSE]] :\n>  missing '[[' method for Sequence class GRanges\n>\n>\n> thanks (yet again),\n>\n> Janet\n>\n> -------------------------------------------------------------------\n>\n> Dr. Janet Young (Trask lab)\n>\n> Fred Hutchinson Cancer Research Center\n> 1100 Fairview Avenue N., C3-168,\n> P.O. Box 19024, Seattle, WA 98109-1024, USA.\n>\n> tel: (206) 667 1471 fax: (206) 667 6524\n> email: jayoung  ...at...  fhcrc.org\n>\n> http://www.fhcrc.org/labs/trask/\n>\n> -------------------------------------------------------------------\n>\n>\n>\n>\n> R version 2.12.1 (2010-12-16)\n> Copyright (C) 2010 The R Foundation for Statistical Computing\n> ISBN 3-900051-07-0\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> R is free software and comes with ABSOLUTELY NO WARRANTY.\n> You are welcome to redistribute it under certain conditions.\n> Type 'license()' or 'licence()' for distribution details.\n>\n>  Natural language support but running in an English locale\n>\n> R is a collaborative project with many contributors.\n> Type 'contributors()' for more information and\n> 'citation()' on how to cite R or R packages in publications.\n>\n> Type 'demo()' for some demos, 'help()' for on-line help, or\n> 'help.start()' for an HTML browser interface to help.\n> Type 'q()' to quit R.\n>\n> > library(IRanges)\n>\n>\n> Attaching package: 'IRanges'\n>\n> The following object(s) are masked from 'package:base':\n>\n>    cbind, eval, Map, mapply, order, paste, pmax, pmax.int, pmin,\n>    pmin.int, rbind, rep.int, table\n>\n>\n>\n> > library(BSgenome.Cfamiliaris.UCSC.canFam2)\n> Loading required package: BSgenome\n> Loading required package: GenomicRanges\n> Loading required package: Biostrings\n>\n> > myregions_RD <-\n> RangedData(IRanges(start=c(100001L,2000001L),end=c(100100L,2000100L)),space=c(\"chr1\",\"chr2\"),strand=c(\"+\",\"+\")\n>   )\n>\n> > getSeq(Cfamiliaris,myregions_RD)\n> [1]\n> \"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\"\n> [2]\n> \"NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN\"\n>\n> > library(ChIPpeakAnno)\n> Loading required package: biomaRt\n> Loading required package: multtest\n> Loading required package: Biobase\n>\n> Welcome to Bioconductor\n>\n>  Vignettes contain introductory material. To view, type\n>  'openVignette()'. To cite Bioconductor, see\n>  'citation(\"Biobase\")' and for packages 'citation(pkgname)'.\n>\n>\n> Attaching package: 'Biobase'\n>\n> The following object(s) are masked from 'package:IRanges':\n>\n>    updateObject\n>\n> Loading required package: BSgenome.Ecoli.NCBI.20080805\n> Loading required package: GO.db\n> Loading required package: AnnotationDbi\n> Loading required package: DBI\n> Loading required package: org.Hs.eg.db\n> Loading required package: limma\n>\n> > getSeq(Cfamiliaris,myregions_RD)\n> Error in x[[name, exact = FALSE]] :\n>  missing '[[' method for Sequence class GRanges\n>\n> > sessionInfo()\n> R version 2.12.1 (2010-12-16)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n>  [1] ChIPpeakAnno_1.6.0\n>  [2] limma_3.6.9\n>  [3] org.Hs.eg.db_2.4.6\n>  [4] GO.db_2.4.5\n>  [5] RSQLite_0.9-4\n>  [6] DBI_0.2-5\n>  [7] AnnotationDbi_1.12.0\n>  [8] BSgenome.Ecoli.NCBI.20080805_1.3.16\n>  [9] multtest_2.7.1\n> [10] Biobase_2.10.0\n> [11] biomaRt_2.6.0\n> [12] BSgenome.Cfamiliaris.UCSC.canFam2_1.3.16\n> [13] BSgenome_1.18.3\n> [14] Biostrings_2.18.2\n> [15] GenomicRanges_1.2.3\n> [16] IRanges_1.8.9\n>\n> loaded via a namespace (and not attached):\n> [1] MASS_7.3-11     RCurl_1.5-0     splines_2.12.1  survival_2.36-5\n> [5] XML_3.2-0\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "I think this has been fixed in devel already. See:\n\nhttps://stat.ethz.ch/pipermail/bioconductor/2010-October/035985.html\n\nThanks,\nMichael\n\nOn Wed, Feb 23, 2011 at 4:06 PM, Janet Young <jayoung at fhcr",
       "thread_id": "thread-2e182e257d6d",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/e102075d/attachment.pl"
+      ]
     },
     {
       "id": "msg-4e7a45a916e9",
@@ -991,11 +1042,14 @@
       "subject_clean": "[Bioc-sig-seq] matchPWM() without PWMscoreStartingAt()",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/dc9de68c/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/dc9de68c/attachment.pl>",
+      "body_plain": "Hi everybody,\n\nThe function matchPWM() that is invoked like this\n\nmatchPWM(pwm, subject, min.score=\"80%\", ...)\n\nprovides a very fast way of identifying the positions in 'subject' that\nmatch a Position Weight Matrix with a minimum score of 80 percent (relative\nto the maximum score).\n\nThe result looks like this\n\nmatchPWM(pwmMa,Mmusculus[['chr19']],min.score=\"90%\")\n Views on a 61342430-letter DNAString subject\nsubject: NNNNNNNNNNNNNNNNNNNNNNNNNNNN...TATCTCCGAGATGCACCCGCCTGCTTGC\nviews:\n         start      end width\n [1]  3499390  3499407    18 [TTTTGGTCATGGTGCTTC]\n  [2]  3847991  3848008    18 [TTGAATTCCTGATCCTTC]\n [3]  4433615  4433632    18 [TTTGATTCCTGATTCTTC]\n  [4]  5200625  5200642    18 [TCTTAGTCATGGTGCTTT]\n [5]  6475713  6475730    18 [TCTTGTTTCTGCTGCTTC]\n  [6]  8899734  8899751    18 [TTTCATTCCTGTTTCTTT]\n [7]  9435046  9435063    18 [TTGTGTTCCTGCTGCTTC]\n  [8]  9490297  9490314    18 [TTTTATTCATGCTGTTTC]\n [9] 10148754 10148771    18 [TCATGGTCATGGTGCTTC]\n  ...      ...      ...   ... ...\n[103] 53870063 53870080    18 [TCAAAGTCATGCTCCTTC]\n[104] 55886021 55886038    18 [TCTTTTTCCTGGTACTTC]\n[105] 56158096 56158113    18 [GCTGATTCTTGCTGCTTC]\n[106] 56585172 56585189    18 [TTTCATTCCAGTTGCTTA]\n[107] 56905278 56905295    18 [TTCTGTTCCTGGTACTTC]\n[108] 57831404 57831421    18 [TTTTATTTATGTTACTTC]\n[109] 58794481 58794498    18 [TCGAATTCCTGCTGCTTT]\n[110] 59452136 59452153    18 [TTGCATTTGTGTTACTTC]\n[111] 59597303 59597320    18 [TTTTAGTCATGGTGTTTC]\n\n\nMy question:\n\nHow do you get matchPWM to report the score?\n\n\nWhy that is important:\n\nThe function PWMscoreStartingAt() was created to answer that question. Now,\nfor some PWMs, running matchPWM with a permissive min.score like \"80%\"\nresults in half a million matches. The problem is that PWMscoreStartingAt()\ncan compute the scores one match at a time. In other words, it takes a\nDNAString but not a DNAStringSet.\n\nRather than hoping for a vercotised version of PWMscoreStartingAt(), I guess\nthat it is more practical to try to retrieve the score computed by\nmatchPWM().\n\nAny suggestions?\n\nThank you,\n\nIvan\n\n> sessionInfo()\nR version 2.13.0 Under development (unstable) (2010-12-02 r53747)\nPlatform: x86_64-unknown-linux-gnu (64-bit)\n\nlocale:\n[1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C              LC_TIME=en_US.utf8\n\n [4] LC_COLLATE=en_US.utf8     LC_MONETARY=C\nLC_MESSAGES=en_US.utf8\n[7] LC_PAPER=en_US.utf8       LC_NAME=C                 LC_ADDRESS=C\n\n[10] LC_TELEPHONE=C            LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C\n\n\nattached base packages:\n[1] grid      stats     graphics  grDevices utils     datasets  methods\nbase\n\nother attached packages:\n[1] multicore_0.1-4                    lattice_0.19-17\n[3] BSgenome.Mmusculus.UCSC.mm9_1.3.17 BSgenome_1.19.3\n[5] cosmo_1.17.0                       seqLogo_1.17.0\n[7] GenomicRanges_1.3.18               Biostrings_2.19.9\n[9] IRanges_1.9.22\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.11.8 tools_2.13.0\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1016 and 1-301-496-1592\nFax: 1-301-496-9878\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi everybody,\n\nThe function matchPWM() that is invoked like this\n\nmatchPWM(pwm, subject, min.score=\"80%\", ...)\n\nprovides a very fast way of identifying the positions in 'subject' that\nmatch a Position",
       "thread_id": "thread-ad054fd2b7d3",
       "thread_depth": 0,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/dc9de68c/attachment.pl"
+      ]
     },
     {
       "id": "msg-353560da7739",
@@ -1011,11 +1065,14 @@
         "<AANLkTi=8cL4JZSPXpDMKXvS-z60Yw27eLcHrwdyrpVT-@mail.gmail.com>",
         "<AANLkTikF4yJ4ArCmgNK9Ak3VVTDqDgax-5so2rYBNGw-@mail.gmail.com>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/def5cb07/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/def5cb07/attachment.pl>",
+      "body_plain": "On Thu, Feb 24, 2011 at 7:41 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n\n> Hi Michael and Janet,\n>\n> I think that the reduce bug still persists in the devel branch. I\n> updated all my Bioconductor packages yesterday and yet, following her\n> steps I get\n\n> reduce(myregions_RD)\n> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism\n>\n> I hope the sessionInfo() helps.\n>\n>\n\nThink this needs 1.9.25. Should be out tomorrow.\n\nThanks,\nMichael\n\n\n\n> Thank you,\n>\n> Ivan\n>\n> > sessionInfo()\n> R version 2.13.0 Under development (unstable) (2010-12-02 r53747)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n>  [1] LC_CTYPE=en_US.utf8       LC_NUMERIC=C\n>  [3] LC_TIME=en_US.utf8        LC_COLLATE=en_US.utf8\n>  [5] LC_MONETARY=C             LC_MESSAGES=en_US.utf8\n>  [7] LC_PAPER=en_US.utf8       LC_NAME=C\n>  [9] LC_ADDRESS=C              LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.utf8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n>  [1] ChIPpeakAnno_1.7.0                  limma_3.7.23\n>  [3] org.Hs.eg.db_2.4.6                  GO.db_2.4.5\n>  [5] RSQLite_0.9-4                       DBI_0.2-5\n>  [7] AnnotationDbi_1.13.13\n> BSgenome.Ecoli.NCBI.20080805_1.3.17\n>  [9] multtest_2.7.1                      Biobase_2.11.8\n> [11] biomaRt_2.7.1                       BSgenome.Mmusculus.UCSC.mm9_1.3.17\n> [13] BSgenome_1.19.3                     Biostrings_2.19.9\n> [15] GenomicRanges_1.3.18                IRanges_1.9.22\n>\n> loaded via a namespace (and not attached):\n> [1] MASS_7.3-11     RCurl_1.5-0     splines_2.13.0  survival_2.36-5\n> [5] XML_3.2-0\n>\n>\n> Ivan Gregoretti, PhD\n> National Institute of Diabetes and Digestive and Kidney Diseases\n> National Institutes of Health\n> 5 Memorial Dr, Building 5, Room 205.\n> Bethesda, MD 20892. USA.\n> Phone: 1-301-496-1016 and 1-301-496-1592\n> Fax: 1-301-496-9878\n>\n>\n>\n> On Thu, Feb 24, 2011 at 9:46 AM, Michael Lawrence\n> <lawrence.michael at gene.com> wrote:\n> > Thanks. Seems to be fixed already in devel.\n> >\n> > On Wed, Feb 23, 2011 at 12:15 PM, Janet Young <jayoung at fhcrc.org> wrote:\n> >\n> >> Hi again,\n> >>\n> >> I noticed that \"reduce\" gives an error on RangedData objects if there\n> are\n> >> space names that contain no ranges:\n> >>        Error in endoapply(x[, by], FUN) : 'FUN' did not produce an\n> >> endomorphism\n> >>\n> >> I can work around it, but it'd great not to need to do that.  All the\n> >> details are below.\n> >>\n> >> thanks very much,\n> >>\n> >> Janet\n> >>\n> >> -------------------------------------------------------------------\n> >>\n> >> Dr. Janet Young (Trask lab)\n> >>\n> >> Fred Hutchinson Cancer Research Center\n> >> 1100 Fairview Avenue N., C3-168,\n> >> P.O. Box 19024, Seattle, WA 98109-1024, USA.\n> >>\n> >> tel: (206) 667 1471 fax: (206) 667 6524\n> >> email: jayoung  ...at...  fhcrc.org\n> >>\n> >> http://www.fhcrc.org/labs/trask/\n> >>\n> >> -------------------------------------------------------------------\n> >>\n> >>\n> >>\n> >> > library(IRanges,warn.conflicts=F)\n> >>\n> >> > myregions_RD <-\n> >>\n> RangedData(IRanges(start=c(101L,201L,101L,101L),end=c(250L,300L,220L,501L)),space=c(\"chr1\",\"chr1\",\"chr1\",\"chr2\"),strand=c(\"+\",\"+\",\"+\",\"+\")\n> >>   )\n> >>\n> >> > #### this works\n> >> > reduce(myregions_RD)\n> >> RangedData with 2 rows and 1 value column across 2 spaces\n> >>        space     ranges |      strand\n> >>  <character>  <IRanges> | <character>\n> >> 1        chr1 [101, 300] |           +\n> >> 2        chr2 [101, 501] |           +\n> >>\n> >> > ### drop regions that are bigger than 300bp (now there's nothing left\n> on\n> >> chr2)\n> >> > myregions_RD <- myregions_RD[which(width(myregions_RD)<=300),]\n> >>\n> >> > ### this doesn't work - reduce doesn't like a space without any\n> elements\n> >> > reduce(myregions_RD)\n> >> Error in endoapply(x[, by], FUN) : 'FUN' did not produce an endomorphism\n> >>\n> >> > ### workaround - drop the unused space names\n> >> > myregions_RD <-\n> >>\n> RangedData(IRanges(start=start(myregions_RD),end=end(myregions_RD)),space=as.character(space(myregions_RD)),strand=myregions_RD$strand\n> >>   )\n> >>\n> >> > ### now it works\n> >> > reduce(myregions_RD)\n> >> RangedData with 1 row and 1 value column across 1 space\n> >>        space     ranges |      strand\n> >>  <character>  <IRanges> | <character>\n> >> 1        chr1 [101, 300] |           +\n> >>\n> >> > sessionInfo()\n> >> R version 2.12.1 (2010-12-16)\n> >> Platform: i386-apple-darwin9.8.0/i386 (32-bit)\n> >>\n> >> locale:\n> >> [1] en_US.UTF-8/en_US.UTF-8/C/C/en_US.UTF-8/en_US.UTF-8\n> >>\n> >> attached base packages:\n> >> [1] stats     graphics  grDevices utils     datasets  methods   base\n> >>\n> >> other attached packages:\n> >> [1] IRanges_1.8.9\n> >>\n> >> _______________________________________________\n> >> Bioc-sig-sequencing mailing list\n> >> Bioc-sig-sequencing at r-project.org\n> >> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >>\n> >\n> >        [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Thu, Feb 24, 2011 at 7:41 AM, Ivan Gregoretti <ivangreg at gmail.com> wrote:\n\n> Hi Michael and Janet,\n>\n> I think that the reduce bug still persists in the devel branch. I\n> updated all my Biocondu",
       "thread_id": "thread-514d7f923438",
       "thread_depth": 3,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110224/def5cb07/attachment.pl"
+      ]
     },
     {
       "id": "msg-072ae04b1d03",
@@ -1205,11 +1262,14 @@
       "references": [
         "<20110228170022.BLB24836@gimr.garvan.unsw.edu.au>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110228/6df8ab82/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110228/6df8ab82/attachment.pl>",
+      "body_plain": "On Sun, Feb 27, 2011 at 10:00 PM, Dario Strbenac\n<D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I tried out an example in the documentation without success.\n>\n> > gd <- GenomeData(list(chr1 = IRanges(1, 10), chrX = IRanges(2, 5)),\n> + organism = \"Mmusculus\", provider = \"UCSC\",\n> + providerVersion = \"mm9\")\n> > gdl <- GenomeDataList(list(gd))\n> > as(gdl, \"data.frame\")\n> NULL\n> >\n>\n\nThanks. Fixed in 1.19.4. Code assumed that the GenomeDataList would always\nhave names.\n\n\n> > sessionInfo()\n> R version 2.12.0 (2010-10-15)\n> Platform: x86_64-unknown-linux-gnu (64-bit)\n>\n> locale:\n>  [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_AU.UTF-8\n>  [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] grid      stats     graphics  grDevices utils     datasets  methods\n> [8] base\n>\n> other attached packages:\n>  [1] BSgenome_1.18.3     Rsamtools_1.2.3     Biostrings_2.18.2\n>  [4] gplots_2.8.0        caTools_1.11        bitops_1.0-4.1\n>  [7] gdata_2.8.1         gtools_2.6.2        GenomicRanges_1.2.3\n> [10] IRanges_1.8.9\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.10.0 tools_2.12.0\n> > gd <- GenomeData(list(chr1 = IRanges(1, 10), chrX = IRanges(2, 5)),\n> + organism = \"Mmusculus\", provider = \"UCSC\",\n> + providerVersion = \"mm9\")\n> > gdl <- GenomeDataList(list(gd))\n> > as(gdl, \"data.frame\")\n> NULL\n>\n> --------------------------------------\n> Dario Strbenac\n> Research Assistant\n> Cancer Epigenetics\n> Garvan Institute of Medical Research\n> Darlinghurst NSW 2010\n> Australia\n>\n> _______________________________________________\n> Bioc-sig-sequencing mailing list\n> Bioc-sig-sequencing at r-project.org\n> https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Sun, Feb 27, 2011 at 10:00 PM, Dario Strbenac\n<D.Strbenac at garvan.org.au>wrote:\n\n> Hello,\n>\n> I tried out an example in the documentation without success.\n>\n> > gd <- GenomeData(list(chr1 = IRang",
       "thread_id": "thread-f391e84dabb8",
       "thread_depth": 1,
-      "month": "2011-02"
+      "month": "2011-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20110228/6df8ab82/attachment.pl"
+      ]
     }
   ],
   "threads": [

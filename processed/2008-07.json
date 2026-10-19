@@ -161,11 +161,14 @@
       "subject_clean": "[Bioc-sig-seq] 454 data normalization",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080729/74fb4733/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080729/74fb4733/attachment.pl>",
+      "body_plain": "Dear All,\n\nWe are now using 454 to do comparative analysis of the transcriptomes of treated and control samples (fish). Anyone have any advices for data normalization will be welcome.  We appreciate any comments from you.\n\nZiping Zhang\n\nzhangziping at hotmail.com\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear All,\n\nWe are now using 454 to do comparative analysis of the transcriptomes of treated and control samples (fish). Anyone have any advices for data normalization will be welcome.  We appreciate a",
       "thread_id": "thread-d8ca7fd79665",
       "thread_depth": 0,
-      "month": "2008-07"
+      "month": "2008-07",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080729/74fb4733/attachment.pl"
+      ]
     },
     {
       "id": "msg-8a32d0c5e3ba",

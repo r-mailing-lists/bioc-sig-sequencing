@@ -148,11 +148,14 @@
       "subject_clean": "[Bioc-sig-seq] extendReads() error in chipseq package",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/816798d3/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/816798d3/attachment.pl>",
+      "body_plain": "Hi all,\n\nI am in the process of analyzing  ChIP-seq data by using chipseq package.\nThere was an error happen when I use extendRead() to get the longer fragment\nfor alignedReads object.\n\n###################\n>library(ShortRead)\n>library(chipseq)\n>aln <-readAligned(\".\",\"flowcell.bowtie\",type=\"Bowtie\")\n>unique <-aln[!srduplicated(aln)]\n>ext <- extendReads(unique, seqLen = 200)\n*\nError in s1[[ipos]] : recursive indexing failed at level 2*\n###################\n*\nI found extendReads() is works when I used it for one AlignedRead:*\n\n>ext <-extendReads(unique[1],seqLen=200)\n>ext\n$`gi|29823167|ref|NT_010966.13|Hs18_11123`\nIRanges instance:\n     start    end width\n[1] 307249 307448   200\n[2] 307089 307288   200\n\n*And also, I tried to convert aln to GenomeData, then used extendread(),no\nerror, but the return value is not IRanges object*\n> unique_genome <-as(unique,\"GenomeData\")\n> ext1<-extendReads(unique_alngenome,seqLen=200)\n> ext1\nA GenomeData instance\nchromosomes(6): gi|29823167|ref|NT_010966.13|Hs18_11123 ...\n\nAny suggestion? Thanks.\n\nRebecca\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hi all,\n\nI am in the process of analyzing  ChIP-seq data by using chipseq package.\nThere was an error happen when I use extendRead() to get the longer fragment\nfor alignedReads object.\n\n##############",
       "thread_id": "thread-bad484d2f456",
       "thread_depth": 0,
-      "month": "2009-06"
+      "month": "2009-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/816798d3/attachment.pl"
+      ]
     },
     {
       "id": "msg-b9d8a2767022",
@@ -167,11 +170,14 @@
         "<d696fcb70906031640w8eb5bdbk853036f71d027a3a@mail.gmail.com>",
         "<4A2711E4.1000509@fhcrc.org>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/a6f025c3/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/a6f025c3/attachment.pl>",
+      "body_plain": "Thanks, Martin.\n\nmy sessionInfo is\n\n> sessionInfo()\nR version 2.9.0 (2009-04-17)\nx86_64-unknown-linux-gnu\n\nlocale:\nLC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONETARY=C;LC_MESSAGES=en_US.UTF-8;LC_PAPER=en_US.UTF-8;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US.UTF-8;LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] chipseq_0.1.20     ShortRead_1.3.10   lattice_0.17-22    BSgenome_1.13.6\n[5] Biostrings_2.13.11 IRanges_1.3.21\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.4.0 grid_2.9.0    hwriter_1.1   tools_2.9.0\n\n\nOn Wed, Jun 3, 2009 at 5:14 PM, Martin Morgan <mtmorgan at fhcrc.org> wrote:\n\n> Hi Rebecca --\n>\n> Rebecca Sun wrote:\n> > Hi all,\n> >\n> > I am in the process of analyzing  ChIP-seq data by using chipseq package.\n> > There was an error happen when I use extendRead() to get the longer\n> fragment\n> > for alignedReads object.\n> >\n> > ###################\n> >> library(ShortRead)\n> >> library(chipseq)\n> >> aln <-readAligned(\".\",\"flowcell.bowtie\",type=\"Bowtie\")\n> >> unique <-aln[!srduplicated(aln)]\n> >> ext <- extendReads(unique, seqLen = 200)\n> > *\n> > Error in s1[[ipos]] : recursive indexing failed at level 2*\n> > ###################\n>\n> I don't have a fix for this bug, but...\n>\n> > *\n> > I found extendReads() is works when I used it for one AlignedRead:*\n> >\n> >> ext <-extendReads(unique[1],seqLen=200)\n> >> ext\n> > $`gi|29823167|ref|NT_010966.13|Hs18_11123`\n> > IRanges instance:\n> >      start    end width\n> > [1] 307249 307448   200\n> > [2] 307089 307288   200\n> >\n> > *And also, I tried to convert aln to GenomeData, then used\n> extendread(),no\n> > error, but the return value is not IRanges object*\n> >> unique_genome <-as(unique,\"GenomeData\")\n> >> ext1<-extendReads(unique_alngenome,seqLen=200)\n> >> ext1\n> > A GenomeData instance\n> > chromosomes(6): gi|29823167|ref|NT_010966.13|Hs18_11123 ...\n>\n> The members of ext1 are IRanges objects, e.g., ext1[[1]] is an IRanges\n> object\n>\n> > example(readAligned)\n> > aln=readAligned(sp, \"s_2_export.txt\", filter=filt)\n> > gd <- extendReads(as(aln, \"GenomeData\"), 200)\n> > gd\n> A GenomeData instance\n> chromosomes(5): chr1.fa chr2.fa chr3.fa chr4.fa chr5.fa\n>\n> > gd[[1]]\n> IRanges instance:\n>         start       end width\n> [1]    3393025   3393224   200\n> [2]  171119303 171119502   200\n>\n> [SNIP]\n>\n> > gd[[\"chr1.fa\"]]\n> IRanges instance:\n>         start       end width\n> [1]    3393025   3393224   200\n> [2]  171119303 171119502   200\n>\n> [SNIP]\n>\n> My sessionInfo() is\n>\n> > sessionInfo()\n> R version 2.10.0 Under development (unstable) (2009-06-02 r48703)\n> x86_64-unknown-linux-gnu\n>\n> locale:\n>  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C\n>  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8\n>  [5] LC_MONETARY=C              LC_MESSAGES=en_US.UTF-8\n>  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C\n>  [9] LC_ADDRESS=C               LC_TELEPHONE=C\n> [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C\n>\n> attached base packages:\n> [1] stats     graphics  grDevices utils     datasets  methods   base\n>\n> other attached packages:\n> [1] chipseq_0.1.20     ShortRead_1.3.10   lattice_0.17-25\n>  BSgenome_1.13.6\n> [5] Biostrings_2.13.12 IRanges_1.3.21\n>\n> loaded via a namespace (and not attached):\n> [1] Biobase_2.5.2 grid_2.10.0   hwriter_1.1\n>\n>\n> what's yours?\n>\n> Martin\n>\n>\n> > Any suggestion? Thanks.\n> >\n> > Rebecca\n> >\n> >       [[alternative HTML version deleted]]\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thanks, Martin.\n\nmy sessionInfo is\n\n> sessionInfo()\nR version 2.9.0 (2009-04-17)\nx86_64-unknown-linux-gnu\n\nlocale:\nLC_CTYPE=en_US.UTF-8;LC_NUMERIC=C;LC_TIME=en_US.UTF-8;LC_COLLATE=en_US.UTF-8;LC_MONET",
       "thread_id": "thread-bad484d2f456",
       "thread_depth": 2,
-      "month": "2009-06"
+      "month": "2009-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090603/a6f025c3/attachment.pl"
+      ]
     },
     {
       "id": "msg-01f435cea432",
@@ -238,11 +244,14 @@
         "<a394a9180906040756r1791df5ap68ddb07b5187412f@mail.gmail.com>",
         "<20090604160051.GB14372@biocluster.ucr.edu>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090604/cd001914/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090604/cd001914/attachment.pl>",
+      "body_plain": "Thank you Thomas,\n\nThat looks very nice.\n\nIvan\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1592\nFax: 1-301-496-9878\n\n\nOn Thu, Jun 4, 2009 at 12:00 PM, Thomas Girke <thomas.girke at ucr.edu> wrote:\n\n> Ivan,\n>\n> If I understand your problem correctly, then you could easily do this with\n> the heatmap or heatmap.2 functions. Below is an example how to generate\n> and plot such a squared overlap matrix.\n>\n> ## Some sample data set\n> setlist <- lapply(11:30, function(x) sample(letters, x, replace=TRUE));\n> names(setlist) <- paste(\"S\", seq(along=setlist), sep=\"\")\n>\n> ## Compute an intersect matrix for all pairwise sample comparisons stored\n> in 'setlist'\n> olMA <- sapply(names(setlist), function(x) sapply(names(setlist),\n> function(y) sum(setlist[[x]] %in% setlist[[y]])))\n> olMA\n>\n> ## Plot squared matrix as heat map\n> library(\"gplots\")\n> heatmap.2(olMA, trace=\"none\", Colv=\"none\", Rowv=\"none\", dendrogram=\"none\",\n> col=colorpanel(40, \"darkred\", \"orange\", \"yellow\"))\n>\n> Here are some more examples to related problems:\n>\n> http://faculty.ucr.edu/~tgirke/Documents/R_BioCond/R_BioCondManual.html#R_graphics_overlapper<http://faculty.ucr.edu/%7Etgirke/Documents/R_BioCond/R_BioCondManual.html#R_graphics_overlapper>\n>\n>\n> T. Girke\n>\n>\n>\n> On Thu, Jun 04, 2009 at 10:56:52AM -0400, Ivan Gregoretti wrote:\n> > Hello everyone,\n> >\n> > How do I draw a pairwise comparison table?\n> >\n> > Simplified example of the problem:\n> >\n> > 1) lets say I have several sets of ChIP-seq peaks from several\n> > experiments: setA, setB, setC, etc. Many sets.\n> >\n> > 2) I know how many peaks in common are held by each pair of sets. For\n> > instance, setA and setB have 300 peaks in common (overlaps). I can\n> > create a square matrix to hold all pairwise values.\n> >\n> > 3) Now I want to draw something like a square table where both columns\n> > and rows are labelled setA, setB, setC, etc. In position [setA, setB]\n> > I would write 300 (and so I would on position [setB, setA]).\n> >\n> > Is there any R function created to address this need? Perhaps\n> > something like a general purpose heat map?\n> >\n> > Any pointer would be appreciated.\n> >\n> > Ivan\n> >\n> > Ivan Gregoretti, PhD\n> > National Institute of Diabetes and Digestive and Kidney Diseases\n> > National Institutes of Health\n> > 5 Memorial Dr, Building 5, Room 205.\n> > Bethesda, MD 20892. USA.\n> > Phone: 1-301-496-1592\n> > Fax: 1-301-496-9878\n> >\n> > _______________________________________________\n> > Bioc-sig-sequencing mailing list\n> > Bioc-sig-sequencing at r-project.org\n> > https://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n> >\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Thank you Thomas,\n\nThat looks very nice.\n\nIvan\n\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 20",
       "thread_id": "thread-8ee9e8831806",
       "thread_depth": 2,
-      "month": "2009-06"
+      "month": "2009-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090604/cd001914/attachment.pl"
+      ]
     },
     {
       "id": "msg-86a0cf4d25d4",
@@ -254,11 +263,14 @@
       "subject_clean": "[Bioc-sig-seq] ShortRead, readAligned() and qa()",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090608/5c4800a9/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090608/5c4800a9/attachment.pl>",
+      "body_plain": "Hello everybody,\n\nCan qa() work on compressed *_export.txt files?\n\n\n\nThe function readAligned() is very smart because it does not care if the\nexport file is plain or compressed. You just do\n\naln <- readAligned(sp, fileNamePattern)\n\nand the lane is loaded up.\n\nI tried to run qa() on a directory with compressed export files and I got:\n\n> sp <- SolexaPath(experimentPath=myExperimentPath,\nanalysisPath=myAnalysisPath)\n> sp\nclass: SolexaPath\nexperimentPath: /data/igregore/all/runs/090529/\ndataPath: NA\nscanPath: NA\nimageAnalysisPath: NA\nbaseCallPath: NA\nanalysisPath: GERALD_01-06-20...\n> qa <- qa(sp)\nError: Input/Output\n  no input files found\n dirPath: /data/igregore/all/runs/090529/GERALD_01-06-2009_niddk/\n  pattern: .*_export.txt$\n\n\nI guess that qa()'s inability to read .txt.gz is a feature rather than a\nbug. If so, would you please consider adding this capability on a future\nShortRead release?\n\nThank you,\n\nIvan\n\n> sessionInfo()\nR version 2.9.0 (2009-04-17)\nx86_64-unknown-linux-gnu\n\nlocale:\nLC_CTYPE=en_US;LC_NUMERIC=C;LC_TIME=C;LC_COLLATE=C;LC_MONETARY=C;LC_MESSAGES=en_US;LC_PAPER=en_US;LC_NAME=C;LC_ADDRESS=C;LC_TELEPHONE=C;LC_MEASUREMENT=en_US;LC_IDENTIFICATION=C\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base\n\nother attached packages:\n[1] ShortRead_1.2.0   lattice_0.17-22   BSgenome_1.12.0   Biostrings_2.12.1\n[5] IRanges_1.2.0\n\nloaded via a namespace (and not attached):\n[1] Biobase_2.4.1 grid_2.9.0    hwriter_1.1\n\n\nIvan Gregoretti, PhD\nNational Institute of Diabetes and Digestive and Kidney Diseases\nNational Institutes of Health\n5 Memorial Dr, Building 5, Room 205.\nBethesda, MD 20892. USA.\nPhone: 1-301-496-1592\nFax: 1-301-496-9878\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Hello everybody,\n\nCan qa() work on compressed *_export.txt files?\n\n\n\nThe function readAligned() is very smart because it does not care if the\nexport file is plain or compressed. You just do\n\naln <- re",
       "thread_id": "thread-86a0cf4d25d4",
       "thread_depth": 0,
-      "month": "2009-06"
+      "month": "2009-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090608/5c4800a9/attachment.pl"
+      ]
     },
     {
       "id": "msg-946bb4badbc9",
@@ -491,11 +503,14 @@
       "references": [
         "<4A44A3AB.5070004@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090626/128089d7/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090626/128089d7/attachment.pl>",
+      "body_plain": "On Fri, Jun 26, 2009 at 3:32 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Dear Michael and Patrick\n>\n> As you may have noticed, my HilbertVis package requires the input data to\n> be presented as ordinary vector. Obviously, it would be much better for\n> performance to use a run-length-encoded vector (and the stand-alone version\n> of HilbertVis already does that).\n>\n> So, I wanted to add the functionality to use either Rle objects or\n> RangedData objects as input to the hilbertDisplay function and got confused\n> about the two classes.\n>\n> Rle seems to be simple and lightweight, but I cannot see how I could\n> perform fast random access. If I want to access an element of the vector\n> with a given position somewhere in the middle, I suppose I cannot avoid\n> having to add up all the lengths in order to find the right value. Is there\n> any reason why you store lengths of the constant intervals in the Rle object\n> rather than their start points? In the latter case one could achieve random\n> access in time O(log n) as opposed to O(n). Or are the start points cached\n> somewhere internally?\n>\n> RangedData does seem to store the data in the start/value scheme that seems\n> more advantageous to me. However, it has a rather heavyweight slot\n> structure. Do I understand correctly that the canonical way to get the start\n> and data vectors from a RangedData object 'rd' would be 'start(rd)' and\n> 'rd$score' (or maybe better 'rd[[1]]')?\n>\n> As the most likely input for hilbertDisplay is the output of the 'coverage'\n> function, which is an Rle object, it seems to make sense to change\n> hilbertDisplay to accept this. However, for performance reasons, I then\n> better convert to RangedData.\n>\n> Would you agree?\n>\n> Can you shed some lights about what you intended on when to use \"Rle\" and\n> when \"RangedData\"?\n>\n\nRangedData is for storing genome-wide tracks. It handles multiple variables,\nand is internally split across the chromosomes. It also allows gaps and an\narbitrary ordering of features. It's targeted more for a high-level,\nmultivariate analysis.\n\nAn Rle is useful whenever a vector has many repeated values and is consuming\ntoo much memory.\n\nAn Rle object, even if it only stores the widths, would be better than\nRangedData. Just getting the starts out of a RangedData is an O(n)\noperation, and there is in general a lot of overhead for functionality that\nis not useful in your case.\n\nMichael\n\n\n> Thanks.\n>\n>  Simon\n>\n>\n> +---\n> | Dr. Simon Anders, Dipl. Phys.\n> | European Bioinformatics Institute (EMBL-EBI)\n> | Hinxton, Cambridgeshire, UK\n> | office phone +44-1223-492680, mobile phone +44-7505-841692\n> | preferred (permanent) e-mail: sanders at fs.tum.de\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Fri, Jun 26, 2009 at 3:32 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Dear Michael and Patrick\n>\n> As you may have noticed, my HilbertVis package requires the input data to\n> be presented as o",
       "thread_id": "thread-4aa6ece81280",
       "thread_depth": 1,
-      "month": "2009-06"
+      "month": "2009-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090626/128089d7/attachment.pl"
+      ]
     },
     {
       "id": "msg-b959e50400d4",
@@ -567,11 +582,14 @@
       "subject_clean": "[Bioc-sig-seq] Protocol for analyzing digital expression profile data",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4f4363a3/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4f4363a3/attachment.pl>",
+      "body_plain": "Dear all,\n\nI am working some data about digital expression profile from Illumina Solexa, and I need to do some analysis, such as clustering, KEGG pathway annotation and GO annotation etc. I know that bioconductor has all tools for my job, but I have no related experience before. Do you have any protocol for analyzing digital expression profile data using bioconductor, and could you send me a copy of it?\nThanks in advance.\n\n\n2009-06-30 \n\n\n\nxuxiang086 \n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Dear all,\n\nI am working some data about digital expression profile from Illumina Solexa, and I need to do some analysis, such as clustering, KEGG pathway annotation and GO annotation etc. I know that ",
       "thread_id": "thread-be9f907b46db",
       "thread_depth": 0,
-      "month": "2009-06"
+      "month": "2009-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4f4363a3/attachment.pl"
+      ]
     },
     {
       "id": "msg-dee66b952cb7",
@@ -619,11 +637,14 @@
       "references": [
         "<4A4A2FF5.2000001@ebi.ac.uk>"
       ],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4c09d595/attachment.pl>",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nURL: <https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4c09d595/attachment.pl>",
+      "body_plain": "On Tue, Jun 30, 2009 at 8:32 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi Michael et al.\n>\n> Assume I have a list of AlignedRead objects, with data from several Solexa\n> lanes. I would like to get a coverage vector over all the lanes.\n>\n> As 'coverage' takes only one AlignedRead object, I have two possibilities:\n>\n> (a) Concatenate the AlignedRead objects to a single big one. As far as I\n> can see, 'rbind2' is not implemented for AlignedRead, and 'append' seemed\n> very slow to me. It is probably not posible to do this without making a copy\n> of all the data in memory.\n>\n\nI think this is what combineLanes() in the chipseq package does, and it\nseems to work fine for us. Note that it takes a GenomeDataList, rather than\na list of AlignedReads, but ShortRead makes it easy to get a GenomeDataList,\nif I remember right.\n\nOf course, optimization is welcome.\n\n\n> (b) Calculate the coverage for each AlignedRead object separately and add\n> up the GenomeData objects. The `+` operator is not supported for GenomeData\n> objects but it is for Rle objects. So I need to loop through the\n> chromosomes.\n>\n\n> I've now written this short function for the purpose:\n>\n> sumUpCoverage <- function( lanes, seqLens )\n> {\n>   res <- NULL\n>   for( i in 1:length(lanes) ) {\n>      cvg <- coverage( lanes, width=seqLens )\n>      if( is.null( res ) )\n>         res <- cvg\n>      else {\n>         stopifnot( all( names(res) == names(cvg) ) )\n>         for( seq in names(res) )\n>            res[[seq]] <- res[[seq]] + cvg[[seq]]\n>      }\n>   }\n>   res\n> }\n>\n> This does not seem very elegant (and it takes 9 minutes, which, however,\n> might be ok for 29 mio reads). Any idea how to do it better? (The use of\n> 'for' instead of 'sapply' is on purpose: I hope to save memory that way.)\n>\n> And would it make sense to overload the `+` operator for GenomeData\n> objects? If so, could I suggest adding this to BSgenome?\n>\n> Cheers\n>  Simon\n>\n>\n>\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "On Tue, Jun 30, 2009 at 8:32 AM, Simon Anders <anders at ebi.ac.uk> wrote:\n\n> Hi Michael et al.\n>\n> Assume I have a list of AlignedRead objects, with data from several Solexa\n> lanes. I would like to ",
       "thread_id": "thread-dee66b952cb7",
       "thread_depth": 1,
-      "month": "2009-06"
+      "month": "2009-06",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20090630/4c09d595/attachment.pl"
+      ]
     },
     {
       "id": "msg-c8ef7b6639fb",

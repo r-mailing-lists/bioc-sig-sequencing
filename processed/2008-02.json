@@ -13,11 +13,14 @@
       "subject_clean": "[Bioc-sig-seq] (no subject)",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/372f05d0/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/372f05d0/attachment.pl",
+      "body_plain": "OK\n\nPerhaps I can be first by asking what tasks you plan to cover? And how\ndo you plan to implement them in R (given the memory restrictions)? Do\nyou plan a nice front end for lots of C-code?\n\n \n\nStephen Henderson\n\nCancer Institute, Paul O'Gorman Building\n\nGower Street, University College London\n\nUnited Kingdom, WC1E 6BT\n\n+44 (0)207 679 6827\n\n \n\n\n**********************************************************************\nThis email and any files transmitted with it are confide...{{dropped:11}}",
+      "body_snippet": "OK\n\nPerhaps I can be first by asking what tasks you plan to cover? And how\ndo you plan to implement them in R (given the memory restrictions)? Do\nyou plan a nice front end for lots of C-code?\n\n \n\nStep",
       "thread_id": "thread-19ead09766fd",
       "thread_depth": 0,
-      "month": "2008-02"
+      "month": "2008-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/372f05d0/attachment.pl"
+      ]
     },
     {
       "id": "msg-b393f3d37f66",
@@ -45,11 +48,14 @@
       "subject_clean": "[Bioc-sig-seq] What technologies are people using?",
       "in_reply_to": null,
       "references": [],
-      "body_plain": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/0e82bf98/attachment.pl",
-      "body_snippet": "An embedded and charset-unspecified text was scrubbed...\nName: not available\nUrl: https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/0e82bf98/attachment.pl",
+      "body_plain": "Our group has just received our SOLiD (ABI) instrument, so we have a  \nvested interest in this platform as well.  And I would like to agree  \nwith Wade, I am very happy to see this list and I look forward to  \ncontributing/testing.\n\nLoyal Goff\n\n\nRutgers Stem Cell Research Center\nRutgers: The State University of New Jersey\nlgoff at rci.rutgers.edu\n\n\nBegin Previous Message\n\nFirst, let me say I am glad this list was formed.\n\nSecond, let's get some discussion going. I am primarily interested in  \n454, and followed by Solexa. What else are people interested in?\n\nWade\n\n_______________________________________________\nBioc-sig-sequencing mailing list\nBioc-sig-sequencing at r-project.org\nhttps://stat.ethz.ch/mailman/listinfo/bioc-sig-sequencing\n\n\n\n\n\n\t[[alternative HTML version deleted]]",
+      "body_snippet": "Our group has just received our SOLiD (ABI) instrument, so we have a  \nvested interest in this platform as well.  And I would like to agree  \nwith Wade, I am very happy to see this list and I look for",
       "thread_id": "thread-1ac959a487cf",
       "thread_depth": 0,
-      "month": "2008-02"
+      "month": "2008-02",
+      "restored_from": [
+        "https://stat.ethz.ch/pipermail/bioc-sig-sequencing/attachments/20080229/0e82bf98/attachment.pl"
+      ]
     },
     {
       "id": "msg-d5f1e3467c2b",
