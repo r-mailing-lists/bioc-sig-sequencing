@@ -12,4 +12,4 @@ Automated mbox archive. Updated daily via GitHub Actions.
 
 ## Viewer
 
-Browse these archives at [r-mailing-lists.thecoatlessprofessor.com](https://r-mailing-lists.thecoatlessprofessor.com/lists/bioc-sig-sequencing/)
+Browse these archives at [archives.rstats.dev](https://archives.rstats.dev/lists/bioc-sig-sequencing/)
